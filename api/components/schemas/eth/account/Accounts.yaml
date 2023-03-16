@@ -1,0 +1,14 @@
+components:
+  schemas:
+    EthAccountsResp:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: "#/components/schemas/Result"
+    Result:
+      type: string
+      format: 20-byte DATA
+      readOnly: true
+      example: "0xc94770007dda54cF92009BFF0dE90c06F603a09f"
