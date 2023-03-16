@@ -1,0 +1,58 @@
+package {{apiPackage}};
+
+import java.util.List;
+import java.util.Objects;
+
+public class RequestBodyParams {
+    List<Object> params;
+    String method;
+
+    public RequestBodyParams() {}
+
+    public RequestBodyParams(List<Object> params, String method) {
+        this.params = params;
+        this.method = method;
+    }
+
+    public List<Object> getParams() {
+        return params;
+    }
+
+    public void setParams(List<Object> params) {
+        this.params = params;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RequestBodyParams that = (RequestBodyParams) o;
+
+        if (!Objects.equals(params, that.params)) return false;
+        return Objects.equals(method, that.method);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = params != null ? params.hashCode() : 0;
+        result = 31 * result + (method != null ? method.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "RequestBodyParams{" +
+                "params=" + params +
+                ", method='" + method + '\'' +
+                '}';
+    }
+}

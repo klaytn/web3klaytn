@@ -1,0 +1,27 @@
+generatorName: caver-kotlin
+outputDir: ./openapi
+inputSpec: ../../../site/klaytn-openapi.yaml
+artifactId: caver-kotlin
+artifactVersion: v1.10.0
+idea: true
+collectionType: list
+dateLibrary: string
+library: jvm-retrofit2
+serializationLibrary: gson
+packageName: caver.sdk
+templateDir: ./template
+#  type: number
+#  format: double
+# -> double type is mapped to BigInteger
+typeMappings:
+  "java.math.BigDecimal": java.math.BigInteger
+importMappings:
+  GetRewardsDefaultResponse: caver.sdk.models.GetRewardsResponse
+inlineSchemaNameMappings:
+  accountCreated_200_response: AccountCreatedResponse
+  getRewards_default_response: GetRewardsResponse
+globalProperties:
+  apiDocs: false
+  modelDocs: false
+  apiTests: false
+  modelTests: false

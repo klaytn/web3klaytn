@@ -1,0 +1,14 @@
+generatorName: caver-javascript
+outputDir: ./openapi
+inputSpec: ../../../site/klaytn-openapi.yaml
+projectName: caver-javascript
+templateDir: ./template
+sortParamsByRequiredFlag: false
+globalProperties:
+  apiDocs: false
+  modelDocs: false
+  modelTests: false
+  apiTests: true
+inlineSchemaNameMappings:
+  accountCreated_default_response: AccountCreatedResponse
+  getRewards_default_response: GetRewardsResponse

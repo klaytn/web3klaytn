@@ -1,0 +1,82 @@
+components:
+  schemas:
+    RewardsReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'klay_getRewards'
+        params:
+          type: array
+          default: ["latest"]
+          items:
+            oneOf:
+              - $ref: "#/components/schemas/BlockNumber"
+              - $ref: "#/components/schemas/BlockTag"
+    BlockNumber:
+      title: blockNumber
+      type: integer
+      format: int64
+      description: the block number
+    BlockTag:
+      title: blockTag
+      type: string
+      description: the block tag [latest, pending, eariest]
+    
+    RewardsResp:
+      type: object
+      properties:
+        result:
+          $ref: "#/components/schemas/Result" 
+    Result:
+      type: object
+      required:
+        - burntFee
+        - kgf
+        - kir
+        - minted
+        - proposer
+        - rewards
+        - stakers
+        - totalFee
+      properties:
+        burntFee:
+          type: integer
+          format: int64
+          description: the amount burnt
+        kgf:
+          type: integer
+          format: int64
+          description: the amount allocated to KGF
+        kir:
+          type: integer
+          format: int64
+          description: the amount allocated to KIR
+        minted:
+          type: number
+          format: double
+          description: the amount newly minted
+          example: 9600000000000000000
+        proposer:
+          type: number
+          format: double
+          description: the amount allocated to the block proposer
+          example: 9600000000000000000
+        rewards:
+          type: object
+          description: mapping from reward recipient to amounts
+          additionalProperties:
+            type: number
+            format: double
+          example:
+            0xb408fc9b2512284823264aceeb50d2970533b4ff: 9600000000000000000
+        stakers:
+          type: integer
+          format: int64
+          description: total amount allocated to stakers
+        totalFee:
+          type: integer
+          format: int64
+          description: total tx fee spent

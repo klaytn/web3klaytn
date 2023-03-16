@@ -1,0 +1,43 @@
+openapi: "3.0.2"
+info:
+  title: KLAYTN OPEN API
+  version: "1.10.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: klay
+    description: klaytn node API
+  - name: account
+    description: klaytn account API
+  - name: governance
+    description: klaytn governance API
+  - name: eth
+    description: API for ethereum namespace
+#  - name: RewardSpec
+#    description: |
+#      <SchemaDefinition schemaRef="#/components/schemas/RewardSpec" />
+x-tagGroups:
+  - name: Klay
+    tags:
+      - klay
+      - klay.account
+  - name: Models
+    tags:
+      - RewardSpec
+servers:
+  - url: http://localhost:7151
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+  /klay/getRewards:
+    $ref: ./paths/klay/rewards.yaml#/paths/~1klay~1getRewards
+  /klay/account/accountCreated:
+    $ref: ./paths/klay/account.yaml#/paths/~1klay~1accountCreated
+  /klay/account/accountCreated2:
+    $ref: ./paths/klay/account.yaml#/paths/~1klay~1accountCreated2
+  /klay/blockNumber:
+    $ref: ./paths/eth/block.yaml#/paths/~1klay~1blockNumber

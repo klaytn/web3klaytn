@@ -1,0 +1,15 @@
+generatorName: caver-python
+outputDir: ./openapi
+inputSpec: ../../../site/klaytn-openapi.yaml
+projectName: caver-python
+packageName: caver_python
+templateDir: ./template
+sortParamsByRequiredFlag: false
+globalProperties:
+  apiDocs: false
+  modelDocs: false
+  modelTests: false
+  apiTests: true
+inlineSchemaNameMappings:
+  accountCreated_default_response: AccountCreatedResponse
+  getRewards_default_response: GetRewardsResponse

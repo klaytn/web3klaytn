@@ -1,0 +1,15 @@
+{
+  "name": "redocly",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@redocly/cli": "^1.0.0-beta.117"
+  },
+  "scripts": {
+    "start": "redocly preview-docs",
+    "build": "redocly bundle klay@v1.10.0 -o ../../site/klaytn-openapi.yaml",
+    "split": "redocly split klaytn-openapi.yaml --outDir bundled",
+    "test": "redocly lint klaytn-openapi.yaml"
+  }
+}

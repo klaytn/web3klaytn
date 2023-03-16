@@ -1,0 +1,50 @@
+openapi: "3.0.2"
+info:
+paths:
+components:
+  schemas:
+    ErrorMember:
+      type: object
+      title: ErrorMember
+      required:
+        - code
+      properties:
+        code:
+          type: integer
+          format: int64
+          example: -32700
+          description: |
+            A Number that indicates the error type that occurred.
+            This MUST be an integer.
+
+            | code | message | description |
+            |-----|-----|-------|
+            | -32700   | Parse error   | invalid JSON was received by the server. \nAn error occurred on the server while parsing the JSON text. |
+            |-32602 | Invalid params | Invalid method parameter(s). |
+        message:
+          type: string
+          example: Parse error
+          description: |
+            A String providing a short description of the error.
+            The message SHOULD be limited to a concise single sentence.
+        data:
+          type: string
+          description: |
+            A Primitive or Structured value that contains additional information about the error.
+            This may be omitted.
+            The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
+    JsonRpcResponse:
+      type: object
+      required:
+        - jsonrpc
+        - id
+      properties:
+        jsonrpc:
+          type: string
+          default: "2.0"
+        id:
+          type: integer
+          format: int64
+        error:
+          $ref: "#/components/schemas/ErrorMember"
+        result: {}

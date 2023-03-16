@@ -1,0 +1,71 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/getRewards:
+    post:
+      tags:
+        - klay
+      operationId: getRewards
+      summary: "[getRewards] Find distributed block rewards"
+      description: |
+        Returns distributed block rewards information at the latest block number
+
+        **JSONRPC:** `klay_getRewards`
+      
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "../../components/schemas/RewardsSpec.yaml#/components/schemas/RewardsReq"
+
+      responses:
+        default:
+          description: |
+            block rewards information <br/>
+            Link <br/>
+            <SchemaDefinition schemaRef="#/components/schemas/RewardSpec" />
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "../../components/schemas/RewardsSpec.yaml#/components/schemas/RewardsResp"
+            text/plain:
+              schema: 
+                $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse" 
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/klay/getReward.sh"
+        # - lang: "typescript"
+        #   label: "Typescript"
+        #   source:
+        #     $ref: "../../../sdk/client/typescript-axios/openapi-test/klay/getRewards.test.ts"
+        # - lang: "kotlin"
+        #   label: "Kotlin"
+        #   source:
+        #     $ref: "../../../sdk/client/kotlin/openapi-test/src/test/kotlin/caver/sdk/apis/KlayApiGetRewardsTest.kt"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: "../../../sdk/client/java/openapi-test/src/test/kotlin/caver/sdk/apis/KlayApiGetRewardsTest.kt"
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../../sdk/client/javascript/openapi-test/test/klay/KlayApiGetRewards.test.js"
+        - lang: "python"
+          label: "Python"
+          source: 
+            $ref: "../../../sdk/client/python/openapi-test/test/klay/KlayApiGetRewardsTest.py"

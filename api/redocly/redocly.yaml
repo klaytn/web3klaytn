@@ -1,0 +1,26 @@
+# See https://redocly.com/docs/cli/configuration/ for more information.
+organization: klaytn.foundation
+apis:
+  klay@v1.10.0:
+    root: ../klay.yaml
+    labels:
+      - v1.10.0
+extends:
+  - recommended
+features.openapi:
+  hideDownloadButton: true
+  schemaExpansionLevel: 2
+  schemaDefinitionsTagName: Schemas
+  sideNavStyle: id-only
+  generateCodeSamples:
+    languages:
+      - lang: curl
+      - lang: Java
+      - lang: Go
+      - lang: Node.js
+      - lang: Python
+  htmlTemplate: ./docs/index.html
+  theme:
+    colors:
+      primary:
+        main: "#32329f"

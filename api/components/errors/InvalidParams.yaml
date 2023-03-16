@@ -1,0 +1,36 @@
+openapi: "3.0.2"
+info:
+paths:
+components:
+  schemas:
+    InvalidParams:
+      title: InvalidParams
+      type: object
+      required:
+        - jsonrpc
+        - id
+        - error
+      properties:
+        jsonrpc:
+          type: string
+          default: "2.0"
+        id:
+          type: integer
+          format: int64
+        error:
+          type: object
+          title: ErrorMember
+          required:
+            - code
+          properties:
+            message:
+              type: string
+              default: Invalid params
+            data:
+              type: string
+            code:
+              type: integer
+              format: int32
+              default: -32602
+              description: >-
+                Invalid method parameter(s).

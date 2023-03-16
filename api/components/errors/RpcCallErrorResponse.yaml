@@ -1,0 +1,5 @@
+description: When a rpc call encounters an error, the Response Object MUST contain the error member.
+content:
+  application/json:
+    schema:
+      $ref: "./RpcCallError.yaml#/components/schemas/RpcCallError"
