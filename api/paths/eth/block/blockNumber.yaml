@@ -23,12 +23,17 @@ paths:
       requestBody:
         content:
           application/json:
-            schema: 
+            schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                      method:
+                       type: string
+                       default: eth_blockNumber
       responses:
         default:
-          description: return block number 
+          description: return block number
           content:
             application/json:
               schema:
