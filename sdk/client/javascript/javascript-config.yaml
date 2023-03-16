@@ -12,3 +12,5 @@ globalProperties:
 inlineSchemaNameMappings:
   accountCreated_default_response: AccountCreatedResponse
   getRewards_default_response: GetRewardsResponse
+  ethAccounts_default_response: EthAccountsDefaultResponse
+  ethBlockNumber_default_response: EthBlockNumberDefaultResponse

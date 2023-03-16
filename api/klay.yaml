@@ -21,16 +21,14 @@ tags:
 #    description: |
 #      <SchemaDefinition schemaRef="#/components/schemas/RewardSpec" />
 x-tagGroups:
-  - name: eth
+  - name: Eth
     tags:
+      - eth.block
       - eth.account
   - name: Klay
     tags:
       - klay
       - klay.account
-  - name: Eth
-    tags:
-      - eth.block
   - name: Models
     tags:
       - RewardSpec

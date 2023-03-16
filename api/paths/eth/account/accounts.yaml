@@ -46,15 +46,15 @@ paths:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/eth/account/accounts.sh"
+            $ref: "../../../code-samples/curl/eth/accounts.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
         #     $ref: ""
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #     $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/account/accounts.js"
         #- lang: "python"
         #  label: "Python"
         #  source:
