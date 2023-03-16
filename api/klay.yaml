@@ -28,6 +28,9 @@ x-tagGroups:
     tags:
       - klay
       - klay.account
+  - name: Eth
+    tags:
+      - eth.block
   - name: Models
     tags:
       - RewardSpec
@@ -44,3 +47,5 @@ paths:
     $ref: ./paths/klay/account.yaml#/paths/~1klay~1accountCreated2
   /eth/account/accounts:
     $ref: ./paths/eth/account/accounts.yaml#/paths/~1eth~1accounts
+  /eth/block/blockNumber:
+    $ref: ./paths/eth/block/blockNumber.yaml#/paths/~1eth~1blockNumber
