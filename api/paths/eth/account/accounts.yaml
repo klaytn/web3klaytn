@@ -23,7 +23,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: eth_accounts
       responses:
         default:
           description: Addresses owned by the client
