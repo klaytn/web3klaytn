@@ -370,3 +370,5 @@ bin/**.jar
 **/yarn.lock
 **/coverage
 
+# OpenAPI generated
+**/klaytn-openapi.yaml
