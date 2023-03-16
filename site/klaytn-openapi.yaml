@@ -300,7 +300,7 @@ paths:
                 "latest"
               ]
             }'
-  /eth/account/eth_accounts:
+  /eth/account/accounts:
     post:
       tags:
         - eth.account
@@ -316,10 +316,7 @@ paths:
               $ref: '#/components/schemas/JsonRpcRequest'
       responses:
         default:
-          description: |
-            block rewards information <br/>
-            Link <br/>
-            <SchemaDefinition schemaRef="#/components/schemas/RewardSpec" />
+          description: Addresses owned by the client
           content:
             application/json:
               schema:

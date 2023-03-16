@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/eth_accounts:
+  /eth/accounts:
     post:
       tags:
         - eth.account
@@ -26,16 +26,13 @@ paths:
               $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
       responses:
         default:
-          description: |
-            block rewards information <br/>
-            Link <br/>
-            <SchemaDefinition schemaRef="#/components/schemas/RewardSpec" />
+          description: Addresses owned by the client
           content:
             application/json:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "../../../components/schemas/eth/account/eth_accounts_spec.yaml#/components/schemas/EthAccountsResp"
+                  - $ref: "../../../components/schemas/eth/account/Accounts.yaml#/components/schemas/EthAccountsResp"
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/account#eth_accounts
         description: Klaytn Docs
@@ -43,7 +40,7 @@ paths:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/eth/account/eth_accounts.sh"
+            $ref: "../../../code-samples/eth/account/accounts.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:

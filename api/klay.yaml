@@ -42,5 +42,5 @@ paths:
     $ref: ./paths/klay/account.yaml#/paths/~1klay~1accountCreated
   /klay/account/accountCreated2:
     $ref: ./paths/klay/account.yaml#/paths/~1klay~1accountCreated2
-  /eth/account/eth_accounts:
-    $ref: ./paths/eth/account/eth_accounts.yaml#/paths/~1eth~1eth_accounts
+  /eth/account/accounts:
+    $ref: ./paths/eth/account/accounts.yaml#/paths/~1eth~1accounts
