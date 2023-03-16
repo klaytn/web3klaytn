@@ -28,9 +28,9 @@ paths:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
                 - type: object
                   properties:
-                      method:
-                       type: string
-                       default: eth_blockNumber
+                    method:
+                      type: string
+                      default: eth_blockNumber
       responses:
         default:
           description: return block number
@@ -46,3 +46,20 @@ paths:
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/block
         description: Klaytn Docs
+      x-codeSamples:
+        # - lang: "curl"
+        #   label: "Curl"
+        #   source:
+        #     $ref: ""
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/block/blockNumber.js"
+        #- lang: "python"
+        #  label: "Python"
+        #  source:
+        #    $ref: ""
