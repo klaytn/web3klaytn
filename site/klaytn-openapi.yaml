@@ -18,6 +18,9 @@ tags:
   - name: eth
     description: API for ethereum namespace
 x-tagGroups:
+  - name: eth
+    tags:
+      - eth.account
   - name: Klay
     tags:
       - klay
@@ -40,22 +43,13 @@ paths:
         Returns distributed block rewards information at the latest block number
 
         **JSONRPC:** `klay_getRewards`
-      parameters:
-        - name: blockNumberOrTag
-          schema:
-            default:
-              - latest
-            oneOf:
-              - $ref: '#/components/schemas/BlockNumber'
-              - $ref: '#/components/schemas/BlockTag'
-          in: query
       requestBody:
         content:
           application/json:
             schema:
               allOf:
                 - $ref: '#/components/schemas/JsonRpcRequest'
-                - $ref: '#/components/schemas/RewardsMethod'
+                - $ref: '#/components/schemas/RewardsReq'
       responses:
         default:
           description: |
@@ -102,7 +96,6 @@ paths:
                 
                 def test_post(self):
                     result = self.klay.get_rewards(1.0)
-                    print(result)
 
             if __name__ == '__main__':
                 unittest.main()
@@ -307,17 +300,42 @@ paths:
                 "latest"
               ]
             }'
+  /eth/account/eth_accounts:
+    post:
+      tags:
+        - eth.account
+      operationId: eth_accounts
+      description: |
+        Returns a list of addresses owned by client
+
+        **JSONRPC:** `eth_accounts`
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcRequest'
+      responses:
+        default:
+          description: |
+            block rewards information <br/>
+            Link <br/>
+            <SchemaDefinition schemaRef="#/components/schemas/RewardSpec" />
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/EthAccountsResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/account#eth_accounts
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_accounts","params":[],"id":1}' https://api.baobab.klaytn.net:8651
 components:
   schemas:
-    BlockNumber:
-      title: blockNumber
-      type: integer
-      format: int64
-      description: the block number
-    BlockTag:
-      title: blockTag
-      type: string
-      description: the block tag [latest, pending, eariest]
     JsonRpcRequest:
       type: object
       required:
@@ -340,14 +358,31 @@ components:
         params:
           type: array
           items: {}
-    RewardsMethod:
+    BlockNumber:
+      title: blockNumber
+      type: integer
+      format: int64
+      description: the block number
+    BlockTag:
+      title: blockTag
+      type: string
+      description: the block tag [latest, pending, eariest]
+    RewardsReq:
       type: object
       required:
         - method
       properties:
         method:
-          default: klay_getRewards
           type: string
+          default: klay_getRewards
+        params:
+          type: array
+          default:
+            - latest
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/BlockNumber'
+              - $ref: '#/components/schemas/BlockTag'
     ErrorMember:
       type: object
       title: ErrorMember
@@ -448,3 +483,15 @@ components:
       properties:
         result:
           $ref: '#/components/schemas/Result'
+    schemas-Result:
+      type: string
+      format: 20-byte DATA
+      readOnly: true
+      example: '0xc94770007dda54cF92009BFF0dE90c06F603a09f'
+    EthAccountsResp:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/schemas-Result'

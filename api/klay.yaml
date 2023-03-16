@@ -21,6 +21,9 @@ tags:
 #    description: |
 #      <SchemaDefinition schemaRef="#/components/schemas/RewardSpec" />
 x-tagGroups:
+  - name: eth
+    tags:
+      - eth.account
   - name: Klay
     tags:
       - klay
@@ -39,5 +42,5 @@ paths:
     $ref: ./paths/klay/account.yaml#/paths/~1klay~1accountCreated
   /klay/account/accountCreated2:
     $ref: ./paths/klay/account.yaml#/paths/~1klay~1accountCreated2
-  /klay/blockNumber:
-    $ref: ./paths/eth/block.yaml#/paths/~1klay~1blockNumber
+  /eth/account/eth_accounts:
+    $ref: ./paths/eth/account/eth_accounts.yaml#/paths/~1eth~1eth_accounts
