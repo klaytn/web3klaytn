@@ -42,7 +42,7 @@ paths:
                   - type: object
                     properties:
                       result:
-                        type: integer
+                        type: string
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/block
         description: Klaytn Docs
