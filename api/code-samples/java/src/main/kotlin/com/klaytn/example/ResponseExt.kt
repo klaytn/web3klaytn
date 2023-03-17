@@ -1,4 +1,4 @@
-package caver.sdk.apis
+package com.klaytn.example
 
 import retrofit2.Call
 
