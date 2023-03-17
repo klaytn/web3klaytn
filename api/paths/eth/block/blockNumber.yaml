@@ -47,10 +47,10 @@ paths:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/block
         description: Klaytn Docs
       x-codeSamples:
-        # - lang: "curl"
-        #   label: "Curl"
-        #   source:
-        #     $ref: ""
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/block/blockNumber.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
