@@ -1,7 +1,7 @@
-const Caver = require("caver-javascript");
+const OpenSdk = require("opensdk-javascript");
 const {expect} = require("@jest/globals");
 
-let api = new Caver.KlayApi(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
+const api = new OpenSdk.KlayApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('Klay getRewards API', () => {
     test('should return info of a block number', (done) => {
