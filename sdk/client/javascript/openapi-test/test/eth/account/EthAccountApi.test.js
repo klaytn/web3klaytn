@@ -1,7 +1,7 @@
-const Caver = require("caver-javascript");
+const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
 
-let api = new Caver.EthAccountApi(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
+const api = new OpenSdk.EthAccountApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('Eth account API', () => {
     test('should return list of accounts.', (done) => {

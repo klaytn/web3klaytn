@@ -1,7 +1,7 @@
-const Caver = require("caver-javascript");
+const OpenSdk = require("opensdk-javascript");
 const {expect} = require("@jest/globals");
 
-let api = new Caver.KlayAccountApi(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
+const api = new OpenSdk.KlayAccountApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('accountCreated API', () => {
     test('should return false for Not_Found', (done) => {
