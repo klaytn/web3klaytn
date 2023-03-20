@@ -43,13 +43,7 @@ paths:
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
           required: true
           schema:
-            oneOf:
-              - type: number
-                title: blockNumber
-                description: BN | BigNumber
-              - type: string
-                title: blockTag
-                example: [ latest, pending, earliest ]
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
         - name: stateOverrideSet
           in: query
           description: The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call.
