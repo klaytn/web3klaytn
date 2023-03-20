@@ -1,0 +1,16 @@
+components:
+  schemas:
+    BlockNumberOrTag:
+      title: blockNumberOrTag
+      oneOf:
+        - $ref: "#/components/schemas/BlockNumber"
+        - $ref: "#/components/schemas/BlockTag"
+    BlockNumber:
+      title: blockNumber
+      type: integer
+      format: int64
+      description: the block number
+    BlockTag:
+      title: blockTag
+      type: string
+      description: the block tag [latest, pending, earliest]
