@@ -39,7 +39,6 @@ paths:
           schema:
             oneOf:
              - $ref: "../../../components/schemas/eth/transaction/Call.yaml#/components/schemas/CallObject"
-          readOnly: true
         - name: blockNumberOrTag
           in: query
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
@@ -47,7 +46,6 @@ paths:
           schema:
             oneOf:
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-          readOnly: true
         - name: stateOverrideSet
           in: query
           description: The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call.
@@ -55,7 +53,6 @@ paths:
           schema:
             oneOf:
              - $ref: "../../../components/schemas/eth/transaction/Call.yaml#/components/schemas/StateOverrideSet"
-          readOnly: true
 
       requestBody:
         content:
