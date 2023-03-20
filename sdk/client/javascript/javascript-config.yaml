@@ -14,3 +14,4 @@ inlineSchemaNameMappings:
   getRewards_default_response: GetRewardsResponse
   ethAccounts_default_response: EthAccountsDefaultResponse
   ethBlockNumber_default_response: EthBlockNumberDefaultResponse
+  ethCall_default_response: EthCallDefaultResponse
