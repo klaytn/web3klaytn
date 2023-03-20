@@ -12,24 +12,13 @@ components:
           type: array
           default: ["latest"]
           items:
-            oneOf:
-              - $ref: "#/components/schemas/BlockNumber"
-              - $ref: "#/components/schemas/BlockTag"
-    BlockNumber:
-      title: blockNumber
-      type: integer
-      format: int64
-      description: the block number
-    BlockTag:
-      title: blockTag
-      type: string
-      description: the block tag [latest, pending, eariest]
-    
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+
     RewardsResp:
       type: object
       properties:
         result:
-          $ref: "#/components/schemas/Result" 
+          $ref: "#/components/schemas/Result"
     Result:
       type: object
       required:

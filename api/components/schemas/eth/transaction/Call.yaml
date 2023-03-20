@@ -18,7 +18,6 @@ components:
           example: [{"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0xbE3892d33620bE5aca8c75D39e7401871194d290", "input": "0x2e64cec1"}, "latest", {"0xbE3892d33620bE5aca8c75D39e7401871194d290": {"code":"0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e64cec114604e5780636057361d146076575b600080fd5b348015605957600080fd5b50606060a0565b6040518082815260200191505060405180910390f35b348015608157600080fd5b50609e6004803603810190808035906020019092919050505060a9565b005b60008054905090565b80600081905550505600a165627a7a723058207783dba41884f73679e167576362b7277f88458815141651f48ca38c25b498f80029"}}]
 
     CallObject:
-      title: callObject
       type: object
       description: The transaction call object. See the next table for the object's properties.
       properties:
@@ -48,7 +47,6 @@ components:
           description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
 
     StateOverrideSet:
-      title: stateOverrideSet
       type: object
       description: The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call.
       properties:
@@ -76,4 +74,3 @@ components:
       properties:
         result:
           type: string
-
