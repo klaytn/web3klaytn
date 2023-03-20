@@ -20,6 +20,7 @@ paths:
         Returns a list of addresses owned by client
         
         **JSONRPC:** `eth_accounts`
+
       requestBody:
         content:
           application/json:
@@ -31,6 +32,7 @@ paths:
                     method:
                       type: string
                       default: eth_accounts
+
       responses:
         default:
           description: Addresses owned by the client
@@ -40,9 +42,11 @@ paths:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "../../../components/schemas/eth/account/Accounts.yaml#/components/schemas/EthAccountsResp"
+
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/account#eth_accounts
         description: Klaytn Docs
+
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

@@ -30,8 +30,6 @@ paths:
         It can be used for smart contract analysis by extending the code deployed on chain with custom methods and invoking them. This avoids having to download and reconstruct the entire state in a sandbox to run custom code against.
         
         It can be used to debug smart contracts in an already deployed large suite of contracts by selectively overriding some code or state and seeing how execution changes. Specialized tooling will probably be necessary.
-        
-        **More example and details can be found in the Klaytn Docs**
 
       parameters:
         - name: callObject
@@ -58,6 +56,7 @@ paths:
             oneOf:
              - $ref: "../../../components/schemas/eth/transaction/Call.yaml#/components/schemas/StateOverrideSet"
           readOnly: true
+
       requestBody:
         content:
           application/json:
@@ -75,6 +74,7 @@ paths:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "../../../components/schemas/eth/transaction/Call.yaml#/components/schemas/CallResp"
+
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/transaction#eth_call
         description: Klaytn Docs
