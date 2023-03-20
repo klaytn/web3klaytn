@@ -1,13 +1,12 @@
 package retrofit2.converter.gson
 
-import caver.sdk.apis.RequestBodyParams
-import caver.sdk.models.JsonRpcRequest
 import com.google.gson.Gson
 import com.google.gson.TypeAdapter
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okio.Buffer
+import opensdk.sdk.models.JsonRpcRequest
 import retrofit2.Converter
 import java.io.OutputStreamWriter
 import java.nio.charset.Charset

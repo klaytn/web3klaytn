@@ -2,7 +2,7 @@ generatorName: caver-java
 outputDir: ./openapi
 inputSpec: ../../../site/klaytn-openapi.yaml
 groupId: klaytn.foundation
-artifactId: caver-java
+artifactId: opensdk-java
 artifactVersion: v1.10.0
 library: retrofit2
 templateDir: ./template
@@ -14,12 +14,12 @@ globalProperties:
 additionalProperties:
   # This open is related json nullable, so it should be off.
   openApiNullable: false
-  apiPackage: caver.sdk.apis
-  modelPackage: caver.sdk.models
+  apiPackage: opensdk.sdk.apis
+  modelPackage: opensdk.sdk.models
 typeMappings:
   double: java.math.BigInteger
 importMappings:
-  GetRewardsDefaultResponse: caver.sdk.models.GetRewardsResponse
+  GetRewardsDefaultResponse: opensdk.sdk.models.GetRewardsResponse
 inlineSchemaNameMappings:
   accountCreated_default_response: AccountCreatedResponse
   getRewards_default_response: GetRewardsResponse

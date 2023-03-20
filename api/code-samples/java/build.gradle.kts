@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation(files("../../../sdk/client/java/openapi/build/libs/caver-java-v1.10.0.jar"))
+    implementation(files("../../../sdk/client/java/openapi/build/libs/opensdk-java-v1.10.0.jar"))
 
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))

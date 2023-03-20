@@ -1,11 +1,11 @@
 package com.klaytn.example.block
 
-import caver.sdk.apis.EthBlockApi
-import caver.sdk.models.EthBlockNumberRequest
 import com.klaytn.example.CommonConstant
 import com.klaytn.example.result
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import opensdk.sdk.apis.EthBlockApi
+import opensdk.sdk.models.EthBlockNumberRequest
 import retrofit2.Retrofit
 import retrofit2.converter.gson.JsonRpcConverterFactory
 

@@ -1,14 +1,13 @@
-package caver.sdk.apis
+package opensdk.sdk.apis
 
-import caver.sdk.models.EthAccountsRequest
+import CommonConstant
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldNotBe
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import opensdk.sdk.models.EthAccountsRequest
 import retrofit2.Retrofit
 import retrofit2.converter.gson.JsonRpcConverterFactory
-
-private const val BASE_URL = "http://localhost:8551"
 
 class EthAccountApiAccountsTest : BehaviorSpec({
 
@@ -24,7 +23,7 @@ class EthAccountApiAccountsTest : BehaviorSpec({
     Given("In Local Klaytn network") {
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(CommonConstant.baseUrl)
             .addConverterFactory(JsonRpcConverterFactory.create())
             .client(httpClient)
             .build()
