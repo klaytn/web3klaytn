@@ -25,6 +25,7 @@ x-tagGroups:
     tags:
       - eth.block
       - eth.account
+      - eth.transaction
   - name: Klay
     tags:
       - klay
@@ -47,3 +48,5 @@ paths:
     $ref: ./paths/eth/account/accounts.yaml#/paths/~1eth~1accounts
   /eth/block/blockNumber:
     $ref: ./paths/eth/block/blockNumber.yaml#/paths/~1eth~1blockNumber
+  /eth/transaction/call:
+    $ref: ./paths/eth/transaction/call.yaml#/paths/~1eth~1call
