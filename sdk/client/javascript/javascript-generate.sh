@@ -14,4 +14,4 @@ yarn install
 yarn link
 
 cd "${CURRENT_FILE_DIR}"/openapi-test
-yarn link caver-javascript
+yarn link opensdk-javascript

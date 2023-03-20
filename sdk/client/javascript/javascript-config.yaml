@@ -1,7 +1,7 @@
 generatorName: caver-javascript
 outputDir: ./openapi
 inputSpec: ../../../site/klaytn-openapi.yaml
-projectName: caver-javascript
+projectName: opensdk-javascript
 templateDir: ./template
 sortParamsByRequiredFlag: false
 globalProperties:
