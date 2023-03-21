@@ -1,0 +1,72 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/getBlockWithConsensusInfoByNumber:
+    post:
+      operationId: klayGetBlockWithConsensusInfoByNumber
+      summary: "[getBlockWithConsensusInfoByNumber] Returns a block with consensus information that matches the given block number."
+      description: |
+        Returns a block with consensus information that matches the given block number.
+        
+        **JSONRPC:** `klay_getBlockWithConsensusInfoByNumber`
+
+        **NOTE:**  In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available. 
+
+      tags:
+        - klay.block
+
+      parameters:
+        - name: blockNumber
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "../../../components/schemas/klay/block/GetBlockByHash.yaml#/components/schemas/KlayGetBlockByHashReq"
+
+      responses:
+        default:
+          description: Returns a block with consensus information that matches the given block number.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "../../../components/schemas/klay/block/GetBlockByHash.yaml#/components/schemas/KlayGetBlockByHashResp"
+
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getblockwithconsensusinfobynumber
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/block/getBlockByHash.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        #- lang: "javascript"
+        #  label: "Javascript"
+        #  source:
+        #    $ref: ""
+        #- lang: "python"
+        #  label: "Python"
+        #  source:
+        #    $ref: ""
