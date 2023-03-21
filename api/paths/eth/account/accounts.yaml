@@ -52,10 +52,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/eth/account/accounts.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/kotlin/com/klaytn/example/account/EthAccountsExample.kt"
         - lang: "javascript"
           label: "Javascript"
           source:
