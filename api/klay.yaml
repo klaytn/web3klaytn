@@ -64,6 +64,8 @@ paths:
     $ref: ./paths/klay/block/getBlockReceipts.yaml#/paths/~1klay~1getBlockReceipts
   /klay/block/getBlockTransactionCountByNumber:
     $ref: ./paths/klay/block/getBlockTransactionCountByNumber.yaml#/paths/~1klay~1getBlockTransactionCountByNumber
+  /klay/block/getBlockWithConsensusInfoByNumber:
+    $ref: ./paths/klay/block/getBlockWithConsensusInfoByNumber.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumber
 
   # klay/transaction
   /klay/transaction/call:

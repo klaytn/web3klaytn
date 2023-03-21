@@ -38,7 +38,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "../../../components/schemas/klay/block/GetBlockByHash.yaml#/components/schemas/KlayGetBlockByHashReq"
+                - $ref: "../../../components/schemas/klay/block/GetBlockWithConsensusInfoByNumber.yaml#/components/schemas/KlayGetBlockWithConsensusInfoByNumberReq"
 
       responses:
         default:
@@ -48,7 +48,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "../../../components/schemas/klay/block/GetBlockByHash.yaml#/components/schemas/KlayGetBlockByHashResp"
+                  - $ref: "../../../components/schemas/klay/block/GetBlockWithConsensusInfoByNumber.yaml#/components/schemas/KlayGetBlockWithConsensusInfoByNumberResp"
 
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getblockwithconsensusinfobynumber
