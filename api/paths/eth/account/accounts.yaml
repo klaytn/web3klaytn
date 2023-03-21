@@ -15,7 +15,7 @@ paths:
       summary: "[accounts] Returns a list of addresses owned by client"
       tags:
         - eth.account
-      operationId: eth_accounts
+      operationId: ethAccounts
       description: |
         Returns a list of addresses owned by client
         

@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/call:
     post:
-      operationId: call
+      operationId: klayCall
       summary: "[call] Executes a new message call immediately without creating a transaction on the block chain. It returns data or an error object of JSON RPC if error occurs."
       tags:
         - klay.transaction

@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/chainID:
     post:
-      operationId: chainID
+      operationId: klayChainID
       summary: "[chainID] Returns the chain ID of the chain."
       description: |
         Returns the chain ID of the chain.

@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/accountCreated:
     post:
-      operationId: accountCreated
+      operationId: klayAccountCreated
       summary: "[accountCreated] Find if input address was created"
       description: |
         Returns `true` if the account associated with the address is created. It returns `false` otherwise.

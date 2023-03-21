@@ -1,0 +1,80 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/getAccountKey:
+    post:
+      operationId: klayGetAccountKey
+      summary: "[getAccountKey] Returns the account key of the Externally Owned Account (EOA) of a given address or an empty key value"
+      description: |
+        Returns the account key of the Externally Owned Account (EOA) of a given address. If the account has AccountKeyLegacy or the account of the given address is a Smart Contract Account, it will return an empty key value. See Account Key.
+
+        **JSONRPC:** `klay_getAccountKey`
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available*
+      tags:
+        - klay.account
+
+#      parameters:
+#        - name: account
+#          required: true
+#          schema:
+#            type: string
+#            format: 20-byte DATA
+#          description: Address
+#          in: query
+#        - name: blockNumberOrTag
+#          in: query
+#          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
+#          required: true
+#          schema:
+#            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+#
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              allOf:
+#                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+#                - $ref: "../../../components/schemas/klay/account/AccountCreated.yaml#/components/schemas/KlayAccountCreatedReq"
+#
+#      responses:
+#        default:
+#          description: The existence of an input address
+#          content:
+#            application/json:
+#              schema:
+#                allOf:
+#                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+#                  - type: object
+#                    properties:
+#                      result:
+#                        type: boolean
+#      externalDocs:
+#        url: https://docs.klaytn.foundation/dapp/json-rpc/api-references/klay/account#klay_accountcreated
+#        description: Klaytn Docs
+#      x-codeSamples:
+#        - lang: "curl"
+#          label: "Curl"
+#          source:
+#            $ref: "../../../code-samples/curl/klay/account/accountCreated.sh"
+#        # - lang: "java"
+#        #   label: "Java"
+#        #   source:
+#        #     $ref: ""
+#        #- lang: "javascript"
+#        #  label: "Javascript"
+#        #  source:
+#        #    $ref: ""
+#        #- lang: "python"
+#        #  label: "Python"
+#        #  source:
+#        #    $ref: ""
