@@ -30,6 +30,8 @@ x-tagGroups:
     tags:
       - klay
       - klay.account
+      - klay.block
+      - klay.configuration
   - name: Models
     tags:
       - RewardSpec
@@ -40,13 +42,31 @@ servers:
 paths:
   /klay/getRewards:
     $ref: ./paths/klay/rewards.yaml#/paths/~1klay~1getRewards
+
+  # klay/account
   /klay/account/accountCreated:
-    $ref: ./paths/klay/account.yaml#/paths/~1klay~1accountCreated
-  /klay/account/accountCreated2:
-    $ref: ./paths/klay/account.yaml#/paths/~1klay~1accountCreated2
+    $ref: ./paths/klay/account/accountCreated.yaml#/paths/~1klay~1accountCreated
+  /klay/account/decodeAccountKey:
+    $ref: ./paths/klay/account/decodeAccountKey.yaml#/paths/~1klay~1decodeAccountKey
+
+  # klay/block
+  /klay/block/blockNumber:
+    $ref: ./paths/klay/block/blockNumber.yaml#/paths/~1klay~1blockNumber
+
+  # klay/configuration
+  /klay/configuration/chainID:
+    $ref: ./paths/klay/configuration/chainID.yaml#/paths/~1klay~1chainID
+  /klay/configuration/clientVersion:
+    $ref: ./paths/klay/configuration/clientVersion.yaml#/paths/~1klay~1clientVersion
+
+  # eth/account
   /eth/account/accounts:
     $ref: ./paths/eth/account/accounts.yaml#/paths/~1eth~1accounts
+
+  # eth/block
   /eth/block/blockNumber:
     $ref: ./paths/eth/block/blockNumber.yaml#/paths/~1eth~1blockNumber
+
+  # eth/transaction
   /eth/transaction/call:
     $ref: ./paths/eth/transaction/call.yaml#/paths/~1eth~1call
