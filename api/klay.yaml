@@ -92,6 +92,8 @@ paths:
     $ref: ./paths/klay/configuration/clientVersion.yaml#/paths/~1klay~1clientVersion
   /klay/configuration/gasPriceAt:
     $ref: ./paths/klay/configuration/gasPriceAt.yaml#/paths/~1klay~1gasPriceAt
+  /klay/configuration/gasPrice:
+    $ref: ./paths/klay/configuration/gasPrice.yaml#/paths/~1klay~1gasPrice
 
   # klay/gas
   /klay/gas/feeHistory:
