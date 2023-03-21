@@ -52,6 +52,8 @@ paths:
     $ref: ./paths/klay/account/accounts.yaml#/paths/~1klay~1accounts
   /klay/account/decodeAccountKey:
     $ref: ./paths/klay/account/decodeAccountKey.yaml#/paths/~1klay~1decodeAccountKey
+  /klay/account/getAccountKey:
+    $ref: ./paths/klay/account/getAccountKey.yaml#/paths/~1klay~1getAccountKey
 
   # klay/block
   /klay/block/blockNumber:
