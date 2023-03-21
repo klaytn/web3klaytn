@@ -70,6 +70,8 @@ paths:
     $ref: ./paths/klay/block/getBlockWithConsensusInfoByNumber.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumber
   /klay/block/getCommitteeSize:
     $ref: ./paths/klay/block/getCommitteeSize.yaml#/paths/~1klay~1getCommitteeSize
+  /klay/block/getCouncilSize:
+    $ref: ./paths/klay/block/getCouncilSize.yaml#/paths/~1klay~1getCouncilSize
 
   # klay/transaction
   /klay/transaction/call:
