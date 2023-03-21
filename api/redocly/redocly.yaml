@@ -2,7 +2,7 @@
 organization: klaytn.foundation
 apis:
   klay@v1.10.0:
-    root: ../klay.yaml
+    root: ../paths/eth/index.yaml
     labels:
       - v1.10.0
 extends:
