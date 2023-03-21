@@ -60,6 +60,8 @@ paths:
 #    $ref: ./paths/klay/account/getCode.yaml#/paths/~1klay~1getCode
   /klay/account/encodeAccountKey:
     $ref: ./paths/klay/account/encodeAccountKey.yaml#/paths/~1klay~1encodeAccountKey
+  /klay/account/getAccount:
+    $ref: ./paths/klay/account/getAccount.yaml#/paths/~1klay~1getAccount
 
   # klay/block
   /klay/block/blockNumber:
