@@ -31,6 +31,7 @@ paths:
                     method:
                       type: string
                       default: eth_blockNumber
+
       responses:
         200:
           description: return block number
@@ -60,7 +61,7 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/eth/block/blockNumber.js"
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/block/blockNumber.py"
