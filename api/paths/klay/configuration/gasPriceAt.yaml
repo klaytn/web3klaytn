@@ -1,0 +1,76 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/gasPriceAt:
+    post:
+      operationId: gasPriceAt
+      summary: "[gasPriceAt] Returns the current client version of a Klaytn node."
+      description: |
+        Returns different values based on the condition described below. The unit of the return value is peb.
+        
+        - If baseFee is undefined in the header, it returns the unit price from the governance parameter
+        
+        - If the block is a pending block, it returns the gas price of the txpool.
+        
+        - Otherwise, it returns the base fee of the given block.
+        
+        **JSONRPC:** `klay_clientVersion`
+      tags:
+        - klay.configuration
+
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              allOf:
+#                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+#                - type: object
+#                  properties:
+#                    method:
+#                      type: string
+#                      default: klay_clientVersion
+#
+#      responses:
+#        default:
+#          description: The current client version of a Klaytn node.
+#          content:
+#            application/json:
+#              schema:
+#                allOf:
+#                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+#                  - type: object
+#                    properties:
+#                      result:
+#                        type: string
+#                        description: "The current client version of a Klaytn node."
+#                        example: "Klaytn/v0.9.1+3518232250/linux-amd64/go1.11.2"
+#
+#      externalDocs:
+#        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_clientversion
+#        description: Klaytn Docs
+#      x-codeSamples:
+#        - lang: "curl"
+#          label: "Curl"
+#          source:
+#            $ref: "../../../code-samples/curl/klay/configuration/clientVersion.sh"
+#        # - lang: "java"
+#        #   label: "Java"
+#        #   source:
+#        #     $ref: ""
+#        #- lang: "javascript"
+#        #  label: "Javascript"
+#        #  source:
+#        #    $ref: ""
+#        #- lang: "python"
+#        #  label: "Python"
+#        #  source:
+#        #    $ref: ""
