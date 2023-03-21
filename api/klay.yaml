@@ -82,6 +82,8 @@ paths:
     $ref: ./paths/klay/transaction/call.yaml#/paths/~1klay~1call
   /klay/transaction/getDecodedAnchoringTransactionByHash:
     $ref: ./paths/klay/transaction/getDecodedAnchoringTransactionByHash.yaml#/paths/~1klay~1getDecodedAnchoringTransactionByHash
+  /klay/transaction/estimateGas:
+    $ref: ./paths/klay/transaction/estimateGas.yaml#/paths/~1klay~1estimateGas
 
   # klay/configuration
   /klay/configuration/chainID:
