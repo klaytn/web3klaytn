@@ -16,6 +16,6 @@ describe('Klay account created API', () => {
         };
         const address='0xa4f42d4d2a3a13874406435500950c9bf2d783db'
         const blockTag='latest'
-        api.accountCreated(address,blockTag,{}, callbackOne);
+        api.klayAccountCreated(address,blockTag,{}, callbackOne);
     });
 });
