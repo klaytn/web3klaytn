@@ -66,6 +66,8 @@ paths:
     $ref: ./paths/klay/configuration/chainID.yaml#/paths/~1klay~1chainID
   /klay/configuration/clientVersion:
     $ref: ./paths/klay/configuration/clientVersion.yaml#/paths/~1klay~1clientVersion
+  /klay/configuration/gasPriceAt:
+    $ref: ./paths/klay/configuration/gasPriceAt.yaml#/paths/~1klay~1gasPriceAt
 
   # klay/gas
   /klay/gas/feeHistory:

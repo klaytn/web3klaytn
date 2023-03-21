@@ -13,7 +13,7 @@ paths:
   /klay/gasPriceAt:
     post:
       operationId: gasPriceAt
-      summary: "[gasPriceAt] Returns the current client version of a Klaytn node."
+      summary: "[gasPriceAt] Returns the unit price from the governance parameter or the gas price of the txpool or the base fee of the given block"
       description: |
         Returns different values based on the condition described below. The unit of the return value is peb.
         
@@ -23,54 +23,57 @@ paths:
         
         - Otherwise, it returns the base fee of the given block.
         
-        **JSONRPC:** `klay_clientVersion`
+        **JSONRPC:** `klay_gasPriceAt`
       tags:
         - klay.configuration
 
-#      requestBody:
-#        content:
-#          application/json:
-#            schema:
-#              allOf:
-#                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-#                - type: object
-#                  properties:
-#                    method:
-#                      type: string
-#                      default: klay_clientVersion
-#
-#      responses:
-#        default:
-#          description: The current client version of a Klaytn node.
-#          content:
-#            application/json:
-#              schema:
-#                allOf:
-#                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-#                  - type: object
-#                    properties:
-#                      result:
-#                        type: string
-#                        description: "The current client version of a Klaytn node."
-#                        example: "Klaytn/v0.9.1+3518232250/linux-amd64/go1.11.2"
-#
-#      externalDocs:
-#        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_clientversion
-#        description: Klaytn Docs
-#      x-codeSamples:
-#        - lang: "curl"
-#          label: "Curl"
-#          source:
-#            $ref: "../../../code-samples/curl/klay/configuration/clientVersion.sh"
-#        # - lang: "java"
-#        #   label: "Java"
-#        #   source:
-#        #     $ref: ""
-#        #- lang: "javascript"
-#        #  label: "Javascript"
-#        #  source:
-#        #    $ref: ""
-#        #- lang: "python"
-#        #  label: "Python"
-#        #  source:
-#        #    $ref: ""
+      parameters:
+        - name: blockNumber
+          in: query
+          description: Block number. If omitted, latest unit price will be returned.
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "../../../components/schemas/klay/configuration/GasPriceAt.yaml#/components/schemas/KlayGasPriceAtReq"
+
+      responses:
+        default:
+          description:
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        description: "Integer of the current gas price in peb."
+                        example: "0xAE9F7BCC00"
+
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_clientversion
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/configuration/gasPriceAt.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        #- lang: "javascript"
+        #  label: "Javascript"
+        #  source:
+        #    $ref: ""
+        #- lang: "python"
+        #  label: "Python"
+        #  source:
+        #    $ref: ""
