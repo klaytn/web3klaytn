@@ -1,0 +1,31 @@
+components:
+  schemas:
+    KlayEncodeAccountKeyReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_encodeAccountKey'
+        param:
+          type: object
+          properties:
+            keytype:
+              type: number
+              description: "Integer value indicating account key type."
+            key:
+              type: string
+              format: JSON DATA
+              description: "Account key object"
+          example: {"keyType": 1, "key": {}}
+
+    KlayEncodeAccountKeyResp:
+      type: object
+      properties:
+        result:
+          type: string
+          description: RLP encoded account key
+          format: DATA
+          example: "0x01c0"
