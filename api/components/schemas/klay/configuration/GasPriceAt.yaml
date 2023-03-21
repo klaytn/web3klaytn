@@ -13,5 +13,6 @@ components:
           type: array
           items:
             anyOf:
-              - $ref: "../../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+              - $ref: "../../../../components/schemas/common/Common.yaml#/components/schemas/IntegerBlockNumber"
+              - $ref: "../../../../components/schemas/common/Common.yaml#/components/schemas/HexadecimalBlockNumber"
           example:  ["0x64"]

@@ -58,6 +58,8 @@ paths:
   # klay/block
   /klay/block/blockNumber:
     $ref: ./paths/klay/block/blockNumber.yaml#/paths/~1klay~1blockNumber
+  /klay/block/getBlockByHash:
+    $ref: ./paths/klay/block/getBlockByHash.yaml#/paths/~1klay~1getBlockByHash
 
   # klay/transaction
   /klay/transaction/call:

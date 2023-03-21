@@ -1,19 +1,26 @@
 components:
   schemas:
-#    BlockNumberOrTag:
-#      oneOf:
-#        - $ref: "#/components/schemas/BlockNumber"
-#        - $ref: "#/components/schemas/BlockTag"
+    BlockNumberOrTag:
+      oneOf:
+        - $ref: "#/components/schemas/IntegerBlockNumber"
+        - $ref: "#/components/schemas/HexadecimalBlockNumber"
+        - $ref: "#/components/schemas/BlockTag"
 
     BlockNumberOrHashOrTag:
       oneOf:
-        - $ref: "#/components/schemas/BlockNumber"
+        - $ref: "#/components/schemas/IntegerBlockNumber"
+        - $ref: "#/components/schemas/HexadecimalBlockNumber"
         - $ref: "#/components/schemas/BlockTag"
         - $ref: "#/components/schemas/BlockHash"
 
-    BlockNumber:
+    IntegerBlockNumber:
+      description: the block number with type integer
       type: number
-      description: the block number
+
+    HexadecimalBlockNumber:
+      type: string
+      format: hexadecimal
+      description: the block number with type hexadecimal
 
     BlockTag:
       type: string
@@ -56,3 +63,10 @@ components:
           type: string
           format: DATA
           description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
+
+#    Block:
+#      type: object
+#      description: A block object
+#      properties:
+#        number:
+
