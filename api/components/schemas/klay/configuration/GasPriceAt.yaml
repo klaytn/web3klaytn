@@ -1,6 +1,6 @@
 components:
   schemas:
-    KlayAccountCreatedReq:
+    KlayGasPriceAtReq:
       type: object
       required:
         - method
@@ -8,14 +8,10 @@ components:
       properties:
         method:
           type: string
-          default: 'klay_accountCreated'
+          default: 'klay_gasPriceAt'
         params:
           type: array
           items:
             anyOf:
-              - type: string
-                title: account
-                format: 20-byte DATA
-                description: Address
               - $ref: "../../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
-          example:  ["0xa4f42d4d2a3a13874406435500950c9bf2d783db", "latest"]
+          example:  ["0x64"]

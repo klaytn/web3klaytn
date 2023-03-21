@@ -12,7 +12,7 @@ components:
           type: array
           default: ["latest"]
           items:
-            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
 
     RewardsResp:
       type: object

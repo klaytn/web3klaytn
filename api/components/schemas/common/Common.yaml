@@ -1,11 +1,11 @@
 components:
   schemas:
-    BlockNumberOrTag:
-      oneOf:
-        - $ref: "#/components/schemas/BlockNumber"
-        - $ref: "#/components/schemas/BlockTag"
+#    BlockNumberOrTag:
+#      oneOf:
+#        - $ref: "#/components/schemas/BlockNumber"
+#        - $ref: "#/components/schemas/BlockTag"
 
-    BlockNumberOrHash:
+    BlockNumberOrHashOrTag:
       oneOf:
         - $ref: "#/components/schemas/BlockNumber"
         - $ref: "#/components/schemas/BlockTag"
