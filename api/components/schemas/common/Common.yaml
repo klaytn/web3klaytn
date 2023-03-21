@@ -63,10 +63,3 @@ components:
           type: string
           format: DATA
           description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
-
-#    Block:
-#      type: object
-#      description: A block object
-#      properties:
-#        number:
-
