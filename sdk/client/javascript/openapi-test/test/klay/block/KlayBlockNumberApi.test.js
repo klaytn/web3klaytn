@@ -14,6 +14,6 @@ describe('Klay block number API', () => {
             console.log('API called successfully. Returned data: ' + JSON.stringify(data));
             done();
         };
-        api.blockNumber({}, callbackOne);
+        api.klayBlockNumber({}, callbackOne);
     });
 });
