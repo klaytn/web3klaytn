@@ -1,0 +1,82 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/feeHistory:
+    post:
+      operationId: feeHistory
+      summary: "[feeHistory] Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.d"
+      description: |
+        Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.
+
+        **JSONRPC:** `klay_feeHistory`
+
+        **NOTE:** This API is effective after Klaytn v1.8.0
+      tags:
+        - klay.gas
+
+      parameters:
+        - name: blockCount
+          required: true
+          schema:
+            $ref: "../../../components/schemas/klay/gas/FeeHistory.yaml#/components/schemas/BlockCount"
+          description: Number of blocks in the requested range in hexadecimal. Between 1 (0x1) and 1024 (0x400) blocks can be requested in a single query. Less than requested may be returned if not all blocks are available.
+          in: query
+        - name: lastBlock
+          in: query
+          description: Highest numbered block of the requested range as block number or block tag.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+        - name: rewardPercentiles
+          required: true
+          schema:
+            $ref: "../../../components/schemas/klay/gas/FeeHistory.yaml#/components/schemas/RewardPercentiles"
+          description: An array of floating point values between 0 and 100.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "../../../components/schemas/klay/gas/FeeHistory.yaml#/components/schemas/KlayFeeHistoryReq"
+
+      responses:
+        default:
+          description:
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "../../../components/schemas/klay/gas/FeeHistory.yaml#/components/schemas/KlayFeeHistoryResp"
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/gas#klay_feehistory
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/gas/feeHistory.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        #- lang: "javascript"
+        #  label: "Javascript"
+        #  source:
+        #    $ref: ""
+        #- lang: "python"
+        #  label: "Python"
+        #  source:
+        #    $ref: ""

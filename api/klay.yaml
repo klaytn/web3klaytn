@@ -32,6 +32,7 @@ x-tagGroups:
       - klay.account
       - klay.block
       - klay.configuration
+      - klay.gas
       - klay.transaction
   - name: Models
     tags:
@@ -65,6 +66,10 @@ paths:
     $ref: ./paths/klay/configuration/chainID.yaml#/paths/~1klay~1chainID
   /klay/configuration/clientVersion:
     $ref: ./paths/klay/configuration/clientVersion.yaml#/paths/~1klay~1clientVersion
+
+  # klay/gas
+  /klay/gas/feeHistory:
+    $ref: ./paths/klay/gas/feeHistory.yaml#/paths/~1klay~1feeHistory
 
   # eth/account
   /eth/account/accounts:
