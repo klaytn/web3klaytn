@@ -37,7 +37,7 @@ paths:
           description: The transaction call object. See the next table for the object's properties.
           required: true
           schema:
-            $ref: "../../../components/schemas/eth/transaction/Call.yaml#/components/schemas/CallObject"
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/CallObject"
         - name: blockNumberOrTag
           in: query
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.

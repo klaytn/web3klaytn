@@ -4,9 +4,55 @@ components:
       oneOf:
         - $ref: "#/components/schemas/BlockNumber"
         - $ref: "#/components/schemas/BlockTag"
+
+    BlockNumberOrHash:
+      oneOf:
+        - $ref: "#/components/schemas/BlockNumber"
+        - $ref: "#/components/schemas/BlockTag"
+        - $ref: "#/components/schemas/BlockHash"
+
     BlockNumber:
       type: number
       description: the block number
+
     BlockTag:
       type: string
       description: the block tag [latest, pending, earliest]
+
+    BlockHash:
+      type: string
+      description: the block hash
+
+    Address:
+      type: string
+      format: 20-byte DATA
+      description: Address
+
+    CallObject:
+      type: object
+      description: The transaction call object. See the next table for the object's properties.
+      properties:
+        from:
+          type: string
+          format: 20-byte DATA
+          description: (optional) Address the transaction is simulated to have been sent from. The 0x00..0 address is used if no address is specified.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: (optional) Address the transaction is sent to.
+        gas:
+          type: integer
+          format: int64
+          description: (optional) Maximum gas allowance for the code execution to avoid infinite loops. Defaults to 2^63 or whatever value the node operator specified via --rpc.gascap.
+        gasPrice:
+          type: integer
+          format: int64
+          description: (optional) Number of peb to simulate paying for each unit of gas during execution. Defaults to 0 peb.
+        value:
+          type: integer
+          format: int64
+          description: (optional) Amount of peb to simulate sending along with the transaction. Defaults to 0.
+        input:
+          type: string
+          format: DATA
+          description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
