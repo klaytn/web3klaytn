@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/accounts:
     post:
-      operationId: accounts
+      operationId: klayAccounts
       summary: "[accounts] Returns a list of addresses owned by client."
       tags:
         - klay.account

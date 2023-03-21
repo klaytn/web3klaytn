@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/blockNumber:
     post:
-      operationId: blockNumber
+      operationId: klayBlockNumber
       summary: "[blockNumber] Returns the number of most recent block."
       description: |
         Returns the number of most recent block.
