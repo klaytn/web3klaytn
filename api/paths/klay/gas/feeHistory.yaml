@@ -53,7 +53,7 @@ paths:
 
       responses:
         200:
-          description:
+          description: Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.
           content:
             application/json:
               schema:

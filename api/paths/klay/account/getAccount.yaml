@@ -47,7 +47,7 @@ paths:
 
       responses:
         200:
-          description: Each account type has different attributes.
+          description: Returns the account information of a given address.
           content:
             application/json:
               schema:

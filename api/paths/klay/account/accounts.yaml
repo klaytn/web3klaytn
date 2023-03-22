@@ -14,6 +14,11 @@ paths:
     post:
       operationId: klayAccounts
       summary: "[accounts] Returns a list of addresses owned by client."
+      description: |
+        Returns a list of addresses owned by client.
+        
+        **JSONRPC:** `klay_accounts`
+
       tags:
         - klay.account
 
