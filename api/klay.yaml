@@ -83,6 +83,8 @@ paths:
     $ref: ./paths/klay/block/getBlockTransactionCountByHash.yaml#/paths/~1klay~1getBlockTransactionCountByHash
   /klay/block/getHeaderByNumber:
     $ref: ./paths/klay/block/getHeaderByNumber.yaml#/paths/~1klay~1getHeaderByNumber
+  /klay/block/getHeaderByHash:
+    $ref: ./paths/klay/block/getHeaderByHash.yaml#/paths/~1klay~1getHeaderByHash
   /klay/getRewards:
     $ref: ./paths/klay/block/getRewards.yaml#/paths/~1klay~1getRewards
   /klay/getStorageAt:
@@ -100,6 +102,10 @@ paths:
     $ref: ./paths/klay/transaction/getTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getTransactionByBlockNumberAndIndex
   /klay/transaction/getTransactionBySenderTxHash:
     $ref: ./paths/klay/transaction/getTransactionBySenderTxHash.yaml#/paths/~1klay~1getTransactionBySenderTxHash
+  /klay/transaction/getTransactionByBlockHashAndIndex:
+    $ref: ./paths/klay/transaction/getTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getTransactionByBlockHashAndIndex
+  /klay/transaction/getTransactionByHash:
+    $ref: ./paths/klay/transaction/getTransactionByHash.yaml#/paths/~1klay~1getTransactionByHash
 
   # klay/configuration
   /klay/configuration/chainID:

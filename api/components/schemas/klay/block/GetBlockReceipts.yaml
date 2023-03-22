@@ -42,55 +42,55 @@ components:
           type: string
           format: hex
         from:
-            type: string
-            format: 20-byte DATA
+          type: string
+          format: 20-byte DATA
         gas:
-            type: string
-            format: hex
+          type: string
+          format: hex
         gasPrice:
-            type: string
-            format: hex
+          type: string
+          format: hex
         gasUsed:
-            type: string
-            format: hex
+          type: string
+          format: hex
         logs:
-            type: array
-            items:
-              type: object
+          type: array
+          items:
+            type: object
         logsBloom:
-            type: string
-            format: 256-byte DATA
+          type: string
+          format: 256-byte DATA
         nonce:
-            type: string
-            format: hex
+          type: string
+          format: hex
         senderTxHash:
-            type: string
-            format: 32-byte DATA
+          type: string
+          format: 32-byte DATA
         signatures:
-            type: array
-            items:
-              type: string
-              format: 65-byte DATA
+          type: array
+          items:
+            type: string
+            format: 65-byte DATA
         status:
-            type: string
-            format: hex
+          type: string
+          format: hex
         to:
-            type: string
-            format: 20-byte DATA
+          type: string
+          format: 20-byte DATA
         transactionHash:
-            type: string
-            format: 32-byte DATA
+          type: string
+          format: 32-byte DATA
         transactionIndex:
-            type: string
-            format: hex
+          type: string
+          format: hex
         type:
-            type: string
-            format: integer
+          type: string
+          format: integer
         typeInt:
-            type: integer
+          type: integer
         value:
-            type: string
-            format: hex
+          type: string
+          format: hex
       example:
           {
             "blockHash": "0xdc762ed0274496e2a42278e2648d910d82468687b5415bb5eb058a96a0b93c30",

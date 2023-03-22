@@ -1,0 +1,26 @@
+components:
+  schemas:
+    KlayGetTransactionByHashReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getTransactionByHash'
+        params:
+          type: array
+          items:
+            anyOf:
+            - type: string
+              format: 32-byte DATA
+              description: Hash of a transaction.
+          example: ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
+
+    KlayGetTransactionByHashResp:
+      type: object
+      properties:
+        result:
+          $ref: "../../common/Common.yaml#/components/schemas/TransactionObject"
+
