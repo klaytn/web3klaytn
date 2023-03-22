@@ -82,6 +82,8 @@ paths:
     $ref: ./paths/klay/block/getCouncilSize.yaml#/paths/~1klay~1getCouncilSize
   /klay/block/getBlockByNumber:
     $ref: ./paths/klay/block/getBlockByNumber.yaml#/paths/~1klay~1getBlockByNumber
+  /klay/block/getBlockTransactionCountByHash:
+    $ref: ./paths/klay/block/getBlockTransactionCountByHash.yaml#/paths/~1klay~1getBlockTransactionCountByHash
 
   # klay/transaction
   /klay/transaction/call:
