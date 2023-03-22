@@ -75,6 +75,8 @@ paths:
     $ref: ./paths/klay/block/getCommittee.yaml#/paths/~1klay~1getCommittee
   /klay/block/getCommitteeSize:
     $ref: ./paths/klay/block/getCommitteeSize.yaml#/paths/~1klay~1getCommitteeSize
+  /klay/block/getCouncil:
+    $ref: ./paths/klay/block/getCouncil.yaml#/paths/~1klay~1getCouncil
   /klay/block/getCouncilSize:
     $ref: ./paths/klay/block/getCouncilSize.yaml#/paths/~1klay~1getCouncilSize
   /klay/block/getBlockByNumber:
@@ -106,6 +108,8 @@ paths:
     $ref: ./paths/klay/configuration/gasPrice.yaml#/paths/~1klay~1gasPrice
 
   # klay/filter
+  /klay/filter/getFilterChanges:
+    $ref: ./paths/klay/filter/getFilterChanges.yaml#/paths/~1klay~1getFilterChanges
   /klay/filter/getFilterLogs:
     $ref: ./paths/klay/filter/getFilterLogs.yaml#/paths/~1klay~1getFilterLogs
 

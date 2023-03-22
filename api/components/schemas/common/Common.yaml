@@ -148,3 +148,57 @@ components:
         }
 
 
+    LogObject:
+      type: object
+      description: For filters created with klay_newFilter logs are objects with following properties
+      properties:
+        removed:
+          type: boolean
+          description: true when the log was removed, due to a chain reorganization. false if its a valid log.
+        logIndex:
+          type: string
+          format: QUANTITY
+          description: Integer of the log index position in the block. null when its pending log.
+        transactionIndex:
+          type: string
+          format: QUANTITY
+          description: Integer of the transactions index position log was created from. null when its pending log.
+        transactionHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transactions this log was created from. null when pending.
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block where this log was in. null when pending.
+        blockNumber:
+          type: string
+          format: QUANTITY
+          description: The block number where this log was in. null when pending.
+        address:
+          type: string
+          format: 20-byte DATA
+          description: Address from which this log originated.
+        data:
+          type: string
+          format: DATA
+          description: Contains the non-indexed arguments of the log.
+        topics:
+          type: array
+          items:
+            type: string
+            format: 32-byte DATA
+          description: Array of 0 to 4 32-byte DATA of indexed log arguments. (In Solidity The first topic is the hash of the signature of the event (e.g., Deposit(address,bytes32,uint256)), except you declared the event with the anonymous specifier.).
+
+    ArrayOfLog:
+      type: array
+      items:
+        anyOf:
+          - type: string
+            format: 32-byte DATA
+            description: For filters created with klay_newBlockFilter, the return are block hashes (32-byte DATA), e.g., ["0x3454645634534..."].
+          - type: string
+            format: 32-byte DATA
+            description: For filters created with klay_newPendingTransactionFilter, the return are transaction hashes (32-byte DATA), e.g., ["0x6345343454645..."].
+          - $ref: "#/components/schemas/LogObject"
+      description: Array of log objects, or an empty array if nothing has changed since last poll.

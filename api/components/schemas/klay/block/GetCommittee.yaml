@@ -1,0 +1,27 @@
+components:
+  schemas:
+    KlayGetCommitteeReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getCommittee'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+          example:  ["0x1b4"]
+
+    KlayGetCommitteeResp:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            type: string
+            format: hex
+            example: "0x207e38864b45a538733741dc1ff92eff9d1a6159"
