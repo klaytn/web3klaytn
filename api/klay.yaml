@@ -87,6 +87,8 @@ paths:
     $ref: ./paths/klay/block/getBlockByNumber.yaml#/paths/~1klay~1getBlockByNumber
   /klay/block/getBlockTransactionCountByHash:
     $ref: ./paths/klay/block/getBlockTransactionCountByHash.yaml#/paths/~1klay~1getBlockTransactionCountByHash
+  /klay/block/getHeaderByNumber:
+    $ref: ./paths/klay/block/getHeaderByNumber.yaml#/paths/~1klay~1getHeaderByNumber
 
   # klay/transaction
   /klay/transaction/call:
