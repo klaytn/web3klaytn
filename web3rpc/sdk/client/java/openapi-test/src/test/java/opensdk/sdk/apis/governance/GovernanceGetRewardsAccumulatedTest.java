@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
-import org.web3j.protocol.klaytn.core.method.response.GovernanceGovernanceGetRewardsAccumulatedResponse;
+import org.web3j.protocol.klaytn.core.method.response.GovernanceGetRewardsAccumulatedResponse;
 
 import java.io.IOException;
 
@@ -21,7 +21,7 @@ public class GovernanceGetRewardsAccumulatedTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         int firstBlock = 123400489;
         int lastBlock = 123416489;
-        GovernanceGovernanceGetRewardsAccumulatedResponse response = w3.governanceGovernanceGetRewardsAccumulated(firstBlock, lastBlock).send();
+        GovernanceGetRewardsAccumulatedResponse response = w3.governanceGetRewardsAccumulated(firstBlock, lastBlock).send();
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());

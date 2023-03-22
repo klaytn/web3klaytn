@@ -93,10 +93,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/governance/getChainConfig.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/governance/GovernancegetChainConfigExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/governance/GovernanceGetChainConfigExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

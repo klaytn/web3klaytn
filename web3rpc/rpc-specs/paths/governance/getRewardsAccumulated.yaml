@@ -12,8 +12,8 @@ servers:
 paths:
   /governance/getRewardsAccumulated:
     post:
-      operationId: governance_getRewardsAccumulated
-      summary: "[governance_getRewardsAccumulated]"
+      operationId: getRewardsAccumulated
+      summary: "[getRewardsAccumulated]"
       description: |
         The API returns accumulated reward information in a given block range ( between firstBlock and lastBlock).
 

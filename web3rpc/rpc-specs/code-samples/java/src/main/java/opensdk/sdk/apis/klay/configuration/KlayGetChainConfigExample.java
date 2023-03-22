@@ -11,6 +11,7 @@ public class KlayGetChainConfigExample {
     private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
     void klayGetChainConfigExample() throws IOException {
         Integer blogNumberOrTag = 100;
+
         KlayGetChainConfigResponse response = w3.klayGetChainConfig(blogNumberOrTag).send();
         response.getResult();
     }
