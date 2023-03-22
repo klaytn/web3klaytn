@@ -9,23 +9,13 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 tags:
-  - name: klay
-    description: klaytn node API
-  - name: account
-    description: klaytn account API
-  - name: governance
-    description: klaytn governance API
   - name: eth
     description: API for ethereum namespace
-#  - name: RewardSpec
-#    description: |
-#      <SchemaDefinition schemaRef="#/components/schemas/RewardSpec" />
+x-redoc-operation-id-prefix: eth_
 x-tagGroups:
   - name: Eth
     tags:
-      - eth.block
-      - eth.account
-      - eth.transaction
+      - eth
   - name: Models
     tags:
       - RewardSpec

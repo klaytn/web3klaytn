@@ -1,6 +1,6 @@
 generatorName: caver-javascript
-outputDir: ./openapi
-inputSpec: ../../../site/klaytn-openapi.yaml
+outputDir: ./openapi/eth
+inputSpec: ../../../site/namespace/eth-openapi.yaml
 projectName: opensdk-javascript-eth
 templateDir: ./template
 sortParamsByRequiredFlag: false

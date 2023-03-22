@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@redocly/cli": "^1.0.0-beta.117"
+    "@redocly/cli": "^1.0.0-beta.124",
+    "global": "^4.4.0"
   },
   "scripts": {
     "start": "redocly preview-docs",
