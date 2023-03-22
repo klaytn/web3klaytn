@@ -39,7 +39,7 @@ paths:
                         default: "0x0c11803ab36110db993e7520908b9ba9336cca2f2dcc9b6130c481a3ccdc2621"
 
       responses:
-        default:
+        200:
           description: Integer of the number of transactions in this block.
           content:
             application/json:

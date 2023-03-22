@@ -40,7 +40,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/block/GetCouncil.yaml#/components/schemas/KlayGetCouncilReq"
 
       responses:
-        default:
+        200:
           description: Array - Array of validator addresses of the council, or null when no council was found
           content:
             application/json:

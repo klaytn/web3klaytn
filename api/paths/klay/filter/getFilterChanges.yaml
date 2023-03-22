@@ -49,7 +49,7 @@ paths:
                       example: ["0x16"]
 
       responses:
-        default:
+        200:
           description: Array - Array of log objects, or an empty array if nothing has changed since last poll.
           content:
             application/json:

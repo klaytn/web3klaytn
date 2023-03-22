@@ -40,7 +40,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/block/GetBlockReceipts.yaml#/components/schemas/KlayGetBlockReceiptsReq"
 
       responses:
-        default:
+        200:
           description: Receipts included in a block. If the target block contains no transaction, an empty array [] is returned.
           content:
             application/json:

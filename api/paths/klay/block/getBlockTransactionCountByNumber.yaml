@@ -41,7 +41,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/block/GetBlockTransactionCountByNumber.yaml#/components/schemas/KlayGetBlockTransactionCountByNumberReq"
 
       responses:
-        default:
+        200:
           description: Returns integer of the number of transactions in this block.
           content:
             application/json:

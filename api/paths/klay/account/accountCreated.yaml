@@ -47,7 +47,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/account/AccountCreated.yaml#/components/schemas/KlayAccountCreatedReq"
 
       responses:
-        default:
+        200:
           description: The existence of an input address
           content:
             application/json:

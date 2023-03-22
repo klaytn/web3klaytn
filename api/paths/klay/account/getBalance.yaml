@@ -44,7 +44,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/account/GetBalance.yaml#/components/schemas/KlayGetBalanceReq"
 
       responses:
-        default:
+        200:
           description: Integer of the current balance in peb.
           content:
             application/json:

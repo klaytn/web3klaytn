@@ -32,7 +32,7 @@ paths:
                       default: klay_gasPrice
 
       responses:
-        default:
+        200:
           description: The current client version of a Klaytn node.
           content:
             application/json:

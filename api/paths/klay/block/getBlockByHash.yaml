@@ -46,7 +46,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/block/GetBlockByHash.yaml#/components/schemas/KlayGetBlockByHashReq"
 
       responses:
-        default:
+        200:
           description: Returns information about a block by hash
           content:
             application/json:

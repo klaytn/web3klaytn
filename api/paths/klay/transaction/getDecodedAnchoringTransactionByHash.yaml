@@ -40,7 +40,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/transaction/GetDecodedAnchoringTransactionByHash.yaml#/components/schemas/KlayGetDecodedAnchoringTransactionByHashReq"
 
       responses:
-        default:
+        200:
           description: Returns the decoded anchored data in the transaction for the given transaction hash.
           content:
             application/json:

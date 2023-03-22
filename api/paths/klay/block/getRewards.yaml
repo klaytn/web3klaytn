@@ -38,7 +38,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/block/GetRewards.yaml#/components/schemas/KlayGetRewardsReq"
 
       responses:
-        default:
+        200:
           description: block rewards information
           content:
             application/json:

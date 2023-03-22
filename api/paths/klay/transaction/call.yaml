@@ -46,7 +46,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/transaction/Call.yaml#/components/schemas/KlayCallReq"
 
       responses:
-        default:
+        200:
           description: successfully response
           content:
             application/json:

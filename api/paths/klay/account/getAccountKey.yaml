@@ -47,7 +47,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/account/GetAccountKey.yaml#/components/schemas/KlayGetAccountKeyReq"
 
       responses:
-        default:
+        200:
           description:
           content:
             application/json:

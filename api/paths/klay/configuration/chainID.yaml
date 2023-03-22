@@ -34,7 +34,7 @@ paths:
                       default: klay_chainID
 
       responses:
-        default:
+        200:
           description: The chain ID of the chain.
           content:
             application/json:

@@ -40,7 +40,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/block/GetHeaderByNumber.yaml#/components/schemas/KlayGetHeaderByNumberReq"
 
       responses:
-        default:
+        200:
           description: Returns a header object, or error when no header was found
           content:
             application/json:

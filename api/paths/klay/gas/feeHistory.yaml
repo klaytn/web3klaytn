@@ -52,7 +52,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/gas/FeeHistory.yaml#/components/schemas/KlayFeeHistoryReq"
 
       responses:
-        default:
+        200:
           description:
           content:
             application/json:
