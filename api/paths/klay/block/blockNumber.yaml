@@ -34,7 +34,7 @@ paths:
                       default: klay_blockNumber
 
       responses:
-        default:
+        200:
           description: Returns the number of most recent block.
           content:
             application/json:

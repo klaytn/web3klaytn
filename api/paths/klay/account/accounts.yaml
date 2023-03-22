@@ -25,7 +25,7 @@ paths:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
 
       responses:
-        default:
+        200:
           description: Addresses owned by the client
           content:
             application/json:

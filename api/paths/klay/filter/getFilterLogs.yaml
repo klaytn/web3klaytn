@@ -55,7 +55,7 @@ paths:
                       example: ["0xd32fd16b6906e67f6e2b65dcf48fc272"]
 
       responses:
-        default:
+        200:
           description: Returns an array of all logs matching filter with given id. See klay_getFilterChanges.
           content:
             application/json:

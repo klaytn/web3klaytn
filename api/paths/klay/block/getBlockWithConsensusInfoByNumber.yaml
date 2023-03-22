@@ -41,7 +41,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/block/GetBlockWithConsensusInfoByNumber.yaml#/components/schemas/KlayGetBlockWithConsensusInfoByNumberReq"
 
       responses:
-        default:
+        200:
           description: Returns a block with consensus information that matches the given block number.
           content:
             application/json:

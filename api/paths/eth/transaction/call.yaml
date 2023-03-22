@@ -60,7 +60,7 @@ paths:
                 - $ref: "../../../components/schemas/eth/transaction/Call.yaml#/components/schemas/CallReq"
 
       responses:
-        default:
+        200:
           description:
           content:
             application/json:

@@ -38,7 +38,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/transaction/EstimateGas.yaml#/components/schemas/KlayEstimateGasReq"
 
       responses:
-        default:
+        200:
           description: The amount of gas used.
           content:
             application/json:

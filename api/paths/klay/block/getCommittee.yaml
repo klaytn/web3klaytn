@@ -40,7 +40,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/block/GetCommittee.yaml#/components/schemas/KlayGetCommitteeReq"
 
       responses:
-        default:
+        200:
           description: Array - Array of addresses of all validators in the committee, or null when no committee was found
           content:
             application/json:

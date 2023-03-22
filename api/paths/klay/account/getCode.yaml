@@ -47,7 +47,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/account/GetCode.yaml#/components/schemas/KlayGetCodeReq"
 
       responses:
-        default:
+        200:
           description: Returns code at a given address.
           content:
             application/json:

@@ -54,7 +54,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/block/GetStorageAt.yaml#/components/schemas/KlayGetStorageAtReq"
 
       responses:
-        default:
+        200:
           description: Returns the value from a storage position at a given address.
           content:
             application/json:

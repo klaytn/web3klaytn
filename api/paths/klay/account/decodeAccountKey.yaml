@@ -39,7 +39,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/account/DecodeAccountKey.yaml#/components/schemas/KlayDecodeAccountKeyReq"
 
       responses:
-        default:
+        200:
           description: Decodes an RLP encoded account key.
           content:
             application/json:

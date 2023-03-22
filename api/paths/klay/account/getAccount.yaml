@@ -46,7 +46,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/account/GetAccount.yaml#/components/schemas/KlayGetAccountReq"
 
       responses:
-        default:
+        200:
           description: Each account type has different attributes.
           content:
             application/json:

@@ -40,7 +40,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/block/GetCouncilSize.yaml#/components/schemas/KlayGetCouncilSizeReq"
 
       responses:
-        default:
+        200:
           description: Integer - The size of the committee, or -1 when no committee was found
           content:
             application/json:

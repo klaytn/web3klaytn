@@ -34,7 +34,7 @@ paths:
                       default: eth_accounts
 
       responses:
-        default:
+        200:
           description: Addresses owned by the client
           content:
             application/json:

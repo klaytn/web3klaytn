@@ -44,7 +44,7 @@ paths:
                 - $ref: "../../../components/schemas/klay/configuration/GasPriceAt.yaml#/components/schemas/KlayGasPriceAtReq"
 
       responses:
-        default:
+        200:
           description:
           content:
             application/json:
