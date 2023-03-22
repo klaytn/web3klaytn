@@ -21,6 +21,7 @@ components:
       type: object
       properties:
         result:
-          type: QUANTITY
+          type: string
+          format: hex
           description: Integer of the current balance in peb.
           example: 0x0234c8a3397aab58

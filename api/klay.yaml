@@ -76,6 +76,8 @@ paths:
     $ref: ./paths/klay/block/getBlockTransactionCountByNumber.yaml#/paths/~1klay~1getBlockTransactionCountByNumber
   /klay/block/getBlockWithConsensusInfoByNumber:
     $ref: ./paths/klay/block/getBlockWithConsensusInfoByNumber.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumber
+  /klay/block/getCommittee:
+    $ref: ./paths/klay/block/getCommittee.yaml#/paths/~1klay~1getCommittee
   /klay/block/getCommitteeSize:
     $ref: ./paths/klay/block/getCommitteeSize.yaml#/paths/~1klay~1getCommitteeSize
   /klay/block/getCouncilSize:

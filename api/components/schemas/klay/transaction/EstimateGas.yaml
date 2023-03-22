@@ -21,7 +21,8 @@ components:
       type: object
       properties:
         result:
-          type: QUANTITY
+          type: string
+          format: hex
           description: "The amount of gas used."
           example: "0x5208"
 

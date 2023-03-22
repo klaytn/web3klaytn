@@ -42,7 +42,8 @@ paths:
                   - type: object
                     properties:
                       result:
-                        type: QUANTITY
+                        type: string
+                        format: hex
                         description: "Integer of the current gas price in peb."
                         example: "0xAE9F7BCC00"
 
