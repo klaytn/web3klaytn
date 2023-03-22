@@ -23,6 +23,7 @@ tags:
 x-tagGroups:
   - name: Eth
     tags:
+      - eth
       - eth.block
       - eth.account
       - eth.transaction

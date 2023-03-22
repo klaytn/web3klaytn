@@ -14,6 +14,15 @@ sh ./scripts/eth/javascript-eth-generate.sh
 sh ./scripts/klay/javascript-klay-generate.sh
 
 
+cd "${CURRENT_FILE_DIR}/opensdk"
+yarn link
+
+
+cd cd "${CURRENT_FILE_DIR}/openapi-test"
+yarn link opensdk-javascript-test
+
+
+
 # "${PROJECT_DIR}"/bin/caver-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/javascript-config.yaml"
 
 # cd "${CURRENT_FILE_DIR}/openapi"
