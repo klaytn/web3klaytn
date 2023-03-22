@@ -80,6 +80,8 @@ paths:
     $ref: ./paths/klay/block/getCommitteeSize.yaml#/paths/~1klay~1getCommitteeSize
   /klay/block/getCouncilSize:
     $ref: ./paths/klay/block/getCouncilSize.yaml#/paths/~1klay~1getCouncilSize
+  /klay/block/getBlockByNumber:
+    $ref: ./paths/klay/block/getBlockByNumber.yaml#/paths/~1klay~1getBlockByNumber
 
   # klay/transaction
   /klay/transaction/call:

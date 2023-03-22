@@ -1,0 +1,61 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/getBlockByNumber:
+    post:
+      operationId: klayGetBlockByNumber
+      summary: "[getBlockByNumber] Returns information about a block by block number. This API works only on RPC call, not on JavaScript console."
+      description: |
+        **JSONRPC:** `klay_getBlockByNumber`
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
+      tags:
+        - klay.block
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "../../../components/schemas/klay/block/getBlockByNumber.yaml#/components/schemas/KlayGetBlockByNumberReq"
+
+      responses:
+        default:
+          description: A block object, or error when no block was found.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "../../../components/schemas/klay/block/getBlockByNumber.yaml#/components/schemas/KlayGetBlockByNumberResp"
+
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getblockbynumber
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/block/getBlockByNumber.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        #- lang: "javascript"
+        #  label: "Javascript"
+        #  source:
+        #    $ref: ""
+        #- lang: "python"
+        #  label: "Python"
+        #  source:
+        #    $ref: ""

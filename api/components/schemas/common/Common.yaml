@@ -63,38 +63,3 @@ components:
           type: string
           format: DATA
           description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
-
-    Account:
-      type: object
-      description: Each account type has different attributes.
-      properties:
-        accType:
-          type: number
-          default: 1
-        account:
-          type: object
-          properties:
-            balance:
-              type: number
-              default: 4985316100000000000
-            humanReadable:
-              type: boolean
-              default: false
-            key:
-              type: object
-              properties:
-                key:
-                  type: object
-                  properties:
-                    x:
-                      type: string
-                      default: "0x230037a99462acd829f317d0ce5c8e2321ac2951de1c1b1a18f9af5cff66f0d7"
-                    y:
-                      type: string
-                      default: "0x18a7fb1b9012d2ac87bc291cbf1b3b2339356f1ce7669ae68405389be7f8b3b6"
-                keyType:
-                  type: number
-                  default: 2
-            nonce:
-              type: number
-              default: 11
