@@ -1,0 +1,77 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/getBlockByHash:
+    post:
+      operationId: klayGetBlockByHash
+      summary: "[getBlockByHash] Returns information about a block by hash."
+      description: |
+        Returns information about a block by hash. This API works only on RPC call, not on JavaScript console.
+        
+        **JSONRPC:** `klay_getBlockByHash`
+
+      tags:
+        - klay.block
+
+      parameters:
+        - name: hashOfBlock
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+          description: Hash of a block
+          in: query
+        - name: returnTransactionObject
+          in: query
+          description: If true it returns the full transaction objects, if false only the hashes of the transactions.
+          required: true
+          schema:
+            type: boolean
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "../../../components/schemas/klay/block/GetBlockByHash.yaml#/components/schemas/KlayGetBlockByHashReq"
+
+      responses:
+        default:
+          description: Returns information about a block by hash
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "../../../components/schemas/klay/block/GetBlockByHash.yaml#/components/schemas/KlayGetBlockByHashResp"
+
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getblockbyhash
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/block/getBlockByHash.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        #- lang: "javascript"
+        #  label: "Javascript"
+        #  source:
+        #    $ref: ""
+        #- lang: "python"
+        #  label: "Python"
+        #  source:
+        #    $ref: ""

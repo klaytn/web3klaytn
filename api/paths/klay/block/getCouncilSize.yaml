@@ -10,33 +10,26 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/accountCreated:
+  /klay/getCouncilSize:
     post:
-      operationId: klayAccountCreated
-      summary: "[accountCreated] Find if input address was created"
+      operationId: klayGetCouncilSize
+      summary: "[getCouncilSize] Returns the size of the council at the specified block."
       description: |
-        Returns `true` if the account associated with the address is created. It returns `false` otherwise.
-
-        **JSONRPC:** `klay_accountCreated`
+        Returns the size of the council at the specified block. If the parameter is not set, returns the size of the council at the latest block.
+        
+        **JSONRPC:** `klay_getCouncilSize`
 
         **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
       tags:
-        - klay.account
+        - klay.block
 
       parameters:
-        - name: account
-          required: true
-          schema:
-            type: string
-            format: 20-byte DATA
-          description: Address
-          in: query
-        - name: blockNumberOrHash
+        - name: blockNumberOrTag
           in: query
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
           required: true
           schema:
-            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
 
       requestBody:
         content:
@@ -44,11 +37,11 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "../../../components/schemas/klay/account/AccountCreated.yaml#/components/schemas/KlayAccountCreatedReq"
+                - $ref: "../../../components/schemas/klay/block/GetCouncilSize.yaml#/components/schemas/KlayGetCouncilSizeReq"
 
       responses:
         default:
-          description: The existence of an input address
+          description: Integer - The size of the committee, or -1 when no committee was found
           content:
             application/json:
               schema:
@@ -57,15 +50,17 @@ paths:
                   - type: object
                     properties:
                       result:
-                        type: boolean
+                        type: number
+                        description: The size of the council
+                        example: 4
       externalDocs:
-        url: https://docs.klaytn.foundation/dapp/json-rpc/api-references/klay/account#klay_accountcreated
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getcouncilsize
         description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/account/accountCreated.sh"
+            $ref: "../../../code-samples/curl/klay/block/getCouncilSize.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:

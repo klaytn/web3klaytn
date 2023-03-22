@@ -35,7 +35,7 @@ paths:
           description: Highest numbered block of the requested range as block number or block tag.
           required: true
           schema:
-            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
         - name: rewardPercentiles
           required: true
           schema:

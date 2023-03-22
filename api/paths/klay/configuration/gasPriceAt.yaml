@@ -32,8 +32,9 @@ paths:
           in: query
           description: Block number. If omitted, latest unit price will be returned.
           schema:
-            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
-
+            oneOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/IntegerBlockNumber"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/HexadecimalBlockNumber"
       requestBody:
         content:
           application/json:

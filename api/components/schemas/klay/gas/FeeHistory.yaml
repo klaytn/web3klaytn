@@ -14,7 +14,7 @@ components:
           items:
             anyOf:
               - $ref: "#/components/schemas/BlockCount"
-              - $ref: "../../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+              - $ref: "../../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
               - $ref: "#/components/schemas/RewardPercentiles"
           example:  ["0x10", "latest", [0.1, 0.2, 0.3]]
 
