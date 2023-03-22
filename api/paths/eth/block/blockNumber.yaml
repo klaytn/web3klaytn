@@ -43,6 +43,7 @@ paths:
                     properties:
                       result:
                         type: string
+                        example: "0xc94"
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/block
         description: Klaytn Docs

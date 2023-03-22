@@ -15,6 +15,8 @@ paths:
       operationId: klayGetBlockByNumber
       summary: "[getBlockByNumber] Returns information about a block by block number. This API works only on RPC call, not on JavaScript console."
       description: |
+        Returns information about a block by block number. This API works only on RPC call, not on JavaScript console.
+        
         **JSONRPC:** `klay_getBlockByNumber`
 
         **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*

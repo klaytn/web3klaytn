@@ -40,7 +40,7 @@ paths:
 
       responses:
         200:
-          description: RLP encoded account key
+          description: Return RLP encoded account key
           content:
             application/json:
               schema:

@@ -45,3 +45,4 @@ components:
       properties:
         result:
           type: string
+          example: "0x0000000000000000000000000000000000000000000000000000000000000000"
