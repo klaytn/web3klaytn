@@ -54,28 +54,30 @@ paths:
     $ref: ./paths/klay/account/decodeAccountKey.yaml#/paths/~1klay~1decodeAccountKey
   /klay/account/getAccountKey:
     $ref: ./paths/klay/account/getAccountKey.yaml#/paths/~1klay~1getAccountKey
-#  /klay/account/getCode:
-#    $ref: ./paths/klay/account/getCode.yaml#/paths/~1klay~1getCode
+  /klay/account/getCode:
+    $ref: ./paths/klay/account/getCode.yaml#/paths/~1klay~1getCode
 
   # klay/block
   /klay/block/blockNumber:
     $ref: ./paths/klay/block/blockNumber.yaml#/paths/~1klay~1blockNumber
-#  /klay/block/getBlockByHash:
-#    $ref: ./paths/klay/block/getBlockByHash.yaml#/paths/~1klay~1getBlockByHash
-#  /klay/block/getBlockReceipts:
-#    $ref: ./paths/klay/block/getBlockReceipts.yaml#/paths/~1klay~1getBlockReceipts
-#  /klay/block/getBlockTransactionCountByNumber:
-#    $ref: ./paths/klay/block/getBlockTransactionCountByNumber.yaml#/paths/~1klay~1getBlockTransactionCountByNumber
-#  /klay/block/getBlockWithConsensusInfoByNumber:
-#    $ref: ./paths/klay/block/getBlockWithConsensusInfoByNumber.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumber
-#  /klay/block/getCommitteeSize:
-#    $ref: ./paths/klay/block/getCommitteeSize.yaml#/paths/~1klay~1getCommitteeSize
-#  /klay/block/getCouncilSize:
-#    $ref: ./paths/klay/block/getCouncilSize.yaml#/paths/~1klay~1getCouncilSize
+  /klay/block/getBlockByHash:
+    $ref: ./paths/klay/block/getBlockByHash.yaml#/paths/~1klay~1getBlockByHash
+  /klay/block/getBlockReceipts:
+    $ref: ./paths/klay/block/getBlockReceipts.yaml#/paths/~1klay~1getBlockReceipts
+  /klay/block/getBlockTransactionCountByNumber:
+    $ref: ./paths/klay/block/getBlockTransactionCountByNumber.yaml#/paths/~1klay~1getBlockTransactionCountByNumber
+  /klay/block/getBlockWithConsensusInfoByNumber:
+    $ref: ./paths/klay/block/getBlockWithConsensusInfoByNumber.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumber
+  /klay/block/getCommitteeSize:
+    $ref: ./paths/klay/block/getCommitteeSize.yaml#/paths/~1klay~1getCommitteeSize
+  /klay/block/getCouncilSize:
+    $ref: ./paths/klay/block/getCouncilSize.yaml#/paths/~1klay~1getCouncilSize
 
   # klay/transaction
   /klay/transaction/call:
     $ref: ./paths/klay/transaction/call.yaml#/paths/~1klay~1call
+  /klay/transaction/getDecodedAnchoringTransactionByHash:
+    $ref: ./paths/klay/transaction/getDecodedAnchoringTransactionByHash.yaml#/paths/~1klay~1getDecodedAnchoringTransactionByHash
 
   # klay/configuration
   /klay/configuration/chainID:

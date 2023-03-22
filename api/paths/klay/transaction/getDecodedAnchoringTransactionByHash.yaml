@@ -1,0 +1,71 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/getDecodedAnchoringTransactionByHash:
+    post:
+      operationId: klayGetDecodedAnchoringTransactionByHash
+      summary: "[getDecodedAnchoringTransactionByHash] Returns the decoded anchored data in the transaction for the given transaction hash."
+      description: |
+        Returns the decoded anchored data in the transaction for the given transaction hash.
+        
+        **JSONRPC:** `klay_getDecodedAnchoringTransactionByHash`
+
+      tags:
+        - klay.transaction
+
+      parameters:
+        - name: hashOfTransaction
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+          description: Hash of a transaction.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "../../../components/schemas/klay/transaction/GetDecodedAnchoringTransactionByHash.yaml#/components/schemas/KlayGetDecodedAnchoringTransactionByHashReq"
+
+      responses:
+        default:
+          description: Returns the decoded anchored data in the transaction for the given transaction hash.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "../../../components/schemas/klay/transaction/GetDecodedAnchoringTransactionByHash.yaml#/components/schemas/KlayGetDecodedAnchoringTransactionByHashResp"
+
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_getdecodedanchoringtransactionbyhash
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/transaction/getDecodedAnchoringTransactionByHash.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        #- lang: "javascript"
+        #  label: "Javascript"
+        #  source:
+        #    $ref: ""
+        #- lang: "python"
+        #  label: "Python"
+        #  source:
+        #    $ref: ""
