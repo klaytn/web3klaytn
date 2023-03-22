@@ -1,0 +1,25 @@
+components:
+  schemas:
+    KlayGetStorageAtReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getStorageAt'
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                title: storageAddress
+                format: 20-byte DATA
+                description: Address of the storage.
+              - type: string
+                title: position
+                format: hex
+                description: Integer of the position in the storage.
+              - $ref: "../../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+          example:  ["0x295a70b2de5e3953354a6a8344e616ed314d7251", "0x0", "latest"]
