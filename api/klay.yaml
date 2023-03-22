@@ -56,6 +56,14 @@ paths:
     $ref: ./paths/klay/account/getAccountKey.yaml#/paths/~1klay~1getAccountKey
   /klay/account/getCode:
     $ref: ./paths/klay/account/getCode.yaml#/paths/~1klay~1getCode
+#  /klay/account/getCode:
+#    $ref: ./paths/klay/account/getCode.yaml#/paths/~1klay~1getCode
+  /klay/account/encodeAccountKey:
+    $ref: ./paths/klay/account/encodeAccountKey.yaml#/paths/~1klay~1encodeAccountKey
+  /klay/account/getAccount:
+    $ref: ./paths/klay/account/getAccount.yaml#/paths/~1klay~1getAccount
+  /klay/account/getBalance:
+    $ref: ./paths/klay/account/getBalance.yaml#/paths/~1klay~1getBalance
 
   # klay/block
   /klay/block/blockNumber:
@@ -72,12 +80,18 @@ paths:
     $ref: ./paths/klay/block/getCommitteeSize.yaml#/paths/~1klay~1getCommitteeSize
   /klay/block/getCouncilSize:
     $ref: ./paths/klay/block/getCouncilSize.yaml#/paths/~1klay~1getCouncilSize
+  /klay/block/getBlockByNumber:
+    $ref: ./paths/klay/block/getBlockByNumber.yaml#/paths/~1klay~1getBlockByNumber
+  /klay/block/getBlockTransactionCountByHash:
+    $ref: ./paths/klay/block/getBlockTransactionCountByHash.yaml#/paths/~1klay~1getBlockTransactionCountByHash
 
   # klay/transaction
   /klay/transaction/call:
     $ref: ./paths/klay/transaction/call.yaml#/paths/~1klay~1call
   /klay/transaction/getDecodedAnchoringTransactionByHash:
     $ref: ./paths/klay/transaction/getDecodedAnchoringTransactionByHash.yaml#/paths/~1klay~1getDecodedAnchoringTransactionByHash
+  /klay/transaction/estimateGas:
+    $ref: ./paths/klay/transaction/estimateGas.yaml#/paths/~1klay~1estimateGas
 
   # klay/configuration
   /klay/configuration/chainID:
@@ -86,6 +100,8 @@ paths:
     $ref: ./paths/klay/configuration/clientVersion.yaml#/paths/~1klay~1clientVersion
   /klay/configuration/gasPriceAt:
     $ref: ./paths/klay/configuration/gasPriceAt.yaml#/paths/~1klay~1gasPriceAt
+  /klay/configuration/gasPrice:
+    $ref: ./paths/klay/configuration/gasPrice.yaml#/paths/~1klay~1gasPrice
 
   # klay/gas
   /klay/gas/feeHistory:
