@@ -28,7 +28,6 @@ x-tagGroups:
       - eth.transaction
   - name: Klay
     tags:
-      - klay
       - klay.account
       - klay.block
       - klay.configuration
@@ -43,9 +42,6 @@ servers:
   - url: https://api.baobab.klaytn.net:8651
   - url: https://public-en-cypress.klaytn.net
 paths:
-  /klay/getRewards:
-    $ref: ./paths/klay/rewards.yaml#/paths/~1klay~1getRewards
-
   # klay/account
   /klay/account/accountCreated:
     $ref: ./paths/klay/account/accountCreated.yaml#/paths/~1klay~1accountCreated
@@ -57,8 +53,6 @@ paths:
     $ref: ./paths/klay/account/getAccountKey.yaml#/paths/~1klay~1getAccountKey
   /klay/account/getCode:
     $ref: ./paths/klay/account/getCode.yaml#/paths/~1klay~1getCode
-#  /klay/account/getCode:
-#    $ref: ./paths/klay/account/getCode.yaml#/paths/~1klay~1getCode
   /klay/account/encodeAccountKey:
     $ref: ./paths/klay/account/encodeAccountKey.yaml#/paths/~1klay~1encodeAccountKey
   /klay/account/getAccount:
@@ -89,6 +83,9 @@ paths:
     $ref: ./paths/klay/block/getBlockTransactionCountByHash.yaml#/paths/~1klay~1getBlockTransactionCountByHash
   /klay/block/getHeaderByNumber:
     $ref: ./paths/klay/block/getHeaderByNumber.yaml#/paths/~1klay~1getHeaderByNumber
+  /klay/getRewards:
+    $ref: ./paths/klay/block/getRewards.yaml#/paths/~1klay~1getRewards
+
 
   # klay/transaction
   /klay/transaction/call:

@@ -1,0 +1,66 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/getRewards:
+    post:
+      tags:
+        - klay.block
+      operationId: klayGetRewards
+      summary: "[getRewards] Find distributed block rewards"
+      description: |
+        Returns distributed block rewards information at the latest block number
+
+        **JSONRPC:** `klay_getRewards`
+
+      parameters:
+        - name: blockNumberOrTag
+          in: query
+          description: block number
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "../../../components/schemas/klay/block/GetRewards.yaml#/components/schemas/KlayGetRewardsReq"
+
+      responses:
+        default:
+          description: block rewards information
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "../../../components/schemas/klay/block/GetRewards.yaml#/components/schemas/KlayGetRewardsResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/getReward.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: ""
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: ""
