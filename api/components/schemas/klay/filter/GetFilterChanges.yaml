@@ -1,6 +1,6 @@
 components:
   schemas:
-    KlayGetFilterLogsResp:
+    KlayGetFilterChangesResp:
       type: object
       properties:
         result:

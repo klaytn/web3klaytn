@@ -10,14 +10,14 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getCommittee:
+  /klay/getCouncil:
     post:
-      operationId: klayGetCommittee
-      summary: "[getCommittee] Returns a list of all validators in the committee at the specified block."
+      operationId: klayGetCouncil
+      summary: "[getCouncil] Returns a list of all validators of the council at the specified block"
       description: |
-        Returns a list of all validators in the committee at the specified block. If the parameter is not set, returns a list of all validators in the committee at the latest block.
+        Returns a list of all validators of the council at the specified block. If the parameter is not set, returns a list of all validators of the council at the latest block.
 
-        **JSONRPC:** `klay_getCommittee`
+        **JSONRPC:** `klay_getCouncil`
 
         **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
       tags:
@@ -37,26 +37,26 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "../../../components/schemas/klay/block/GetCommittee.yaml#/components/schemas/KlayGetCommitteeReq"
+                - $ref: "../../../components/schemas/klay/block/GetCouncil.yaml#/components/schemas/KlayGetCouncilReq"
 
       responses:
         default:
-          description: Array - Array of addresses of all validators in the committee, or null when no committee was found
+          description: Array - Array of validator addresses of the council, or null when no council was found
           content:
             application/json:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "../../../components/schemas/klay/block/GetCommittee.yaml#/components/schemas/KlayGetCommitteeResp"
+                  - $ref: "../../../components/schemas/klay/block/GetCouncil.yaml#/components/schemas/KlayGetCouncilResp"
 
       externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getcommittee
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getcouncil
         description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/block/getCommittee.sh"
+            $ref: "../../../code-samples/curl/klay/block/getCouncil.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
