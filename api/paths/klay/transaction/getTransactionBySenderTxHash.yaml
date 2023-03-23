@@ -53,10 +53,10 @@ paths:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_gettransactionbysendertxhash
         description: Klaytn Docs
       x-codeSamples:
-#        - lang: "curl"
-#          label: "Curl"
-#          source:
-#            $ref: "../../../code-samples/curl/klay/transaction/getTransactionByBlockNumberAndIndex.sh"
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/transaction/getTransactionBySenderTxHash.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
