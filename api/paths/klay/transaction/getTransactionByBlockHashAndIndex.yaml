@@ -43,7 +43,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "../../../components/schemas/klay/transaction/getTransactionByBlockHashAndIndex.yaml#/components/schemas/KlayGetTransactionByBlockHashAndIndexReq"
+                - $ref: "../../../components/schemas/klay/transaction/GetTransactionByBlockHashAndIndex.yaml#/components/schemas/KlayGetTransactionByBlockHashAndIndexReq"
 
       responses:
         default:
@@ -53,7 +53,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "../../../components/schemas/klay/transaction/getTransactionByBlockHashAndIndex.yaml#/components/schemas/KlayGetTransactionByBlockHashAndIndexResp"
+                  - $ref: "../../../components/schemas/klay/transaction/GetTransactionByBlockHashAndIndex.yaml#/components/schemas/KlayGetTransactionByBlockHashAndIndexResp"
 
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_getTransactionByBlockHashAndIndex
