@@ -232,71 +232,73 @@ components:
           format: hex
           description: Block number where this transaction was in. null when its pending.
         codeFormat:
-            type: string
-            description: (optional) The code format of smart contract code.
+          type: string
+          description: (optional) The code format of smart contract code.
         feePayer:
-            type: string
-            format: 20-byte DATA
-            description: (optional) Address of the fee payer.
+          type: string
+          format: 20-byte DATA
+          description: (optional) Address of the fee payer.
         feePayerSignatures:
-            type: array
-            items:
-              type: object
-            description: (optional) An array of fee payer's signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
+          type: array
+          items:
+            type: object
+          description: (optional) An array of fee payer's signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
         feeRatio:
-            type: string
-            format: hex
-            description: (optional) Fee ratio of the fee payer. If it is 30, 30% of the fee will be paid by the fee payer. 70% will be paid by the sender.
+          type: string
+          format: hex
+          description: (optional) Fee ratio of the fee payer. If it is 30, 30% of the fee will be paid by the fee payer. 70% will be paid by the sender.
         from:
-            type: string
-            format: 20-byte DATA
-            description: Address of the sender.
+          type: string
+          format: 20-byte DATA
+          description: Address of the sender.
         gas:
-            type: string
-            format: hex
-            description: Gas provided by the sender.
+          type: string
+          format: hex
+          description: Gas provided by the sender.
         gasPrice:
-            type: string
-            format: hex
-            description: Gas price provided by the sender in peb.
+          type: string
+          format: hex
+          description: Gas price provided by the sender in peb.
         hash:
-            type: string
-            format: 32-byte DATA
-            description: Hash of the transaction.
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transaction.
         humanReadable:
-            type: boolean
-            description: (optional) true if the address is humanReadable, false if the address is not humanReadable.
+          type: boolean
+          description: (optional) true if the address is humanReadable, false if the address is not humanReadable.
         key:
-            type: string
-            description: (optional) Key of the newly created account.
+          type: string
+          description: (optional) Key of the newly created account.
         input:
-            type: string
-            format: DATA
-            description: (optional) The data sent along with the transaction.
+          type: string
+          format: DATA
+          description: (optional) The data sent along with the transaction.
         nonce:
-            type: string
-            format: hex
-            description: The number of transactions made by the sender prior to this one.
+          type: string
+          format: hex
+          description: The number of transactions made by the sender prior to this one.
         senderTxHash:
-            type: string
-            format: 32-byte DATA
-            description: Hash of a transaction that is signed only by the sender. See SenderTxHash. This value is always the same as hash for non fee-delegated transactions.
+          type: string
+          format: 32-byte DATA
+          description: Hash of a transaction that is signed only by the sender. See SenderTxHash. This value is always the same as hash for non fee-delegated transactions.
         signatures:
-            type: array
-            items:
-              type: object
-            description: An array of signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/Signature"
+            type: object
+          description: An array of signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s
         to:
-            type: string
-            format: 20-byte DATA
-            description: Address of the receiver. null when it is a contract creation transaction.
+          type: string
+          format: 20-byte DATA
+          description: Address of the receiver. null when it is a contract creation transaction.
         transactionIndex:
-            type: string
-            format: hex
-            description: Integer of the transactions index position in the block. null when its pending.
+          type: string
+          format: hex
+          description: Integer of the transactions index position in the block. null when its pending.
         type:
-           type: string
-           description: A string representing the type of the transaction.
+          type: string
+          description: A string representing the type of the transaction.
         typeInt:
           type: number
           description: An integer representing the type of the transaction.
@@ -304,6 +306,7 @@ components:
           type: string
           format: hex
           description: Value transferred in peb.
+
       example:
           {
             "blockHash": "0x4d97cf1f686a925ed4f1ad42c635cedb54974fe23a2941c7825e1ed3163c0e41",
@@ -335,3 +338,13 @@ components:
             "typeInt": 9,
             "value": "0x1"
           }
+
+    Signature:
+      type: object
+      properties:
+        V:
+          type: string
+        R:
+          type: string
+        S:
+          type: string
