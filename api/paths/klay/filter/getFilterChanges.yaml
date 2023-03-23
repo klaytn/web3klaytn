@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/getFilterChanges:
     post:
-      operationId: klayGetFilterChanges
+      operationId: getFilterChanges
       summary: "[getFilterChanges] Polling method for a filter"
       description: |
         Polling method for a filter, which returns an array of logs which occurred since last poll.
@@ -20,7 +20,7 @@ paths:
         **JSONRPC:** `klay_getFilterChanges`
 
       tags:
-        - klay.filter
+        - klay
 
       parameters:
         - name: QUANTITY

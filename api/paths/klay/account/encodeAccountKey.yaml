@@ -12,14 +12,14 @@ servers:
 paths:
   /klay/encodeAccountKey:
     post:
-      operationId: klayEncodeAccountKey
+      operationId: encodeAccountKey
       summary: "[encodeAccountKey] Decodes an RLP encoded account key."
       description: |
         Encodes an account key using the Recursive Length Prefix (RLP) encoding scheme.
 
         **JSONRPC:** `klay_encodeAccountKey`
       tags:
-        - klay.account
+        - klay
 
       parameters:
         - name: encodedAccountKey
