@@ -46,14 +46,14 @@ paths:
                       type: string
                       default: eth_accounts
       responses:
-        default:
+        '200':
           description: Addresses owned by the client
           content:
             application/json:
               schema:
                 allOf:
                   - $ref: '#/components/schemas/JsonRpcResponse'
-                  - $ref: '#/components/schemas/EthAccountsResp'
+                  - EthAccountsResp
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/account#eth_accounts
         description: Klaytn Docs
@@ -115,16 +115,31 @@ paths:
         - lang: javascript
           label: Javascript
           source: |
-            const Caver = require("caver-javascript");
+            const OpenSdk = require("opensdk-javascript");
 
 
             ( () => {
-                const api = new Caver.EthAccountApi(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
-                api.ethAccounts({},(err,data,response)=>{
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+                sdk.eth.accounts({},(err,data,response)=>{
                     console.log(data);
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+
+            from eth.opensdk_python_eth.configuration import Configuration
+            from eth.opensdk_python_eth.api_client import ApiClient
+            from eth.opensdk_python_eth.apis.tags.eth_api import Accounts
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            eth = Accounts(ApiClient(configuration=Configuration(host=host)))
+            eth_response = eth.accounts()
+
+            print(json.loads(eth_response.response.data))
   /eth/block/blockNumber:
     post:
       operationId: blockNumber
@@ -147,7 +162,7 @@ paths:
                       type: string
                       default: eth_blockNumber
       responses:
-        default:
+        '200':
           description: return block number
           content:
             application/json:
@@ -158,6 +173,7 @@ paths:
                     properties:
                       result:
                         type: string
+                        example: '0xc94'
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/block
         description: Klaytn Docs
@@ -219,16 +235,31 @@ paths:
         - lang: javascript
           label: Javascript
           source: |-
-            const Caver = require("caver-javascript");
+            const OpenSdk = require("opensdk-javascript");
 
 
             ( () => {
-                const api = new Caver.EthBlockApi(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
-                api.ethBlockNumber({},(err,data,response)=>{
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+                sdk.eth.blockNumber({},(err,data,response)=>{
                     console.log(data);
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+
+            from eth.opensdk_python_eth.configuration import Configuration
+            from eth.opensdk_python_eth.api_client import ApiClient
+            from eth.opensdk_python_eth.apis.tags.eth_api import BlockNumber
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            eth = BlockNumber(ApiClient(configuration=Configuration(host=host)))
+            eth_response = eth.block_number()
+
+            print(json.loads(eth_response.response.data))
   /eth/transaction/call:
     post:
       summary: '[call] Used to query internal contract state, to execute validations coded into a contract or even to test what the effect of a transaction would be without running it live.'
@@ -262,7 +293,7 @@ paths:
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
           required: true
           schema:
-            $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+            $ref: '#/components/schemas/BlockNumberOrTag'
         - name: stateOverrideSet
           in: query
           description: The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call.
@@ -277,7 +308,7 @@ paths:
                 - $ref: '#/components/schemas/JsonRpcRequest'
                 - $ref: '#/components/schemas/CallReq'
       responses:
-        default:
+        '200':
           description: null
           content:
             application/json:
@@ -302,6 +333,52 @@ paths:
               "jsonrpc": "2.0",
               "params": [{"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0xbE3892d33620bE5aca8c75D39e7401871194d290", "input": "0x2e64cec1"}, "latest", {"0xbE3892d33620bE5aca8c75D39e7401871194d290": {"code":"0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e64cec114604e5780636057361d146076575b600080fd5b348015605957600080fd5b50606060a0565b6040518082815260200191505060405180910390f35b348015608157600080fd5b50609e6004803603810190808035906020019092919050505060a9565b005b60008054905090565b80600081905550505600a165627a7a723058207783dba41884f73679e167576362b7277f88458815141651f48ca38c25b498f80029"}}]
             }'
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+                const callObject = { "from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0xbE3892d33620bE5aca8c75D39e7401871194d290", "input": "0x2e64cec1" }
+                const blockTag = 'latest'
+                const stateOverrideSet = {
+                    "0xbE3892d33620bE5aca8c75D39e7401871194d290":
+                        { "code": "0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e64cec114604e5780636057361d146076575b600080fd5b348015605957600080fd5b50606060a0565b6040518082815260200191505060405180910390f35b348015608157600080fd5b50609e6004803603810190808035906020019092919050505060a9565b005b60008054905090565b80600081905550505600a165627a7a723058207783dba41884f73679e167576362b7277f88458815141651f48ca38c25b498f80029" }
+                }
+
+                sdk.eth.call(callObject, blockTag, stateOverrideSet, {}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+
+            from eth.opensdk_python_eth import ApiClient, Configuration
+            from eth.opensdk_python_eth.apis.tags.eth_api import Call
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            call_object = {
+                "from": "0xca7a99380131e6c76cfa622396347107aeedca2d",
+                "to": "0xbE3892d33620bE5aca8c75D39e7401871194d290",
+                "input": "0x2e64cec1"
+            }
+            block_tag = 'latest'
+            state_override_set = {
+                "0xbE3892d33620bE5aca8c75D39e7401871194d290":
+                    {
+                        "code": "0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e64cec114604e5780636057361d146076575b600080fd5b348015605957600080fd5b50606060a0565b6040518082815260200191505060405180910390f35b348015608157600080fd5b50609e6004803603810190808035906020019092919050505060a9565b005b60008054905090565b80600081905550505600a165627a7a723058207783dba41884f73679e167576362b7277f88458815141651f48ca38c25b498f80029"
+                    }
+            }
+
+            eth = Call(ApiClient(configuration=Configuration(host=host)))
+            eth_response = eth.call(call_object, block_tag, state_override_set)
+
+            print(json.loads(eth_response.response.data))
 components:
   schemas:
     JsonRpcRequest:
@@ -371,16 +448,6 @@ components:
         error:
           $ref: '#/components/schemas/ErrorMember'
         result: {}
-    EthAccountsResp:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            type: string
-            format: 20-byte DATA
-            readOnly: true
-            example: '0xc94770007dda54cF92009BFF0dE90c06F603a09f'
     CallObject:
       type: object
       description: The transaction call object. See the next table for the object's properties.
@@ -409,20 +476,21 @@ components:
           type: string
           format: DATA
           description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
-    BlockNumber:
+    IntegerBlockNumber:
+      description: the block number with type integer
       type: number
-      description: the block number
+    HexadecimalBlockNumber:
+      type: string
+      format: hexadecimal
+      description: the block number with type hexadecimal
     BlockTag:
       type: string
       description: the block tag [latest, pending, earliest]
-    BlockHash:
-      type: string
-      description: the block hash
-    BlockNumberOrHashOrTag:
+    BlockNumberOrTag:
       oneOf:
-        - $ref: '#/components/schemas/BlockNumber'
+        - $ref: '#/components/schemas/IntegerBlockNumber'
+        - $ref: '#/components/schemas/HexadecimalBlockNumber'
         - $ref: '#/components/schemas/BlockTag'
-        - $ref: '#/components/schemas/BlockHash'
     StateOverrideSet:
       type: object
       description: The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call.
@@ -445,6 +513,15 @@ components:
         stateDiff:
           type: object
           description: (optional) Fake key-value mapping to override individual slots in the account storage before executing the call.
+    BlockHash:
+      type: string
+      description: the block hash
+    BlockNumberOrHashOrTag:
+      oneOf:
+        - $ref: '#/components/schemas/IntegerBlockNumber'
+        - $ref: '#/components/schemas/HexadecimalBlockNumber'
+        - $ref: '#/components/schemas/BlockTag'
+        - $ref: '#/components/schemas/BlockHash'
     CallReq:
       type: object
       required:
