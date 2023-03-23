@@ -206,6 +206,22 @@ components:
     TransactionObject:
       type: object
       description: Transaction object
+      required:
+        - blockHash
+        - blockNumber
+        - from
+        - gas
+        - gasPrice
+        - hash
+        - nonce
+        - senderTxHash
+        - signatures
+        - to
+        - transactionIndex
+        - type
+        - typeInt
+        - value
+
       properties:
         blockHash:
           type: string
@@ -218,23 +234,19 @@ components:
         codeFormat:
             type: string
             description: (optional) The code format of smart contract code.
-            required: false
         feePayer:
             type: string
             format: 20-byte DATA
             description: (optional) Address of the fee payer.
-            required: false
         feePayerSignatures:
             type: array
             items:
               type: object
             description: (optional) An array of fee payer's signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
-            required: false
         feeRatio:
             type: string
             format: hex
             description: (optional) Fee ratio of the fee payer. If it is 30, 30% of the fee will be paid by the fee payer. 70% will be paid by the sender.
-            required: false
         from:
             type: string
             format: 20-byte DATA
@@ -254,16 +266,13 @@ components:
         humanReadable:
             type: boolean
             description: (optional) true if the address is humanReadable, false if the address is not humanReadable.
-            required: false
         key:
             type: string
             description: (optional) Key of the newly created account.
-            required: false
         input:
             type: string
             format: DATA
             description: (optional) The data sent along with the transaction.
-            required: false
         nonce:
             type: string
             format: hex
