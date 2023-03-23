@@ -44,7 +44,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "../../../components/schemas/klay/account/GetCode.yaml#/components/schemas/KlayGetCodeReq"
+                - $ref: "#/components/schemas/KlayGetCodeReq"
 
       responses:
         200:
@@ -81,3 +81,25 @@ paths:
         #  label: "Python"
         #  source:
         #    $ref: ""
+
+components:
+  schemas:
+    KlayGetCodeReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getCode'
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                title: account
+                format: 20-byte DATA
+                description: Address
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+          example:  ["0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b", "0x2"]

@@ -43,7 +43,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "../../../components/schemas/klay/transaction/GetTransactionByBlockHashAndIndex.yaml#/components/schemas/KlayGetTransactionByBlockHashAndIndexReq"
+                - $ref: "#/components/schemas/KlayGetTransactionByBlockHashAndIndexReq"
 
       responses:
         default:
@@ -53,7 +53,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "../../../components/schemas/klay/transaction/GetTransactionByBlockHashAndIndex.yaml#/components/schemas/KlayGetTransactionByBlockHashAndIndexResp"
+                  - $ref: "#/components/schemas/KlayGetTransactionByBlockHashAndIndexResp"
 
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_getTransactionByBlockHashAndIndex
@@ -75,3 +75,33 @@ paths:
         #  label: "Python"
         #  source:
         #    $ref: ""
+
+components:
+  schemas:
+    KlayGetTransactionByBlockHashAndIndexReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getTransactionByBlockHashAndIndex'
+        params:
+          type: array
+          items:
+            anyOf:
+            - type: string
+              format: 32-byte DATA
+              description: Hash of a block.
+            - type: string
+              format: hex
+              description: Integer of the transaction index position.
+          example: ["0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68", "0x0"]
+
+    KlayGetTransactionByBlockHashAndIndexResp:
+      type: object
+      properties:
+        result:
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionObject"
+

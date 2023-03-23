@@ -41,7 +41,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "../../../components/schemas/klay/configuration/GasPriceAt.yaml#/components/schemas/KlayGasPriceAtReq"
+                - $ref: "#/components/schemas/KlayGasPriceAtReq"
 
       responses:
         200:
@@ -78,3 +78,22 @@ paths:
         #  label: "Python"
         #  source:
         #    $ref: ""
+
+components:
+  schemas:
+    KlayGasPriceAtReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_gasPriceAt'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/IntegerBlockNumber"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/HexadecimalBlockNumber"
+          example:  ["0x64"]
