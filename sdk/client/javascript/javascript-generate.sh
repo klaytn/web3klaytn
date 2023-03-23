@@ -18,8 +18,8 @@ cd "${CURRENT_FILE_DIR}/opensdk"
 yarn link
 
 
-cd cd "${CURRENT_FILE_DIR}/openapi-test"
-yarn link opensdk-javascript-test
+cd "${CURRENT_FILE_DIR}/openapi-test"
+yarn link opensdk-javascript
 
 
 

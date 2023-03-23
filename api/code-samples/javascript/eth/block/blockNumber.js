@@ -1,9 +1,9 @@
-const Caver = require("caver-javascript");
+const OpenSdk = require("opensdk-javascript");
 
 
 ( () => {
-    const api = new Caver.EthBlockApi(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
-    api.ethBlockNumber({},(err,data,response)=>{
+    const sdk = new OpenSdk(new ApiClient("https://api.baobab.klaytn.net:8651"));
+    sdk.eth.blockNumber({},(err,data,response)=>{
         console.log(data);
     });
 }
