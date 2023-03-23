@@ -43,7 +43,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "../../../components/schemas/klay/account/GetBalance.yaml#/components/schemas/KlayGetBalanceReq"
+                - $ref: "#/components/schemas/KlayGetBalanceReq"
 
       responses:
         200:
@@ -53,7 +53,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "../../../components/schemas/klay/account/GetBalance.yaml#/components/schemas/KlayGetBalanceResp"
+                  - $ref: "#/components/schemas/KlayGetBalanceResp"
 
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/account#klay_getbalance
@@ -75,3 +75,31 @@ paths:
         #  label: "Python"
         #  source:
         #    $ref: ""
+
+components:
+  schemas:
+    KlayGetBalanceReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getBalance'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+          example:  ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]
+
+    KlayGetBalanceResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: hex
+          description: Integer of the current balance in peb.
+          example: 0x0234c8a3397aab58
