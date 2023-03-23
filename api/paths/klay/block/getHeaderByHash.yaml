@@ -29,7 +29,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "../../../components/schemas/klay/block/GetHeaderByHash.yaml#/components/schemas/KlayGetHeaderByHashReq"
+                - $ref: "#/components/schemas/KlayGetHeaderByHashReq"
 
       responses:
         default:
@@ -39,7 +39,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "../../../components/schemas/klay/block/GetHeaderByHash.yaml#/components/schemas/KlayGetHeaderByHashResp"
+                  - $ref: "#/components/schemas/KlayGetHeaderByHashResp"
 
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getHeaderByHash
@@ -61,3 +61,30 @@ paths:
         #  label: "Python"
         #  source:
         #    $ref: ""
+
+components:
+  schemas:
+    KlayGetHeaderByHashReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getHeaderByHash'
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                format: 32-byte DATA
+                description: Hash of a block.
+          example:  ["0x1b4"]
+
+    KlayGetHeaderByHashResp:
+      type: object
+      properties:
+        result:
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/HeaderObject"
+

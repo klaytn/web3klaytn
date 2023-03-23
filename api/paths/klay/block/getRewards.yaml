@@ -35,7 +35,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "../../../components/schemas/klay/block/GetRewards.yaml#/components/schemas/KlayGetRewardsReq"
+                - $ref: "#/components/schemas/KlayGetRewardsReq"
 
       responses:
         200:
@@ -45,7 +45,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "../../../components/schemas/klay/block/GetRewards.yaml#/components/schemas/KlayGetRewardsResp"
+                  - $ref: "#/components/schemas/KlayGetRewardsResp"
 
       x-codeSamples:
         - lang: "curl"
@@ -64,3 +64,73 @@ paths:
 #          label: "Python"
 #          source:
 #            $ref: ""
+
+components:
+  schemas:
+    KlayGetRewardsReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'klay_getRewards'
+        params:
+          type: array
+          default: ["latest"]
+          items:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+
+    KlayGetRewardsResp:
+      type: object
+      properties:
+        result:
+          type: object
+          required:
+            - burntFee
+            - kgf
+            - kir
+            - minted
+            - proposer
+            - rewards
+            - stakers
+            - totalFee
+          properties:
+            burntFee:
+              type: integer
+              format: int64
+              description: the amount burnt
+            kgf:
+              type: integer
+              format: int64
+              description: the amount allocated to KGF
+            kir:
+              type: integer
+              format: int64
+              description: the amount allocated to KIR
+            minted:
+              type: number
+              format: double
+              description: the amount newly minted
+              example: 9600000000000000000
+            proposer:
+              type: number
+              format: double
+              description: the amount allocated to the block proposer
+              example: 9600000000000000000
+            rewards:
+              type: object
+              description: mapping from reward recipient to amounts
+              additionalProperties:
+                type: number
+                format: double
+              example:
+                0xb408fc9b2512284823264aceeb50d2970533b4ff: 9600000000000000000
+            stakers:
+              type: integer
+              format: int64
+              description: total amount allocated to stakers
+            totalFee:
+              type: integer
+              format: int64
+              description: total tx fee spent

@@ -37,7 +37,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "../../../components/schemas/klay/block/GetHeaderByNumber.yaml#/components/schemas/KlayGetHeaderByNumberReq"
+                - $ref: "#/components/schemas/KlayGetHeaderByNumberReq"
 
       responses:
         200:
@@ -47,7 +47,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "../../../components/schemas/klay/block/GetHeaderByNumber.yaml#/components/schemas/KlayGetHeaderByNumberResp"
+                  - $ref: "#/components/schemas/KlayGetHeaderByNumberResp"
 
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getheaderbynumber
@@ -69,3 +69,28 @@ paths:
         #  label: "Python"
         #  source:
         #    $ref: ""
+
+components:
+  schemas:
+    KlayGetHeaderByNumberReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getHeaderByNumber'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+          example:  ["0x1b4"]
+
+    KlayGetHeaderByNumberResp:
+      type: object
+      properties:
+        result:
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/HeaderObject"
+
