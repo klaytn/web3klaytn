@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/getDecodedAnchoringTransactionByHash:
     post:
-      operationId: klayGetDecodedAnchoringTransactionByHash
+      operationId: getDecodedAnchoringTransactionByHash
       summary: "[getDecodedAnchoringTransactionByHash] Returns the decoded anchored data in the transaction for the given transaction hash."
       description: |
         Returns the decoded anchored data in the transaction for the given transaction hash.
@@ -20,7 +20,7 @@ paths:
         **JSONRPC:** `klay_getDecodedAnchoringTransactionByHash`
 
       tags:
-        - klay.transaction
+        - klay
 
       parameters:
         - name: hashOfTransaction

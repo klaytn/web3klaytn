@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/gasPriceAt:
     post:
-      operationId: klayGasPriceAt
+      operationId: gasPriceAt
       summary: "[gasPriceAt] Returns the unit price from the governance parameter or the gas price of the txpool or the base fee of the given block"
       description: |
         Returns different values based on the condition described below. The unit of the return value is peb.
@@ -25,7 +25,7 @@ paths:
         
         **JSONRPC:** `klay_gasPriceAt`
       tags:
-        - klay.configuration
+        - klay
 
       parameters:
         - name: blockNumber

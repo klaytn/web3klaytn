@@ -22,11 +22,6 @@ x-tagGroups:
   - name: Klay
     tags:
       - klay
-      - klay.account
-      - klay.block
-      - klay.configuration
-      - klay.gas
-      - klay.transaction
   - name: Models
     tags:
       - RewardSpec
@@ -64,4 +59,3 @@ paths:
   /klay/gas/feeHistory:
     $ref: ./gas/feeHistory.yaml#/paths/~1klay~1feeHistory
 
-  

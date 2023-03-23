@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/getHeaderByNumber:
     post:
-      operationId: klayGetHeaderByNumber
+      operationId: getHeaderByNumber
       summary: "[getHeaderByNumber] Returns information about a header by number."
       description: |
         Returns information about a header by number. This API works only on RPC call, not on JavaScript console.
@@ -21,7 +21,7 @@ paths:
 
         **NOTE:** *This API is supported from Klaytn v1.7.0.*
       tags:
-        - klay.block
+        - klay
 
       parameters:
         - name: blockNumberOrTag

@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/getCode:
     post:
-      operationId: klayGetCode
+      operationId: getCode
       summary: "[getCode] Returns code at a given address."
       description: |
         Returns code at a given address.
@@ -21,7 +21,7 @@ paths:
 
         **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
       tags:
-        - klay.account
+        - klay
 
       parameters:
         - name: account

@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/getAccountKey:
     post:
-      operationId: klayGetAccountKey
+      operationId: getAccountKey
       summary: "[getAccountKey] Returns the account key of the Externally Owned Account (EOA) of a given address or an empty key value"
       description: |
         Returns the account key of the Externally Owned Account (EOA) of a given address. If the account has AccountKeyLegacy or the account of the given address is a Smart Contract Account, it will return an empty key value.
@@ -21,7 +21,7 @@ paths:
 
         **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available*
       tags:
-        - klay.account
+        - klay
 
       parameters:
         - name: Address
