@@ -1,0 +1,18 @@
+generatorName: caver-python
+outputDir: ./openapi/klay
+inputSpec: ../../../site/namespace/klay-openapi.yaml
+projectName: opensdk-python-klay
+packageName: opensdk_python_klay
+templateDir: ./template
+sortParamsByRequiredFlag: false
+globalProperties:
+  apiDocs: false
+  modelDocs: false
+  modelTests: false
+  apiTests: true
+inlineSchemaNameMappings:
+  accountCreated_default_response: AccountCreatedResponse
+  getRewards_default_response: GetRewardsResponse
+  ethAccounts_default_response: EthAccountsDefaultResponse
+  ethBlockNumber_default_response: EthBlockNumberDefaultResponse
+  ethCall_default_response: EthCallDefaultResponse

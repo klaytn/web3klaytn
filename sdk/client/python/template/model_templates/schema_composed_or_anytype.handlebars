@@ -1,4 +1,4 @@
-
+{{> model_templates/imports_schemas }}
 
 class {{#if this.classname}}{{classname}}{{else}}{{#if nameInSnakeCase}}{{name}}{{else}}{{baseName}}{{/if}}{{/if}}(
 {{#if getIsAnyType}}
@@ -7,9 +7,10 @@ class {{#if this.classname}}{{classname}}{{else}}{{#if nameInSnakeCase}}{{name}}
     {{/if}}
     {{#if composedSchemas}}
     {{!-- schemas.ComposedSchema, --}}
+    {{#with composedSchemas}}
         {{#each allOf}}
         {{#if complexType}}
-                {{complexType}},
+            {{complexType}},
         {{else}}
             {{#if nameInSnakeCase}}
                 cls.{{name}},
@@ -18,6 +19,7 @@ class {{#if this.classname}}{{classname}}{{else}}{{#if nameInSnakeCase}}{{name}}
             {{/if}}
         {{/if}}
         {{/each}}
+    {{/with}}
     {{else}}
     schemas.AnyTypeSchema,
     {{/if}}
