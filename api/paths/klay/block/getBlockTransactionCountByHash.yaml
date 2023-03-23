@@ -12,14 +12,14 @@ servers:
 paths:
   /klay/getBlockTransactionCountByHash:
     post:
-      operationId: klayGetBlockTransactionCountByHash
+      operationId: getBlockTransactionCountByHash
       summary: "[getBlockTransactionCountByHash] Returns the number of transactions in a block from a block that matches the given hash."
       description: |
         Returns the number of transactions in a block from a block that matches the given hash.
         
         **JSONRPC:** `klay_getBlockTransactionCountByHash`
       tags:
-        - klay.block
+        - klay
 
       requestBody:
         content:

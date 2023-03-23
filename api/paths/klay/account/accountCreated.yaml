@@ -23,20 +23,20 @@ paths:
       tags:
         - klay
 
-      parameters:
-        - name: account
-          required: true
-          schema:
-            type: string
-            format: 20-byte DATA
-          description: Address
-          in: query
-        - name: blockNumberOrHash
-          in: query
-          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
-          required: true
-          schema:
-            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+#      parameters:
+#        - name: account
+#          required: true
+#          schema:
+#            type: string
+#            format: 20-byte DATA
+#          description: Address
+#          in: query
+#        - name: blockNumberOrHash
+#          in: query
+#          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
+#          required: true
+#          schema:
+#            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
 
       requestBody:
         content:
@@ -74,7 +74,29 @@ paths:
         #  label: "Javascript"
         #  source:
         #    $ref: ""
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/account/accountCreated.py"
+
+components:
+  schemas:
+    KlayAccountCreatedReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_accountCreated'
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                title: account
+                format: 20-byte DATA
+                description: Address
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+          example:  ["0xa4f42d4d2a3a13874406435500950c9bf2d783db", "latest"]

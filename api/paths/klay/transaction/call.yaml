@@ -12,10 +12,10 @@ servers:
 paths:
   /klay/call:
     post:
-      operationId: klayCall
+      operationId: call
       summary: "[call] Executes a new message call immediately without creating a transaction on the block chain"
       tags:
-        - klay.transaction
+        - klay
       description: |
         Executes a new message call immediately without creating a transaction on the block chain. It returns data or an error object of JSON RPC if error occurs.
         
@@ -45,7 +45,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "../../../components/schemas/klay/transaction/Call.yaml#/components/schemas/KlayCallReq"
+                - $ref: "#/components/schemas/KlayCallReq"
 
       responses:
         200:
@@ -55,7 +55,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "../../../components/schemas/klay/transaction/Call.yaml#/components/schemas/KlayCallResp"
+                  - $ref: "#/components/schemas/KlayCallResp"
 
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_call
@@ -77,3 +77,33 @@ paths:
         #  label: "Python"
         #  source:
         #    $ref: ""
+
+components:
+  schemas:
+    KlayCallReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_call'
+        params:
+          title: encodedAccountKey
+          type:  array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/CallObject"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+          example: [{"from": "0x3f71029af4e252b25b9ab999f77182f0cd3bc085", "to": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b", "gas": "0x100000", "gasPrice": "0x5d21dba00", "value": "0x0", "input": "0x8ada066e"}, "latest"]
+
+    KlayCallResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: DATA
+          description: "The return value of executed contract."
+          example: "0x000000000000000000000000000000000000000000000000000000000000000a"
+

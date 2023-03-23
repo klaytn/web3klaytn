@@ -1,7 +1,0 @@
-components:
-  schemas:
-    KlayGetFilterChangesResp:
-      type: object
-      properties:
-        result:
-            $ref: "../../common/Common.yaml#/components/schemas/ArrayOfLog"

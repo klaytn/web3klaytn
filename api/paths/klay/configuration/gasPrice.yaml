@@ -12,14 +12,14 @@ servers:
 paths:
   /klay/gasPrice:
     post:
-      operationId: klayGasPrice
+      operationId: gasPrice
       summary: "[gasPrice] Returns a suggestion for a gas price in peb."
       description: |
         Returns a suggestion for a gas price in peb.
         
         **JSONRPC:** `klay_gasPrice`
       tags:
-        - klay.configuration
+        - klay
 
       requestBody:
         content:

@@ -19,11 +19,6 @@ x-tagGroups:
   - name: Klay
     tags:
       - klay
-      - klay.account
-      - klay.block
-      - klay.configuration
-      - klay.gas
-      - klay.transaction
   - name: Models
     tags:
       - RewardSpec
@@ -34,7 +29,7 @@ servers:
 paths:
   /klay/account/accountCreated:
     post:
-      operationId: klayAccountCreated
+      operationId: accountCreated
       summary: '[accountCreated] Find if input address was created'
       description: |
         Returns `true` if the account associated with the address is created. It returns `false` otherwise.
@@ -43,7 +38,7 @@ paths:
 
         **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
       tags:
-        - klay.account
+        - klay
       parameters:
         - name: account
           required: true
@@ -52,7 +47,7 @@ paths:
             format: 20-byte DATA
           description: Address
           in: query
-        - name: blockNumberOrTag
+        - name: blockNumberOrHash
           in: query
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
           required: true
@@ -66,7 +61,7 @@ paths:
                 - $ref: '#/components/schemas/JsonRpcRequest'
                 - $ref: '#/components/schemas/KlayAccountCreatedReq'
       responses:
-        default:
+        '200':
           description: The existence of an input address
           content:
             application/json:
@@ -101,6 +96,10 @@ paths:
     post:
       operationId: accounts
       summary: '[accounts] Returns a list of addresses owned by client.'
+      description: |
+        Returns a list of addresses owned by client.
+
+        **JSONRPC:** `klay_accounts`
       tags:
         - klay
       requestBody:
@@ -110,7 +109,7 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/JsonRpcRequest'
       responses:
-        default:
+        '200':
           description: Addresses owned by the client
           content:
             application/json:
@@ -125,8 +124,8 @@ paths:
         - lang: curl
           label: Curl
           source: |
-            curl
-              'https://api.baobab.klaytn.net:8651/klay/accounts' \
+            curl -X 'POST' \
+            'https://api.baobab.klaytn.net:8651/klay/accounts' \
               -H 'accept: application/json' \
               -H 'Content-Type: application/json' \
               -d '{
@@ -137,14 +136,14 @@ paths:
             }'
   /klay/account/decodeAccountKey:
     post:
-      operationId: klayDecodeAccountKey
+      operationId: decodeAccountKey
       summary: '[decodeAccountKey] Decodes an RLP encoded account key.'
       description: |
         Decodes an RLP encoded account key.
 
         **JSONRPC:** `klay_decodeAccountKey`
       tags:
-        - klay.account
+        - klay
       parameters:
         - name: encodedAccountKey
           in: query
@@ -161,7 +160,7 @@ paths:
                 - $ref: '#/components/schemas/JsonRpcRequest'
                 - $ref: '#/components/schemas/KlayDecodeAccountKeyReq'
       responses:
-        default:
+        '200':
           description: Decodes an RLP encoded account key.
           content:
             application/json:
@@ -210,7 +209,7 @@ paths:
                       type: string
                       default: klay_blockNumber
       responses:
-        default:
+        '200':
           description: Returns the number of most recent block.
           content:
             application/json:
@@ -243,10 +242,12 @@ paths:
   /klay/transaction/call:
     post:
       operationId: klayCall
-      summary: '[call] Executes a new message call immediately without creating a transaction on the block chain. It returns data or an error object of JSON RPC if error occurs.'
+      summary: '[call] Executes a new message call immediately without creating a transaction on the block chain'
       tags:
         - klay.transaction
       description: |
+        Executes a new message call immediately without creating a transaction on the block chain. It returns data or an error object of JSON RPC if error occurs.
+
         **JSONRPC:** `klay_call`
 
         **NOTE** In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.
@@ -259,7 +260,7 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/CallObject'
-        - name: blockNumberOrTag
+        - name: blockNumberOrHash
           in: query
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
           required: true
@@ -273,8 +274,8 @@ paths:
                 - $ref: '#/components/schemas/JsonRpcRequest'
                 - $ref: '#/components/schemas/KlayCallReq'
       responses:
-        default:
-          description: successfully response
+        '200':
+          description: Return value of executed contract or returns an error object of JSON RPC if anything goes wrong
           content:
             application/json:
               schema:
@@ -310,14 +311,14 @@ paths:
             }'
   /klay/configuration/chainID:
     post:
-      operationId: klayChainID
+      operationId: chainID
       summary: '[chainID] Returns the chain ID of the chain.'
       description: |
         Returns the chain ID of the chain.
 
         **JSONRPC:** `klay_blockNumber`
       tags:
-        - klay.configuration
+        - klay
       requestBody:
         content:
           application/json:
@@ -330,7 +331,7 @@ paths:
                       type: string
                       default: klay_chainID
       responses:
-        default:
+        '200':
           description: The chain ID of the chain.
           content:
             application/json:
@@ -362,14 +363,14 @@ paths:
             }'
   /klay/configuration/clientVersion:
     post:
-      operationId: klayClientVersion
+      operationId: clientVersion
       summary: '[clientVersion] Returns the current client version of a Klaytn node.'
       description: |
         Returns the current client version of a Klaytn node.
 
         **JSONRPC:** `klay_clientVersion`
       tags:
-        - klay.configuration
+        - klay
       requestBody:
         content:
           application/json:
@@ -382,7 +383,7 @@ paths:
                       type: string
                       default: klay_clientVersion
       responses:
-        default:
+        '200':
           description: The current client version of a Klaytn node.
           content:
             application/json:
@@ -414,7 +415,7 @@ paths:
             }'
   /klay/configuration/gasPriceAt:
     post:
-      operationId: klayGasPriceAt
+      operationId: gasPriceAt
       summary: '[gasPriceAt] Returns the unit price from the governance parameter or the gas price of the txpool or the base fee of the given block'
       description: |
         Returns different values based on the condition described below. The unit of the return value is peb.
@@ -427,13 +428,15 @@ paths:
 
         **JSONRPC:** `klay_gasPriceAt`
       tags:
-        - klay.configuration
+        - klay
       parameters:
         - name: blockNumber
           in: query
           description: Block number. If omitted, latest unit price will be returned.
           schema:
-            $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+            oneOf:
+              - $ref: '#/components/schemas/IntegerBlockNumber'
+              - $ref: '#/components/schemas/HexadecimalBlockNumber'
       requestBody:
         content:
           application/json:
@@ -442,7 +445,7 @@ paths:
                 - $ref: '#/components/schemas/JsonRpcRequest'
                 - $ref: '#/components/schemas/KlayGasPriceAtReq'
       responses:
-        default:
+        '200':
           description: null
           content:
             application/json:
@@ -474,7 +477,7 @@ paths:
             }'
   /klay/gas/feeHistory:
     post:
-      operationId: klayFeeHistory
+      operationId: feeHistory
       summary: '[feeHistory] Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.d'
       description: |
         Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.
@@ -483,7 +486,7 @@ paths:
 
         **NOTE:** This API is effective after Klaytn v1.8.0
       tags:
-        - klay.gas
+        - klay
       parameters:
         - name: blockCount
           required: true
@@ -496,7 +499,7 @@ paths:
           description: Highest numbered block of the requested range as block number or block tag.
           required: true
           schema:
-            $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+            $ref: '#/components/schemas/BlockNumberOrTag'
         - name: rewardPercentiles
           required: true
           schema:
@@ -511,8 +514,8 @@ paths:
                 - $ref: '#/components/schemas/JsonRpcRequest'
                 - $ref: '#/components/schemas/KlayFeeHistoryReq'
       responses:
-        default:
-          description: null
+        '200':
+          description: Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.
           content:
             application/json:
               schema:
@@ -538,9 +541,13 @@ paths:
             }'
 components:
   schemas:
-    BlockNumber:
+    IntegerBlockNumber:
+      description: the block number with type integer
       type: number
-      description: the block number
+    HexadecimalBlockNumber:
+      type: string
+      format: hexadecimal
+      description: the block number with type hexadecimal
     BlockTag:
       type: string
       description: the block tag [latest, pending, earliest]
@@ -549,7 +556,8 @@ components:
       description: the block hash
     BlockNumberOrHashOrTag:
       oneOf:
-        - $ref: '#/components/schemas/BlockNumber'
+        - $ref: '#/components/schemas/IntegerBlockNumber'
+        - $ref: '#/components/schemas/HexadecimalBlockNumber'
         - $ref: '#/components/schemas/BlockTag'
         - $ref: '#/components/schemas/BlockHash'
     JsonRpcRequest:
@@ -777,13 +785,19 @@ components:
           type: array
           items:
             anyOf:
-              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+              - $ref: '#/components/schemas/IntegerBlockNumber'
+              - $ref: '#/components/schemas/HexadecimalBlockNumber'
           example:
             - '0x64'
     BlockCount:
       type: string
       format: Hexadecimal
       description: Number of blocks in the requested range in hexadecimal. Between 1 (0x1) and 1024 (0x400) blocks can be requested in a single query. Less than requested may be returned if not all blocks are available.
+    BlockNumberOrTag:
+      oneOf:
+        - $ref: '#/components/schemas/IntegerBlockNumber'
+        - $ref: '#/components/schemas/HexadecimalBlockNumber'
+        - $ref: '#/components/schemas/BlockTag'
     RewardPercentiles:
       type: array
       items:
@@ -804,7 +818,7 @@ components:
           items:
             anyOf:
               - $ref: '#/components/schemas/BlockCount'
-              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+              - $ref: '#/components/schemas/BlockNumberOrTag'
               - $ref: '#/components/schemas/RewardPercentiles'
           example:
             - '0x10'

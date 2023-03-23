@@ -37,7 +37,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "../../../components/schemas/klay/block/GetCouncilSize.yaml#/components/schemas/KlayGetCouncilSizeReq"
+                - $ref: "#/components/schemas/KlayGetCouncilSizeReq"
 
       responses:
         200:
@@ -73,3 +73,21 @@ paths:
         #  label: "Python"
         #  source:
         #    $ref: ""
+
+components:
+  schemas:
+    KlayGetCouncilSizeReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getCouncilSize'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+          example:  ["0x1b4"]

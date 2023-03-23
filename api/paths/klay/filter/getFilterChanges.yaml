@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/getFilterChanges:
     post:
-      operationId: klayGetFilterChanges
+      operationId: getFilterChanges
       summary: "[getFilterChanges] Polling method for a filter"
       description: |
         Polling method for a filter, which returns an array of logs which occurred since last poll.
@@ -20,7 +20,7 @@ paths:
         **JSONRPC:** `klay_getFilterChanges`
 
       tags:
-        - klay.filter
+        - klay
 
       parameters:
         - name: QUANTITY
@@ -56,7 +56,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "../../../components/schemas/klay/filter/GetFilterChanges.yaml#/components/schemas/KlayGetFilterChangesResp"
+                  - $ref: "#/components/schemas/KlayGetFilterChangesResp"
 
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/filter#klay_getfilterChanges
@@ -78,3 +78,11 @@ paths:
         #  label: "Python"
         #  source:
         #    $ref: ""
+
+components:
+  schemas:
+    KlayGetFilterChangesResp:
+      type: object
+      properties:
+        result:
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/ArrayOfLog"

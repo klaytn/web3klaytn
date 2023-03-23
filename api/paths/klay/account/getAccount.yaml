@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/getAccount:
     post:
-      operationId: klayGetAccount
+      operationId: getAccount
       summary: "[getAccount] Get account"
       description: |
         Returns the account information of a given address. There are two different account types in Klaytn: Externally Owned Account (EOA) and Smart Contract Account. See Klaytn Accounts.
@@ -21,7 +21,7 @@ paths:
 
         **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*`
       tags:
-        - klay.account
+        - klay
 
       parameters:
         - name: address
@@ -43,7 +43,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "../../../components/schemas/klay/account/GetAccount.yaml#/components/schemas/KlayGetAccountReq"
+                - $ref: "#/components/schemas/KlayGetAccountReq"
 
       responses:
         200:
@@ -53,7 +53,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "../../../components/schemas/klay/account/GetAccount.yaml#/components/schemas/KlayGetAccountResp"
+                  - $ref: "#/components/schemas/KlayGetAccountResp"
 
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/account#klay_getaccount
@@ -75,3 +75,76 @@ paths:
         #  label: "Python"
         #  source:
         #    $ref: ""
+
+components:
+  schemas:
+    KlayGetAccountReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getAccount'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+          example:  ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]
+
+    KlayGetAccountResp:
+      type: object
+      properties:
+        result:
+          type: object
+          description: Each account type has different attributes.
+          properties:
+            accType:
+              type: number
+              default: 1
+            account:
+              type: object
+              properties:
+                balance:
+                  type: number
+                  default: 4985316100000000000
+                humanReadable:
+                  type: boolean
+                  default: false
+                key:
+                  type: object
+                  properties:
+                    key:
+                      type: object
+                      properties:
+                        x:
+                          type: string
+                          default: "0x230037a99462acd829f317d0ce5c8e2321ac2951de1c1b1a18f9af5cff66f0d7"
+                        y:
+                          type: string
+                          default: "0x18a7fb1b9012d2ac87bc291cbf1b3b2339356f1ce7669ae68405389be7f8b3b6"
+                    keyType:
+                      type: number
+                      default: 2
+                nonce:
+                  type: number
+                  default: 11
+          example:
+            {
+              accType: 1,
+              account: {
+                balance: 4985316100000000000,
+                humanReadable: false,
+                key: {
+                  key: {
+                    x: "0x230037a99462acd829f317d0ce5c8e2321ac2951de1c1b1a18f9af5cff66f0d7",
+                    y: "0x18a7fb1b9012d2ac87bc291cbf1b3b2339356f1ce7669ae68405389be7f8b3b6"
+                  },
+                  keyType: 2
+                },
+                nonce: 11
+              }
+            }

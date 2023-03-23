@@ -1,8 +1,7 @@
-const OpenSdk = require("opensdk-javascript-test");
+const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
-const {ApiClient} = require('opensdk-javascript-eth')
 
-const api = new OpenSdk.klay(new ApiClient("https://api.baobab.klaytn.net:8651"));
+const api = new OpenSdk.klay(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('Klay block number API', () => {
     test('should return block number', (done) => {

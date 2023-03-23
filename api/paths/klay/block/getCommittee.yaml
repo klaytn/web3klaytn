@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/getCommittee:
     post:
-      operationId: klayGetCommittee
+      operationId: getCommittee
       summary: "[getCommittee] Returns a list of all validators in the committee at the specified block."
       description: |
         Returns a list of all validators in the committee at the specified block. If the parameter is not set, returns a list of all validators in the committee at the latest block.
@@ -21,7 +21,7 @@ paths:
 
         **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
       tags:
-        - klay.block
+        - klay
 
       parameters:
         - name: blockNumberOrTag
@@ -37,7 +37,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "../../../components/schemas/klay/block/GetCommittee.yaml#/components/schemas/KlayGetCommitteeReq"
+                - $ref: "#/components/schemas/KlayGetCommitteeReq"
 
       responses:
         200:
@@ -47,7 +47,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "../../../components/schemas/klay/block/GetCommittee.yaml#/components/schemas/KlayGetCommitteeResp"
+                  - $ref: "#/components/schemas/KlayGetCommitteeResp"
 
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getcommittee
@@ -69,3 +69,31 @@ paths:
         #  label: "Python"
         #  source:
         #    $ref: ""
+
+components:
+  schemas:
+    KlayGetCommitteeReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getCommittee'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+          example:  ["0x1b4"]
+
+    KlayGetCommitteeResp:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            type: string
+            format: hex
+            example: "0x207e38864b45a538733741dc1ff92eff9d1a6159"
