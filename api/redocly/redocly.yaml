@@ -5,6 +5,14 @@ apis:
     root: ../klay.yaml
     labels:
       - v1.10.0
+  klay@v1.10.1:
+    root: ../paths/eth/index.yaml
+    labels:
+      - v1.10.1
+  klay@v1.10.2:
+    root: ../paths/klay/index.yaml
+    labels:
+      - v1.10.2
 extends:
   - recommended
 features.openapi:

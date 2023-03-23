@@ -1,0 +1,474 @@
+openapi: 3.0.2
+info:
+  title: KLAYTN OPEN API
+  version: 1.10.0
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: eth
+    description: API for ethereum namespace
+x-redoc-operation-id-prefix: eth_
+x-tagGroups:
+  - name: Eth
+    tags:
+      - eth
+  - name: Models
+    tags:
+      - RewardSpec
+servers:
+  - url: http://localhost:7151
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+  /eth/account/accounts:
+    post:
+      summary: '[accounts] Returns a list of addresses owned by client'
+      tags:
+        - eth
+      operationId: accounts
+      description: |
+        Returns a list of addresses owned by client
+
+        **JSONRPC:** `eth_accounts`
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: eth_accounts
+      responses:
+        default:
+          description: Addresses owned by the client
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/EthAccountsResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/account#eth_accounts
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |-
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/eth/accounts' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "eth_accounts",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": []
+            }'
+        - lang: java
+          label: Java
+          source: |-
+            package com.klaytn.example.account
+
+            import com.klaytn.example.CommonConstant
+            import com.klaytn.example.result
+            import okhttp3.OkHttpClient
+            import okhttp3.logging.HttpLoggingInterceptor
+            import opensdk.sdk.apis.EthAccountApi
+            import opensdk.sdk.models.EthAccountsRequest
+            import retrofit2.Retrofit
+            import retrofit2.converter.gson.JsonRpcConverterFactory
+
+            fun main() {
+                val logging = HttpLoggingInterceptor()
+
+                logging.level = HttpLoggingInterceptor.Level.BODY
+
+                val httpClient = OkHttpClient.Builder()
+                    .addInterceptor(logging)
+                    .build()
+
+                val retrofit = Retrofit.Builder()
+                    .baseUrl(CommonConstant.baseUrl)
+                    .addConverterFactory(JsonRpcConverterFactory.create())
+                    .client(httpClient)
+                    .build()
+
+                val ethAccountApi = retrofit.create(EthAccountApi::class.java)
+                val request = EthAccountsRequest()
+                request.method = "eth_accounts"
+                request.id = 1
+                request.jsonrpc = "2.0"
+                request.params = emptyList()
+                println(request)
+                val account = ethAccountApi
+                    .ethAccounts(request)
+                    .result()
+                println(account)
+            }
+        - lang: javascript
+          label: Javascript
+          source: |
+            const Caver = require("caver-javascript");
+
+
+            ( () => {
+                const api = new Caver.EthAccountApi(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
+                api.ethAccounts({},(err,data,response)=>{
+                    console.log(data);
+                });
+            }
+            )()
+  /eth/block/blockNumber:
+    post:
+      operationId: blockNumber
+      summary: '[blockNumber] Returns the number of most recent block.'
+      description: |
+        Returns the number of the most recent block.
+
+        **JSONRPC:** `eth_blockNumber`
+      tags:
+        - eth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: eth_blockNumber
+      responses:
+        default:
+          description: return block number
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/block
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |-
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/eth/blockNumber' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "eth_blockNumber",
+              "id": 83,
+              "jsonrpc": "2.0",
+              "params": []
+            }'
+        - lang: java
+          label: Java
+          source: |-
+            package com.klaytn.example.block
+
+            import com.klaytn.example.CommonConstant
+            import com.klaytn.example.result
+            import okhttp3.OkHttpClient
+            import okhttp3.logging.HttpLoggingInterceptor
+            import opensdk.sdk.apis.EthBlockApi
+            import opensdk.sdk.models.EthBlockNumberRequest
+            import retrofit2.Retrofit
+            import retrofit2.converter.gson.JsonRpcConverterFactory
+
+            fun main() {
+                val logging = HttpLoggingInterceptor()
+
+                logging.level = HttpLoggingInterceptor.Level.BODY
+
+                val httpClient = OkHttpClient.Builder()
+                    .addInterceptor(logging)
+                    .build()
+
+                val retrofit = Retrofit.Builder()
+                    .baseUrl(CommonConstant.baseUrl)
+                    .addConverterFactory(JsonRpcConverterFactory.create())
+                    .client(httpClient)
+                    .build()
+                val ethBlockApi = retrofit.create(EthBlockApi::class.java)
+
+                val request = EthBlockNumberRequest()
+                request.method = "eth_blockNumber"
+                request.id = 83
+                request.jsonrpc = "2.0"
+                request.params = emptyList()
+                println(request)
+                val blockNumber = ethBlockApi
+                    .ethBlockNumber(request)
+                    .result();
+                println(blockNumber)
+            }
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const Caver = require("caver-javascript");
+
+
+            ( () => {
+                const api = new Caver.EthBlockApi(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
+                api.ethBlockNumber({},(err,data,response)=>{
+                    console.log(data);
+                });
+            }
+            )()
+  /eth/transaction/call:
+    post:
+      summary: '[call] Used to query internal contract state, to execute validations coded into a contract or even to test what the effect of a transaction would be without running it live.'
+      tags:
+        - eth
+      operationId: call
+      x-redoc-operation-id-prefix: eth
+      description: |
+        Executes a new message call immediately, without creating a transaction on the block chain. The eth_call method can be used to query internal contract state, to execute validations coded into a contract or even to test what the effect of a transaction would be without running it live.
+
+        **JSONRPC:** `eth_call`
+
+        **NOTE:** 
+
+        **The goal of the state override set is manyfold**:
+
+        It can be used by DApps to reduce the amount of contract code needed to be deployed on chain. Code that simply returns internal state or does pre-defined validations can be kept off chain and fed to the node on-demand.
+
+        It can be used for smart contract analysis by extending the code deployed on chain with custom methods and invoking them. This avoids having to download and reconstruct the entire state in a sandbox to run custom code against.
+
+        It can be used to debug smart contracts in an already deployed large suite of contracts by selectively overriding some code or state and seeing how execution changes. Specialized tooling will probably be necessary.
+      parameters:
+        - name: callObject
+          in: query
+          description: The transaction call object. See the next table for the object's properties.
+          required: true
+          schema:
+            $ref: '#/components/schemas/CallObject'
+        - name: blockNumberOrTag
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+        - name: stateOverrideSet
+          in: query
+          description: The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call.
+          required: true
+          schema:
+            $ref: '#/components/schemas/StateOverrideSet'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/CallReq'
+      responses:
+        default:
+          description: null
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/CallResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/transaction#eth_call
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/eth/call' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "eth_call",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": [{"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0xbE3892d33620bE5aca8c75D39e7401871194d290", "input": "0x2e64cec1"}, "latest", {"0xbE3892d33620bE5aca8c75D39e7401871194d290": {"code":"0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e64cec114604e5780636057361d146076575b600080fd5b348015605957600080fd5b50606060a0565b6040518082815260200191505060405180910390f35b348015608157600080fd5b50609e6004803603810190808035906020019092919050505060a9565b005b60008054905090565b80600081905550505600a165627a7a723058207783dba41884f73679e167576362b7277f88458815141651f48ca38c25b498f80029"}}]
+            }'
+components:
+  schemas:
+    JsonRpcRequest:
+      type: object
+      required:
+        - method
+        - id
+        - jsonrpc
+      properties:
+        method:
+          type: string
+          description: Method name
+        id:
+          type: integer
+          default: 1
+          format: int64
+          description: Request ID, Random or Auto incrementation
+        jsonrpc:
+          type: string
+          default: '2.0'
+          description: JSON-RPC Version (2.0)
+        params:
+          type: array
+          items: {}
+    ErrorMember:
+      type: object
+      title: ErrorMember
+      required:
+        - code
+      properties:
+        code:
+          type: integer
+          format: int64
+          example: -32700
+          description: |
+            A Number that indicates the error type that occurred.
+            This MUST be an integer.
+
+            | code | message | description |
+            |-----|-----|-------|
+            | -32700   | Parse error   | invalid JSON was received by the server. \nAn error occurred on the server while parsing the JSON text. |
+            |-32602 | Invalid params | Invalid method parameter(s). |
+        message:
+          type: string
+          example: Parse error
+          description: |
+            A String providing a short description of the error.
+            The message SHOULD be limited to a concise single sentence.
+        data:
+          type: string
+          description: |
+            A Primitive or Structured value that contains additional information about the error.
+            This may be omitted.
+            The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
+    JsonRpcResponse:
+      type: object
+      required:
+        - jsonrpc
+        - id
+      properties:
+        jsonrpc:
+          type: string
+          default: '2.0'
+        id:
+          type: integer
+          format: int64
+        error:
+          $ref: '#/components/schemas/ErrorMember'
+        result: {}
+    EthAccountsResp:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            type: string
+            format: 20-byte DATA
+            readOnly: true
+            example: '0xc94770007dda54cF92009BFF0dE90c06F603a09f'
+    CallObject:
+      type: object
+      description: The transaction call object. See the next table for the object's properties.
+      properties:
+        from:
+          type: string
+          format: 20-byte DATA
+          description: (optional) Address the transaction is simulated to have been sent from. The 0x00..0 address is used if no address is specified.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: (optional) Address the transaction is sent to.
+        gas:
+          type: integer
+          format: int64
+          description: (optional) Maximum gas allowance for the code execution to avoid infinite loops. Defaults to 2^63 or whatever value the node operator specified via --rpc.gascap.
+        gasPrice:
+          type: integer
+          format: int64
+          description: (optional) Number of peb to simulate paying for each unit of gas during execution. Defaults to 0 peb.
+        value:
+          type: integer
+          format: int64
+          description: (optional) Amount of peb to simulate sending along with the transaction. Defaults to 0.
+        input:
+          type: string
+          format: DATA
+          description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
+    BlockNumber:
+      type: number
+      description: the block number
+    BlockTag:
+      type: string
+      description: the block tag [latest, pending, earliest]
+    BlockHash:
+      type: string
+      description: the block hash
+    BlockNumberOrHashOrTag:
+      oneOf:
+        - $ref: '#/components/schemas/BlockNumber'
+        - $ref: '#/components/schemas/BlockTag'
+        - $ref: '#/components/schemas/BlockHash'
+    StateOverrideSet:
+      type: object
+      description: The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call.
+      properties:
+        balance:
+          type: integer
+          format: int64
+          description: (optional) Fake balance to set for the account before executing the call.
+        nonce:
+          type: integer
+          format: int64
+          description: (optional) Fake nonce to set for the account before executing the call.
+        code:
+          type: string
+          format: DATA
+          description: (optional) Fake EVM bytecode to inject into the account before executing the call.
+        state:
+          type: object
+          description: (optional) Fake key-value mapping to override all slots in the account storage before executing the call.
+        stateDiff:
+          type: object
+          description: (optional) Fake key-value mapping to override individual slots in the account storage before executing the call.
+    CallReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: eth_call
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/CallObject'
+              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+              - $ref: '#/components/schemas/StateOverrideSet'
+          example:
+            - from: '0xca7a99380131e6c76cfa622396347107aeedca2d'
+              to: '0xbE3892d33620bE5aca8c75D39e7401871194d290'
+              input: '0x2e64cec1'
+            - latest
+            - '0xbE3892d33620bE5aca8c75D39e7401871194d290':
+                code: '0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e64cec114604e5780636057361d146076575b600080fd5b348015605957600080fd5b50606060a0565b6040518082815260200191505060405180910390f35b348015608157600080fd5b50609e6004803603810190808035906020019092919050505060a9565b005b60008054905090565b80600081905550505600a165627a7a723058207783dba41884f73679e167576362b7277f88458815141651f48ca38c25b498f80029'
+    CallResp:
+      type: object
+      properties:
+        result:
+          type: string

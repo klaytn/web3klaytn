@@ -23,9 +23,7 @@ tags:
 x-tagGroups:
   - name: Eth
     tags:
-      - eth.block
-      - eth.account
-      - eth.transaction
+      - eth
   - name: Klay
     tags:
       - klay.account

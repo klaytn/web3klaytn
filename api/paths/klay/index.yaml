@@ -1,0 +1,67 @@
+openapi: "3.0.2"
+info:
+  title: KLAYTN OPEN API
+  version: "1.10.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: klay
+    description: klaytn node API
+  - name: account
+    description: klaytn account API
+  - name: governance
+    description: klaytn governance API
+#  - name: RewardSpec
+#    description: |
+#      <SchemaDefinition schemaRef="#/components/schemas/RewardSpec" />
+x-tagGroups:
+  - name: Klay
+    tags:
+      - klay
+      - klay.account
+      - klay.block
+      - klay.configuration
+      - klay.gas
+      - klay.transaction
+  - name: Models
+    tags:
+      - RewardSpec
+servers:
+  - url: http://localhost:7151
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+
+  # klay/account
+  /klay/account/accountCreated:
+    $ref: ./account/accountCreated.yaml#/paths/~1klay~1accountCreated
+  /klay/account/accounts:
+    $ref: ./account/accounts.yaml#/paths/~1klay~1accounts
+  /klay/account/decodeAccountKey:
+    $ref: ./account/decodeAccountKey.yaml#/paths/~1klay~1decodeAccountKey
+
+  # klay/block
+  /klay/block/blockNumber:
+    $ref: ./block/blockNumber.yaml#/paths/~1klay~1blockNumber
+
+  # klay/transaction
+  /klay/transaction/call:
+    $ref: ./transaction/call.yaml#/paths/~1klay~1call
+
+  # klay/configuration
+  /klay/configuration/chainID:
+    $ref: ./configuration/chainID.yaml#/paths/~1klay~1chainID
+  /klay/configuration/clientVersion:
+    $ref: ./configuration/clientVersion.yaml#/paths/~1klay~1clientVersion
+  /klay/configuration/gasPriceAt:
+    $ref: ./configuration/gasPriceAt.yaml#/paths/~1klay~1gasPriceAt
+
+  # klay/gas
+  /klay/gas/feeHistory:
+    $ref: ./gas/feeHistory.yaml#/paths/~1klay~1feeHistory
+
+  

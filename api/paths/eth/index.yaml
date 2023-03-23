@@ -1,0 +1,37 @@
+openapi: "3.0.2"
+info:
+  title: KLAYTN OPEN API
+  version: "1.10.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: eth
+    description: API for ethereum namespace
+x-redoc-operation-id-prefix: eth_
+x-tagGroups:
+  - name: Eth
+    tags:
+      - eth
+  - name: Models
+    tags:
+      - RewardSpec
+servers:
+  - url: http://localhost:7151
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+  # eth/account
+  /eth/account/accounts:
+    $ref: ./account/accounts.yaml#/paths/~1eth~1accounts
+
+  # eth/block
+  /eth/block/blockNumber:
+    $ref: ./block/blockNumber.yaml#/paths/~1eth~1blockNumber
+
+  # eth/transaction
+  /eth/transaction/call:
+    $ref: ./transaction/call.yaml#/paths/~1eth~1call

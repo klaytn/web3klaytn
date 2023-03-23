@@ -12,14 +12,14 @@ servers:
 paths:
   /klay/blockNumber:
     post:
-      operationId: klayBlockNumber
+      operationId: blockNumber
       summary: "[blockNumber] Returns the number of most recent block."
       description: |
         Returns the number of most recent block.
 
         **JSONRPC:** `klay_blockNumber`
       tags:
-        - klay.block
+        - klay
 
       requestBody:
         content:

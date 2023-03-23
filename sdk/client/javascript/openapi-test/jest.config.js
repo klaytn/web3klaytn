@@ -5,9 +5,10 @@ module.exports = {
     testEnvironment: 'node',
     testRegex: '/test/.*\\.(test|spec)?\\.(js)$',
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-    // "testPathIgnorePatterns": [
-    //     "<rootDir>/test/eth/",
-    //     "<rootDir>/test/klay/block",
-    //     "<rootDir>/test/klay/configuration"
-    // ]
+    "testPathIgnorePatterns": [
+        // "<rootDir>/test/eth/",
+        "<rootDir>/test/klay/account",
+        "<rootDir>/test/klay/configuration",
+    //   /  "<rootDir>/test/klay/configuration"
+    ]
 };

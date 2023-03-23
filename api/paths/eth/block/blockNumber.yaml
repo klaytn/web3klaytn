@@ -12,14 +12,14 @@ servers:
 paths:
   /eth/blockNumber:
     post:
-      operationId: ethBlockNumber
+      operationId: blockNumber
       summary: "[blockNumber] Returns the number of most recent block."
       description: |
         Returns the number of the most recent block.
 
         **JSONRPC:** `eth_blockNumber`
       tags:
-        - eth.block
+        - eth
       requestBody:
         content:
           application/json:

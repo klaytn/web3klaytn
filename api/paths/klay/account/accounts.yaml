@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/accounts:
     post:
-      operationId: klayAccounts
+      operationId: accounts
       summary: "[accounts] Returns a list of addresses owned by client."
       description: |
         Returns a list of addresses owned by client.
@@ -20,7 +20,7 @@ paths:
         **JSONRPC:** `klay_accounts`
 
       tags:
-        - klay.account
+        - klay
 
       requestBody:
         content:
