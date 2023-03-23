@@ -12,14 +12,14 @@ servers:
 paths:
   /klay/chainID:
     post:
-      operationId: klayChainID
+      operationId: chainID
       summary: "[chainID] Returns the chain ID of the chain."
       description: |
         Returns the chain ID of the chain.
 
         **JSONRPC:** `klay_blockNumber`
       tags:
-        - klay.configuration
+        - klay
 
       requestBody:
         content:

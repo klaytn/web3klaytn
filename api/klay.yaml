@@ -26,12 +26,7 @@ x-tagGroups:
       - eth
   - name: Klay
     tags:
-      - klay.account
-      - klay.block
-      - klay.configuration
-      - klay.gas
-      - klay.transaction
-      - klay.filter
+      - klay
   - name: Models
     tags:
       - RewardSpec

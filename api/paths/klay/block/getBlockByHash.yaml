@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/getBlockByHash:
     post:
-      operationId: klayGetBlockByHash
+      operationId: getBlockByHash
       summary: "[getBlockByHash] Returns information about a block by hash."
       description: |
         Returns information about a block by hash. This API works only on RPC call, not on JavaScript console.
@@ -20,7 +20,7 @@ paths:
         **JSONRPC:** `klay_getBlockByHash`
 
       tags:
-        - klay.block
+        - klay
 
       parameters:
         - name: hashOfBlock

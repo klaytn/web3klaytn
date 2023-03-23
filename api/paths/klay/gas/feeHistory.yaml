@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/feeHistory:
     post:
-      operationId: klayFeeHistory
+      operationId: feeHistory
       summary: "[feeHistory] Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.d"
       description: |
         Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.
@@ -21,7 +21,7 @@ paths:
 
         **NOTE:** This API is effective after Klaytn v1.8.0
       tags:
-        - klay.gas
+        - klay
 
       parameters:
         - name: blockCount

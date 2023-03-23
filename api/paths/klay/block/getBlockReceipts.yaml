@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/getBlockReceipts:
     post:
-      operationId: klayGetBlockReceipts
+      operationId: getBlockReceipts
       summary: "[getBlockReceipts] Returns receipts included in a block identified by block hash."
       description: |
         Returns receipts included in a block identified by block hash.
@@ -20,7 +20,7 @@ paths:
         **JSONRPC:** `klay_getBlockReceipts`
 
       tags:
-        - klay.block
+        - klay
 
       parameters:
         - name: hashOfBlock
