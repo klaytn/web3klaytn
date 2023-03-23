@@ -62,7 +62,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "../../../components/schemas/klay/filter/GetFilterLogs.yaml#/components/schemas/KlayGetFilterLogsResp"
+                  - $ref: "#/components/schemas/KlayGetFilterLogsResp"
 
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/filter#klay_getfilterlogs
@@ -84,3 +84,11 @@ paths:
         #  label: "Python"
         #  source:
         #    $ref: ""
+
+components:
+  schemas:
+    KlayGetFilterLogsResp:
+      type: object
+      properties:
+        result:
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/#/components/schemas/ArrayOfLog"
