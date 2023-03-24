@@ -26,7 +26,7 @@ servers:
 paths:
   /eth/account/accounts:
     post:
-      summary: '[accounts] Returns a list of addresses owned by client'
+      summary: '[accounts]'
       tags:
         - eth
       operationId: accounts
@@ -53,7 +53,7 @@ paths:
               schema:
                 allOf:
                   - $ref: '#/components/schemas/JsonRpcResponse'
-                  - EthAccountsResp
+                  - $ref: '#/components/schemas/EthAccountsResp'
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/account#eth_accounts
         description: Klaytn Docs
@@ -143,7 +143,7 @@ paths:
   /eth/block/blockNumber:
     post:
       operationId: blockNumber
-      summary: '[blockNumber] Returns the number of most recent block.'
+      summary: '[blockNumber]'
       description: |
         Returns the number of the most recent block.
 
@@ -173,6 +173,8 @@ paths:
                     properties:
                       result:
                         type: string
+                        format: QUANTITY
+                        description: Integer of the current block number the client is on.
                         example: '0xc94'
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/block
@@ -262,7 +264,7 @@ paths:
             print(json.loads(eth_response.response.data))
   /eth/transaction/call:
     post:
-      summary: '[call] Used to query internal contract state, to execute validations coded into a contract or even to test what the effect of a transaction would be without running it live.'
+      summary: '[call]'
       tags:
         - eth
       operationId: call
@@ -271,16 +273,6 @@ paths:
         Executes a new message call immediately, without creating a transaction on the block chain. The eth_call method can be used to query internal contract state, to execute validations coded into a contract or even to test what the effect of a transaction would be without running it live.
 
         **JSONRPC:** `eth_call`
-
-        **NOTE:** 
-
-        **The goal of the state override set is manyfold**:
-
-        It can be used by DApps to reduce the amount of contract code needed to be deployed on chain. Code that simply returns internal state or does pre-defined validations can be kept off chain and fed to the node on-demand.
-
-        It can be used for smart contract analysis by extending the code deployed on chain with custom methods and invoking them. This avoids having to download and reconstruct the entire state in a sandbox to run custom code against.
-
-        It can be used to debug smart contracts in an already deployed large suite of contracts by selectively overriding some code or state and seeing how execution changes. Specialized tooling will probably be necessary.
       parameters:
         - name: callObject
           in: query
@@ -306,7 +298,7 @@ paths:
             schema:
               allOf:
                 - $ref: '#/components/schemas/JsonRpcRequest'
-                - $ref: '#/components/schemas/CallReq'
+                - $ref: '#/components/schemas/KlayCallReq'
       responses:
         '200':
           description: null
@@ -315,7 +307,7 @@ paths:
               schema:
                 allOf:
                   - $ref: '#/components/schemas/JsonRpcResponse'
-                  - $ref: '#/components/schemas/CallResp'
+                  - $ref: '#/components/schemas/KlayCallResp'
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/transaction#eth_call
         description: Klaytn Docs
@@ -448,6 +440,17 @@ components:
         error:
           $ref: '#/components/schemas/ErrorMember'
         result: {}
+    EthAccountsResp:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            type: string
+            format: 20-byte DATA
+            description: Addresses owned by the client.
+            readOnly: true
+            example: '0xc94770007dda54cF92009BFF0dE90c06F603a09f'
     CallObject:
       type: object
       description: The transaction call object. See the next table for the object's properties.
@@ -513,16 +516,7 @@ components:
         stateDiff:
           type: object
           description: (optional) Fake key-value mapping to override individual slots in the account storage before executing the call.
-    BlockHash:
-      type: string
-      description: the block hash
-    BlockNumberOrHashOrTag:
-      oneOf:
-        - $ref: '#/components/schemas/IntegerBlockNumber'
-        - $ref: '#/components/schemas/HexadecimalBlockNumber'
-        - $ref: '#/components/schemas/BlockTag'
-        - $ref: '#/components/schemas/BlockHash'
-    CallReq:
+    KlayCallReq:
       type: object
       required:
         - method
@@ -535,7 +529,7 @@ components:
           items:
             anyOf:
               - $ref: '#/components/schemas/CallObject'
-              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+              - $ref: '#/components/schemas/BlockNumberOrTag'
               - $ref: '#/components/schemas/StateOverrideSet'
           example:
             - from: '0xca7a99380131e6c76cfa622396347107aeedca2d'
@@ -544,8 +538,9 @@ components:
             - latest
             - '0xbE3892d33620bE5aca8c75D39e7401871194d290':
                 code: '0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e64cec114604e5780636057361d146076575b600080fd5b348015605957600080fd5b50606060a0565b6040518082815260200191505060405180910390f35b348015608157600080fd5b50609e6004803603810190808035906020019092919050505060a9565b005b60008054905090565b80600081905550505600a165627a7a723058207783dba41884f73679e167576362b7277f88458815141651f48ca38c25b498f80029'
-    CallResp:
+    KlayCallResp:
       type: object
       properties:
         result:
           type: string
+          example: '0x0000000000000000000000000000000000000000000000000000000000000000'

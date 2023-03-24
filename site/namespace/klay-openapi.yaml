@@ -108,6 +108,14 @@ paths:
             schema:
               allOf:
                 - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  required:
+                    - method
+                    - params
+                  properties:
+                    method:
+                      type: string
+                      default: klay_accounts
       responses:
         '200':
           description: Addresses owned by the client
@@ -241,10 +249,10 @@ paths:
             }'
   /klay/transaction/call:
     post:
-      operationId: klayCall
+      operationId: call
       summary: '[call] Executes a new message call immediately without creating a transaction on the block chain'
       tags:
-        - klay.transaction
+        - klay
       description: |
         Executes a new message call immediately without creating a transaction on the block chain. It returns data or an error object of JSON RPC if error occurs.
 
