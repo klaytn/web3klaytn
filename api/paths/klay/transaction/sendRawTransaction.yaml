@@ -18,6 +18,8 @@ paths:
         Creates a new message call transaction or a contract creation for signed transactions.
         
         **JSONRPC:** `klay_sendRawTransaction`
+        
+        **NOTE:** If you deployed a contract, use klay_getTransactionReceipt to get the contract address.
 
       tags:
         - klay
