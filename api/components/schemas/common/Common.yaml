@@ -14,19 +14,23 @@ components:
         - $ref: "#/components/schemas/BlockHash"
 
     IntegerBlockNumber:
+      title: integerBlockNumber
       description: the block number with type integer
       type: number
 
     HexadecimalBlockNumber:
+      title: hexadecimalBlockNumber
       type: string
       format: hexadecimal
       description: the block number with type hexadecimal
 
     BlockTag:
+      title: blockTag
       type: string
       description: the block tag [latest, pending, earliest]
 
     BlockHash:
+      title: blockHash
       type: string
       description: the block hash
 

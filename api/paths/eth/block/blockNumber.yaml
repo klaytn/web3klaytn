@@ -58,7 +58,7 @@ paths:
         - lang: "java"
           label: "Java"
           source:
-            $ref: "../../../code-samples/java/src/main/kotlin/com/klaytn/example/block/EthBlockNumberExample.kt"
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/block/EthBlockNumberExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

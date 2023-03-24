@@ -74,10 +74,10 @@ paths:
         #  label: "Javascript"
         #  source:
         #    $ref: ""
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/account/accountCreated.py"
 
 components:
   schemas:
@@ -100,3 +100,4 @@ components:
                 description: Address
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
           example:  ["0xa4f42d4d2a3a13874406435500950c9bf2d783db", "latest"]
+

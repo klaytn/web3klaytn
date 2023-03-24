@@ -73,44 +73,26 @@ paths:
             }'
         - lang: java
           label: Java
-          source: |-
-            package com.klaytn.example.account
+          source: |
+            package opensdk.sdk.apis.eth.account;
 
-            import com.klaytn.example.CommonConstant
-            import com.klaytn.example.result
-            import okhttp3.OkHttpClient
-            import okhttp3.logging.HttpLoggingInterceptor
-            import opensdk.sdk.apis.EthAccountApi
-            import opensdk.sdk.models.EthAccountsRequest
-            import retrofit2.Retrofit
-            import retrofit2.converter.gson.JsonRpcConverterFactory
+            import opensdk.sdk.apis.EthApi;
+            import opensdk.sdk.models.Accounts200Response;
+            import org.web3j.protocol.http.HttpService;
 
-            fun main() {
-                val logging = HttpLoggingInterceptor()
+            import java.io.IOException;
 
-                logging.level = HttpLoggingInterceptor.Level.BODY
-
-                val httpClient = OkHttpClient.Builder()
-                    .addInterceptor(logging)
-                    .build()
-
-                val retrofit = Retrofit.Builder()
-                    .baseUrl(CommonConstant.baseUrl)
-                    .addConverterFactory(JsonRpcConverterFactory.create())
-                    .client(httpClient)
-                    .build()
-
-                val ethAccountApi = retrofit.create(EthAccountApi::class.java)
-                val request = EthAccountsRequest()
-                request.method = "eth_accounts"
-                request.id = 1
-                request.jsonrpc = "2.0"
-                request.params = emptyList()
-                println(request)
-                val account = ethAccountApi
-                    .ethAccounts(request)
-                    .result()
-                println(account)
+            /**
+             * @author Tungnd
+             * @since 24/03/2023 4:07 PM
+             */
+            public class EthAccountsExample {
+                void ethAccountsApiTest() throws IOException {
+                    // given
+                    EthApi ethApi = new EthApi(new HttpService("http://localhost:8551"));
+                    // when
+                    Accounts200Response response = ethApi.accounts().send();
+                }
             }
         - lang: javascript
           label: Javascript
@@ -195,44 +177,27 @@ paths:
             }'
         - lang: java
           label: Java
-          source: |-
-            package com.klaytn.example.block
+          source: |
+            package opensdk.sdk.apis.eth.block;
 
-            import com.klaytn.example.CommonConstant
-            import com.klaytn.example.result
-            import okhttp3.OkHttpClient
-            import okhttp3.logging.HttpLoggingInterceptor
-            import opensdk.sdk.apis.EthBlockApi
-            import opensdk.sdk.models.EthBlockNumberRequest
-            import retrofit2.Retrofit
-            import retrofit2.converter.gson.JsonRpcConverterFactory
+            import opensdk.sdk.apis.EthApi;
+            import opensdk.sdk.models.BlockNumber200Response;
+            import org.web3j.protocol.http.HttpService;
 
-            fun main() {
-                val logging = HttpLoggingInterceptor()
+            import java.io.IOException;
 
-                logging.level = HttpLoggingInterceptor.Level.BODY
+            /**
+             * @author Tungnd
+             * @since 24/03/2023 4:12 PM
+             */
+            public class EthBlockNumberExample {
+                void ethBlockNumberApiTest() throws IOException {
+                    // given
+                    EthApi ethApi = new EthApi(new HttpService("http://localhost:8551"));
+                    // when
+                    BlockNumber200Response response = ethApi.blockNumber().send();
 
-                val httpClient = OkHttpClient.Builder()
-                    .addInterceptor(logging)
-                    .build()
-
-                val retrofit = Retrofit.Builder()
-                    .baseUrl(CommonConstant.baseUrl)
-                    .addConverterFactory(JsonRpcConverterFactory.create())
-                    .client(httpClient)
-                    .build()
-                val ethBlockApi = retrofit.create(EthBlockApi::class.java)
-
-                val request = EthBlockNumberRequest()
-                request.method = "eth_blockNumber"
-                request.id = 83
-                request.jsonrpc = "2.0"
-                request.params = emptyList()
-                println(request)
-                val blockNumber = ethBlockApi
-                    .ethBlockNumber(request)
-                    .result();
-                println(blockNumber)
+                }
             }
         - lang: javascript
           label: Javascript
@@ -325,6 +290,42 @@ paths:
               "jsonrpc": "2.0",
               "params": [{"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0xbE3892d33620bE5aca8c75D39e7401871194d290", "input": "0x2e64cec1"}, "latest", {"0xbE3892d33620bE5aca8c75D39e7401871194d290": {"code":"0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e64cec114604e5780636057361d146076575b600080fd5b348015605957600080fd5b50606060a0565b6040518082815260200191505060405180910390f35b348015608157600080fd5b50609e6004803603810190808035906020019092919050505060a9565b005b60008054905090565b80600081905550505600a165627a7a723058207783dba41884f73679e167576362b7277f88458815141651f48ca38c25b498f80029"}}]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.transaction;
+
+            import opensdk.sdk.apis.EthApi;
+            import opensdk.sdk.models.Call200Response;
+            import opensdk.sdk.models.CallObject;
+            import opensdk.sdk.models.StateOverrideSet;
+            import org.web3j.protocol.http.HttpService;
+
+            import java.io.IOException;
+            import java.util.HashMap;
+            import java.util.Map;
+
+            /**
+             * @author Tungnd
+             * @since 24/03/2023 4:12 PM
+             */
+            public class EthTransactionCallExample {
+                void ethCallApiTest() throws IOException {
+                    // given
+                    EthApi ethApi = new EthApi(new HttpService("http://localhost:8551"));
+                    String blockTag = "latest";
+                    CallObject callObject = new CallObject();
+                    callObject.setFrom("0xca7a99380131e6c76cfa622396347107aeedca2d");
+                    callObject.setTo("0xbE3892d33620bE5aca8c75D39e7401871194d290");
+                    callObject.setInput("0x2e64cec1");
+                    Map<String, StateOverrideSet> mapStateOverrideSet = new HashMap<>();
+                    StateOverrideSet stateOverrideSet = new StateOverrideSet();
+                    stateOverrideSet.setCode("0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e64cec114604e5780636057361d146076575b600080fd5b348015605957600080fd5b50606060a0565b6040518082815260200191505060405180910390f35b348015608157600080fd5b50609e6004803603810190808035906020019092919050505060a9565b005b60008054905090565b80600081905550505600a165627a7a723058207783dba41884f73679e167576362b7277f88458815141651f48ca38c25b498f80029");
+                    mapStateOverrideSet.put("0xbE3892d33620bE5aca8c75D39e7401871194d290", stateOverrideSet);
+                    // when
+                    Call200Response response = ethApi.call(callObject, blockTag, mapStateOverrideSet).send();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -480,13 +481,16 @@ components:
           format: DATA
           description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
     IntegerBlockNumber:
+      title: integerBlockNumber
       description: the block number with type integer
       type: number
     HexadecimalBlockNumber:
+      title: hexadecimalBlockNumber
       type: string
       format: hexadecimal
       description: the block number with type hexadecimal
     BlockTag:
+      title: blockTag
       type: string
       description: the block tag [latest, pending, earliest]
     BlockNumberOrTag:
