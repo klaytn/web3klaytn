@@ -1740,6 +1740,63 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
             }'
+  /klay/transaction/sendRawTransaction:
+    post:
+      operationId: sendRawTransaction
+      summary: '[sendRawTransaction] Creates a new message call transaction or a contract creation for signed transactions.'
+      description: |
+        Creates a new message call transaction or a contract creation for signed transactions.
+
+        **JSONRPC:** `klay_sendRawTransaction`
+      tags:
+        - klay
+      parameters:
+        - name: singedTransactionData
+          required: true
+          schema:
+            type: string
+            format: DATA
+          description: The signed transaction data.
+          in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlaySendRawTransactionReq'
+      responses:
+        '200':
+          description: Returns the transaction hash or the zero hash if the transaction is not yet available.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: 32-byte DATA
+                        description: The transaction hash or the zero hash if the transaction is not yet available.
+                        example: '0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_sendrawtransaction
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/sendRawTransaction' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_sendRawTransaction",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
+            }'
   /klay/configuration/chainID:
     post:
       operationId: chainID
@@ -4230,6 +4287,25 @@ components:
       properties:
         result:
           $ref: '#/components/schemas/TransactionReceipt'
+    KlaySendRawTransactionReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_sendRawTransaction
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                format: DATA
+                title: singedTransactionData
+                description: The signed transaction data.
+          example:
+            - '0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67'
     KlayGasPriceAtReq:
       type: object
       required:
