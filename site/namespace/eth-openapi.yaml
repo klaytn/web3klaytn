@@ -477,13 +477,16 @@ components:
           format: DATA
           description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
     IntegerBlockNumber:
+      title: integerBlockNumber
       description: the block number with type integer
       type: number
     HexadecimalBlockNumber:
+      title: hexadecimalBlockNumber
       type: string
       format: hexadecimal
       description: the block number with type hexadecimal
     BlockTag:
+      title: blockTag
       type: string
       description: the block tag [latest, pending, earliest]
     BlockNumberOrTag:
@@ -513,15 +516,6 @@ components:
         stateDiff:
           type: object
           description: (optional) Fake key-value mapping to override individual slots in the account storage before executing the call.
-    BlockHash:
-      type: string
-      description: the block hash
-    BlockNumberOrHashOrTag:
-      oneOf:
-        - $ref: '#/components/schemas/IntegerBlockNumber'
-        - $ref: '#/components/schemas/HexadecimalBlockNumber'
-        - $ref: '#/components/schemas/BlockTag'
-        - $ref: '#/components/schemas/BlockHash'
     CallReq:
       type: object
       required:
@@ -535,7 +529,7 @@ components:
           items:
             anyOf:
               - $ref: '#/components/schemas/CallObject'
-              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+              - $ref: '#/components/schemas/BlockNumberOrTag'
               - $ref: '#/components/schemas/StateOverrideSet'
           example:
             - from: '0xca7a99380131e6c76cfa622396347107aeedca2d'

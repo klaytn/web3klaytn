@@ -1,6 +1,6 @@
 generatorName: caver-java
 outputDir: ./openapi
-inputSpec: ../../../site/klaytn-openapi.yaml
+inputSpec: ../../../site/namespace/eth-openapi.yaml
 groupId: klaytn.foundation
 artifactId: opensdk-java
 artifactVersion: v1.10.0
