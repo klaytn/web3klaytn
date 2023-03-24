@@ -27,7 +27,7 @@ class TestAccountCreated(KlaytnBaseTesting):
         self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        klay_response = self.klay.decode_account_key(self.blockTag)
+        klay_response = self.klay.decode_account_key()
         self.covert_response(klay_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)

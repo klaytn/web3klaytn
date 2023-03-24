@@ -21,14 +21,14 @@ paths:
       tags:
         - klay
 
-#      parameters:
-#        - name: encodedAccountKey
-#          in: query
-#          description: RLP encoded account key
-#          required: true
-#          schema:
-#            type: string
-#            format: DATA
+      parameters:
+        - name: encodedAccountKey
+          in: query
+          description: RLP encoded account key
+          required: true
+          schema:
+            type: string
+            format: DATA
 
       requestBody:
         content:
@@ -67,7 +67,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klay/account/decodeAccountKey.py"
+            $ref: "../../../code-samples/python/klay/account/decodeAccountkey.py"
 
 components:
   schemas:
