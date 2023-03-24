@@ -89,7 +89,6 @@ paths:
   /klay/block/syncing:
     $ref: ./paths/klay/block/syncing.yaml#/paths/~1klay~1syncing
 
-
   # klay/transaction
   /klay/transaction/call:
     $ref: ./paths/klay/transaction/call.yaml#/paths/~1klay~1call
@@ -109,6 +108,8 @@ paths:
     $ref: ./paths/klay/transaction/getTransactionReceipt.yaml#/paths/~1klay~1getTransactionReceipt
   /klay/transaction/sendRawTransaction:
     $ref: ./paths/klay/transaction/sendRawTransaction.yaml#/paths/~1klay~1sendRawTransaction
+  /klay/transaction/estimateComputationCost:
+    $ref: ./paths/klay/transaction/estimateComputationCost.yaml#/paths/~1klay~1estimateComputationCost
 
   # klay/configuration
   /klay/configuration/chainID:
