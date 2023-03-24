@@ -28,6 +28,14 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  required:
+                    - method
+                    - params
+                  properties:
+                    method:
+                      type: string
+                      default: 'klay_accounts'
 
       responses:
         200:

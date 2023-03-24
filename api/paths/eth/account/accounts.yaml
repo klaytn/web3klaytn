@@ -9,24 +9,10 @@ info:
 servers:
   - url: http://localhost:7151
 
-components:
-  schemas:
-    EthAccountsResp:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            type: string
-            format: 20-byte DATA
-            readOnly: true
-            example: "0xc94770007dda54cF92009BFF0dE90c06F603a09f"
-
-
 paths:
   /eth/accounts:
     post:
-      summary: "[accounts] Returns a list of addresses owned by client"
+      summary: "[accounts]"
       tags:
         - eth
       operationId: accounts
@@ -55,7 +41,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - EthAccountsResp
+                  - $ref: "#/components/schemas/EthAccountsResp"
 
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/account#eth_accounts
@@ -78,3 +64,17 @@ paths:
           label: "Python"
           source:
             $ref: "../../../code-samples/python/eth/account/accounts.py"
+
+components:
+  schemas:
+    EthAccountsResp:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            type: string
+            format: 20-byte DATA
+            description: "Addresses owned by the client."
+            readOnly: true
+            example: "0xc94770007dda54cF92009BFF0dE90c06F603a09f"

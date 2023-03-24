@@ -122,6 +122,14 @@ paths:
             schema:
               allOf:
                 - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  required:
+                    - method
+                    - params
+                  properties:
+                    method:
+                      type: string
+                      default: klay_accounts
       responses:
         '200':
           description: Addresses owned by the client
