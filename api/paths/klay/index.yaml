@@ -47,6 +47,8 @@ paths:
     $ref: ./account/getAccount.yaml#/paths/~1klay~1getAccount
   /klay/account/getBalance:
     $ref: ./account/getBalance.yaml#/paths/~1klay~1getBalance
+  /klay/account/sign:
+    $ref: ./account/sign.yaml#/paths/~1klay~1sign
 
   # klay/block
   /klay/block/blockNumber:
