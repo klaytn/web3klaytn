@@ -103,6 +103,8 @@ paths:
     $ref: ./paths/klay/transaction/getTransactionByHash.yaml#/paths/~1klay~1getTransactionByHash
   /klay/transaction/getTransactionReceipt:
     $ref: ./paths/klay/transaction/getTransactionReceipt.yaml#/paths/~1klay~1getTransactionReceipt
+  /klay/transaction/sendRawTransaction:
+    $ref: ./paths/klay/transaction/sendRawTransaction.yaml#/paths/~1klay~1sendRawTransaction
 
   # klay/configuration
   /klay/configuration/chainID:
