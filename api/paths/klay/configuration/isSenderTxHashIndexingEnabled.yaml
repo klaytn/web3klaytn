@@ -10,14 +10,14 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/chainID:
+  /klay/isSenderTxHashIndexingEnabled:
     post:
-      operationId: chainID
-      summary: "[chainID] Returns the chain ID of the chain."
+      operationId: isSenderTxHashIndexingEnabled
+      summary: "[isSenderTxHashIndexingEnabled] Returns true if the node is indexing sender transaction hash to transaction hash mapping information."
       description: |
-        Returns the chain ID of the chain.
+        Returns true if the node is indexing sender transaction hash to transaction hash mapping information. It is disabled by default and can be enabled by --sendertxhashindexing.
 
-        **JSONRPC:** `klay_chainID`
+        **JSONRPC:** `klay_isSenderTxHashIndexingEnabled`
       tags:
         - klay
 
@@ -31,11 +31,11 @@ paths:
                   properties:
                     method:
                       type: string
-                      default: klay_chainID
+                      default: klay_isSenderTxHashIndexingEnabled
 
       responses:
         200:
-          description: The chain ID of the chain.
+          description: successfully response
           content:
             application/json:
               schema:
@@ -44,18 +44,18 @@ paths:
                   - type: object
                     properties:
                       result:
-                        type: string
-                        description: "Integer of the chain ID of the chain."
-                        example: "0x7e2"
+                        type: boolean
+                        description: "`true` means the node is indexing sender transaction hash to transaction hash mapping information."
+                        example: "0xAE9F7BCC00"
 
       externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_chainid
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_issendertxhashindexingenabled
         description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/configuration/chainID.sh"
+            $ref: "../../../code-samples/curl/klay/configuration/isSenderTxHashIndexingEnabled.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
