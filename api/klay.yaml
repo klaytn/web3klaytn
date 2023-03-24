@@ -82,10 +82,12 @@ paths:
     $ref: ./paths/klay/block/getHeaderByNumber.yaml#/paths/~1klay~1getHeaderByNumber
   /klay/block/getHeaderByHash:
     $ref: ./paths/klay/block/getHeaderByHash.yaml#/paths/~1klay~1getHeaderByHash
-  /klay/getRewards:
+  /klay/block/getRewards:
     $ref: ./paths/klay/block/getRewards.yaml#/paths/~1klay~1getRewards
-  /klay/getStorageAt:
+  /klay/block/getStorageAt:
     $ref: ./paths/klay/block/getStorageAt.yaml#/paths/~1klay~1getStorageAt
+  /klay/block/syncing:
+    $ref: ./paths/klay/block/syncing.yaml#/paths/~1klay~1syncing
 
 
   # klay/transaction

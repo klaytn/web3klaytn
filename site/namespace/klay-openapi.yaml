@@ -481,7 +481,7 @@ paths:
   /klay/account/sign:
     post:
       operationId: sign
-      summary: '[sign] '
+      summary: '[sign] The sign method calculates a Klaytn-specific signature'
       description: |
         The sign method calculates a Klaytn-specific signature with:
 
@@ -518,7 +518,7 @@ paths:
                 - $ref: '#/components/schemas/KlaySignReq'
       responses:
         '200':
-          description: The existence of an input address
+          description: Return signature
           content:
             application/json:
               schema:
@@ -1360,6 +1360,53 @@ paths:
               "id": 1,
               "jsonrpc": "2.0",
               "params": ["0x295a70b2de5e3953354a6a8344e616ed314d7251", "0x0", "latest"]
+            }'
+  /klay/block/syncing:
+    post:
+      operationId: syncing
+      summary: '[syncing] Returns an object with data about the sync status or false.'
+      description: |
+        Returns an object with data about the sync status or false.
+
+        **JSONRPC:** `klay_syncing`
+      tags:
+        - klay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: klay_syncing
+      responses:
+        '200':
+          description: Returns information about a block by hash
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlaySyncingResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_syncing
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/syncing' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_syncing",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": []
             }'
   /klay/transaction/call:
     post:
@@ -3757,6 +3804,43 @@ components:
             - '0x295a70b2de5e3953354a6a8344e616ed314d7251'
             - '0x0'
             - latest
+    SyncingObject:
+      type: object
+      properties:
+        startingBlock:
+          type: string
+          format: hex
+          description: The block at which the import started (will only be reset, after the sync reached his head).
+        currentBlock:
+          type: string
+          format: hex
+          description: The current block, same as klay_blockNumber.
+        highestBlock:
+          type: string
+          format: hex
+          description: The estimated highest block.
+        pulledStates:
+          type: string
+          format: hex
+          description: The number of state entries processed until now. If the sync mode is not "fast", zero is returned.
+        knownStates:
+          type: string
+          format: hex
+          description: The number of known state entries that still need to be pulled. If the sync mode is not "fast", zero is returned.
+      example:
+        currentBlock: '0x3e31e'
+        highestBlock: '0x827eef'
+        knownStates: '0x0'
+        pulledStates: '0x0'
+        startingBlock: '0x0'
+    KlaySyncingResp:
+      type: object
+      properties:
+        result:
+          oneOf:
+            - type: boolean
+              example: false
+            - $ref: '#/components/schemas/SyncingObject'
     CallObject:
       type: object
       description: The transaction call object. See the next table for the object's properties.
