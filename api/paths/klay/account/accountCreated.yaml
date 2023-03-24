@@ -70,14 +70,14 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        #- lang: "javascript"
-        #  label: "Javascript"
-        #  source:
-        #    $ref: ""
         - lang: "python"
           label: "Python"
           source:
             $ref: "../../../code-samples/python/klay/account/accountCreated.py"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+           $ref: "../../../code-samples/javascript/klay/account/accountCreated.js"
 
 components:
   schemas:

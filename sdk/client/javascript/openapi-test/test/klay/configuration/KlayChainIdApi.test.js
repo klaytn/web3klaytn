@@ -1,7 +1,7 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
 
-const api = new OpenSdk.KlayConfigurationApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const api = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('Klay chainId  API', () => {
     test('should return chainId', (done) => {
@@ -14,6 +14,6 @@ describe('Klay chainId  API', () => {
             console.log('API called successfully. Returned data: ' + JSON.stringify(data));
             done();
         };
-        api.klayChainID({}, callbackOne);
+        api.klay.chainID({}, callbackOne);
     });
 });
