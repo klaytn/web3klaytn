@@ -551,6 +551,124 @@ paths:
                 "0xdeadbeaf"
               ]
             }'
+  /klay/account/getTransactionCount:
+    post:
+      operationId: getTransactionCount
+      summary: '[getTransactionCount] Returns the number of transactions sent from an address.'
+      description: |
+        Returns the number of transactions sent from an address.
+
+        **JSONRPC:** `klay_getTransactionCount`
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available*
+      tags:
+        - klay
+      parameters:
+        - name: Address
+          required: true
+          schema:
+            type: string
+            format: 20-byte DATA
+          description: Address
+          in: query
+        - name: blockNumberOrHashOrTag
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter, or block hash.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetTransactionCountReq'
+      responses:
+        '200':
+          description: Returns the account key or an empty key value.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetTransactionCountResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/account#klay_getaccountkey
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getTransactionCount' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getTransactionCount",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0xc94770007dda54cF92009BFF0dE90c06F603a09f","latest"]
+            }'
+  /klay/account/isContractAccount:
+    post:
+      operationId: isContractAccount
+      summary: '[isContractAccount] Returns true if an input account has a non-empty codeHash at the time of a specific block number.'
+      description: |
+        Returns true if an input account has a non-empty codeHash at the time of a specific block number. It returns false if the account is an EOA or a smart contract account which doesn't have codeHash.
+
+        **JSONRPC:** `klay_isContractAccount`
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available*
+      tags:
+        - klay
+      parameters:
+        - name: Address
+          required: true
+          schema:
+            type: string
+            format: 20-byte DATA
+          description: Address
+          in: query
+        - name: blockNumberOrHashOrTag
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter, or block hash.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/schemas-KlayGetTransactionCountReq'
+      responses:
+        '200':
+          description: Returns the account key or an empty key value.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/schemas-KlayGetTransactionCountResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/account#klay_getaccountkey
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/isContractAccount' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_isContractAccount",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0xc94770007dda54cF92009BFF0dE90c06F603a09f","latest"]
+            }'
   /klay/block/blockNumber:
     post:
       operationId: blockNumber
@@ -1963,6 +2081,7 @@ paths:
                         type: string
                         format: hex
                         description: The amount of computation cost used.
+                        example: '0x1e8b0ad'
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_estimatecomputationcost
         description: Klaytn Docs
@@ -1987,7 +2106,7 @@ paths:
       description: |
         Returns the chain ID of the chain.
 
-        **JSONRPC:** `klay_blockNumber`
+        **JSONRPC:** `klay_chainID`
       tags:
         - klay
       requestBody:
@@ -2251,6 +2370,217 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+  /klay/configuration/isSenderTxHashIndexingEnabled:
+    post:
+      operationId: isSenderTxHashIndexingEnabled
+      summary: '[isSenderTxHashIndexingEnabled] Returns true if the node is indexing sender transaction hash to transaction hash mapping information.'
+      description: |
+        Returns true if the node is indexing sender transaction hash to transaction hash mapping information. It is disabled by default and can be enabled by --sendertxhashindexing.
+
+        **JSONRPC:** `klay_isSenderTxHashIndexingEnabled`
+      tags:
+        - klay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: klay_isSenderTxHashIndexingEnabled
+      responses:
+        '200':
+          description: successfully response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: boolean
+                        description: '`true` means the node is indexing sender transaction hash to transaction hash mapping information.'
+                        example: '0xAE9F7BCC00'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_issendertxhashindexingenabled
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/isSenderTxHashIndexingEnabled' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_isSenderTxHashIndexingEnabled",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": []
+            }'
+  /klay/configuration/maxPriorityFeePerGas:
+    post:
+      operationId: maxPriorityFeePerGas
+      summary: '[maxPriorityFeePerGas] Returns a suggestion for a gas tip cap for dynamic fee transactions in peb.'
+      description: |
+        Returns a suggestion for a gas tip cap for dynamic fee transactions in peb.
+
+        **JSONRPC:** `klay_maxPriorityFeePerGas`
+      tags:
+        - klay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: klay_maxPriorityFeePerGas
+      responses:
+        '200':
+          description: The chain ID of the chain.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: hex
+                        description: Integer of the current gas price in peb.
+                        example: '0xAE9F7BCC00'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/gas#klay_maxpriorityfeepergas
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/maxPriorityFeePerGas' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_maxPriorityFeePerGas",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": []
+            }'
+  /klay/configuration/protocolVersion:
+    post:
+      operationId: protocolVersion
+      summary: '[protocolVersion] Returns the Klaytn protocol version of the node.'
+      description: |
+        Returns the Klaytn protocol version of the node. The current version (as of v1.9.0) of Cypress/Baobab is istanbul/65.
+
+        **JSONRPC:** `klay_protocolVersion`
+      tags:
+        - klay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: klay_protocolVersion
+      responses:
+        '200':
+          description: The chain ID of the chain.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: hex
+                        description: The Klaytn protocol version of the node.
+                        example: '0xAE9F7BCC00'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_protocolversion
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/protocolVersion' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_protocolVersion",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": []
+            }'
+  /klay/configuration/rewardBase:
+    post:
+      operationId: rewardBase
+      summary: '[rewardBase] Returns the rewardbase of the current node.'
+      description: |
+        Returns the rewardbase of the current node. Rewardbase is the address of the account where the block rewards goes to. It is only required for CNs.
+
+        **JSONRPC:** `klay_rewardbase`
+      tags:
+        - klay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: klay_rewardbase
+      responses:
+        '200':
+          description: successfully response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: 20-byte DATA
+                        description: Address.
+                        example: '0x96Fd91f34Cc8da9f6338C106Ba37aA8B48FB4Fa5'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_rewardbase
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/rewardBase' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_rewardbase",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": []
+            }'
   /klay/filter/getFilterChanges:
     post:
       operationId: getFilterChanges
@@ -2485,6 +2815,71 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+  /klay/filter/uninstallFilter:
+    post:
+      operationId: uninstallFilter
+      summary: '[uninstallFilter] Uninstalls a filter with given id.'
+      description: |
+        Uninstalls a filter with given id. Should always be called when watch is no longer needed. Additionally, filters timeout when they are not requested with klay_getFilterChanges for a period of time.
+
+        **JSONRPC:** `klay_uninstallFilter`
+      tags:
+        - klay
+      parameters:
+        - name: QUANTITY
+          required: true
+          schema:
+            type: string
+          description: The filter id
+          in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: klay_uninstallFilter
+                    params:
+                      type: array
+                      items:
+                        type: string
+                      description: The filter id
+                      example:
+                        - '0xd32fd16b6906e67f6e2b65dcf48fc272'
+      responses:
+        '200':
+          description: true if the filter was successfully uninstalled, otherwise false.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: boolean
+                        description: true if the filter was successfully uninstalled, otherwise false.
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/filter#klay_uninstallfilter
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/uninstallerFilter' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_uninstallFilter",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0xd32fd16b6906e67f6e2b65dcf48fc272"]
+            }'
   /klay/gas/feeHistory:
     post:
       operationId: feeHistory
@@ -2548,6 +2943,55 @@ paths:
               "id": 1,
               "jsonrpc": "2.0",
               "params": ["0x10", "latest", [0.1, 0.2, 0.3]]
+            }'
+  /klay/miscellaneous/sha3:
+    post:
+      operationId: sha3
+      summary: '[sha3] Returns Keccak-256 (not the standardized SHA3-256) of the given data.'
+      description: |
+        **JSONRPC:** `klay_sha3`
+      tags:
+        - klay
+      parameters:
+        - name: data
+          required: true
+          schema:
+            type: string
+            format: DATA
+          description: The data to convert into a SHA3 hash.
+          in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlaySha3Req'
+      responses:
+        '200':
+          description: The SHA3 result of the given data.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlaySha3Resp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/misc#klay_sha3
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/sha3' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_sha3",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": []
             }'
 components:
   schemas:
@@ -3016,6 +3460,57 @@ components:
           example:
             - '0x9b2055d370f73ec7d8a03e965129118dc8f5bf83'
             - '0xdeadbeaf'
+    KlayGetTransactionCountReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getTransactionCount
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/Address'
+              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+          example:
+            - '0xc94770007dda54cF92009BFF0dE90c06F603a09f'
+            - latest
+    KlayGetTransactionCountResp:
+      type: object
+      properties:
+        result:
+          type: number
+          format: hex
+          description: Integer of the number of transactions send from this address.
+          example: '0x1'
+    schemas-KlayGetTransactionCountReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_isContractAccount
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/Address'
+              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+          example:
+            - '0xc94770007dda54cF92009BFF0dE90c06F603a09f'
+            - latest
+    schemas-KlayGetTransactionCountResp:
+      type: object
+      properties:
+        result:
+          type: boolean
+          description: true means the input parameter is an existing smart contract address.
+          example: true
     KlayGetBlockByHashReq:
       type: object
       required:
@@ -4683,3 +5178,26 @@ components:
               - 0
               - ...
               - 0.0002963777000002964
+    KlaySha3Req:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_sha3
+        params:
+          type: array
+          items:
+            type: string
+            format: DATA
+            description: The data to convert into a SHA3 hash.
+          example:
+            - '0x11223344'
+    KlaySha3Resp:
+      type: object
+      properties:
+        result:
+          type: string
+          example: '0x36712aa4d0dd2f64a9ae6ac09555133a157c74ddf7c079a70c33e8b4bf70dd73'
