@@ -10,14 +10,15 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/isParallelDBWrite:
+  /klay/newBlockFilter:
     post:
-      operationId: isParallelDBWrite
-      summary: "[isParallelDBWrite] Returns true if the node is writing blockchain data in parallel manner. It is enabled by default."
+      operationId: newBlockFilter
+      summary: "[newBlockFilter] Creates a filter in the node, to notify when a new block arrives."
       description: |
-        Returns true if the node is writing blockchain data in parallel manner. It is enabled by default.
+        Creates a filter in the node, to notify when a new block arrives. To check if the state has changed, call klay_getFilterChanges.
+        
+        **JSONRPC:** `klay_newBlockFilter`
 
-        **JSONRPC:** `klay_isParallelDBWrite`
       tags:
         - klay
 
@@ -31,11 +32,11 @@ paths:
                   properties:
                     method:
                       type: string
-                      default: "klay_isParallelDBWrite"
+                      default: "klay_newBlockFilter"
 
       responses:
         200:
-          description: Returns true if the node is writing blockchain data in parallel manner.
+          description: Returns a filter id.
           content:
             application/json:
               schema:
@@ -44,18 +45,19 @@ paths:
                   - type: object
                     properties:
                       result:
-                        type: boolean
-                        description: "true means the node is writing blockchain data in parallel manner. It is false if the node is writing the data in serial manner."
-                        example: "true"
+                        type: string
+                        format: hex
+                        description: "A filter id."
+                        example: "0xc2f2e8168a7e38b5d979d0f7084130ee"
 
       externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_isparalleldbwrite
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/filter#klay_newblockfilter
         description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/configuration/isParallelDBWrite.sh"
+            $ref: "../../../code-samples/curl/klay/filter/newBlockFilter.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
