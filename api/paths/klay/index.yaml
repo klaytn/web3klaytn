@@ -118,6 +118,8 @@ paths:
     $ref: ./filter/getFilterLogs.yaml#/paths/~1klay~1getFilterLogs
   /klay/filter/newBlockFilter:
     $ref: ./filter/newBlockFilter.yaml#/paths/~1klay~1newBlockFilter
+  /klay/filter/newPendingTransactionFilter:
+    $ref: ./filter/newPendingTransactionFilter.yaml#/paths/~1klay~1newPendingTransactionFilter
 
   # klay/gas
   /klay/gas/feeHistory:
