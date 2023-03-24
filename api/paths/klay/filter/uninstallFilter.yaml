@@ -10,16 +10,25 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/chainID:
+  /klay/uninstallFilter:
     post:
-      operationId: chainID
-      summary: "[chainID] Returns the chain ID of the chain."
+      operationId: uninstallFilter
+      summary: "[uninstallFilter] Uninstalls a filter with given id."
       description: |
-        Returns the chain ID of the chain.
+        Uninstalls a filter with given id. Should always be called when watch is no longer needed. Additionally, filters timeout when they are not requested with klay_getFilterChanges for a period of time.
 
-        **JSONRPC:** `klay_chainID`
+        **JSONRPC:** `klay_uninstallFilter`
+
       tags:
         - klay
+
+      parameters:
+        - name: QUANTITY
+          required: true
+          schema:
+            type: string
+          description: The filter id
+          in: query
 
       requestBody:
         content:
@@ -31,11 +40,17 @@ paths:
                   properties:
                     method:
                       type: string
-                      default: klay_chainID
+                      default: "klay_uninstallFilter"
+                    params:
+                      type: array
+                      items:
+                        type: string
+                      description: The filter id
+                      example: ["0xd32fd16b6906e67f6e2b65dcf48fc272"]
 
       responses:
         200:
-          description: The chain ID of the chain.
+          description: true if the filter was successfully uninstalled, otherwise false.
           content:
             application/json:
               schema:
@@ -44,18 +59,17 @@ paths:
                   - type: object
                     properties:
                       result:
-                        type: string
-                        description: "Integer of the chain ID of the chain."
-                        example: "0x7e2"
+                        type: boolean
+                        description: true if the filter was successfully uninstalled, otherwise false.
 
       externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_chainid
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/filter#klay_uninstallfilter
         description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/configuration/chainID.sh"
+            $ref: "../../../code-samples/curl/klay/filter/uninstallFilter.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:

@@ -10,14 +10,14 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/chainID:
+  /klay/rewardBase:
     post:
-      operationId: chainID
-      summary: "[chainID] Returns the chain ID of the chain."
+      operationId: rewardBase
+      summary: "[rewardBase] Returns the rewardbase of the current node."
       description: |
-        Returns the chain ID of the chain.
+        Returns the rewardbase of the current node. Rewardbase is the address of the account where the block rewards goes to. It is only required for CNs.
 
-        **JSONRPC:** `klay_chainID`
+        **JSONRPC:** `klay_rewardbase`
       tags:
         - klay
 
@@ -31,11 +31,11 @@ paths:
                   properties:
                     method:
                       type: string
-                      default: klay_chainID
+                      default: klay_rewardbase
 
       responses:
         200:
-          description: The chain ID of the chain.
+          description: successfully response
           content:
             application/json:
               schema:
@@ -45,17 +45,18 @@ paths:
                     properties:
                       result:
                         type: string
-                        description: "Integer of the chain ID of the chain."
-                        example: "0x7e2"
+                        format: 20-byte DATA
+                        description: Address.
+                        example: "0x96Fd91f34Cc8da9f6338C106Ba37aA8B48FB4Fa5"
 
       externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_chainid
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_rewardbase
         description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/configuration/chainID.sh"
+            $ref: "../../../code-samples/curl/klay/configuration/rewardBase.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:

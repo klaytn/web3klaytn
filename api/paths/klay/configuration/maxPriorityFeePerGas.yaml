@@ -10,14 +10,14 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/chainID:
+  /klay/maxPriorityFeePerGas:
     post:
-      operationId: chainID
-      summary: "[chainID] Returns the chain ID of the chain."
+      operationId: maxPriorityFeePerGas
+      summary: "[maxPriorityFeePerGas] Returns a suggestion for a gas tip cap for dynamic fee transactions in peb."
       description: |
-        Returns the chain ID of the chain.
+        Returns a suggestion for a gas tip cap for dynamic fee transactions in peb.
 
-        **JSONRPC:** `klay_chainID`
+        **JSONRPC:** `klay_maxPriorityFeePerGas`
       tags:
         - klay
 
@@ -31,7 +31,7 @@ paths:
                   properties:
                     method:
                       type: string
-                      default: klay_chainID
+                      default: klay_maxPriorityFeePerGas
 
       responses:
         200:
@@ -45,17 +45,18 @@ paths:
                     properties:
                       result:
                         type: string
-                        description: "Integer of the chain ID of the chain."
-                        example: "0x7e2"
+                        format: hex
+                        description: "Integer of the current gas price in peb."
+                        example: "0xAE9F7BCC00"
 
       externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_chainid
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/gas#klay_maxpriorityfeepergas
         description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/configuration/chainID.sh"
+            $ref: "../../../code-samples/curl/klay/configuration/maxPriorityFeePerGas.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
