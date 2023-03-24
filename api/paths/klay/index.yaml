@@ -30,7 +30,6 @@ servers:
   - url: https://api.baobab.klaytn.net:8651
   - url: https://public-en-cypress.klaytn.net
 paths:
-
   # klay/account
   /klay/account/accountCreated:
     $ref: ./account/accountCreated.yaml#/paths/~1klay~1accountCreated
@@ -38,14 +37,67 @@ paths:
     $ref: ./account/accounts.yaml#/paths/~1klay~1accounts
   /klay/account/decodeAccountKey:
     $ref: ./account/decodeAccountKey.yaml#/paths/~1klay~1decodeAccountKey
+  /klay/account/getAccountKey:
+    $ref: ./account/getAccountKey.yaml#/paths/~1klay~1getAccountKey
+  /klay/account/getCode:
+    $ref: ./account/getCode.yaml#/paths/~1klay~1getCode
+  /klay/account/encodeAccountKey:
+    $ref: ./account/encodeAccountKey.yaml#/paths/~1klay~1encodeAccountKey
+  /klay/account/getAccount:
+    $ref: ./account/getAccount.yaml#/paths/~1klay~1getAccount
+  /klay/account/getBalance:
+    $ref: ./account/getBalance.yaml#/paths/~1klay~1getBalance
 
   # klay/block
   /klay/block/blockNumber:
     $ref: ./block/blockNumber.yaml#/paths/~1klay~1blockNumber
+  /klay/block/getBlockByHash:
+    $ref: ./block/getBlockByHash.yaml#/paths/~1klay~1getBlockByHash
+  /klay/block/getBlockReceipts:
+    $ref: ./block/getBlockReceipts.yaml#/paths/~1klay~1getBlockReceipts
+  /klay/block/getBlockTransactionCountByNumber:
+    $ref: ./block/getBlockTransactionCountByNumber.yaml#/paths/~1klay~1getBlockTransactionCountByNumber
+  /klay/block/getBlockWithConsensusInfoByNumber:
+    $ref: ./block/getBlockWithConsensusInfoByNumber.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumber
+  /klay/block/getCommittee:
+    $ref: ./block/getCommittee.yaml#/paths/~1klay~1getCommittee
+  /klay/block/getCommitteeSize:
+    $ref: ./block/getCommitteeSize.yaml#/paths/~1klay~1getCommitteeSize
+  /klay/block/getCouncil:
+    $ref: ./block/getCouncil.yaml#/paths/~1klay~1getCouncil
+  /klay/block/getCouncilSize:
+    $ref: ./block/getCouncilSize.yaml#/paths/~1klay~1getCouncilSize
+  /klay/block/getBlockByNumber:
+    $ref: ./block/getBlockByNumber.yaml#/paths/~1klay~1getBlockByNumber
+  /klay/block/getBlockTransactionCountByHash:
+    $ref: ./block/getBlockTransactionCountByHash.yaml#/paths/~1klay~1getBlockTransactionCountByHash
+  /klay/block/getHeaderByNumber:
+    $ref: ./block/getHeaderByNumber.yaml#/paths/~1klay~1getHeaderByNumber
+  /klay/block/getHeaderByHash:
+    $ref: ./block/getHeaderByHash.yaml#/paths/~1klay~1getHeaderByHash
+  /klay/getRewards:
+    $ref: ./block/getRewards.yaml#/paths/~1klay~1getRewards
+  /klay/getStorageAt:
+    $ref: ./block/getStorageAt.yaml#/paths/~1klay~1getStorageAt
+
 
   # klay/transaction
   /klay/transaction/call:
     $ref: ./transaction/call.yaml#/paths/~1klay~1call
+  /klay/transaction/getDecodedAnchoringTransactionByHash:
+    $ref: ./transaction/getDecodedAnchoringTransactionByHash.yaml#/paths/~1klay~1getDecodedAnchoringTransactionByHash
+  /klay/transaction/estimateGas:
+    $ref: ./transaction/estimateGas.yaml#/paths/~1klay~1estimateGas
+  /klay/transaction/getTransactionByBlockNumberAndIndex:
+    $ref: ./transaction/getTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getTransactionByBlockNumberAndIndex
+  /klay/transaction/getTransactionBySenderTxHash:
+    $ref: ./transaction/getTransactionBySenderTxHash.yaml#/paths/~1klay~1getTransactionBySenderTxHash
+  /klay/transaction/getTransactionByBlockHashAndIndex:
+    $ref: ./transaction/getTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getTransactionByBlockHashAndIndex
+  /klay/transaction/getTransactionByHash:
+    $ref: ./transaction/getTransactionByHash.yaml#/paths/~1klay~1getTransactionByHash
+  /klay/transaction/getTransactionReceipt:
+    $ref: ./transaction/getTransactionReceipt.yaml#/paths/~1klay~1getTransactionReceipt
 
   # klay/configuration
   /klay/configuration/chainID:
@@ -54,6 +106,16 @@ paths:
     $ref: ./configuration/clientVersion.yaml#/paths/~1klay~1clientVersion
   /klay/configuration/gasPriceAt:
     $ref: ./configuration/gasPriceAt.yaml#/paths/~1klay~1gasPriceAt
+  /klay/configuration/gasPrice:
+    $ref: ./configuration/gasPrice.yaml#/paths/~1klay~1gasPrice
+  /klay/configuration/isParallelDBWrite:
+    $ref: ./configuration/isParallelDBWrite.yaml#/paths/~1klay~1isParallelDBWrite
+
+  # klay/filter
+  /klay/filter/getFilterChanges:
+    $ref: ./filter/getFilterChanges.yaml#/paths/~1klay~1getFilterChanges
+  /klay/filter/getFilterLogs:
+    $ref: ./filter/getFilterLogs.yaml#/paths/~1klay~1getFilterLogs
 
   # klay/gas
   /klay/gas/feeHistory:

@@ -108,14 +108,6 @@ paths:
             schema:
               allOf:
                 - $ref: '#/components/schemas/JsonRpcRequest'
-                - type: object
-                  required:
-                    - method
-                    - params
-                  properties:
-                    method:
-                      type: string
-                      default: klay_accounts
       responses:
         '200':
           description: Addresses owned by the client
@@ -195,6 +187,297 @@ paths:
                 "0x05f898a302a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff72ff7dcdf01512db84e04f84b02f848e301a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff72ff7dcdf01512de301a10336f6355f5b532c3c1606f18fa2be7a16ae200c5159c8031dd25bfa389a4c9c06a302a102c8785266510368d9372badd4c7f4a94b692e82ba74e0b5e26b34558b0f081447"
               ]
             }'
+  /klay/account/getAccountKey:
+    post:
+      operationId: getAccountKey
+      summary: '[getAccountKey] Returns the account key of the Externally Owned Account (EOA) of a given address or an empty key value'
+      description: |
+        Returns the account key of the Externally Owned Account (EOA) of a given address. If the account has AccountKeyLegacy or the account of the given address is a Smart Contract Account, it will return an empty key value.
+
+        **JSONRPC:** `klay_getAccountKey`
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available*
+      tags:
+        - klay
+      parameters:
+        - name: Address
+          required: true
+          schema:
+            type: string
+            format: 20-byte DATA
+          description: Address
+          in: query
+        - name: blockNumberOrHashOrTag
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter, or block hash.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetAccountKeyReq'
+      responses:
+        '200':
+          description: Returns the account key or an empty key value.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetAccountKeyResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/account#klay_getaccountkey
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getAccountKey' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getAccountKey",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]
+            }'
+  /klay/account/getCode:
+    post:
+      operationId: getCode
+      summary: '[getCode] Returns code at a given address.'
+      description: |
+        Returns code at a given address.
+
+        **JSONRPC:** `klay_getCode`
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
+      tags:
+        - klay
+      parameters:
+        - name: account
+          required: true
+          schema:
+            type: string
+            format: 20-byte DATA
+          description: Address
+          in: query
+        - name: blockNumberOrHash
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetCodeReq'
+      responses:
+        '200':
+          description: Returns code at a given address.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: DATA
+                        description: The code from the given address.
+                        example: '0x600160008035811a818181146012578301005b601b6001356025565b8060005260206000f25b600060078202905091905056'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/account#klay_getcode
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getCode' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getCode",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b", "0x2"]
+            }'
+  /klay/account/encodeAccountKey:
+    post:
+      operationId: encodeAccountKey
+      summary: '[encodeAccountKey] Decodes an RLP encoded account key.'
+      description: |
+        Encodes an account key using the Recursive Length Prefix (RLP) encoding scheme.
+
+        **JSONRPC:** `klay_encodeAccountKey`
+      tags:
+        - klay
+      parameters:
+        - name: encodedAccountKey
+          in: query
+          description: RLP encoded account key
+          required: true
+          schema:
+            type: string
+            format: DATA
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayEncodeAccountKeyReq'
+      responses:
+        '200':
+          description: Return RLP encoded account key
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayEncodeAccountKeyResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/account#klay_encodeaccountkey
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/encodeAccountKey' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_encodeAccountKey",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": [{"keyType": 0, "key": {}}]
+            }'
+  /klay/account/getAccount:
+    post:
+      operationId: getAccount
+      summary: '[getAccount] Get account'
+      description: |
+        Returns the account information of a given address. There are two different account types in Klaytn: Externally Owned Account (EOA) and Smart Contract Account. See Klaytn Accounts.
+
+        **JSONRPC:** `klay_getAccount`
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*`
+      tags:
+        - klay
+      parameters:
+        - name: address
+          in: query
+          description: Address
+          required: true
+          schema:
+            $ref: '#/components/schemas/Address'
+        - name: blockNumberOrHash
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter, or block hash.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetAccountReq'
+      responses:
+        '200':
+          description: Returns the account information of a given address.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetAccountResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/account#klay_getaccount
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getAccount' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getAccount",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]
+            }'
+  /klay/account/getBalance:
+    post:
+      operationId: getBalance
+      summary: '[getBalance] Returns the balance of the account of given address.'
+      description: |
+        Returns the balance of the account of given address.
+
+        **JSONRPC:** `klay_getBalance`
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*`
+      tags:
+        - klay
+      parameters:
+        - name: address
+          in: query
+          description: Address
+          required: true
+          schema:
+            $ref: '#/components/schemas/Address'
+        - name: blockNumberOrHash
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter, or block hash.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetBalanceReq'
+      responses:
+        '200':
+          description: Returns the balance of the account of given address.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetBalanceResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/account#klay_getbalance
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getBalance' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getBalance",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]
+            }'
   /klay/block/blockNumber:
     post:
       operationId: blockNumber
@@ -246,6 +529,764 @@ paths:
               "id": 1,
               "jsonrpc": "2.0",
               "params": []
+            }'
+  /klay/block/getBlockByHash:
+    post:
+      operationId: getBlockByHash
+      summary: '[getBlockByHash] Returns information about a block by hash.'
+      description: |
+        Returns information about a block by hash. This API works only on RPC call, not on JavaScript console.
+
+        **JSONRPC:** `klay_getBlockByHash`
+      tags:
+        - klay
+      parameters:
+        - name: hashOfBlock
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+          description: Hash of a block
+          in: query
+        - name: returnTransactionObject
+          in: query
+          description: If true it returns the full transaction objects, if false only the hashes of the transactions.
+          required: true
+          schema:
+            type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetBlockByHashReq'
+      responses:
+        '200':
+          description: Returns information about a block by hash
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetBlockByHashResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getblockbyhash
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getBlockByHash' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getBlockByHash",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c", true]
+            }'
+  /klay/block/getBlockReceipts:
+    post:
+      operationId: getBlockReceipts
+      summary: '[getBlockReceipts] Returns receipts included in a block identified by block hash.'
+      description: |
+        Returns receipts included in a block identified by block hash.
+
+        **JSONRPC:** `klay_getBlockReceipts`
+      tags:
+        - klay
+      parameters:
+        - name: hashOfBlock
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+          description: Hash of a block
+          in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetBlockReceiptsReq'
+      responses:
+        '200':
+          description: Receipts included in a block. If the target block contains no transaction, an empty array [] is returned.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetBlockReceiptsResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getblockreceipts
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getBlockReceipts' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getBlockReceipts",
+              "id": 73,
+              "jsonrpc": "2.0",
+              "params": ["0xdc762ed0274496e2a42278e2648d910d82468687b5415bb5eb058a96a0b93c30"]
+            }'
+  /klay/block/getBlockTransactionCountByNumber:
+    post:
+      operationId: getBlockTransactionCountByNumber
+      summary: '[getBlockTransactionCountByNumber] Returns the number of transactions in a block matching the given block number.'
+      description: |
+        Returns the number of transactions in a block matching the given block number.
+
+        **JSONRPC:** `klay_getBlockTransactionCountByNumber`
+
+        **NOTE:**  In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.
+      tags:
+        - klay
+      parameters:
+        - name: blockNumber
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetBlockTransactionCountByNumberReq'
+      responses:
+        '200':
+          description: Returns integer of the number of transactions in this block.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: hex
+                        description: Integer of the number of transactions in this block.
+                        example: '0xa'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getblocktransactioncountbynumber
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getBlockTransactionCountByNumber' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getBlockTransactionCountByNumber",
+              "id": 73,
+              "jsonrpc": "2.0",
+              "params": ["0xe8"]
+            }'
+  /klay/block/getBlockWithConsensusInfoByNumber:
+    post:
+      operationId: getBlockWithConsensusInfoByNumber
+      summary: '[getBlockWithConsensusInfoByNumber] Returns a block with consensus information that matches the given block number.'
+      description: |
+        Returns a block with consensus information that matches the given block number.
+
+        **JSONRPC:** `klay_getBlockWithConsensusInfoByNumber`
+
+        **NOTE:**  In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available. 
+      tags:
+        - klay
+      parameters:
+        - name: blockNumber
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetBlockWithConsensusInfoByNumberReq'
+      responses:
+        '200':
+          description: Returns a block with consensus information that matches the given block number.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetBlockWithConsensusInfoByNumberResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getblockwithconsensusinfobynumber
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getBlockWithConsensusInfoByNumber' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getBlockWithConsensusInfoByNumber",
+              "id": 73,
+              "jsonrpc": "2.0",
+              "params": ["0x6e0431"]
+            }'
+  /klay/block/getCommittee:
+    post:
+      operationId: getCommittee
+      summary: '[getCommittee] Returns a list of all validators in the committee at the specified block.'
+      description: |
+        Returns a list of all validators in the committee at the specified block. If the parameter is not set, returns a list of all validators in the committee at the latest block.
+
+        **JSONRPC:** `klay_getCommittee`
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
+      tags:
+        - klay
+      parameters:
+        - name: blockNumberOrTag
+          in: query
+          description: (optional) Integer or hexadecimal block number, or the string "earliest" or "latest" as in the default block parameter.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetCommitteeReq'
+      responses:
+        '200':
+          description: Array - Array of addresses of all validators in the committee, or null when no committee was found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetCommitteeResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getcommittee
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getCommittee' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getCommittee",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x1b4"]
+            }'
+  /klay/block/getCommitteeSize:
+    post:
+      operationId: getCommitteeSize
+      summary: '[getCommitteeSize] Returns the size of the committee at the specified block.'
+      description: |
+        Returns the size of the committee at the specified block. If the parameter is not set, returns the size of the committee at the latest block.
+
+        **JSONRPC:** `klay_getCommitteeSize`
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
+      tags:
+        - klay
+      parameters:
+        - name: blockNumberOrTag
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetCommitteeSizeReq'
+      responses:
+        '200':
+          description: Integer - The size of the committee, or -1 when no committee was found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: number
+                        description: The size of the council
+                        example: 4
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getcommitteesize
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getCommitteeSize' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getCommitteeSize",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x1b4"]
+            }'
+  /klay/block/getCouncil:
+    post:
+      operationId: getCouncil
+      summary: '[getCouncil] Returns a list of all validators of the council at the specified block'
+      description: |
+        Returns a list of all validators of the council at the specified block. If the parameter is not set, returns a list of all validators of the council at the latest block.
+
+        **JSONRPC:** `klay_getCouncil`
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
+      tags:
+        - klay
+      parameters:
+        - name: blockNumberOrTag
+          in: query
+          description: (optional) Integer or hexadecimal block number, or the string "earliest" or "latest" as in the default block parameter.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetCouncilReq'
+      responses:
+        '200':
+          description: Array - Array of validator addresses of the council, or null when no council was found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetCouncilResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getcouncil
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getCouncil' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getCouncil",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x1b4"]
+            }'
+  /klay/block/getCouncilSize:
+    post:
+      operationId: getCouncilSize
+      summary: '[getCouncilSize] Returns the size of the council at the specified block.'
+      description: |
+        Returns the size of the council at the specified block. If the parameter is not set, returns the size of the council at the latest block.
+
+        **JSONRPC:** `klay_getCouncilSize`
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
+      tags:
+        - klay
+      parameters:
+        - name: blockNumberOrTag
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetCouncilSizeReq'
+      responses:
+        '200':
+          description: Integer - The size of the committee, or -1 when no committee was found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: number
+                        description: The size of the council
+                        example: 4
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getcouncilsize
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getCouncilSize' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getCouncilSize",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x1b4"]
+            }'
+  /klay/block/getBlockByNumber:
+    post:
+      operationId: getBlockByNumber
+      summary: '[getBlockByNumber] Returns information about a block by block number. This API works only on RPC call, not on JavaScript console.'
+      description: |
+        Returns information about a block by block number. This API works only on RPC call, not on JavaScript console.
+
+        **JSONRPC:** `klay_getBlockByNumber`
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
+      tags:
+        - klay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetBlockByNumberReq'
+      responses:
+        '200':
+          description: A block object, or error when no block was found.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetBlockByNumberResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getblockbynumber
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getBlockByNumber' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getBlockByNumber",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x1b4", true]
+            }'
+  /klay/block/getBlockTransactionCountByHash:
+    post:
+      operationId: getBlockTransactionCountByHash
+      summary: '[getBlockTransactionCountByHash] Returns the number of transactions in a block from a block that matches the given hash.'
+      description: |
+        Returns the number of transactions in a block from a block that matches the given hash.
+
+        **JSONRPC:** `klay_getBlockTransactionCountByHash`
+      tags:
+        - klay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: klay_getBlockTransactionCountByHash
+                    params:
+                      type: array
+                      items:
+                        type: string
+                        format: 32-byte DATA
+                        description: Hash of a block
+                        default: '0x0c11803ab36110db993e7520908b9ba9336cca2f2dcc9b6130c481a3ccdc2621'
+      responses:
+        '200':
+          description: Integer of the number of transactions in this block.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: QUANTITY
+                        example: '0x0'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getBlockTransactionCountByHash
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getBlockTransactionCountByHash' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getBlockTransactionCountByHash",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x0c11803ab36110db993e7520908b9ba9336cca2f2dcc9b6130c481a3ccdc2621"]
+            }'
+  /klay/block/getHeaderByNumber:
+    post:
+      operationId: getHeaderByNumber
+      summary: '[getHeaderByNumber] Returns information about a header by number.'
+      description: |
+        Returns information about a header by number. This API works only on RPC call, not on JavaScript console.
+
+        **JSONRPC:** `klay_getHeaderByNumber`
+
+        **NOTE:** *This API is supported from Klaytn v1.7.0.*
+      tags:
+        - klay
+      parameters:
+        - name: blockNumberOrTag
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetHeaderByNumberReq'
+      responses:
+        '200':
+          description: Returns a header object, or error when no header was found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetHeaderByNumberResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getheaderbynumber
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getHeaderByNumber' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getHeaderByNumber",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x1b4"]
+            }'
+  /klay/block/getHeaderByHash:
+    post:
+      operationId: getHeaderByHash
+      summary: '[getHeaderByHash] Returns information about a header by hash.'
+      description: |
+        Returns information about a header by hash. This API works only on RPC call, not on JavaScript console.
+
+        **JSONRPC:** `klay_getHeaderByHash`
+
+        **NOTE:** *This API is supported from Klaytn v1.7.0.*
+      tags:
+        - klay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetHeaderByHashReq'
+      responses:
+        default:
+          description: Returns a header object, or error when no header was found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetHeaderByHashResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getHeaderByHash
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getHeaderByHash' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getHeaderByHash",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c"]
+            }'
+  /klay/getRewards:
+    post:
+      tags:
+        - klay
+      operationId: getRewards
+      summary: '[getRewards] Find distributed block rewards'
+      description: |
+        Returns distributed block rewards information at the latest block number
+
+        **JSONRPC:** `klay_getRewards`
+      parameters:
+        - name: blockNumberOrTag
+          in: query
+          description: block number
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetRewardsReq'
+      responses:
+        '200':
+          description: block rewards information
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetRewardsResp'
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getRewards' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getRewards",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": [
+                "latest"
+              ]
+            }'
+  /klay/getStorageAt:
+    post:
+      operationId: getStorageAt
+      summary: '[getStorageAt] Returns the value from a storage position at a given address.'
+      description: |
+        Returns the value from a storage position at a given address.
+
+        **JSONRPC:** `klay_getStorageAt`
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
+      tags:
+        - klay
+      parameters:
+        - name: storageAddress
+          required: true
+          schema:
+            type: string
+            format: 20-byte DATA
+          description: Address of the storage.
+          in: query
+        - name: position
+          required: true
+          schema:
+            type: string
+            format: hex
+          description: Integer of the position in the storage.
+          in: query
+        - name: blockNumberOrHash
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter, or block hash.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetStorageAtReq'
+      responses:
+        '200':
+          description: Returns the value from a storage position at a given address.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: DATA
+                        description: The value at this storage position.
+                        example: '0x00000000000000000000000000000000000000000000000000000000000004d2'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getstorageat
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getStorageAt' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getStorageAt",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x295a70b2de5e3953354a6a8344e616ed314d7251", "0x0", "latest"]
             }'
   /klay/transaction/call:
     post:
@@ -316,6 +1357,388 @@ paths:
                 },
                 "latest"
               ]
+            }'
+  /klay/transaction/getDecodedAnchoringTransactionByHash:
+    post:
+      operationId: getDecodedAnchoringTransactionByHash
+      summary: '[getDecodedAnchoringTransactionByHash] Returns the decoded anchored data in the transaction for the given transaction hash.'
+      description: |
+        Returns the decoded anchored data in the transaction for the given transaction hash.
+
+        **JSONRPC:** `klay_getDecodedAnchoringTransactionByHash`
+      tags:
+        - klay
+      parameters:
+        - name: hashOfTransaction
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+          description: Hash of a transaction.
+          in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetDecodedAnchoringTransactionByHashReq'
+      responses:
+        '200':
+          description: Returns the decoded anchored data in the transaction for the given transaction hash.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetDecodedAnchoringTransactionByHashResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_getdecodedanchoringtransactionbyhash
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getDecodedAnchoringTransactionByHash' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getDecodedAnchoringTransactionByHash",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x72cde80650c7c6745e4cf4c162e9ce1e5542f4d86112925faa6aa75f6a6142ec"]
+            }'
+  /klay/transaction/estimateGas:
+    post:
+      operationId: estimateGas
+      summary: '[estimateGas] Estimate gas'
+      tags:
+        - klay
+      description: |
+        Generates and returns an estimate of how much gas is necessary to allow the transaction to complete. The transaction will not be added to the blockchain. Note that the estimate may be significantly more than the amount of gas actually used by the transaction, for a variety of reasons including Klaytn Virtual Machine mechanics and node performance.
+
+        **JSONRPC:** `klay_estimateGas`
+      parameters:
+        - name: callObject
+          in: query
+          description: The transaction call object. See the next table for the object's properties.
+          required: true
+          schema:
+            $ref: '#/components/schemas/CallObject'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayEstimateGasReq'
+      responses:
+        '200':
+          description: The amount of gas used.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayEstimateGasResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_estimategas
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl
+              'https://api.baobab.klaytn.net:8651/klay/estimateGas' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_estimateGas",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": [
+                {
+                  "from": "0x3f71029af4e252b25b9ab999f77182f0cd3bc085",
+                  "to": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b",
+                  "gas": "0x100000",
+                  "gasPrice":"0x5d21dba00",
+                  "value": "0x0",
+                  "input": "0x8ada066e"
+                }
+              ]
+            }'
+  /klay/transaction/getTransactionByBlockNumberAndIndex:
+    post:
+      operationId: getTransactionByBlockNumberAndIndex
+      summary: '[getTransactionByBlockNumberAndIndex] Returns information about a transaction by block number and transaction index position.'
+      description: |
+        Returns information about a transaction by block number and transaction index position. This API works only on RPC call, not on JavaScript console.
+
+        **JSONRPC:** `klay_getTransactionByBlockNumberAndIndex`
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
+      tags:
+        - klay
+      parameters:
+        - name: blockNumber
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+        - name: transactionIndex
+          required: true
+          schema:
+            type: string
+            format: hex
+          description: The transaction index position.
+          in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetTransactionByBlockNumberAndIndexReq'
+      responses:
+        '200':
+          description: Returns information about a transaction by block number and transaction index position.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetTransactionByBlockNumberAndIndexResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_gettransactionbyblocknumberandindex
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getTransactionByBlockNumberAndIndex' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getTransactionByBlockNumberAndIndex",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x27", "0x0"]
+            }'
+  /klay/transaction/getTransactionBySenderTxHash:
+    post:
+      operationId: getTransactionBySenderTxHash
+      summary: '[getTransactionBySenderTxHash] Returns the information about a transaction requested by sender transaction hash.'
+      description: |
+        Returns the information about a transaction requested by sender transaction hash. This API works only on RPC call, not on JavaScript console. Please note that this API returns correct result only if indexing feature is enabled by --sendertxhashindexing. This can be checked by call klay_isSenderTxHashIndexingEnabled.
+
+        **JSONRPC:** `klay_getTransactionBySenderTxHash`
+      tags:
+        - klay
+      parameters:
+        - name: transactionHash
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+          description: Hash of a transaction that is signed only by the sender.
+          in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetTransactionBySenderTxHashReq'
+      responses:
+        '200':
+          description: Returns information about a transaction by block number and transaction index position.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetTransactionBySenderTxHashResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_gettransactionbysendertxhash
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getTransactionBySenderTxHash' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getTransactionBySenderTxHash",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x18fe9e1007da7d20aad77778557fb8acc58c80054daba65124c8c843aadd3478"]
+            }'
+  /klay/transaction/getTransactionByBlockHashAndIndex:
+    post:
+      operationId: getTransactionByBlockHashAndIndex
+      summary: '[getTransactionByBlockHashAndIndex] Returns information about a transaction by block hash and transaction index position.'
+      tags:
+        - klay
+      description: |
+        Returns information about a transaction by block hash and transaction index position. This API works only on RPC call, not on JavaScript console.
+
+        **JSONRPC:** `klay_getTransactionByBlockHashAndIndex`
+      parameters:
+        - name: Block hash
+          in: query
+          description: Hash of a block.
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+        - name: Transaction index
+          in: query
+          description: Integer of the transaction index position.
+          required: true
+          schema:
+            type: string
+            format: hex
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetTransactionByBlockHashAndIndexReq'
+      responses:
+        default:
+          description: Object - A transaction object, or null when no transaction was found.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetTransactionByBlockHashAndIndexResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_getTransactionByBlockHashAndIndex
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getTransactionByBlockHashAndIndex' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getTransactionByBlockHashAndIndex",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68", "0x0"]
+            }'
+  /klay/transaction/getTransactionByHash:
+    post:
+      operationId: getTransactionByHash
+      summary: '[getTransactionByHash] Returns the information about a transaction requested by transaction hash.'
+      tags:
+        - klay
+      description: |
+        Returns the information about a transaction requested by transaction hash. This API works only on RPC call, not on JavaScript console.
+
+        **JSONRPC:** `klay_getTransactionByHash`
+      parameters:
+        - name: Transaction hash
+          schema:
+            type: string
+            format: 32-byte DATA
+          in: query
+          description: Hash of a transaction.
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetTransactionByHashReq'
+      responses:
+        default:
+          description: Object - A transaction object, or null when no transaction was found.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetTransactionByHashResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_getTransactionByHash
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getTransactionByHash' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getTransactionByHash",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
+            }'
+  /klay/transaction/getTransactionReceipt:
+    post:
+      operationId: getTransactionReceipt
+      summary: '[getTransactionReceipt] Returns the receipt of a transaction by transaction hash.'
+      description: |
+        Returns the receipt of a transaction by transaction hash.
+
+        **JSONRPC:** `klay_getTransactionReceipt`
+
+        **NOTE:** The receipt is not available for pending transactions.
+      tags:
+        - klay
+      parameters:
+        - name: transactionHash
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+          description: Hash of a transaction.
+          in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetTransactionReceiptReq'
+      responses:
+        '200':
+          description: Returns a transaction receipt object, or null when no receipt was found.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetTransactionReceiptResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_gettransactionreceipt
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getTransactionReceipt' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getTransactionReceipt",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
             }'
   /klay/configuration/chainID:
     post:
@@ -482,6 +1905,234 @@ paths:
               "id": 1,
               "jsonrpc": "2.0",
               "params": ["0x64"]
+            }'
+  /klay/configuration/gasPrice:
+    post:
+      operationId: gasPrice
+      summary: '[gasPrice] Returns a suggestion for a gas price in peb.'
+      description: |
+        Returns a suggestion for a gas price in peb.
+
+        **JSONRPC:** `klay_gasPrice`
+      tags:
+        - klay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: klay_gasPrice
+      responses:
+        '200':
+          description: The current client version of a Klaytn node.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: hex
+                        description: Integer of the current gas price in peb.
+                        example: '0xAE9F7BCC00'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_gasprice
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/gasPrice' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_gasPrice",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": []
+            }'
+  /klay/configuration/isParallelDBWrite:
+    post:
+      operationId: isParallelDBWrite
+      summary: '[isParallelDBWrite] Returns true if the node is writing blockchain data in parallel manner. It is enabled by default.'
+      description: |
+        Returns true if the node is writing blockchain data in parallel manner. It is enabled by default.
+
+        **JSONRPC:** `klay_isParallelDBWrite`
+      tags:
+        - klay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+      responses:
+        '200':
+          description: Returns true if the node is writing blockchain data in parallel manner.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: boolean
+                        description: true means the node is writing blockchain data in parallel manner. It is false if the node is writing the data in serial manner.
+                        example: 'true'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_isparalleldbwrite
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/isParallelDBWrite' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_isParallelDBWrite",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": []
+            }'
+  /klay/filter/getFilterChanges:
+    post:
+      operationId: getFilterChanges
+      summary: '[getFilterChanges] Polling method for a filter'
+      description: |
+        Polling method for a filter, which returns an array of logs which occurred since last poll.
+
+        **JSONRPC:** `klay_getFilterChanges`
+      tags:
+        - klay
+      parameters:
+        - name: QUANTITY
+          required: true
+          schema:
+            type: string
+          description: The filter id (e.g., "0x16" // 22).
+          in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: klay_getFilterChanges
+                    params:
+                      type: array
+                      items:
+                        type: string
+                      description: The filter id
+                      example:
+                        - '0x16'
+      responses:
+        '200':
+          description: Array - Array of log objects, or an empty array if nothing has changed since last poll.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetFilterChangesResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/filter#klay_getfilterChanges
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getFilterChanges' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getFilterChanges",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0xd32fd16b6906e67f6e2b65dcf48fc272"]
+            }'
+  /klay/filter/getFilterLogs:
+    post:
+      operationId: getFilterLogs
+      summary: '[getFilterLogs] Find if input address was created'
+      description: |
+        Returns an array of all logs matching filter with given id, which has been obtained using klay_newFilter.Note that filter ids returned by other filter creation functions, such as klay_newBlockFilter or klay_newPendingTransactionFilter, cannot be used with this function.
+
+        The execution of this API can be limited by two node configurations to manage resources of Klaytn node safely.
+
+        - The number of maximum returned results in a single query (Default: 10,000).
+
+        - The execution duration limit of a single query (Default: 10 seconds).
+
+        **JSONRPC:** `klay_getFilterLogs`
+      tags:
+        - klay
+      parameters:
+        - name: QUANTITY
+          required: true
+          schema:
+            type: string
+          description: The filter id
+          in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: klay_getFilterLogs
+                    params:
+                      type: array
+                      items:
+                        type: string
+                      description: The filter id
+                      example:
+                        - '0xd32fd16b6906e67f6e2b65dcf48fc272'
+      responses:
+        '200':
+          description: Returns an array of all logs matching filter with given id. See klay_getFilterChanges.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetFilterLogsResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/filter#klay_getfilterlogs
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getFilterLogs' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getFilterLogs",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0xd32fd16b6906e67f6e2b65dcf48fc272"]
             }'
   /klay/gas/feeHistory:
     post:
@@ -720,6 +2371,1125 @@ components:
                   'y': '0x94c27901465af0a703859ab47f8ae17e54aaba453b7cde5a6a9e4a32d45d72b2'
                 keyType: 2
             keyType: 5
+    KlayGetAccountKeyReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getAccountKey
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                title: address
+                format: 20-byte DATA
+                description: Address
+              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+          example:
+            - '0x3111a0577f322e8fb54f78d9982a26ae7ca0f722'
+            - latest
+    AccountKeyNil:
+      title: AccountKeyNil
+      type: string
+    AccountKeyLegacy:
+      title: AccountKeyLegacy
+      type: object
+      description: AccountKeyLegacy is used for the account having an address derived from the corresponding key pair
+      properties:
+        key:
+          type: object
+          default: {}
+        keyType:
+          type: integer
+          description: The type of AccountKeyLegacy. This must be 0x01.
+    AccountKeyPublic:
+      title: AccountKeyPublic
+      type: object
+      description: AccountKeyPublic is used for accounts having one public key.
+      properties:
+        key:
+          type: object
+          description: Key should be a compressed public key on S256 curve.
+          properties:
+            x:
+              type: string
+              format: 32-byte DATA
+              description: The x coordinate of the public key.
+            'y':
+              type: string
+              format: 32-byte DATA
+              description: The y coordinate of the public key.
+        keyType:
+          type: integer
+          description: The type of AccountKeyPublic. This must be 0x02.
+    AccountKeyFail:
+      title: AccountKeyFail
+      type: object
+      description: If an account has the key AccountKeyFail, the transaction validation process always fails. It can be used for smart contract accounts so that a transaction sent from the smart contract account always fails.
+      properties:
+        keyType:
+          type: integer
+          description: The type of AccountKeyFail. This must be 0x03.
+    AccountKeyWeightedMultiSig:
+      title: AccountKeyWeightedMultiSig
+      type: object
+      description: AccountKeyWeightedMultiSig is an account key type containing a threshold and WeightedPublicKeys which contains a list consisting of a public key and its weight.
+      properties:
+        keyType:
+          type: integer
+          description: The type of AccountKeyWeightedMultiSig. This must be 0x04.
+        Threshold:
+          type: integer
+          description: Validation threshold. To be a valid transaction, the weight sum of signatures should be larger than or equal to the threshold.
+        WeightedPublicKeys:
+          type: array
+          description: A list of weighted public keys. A weighted public key contains a compressed public key and its weight.
+          items:
+            type: object
+            properties:
+              PublicKey:
+                type: object
+                properties:
+                  x:
+                    type: string
+                    format: 32-byte DATA
+                    description: The x coordinate of the public key.
+                  'y':
+                    type: string
+                    format: 32-byte DATA
+                    description: The y coordinate of the public key.
+              Weight:
+                type: integer
+    AccountKeyRoleBased:
+      title: AccountKeyRoleBased
+      type: object
+      description: AccountKeyRoleBased represents a role-based key
+      properties:
+        key:
+          type: array
+          description: A list of keys. A key can be any of AccountKeyNil, AccountKeyLegacy, AccountKeyPublic, AccountKeyFail, and AccountKeyWeightedMultiSig
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/AccountKeyNil'
+              - $ref: '#/components/schemas/AccountKeyLegacy'
+              - $ref: '#/components/schemas/AccountKeyPublic'
+              - $ref: '#/components/schemas/AccountKeyFail'
+              - $ref: '#/components/schemas/AccountKeyWeightedMultiSig'
+        keyType:
+          type: integer
+          description: The type of AccountKeyRoleBased. This must be 0x05.
+    KlayGetAccountKeyResp:
+      type: object
+      properties:
+        result:
+          oneOf:
+            - $ref: '#/components/schemas/AccountKeyNil'
+            - $ref: '#/components/schemas/AccountKeyLegacy'
+            - $ref: '#/components/schemas/AccountKeyPublic'
+            - $ref: '#/components/schemas/AccountKeyFail'
+            - $ref: '#/components/schemas/AccountKeyWeightedMultiSig'
+            - $ref: '#/components/schemas/AccountKeyRoleBased'
+          example:
+            key:
+              x: '0x230037a99462acd829f317d0ce5c8e2321ac2951de1c1b1a18f9af5cff66f0d7'
+              'y': '0x18a7fb1b9012d2ac87bc291cbf1b3b2339356f1ce7669ae68405389be7f8b3b6'
+            keyType: 2
+    KlayGetCodeReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getCode
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                title: account
+                format: 20-byte DATA
+                description: Address
+              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+          example:
+            - '0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b'
+            - '0x2'
+    KlayEncodeAccountKeyReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_encodeAccountKey
+        param:
+          type: object
+          properties:
+            keytype:
+              type: number
+              description: Integer value indicating account key type.
+            key:
+              type: string
+              format: JSON DATA
+              description: Account key object
+          example:
+            keyType: 1
+            key: {}
+    KlayEncodeAccountKeyResp:
+      type: object
+      properties:
+        result:
+          type: string
+          description: RLP encoded account key
+          format: DATA
+          example: '0x01c0'
+    KlayGetAccountReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getAccount
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/Address'
+              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+          example:
+            - '0x3111a0577f322e8fb54f78d9982a26ae7ca0f722'
+            - latest
+    KlayGetAccountResp:
+      type: object
+      properties:
+        result:
+          type: object
+          description: Each account type has different attributes.
+          properties:
+            accType:
+              type: number
+              default: 1
+            account:
+              type: object
+              properties:
+                balance:
+                  type: number
+                  default: 4985316100000000000
+                humanReadable:
+                  type: boolean
+                  default: false
+                key:
+                  type: object
+                  properties:
+                    key:
+                      type: object
+                      properties:
+                        x:
+                          type: string
+                          default: '0x230037a99462acd829f317d0ce5c8e2321ac2951de1c1b1a18f9af5cff66f0d7'
+                        'y':
+                          type: string
+                          default: '0x18a7fb1b9012d2ac87bc291cbf1b3b2339356f1ce7669ae68405389be7f8b3b6'
+                    keyType:
+                      type: number
+                      default: 2
+                nonce:
+                  type: number
+                  default: 11
+          example:
+            accType: 1
+            account:
+              balance: 4985316100000000000
+              humanReadable: false
+              key:
+                key:
+                  x: '0x230037a99462acd829f317d0ce5c8e2321ac2951de1c1b1a18f9af5cff66f0d7'
+                  'y': '0x18a7fb1b9012d2ac87bc291cbf1b3b2339356f1ce7669ae68405389be7f8b3b6'
+                keyType: 2
+              nonce: 11
+    KlayGetBalanceReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getBalance
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/Address'
+              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+          example:
+            - '0x3111a0577f322e8fb54f78d9982a26ae7ca0f722'
+            - latest
+    KlayGetBalanceResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: hex
+          description: Integer of the current balance in peb.
+          example: 158972490234375000
+    KlayGetBlockByHashReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getBlockByHash
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                title: hashOfBlock
+                format: 32-byte DATA
+                description: Hash of a block.
+              - type: boolean
+                title: returnTransactionObject
+                description: If true it returns the full transaction objects, if false only the hashes of the transactions.
+          example:
+            - '0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c'
+            - true
+    Block:
+      type: object
+      description: A block object
+      properties:
+        number:
+          type: string
+          format: hex
+          description: The block number. null when its pending block.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block. null when its pending block.
+        parentHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the parent block.
+        logsBloom:
+          type: string
+          format: 256-byte DATA
+          description: The bloom filter for the logs of the block. null when it is pending block.
+        transactionsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the transaction trie of the block.
+        stateRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the final state trie of the block.
+        receiptsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the receipts trie of the block.
+        reward:
+          type: string
+          format: 20-byte DATA
+          description: The address of the beneficiary to whom the block rewards were given.
+        blockScore:
+          type: string
+          format: hex
+          description: Former difficulty. Always 1 in the BFT consensus engine
+        totalBlockScore:
+          type: string
+          format: hex
+          description: Integer of the total blockScore of the chain until this block.
+        extraData:
+          type: string
+          format: DATA
+          description: The "extra data" field of this block.
+        size:
+          type: string
+          format: hex
+          description: Integer the size of this block in bytes.
+        gasUsed:
+          type: string
+          format: hex
+          description: The total used gas by all transactions in this block.
+        timestamp:
+          type: string
+          format: hex
+          description: The unix timestamp for when the block was collated.
+        timestampFoS:
+          type: string
+          format: hex
+          description: The fraction of a second of the timestamp for when the block was collated.
+        transactions:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                format: 32-byte DATA
+                description: Hash of a transaction.
+              - type: object
+                description: transaction objects
+          description: Array of transaction objects, or 32-byte transaction hashes depending on the last given parameter.
+        governanceData:
+          type: string
+          format: DATA
+          description: RLP encoded governance configuration
+        voteData:
+          type: string
+          format: DATA
+          description: RLP encoded governance vote of the proposer
+        baseFeePerGas:
+          type: string
+          format: hex
+          description: The base fee per gas. It has a meaningful value when EthTxTypeCompatible and Magma hardforks are activated.
+      example:
+        baseFeePerGas: '0x0'
+        blockscore: '0x1'
+        extraData: '0xda83010800846b6c617989676f312e31362e31338664617277696e0000000000f89ed5949712f943b296758aaae79944ec975884188d3a96b841ddfdf7e2cb0a93538f757f87f23a93ee35df703c781c6f15e31e4978ecdfb3501fc00924372b9a01df2bc452f2a924c242d83580183d131c47e49a25b78f625201f843b841b9b6034d5a8c5f5b057274cda4f427614cd1f448ee781f4c4322861d1361d09d47d6030f2b69a26cb426db984f54e71f8c112fbf882930ccd715d595e8d8307500'
+        gasUsed: '0x0'
+        governanceData: 0x
+        hash: '0xe882d7a16f38126dc0c507f990b3fe18fa2d3a380002538581327abe96ca6edc'
+        logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+        number: '0x1e67'
+        parentHash: '0x28b1c054346c3bd083741c757a750dcabf94b6d50c7f87158753544e96e73550'
+        receiptsRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+        reward: '0x4b2c736fd05c2e2da3ccbd001a395a444f16a861'
+        size: '0x272'
+        stateRoot: '0xdf9885621c9e6e75912ca94d6987bcb1b54fef0e4a99cbec5e68f1ffc7468a78'
+        timestamp: '0x62130beb'
+        timestampFoS: '0x0'
+        totalBlockScore: '0x1e68'
+        transactions: []
+        transactionsRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+        voteData: 0x
+    KlayGetBlockByHashResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Block'
+    KlayGetBlockReceiptsReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getBlockReceipts
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                title: hashOfBlock
+                format: 32-byte DATA
+                description: Hash of a block.
+          example:
+            - '0xdc762ed0274496e2a42278e2648d910d82468687b5415bb5eb058a96a0b93c30'
+    BlockReceipts:
+      type: object
+      description: A Block Receipts
+      properties:
+        blockHash:
+          type: string
+          format: 32-byte DATA
+        blockNumber:
+          type: string
+          format: integer
+        contractAddress:
+          type: string
+          format: 20-byte DATA
+        effectiveGasPrice:
+          type: string
+          format: hex
+        from:
+          type: string
+          format: 20-byte DATA
+        gas:
+          type: string
+          format: hex
+        gasPrice:
+          type: string
+          format: hex
+        gasUsed:
+          type: string
+          format: hex
+        logs:
+          type: array
+          items:
+            type: object
+        logsBloom:
+          type: string
+          format: 256-byte DATA
+        nonce:
+          type: string
+          format: hex
+        senderTxHash:
+          type: string
+          format: 32-byte DATA
+        signatures:
+          type: array
+          items:
+            type: string
+            format: 65-byte DATA
+        status:
+          type: string
+          format: hex
+        to:
+          type: string
+          format: 20-byte DATA
+        transactionHash:
+          type: string
+          format: 32-byte DATA
+        transactionIndex:
+          type: string
+          format: hex
+        type:
+          type: string
+          format: integer
+        typeInt:
+          type: integer
+        value:
+          type: string
+          format: hex
+      example:
+        blockHash: '0xdc762ed0274496e2a42278e2648d910d82468687b5415bb5eb058a96a0b93c30'
+        blockNumber: '0x3ba38'
+        contractAddress: null
+        effectiveGasPrice: '0x5d21dba00'
+        from: '0x16b11cf9c2186a117b0da38315b42b1eaa03bbe5'
+        gas: '0x30d40'
+        gasPrice: '0xba43b7400'
+        gasUsed: '0x1886c'
+        logs: []
+        logsBloom: '0x00000000000000000000000000000000008000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000040000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+        nonce: '0x58e'
+        senderTxHash: '0x234469b3d3222657c98904deaba7ec6613161ea9405275025f4784a4d9918af5'
+        signatures:
+          - '0x7f6'
+          - '0x50b2b0f95b8a6d7018369b1933d6cebb52ef119463d1840a6181d05bf8fc29d8'
+          - '0x329630f88d9d06c5f1bd7644dbf6bd6b92e4ab0e3d47122972f8294c9289e7bb'
+        status: '0x1'
+        to: '0xdbb98c72e9818ad2c93a09e35ad43ada0d4223f0'
+        transactionHash: '0x234469b3d3222657c98904deaba7ec6613161ea9405275025f4784a4d9918af5'
+        transactionIndex: '0x0'
+        type: TxTypeValueTransfer
+        typeInt: 8
+        value: '0x21e19e0c9bab2400000'
+    KlayGetBlockReceiptsResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/BlockReceipts'
+    BlockNumberOrTag:
+      oneOf:
+        - $ref: '#/components/schemas/IntegerBlockNumber'
+        - $ref: '#/components/schemas/HexadecimalBlockNumber'
+        - $ref: '#/components/schemas/BlockTag'
+    KlayGetBlockTransactionCountByNumberReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getBlockTransactionCountByNumber
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BlockNumberOrTag'
+          example:
+            - '0xe8'
+    KlayGetBlockWithConsensusInfoByNumberReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getBlockWithConsensusInfoByNumber
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BlockNumberOrTag'
+          example:
+            - '0x6e0431'
+    BlockWithConsensusInfo:
+      type: object
+      properties:
+        blockScore:
+          type: string
+          format: hex
+          description: Former difficulty. Always 1 in the BFT consensus engine
+        totalBlockScore:
+          type: string
+          format: hex
+          description: Integer of the total blockScore of the chain until this block.
+        committee:
+          type: array
+          items:
+            type: string
+            format: 20-byte DATA
+          description: Array of addresses of committee members of this block. The committee is a subset of validators participated in the consensus protocol for this block.
+        gasUsed:
+          type: string
+          format: hex
+          description: The total used gas by all transactions in this block.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block. null when it is pending block.
+        number:
+          type: string
+          format: hex
+          description: The block number. null when it is pending block.
+        parentHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the parent block.
+        proposer:
+          type: string
+          format: 20-byte DATA
+          description: Address of the proposer.
+        receiptsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the receipts trie of the block.
+        size:
+          type: string
+          format: hex
+          description: Integer the size of this block in bytes.
+        stateRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the final state trie of the block.
+        timestamp:
+          type: string
+          format: hex
+          description: The Unix timestamp for when the block was collated.
+        timestampFoS:
+          type: string
+          format: hex
+          description: The fraction of a second of the timestamp for when the block was collated.
+        transactions:
+          type: array
+          items:
+            type: object
+          description: Array of transaction objects.
+        transactionsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the transaction trie of the block.
+        baseFeePerGas:
+          type: string
+          format: hex
+          description: The base fee per gas. It has a meaningful value when EthTxTypeCompatible and Magma hardforks are activated.
+      example:
+        baseFeePerGas: '0x5d21dba00'
+        blockscore: '0x1'
+        committee:
+          - '0xe783fc94fddaeebef7293d6c5864cff280f121e1'
+          - '0x8a88a093c05376886754a9b70b0d0a826a5e64be'
+          - '0xf113ec8c22765d485309cf1d025d1b975245b9f8'
+          - '0xe3d92072d8b9a59a0427485a1b5f459271df457c'
+          - '0xa2ba8f7798649a778a1fd66d3035904949fec555'
+          - '0x2bdd279522b8a0843831fbb94cfbb24a913597c5'
+          - '0x9419fa2e3b9eb1158de31be66c586a52f49c5de7'
+          - '0xc032c34cb9fe064fe435199e1078dd8756a166b5'
+          - '0x56e8c1463c341abf8b168c3079ea41ce8a387e18'
+          - '0x6873352021fe9226884616dc6f189f289aeb0cc5'
+          - '0xe93a890fb7ec5e993b1a7fd77b0d13a0763eff3d'
+          - '0xbca8ffa45cc8e30bbc0522cdf1a1e0ebf540dfe2'
+          - '0x386ca3cb8bb13f48d1a6adc1fb8df09e7bb7f9c8'
+          - '0x1782834bf8847e235f21f2c1f13fca4d5dff6621'
+          - '0x6f6770f1f67f44fb15b335b49581ad6b935d963a'
+          - '0x0b59cae1f03534209fdb9ddf5ea65b310cd7060c'
+          - '0xb9456fd65a6810b19df24832c50b2e61a41867f8'
+          - '0x16c192585a0ab24b552783b4bf7d8dc9f6855c35'
+          - '0xec6c1cede510be308f0fdbbc8dbdf238829bdb34'
+          - '0xf8c9c61c5e7f2b6219d1c28b94e5cb3cdc802594'
+          - '0x5e59db28cef098d5a2e877f84127aed10d7378f2'
+          - '0x52d41ca72af615a1ac3301b0a93efa222ecc7541'
+        extraData: '0xd883010101846b6c617988676f312e31322e35856c696e757800000000000000f90604f901ce9452d41ca72af615a1ac3301b0a93efa222ecc7541948a88a093c05376886754a9b70b0d0a826a5e64be94f113ec8c22765d485309cf1d025d1b975245b9f894e3d92072d8b9a59a0427485a1b5f459271df457c94a2ba8f7798649a778a1fd66d3035904949fec555942bdd279522b8a0843831fbb94cfbb24a913597c594bca8ffa45cc8e30bbc0522cdf1a1e0ebf540dfe294c032c34cb9fe064fe435199e1078dd8756a166b59456e3a565e31f8fb0ba0b12c03355518c64372120946f6770f1f67f44fb15b335b49581ad6b935d963a94e93a890fb7ec5e993b1a7fd77b0d13a0763eff3d94e783fc94fddaeebef7293d6c5864cff280f121e194386ca3cb8bb13f48d1a6adc1fb8df09e7bb7f9c8941782834bf8847e235f21f2c1f13fca4d5dff6621949419fa2e3b9eb1158de31be66c586a52f49c5de7940b59cae1f03534209fdb9ddf5ea65b310cd7060c94b9456fd65a6810b19df24832c50b2e61a41867f89416c192585a0ab24b552783b4bf7d8dc9f6855c3594ec6c1cede510be308f0fdbbc8dbdf238829bdb3494f8c9c61c5e7f2b6219d1c28b94e5cb3cdc802594946873352021fe9226884616dc6f189f289aeb0cc59456e8c1463c341abf8b168c3079ea41ce8a387e18b8418890007a341ee171ba8d5e3cb546d1d927c8202f0df3c3f381c8173eb36db41305227c289fb528a4614b1a2c04a7ec5a1b5d76f62b829496aa36979e88a9610c01f903edb841f0ba93ac8e28a021e582e50abbaa24fa5174674b3b0873dc568f6c9ebaf830bb4d03b857416304f97b4314e310f66f6c8043e716e70751bc9663dd6f9e5d6a9100b84174717204aa9d9f2dcb1269c89141ec2ee9d447e1981e8a704caa5a6ce376b0901f3e0ddf0ebe08542af86b23637df2f962b0f7ced5469cea310cb71c2358357300b841aa3aa8b450a6f4d883dcf2eda0f964ff4d35a250996b34aa91279c9c7f4383a22c879e2f21c9fddf8c3b1a6cbc59b273b4a0daf4b15aaf18f5e33e70c9277e6f00b8414adbeaaf82da005a33f00e7f74a3eeecb989698968b3694ea9e74018a0836184188eca727900280734ead256af02e72679addcddbf5ebd82c04c030c2bd85f4a01b841610b61422badd11afa2a617502f81c0c8aa1f11951d80893976a391026a3859c1f5e6c6d28e8b2ca8c4281c699b7b8ec30625801d4a6637291f9a8d1a2d8244f00b8417590e3d92063d4162f49493848ef0557daba3c2d82b9498eda09d5d08837296937a69e7b852579eeadf1c077d3b80d232ece03a12f4c45896e518cbb0771c52700b8415a2a40f416154793535cfe133040236ecc8b1f276df39e0a3713992fad06e38a42a455a636add93bff218544a4c53b852b8c4e461d3ae0663fdefe8fe7e327cc00b841e0c64cc8a30d84196d57639a42c5da941164b0700476d1b91d18f7c8f58d12f932ad1362270ec968294257f9c5cb60c40a7d4a5932a8f4d537be4db51f7dcf2500b841f61b6f014628ab751d79f095b1e739bc2b31fa8b6b847878e13b000a6dd53fa8467903119a72c7445f8490cf4932a42f4a418b89436b70d100c56c083399579500b841e6fe4f7c4bdcb4a81125bd282d0b9fedf1f51636c69bd4684d3131d685a7aed34face3d943d02b6ad632bb337f89fd6b0fb08e163ef84bb87fe556f4bafa0d3401b8412c6666136414f88327e07a6e8a2b04d105d6cf64daee239cea647a25f93ce0e6542f59f4363e3522bc838841e6db1940e569938b9458fb674fd543646a6b669b00b84134f967c4060d85a7c2f65d00695f3308d2ab78033e895775e0ab6f70cc6e71081c030bd997773191b3d2d7e5425e542c3b98fc127031784a858cf497c0e1532100b841d81aedf218d33e12087fb6c71b1d76e69dde542659c85661909b8c99793c7f1535afdc8addaefc5bcf6a3f99fd34518a1e9ab4a73ec9921e9865c1bd8543fd4c01b84199ec6f0fca02e48db37f0e4ae1b2fdf643abf610a9f1d7c0b490250aa7f1393d3069d1b4cec74ee99b0e18081bbf5e03d7b918d46499d579459cf0114ff76e9301b841d81a55eb96767edc5305dac78b904f70d2f44bd845fcd2bd581778669e5b8446220143680619986b9975ea528aacec0976406424588760f4fe086f16abaaaf4600'
+        gasUsed: '0x1d065'
+        governanceData: 0x
+        hash: '0x7d68d09a7a571cdf8a3b6a5ef6e037265b3e3093cf145b0954d22bde5c1d4f61'
+        logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+        number: '0x6e0431'
+        parentHash: '0xa76ef625874a4d2126eb3fd1ebb5c1a8d0deb360a12b4f8edf30fb417d82b5a1'
+        proposer: '0xe783fc94fddaeebef7293d6c5864cff280f121e1'
+        receiptsRoot: '0x56734b337c3daab6766104bb51bd2ca408cf4537f5528ab3362536c57e65ba67'
+        reward: '0x79f83dbb81f6f706be3e8491b14790c30d03e659'
+        size: '0x947'
+        stateRoot: '0xf685dce2cbef004cb041cf23959aea65e8aa86911fac55739ae1971f7d1dacd4'
+        timestamp: '0x5d801768'
+        timestampFoS: '0x4'
+        totalBlockScore: '0x6e0432'
+        transactions:
+          - blockHash: '0x7d68d09a7a571cdf8a3b6a5ef6e037265b3e3093cf145b0954d22bde5c1d4f61'
+            blockNumber: '0x6e0431'
+            contractAddress: null
+            feePayer: '0x08260736c18bd8612bee2b21beedf4e97c0bc6b9'
+            feePayerSignatures:
+              - V: '0x4055'
+                R: '0xd3fdd58e18e5a96d1f9af3d1aff31601d8e543a8085c78edfc8602db4c91b3c6'
+                S: '0x19d937e315472a188f11a6bb87f47e66a30b44ba907b5f01fcd47dab8d99f3f0'
+            from: '0x84b605b268e89ccdf591974db82deaa48bce59dc'
+            gas: '0x419ce0'
+            gasPrice: '0x5d21dba00'
+            gasUsed: '0x1d065'
+            input: '0x50716652000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000013416c50000000000000000000000000000000000000000000000000000000000001f3f000000000000000000000000000000000000000000000000000000003b9af23c'
+            logs: []
+            logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+            nonce: '0x8'
+            senderTxHash: '0x5fe7485db56c0c2b0eb54dd46e584a413193ad66b40e69281f44dadfa7409b2e'
+            signatures:
+              - V: '0x4056'
+                R: '0xca32239c38e1080f3a394504e2a0bb9811cda0a87d25b750cbbab265d581074d'
+                S: '0x584ab136a483e755d9d458f9965ca0d514724c7b45f6123d19323f6fa7ccdb5f'
+            status: '0x1'
+            to: '0x1db1b93447328dd904152f798ead97987844f7b7'
+            transactionHash: '0x020a2156bb4b29dc84f26887efae79e07a3d738b2856a66bbaab8aee18d507b5'
+            transactionIndex: '0x0'
+            type: TxTypeFeeDelegatedSmartContractExecution
+            typeInt: 49
+            value: '0x0'
+        transactionsRoot: '0x020a2156bb4b29dc84f26887efae79e07a3d738b2856a66bbaab8aee18d507b5'
+        voteData: 0x
+    KlayGetBlockWithConsensusInfoByNumberResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/BlockWithConsensusInfo'
+    KlayGetCommitteeReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getCommittee
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BlockNumberOrTag'
+          example:
+            - '0x1b4'
+    KlayGetCommitteeResp:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            type: string
+            format: hex
+            example: '0x207e38864b45a538733741dc1ff92eff9d1a6159'
+    KlayGetCommitteeSizeReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getCommitteeSize
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BlockNumberOrTag'
+          example:
+            - '0x1b4'
+    KlayGetCouncilReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getCouncil
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BlockNumberOrTag'
+          example:
+            - '0x1b4'
+    KlayGetCouncilResp:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            type: string
+            format: hex
+            description: Addresses of all validators of the council
+            example: '0x207e38864b45a538733741dc1ff92eff9d1a6159'
+    KlayGetCouncilSizeReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getCouncilSize
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BlockNumberOrTag'
+          example:
+            - '0x1b4'
+    KlayGetBlockByNumberReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getBlockByNumber
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/Address'
+              - type: boolean
+                description: If true it returns the full transaction objects, if false only the hashes of the transactions.
+          example:
+            - '0x3111a0577f322e8fb54f78d9982a26ae7ca0f722'
+            - latest
+    KlayGetBlockByNumberResp:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            number:
+              type: number
+              format: QUANTITY
+              description: The block number. null when it is pending block.
+            hash:
+              type: string
+              format: 32-byte DATA
+              description: Hash of the block. null when it is pending block.
+            parentHash:
+              type: string
+              format: 32-byte DATA
+              description: Hash of the parent block.
+            logsBloom:
+              type: string
+              format: 256-byte DATA
+              description: The bloom filter for the logs of the block. null when it is pending block.
+            transactionsRoot:
+              type: string
+              format: 32-byte DATA
+              description: The root of the transaction trie of the block.
+            stateRoot:
+              type: string
+              format: 32-byte DATA
+              description: The root of the final state trie of the block.
+            receiptsRoot:
+              type: string
+              format: 32-byte DATA
+              description: The root of the receipts trie of the block.
+            reward:
+              type: string
+              format: 20-byte DATA
+              description: The address of the beneficiary to whom the block rewards were given.
+            blockScore:
+              type: string
+              format: QUANTITY
+              description: Former difficulty. Always 1 in the BFT consensus engine
+            extraData:
+              type: string
+              format: DATA
+              description: The "extra data" field of this block.
+            size:
+              type: string
+              format: QUANTITY
+              description: size
+            gasUsed:
+              type: string
+              format: QUANTITY
+              description: The total used gas by all transactions in this block.
+            timestamp:
+              type: string
+              format: QUANTITY
+              description: The Unix timestamp for when the block was collated.
+            timestampFoS:
+              type: string
+              format: QUANTITY
+              description: The fraction of a second of the timestamp for when the block was collated.
+            transactions:
+              type: string
+              format: array
+              description: Array of transaction objects, or 32-byte transaction hashes depending on the last given parameter.
+            governanceData:
+              type: string
+              format: DATA
+              description: RLP encoded governance configuration
+            voteData:
+              type: string
+              format: DATA
+              description: RLP encoded governance vote of the proposer
+            baseFeePerGas:
+              type: string
+              format: QUANTITY
+              description: The base fee per gas. It has a meaningful value when EthTxTypeCompatible and Magma hardforks are activated.
+          example:
+            baseFeePerGas: '0x0'
+            blockscore: '0x1'
+            extraData: '0xda83010800846b6c617989676f312e31362e31338664617277696e0000000000f89ed5949712f943b296758aaae79944ec975884188d3a96b841ddfdf7e2cb0a93538f757f87f23a93ee35df703c781c6f15e31e4978ecdfb3501fc00924372b9a01df2bc452f2a924c242d83580183d131c47e49a25b78f625201f843b841b9b6034d5a8c5f5b057274cda4f427614cd1f448ee781f4c4322861d1361d09d47d6030f2b69a26cb426db984f54e71f8c112fbf882930ccd715d595e8d8307500'
+            gasUsed: '0x0'
+            governanceData: 0x
+            hash: '0xe882d7a16f38126dc0c507f990b3fe18fa2d3a380002538581327abe96ca6edc'
+            logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+            number: '0x1e67'
+            parentHash: '0x28b1c054346c3bd083741c757a750dcabf94b6d50c7f87158753544e96e73550'
+            receiptsRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+            reward: '0x4b2c736fd05c2e2da3ccbd001a395a444f16a861'
+            size: '0x272'
+            stateRoot: '0xdf9885621c9e6e75912ca94d6987bcb1b54fef0e4a99cbec5e68f1ffc7468a78'
+            timestamp: '0x62130beb'
+            timestampFoS: '0x0'
+            totalBlockScore: '0x1e68'
+            transactions: []
+            transactionsRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+            voteData: 0x
+    KlayGetHeaderByNumberReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getHeaderByNumber
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BlockNumberOrTag'
+          example:
+            - '0x1b4'
+    HeaderObject:
+      type: object
+      description: The block header object.
+      properties:
+        number:
+          type: string
+          format: hex
+          description: The block number. null when its pending block.
+        parentHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the parent block.
+        logsBloom:
+          type: string
+          format: 256-byte DATA
+          description: The bloom filter for the logs of the block. null when it is pending block.
+        transactionsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the transaction trie of the block
+        stateRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the final state trie of the block.
+        receiptsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the receipts trie of the block.
+        reward:
+          type: string
+          format: 20-byte DATA
+          description: The address of the beneficiary to whom the block rewards were given.
+        blockScore:
+          type: string
+          format: hex
+          description: Former difficulty. Always 1 in the BFT consensus engine
+        extraData:
+          type: string
+          format: DATA
+          description: The "extra data" field of this block.
+        gasUsed:
+          type: string
+          format: hex
+          description: The total used gas by all transactions in this block.
+        timestamp:
+          type: string
+          format: hex
+          description: The Unix timestamp for when the block was collated.
+        timestampFoS:
+          type: string
+          format: hex
+          description: The fraction of a second of the timestamp for when the block was collated.
+        governanceData:
+          type: string
+          format: DATA
+          description: RLP encoded governance configuration
+        voteData:
+          type: string
+          format: DATA
+          description: RLP encoded governance vote of the proposer
+        baseFeePerGas:
+          type: string
+          format: hex
+          description: The base fee per gas. It has a meaningful value when EthTxTypeCompatible and Magma hardforks are activated.
+      example:
+        baseFeePerGas: '0x5d21dba00'
+        blockScore: '0x1'
+        extraData: '0xda83010800846b6c617989676f312e31362e31338664617277696e0000000000f89ed5949712f943b296758aaae79944ec975884188d3a96b841ddfdf7e2cb0a93538f757f87f23a93ee35df703c781c6f15e31e4978ecdfb3501fc00924372b9a01df2bc452f2a924c242d83580183d131c47e49a25b78f625201f843b841b9b6034d5a8c5f5b057274cda4f427614cd1f448ee781f4c4322861d1361d09d47d6030f2b69a26cb426db984f54e71f8c112fbf882930ccd715d595e8d8307500'
+        gasUsed: '0x0'
+        governanceData: 0x
+        hash: '0xe882d7a16f38126dc0c507f990b3fe18fa2d3a380002538581327abe96ca6edc'
+        logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+        number: '0x1e67'
+        parentHash: '0x28b1c054346c3bd083741c757a750dcabf94b6d50c7f87158753544e96e73550'
+        receiptsRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+        reward: '0x4b2c736fd05c2e2da3ccbd001a395a444f16a861'
+        stateRoot: '0xdf9885621c9e6e75912ca94d6987bcb1b54fef0e4a99cbec5e68f1ffc7468a78'
+        timestamp: '0x62130beb'
+        timestampFoS: '0x0'
+        transactionsRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+    KlayGetHeaderByNumberResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/HeaderObject'
+    KlayGetHeaderByHashReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getHeaderByHash
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                format: 32-byte DATA
+                description: Hash of a block.
+          example:
+            - '0x1b4'
+    KlayGetHeaderByHashResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/HeaderObject'
+    KlayGetRewardsReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: klay_getRewards
+        params:
+          type: array
+          default:
+            - latest
+          items:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+    KlayGetRewardsResp:
+      type: object
+      properties:
+        result:
+          type: object
+          required:
+            - burntFee
+            - kgf
+            - kir
+            - minted
+            - proposer
+            - rewards
+            - stakers
+            - totalFee
+          properties:
+            burntFee:
+              type: integer
+              format: int64
+              description: the amount burnt
+            kgf:
+              type: integer
+              format: int64
+              description: the amount allocated to KGF
+            kir:
+              type: integer
+              format: int64
+              description: the amount allocated to KIR
+            minted:
+              type: number
+              format: double
+              description: the amount newly minted
+              example: 9600000000000000000
+            proposer:
+              type: number
+              format: double
+              description: the amount allocated to the block proposer
+              example: 9600000000000000000
+            rewards:
+              type: object
+              description: mapping from reward recipient to amounts
+              additionalProperties:
+                type: number
+                format: double
+              example:
+                '1.0278187497989767e+48': 9600000000000000000
+            stakers:
+              type: integer
+              format: int64
+              description: total amount allocated to stakers
+            totalFee:
+              type: integer
+              format: int64
+              description: total tx fee spent
+    KlayGetStorageAtReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getStorageAt
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                title: storageAddress
+                format: 20-byte DATA
+                description: Address of the storage.
+              - type: string
+                title: position
+                format: hex
+                description: Integer of the position in the storage.
+              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+          example:
+            - '0x295a70b2de5e3953354a6a8344e616ed314d7251'
+            - '0x0'
+            - latest
     CallObject:
       type: object
       description: The transaction call object. See the next table for the object's properties.
@@ -780,6 +3550,575 @@ components:
           format: DATA
           description: The return value of executed contract.
           example: '0x000000000000000000000000000000000000000000000000000000000000000a'
+    KlayGetDecodedAnchoringTransactionByHashReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getDecodedAnchoringTransactionByHash
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                format: 32-byte DATA
+                description: Hash of a transaction.
+          example:
+            - '0x499350bc5e2f6fee1ba78b4d40a7a1db0a64f3c091112e6798a02ed9a4140084'
+    KlayGetDecodedAnchoringTransactionByHashResp:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            BlockHash:
+              type: string
+              format: 32-byte DATA
+              description: Hash of the child chain block that this anchoring transaction was performed.
+            BlockNumber:
+              type: number
+              description: The child chain block number that this anchoring transaction was performed.
+            ParentHash:
+              type: string
+              format: 32-byte DATA
+              description: Hash of the parent block.
+            TxHash:
+              type: string
+              format: 32-byte DATA
+              description: The root of the transaction trie of the block.
+            StateRootHash:
+              type: string
+              format: 32-byte DATA
+              description: The root of the final state trie of the block.
+            ReceiptHash:
+              type: string
+              format: 32-byte DATA
+              description: The root of the receipts trie of the block.
+            BlockCount:
+              type: number
+              description: The number of blocks generated during this anchoring period. In most cases, this number is equal to the child chain's SC_TX_PERIOD, with the exception of the case that this transaction was the first anchoring tx after turning on the anchoring.
+            TxCount:
+              type: number
+              description: The number of transactions generated in the child chain during this anchoring period.
+          example:
+            BlockCount: 1
+            BlockHash: '0xcf5f591836d70a1da8e6bb8e5b2c5739329ca0e535b91e239b332af2e1b7f1f4'
+            BlockNumber: 1055
+            ParentHash: '0x70f6115a5b597f29791d3b5e3f129df54778f69ae669842cc81ec8c432fee37c'
+            ReceiptHash: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
+            StateRootHash: '0x654773348f77a6788c76c93946340323c9b39399d0aa173f6b23fe082848d056'
+            TxCount: 0
+            TxHash: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
+    KlayEstimateGasReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_estimateGas
+        params:
+          title: estimateGas
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/CallObject'
+          example:
+            - from: '0x3f71029af4e252b25b9ab999f77182f0cd3bc085'
+              to: '0x87ac99835e67168d4f9a40580f8f5c33550ba88b'
+              gas: '0x100000'
+              gasPrice: '0x5d21dba00'
+              value: '0x0'
+              input: '0x8ada066e'
+    KlayEstimateGasResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: hex
+          description: The amount of gas used.
+          example: '0x5208'
+    KlayGetTransactionByBlockNumberAndIndexReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getTransactionByBlockNumberAndIndex
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BlockNumberOrTag'
+              - type: string
+                format: hex
+                title: transactionIndex
+                description: The transaction index position.
+          example:
+            - '0x27'
+            - '0x0'
+    Signature:
+      type: object
+      properties:
+        V:
+          type: string
+        R:
+          type: string
+        S:
+          type: string
+    TransactionObject:
+      type: object
+      description: Transaction object
+      required:
+        - blockHash
+        - blockNumber
+        - from
+        - gas
+        - gasPrice
+        - hash
+        - nonce
+        - senderTxHash
+        - signatures
+        - to
+        - transactionIndex
+        - type
+        - typeInt
+        - value
+      properties:
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block where this transaction was in. null when its pending.
+        blockNumber:
+          type: string
+          format: hex
+          description: Block number where this transaction was in. null when its pending.
+        codeFormat:
+          type: string
+          description: (optional) The code format of smart contract code.
+        feePayer:
+          type: string
+          format: 20-byte DATA
+          description: (optional) Address of the fee payer.
+        feePayerSignatures:
+          type: array
+          items:
+            type: object
+          description: (optional) An array of fee payer's signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
+        feeRatio:
+          type: string
+          format: hex
+          description: (optional) Fee ratio of the fee payer. If it is 30, 30% of the fee will be paid by the fee payer. 70% will be paid by the sender.
+        from:
+          type: string
+          format: 20-byte DATA
+          description: Address of the sender.
+        gas:
+          type: string
+          format: hex
+          description: Gas provided by the sender.
+        gasPrice:
+          type: string
+          format: hex
+          description: Gas price provided by the sender in peb.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transaction.
+        humanReadable:
+          type: boolean
+          description: (optional) true if the address is humanReadable, false if the address is not humanReadable.
+        key:
+          type: string
+          description: (optional) Key of the newly created account.
+        input:
+          type: string
+          format: DATA
+          description: (optional) The data sent along with the transaction.
+        nonce:
+          type: string
+          format: hex
+          description: The number of transactions made by the sender prior to this one.
+        senderTxHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of a transaction that is signed only by the sender. See SenderTxHash. This value is always the same as hash for non fee-delegated transactions.
+        signatures:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/Signature'
+            type: object
+          description: An array of signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s
+        to:
+          type: string
+          format: 20-byte DATA
+          description: Address of the receiver. null when it is a contract creation transaction.
+        transactionIndex:
+          type: string
+          format: hex
+          description: Integer of the transactions index position in the block. null when its pending.
+        type:
+          type: string
+          description: A string representing the type of the transaction.
+        typeInt:
+          type: number
+          description: An integer representing the type of the transaction.
+        value:
+          type: string
+          format: hex
+          description: Value transferred in peb.
+      example:
+        blockHash: '0x4d97cf1f686a925ed4f1ad42c635cedb54974fe23a2941c7825e1ed3163c0e41'
+        blockNumber: '0x7008'
+        feePayer: '0xa9d2cc2bb853163b6eadfb6f962d72f7e00bc2e6'
+        feePayerSignatures:
+          - V: '0x4e44'
+            R: '0xa665e17d92e1c671c8b062cecb19790d49138a21854fc15c460c91035b1884e'
+            S: '0x17165688acc01736f1221a39399e3aac7e1ece14731fcab31631e3e4a59b7441'
+        from: '0xab0833d744a8943fe3c783f9cc70c13cbd70fcf4'
+        gas: '0xdbba0'
+        gasPrice: '0x5d21dba00'
+        hash: '0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67'
+        nonce: '0x26'
+        senderTxHash: '0x18fe9e1007da7d20aad77778557fb8acc58c80054daba65124c8c843aadd3478'
+        signatures:
+          - V: '0x4e44'
+            R: '0x1b6bb3d996d903d0528565d13e8d9d122b2220ed09c5baf384114193a6977027'
+            S: '0x20c506ce9f1bdd42183c40c44f414a3930f339f856e8be3cfcdf5ca0852fd378'
+        to: '0x15a9119104e1bf0ec6d408b3cc188685e4402a2c'
+        transactionIndex: '0x0'
+        type: TxTypeFeeDelegatedValueTransfer
+        typeInt: 9
+        value: '0x1'
+    KlayGetTransactionByBlockNumberAndIndexResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/TransactionObject'
+    KlayGetTransactionBySenderTxHashReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getTransactionByBlockNumberAndIndex
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                format: 32-byte DATA
+                title: transactionHash
+                description: Hash of a transaction that is signed only by the sender.
+          example:
+            - '0x18fe9e1007da7d20aad77778557fb8acc58c80054daba65124c8c843aadd3478'
+    KlayGetTransactionBySenderTxHashResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/TransactionObject'
+    KlayGetTransactionByBlockHashAndIndexReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getTransactionByBlockHashAndIndex
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                format: 32-byte DATA
+                description: Hash of a block.
+              - type: string
+                format: hex
+                description: Integer of the transaction index position.
+          example:
+            - '0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68'
+            - '0x0'
+    KlayGetTransactionByBlockHashAndIndexResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/TransactionObject'
+    KlayGetTransactionByHashReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getTransactionByHash
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                format: 32-byte DATA
+                description: Hash of a transaction.
+          example:
+            - '0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67'
+    KlayGetTransactionByHashResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/TransactionObject'
+    KlayGetTransactionReceiptReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getTransactionReceipt
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                format: 32-byte DATA
+                title: transactionHash
+                description: Hash of a transaction.
+          example:
+            - '0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67'
+    LogObject:
+      type: object
+      description: For filters created with klay_newFilter logs are objects with following properties
+      properties:
+        removed:
+          type: boolean
+          description: true when the log was removed, due to a chain reorganization. false if its a valid log.
+        logIndex:
+          type: string
+          format: QUANTITY
+          description: Integer of the log index position in the block. null when its pending log.
+        transactionIndex:
+          type: string
+          format: QUANTITY
+          description: Integer of the transactions index position log was created from. null when its pending log.
+        transactionHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transactions this log was created from. null when pending.
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block where this log was in. null when pending.
+        blockNumber:
+          type: string
+          format: QUANTITY
+          description: The block number where this log was in. null when pending.
+        address:
+          type: string
+          format: 20-byte DATA
+          description: Address from which this log originated.
+        data:
+          type: string
+          format: DATA
+          description: Contains the non-indexed arguments of the log.
+        topics:
+          type: array
+          items:
+            type: string
+            format: 32-byte DATA
+          description: Array of 0 to 4 32-byte DATA of indexed log arguments. (In Solidity The first topic is the hash of the signature of the event (e.g., Deposit(address,bytes32,uint256)), except you declared the event with the anonymous specifier.).
+    ArrayOfLog:
+      type: array
+      items:
+        anyOf:
+          - type: string
+            format: 32-byte DATA
+            description: For filters created with klay_newBlockFilter, the return are block hashes (32-byte DATA), e.g., ["0x3454645634534..."].
+          - type: string
+            format: 32-byte DATA
+            description: For filters created with klay_newPendingTransactionFilter, the return are transaction hashes (32-byte DATA), e.g., ["0x6345343454645..."].
+          - $ref: '#/components/schemas/LogObject'
+      description: Array of log objects, or an empty array if nothing has changed since last poll.
+    TransactionReceipt:
+      type: object
+      required:
+        - blockHash
+        - blockNumber
+        - contractAddress
+        - from
+        - gas
+        - effectiveGasPrice
+        - gasPrice
+        - gasUsed
+        - logs
+        - logsBloom
+        - nonce
+        - senderTxHash
+        - signature
+        - status
+        - to
+        - transactionHash
+        - transactionIndex
+        - type
+        - typeInt
+        - value
+      properties:
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block where this transaction was in.
+        blockNumber:
+          type: string
+          format: hex
+          description: The block number where this transaction was in.
+        codeFormat:
+          type: string
+          description: (optional) The code format of smart contract code.
+        contractAddress:
+          type: string
+          format: DATA
+          description: The contract address created, if the transaction was a contract creation, otherwise null.
+        feePayer:
+          type: string
+          format: 20-byte DATA
+          description: (optional) Address of the fee payer.
+        feePayerSignatures:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/Signature'
+            type: object
+          description: (optional) An array of fee payer's signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
+        feeRatio:
+          type: string
+          format: hex
+          description: (optional) Fee ratio of the fee payer. If it is 30, 30% of the fee will be paid by the fee payer. 70% will be paid by the sender.
+        from:
+          type: string
+          format: 20-byte DATA
+          description: Address of the sender.
+        gas:
+          type: string
+          format: hex
+          description: Gas provided by the sender.
+        effectiveGasPrice:
+          type: string
+          format: hex
+          description: The actual value per gas deducted from the senders account.
+        gasPrice:
+          type: string
+          format: hex
+          description: Gas price provided by the sender in peb.
+        gasUsed:
+          type: string
+          format: hex
+          description: The amount of gas used by this specific transaction alone.
+        humanReadable:
+          type: boolean
+          description: (optional) true if the address is humanReadable, false if the address is not humanReadable.
+        key:
+          type: string
+          description: (optional) Key of the newly created account.
+        input:
+          type: string
+          format: DATA
+          description: (optional) The data sent along with the transaction.
+        logs:
+          $ref: '#/components/schemas/ArrayOfLog'
+          description: Array of log objects, which this transaction generated.
+        logsBloom:
+          type: string
+          format: 256-byte DATA
+          description: Bloom filter for light clients to quickly retrieve related logs.
+        nonce:
+          type: string
+          format: hex
+          description: The number of transactions made by the sender prior to this one.
+        senderTxHash:
+          type: string
+          format: (optional) 32-byte DATA
+          description: Hash of the tx without the fee payer's address and signature. This value is always the same as the value of transactionHash for non fee-delegated transactions.
+        signature:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/Signature'
+            type: object
+          description: (optional) An array of fee payer's signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
+        status:
+          type: string
+          format: hex
+          description: Either 1 (success) or 0 (failure).
+        txError:
+          type: string
+          format: hex
+          description: (optional) detailed error code if status is equal to zero.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: Address of the receiver. null when it is a contract creation transaction.
+        transactionHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transaction.
+        transactionIndex:
+          type: string
+          format: hex
+          description: Integer of the transaction index position in the block.
+        type:
+          type: string
+          description: A string representing the type of the transaction.
+        typeInt:
+          type: string
+          format: hex
+          description: An integer representing the type of the transaction.
+        value:
+          type: string
+          format: hex
+          description: Value transferred in peb.
+      example:
+        blockHash: '0x4d97cf1f686a925ed4f1ad42c635cedb54974fe23a2941c7825e1ed3163c0e41'
+        blockNumber: '0x7008'
+        contractAddress: null
+        feePayer: '0xa9d2cc2bb853163b6eadfb6f962d72f7e00bc2e6'
+        feePayerSignatures:
+          - V: '0x4e44'
+            R: '0xa665e17d92e1c671c8b062cecb19790d49138a21854fc15c460c91035b1884e'
+            S: '0x17165688acc01736f1221a39399e3aac7e1ece14731fcab31631e3e4a59b7441'
+        effectiveGasPrice: '0x5d21dba00'
+        from: '0xab0833d744a8943fe3c783f9cc70c13cbd70fcf4'
+        gas: '0xdbba0'
+        gasPrice: '0x5d21dba00'
+        gasUsed: '0x7918'
+        logs: []
+        logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+        nonce: '0x26'
+        senderTxHash: '0x18fe9e1007da7d20aad77778557fb8acc58c80054daba65124c8c843aadd3478'
+        signatures:
+          - V: '0x4e44'
+            R: '0x1b6bb3d996d903d0528565d13e8d9d122b2220ed09c5baf384114193a6977027'
+            S: '0x20c506ce9f1bdd42183c40c44f414a3930f339f856e8be3cfcdf5ca0852fd378'
+        status: '0x1'
+        to: '0x15a9119104e1bf0ec6d408b3cc188685e4402a2c'
+        transactionHash: '0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67'
+        transactionIndex: '0x0'
+        type: TxTypeFeeDelegatedValueTransfer
+        typeInt: 9
+        value: '0x1'
+    KlayGetTransactionReceiptResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/TransactionReceipt'
     KlayGasPriceAtReq:
       type: object
       required:
@@ -797,15 +4136,510 @@ components:
               - $ref: '#/components/schemas/HexadecimalBlockNumber'
           example:
             - '0x64'
+    KlayGetFilterChangesResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/ArrayOfLog'
+    schemas:
+      BlockNumberOrTag:
+        oneOf:
+          - $ref: '#/components/schemas/IntegerBlockNumber'
+          - $ref: '#/components/schemas/HexadecimalBlockNumber'
+          - $ref: '#/components/schemas/BlockTag'
+      BlockNumberOrHashOrTag:
+        oneOf:
+          - $ref: '#/components/schemas/IntegerBlockNumber'
+          - $ref: '#/components/schemas/HexadecimalBlockNumber'
+          - $ref: '#/components/schemas/BlockTag'
+          - $ref: '#/components/schemas/BlockHash'
+      IntegerBlockNumber:
+        description: the block number with type integer
+        type: number
+      HexadecimalBlockNumber:
+        type: string
+        format: hexadecimal
+        description: the block number with type hexadecimal
+      BlockTag:
+        type: string
+        description: the block tag [latest, pending, earliest]
+      BlockHash:
+        type: string
+        description: the block hash
+      Address:
+        type: string
+        format: 20-byte DATA
+        description: Address
+      CallObject:
+        type: object
+        description: The transaction call object. See the next table for the object's properties.
+        properties:
+          from:
+            type: string
+            format: 20-byte DATA
+            description: (optional) Address the transaction is simulated to have been sent from. The 0x00..0 address is used if no address is specified.
+          to:
+            type: string
+            format: 20-byte DATA
+            description: (optional) Address the transaction is sent to.
+          gas:
+            type: integer
+            format: int64
+            description: (optional) Maximum gas allowance for the code execution to avoid infinite loops. Defaults to 2^63 or whatever value the node operator specified via --rpc.gascap.
+          gasPrice:
+            type: integer
+            format: int64
+            description: (optional) Number of peb to simulate paying for each unit of gas during execution. Defaults to 0 peb.
+          value:
+            type: integer
+            format: int64
+            description: (optional) Amount of peb to simulate sending along with the transaction. Defaults to 0.
+          input:
+            type: string
+            format: DATA
+            description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
+      HeaderObject:
+        type: object
+        description: The block header object.
+        properties:
+          number:
+            type: string
+            format: hex
+            description: The block number. null when its pending block.
+          parentHash:
+            type: string
+            format: 32-byte DATA
+            description: Hash of the parent block.
+          logsBloom:
+            type: string
+            format: 256-byte DATA
+            description: The bloom filter for the logs of the block. null when it is pending block.
+          transactionsRoot:
+            type: string
+            format: 32-byte DATA
+            description: The root of the transaction trie of the block
+          stateRoot:
+            type: string
+            format: 32-byte DATA
+            description: The root of the final state trie of the block.
+          receiptsRoot:
+            type: string
+            format: 32-byte DATA
+            description: The root of the receipts trie of the block.
+          reward:
+            type: string
+            format: 20-byte DATA
+            description: The address of the beneficiary to whom the block rewards were given.
+          blockScore:
+            type: string
+            format: hex
+            description: Former difficulty. Always 1 in the BFT consensus engine
+          extraData:
+            type: string
+            format: DATA
+            description: The "extra data" field of this block.
+          gasUsed:
+            type: string
+            format: hex
+            description: The total used gas by all transactions in this block.
+          timestamp:
+            type: string
+            format: hex
+            description: The Unix timestamp for when the block was collated.
+          timestampFoS:
+            type: string
+            format: hex
+            description: The fraction of a second of the timestamp for when the block was collated.
+          governanceData:
+            type: string
+            format: DATA
+            description: RLP encoded governance configuration
+          voteData:
+            type: string
+            format: DATA
+            description: RLP encoded governance vote of the proposer
+          baseFeePerGas:
+            type: string
+            format: hex
+            description: The base fee per gas. It has a meaningful value when EthTxTypeCompatible and Magma hardforks are activated.
+        example:
+          baseFeePerGas: '0x5d21dba00'
+          blockScore: '0x1'
+          extraData: '0xda83010800846b6c617989676f312e31362e31338664617277696e0000000000f89ed5949712f943b296758aaae79944ec975884188d3a96b841ddfdf7e2cb0a93538f757f87f23a93ee35df703c781c6f15e31e4978ecdfb3501fc00924372b9a01df2bc452f2a924c242d83580183d131c47e49a25b78f625201f843b841b9b6034d5a8c5f5b057274cda4f427614cd1f448ee781f4c4322861d1361d09d47d6030f2b69a26cb426db984f54e71f8c112fbf882930ccd715d595e8d8307500'
+          gasUsed: '0x0'
+          governanceData: 0x
+          hash: '0xe882d7a16f38126dc0c507f990b3fe18fa2d3a380002538581327abe96ca6edc'
+          logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+          number: '0x1e67'
+          parentHash: '0x28b1c054346c3bd083741c757a750dcabf94b6d50c7f87158753544e96e73550'
+          receiptsRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+          reward: '0x4b2c736fd05c2e2da3ccbd001a395a444f16a861'
+          stateRoot: '0xdf9885621c9e6e75912ca94d6987bcb1b54fef0e4a99cbec5e68f1ffc7468a78'
+          timestamp: '0x62130beb'
+          timestampFoS: '0x0'
+          transactionsRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+      LogObject:
+        type: object
+        description: For filters created with klay_newFilter logs are objects with following properties
+        properties:
+          removed:
+            type: boolean
+            description: true when the log was removed, due to a chain reorganization. false if its a valid log.
+          logIndex:
+            type: string
+            format: QUANTITY
+            description: Integer of the log index position in the block. null when its pending log.
+          transactionIndex:
+            type: string
+            format: QUANTITY
+            description: Integer of the transactions index position log was created from. null when its pending log.
+          transactionHash:
+            type: string
+            format: 32-byte DATA
+            description: Hash of the transactions this log was created from. null when pending.
+          blockHash:
+            type: string
+            format: 32-byte DATA
+            description: Hash of the block where this log was in. null when pending.
+          blockNumber:
+            type: string
+            format: QUANTITY
+            description: The block number where this log was in. null when pending.
+          address:
+            type: string
+            format: 20-byte DATA
+            description: Address from which this log originated.
+          data:
+            type: string
+            format: DATA
+            description: Contains the non-indexed arguments of the log.
+          topics:
+            type: array
+            items:
+              type: string
+              format: 32-byte DATA
+            description: Array of 0 to 4 32-byte DATA of indexed log arguments. (In Solidity The first topic is the hash of the signature of the event (e.g., Deposit(address,bytes32,uint256)), except you declared the event with the anonymous specifier.).
+      ArrayOfLog:
+        type: array
+        items:
+          anyOf:
+            - type: string
+              format: 32-byte DATA
+              description: For filters created with klay_newBlockFilter, the return are block hashes (32-byte DATA), e.g., ["0x3454645634534..."].
+            - type: string
+              format: 32-byte DATA
+              description: For filters created with klay_newPendingTransactionFilter, the return are transaction hashes (32-byte DATA), e.g., ["0x6345343454645..."].
+            - $ref: '#/components/schemas/LogObject'
+        description: Array of log objects, or an empty array if nothing has changed since last poll.
+      TransactionObject:
+        type: object
+        description: Transaction object
+        required:
+          - blockHash
+          - blockNumber
+          - from
+          - gas
+          - gasPrice
+          - hash
+          - nonce
+          - senderTxHash
+          - signatures
+          - to
+          - transactionIndex
+          - type
+          - typeInt
+          - value
+        properties:
+          blockHash:
+            type: string
+            format: 32-byte DATA
+            description: Hash of the block where this transaction was in. null when its pending.
+          blockNumber:
+            type: string
+            format: hex
+            description: Block number where this transaction was in. null when its pending.
+          codeFormat:
+            type: string
+            description: (optional) The code format of smart contract code.
+          feePayer:
+            type: string
+            format: 20-byte DATA
+            description: (optional) Address of the fee payer.
+          feePayerSignatures:
+            type: array
+            items:
+              type: object
+            description: (optional) An array of fee payer's signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
+          feeRatio:
+            type: string
+            format: hex
+            description: (optional) Fee ratio of the fee payer. If it is 30, 30% of the fee will be paid by the fee payer. 70% will be paid by the sender.
+          from:
+            type: string
+            format: 20-byte DATA
+            description: Address of the sender.
+          gas:
+            type: string
+            format: hex
+            description: Gas provided by the sender.
+          gasPrice:
+            type: string
+            format: hex
+            description: Gas price provided by the sender in peb.
+          hash:
+            type: string
+            format: 32-byte DATA
+            description: Hash of the transaction.
+          humanReadable:
+            type: boolean
+            description: (optional) true if the address is humanReadable, false if the address is not humanReadable.
+          key:
+            type: string
+            description: (optional) Key of the newly created account.
+          input:
+            type: string
+            format: DATA
+            description: (optional) The data sent along with the transaction.
+          nonce:
+            type: string
+            format: hex
+            description: The number of transactions made by the sender prior to this one.
+          senderTxHash:
+            type: string
+            format: 32-byte DATA
+            description: Hash of a transaction that is signed only by the sender. See SenderTxHash. This value is always the same as hash for non fee-delegated transactions.
+          signatures:
+            type: array
+            items:
+              anyOf:
+                - $ref: '#/components/schemas/Signature'
+              type: object
+            description: An array of signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s
+          to:
+            type: string
+            format: 20-byte DATA
+            description: Address of the receiver. null when it is a contract creation transaction.
+          transactionIndex:
+            type: string
+            format: hex
+            description: Integer of the transactions index position in the block. null when its pending.
+          type:
+            type: string
+            description: A string representing the type of the transaction.
+          typeInt:
+            type: number
+            description: An integer representing the type of the transaction.
+          value:
+            type: string
+            format: hex
+            description: Value transferred in peb.
+        example:
+          blockHash: '0x4d97cf1f686a925ed4f1ad42c635cedb54974fe23a2941c7825e1ed3163c0e41'
+          blockNumber: '0x7008'
+          feePayer: '0xa9d2cc2bb853163b6eadfb6f962d72f7e00bc2e6'
+          feePayerSignatures:
+            - V: '0x4e44'
+              R: '0xa665e17d92e1c671c8b062cecb19790d49138a21854fc15c460c91035b1884e'
+              S: '0x17165688acc01736f1221a39399e3aac7e1ece14731fcab31631e3e4a59b7441'
+          from: '0xab0833d744a8943fe3c783f9cc70c13cbd70fcf4'
+          gas: '0xdbba0'
+          gasPrice: '0x5d21dba00'
+          hash: '0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67'
+          nonce: '0x26'
+          senderTxHash: '0x18fe9e1007da7d20aad77778557fb8acc58c80054daba65124c8c843aadd3478'
+          signatures:
+            - V: '0x4e44'
+              R: '0x1b6bb3d996d903d0528565d13e8d9d122b2220ed09c5baf384114193a6977027'
+              S: '0x20c506ce9f1bdd42183c40c44f414a3930f339f856e8be3cfcdf5ca0852fd378'
+          to: '0x15a9119104e1bf0ec6d408b3cc188685e4402a2c'
+          transactionIndex: '0x0'
+          type: TxTypeFeeDelegatedValueTransfer
+          typeInt: 9
+          value: '0x1'
+      Signature:
+        type: object
+        properties:
+          V:
+            type: string
+          R:
+            type: string
+          S:
+            type: string
+      TransactionReceipt:
+        type: object
+        required:
+          - blockHash
+          - blockNumber
+          - contractAddress
+          - from
+          - gas
+          - effectiveGasPrice
+          - gasPrice
+          - gasUsed
+          - logs
+          - logsBloom
+          - nonce
+          - senderTxHash
+          - signature
+          - status
+          - to
+          - transactionHash
+          - transactionIndex
+          - type
+          - typeInt
+          - value
+        properties:
+          blockHash:
+            type: string
+            format: 32-byte DATA
+            description: Hash of the block where this transaction was in.
+          blockNumber:
+            type: string
+            format: hex
+            description: The block number where this transaction was in.
+          codeFormat:
+            type: string
+            description: (optional) The code format of smart contract code.
+          contractAddress:
+            type: string
+            format: DATA
+            description: The contract address created, if the transaction was a contract creation, otherwise null.
+          feePayer:
+            type: string
+            format: 20-byte DATA
+            description: (optional) Address of the fee payer.
+          feePayerSignatures:
+            type: array
+            items:
+              anyOf:
+                - $ref: '#/components/schemas/Signature'
+              type: object
+            description: (optional) An array of fee payer's signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
+          feeRatio:
+            type: string
+            format: hex
+            description: (optional) Fee ratio of the fee payer. If it is 30, 30% of the fee will be paid by the fee payer. 70% will be paid by the sender.
+          from:
+            type: string
+            format: 20-byte DATA
+            description: Address of the sender.
+          gas:
+            type: string
+            format: hex
+            description: Gas provided by the sender.
+          effectiveGasPrice:
+            type: string
+            format: hex
+            description: The actual value per gas deducted from the senders account.
+          gasPrice:
+            type: string
+            format: hex
+            description: Gas price provided by the sender in peb.
+          gasUsed:
+            type: string
+            format: hex
+            description: The amount of gas used by this specific transaction alone.
+          humanReadable:
+            type: boolean
+            description: (optional) true if the address is humanReadable, false if the address is not humanReadable.
+          key:
+            type: string
+            description: (optional) Key of the newly created account.
+          input:
+            type: string
+            format: DATA
+            description: (optional) The data sent along with the transaction.
+          logs:
+            $ref: '#/components/schemas/ArrayOfLog'
+            description: Array of log objects, which this transaction generated.
+          logsBloom:
+            type: string
+            format: 256-byte DATA
+            description: Bloom filter for light clients to quickly retrieve related logs.
+          nonce:
+            type: string
+            format: hex
+            description: The number of transactions made by the sender prior to this one.
+          senderTxHash:
+            type: string
+            format: (optional) 32-byte DATA
+            description: Hash of the tx without the fee payer's address and signature. This value is always the same as the value of transactionHash for non fee-delegated transactions.
+          signature:
+            type: array
+            items:
+              anyOf:
+                - $ref: '#/components/schemas/Signature'
+              type: object
+            description: (optional) An array of fee payer's signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
+          status:
+            type: string
+            format: hex
+            description: Either 1 (success) or 0 (failure).
+          txError:
+            type: string
+            format: hex
+            description: (optional) detailed error code if status is equal to zero.
+          to:
+            type: string
+            format: 20-byte DATA
+            description: Address of the receiver. null when it is a contract creation transaction.
+          transactionHash:
+            type: string
+            format: 32-byte DATA
+            description: Hash of the transaction.
+          transactionIndex:
+            type: string
+            format: hex
+            description: Integer of the transaction index position in the block.
+          type:
+            type: string
+            description: A string representing the type of the transaction.
+          typeInt:
+            type: string
+            format: hex
+            description: An integer representing the type of the transaction.
+          value:
+            type: string
+            format: hex
+            description: Value transferred in peb.
+        example:
+          blockHash: '0x4d97cf1f686a925ed4f1ad42c635cedb54974fe23a2941c7825e1ed3163c0e41'
+          blockNumber: '0x7008'
+          contractAddress: null
+          feePayer: '0xa9d2cc2bb853163b6eadfb6f962d72f7e00bc2e6'
+          feePayerSignatures:
+            - V: '0x4e44'
+              R: '0xa665e17d92e1c671c8b062cecb19790d49138a21854fc15c460c91035b1884e'
+              S: '0x17165688acc01736f1221a39399e3aac7e1ece14731fcab31631e3e4a59b7441'
+          effectiveGasPrice: '0x5d21dba00'
+          from: '0xab0833d744a8943fe3c783f9cc70c13cbd70fcf4'
+          gas: '0xdbba0'
+          gasPrice: '0x5d21dba00'
+          gasUsed: '0x7918'
+          logs: []
+          logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+          nonce: '0x26'
+          senderTxHash: '0x18fe9e1007da7d20aad77778557fb8acc58c80054daba65124c8c843aadd3478'
+          signatures:
+            - V: '0x4e44'
+              R: '0x1b6bb3d996d903d0528565d13e8d9d122b2220ed09c5baf384114193a6977027'
+              S: '0x20c506ce9f1bdd42183c40c44f414a3930f339f856e8be3cfcdf5ca0852fd378'
+          status: '0x1'
+          to: '0x15a9119104e1bf0ec6d408b3cc188685e4402a2c'
+          transactionHash: '0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67'
+          transactionIndex: '0x0'
+          type: TxTypeFeeDelegatedValueTransfer
+          typeInt: 9
+          value: '0x1'
+    KlayGetFilterLogsResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/schemas'
     BlockCount:
       type: string
       format: Hexadecimal
       description: Number of blocks in the requested range in hexadecimal. Between 1 (0x1) and 1024 (0x400) blocks can be requested in a single query. Less than requested may be returned if not all blocks are available.
-    BlockNumberOrTag:
-      oneOf:
-        - $ref: '#/components/schemas/IntegerBlockNumber'
-        - $ref: '#/components/schemas/HexadecimalBlockNumber'
-        - $ref: '#/components/schemas/BlockTag'
     RewardPercentiles:
       type: array
       items:
