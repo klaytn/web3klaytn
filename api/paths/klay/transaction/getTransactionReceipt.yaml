@@ -30,7 +30,7 @@ paths:
           schema:
             type: string
             format: 32-byte DATA
-          description: Hash of a transaction that is signed only by the sender.
+          description: Hash of a transaction.
           in: query
 
       requestBody:
@@ -49,7 +49,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-#                  - $ref: "#/components/schemas/KlayGetTransactionReceiptResp"
+                  - $ref: "#/components/schemas/KlayGetTransactionReceiptResp"
 
       externalDocs:
         url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_gettransactionreceipt
@@ -93,8 +93,8 @@ components:
                 description: Hash of a transaction.
           example:  ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
 
-#    KlayGetTransactionReceiptResp:
-#      type: object
-#      properties:
-#        result:
-#          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionReceiptObject"
+    KlayGetTransactionReceiptResp:
+      type: object
+      properties:
+        result:
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionReceipt"

@@ -101,6 +101,8 @@ paths:
     $ref: ./paths/klay/transaction/getTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getTransactionByBlockHashAndIndex
   /klay/transaction/getTransactionByHash:
     $ref: ./paths/klay/transaction/getTransactionByHash.yaml#/paths/~1klay~1getTransactionByHash
+  /klay/transaction/getTransactionReceipt:
+    $ref: ./paths/klay/transaction/getTransactionReceipt.yaml#/paths/~1klay~1getTransactionReceipt
 
   # klay/configuration
   /klay/configuration/chainID:
@@ -111,6 +113,8 @@ paths:
     $ref: ./paths/klay/configuration/gasPriceAt.yaml#/paths/~1klay~1gasPriceAt
   /klay/configuration/gasPrice:
     $ref: ./paths/klay/configuration/gasPrice.yaml#/paths/~1klay~1gasPrice
+  /klay/configuration/isParallelDBWrite:
+    $ref: ./paths/klay/configuration/isParallelDBWrite.yaml#/paths/~1klay~1isParallelDBWrite
 
   # klay/filter
   /klay/filter/getFilterChanges:
