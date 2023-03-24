@@ -1384,7 +1384,7 @@ paths:
                       default: klay_syncing
       responses:
         '200':
-          description: Returns information about a block by hash
+          description: Returns Object|Boolean, an object with sync status data or false when not syncing
           content:
             application/json:
               schema:
@@ -1918,6 +1918,67 @@ paths:
               "id": 1,
               "jsonrpc": "2.0",
               "params": ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
+            }'
+  /klay/transaction/estimateComputationCost:
+    post:
+      operationId: estimateComputationCost
+      summary: '[estimateComputationCost] Generates and returns an estimate of how much computation cost will be spent to execute the transaction. '
+      tags:
+        - klay
+      description: |
+        Generates and returns an estimate of how much computation cost will be spent to execute the transaction. Klaytn limits the computation cost of a transaction to 100000000 currently not to take too much time by a single transaction. The transaction will not be added to the blockchain like klay_estimateGas
+
+        **JSONRPC:** `klay_estimateComputationCost`
+      parameters:
+        - name: callObject
+          in: query
+          description: The transaction call object. See the next table for the object's properties.
+          required: false
+          schema:
+            $ref: '#/components/schemas/CallObject'
+        - name: blockNumberOrHash
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
+          required: false
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayEstimateComputationCostReq'
+      responses:
+        '200':
+          description: Return the amount of computation cost used.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: hex
+                        description: The amount of computation cost used.
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_estimatecomputationcost
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/estimateComputationCost' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_estimateComputationCost",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": [{"from":"0x73718c4980728857f3aa5148e9d1b471efa3a7dd", "to":"0x069942a3ca0dabf495dba872533134205764bc9c", "value":"0x0", "input":"0x2a31efc7000000000000000000000000000000000000000000000000000000000000271000000000000000000000000000000000000000000000000000000000000000420000000000000000000000000000000000000000000000000000000000003039"}, "latest"]
             }'
   /klay/configuration/chainID:
     post:
@@ -4489,6 +4550,28 @@ components:
                 description: The signed transaction data.
           example:
             - '0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67'
+    KlayEstimateComputationCostReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_call
+        params:
+          title: encodedAccountKey
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/CallObject'
+              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+          example:
+            - from: '0x73718c4980728857f3aa5148e9d1b471efa3a7dd'
+              to: '0x069942a3ca0dabf495dba872533134205764bc9c'
+              value: '0x0'
+              input: '0x2a31efc7000000000000000000000000000000000000000000000000000000000000271000000000000000000000000000000000000000000000000000000000000000420000000000000000000000000000000000000000000000000000000000003039'
+            - latest
     KlayGasPriceAtReq:
       type: object
       required:
