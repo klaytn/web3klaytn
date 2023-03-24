@@ -60,10 +60,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        #- lang: "javascript"
-        #  label: "Javascript"
-        #  source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/configuration/chainId.js"
         #- lang: "python"
         #  label: "Python"
         #  source:
