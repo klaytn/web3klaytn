@@ -49,6 +49,10 @@ paths:
     $ref: ./account/getBalance.yaml#/paths/~1klay~1getBalance
   /klay/account/sign:
     $ref: ./account/sign.yaml#/paths/~1klay~1sign
+  /klay/account/getTransactionCount:
+    $ref: ./account/getTransactionCount.yaml#/paths/~1klay~1getTransactionCount
+  /klay/account/isContractAccount:
+    $ref: ./account/isContractAccount.yaml#/paths/~1klay~1isContractAccount
 
   # klay/block
   /klay/block/blockNumber:
@@ -118,6 +122,14 @@ paths:
     $ref: ./configuration/gasPrice.yaml#/paths/~1klay~1gasPrice
   /klay/configuration/isParallelDBWrite:
     $ref: ./configuration/isParallelDBWrite.yaml#/paths/~1klay~1isParallelDBWrite
+  /klay/configuration/isSenderTxHashIndexingEnabled:
+    $ref: ./configuration/isSenderTxHashIndexingEnabled.yaml#/paths/~1klay~1isSenderTxHashIndexingEnabled
+  /klay/configuration/maxPriorityFeePerGas:
+    $ref: ./configuration/maxPriorityFeePerGas.yaml#/paths/~1klay~1maxPriorityFeePerGas
+  /klay/configuration/protocolVersion:
+    $ref: ./configuration/protocolVersion.yaml#/paths/~1klay~1protocolVersion
+  /klay/configuration/rewardBase:
+    $ref: ./configuration/rewardBase.yaml#/paths/~1klay~1rewardBase
 
   # klay/filter
   /klay/filter/getFilterChanges:
@@ -128,8 +140,13 @@ paths:
     $ref: ./filter/newBlockFilter.yaml#/paths/~1klay~1newBlockFilter
   /klay/filter/newPendingTransactionFilter:
     $ref: ./filter/newPendingTransactionFilter.yaml#/paths/~1klay~1newPendingTransactionFilter
+  /klay/filter/uninstallFilter:
+    $ref: ./filter/uninstallFilter.yaml#/paths/~1klay~1uninstallFilter
 
   # klay/gas
   /klay/gas/feeHistory:
     $ref: ./gas/feeHistory.yaml#/paths/~1klay~1feeHistory
 
+  # klay/miscellaneous
+  /klay/miscellaneous/sha3:
+    $ref: ./miscellaneous/sha3.yaml#/paths/~1klay~1sha3

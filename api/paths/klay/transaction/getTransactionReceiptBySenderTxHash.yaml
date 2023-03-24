@@ -1,0 +1,97 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/getTransactionReceiptBySenderTxHash:
+    post:
+      operationId: getTransactionReceiptBySenderTxHash
+      summary: "[getTransactionReceiptBySenderTxHash] Returns the receipt of a transaction by sender transaction hash."
+      tags:
+        - klay
+      description: |
+        **NOTE:** The receipt is not available for pending transactions. Please note that this API returns correct result only if indexing feature is enabled by --sendertxhashindexing. This can be checked by call klay_isSenderTxHashIndexingEnabled.
+
+        **JSONRPC:** `klay_getTransactionReceiptBySenderTxHash`
+
+      parameters:
+        - name: Hash
+          schema:
+            type: string
+            format: 32-byte DATA
+          in: query
+          description: Hash of a transaction before signing of feePayer(senderTransactionHash).
+          required: true
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/KlayGetTransactionByHashReq"
+
+      responses:
+        default:
+          description: Object - A transaction object, or null when no transaction was found.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/KlayGetTransactionByHashResp"
+
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_gettransactionreceiptbysendertxhash
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/transaction/getTransactionReceiptBySenderTxHash.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        #- lang: "javascript"
+        #  label: "Javascript"
+        #  source:
+        #    $ref: ""
+        #- lang: "python"
+        #  label: "Python"
+        #  source:
+        #    $ref: ""
+
+components:
+  schemas:
+    KlayGetTransactionByHashReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getTransactionReceiptBySenderTxHash'
+        params:
+          type: array
+          items:
+            anyOf:
+            - type: string
+              format: 32-byte DATA
+              description: Hash of a transaction before signing of feePayer(senderTransactionHash).
+          example: ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
+
+    KlayGetTransactionByHashResp:
+      type: object
+      properties:
+        result:
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionObject"
+
