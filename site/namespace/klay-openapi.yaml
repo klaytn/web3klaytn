@@ -1975,6 +1975,11 @@ paths:
             schema:
               allOf:
                 - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: klay_isParallelDBWrite
       responses:
         '200':
           description: Returns true if the node is writing blockchain data in parallel manner.
@@ -2133,6 +2138,59 @@ paths:
               "id": 1,
               "jsonrpc": "2.0",
               "params": ["0xd32fd16b6906e67f6e2b65dcf48fc272"]
+            }'
+  /klay/filter/newBlockFilter:
+    post:
+      operationId: newBlockFilter
+      summary: '[newBlockFilter] Creates a filter in the node, to notify when a new block arrives.'
+      description: |
+        Creates a filter in the node, to notify when a new block arrives. To check if the state has changed, call klay_getFilterChanges.
+
+        **JSONRPC:** `klay_newBlockFilter`
+      tags:
+        - klay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: klay_newBlockFilter
+      responses:
+        '200':
+          description: Returns a filter id.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: hex
+                        description: A filter id.
+                        example: '0xc2f2e8168a7e38b5d979d0f7084130ee'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/filter#klay_newblockfilter
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/newBlockFilter' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_newBlockFilter",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": []
             }'
   /klay/gas/feeHistory:
     post:

@@ -116,6 +116,8 @@ paths:
     $ref: ./filter/getFilterChanges.yaml#/paths/~1klay~1getFilterChanges
   /klay/filter/getFilterLogs:
     $ref: ./filter/getFilterLogs.yaml#/paths/~1klay~1getFilterLogs
+  /klay/filter/newBlockFilter:
+    $ref: ./filter/newBlockFilter.yaml#/paths/~1klay~1newBlockFilter
 
   # klay/gas
   /klay/gas/feeHistory:
