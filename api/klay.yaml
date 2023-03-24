@@ -123,6 +123,8 @@ paths:
     $ref: ./paths/klay/filter/getFilterLogs.yaml#/paths/~1klay~1getFilterLogs
   /klay/filter/newBlockFilter:
     $ref: ./paths/klay/filter/newBlockFilter.yaml#/paths/~1klay~1newBlockFilter
+  /klay/filter/newPendingTransactionFilter:
+    $ref: ./paths/klay/filter/newPendingTransactionFilter.yaml#/paths/~1klay~1newPendingTransactionFilter
 
   # klay/gas
   /klay/gas/feeHistory:

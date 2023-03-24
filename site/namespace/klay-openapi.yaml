@@ -2192,6 +2192,59 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+  /klay/filter/newPendingTransactionFilter:
+    post:
+      operationId: newPendingTransactionFilter
+      summary: '[newPendingTransactionFilter] Creates a filter in the node, to notify when new pending transactions arrive.'
+      description: |
+        Creates a filter in the node, to notify when a new block arrives. To check if the state has changed, call klay_getFilterChanges.
+
+        **JSONRPC:** `klay_newPendingTransactionFilter`
+      tags:
+        - klay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: klay_newPendingTransactionFilter
+      responses:
+        '200':
+          description: Returns a filter id.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: hex
+                        description: A filter id.
+                        example: '0x90cec22a723fcc725fb2462733c2880f'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/filter#klay_newpendingtransactionfilter
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/newPendingTransactionFilter' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_newPendingTransactionFilter",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": []
+            }'
   /klay/gas/feeHistory:
     post:
       operationId: feeHistory
