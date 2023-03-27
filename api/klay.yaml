@@ -179,3 +179,13 @@ paths:
   # eth/transaction
   /eth/transaction/call:
     $ref: ./paths/eth/transaction/call.yaml#/paths/~1eth~1call
+
+  # eth/config
+  /eth/config/chainID:
+    $ref: ./paths/eth/config/chainId.yaml#/paths/~1eth~1chainId
+  /eth/config/gasPrice:
+    $ref: ./paths/eth/config/gasPrice.yaml#/paths/~1eth~1gasPrice
+
+  # eth/gas
+  /eth/gas/feeHistory:
+    $ref: ./paths/eth/gas/feeHistory.yaml#/paths/~1eth~1feeHistory

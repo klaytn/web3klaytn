@@ -35,3 +35,13 @@ paths:
   # eth/transaction
   /eth/transaction/call:
     $ref: ./transaction/call.yaml#/paths/~1eth~1call
+
+  # eth/config
+  /eth/config/chainID:
+    $ref: ./config/chainId.yaml#/paths/~1eth~1chainId
+  /eth/config/gasPrice:
+    $ref: ./config/gasPrice.yaml#/paths/~1eth~1gasPrice
+
+  # eth/gas
+  /eth/gas/feeHistory:
+    $ref: ./gas/feeHistory.yaml#/paths/~1eth~1feeHistory

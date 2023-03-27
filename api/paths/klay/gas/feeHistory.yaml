@@ -27,7 +27,7 @@ paths:
         - name: blockCount
           required: true
           schema:
-            $ref: "#/components/schemas/BlockCount"
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockCount"
           description: Number of blocks in the requested range in hexadecimal. Between 1 (0x1) and 1024 (0x400) blocks can be requested in a single query. Less than requested may be returned if not all blocks are available.
           in: query
         - name: lastBlock
@@ -39,7 +39,7 @@ paths:
         - name: rewardPercentiles
           required: true
           schema:
-            $ref: "#/components/schemas/RewardPercentiles"
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/RewardPercentiles"
           description: An array of floating point values between 0 and 100.
           in: query
 
@@ -96,22 +96,10 @@ components:
           type: array
           items:
             anyOf:
-              - $ref: "#/components/schemas/BlockCount"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockCount"
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              - $ref: "#/components/schemas/RewardPercentiles"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/RewardPercentiles"
           example:  ["0x10", "latest", [0.1, 0.2, 0.3]]
-
-    BlockCount:
-      type: string
-      format: Hexadecimal
-      description: Number of blocks in the requested range in hexadecimal. Between 1 (0x1) and 1024 (0x400) blocks can be requested in a single query. Less than requested may be returned if not all blocks are available.
-
-    RewardPercentiles:
-      type: array
-      items:
-        type: number
-        format: float
-      description: An array of floating point values between 0 and 100.
 
     KlayFeeHistoryResp:
         type: object
@@ -129,11 +117,7 @@ components:
                   format: Hexadecimal
                   description: Lowest numbered block of the returned range in hexadecimal.
                 baseFeePerGas:
-                  type: array
-                  items:
-                    type: string
-                    format: Hexadecimal
-                  description: An array of block base fees per gas. This includes the next block after the newest of the returned range, because this value can be derived from the newest block.
+                  $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BaseFeePerGas"
                 gasUsedRatio:
                   type: array
                   items:
@@ -141,13 +125,7 @@ components:
                     format: float
                   description: An array of the ratios of gas used per block. These are calculated as the ratio of gasUsed and gasLimit.
                 reward:
-                  type: array
-                  items:
-                    type: array
-                    items:
-                      type: string
-                      format: Hexadecimal
-                  description: An array of effective priority fee per gas data points from a single block. All zeroes are returned if the block is empty.
+                  $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Reward"
               example:
                 {
                   "oldestBlock": "0xa5b",
