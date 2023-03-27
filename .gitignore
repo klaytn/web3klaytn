@@ -372,7 +372,7 @@ bin/**.jar
 
 # OpenAPI generated
 **/klaytn-openapi.yaml
-/sdk/client/java/openapi-test/
+#/sdk/client/java/openapi-test/
 
 .DS_Store
 
