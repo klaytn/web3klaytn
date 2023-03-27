@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group 'org.opensdk.klaytn'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(files("../openapi/build/libs/opensdk-java-v1.10.0.jar"))
+    implementation "org.web3j:core:4.9.7"
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.14.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
