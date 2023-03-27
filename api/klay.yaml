@@ -183,6 +183,8 @@ paths:
   # eth/config
   /eth/config/chainID:
     $ref: ./paths/eth/config/chainId.yaml#/paths/~1eth~1chainId
+  /eth/config/gasPrice:
+    $ref: ./paths/eth/config/gasPrice.yaml#/paths/~1eth~1gasPrice
 
   # eth/gas
   /eth/gas/feeHistory:
