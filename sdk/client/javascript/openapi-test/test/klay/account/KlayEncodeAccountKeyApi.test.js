@@ -3,8 +3,8 @@ const { expect } = require("@jest/globals");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
-describe('Klay account decode account key API', () => {
-    test('should return account information', (done) => {
+describe('Klay account encode account key API', () => {
+    test('should return result', (done) => {
 
         let callbackOne = function (error, data, response) {
 
