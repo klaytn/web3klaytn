@@ -131,7 +131,6 @@ components:
       properties:
         key:
           type: object
-          default: {}
         keyType:
           type: integer
           description: "The type of AccountKeyLegacy. This must be 0x01."
