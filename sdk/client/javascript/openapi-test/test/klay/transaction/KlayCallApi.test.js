@@ -3,7 +3,6 @@ const { expect } = require("@jest/globals");
 
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
-
 describe('Eth transaction call API', () => {
     test('should return result', (done) => {
 
@@ -25,5 +24,5 @@ describe('Eth transaction call API', () => {
           }
         const blockTag = 'latest'
         sdk.klay.call(callObject, blockTag, {}, callbackOne);
-    });
+    },50000);
 });

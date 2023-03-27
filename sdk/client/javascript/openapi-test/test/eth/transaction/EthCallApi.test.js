@@ -8,7 +8,9 @@ describe('Eth transaction call API', () => {
     test('should return result', (done) => {
 
         let callbackOne = function (error, data, response) {
-
+            if(error) {
+                done(false)
+            }
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
             expect(data.result).toBeDefined()

@@ -3,7 +3,7 @@
   "version": "1.10.0",
   "description": "OpenAPI client for ",
   "scripts": {
-    "test": "jest"
+    "test": "jest --silent=false"
   },
   "dependencies": {
   },

@@ -48,7 +48,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-#                - $ref: "#/components/schemas/KlayCallReq"
+                - $ref: "#/components/schemas/KlayCallReq"
 
       responses:
         200:
