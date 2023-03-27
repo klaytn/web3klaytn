@@ -14,32 +14,34 @@ components:
         - $ref: "#/components/schemas/BlockHash"
 
     IntegerBlockNumber:
-      title: integerBlockNumber
+      title: IntegerBlockNumber
       description: the block number with type integer
       type: number
 
     HexadecimalBlockNumber:
-      title: hexadecimalBlockNumber
+      title: HexadecimalBlockNumber
       type: string
       format: hexadecimal
       description: the block number with type hexadecimal
 
     BlockTag:
-      title: blockTag
+      title: BlockTag
       type: string
       description: the block tag [latest, pending, earliest]
 
     BlockHash:
-      title: blockHash
+      title: BlockHash
       type: string
       description: the block hash
 
     Address:
+      title: Address
       type: string
       format: 20-byte DATA
       description: Address
 
     CallObject:
+      title: CallObject
       type: object
       description: The transaction call object. See the next table for the object's properties.
       properties:
@@ -69,6 +71,7 @@ components:
           description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
 
     HeaderObject:
+      title: HeaderObject
       type: object
       description: The block header object.
       properties:
@@ -153,6 +156,7 @@ components:
 
 
     LogObject:
+      title: LogObject
       type: object
       description: For filters created with klay_newFilter logs are objects with following properties
       properties:
@@ -195,6 +199,7 @@ components:
           description: Array of 0 to 4 32-byte DATA of indexed log arguments. (In Solidity The first topic is the hash of the signature of the event (e.g., Deposit(address,bytes32,uint256)), except you declared the event with the anonymous specifier.).
 
     ArrayOfLog:
+      title: ArrayOfLog
       type: array
       items:
         anyOf:
@@ -208,6 +213,7 @@ components:
       description: Array of log objects, or an empty array if nothing has changed since last poll.
 
     TransactionObject:
+      title: TransactionObject
       type: object
       description: Transaction object
       required:
@@ -344,6 +350,7 @@ components:
           }
 
     Signature:
+      title: Signature
       type: object
       properties:
         V:
@@ -354,6 +361,7 @@ components:
           type: string
 
     TransactionReceipt:
+      title: TransactionReceipt
       type: object
       required:
         - blockHash

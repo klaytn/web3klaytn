@@ -28,6 +28,7 @@ components:
 
 
     TxTypeLegacyTransaction:
+      title: TxTypeLegacyTransaction
       type: object
       required:
         - from
@@ -66,6 +67,7 @@ components:
         {"from":"0x77982323172e5b6182539d3522d5a33a944206d4", "to":"0xcd6bfdb523a4d030890d28bf1eb6ef36307c9aaa", "value":"0x10000", "gas":"0x1000000", "nonce":"0x2", "gasprice":"0x25000000000"}
 
     TxTypeValueTransfer:
+      title: TxTypeValueTransfer
       type: object
       required:
         - typeInt
@@ -106,6 +108,7 @@ components:
         {"typeInt": 8, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "to": "0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075", "gas": "0x76c0", "gasPrice": "0x5d21dba00", "value": "0xf4"}
 
     TxTypeFeeDelegatedValueTransfer:
+      title: TxTypeFeeDelegatedValueTransfer
       type: object
       required:
         - typeInt
@@ -151,6 +154,7 @@ components:
         {"typeInt": 9, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "to": "0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075", "gas": "0x76c0", "gasPrice": "0x5d21dba00", "value": "0xf4", "feePayer": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d"}
 
     TxTypeFeeDelegatedValueTransferWithRatio:
+      title: TxTypeFeeDelegatedValueTransferWithRatio
       type: object
       required:
         - typeInt
@@ -203,6 +207,7 @@ components:
         {"typeInt": 10, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "to": "0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075", "gas": "0x76c0", "gasPrice": "0x5d21dba00", "value": "0xf4", "feePayer": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "feeRatio": 30}
 
     TxTypeValueTransferMemo:
+      title: TxTypeValueTransferMemo
       type: object
       required:
         - typeInt
@@ -248,6 +253,7 @@ components:
         {"typeInt": 16, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "to": "0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075", "gas": "0x76c0", "gasPrice": "0x5d21dba00", "value": "0xf4", "input": "0xb3f98adc0000000000000000000000000000000000000000000000000000000000000001"}
 
     TxTypeFeeDelegatedValueTransferMemo:
+      title: TxTypeFeeDelegatedValueTransferMemo
       type: object
       required:
         - typeInt
@@ -301,6 +307,7 @@ components:
         {"typeInt": 17, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "to": "0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075", "gas": "0x76c0", "gasPrice": "0x5d21dba00", "value": "0xf4", "input": "0xb3f98adc0000000000000000000000000000000000000000000000000000000000000001", "feePayer": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d"}
 
     TxTypeFeeDelegatedValueTransferMemoWithRatio:
+      title: TxTypeFeeDelegatedValueTransferMemoWithRatio
       type: object
       required:
         - typeInt
@@ -358,6 +365,7 @@ components:
         {"typeInt": 18, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "to": "0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075", "gas": "0x76c0", "gasPrice": "0x5d21dba00", "value": "0xf4", "input": "0xb3f98adc0000000000000000000000000000000000000000000000000000000000000001", "feePayer": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "feeRatio": 30}
 
     TxTypeAccountUpdate:
+      title: TxTypeAccountUpdate
       type: object
       required:
         - typeInt
@@ -393,6 +401,7 @@ components:
         {"typeInt": 32, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "gas": "0x4a380", "gasPrice": "0x5d21dba00", "key": "0x01c0"}
 
     TxTypeFeeDelegatedAccountUpdate:
+      title: TxTypeFeeDelegatedAccountUpdate
       type: object
       required:
         - typeInt
@@ -435,6 +444,7 @@ components:
         {"typeInt": 33, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "gas": "0x4a380", "gasPrice": "0x5d21dba00", "key": "0x01c0", "feePayer": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d"}
 
     TxTypeFeeDelegatedAccountUpdateWithRatio:
+      title: TxTypeFeeDelegatedAccountUpdateWithRatio
       type: object
       required:
         - typeInt
@@ -478,6 +488,7 @@ components:
           $ref: "#/components/schemas/SignatureArray"
 
     TxTypeSmartContractDeploy:
+      title: TxTypeSmartContractDeploy
       type: object
       required:
         - typeInt
@@ -528,6 +539,7 @@ components:
           description: The code format of smart contract code. The value 0 indicates EVM.
 
     TxTypeFeeDelegatedSmartContractDeploy:
+      title: TxTypeFeeDelegatedSmartContractDeploy
       type: object
       required:
         - typeInt
@@ -585,6 +597,7 @@ components:
           $ref: "#/components/schemas/SignatureArray"
 
     TxTypeFeeDelegatedSmartContractDeployWithRatio:
+      title: TxTypeFeeDelegatedSmartContractDeployWithRatio
       type: object
       required:
         - typeInt
@@ -647,6 +660,7 @@ components:
           description: Fee ratio of the fee payer. If it is 30, 30% of the fee will be paid by the fee payer. 70% will be paid by the sender. The range of fee ratio is 1 ~ 99, if it is out of range, the transaction will not be accepted.
 
     TxTypeSmartContractExecution:
+      title: TxTypeSmartContractExecution
       type: object
       required:
         - typeInt
@@ -684,6 +698,7 @@ components:
           description: Integer of the value sent with this transaction.
 
     TxTypeFeeDelegatedSmartContractExecution:
+      title: TxTypeFeeDelegatedSmartContractExecution
       type: object
       required:
         - typeInt
@@ -732,6 +747,7 @@ components:
           $ref: "#/components/schemas/SignatureArray"
 
     TxTypeFeeDelegatedSmartContractExecutionWithRatio:
+      title: TxTypeFeeDelegatedSmartContractExecutionWithRatio
       type: object
       required:
         - typeInt
@@ -785,6 +801,7 @@ components:
           $ref: "#/components/schemas/SignatureArray"
 
     TxTypeCancel:
+      title: TxTypeCancel
       type: object
       required:
         - typeInt
@@ -811,6 +828,7 @@ components:
           description: (optional) Integer of a nonce.
 
     TxTypeFeeDelegatedCancel:
+      title: TxTypeFeeDelegatedCancel
       type: object
       required:
         - typeInt
@@ -844,6 +862,7 @@ components:
           $ref: "#/components/schemas/SignatureArray"
 
     TxTypeFeeDelegatedCancelWithRatio:
+      title: TxTypeFeeDelegatedCancelWithRatio
       type: object
       required:
         - typeInt
@@ -881,6 +900,7 @@ components:
           $ref: "#/components/schemas/SignatureArray"
 
     SignatureArray:
+      title: SignatureArray
       type: array
       items:
         $ref: "./Common.yaml#/components/schemas/Signature"
