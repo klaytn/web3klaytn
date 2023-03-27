@@ -179,3 +179,7 @@ paths:
   # eth/transaction
   /eth/transaction/call:
     $ref: ./paths/eth/transaction/call.yaml#/paths/~1eth~1call
+
+  # eth/config
+  /eth/config/chainID:
+    $ref: ./paths/eth/config/chainId.yaml#/paths/~1eth~1chainId

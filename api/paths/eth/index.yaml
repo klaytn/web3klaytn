@@ -35,3 +35,7 @@ paths:
   # eth/transaction
   /eth/transaction/call:
     $ref: ./transaction/call.yaml#/paths/~1eth~1call
+
+  # eth/config
+  /eth/config/chainID:
+    $ref: ./config/chainId.yaml#/paths/~1eth~1chainId
