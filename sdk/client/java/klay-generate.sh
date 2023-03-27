@@ -9,11 +9,11 @@ PROJECT_DIR=$(cd "$CURRENT_FILE_DIR" && cd ../../.. && pwd )
 
 # generate openapi codes
 cd "${CURRENT_FILE_DIR}"
-rm -rf "${CURRENT_FILE_DIR}/openapi"
-mkdir "${CURRENT_FILE_DIR}/openapi"
-cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi"
-"${PROJECT_DIR}"/bin/caver-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/java-config.yaml"
+rm -rf "${CURRENT_FILE_DIR}/openapi/klay"
+mkdir "${CURRENT_FILE_DIR}/openapi/klay"
+cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/klay"
+"${PROJECT_DIR}"/bin/caver-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/klay-config.yaml"
 
 # generate openapi jar library
-cd "${CURRENT_FILE_DIR}/openapi"
+cd "${CURRENT_FILE_DIR}/openapi/klay"
 sh gradlew check build

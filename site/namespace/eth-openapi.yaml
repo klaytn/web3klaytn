@@ -263,7 +263,6 @@ paths:
             schema:
               allOf:
                 - $ref: '#/components/schemas/JsonRpcRequest'
-                - $ref: '#/components/schemas/KlayCallReq'
       responses:
         '200':
           description: null
@@ -453,6 +452,7 @@ components:
             readOnly: true
             example: '0xc94770007dda54cF92009BFF0dE90c06F603a09f'
     CallObject:
+      title: CallObject
       type: object
       description: The transaction call object. See the next table for the object's properties.
       properties:
@@ -481,16 +481,16 @@ components:
           format: DATA
           description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
     IntegerBlockNumber:
-      title: integerBlockNumber
+      title: IntegerBlockNumber
       description: the block number with type integer
       type: number
     HexadecimalBlockNumber:
-      title: hexadecimalBlockNumber
+      title: HexadecimalBlockNumber
       type: string
       format: hexadecimal
       description: the block number with type hexadecimal
     BlockTag:
-      title: blockTag
+      title: BlockTag
       type: string
       description: the block tag [latest, pending, earliest]
     BlockNumberOrTag:
@@ -520,28 +520,6 @@ components:
         stateDiff:
           type: object
           description: (optional) Fake key-value mapping to override individual slots in the account storage before executing the call.
-    KlayCallReq:
-      type: object
-      required:
-        - method
-      properties:
-        method:
-          type: string
-          default: eth_call
-        params:
-          type: array
-          items:
-            anyOf:
-              - $ref: '#/components/schemas/CallObject'
-              - $ref: '#/components/schemas/BlockNumberOrTag'
-              - $ref: '#/components/schemas/StateOverrideSet'
-          example:
-            - from: '0xca7a99380131e6c76cfa622396347107aeedca2d'
-              to: '0xbE3892d33620bE5aca8c75D39e7401871194d290'
-              input: '0x2e64cec1'
-            - latest
-            - '0xbE3892d33620bE5aca8c75D39e7401871194d290':
-                code: '0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e64cec114604e5780636057361d146076575b600080fd5b348015605957600080fd5b50606060a0565b6040518082815260200191505060405180910390f35b348015608157600080fd5b50609e6004803603810190808035906020019092919050505060a9565b005b60008054905090565b80600081905550505600a165627a7a723058207783dba41884f73679e167576362b7277f88458815141651f48ca38c25b498f80029'
     KlayCallResp:
       type: object
       properties:

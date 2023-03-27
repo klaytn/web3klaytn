@@ -1,6 +1,6 @@
 package opensdk.sdk.apis.eth.transaction;
 
-import opensdk.sdk.apis.eth.BaseEthTest;
+import opensdk.sdk.apis.eth.BaseEthApiTest;
 import opensdk.sdk.models.Call200Response;
 import opensdk.sdk.models.CallObject;
 import opensdk.sdk.models.StateOverrideSet;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @since 24/03/2023 9:25 AM
  */
 @DisplayName("Eth RPC Test")
-class EthCallApiEthTest extends BaseEthTest {
+class EthCallApiEthApiTest extends BaseEthApiTest {
 
     @Test
     @DisplayName("RPC eth_call")
