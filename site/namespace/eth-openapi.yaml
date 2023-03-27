@@ -520,7 +520,7 @@ components:
         stateDiff:
           type: object
           description: (optional) Fake key-value mapping to override individual slots in the account storage before executing the call.
-    CallReq:
+    KlayCallReq:
       type: object
       required:
         - method
