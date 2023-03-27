@@ -1,0 +1,92 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/sendTransaction:
+    post:
+      operationId: sendTransaction
+      summary: "[sendTransaction] Constructs a transaction with given parameters, signs the transaction with a sender's private key and propagates the transaction to Klaytn network."
+      description: |
+        Constructs a transaction with given parameters, signs the transaction with a sender's private key and propagates the transaction to Klaytn network.
+        
+        **JSONRPC:** `klay_sendTransaction`
+        
+        **NOTE:** The address to sign with must be unlocked.
+
+      tags:
+        - klay
+
+      parameters:
+        - name: klaytnTransactionTypes
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/KlaytnTransactionTypes.yaml#/components/schemas/KlaytnTransactionTypes"
+          description: The required parameters depend on the transaction type.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/KlaySendTransactionReq"
+
+      responses:
+        200:
+          description: Returns the transaction hash or the zero hash if the transaction is not yet available.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: 32-byte DATA
+                        description: "The transaction hash"
+                        example: "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331"
+
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_sendtransaction
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/transaction/sendTransaction.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        #- lang: "javascript"
+        #  label: "Javascript"
+        #  source:
+        #    $ref: ""
+        #- lang: "python"
+        #  label: "Python"
+        #  source:
+        #    $ref: ""
+
+components:
+  schemas:
+    KlaySendTransactionReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_sendTransaction'
+        params:
+          $ref: "../../../components/schemas/common/KlaytnTransactionTypes.yaml#/components/schemas/KlaytnTransactionTypes"

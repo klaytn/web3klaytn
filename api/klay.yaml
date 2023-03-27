@@ -116,6 +116,15 @@ paths:
     $ref: ./paths/klay/transaction/estimateComputationCost.yaml#/paths/~1klay~1estimateComputationCost
   /klay/transaction/getTransactionReceiptBySenderTxHash:
     $ref: ./paths/klay/transaction/getTransactionReceiptBySenderTxHash.yaml#/paths/~1klay~1getTransactionReceiptBySenderTxHash
+  /klay/transaction/sendTransaction:
+    $ref: ./paths/klay/transaction/sendTransaction.yaml#/paths/~1klay~1sendTransaction
+  /klay/transaction/sendTransactionAsFeePayer:
+    $ref: ./paths/klay/transaction/sendTransactionAsFeePayer.yaml#/paths/~1klay~1sendTransactionAsFeePayer
+  /klay/transaction/signTransaction:
+    $ref: ./paths/klay/transaction/signTransaction.yaml#/paths/~1klay~1signTransaction
+  /klay/transaction/signTransactionAsFeePayer:
+    $ref: ./paths/klay/transaction/signTransactionAsFeePayer.yaml#/paths/~1klay~1signTransactionAsFeePayer
+
 
   # klay/configuration
   /klay/configuration/chainID:
