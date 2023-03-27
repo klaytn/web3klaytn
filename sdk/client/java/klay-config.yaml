@@ -1,8 +1,8 @@
 generatorName: caver-java
-outputDir: ./openapi
-inputSpec: ../../../site/namespace/eth-openapi.yaml
+outputDir: ./openapi/klay
+inputSpec: ../../../site/namespace/klay-openapi.yaml
 groupId: klaytn.foundation
-artifactId: opensdk-java
+artifactId: opensdk-klay-java
 artifactVersion: v1.10.0
 library: retrofit2
 templateDir: ./template

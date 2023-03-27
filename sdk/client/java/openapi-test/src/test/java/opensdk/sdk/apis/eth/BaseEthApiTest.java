@@ -8,10 +8,11 @@ import org.web3j.protocol.http.HttpService;
  * @author Tungnd
  * @since 27/03/2023 10:32 AM
  */
-public abstract class BaseEthTest {
+public abstract class BaseEthApiTest {
     protected final EthApi ethApi;
 
-    public BaseEthTest() {
+    // given
+    public BaseEthApiTest() {
         this.ethApi = new EthApi(new HttpService(PropertyUtils.getRpcUrl()));
     }
 }

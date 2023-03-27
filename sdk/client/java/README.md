@@ -14,7 +14,7 @@
 ## Make openapi generator source
 ```shell
 $ cd sdk/client/java
-$ sh java-generate.sh
+$ sh eth-generate.sh
 ```
 ## Test
 ```shell

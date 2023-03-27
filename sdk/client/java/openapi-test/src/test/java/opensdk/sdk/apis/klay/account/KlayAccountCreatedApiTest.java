@@ -1,12 +1,9 @@
-package opensdk.sdk.apis.eth.block;
+package opensdk.sdk.apis.klay.account;
 
-import opensdk.sdk.apis.EthApi;
-import opensdk.sdk.apis.eth.BaseEthTest;
-import opensdk.sdk.apis.util.PropertyUtils;
-import opensdk.sdk.models.BlockNumber200Response;
+import opensdk.sdk.apis.klay.BaseKlayApiTest;
+import opensdk.sdk.models.AccountCreated200Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.web3j.protocol.http.HttpService;
 
 import java.io.IOException;
 
@@ -16,18 +13,19 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * @author Tungnd
- * @since 24/03/2023 9:24 AM
+ * @since 27/03/2023 2:22 PM
  */
-@DisplayName("Eth RPC Test")
-class EthBlockNumberApiTest extends BaseEthTest {
+@DisplayName("Klay RPC Test")
+public class KlayAccountCreatedApiTest extends BaseKlayApiTest {
 
     @Test
-    @DisplayName("RPC eth_blockNumber")
+    @DisplayName("RPC klay_accountCreated")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         // given
-        EthApi ethApi = new EthApi(new HttpService(PropertyUtils.getRpcUrl()));
+        String account = "0xa4f42d4d2a3a13874406435500950c9bf2d783db";
+        String blockHash = "latest";
         // when
-        BlockNumber200Response response = ethApi.blockNumber().send();
+        AccountCreated200Response response = klayApi.accountCreated(account, blockHash).send();
         // then - expect
         var resultResponse = response.getResultResponse();
         var errorResponse = response.getErrorResponse();
