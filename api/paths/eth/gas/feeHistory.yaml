@@ -1,0 +1,174 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/feeHistory:
+    post:
+      summary: "[feeHistory] Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available."
+      tags:
+        - eth
+      operationId: feeHistory
+      description: |
+        Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.
+        
+        **JSONRPC:** `eth_feeHistory`
+
+      parameters:
+        - name: blockCount
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockCount"
+          description: Number of blocks in the requested range in hexadecimal. Between 1 (0x1) and 1024 (0x400) blocks can be requested in a single query. Less than requested may be returned if not all blocks are available.
+          in: query
+        - name: lastBlock
+          in: query
+          description: Highest numbered block of the requested range as block number or block tag.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+        - name: rewardPercentiles
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/RewardPercentiles"
+          description: An array of floating point values between 0 and 100.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthFeeHistoryReq"
+
+      responses:
+        200:
+          description: Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthFeeHistoryResp"
+
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/gas#eth_feehistory
+        description: Klaytn Docs
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/gas/feeHistory.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: ""
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: ""
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: ""
+
+components:
+  schemas:
+    EthFeeHistoryReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: 'eth_feeHistory'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockCount"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/RewardPercentiles"
+          example: [ "0x10", "latest", [ 0.1, 0.2, 0.3 ] ]
+
+    EthFeeHistoryResp:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+              oldestBlock:
+                type: string
+                format: hex
+                description: Lowest number block of the returned range expressed as a hexidecimal number.
+              baseFeePerGas:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BaseFeePerGas"
+              gasUsedRatio:
+                type: array
+                description: An array of block gas used ratios. These are calculated as the ratio of gasUsed and gasLimit
+                items:
+                    type: number
+                    format: float
+              reward:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Reward"
+          example:
+              {
+                "oldestBlock": "0xa5b",
+                "reward": [
+                  [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ], [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ], [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ], [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ], [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ], [
+                    "0x5d21dba00",
+                    "0x5d21dba00",
+                    "0x5d21dba00"
+                  ], [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ], [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ], [
+                    "0x5d21dba00",
+                    "0x5d21dba00",
+                    "0x5d21dba00"
+                  ], [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ],
+                ],
+                "baseFeePerGas": [
+                  "0x0","0x0","0x0", "0x0", "0x0", "0x0","0x0","0x0", "0x0","0x0","0x0", "0x0","0x0","0x0","0x0","0x0"
+                ],
+                "gasUsedRatio": [
+                  0,0,0,0, 0,0.0002952004000002952,0,0,0.00029504250000029504,0,0,0.0002963777000002964,0,0,0,0
+                ]
+              }
+

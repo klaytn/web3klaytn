@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/chainId:
     post:
-      summary: "[accounts] Return current chainId set on the requested node."
+      summary: "[chainId] Return current chainId set on the requested node."
       tags:
         - eth
       operationId: chainId
@@ -31,7 +31,7 @@ paths:
                   properties:
                     method:
                       type: string
-                      default: eth_chainId
+                      default: 'eth_chainId'
 
       responses:
         200:
