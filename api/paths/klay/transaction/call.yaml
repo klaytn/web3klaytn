@@ -13,7 +13,7 @@ paths:
   /klay/call:
     post:
       operationId: call
-      summary: "[call] Executes a new message call immediately without creating a transaction on the block chain"
+      summary: "[call]"
       tags:
         - klay
       description: |

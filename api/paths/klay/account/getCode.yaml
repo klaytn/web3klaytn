@@ -13,7 +13,7 @@ paths:
   /klay/getCode:
     post:
       operationId: getCode
-      summary: "[getCode] Returns code at a given address."
+      summary: "[getCode]"
       description: |
         Returns code at a given address.
 

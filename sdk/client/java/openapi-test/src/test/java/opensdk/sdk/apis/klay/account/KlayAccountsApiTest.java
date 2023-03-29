@@ -1,7 +1,6 @@
 package opensdk.sdk.apis.klay.account;
 
-import opensdk.sdk.apis.klay.BaseKlayApiTest;
-import opensdk.sdk.models.AccountCreated200Response;
+import opensdk.sdk.apis.BaseOpenSDK;
 import opensdk.sdk.models.Accounts200Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,13 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @since 27/03/2023 2:35 PM
  */
 @DisplayName("Klay RPC Test")
-public class KlayAccountsApiTest extends BaseKlayApiTest {
+public class KlayAccountsApiTest extends BaseOpenSDK {
 
     @Test
     @DisplayName("RPC klay_accounts")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         // when
-        Accounts200Response response = klayApi.accounts().send();
+        Accounts200Response response = sdk.klay.accounts().send();
         // then - expect
         var resultResponse = response.getResultResponse();
         var errorResponse = response.getErrorResponse();

@@ -1,21 +1,16 @@
 package opensdk.sdk.apis.eth.block;
 
-import opensdk.sdk.apis.EthApi;
 import opensdk.sdk.models.BlockNumber200Response;
-import org.web3j.protocol.http.HttpService;
+import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
-/**
- * @author Tungnd
- * @since 24/03/2023 4:12 PM
- */
 public class EthBlockNumberExample {
+
+    private final OpenSDK sdk = new OpenSDK();
     void ethBlockNumberApiTest() throws IOException {
-        // given
-        EthApi ethApi = new EthApi(new HttpService("http://localhost:8551"));
         // when
-        BlockNumber200Response response = ethApi.blockNumber().send();
+        BlockNumber200Response response = sdk.eth.blockNumber().send();
 
     }
 }

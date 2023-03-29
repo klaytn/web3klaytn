@@ -13,7 +13,7 @@ paths:
   /klay/getTransactionByBlockHashAndIndex:
     post:
       operationId: getTransactionByBlockHashAndIndex
-      summary: "[getTransactionByBlockHashAndIndex] Returns information about a transaction by block hash and transaction index position."
+      summary: "[getTransactionByBlockHashAndIndex]"
       tags:
         - klay
       description: |

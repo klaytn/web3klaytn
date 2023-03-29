@@ -1,5 +1,6 @@
 apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 
 group = '{{groupId}}'
 version = '{{artifactVersion}}'
@@ -7,6 +8,7 @@ version = '{{artifactVersion}}'
 buildscript {
     repositories {
         mavenCentral()
+        mavenLocal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.+'
@@ -16,6 +18,7 @@ buildscript {
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 if(hasProperty('target') && target == 'android') {

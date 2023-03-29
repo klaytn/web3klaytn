@@ -13,7 +13,7 @@ paths:
   /klay/encodeAccountKey:
     post:
       operationId: encodeAccountKey
-      summary: "[encodeAccountKey] Decodes an RLP encoded account key."
+      summary: "[encodeAccountKey]"
       description: |
         Encodes an account key using the Recursive Length Prefix (RLP) encoding scheme.
 
@@ -81,16 +81,19 @@ components:
           type: string
           default: 'klay_encodeAccountKey'
         params:
-          type: object
-          properties:
-            keytype:
-              type: number
-              description: "Integer value indicating account key type."
-            key:
-              type: string
-              format: JSON DATA
-              description: "Account key object"
-          example: {"keyType": 1, "key": {}}
+          type: array
+          items:
+            title: encodedAccountKey
+            type: object
+            properties:
+              keytype:
+                type: number
+                description: "Integer value indicating account key type."
+              key:
+                type: string
+                format: JSON DATA
+                description: "Account key object"
+          example: [{"keyType": 1, "key": {}}]
 
     KlayEncodeAccountKeyResp:
       type: object

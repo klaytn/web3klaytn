@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/fillTransaction:
     post:
-      summary: "[fillTransaction] Fills the defaults (nonce, gas, gasPrice or 1559 fields) on a given unsigned transaction"
+      summary: "[fillTransaction]"
       tags:
         - eth
       operationId: fillTransaction

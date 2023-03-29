@@ -13,7 +13,7 @@ paths:
   /klay/sendRawTransaction:
     post:
       operationId: sendRawTransaction
-      summary: "[sendRawTransaction] Creates a new message call transaction or a contract creation for signed transactions."
+      summary: "[sendRawTransaction]"
       description: |
         Creates a new message call transaction or a contract creation for signed transactions.
         

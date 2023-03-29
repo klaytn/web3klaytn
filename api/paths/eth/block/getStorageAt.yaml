@@ -13,7 +13,7 @@ paths:
   /eth/getStorageAt:
     post:
       operationId: getStorageAt
-      summary: "[getStorageAt] Returns information about a header by hash."
+      summary: "[getStorageAt]"
       description: |
         Returns information about a header by hash.
 

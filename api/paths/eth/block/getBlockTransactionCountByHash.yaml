@@ -13,7 +13,7 @@ paths:
   /eth/getBlockTransactionCountByHash:
     post:
       operationId: getBlockTransactionCountByHash
-      summary: "[getBlockTransactionCountByHash] Returns the number of transactions in a block from a block that matches the given hash."
+      summary: "[getBlockTransactionCountByHash]"
       description: |
         Returns the number of transactions in a block from a block that matches the given hash.
 

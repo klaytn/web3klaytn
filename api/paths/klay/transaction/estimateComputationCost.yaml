@@ -13,12 +13,12 @@ paths:
   /klay/estimateComputationCost:
     post:
       operationId: estimateComputationCost
-      summary: "[estimateComputationCost] Generates and returns an estimate of how much computation cost will be spent to execute the transaction. "
+      summary: "[estimateComputationCost]"
       tags:
         - klay
       description: |
         Generates and returns an estimate of how much computation cost will be spent to execute the transaction. Klaytn limits the computation cost of a transaction to 100000000 currently not to take too much time by a single transaction. The transaction will not be added to the blockchain like klay_estimateGas
-        
+
         **JSONRPC:** `klay_estimateComputationCost`
 
       parameters:
@@ -30,7 +30,7 @@ paths:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/KlayCallObject"
         - name: blockNumberOrHash
           in: query
-          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.
           required: false
           schema:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
@@ -90,9 +90,8 @@ components:
       properties:
         method:
           type: string
-          default: 'klay_call'
+          default: 'klay_estimateComputationCost'
         params:
-          title: encodedAccountKey
           type: array
           items:
             anyOf:

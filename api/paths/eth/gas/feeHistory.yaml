@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/feeHistory:
     post:
-      summary: "[feeHistory] Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available."
+      summary: "[feeHistory]"
       tags:
         - eth
       operationId: feeHistory

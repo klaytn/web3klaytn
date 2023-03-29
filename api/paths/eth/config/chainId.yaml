@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/chainId:
     post:
-      summary: "[chainId] Return current chainId set on the requested node."
+      summary: "[chainId]"
       tags:
         - eth
       operationId: chainId

@@ -1,7 +1,6 @@
 package opensdk.sdk.apis.klay.transaction;
 
-import opensdk.sdk.apis.klay.BaseKlayApiTest;
-import opensdk.sdk.models.BlockNumber200Response;
+import opensdk.sdk.apis.BaseOpenSDK;
 import opensdk.sdk.models.Call200Response;
 import opensdk.sdk.models.CallObject;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @since 27/03/2023 4:24 PM
  */
 @DisplayName("Klay RPC Test")
-public class KlayTransactionCallApiTest extends BaseKlayApiTest {
+public class KlayTransactionCallApiTest extends BaseOpenSDK {
 
     @Test
     @DisplayName("RPC klay_call")
@@ -33,7 +32,7 @@ public class KlayTransactionCallApiTest extends BaseKlayApiTest {
         callObject.setInput("0x8ada066e");
         String blockTag = "latest";
         // when
-        Call200Response response = klayApi.call(callObject, blockTag).send();
+        Call200Response response = sdk.klay.call(callObject, blockTag).send();
         // then - expect
         var resultResponse = response.getResultResponse();
         var errorResponse = response.getErrorResponse();

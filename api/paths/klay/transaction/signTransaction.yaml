@@ -13,7 +13,7 @@ paths:
   /klay/signTransaction:
     post:
       operationId: signTransaction
-      summary: "[signTransaction] Constructs a transaction with given parameters and signs the transaction with a sender's private key."
+      summary: "[signTransaction]"
       description: |
         Constructs a transaction with given parameters and signs the transaction with a sender's private key. This method can be used either to generate a sender signature or to make a final raw transaction that is ready to submit to Klaytn network.
 

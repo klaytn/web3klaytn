@@ -13,7 +13,7 @@ paths:
   /klay/getTransactionReceiptBySenderTxHash:
     post:
       operationId: getTransactionReceiptBySenderTxHash
-      summary: "[getTransactionReceiptBySenderTxHash] Returns the receipt of a transaction by sender transaction hash."
+      summary: "[getTransactionReceiptBySenderTxHash]"
       tags:
         - klay
       description: |

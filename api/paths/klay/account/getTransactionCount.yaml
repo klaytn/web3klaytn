@@ -13,7 +13,7 @@ paths:
   /klay/getTransactionCount:
     post:
       operationId: getTransactionCount
-      summary: "[getTransactionCount] Returns the number of transactions sent from an address."
+      summary: "[getTransactionCount]"
       description: |
         Returns the number of transactions sent from an address.
 

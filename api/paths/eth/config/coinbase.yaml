@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/coinbase:
     post:
-      summary: "[coinbase] Returns the client coinbase address."
+      summary: "[coinbase]"
       tags:
         - eth
       operationId: coinbase

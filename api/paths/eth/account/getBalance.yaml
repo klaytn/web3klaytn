@@ -13,7 +13,7 @@ paths:
   /eth/getBalance:
     post:
       operationId: getBalance
-      summary: "[getBalance] Returns the balance of the account of given address."
+      summary: "[getBalance]"
       description: |
         Returns the balance of the account of given address.
 

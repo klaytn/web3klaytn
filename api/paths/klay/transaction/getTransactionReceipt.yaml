@@ -13,7 +13,7 @@ paths:
   /klay/getTransactionReceipt:
     post:
       operationId: getTransactionReceipt
-      summary: "[getTransactionReceipt] Returns the receipt of a transaction by transaction hash."
+      summary: "[getTransactionReceipt]"
       description: |
         Returns the receipt of a transaction by transaction hash.
         

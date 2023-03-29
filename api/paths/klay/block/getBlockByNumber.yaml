@@ -13,7 +13,7 @@ paths:
   /klay/getBlockByNumber:
     post:
       operationId: getBlockByNumber
-      summary: "[getBlockByNumber] Returns information about a block by block number. This API works only on RPC call, not on JavaScript console."
+      summary: "[getBlockByNumber]"
       description: |
         Returns information about a block by block number. This API works only on RPC call, not on JavaScript console.
         

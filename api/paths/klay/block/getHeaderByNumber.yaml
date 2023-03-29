@@ -13,7 +13,7 @@ paths:
   /klay/getHeaderByNumber:
     post:
       operationId: getHeaderByNumber
-      summary: "[getHeaderByNumber] Returns information about a header by number."
+      summary: "[getHeaderByNumber]"
       description: |
         Returns information about a header by number. This API works only on RPC call, not on JavaScript console.
 

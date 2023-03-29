@@ -13,7 +13,7 @@ paths:
   /klay/accountCreated:
     post:
       operationId: accountCreated
-      summary: "[accountCreated] Find if input address was created"
+      summary: "[accountCreated]"
       description: |
         Returns `true` if the account associated with the address is created. It returns `false` otherwise.
 
@@ -33,7 +33,7 @@ paths:
           in: query
         - name: blockNumberOrHash
           in: query
-          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.
           required: true
           schema:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"

@@ -13,7 +13,7 @@ paths:
   /eth/getHeaderByHash:
     post:
       operationId: getHeaderByHash
-      summary: "[getHeaderByHash] Returns information about a header by hash."
+      summary: "[getHeaderByHash]"
       description: |
         Returns information about a header by hash.
 

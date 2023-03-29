@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getFilterLogs:
     post:
-      summary: "[getFilterLogs] Returns an array of all logs matching filter with given id, which has been obtained using eth_newFilter."
+      summary: "[getFilterLogs]"
       tags:
         - eth
       operationId: getFilterLogs

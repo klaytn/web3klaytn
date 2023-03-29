@@ -1,4 +1,4 @@
-package opensdk.sdk.apis.util;
+package org.klaytn.util;
 
 import java.io.IOException;
 import java.io.InputStream;
