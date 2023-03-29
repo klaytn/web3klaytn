@@ -1,4 +1,3 @@
-
 from base.testing import KlaytnBaseTesting
 
 
@@ -18,7 +17,8 @@ class TestKlayCall(KlaytnBaseTesting):
 
     def test_post(self):
         klay_response = self.sdk.klay.call(
-            self.call_object, self.block_tag)
+            self.call_object, self.block_tag
+        )
 
         self.covert_response(klay_response.response)
         self.assertResponseSuccess()

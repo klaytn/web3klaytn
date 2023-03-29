@@ -9,7 +9,9 @@ class TestGetTransactionByBlocNumberAndIndex(KlaytnBaseTesting):
         self.transactionIndex = "0x0"
 
     def test_post(self):
-        klay_response = self.sdk.klay.get_transaction_by_block_number_and_index(self.blockTag, self.transactionIndex)
+        klay_response = self.sdk.klay.get_transaction_by_block_number_and_index(
+            self.blockTag, self.transactionIndex
+        )
 
         self.covert_response(klay_response.response)
         self.assertResponseSuccess()

@@ -14,7 +14,9 @@ class TestKlayEstimateComputationCost(KlaytnBaseTesting):
         self.blockNumberOrHash = "latest"
 
     def test_post(self):
-        klay_response = self.sdk.klay.estimate_computation_cost(self.call_object, self.blockNumberOrHash)
+        klay_response = self.sdk.klay.estimate_computation_cost(
+            self.call_object, self.blockNumberOrHash
+        )
         
         self.covert_response(klay_response.response)
         self.assertResponseSuccess()
