@@ -92,5 +92,5 @@ components:
       type: object
       properties:
         result:
-          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/HeaderObject"
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/KlayHeaderObject"
 

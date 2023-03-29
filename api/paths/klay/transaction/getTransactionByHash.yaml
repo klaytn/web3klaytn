@@ -39,7 +39,7 @@ paths:
                 - $ref: "#/components/schemas/KlayGetTransactionByHashReq"
 
       responses:
-        default:
+        200:
           description: Object - A transaction object, or null when no transaction was found.
           content:
             application/json:

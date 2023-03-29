@@ -10,7 +10,8 @@ repositories {
 }
 
 dependencies {
-    implementation(files("../../../sdk/client/java/openapi/build/libs/opensdk-java-v1.10.0.jar"))
+    implementation(files("../../../sdk/client/java/openapi/eth/build/libs/opensdk-eth-java-v1.10.0.jar"))
+    implementation(files("../../../sdk/client/java/openapi/klay/build/libs/opensdk-klay-java-v1.10.0.jar"))
     implementation "org.web3j:core:4.9.7"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'

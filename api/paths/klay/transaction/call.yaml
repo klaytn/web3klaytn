@@ -31,7 +31,7 @@ paths:
           description: The transaction call object. See the next table for the object's properties.
           required: true
           schema:
-            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/CallObject"
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/KlayCallObject"
         - name: blockNumberOrHash
           in: query
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
@@ -65,18 +65,18 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klay/transaction/call.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/transaction/KlayTransactionCallExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klay/transaction/call.js"
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/transaction/call.py"
 
 components:
   schemas:
@@ -90,11 +90,12 @@ components:
           type: string
           default: 'klay_call'
         params:
-          title: encodedAccountKey
           type:  array
           items:
             anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/CallObject"
+              - allOf:
+                  - title: callObject
+                  - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/KlayCallObject"
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
           example: [{"from": "0x3f71029af4e252b25b9ab999f77182f0cd3bc085", "to": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b", "gas": "0x100000", "gasPrice": "0x5d21dba00", "value": "0x0", "input": "0x8ada066e"}, "latest"]
 

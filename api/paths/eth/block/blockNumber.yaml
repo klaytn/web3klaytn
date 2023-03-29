@@ -48,7 +48,7 @@ paths:
                         description: Integer of the current block number the client is on.
                         example: "0xc94"
       externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/block
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/block#eth_blocknumber
         description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"

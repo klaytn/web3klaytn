@@ -67,14 +67,15 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        #- lang: "javascript"
-        #  label: "Javascript"
-        #  source:
-        #    $ref: ""
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/account/getAccount.py"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/account/getAccount.js"
+
 
 components:
   schemas:

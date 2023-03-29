@@ -8,7 +8,7 @@ describe('Klay getRewards API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
-            console.log('API called successfully. Returned data: ' + JSON.stringify(data));
+            // console.log('API called successfully. Returned data: ' + JSON.stringify(data));
             done();
         };
         sdk.klay.getRewards(1, callbackOne);

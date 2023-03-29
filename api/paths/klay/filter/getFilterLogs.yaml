@@ -91,4 +91,4 @@ components:
       type: object
       properties:
         result:
-          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/ArrayOfLog"
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/KlayArrayOfLog"

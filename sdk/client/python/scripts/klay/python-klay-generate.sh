@@ -10,4 +10,7 @@ cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/klay"
 
 "${PROJECT_DIR}"/bin/caver-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/klay/klay-config.yaml"
 
-cd "${CURRENT_FILE_DIR}/openapi"
+cd "${CURRENT_FILE_DIR}/openapi/klay"
+
+pip uninstall opensdk-python-klay -y
+pip install .

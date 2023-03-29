@@ -1,18 +1,14 @@
-# # coding: utf-8
-# import unittest
+# from opensdk.sdk import OpenSDK
 #
-# from klay.opensdk_python_klay.configuration import Configuration
-# from klay.opensdk_python_klay.api_client import ApiClient
-# from klay.opensdk_python_klay.apis.tags.klay_api import KlayApi
+# from base.constants import KLAYTN_URL
+# from base.testing import KlaytnBaseTesting
 #
 #
-# class TestKlayGetRewards(unittest.TestCase):
-#     host = "http://localhost:8551"
-#     klay = KlayApi(ApiClient(configuration=Configuration(host=host)))
+# class TestKlayAccountCreated(KlaytnBaseTesting):
+#
+#     def setUp(self) -> None:
+#         super().setUp()
+#         self.sdk = OpenSDK(KLAYTN_URL)
 #
 #     def test_post(self):
-#         result = self.klay.get_rewards(1.0)
-#
-#
-# if __name__ == '__main__':
-#     unittest.main()
+#         response = self.sdk.eth.accounts()

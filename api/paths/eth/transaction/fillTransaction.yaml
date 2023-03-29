@@ -1,0 +1,174 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/fillTransaction:
+    post:
+      summary: "[fillTransaction] Fills the defaults (nonce, gas, gasPrice or 1559 fields) on a given unsigned transaction"
+      tags:
+        - eth
+      operationId: fillTransaction
+      description: |
+        Fills the defaults (nonce, gas, gasPrice or 1559 fields) on a given unsigned transaction, and returns it to the caller for further processing (signing + broadcast).
+
+        **JSONRPC:** `eth_fillTransaction`
+
+      parameters:
+        - name: TransactionArgs
+          in: query
+          description: An object of transaction arguments. See the table below for the object's properties.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionArgs"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthFillTransactionReq"
+
+      responses:
+        200:
+          description: The amount of gas used.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthFillTransactionResp"
+
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/transaction#eth_estimategas
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/transaction/fillTransaction.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #    $ref: ""
+
+components:
+  schemas:
+    EthFillTransactionReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'eth_fillTransaction'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/EthCallObject"
+          example: [{"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee", "value": "0x1", "gas": "0x9999", "maxFeePerGas": "0x5d21dba00"}]
+
+    EthFillTransactionResp:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            raw:
+              type: string
+              description: A rawTransaction string (a RLP-encoded transaction string).
+            tx:
+              $ref: "#/components/schemas/Tx"
+          example:
+            {
+              "raw": "0x02ef8302edaf808505d21dba008505d21dba00829999948c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee0180c0808080",
+              "tx": {
+                "type": "0x2",
+                "nonce": "0x0",
+                "gasPrice": null,
+                "maxPriorityFeePerGas": "0x5d21dba00",
+                "maxFeePerGas": "0x5d21dba00",
+                "gas": "0x9999",
+                "value": "0x1",
+                "input": "0x",
+                "v": "0x0",
+                "r": "0x0",
+                "s": "0x0",
+                "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",
+                "chainId": "0x2edaf",
+                "accessList": [],
+                "hash": "0x83e382bfb39249dc0e2b4283702bc1c0685deffad1316d166546da9c4c14c59d"
+              }
+            }
+    Tx:
+      type: object
+      properties:
+        type:
+          type: string
+          format: hex
+          description: An integer representing the type of the transaction.
+        nonce:
+          type: string
+          format: hex
+          description: The block number where this transaction was in.
+        gasPrice:
+          type: string
+          format: hex
+          description: Gas price provided by the sender in peb. null when it is not a legacy transaction.
+        maxFeePerGas:
+          type: string
+          format: hex
+          description: A maximum amount to pay for the transaction to execute. null when it is a legacy transaction.
+        maxPriorityFeePerGas:
+          type: string
+          format: hex
+          description: Gas tip cap for dynamic fee transaction in peb. null when it is a legacy transaction.
+        gas:
+          type: string
+          format: hex
+          description: Gas provided by the sender.
+        value:
+          type: string
+          format: hex
+          description: Integer of values sent with this transaction.
+        v:
+          type: string
+          format: hex
+          description: ECDSA recovery id.
+        r:
+          type: string
+          format: hex
+          description: ECDSA signature r.
+        s:
+          type: string
+          format: hex
+          description: ECDSA signature s.
+        chainId:
+          type: string
+          format: hex
+          description: Chain id set on the requested node.
+        accessList:
+          type: string
+          format: hex
+          description: An array of accessList.
+        hash:
+          type: string
+          format: hex
+          description: Hash of the transaction.

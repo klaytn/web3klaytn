@@ -55,18 +55,18 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klay/account/accounts.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/account/KlayAccountsExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klay/account/accounts.js"
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/account/accounts.py"
 
 components:
   schemas:

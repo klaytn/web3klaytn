@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
- * @author Tungnd🐭
+ * @author Tungnd
  * @since 27/03/2023 2:39 PM
  */
 @DisplayName("Klay RPC Test")
