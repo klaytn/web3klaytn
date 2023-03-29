@@ -25,13 +25,13 @@ paths:
         - name: callObject
           in: query
           description: The transaction call object. See the next table for the object's properties.
-          required: false
+          required: true
           schema:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/KlayCallObject"
         - name: blockNumberOrHash
           in: query
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.
-          required: false
+          required: true
           schema:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
 
