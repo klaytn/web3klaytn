@@ -1,6 +1,4 @@
-from base.constants import KLAYTN_URL
 from base.testing import KlaytnBaseTesting
-from opensdk.sdk import OpenSDK
 
 
 class TestKlayEstimateGas(KlaytnBaseTesting):

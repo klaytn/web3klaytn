@@ -1,5 +1,4 @@
 import json
-
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"

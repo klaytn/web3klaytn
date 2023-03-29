@@ -1,10 +1,8 @@
-from base.constants import KLAYTN_URL
+
 from base.testing import KlaytnBaseTesting
-from opensdk.sdk import OpenSDK
 
 
 class TestKlayCall(KlaytnBaseTesting):
-    sdk = OpenSDK(KLAYTN_URL)
     
     def setUp(self) -> None:
         super().setUp()
