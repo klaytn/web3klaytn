@@ -13,7 +13,7 @@ paths:
   /klay/sign:
     post:
       operationId: sign
-      summary: "[sign] The sign method calculates a Klaytn-specific signature"
+      summary: "[sign]"
       description: |
         The sign method calculates a Klaytn-specific signature with:
         

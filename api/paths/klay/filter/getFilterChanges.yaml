@@ -13,7 +13,7 @@ paths:
   /klay/getFilterChanges:
     post:
       operationId: getFilterChanges
-      summary: "[getFilterChanges] Polling method for a filter"
+      summary: "[getFilterChanges]"
       description: |
         Polling method for a filter, which returns an array of logs which occurred since last poll.
 
@@ -85,4 +85,4 @@ components:
       type: object
       properties:
         result:
-          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/ArrayOfLog"
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/KlayArrayOfLog"

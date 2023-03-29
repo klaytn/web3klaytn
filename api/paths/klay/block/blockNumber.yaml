@@ -13,7 +13,7 @@ paths:
   /klay/blockNumber:
     post:
       operationId: blockNumber
-      summary: "[blockNumber] Returns the number of most recent block."
+      summary: "[blockNumber]"
       description: |
         Returns the number of most recent block.
 
@@ -56,15 +56,15 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klay/block/blockNumber.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/block/KlayBlockNumberExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klay/block/blockNumber.js"
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/block/blockNumber.py"

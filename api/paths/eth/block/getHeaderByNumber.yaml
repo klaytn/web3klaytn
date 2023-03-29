@@ -1,0 +1,113 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/getHeaderByNumber:
+    post:
+      summary: "[getHeaderByNumber]"
+      tags:
+        - eth
+      operationId: getHeaderByNumber
+      description: |
+        Returns information about a header by number.
+        
+        **JSONRPC:** `eth_getHeaderByNumber`
+
+      parameters:
+        - name: blockNumberOrTag
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthGetHeaderByNumberReq"
+
+      responses:
+        200:
+          description: Returns information about a header by number.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthGetHeaderByNumberResp"
+
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/block#eth_getheaderbynumber
+        description: Klaytn Docs
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/block/getHeaderByNumber.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: ""
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: ""
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: ""
+
+components:
+  schemas:
+    EthGetHeaderByNumberReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: 'eth_getHeaderByNumber'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+          example: [ "0x1b4" ]
+
+    EthGetHeaderByNumberResp:
+      type: object
+      properties:
+        result:
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/EthBlockHeader"
+          example:
+              {
+                "baseFeePerGas": "0x5d21dba00",
+                "difficulty": "0x1",
+                "extraData": "0x",
+                "gasLimit": "0xe8d4a50fff",
+                "gasUsed": "0x28b484",
+                "hash": "0x5de0dc71dec2e724be002dcad135b602810769ce26e16b3b06862405e08ca71b",
+                "logsBloom": "0x02200022800002050000084080014015001001004b0002440401060a0830000200014041044010180010430018800119120098000800200241c2090a4020011040004400002201081800440a340020a4000820100848081020003000892050105a05000002100000200012c0800408982000085100000c4040a03814000800200812210100200010004018410d80004214800123210400082002214620100021028800120309200802008291c8e000904210080008110900010100081000101000501002010a0080311886000008000000240900400000100200a402005830200010300804020200000002310000008004004080a58000550000508000000000",
+                "miner": "0xea674fdde714fd979de3edf0f56aa9716b898ec8",
+                "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "nonce": "0x0000000000000000",
+                "number": "0x1b4",
+                "parentHash": "0x99fcd33dddd763835ba8bdc842853d973496a7e64ea2f6cf826bc2c338e23b0c",
+                "receiptsRoot": "0xd3d70ed54a9274ba3191bf2d4fd8738c5d782fe17c8bfb45c03a25dc04120c35",
+                "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+                "size": "0x23a",
+                "stateRoot": "0x1076e6726164bd6f74720a717242584109f37c55017d004eefccf9ec3be76c18",
+                "timestamp": "0x61b0a6c6",
+                "totalDifficulty": "0x12",
+                "transactionsRoot": "0x6ec8daca98c1005d9bbd7716b5e94180e2bf0e6b77770174563a166337369344"
+            }

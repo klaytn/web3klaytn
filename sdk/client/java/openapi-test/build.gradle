@@ -1,17 +1,19 @@
 plugins {
     id 'java'
+    id 'java-library'
+    id 'maven-publish'
 }
 
 group 'org.opensdk.klaytn'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
-    implementation(files("../openapi/eth/build/libs/opensdk-eth-java-v1.10.0.jar"))
-    implementation(files("../openapi/klay/build/libs/opensdk-klay-java-v1.10.0.jar"))
+    api "org.klaytn:opensdk:1.0"
     implementation "org.web3j:core:4.9.7"
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.14.2'
 

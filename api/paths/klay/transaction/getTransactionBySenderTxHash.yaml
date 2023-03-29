@@ -13,7 +13,7 @@ paths:
   /klay/getTransactionBySenderTxHash:
     post:
       operationId: getTransactionBySenderTxHash
-      summary: "[getTransactionBySenderTxHash] Returns the information about a transaction requested by sender transaction hash."
+      summary: "[getTransactionBySenderTxHash]"
       description: |
         Returns the information about a transaction requested by sender transaction hash. This API works only on RPC call, not on JavaScript console. Please note that this API returns correct result only if indexing feature is enabled by --sendertxhashindexing. This can be checked by call klay_isSenderTxHashIndexingEnabled.
 

@@ -15,7 +15,7 @@ paths:
       tags:
         - klay
       operationId: getRewards
-      summary: "[getRewards] Find distributed block rewards"
+      summary: "[getRewards]"
       description: |
         Returns distributed block rewards information at the latest block number
 

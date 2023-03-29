@@ -1,6 +1,6 @@
 package opensdk.sdk.apis.eth.block;
 
-import opensdk.sdk.apis.eth.BaseEthApiTest;
+import opensdk.sdk.apis.BaseOpenSDK;
 import opensdk.sdk.models.BlockNumber200Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,13 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @since 24/03/2023 9:24 AM
  */
 @DisplayName("Eth RPC Test")
-class EthBlockNumberApiApiTest extends BaseEthApiTest {
+class EthBlockNumberApiApiTest extends BaseOpenSDK {
 
     @Test
     @DisplayName("RPC eth_blockNumber")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         // when
-        BlockNumber200Response response = ethApi.blockNumber().send();
+        BlockNumber200Response response = sdk.eth.blockNumber().send();
         // then - expect
         var resultResponse = response.getResultResponse();
         var errorResponse = response.getErrorResponse();

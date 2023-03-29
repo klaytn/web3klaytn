@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/gasPrice:
     post:
-      summary: "[gasPrice] Returns the current price per gas in peb."
+      summary: "[gasPrice]"
       tags:
         - eth
       operationId: gasPrice

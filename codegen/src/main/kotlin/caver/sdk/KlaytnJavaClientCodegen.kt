@@ -23,11 +23,8 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
     override fun processOpts() {
         super.processOpts()
 
-        var supportingFile = supportingFiles.find { it -> it.templateFile.equals("build.gradle.mustache") }
+        supportingFiles.find { it -> it.templateFile.equals("build.gradle.mustache") }
 
-        val apiFolder =
-            (sourceFolder + File.separator + apiPackage).replace(".", "/")
-        supportingFiles.add(SupportingFile("RequestBodyParams.java.mustache", apiFolder, "RequestBodyParams.java"))
     }
 
     override fun getUseInlineModelResolver(): Boolean {
@@ -59,9 +56,7 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
         for (entry in result.values) {
             for (mo in entry.models) {
                 for (name in mo.model.imports) {
-//                    if (name.endsWith("ParameterOneOf")) {
-//                        removedModel.add(mo.model.name)
-//                    }
+
                 }
             }
         }

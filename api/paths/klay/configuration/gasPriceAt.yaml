@@ -13,7 +13,7 @@ paths:
   /klay/gasPriceAt:
     post:
       operationId: gasPriceAt
-      summary: "[gasPriceAt] Returns the unit price from the governance parameter or the gas price of the txpool or the base fee of the given block"
+      summary: "[gasPriceAt]"
       description: |
         Returns different values based on the condition described below. The unit of the return value is peb.
         
@@ -59,7 +59,7 @@ paths:
                         example: "0xAE9F7BCC00"
 
       externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_clientversion
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_gaspriceat
         description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
@@ -70,14 +70,14 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        #- lang: "javascript"
-        #  label: "Javascript"
-        #  source:
-        #    $ref: ""
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/configuration/gasPriceAt.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/configuration/gasPriceAt.py"
 
 components:
   schemas:

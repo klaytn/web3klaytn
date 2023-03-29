@@ -13,7 +13,7 @@ paths:
   /klay/getHeaderByHash:
     post:
       operationId: getHeaderByHash
-      summary: "[getHeaderByHash] Returns information about a header by hash."
+      summary: "[getHeaderByHash]"
       description: |
         Returns information about a header by hash. This API works only on RPC call, not on JavaScript console.
 
@@ -32,7 +32,7 @@ paths:
                 - $ref: "#/components/schemas/KlayGetHeaderByHashReq"
 
       responses:
-        default:
+        200:
           description: Returns a header object, or error when no header was found
           content:
             application/json:
@@ -86,5 +86,5 @@ components:
       type: object
       properties:
         result:
-          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/HeaderObject"
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/KlayHeaderObject"
 

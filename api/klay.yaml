@@ -171,21 +171,51 @@ paths:
   # eth/account
   /eth/account/accounts:
     $ref: ./paths/eth/account/accounts.yaml#/paths/~1eth~1accounts
+  /eth/account/getBalance:
+    $ref: ./paths/eth/account/getBalance.yaml#/paths/~1eth~1getBalance
+  /eth/account/getCode:
+    $ref: ./paths/eth/account/getCode.yaml#/paths/~1eth~1getCode
 
   # eth/block
   /eth/block/blockNumber:
     $ref: ./paths/eth/block/blockNumber.yaml#/paths/~1eth~1blockNumber
+  /eth/block/getBlockByHash:
+    $ref: ./paths/eth/block/getBlockByHash.yaml#/paths/~1eth~1getBlockByHash
+  /eth/block/getBlockByNumber:
+    $ref: ./paths/eth/block/getBlockByNumber.yaml#/paths/~1eth~1getBlockByNumber
+  /eth/block/getBlockTransactionCountByHash:
+    $ref: ./paths/eth/block/getBlockTransactionCountByHash.yaml#/paths/~1eth~1getBlockTransactionCountByHash
+  /eth/block/getHeaderByNumber:
+    $ref: ./paths/eth/block/getHeaderByNumber.yaml#/paths/~1eth~1getHeaderByNumber
+  /eth/block/getHeaderByHash:
+    $ref: ./paths/eth/block/getHeaderByHash.yaml#/paths/~1eth~1getHeaderByHash
+  /eth/block/getStorageAt:
+    $ref: ./paths/eth/block/getStorageAt.yaml#/paths/~1eth~1getStorageAt
 
   # eth/transaction
   /eth/transaction/call:
     $ref: ./paths/eth/transaction/call.yaml#/paths/~1eth~1call
+  /eth/transaction/getTransactionByBlockHashAndIndex:
+    $ref: ./paths/eth/transaction/getTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getTransactionByBlockHashAndIndex
 
   # eth/config
   /eth/config/chainID:
     $ref: ./paths/eth/config/chainId.yaml#/paths/~1eth~1chainId
   /eth/config/gasPrice:
     $ref: ./paths/eth/config/gasPrice.yaml#/paths/~1eth~1gasPrice
+  /eth/config/coinbase:
+    $ref: ./paths/eth/config/coinbase.yaml#/paths/~1eth~1coinbase
 
   # eth/gas
   /eth/gas/feeHistory:
     $ref: ./paths/eth/gas/feeHistory.yaml#/paths/~1eth~1feeHistory
+  /eth/transaction/estimateGas:
+    $ref: ./paths/eth/transaction/estimateGas.yaml#/paths/~1eth~1estimateGas
+  /eth/transaction/fillTransaction:
+    $ref: ./paths/eth/transaction/fillTransaction.yaml#/paths/~1eth~1fillTransaction
+
+  # eth/filter
+  /eth/filter/getFilterLogs:
+    $ref: ./paths/eth/filter/getFilterLogs.yaml#/paths/~1eth~1getFilterLogs
+  /eth/filter/getFilterChanges:
+    $ref: ./paths/eth/filter/getFilterChanges.yaml#/paths/~1eth~1getFilterChanges

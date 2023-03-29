@@ -1,0 +1,101 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/getFilterLogs:
+    post:
+      summary: "[getFilterLogs]"
+      tags:
+        - eth
+      operationId: getFilterLogs
+      description: |
+        Returns an array of all logs matching filter with given id, which has been obtained using eth_newFilter. Note that filter ids returned by other filter creation functions, such as eth_newBlockFilter or eth_newPendingTransactionFilter , cannot be used with this function.
+        
+        The execution of this API can be limited by two node configurations to manage resources of Klaytn node safely.
+        
+        - The number of maximum returned results in a single query (Default: 10,000).
+        
+        - The execution duration limit of a single query (Default: 10 seconds).
+        
+        **JSONRPC:** `eth_getFilterLogs`
+
+      parameters:
+        - name: id
+          in: query
+          description: The filter id
+          required: true
+          schema:
+            type: string
+            format: hex
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/KlayGetFilterLogsReq"
+
+      responses:
+        200:
+          description: Returns an array of all logs matching filter with given id, which has been obtained using eth_newFilter.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/KlayGetFilterLogsResp"
+
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/filter#eth_getfilterlogs
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/filter/getFilterLogs.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/transaction/EthTransactionCallExample.java"
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: "../../../code-samples/javascript/eth/transaction/call.js"
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: "../../../code-samples/python/eth/transaction/call.py"
+
+components:
+  schemas:
+    KlayGetFilterLogsReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'eth_getFilterLogs'
+        params:
+          type: array
+          items:
+            title: id
+            description: The filter id
+            type: string
+            format: hex
+          example: ["0xd32fd16b6906e67f6e2b65dcf48fc272"]
+
+    KlayGetFilterLogsResp:
+      type: object
+      properties:
+        result:
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/EthArrayOfLog"

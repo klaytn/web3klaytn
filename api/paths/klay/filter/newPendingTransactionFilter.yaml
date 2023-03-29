@@ -13,7 +13,7 @@ paths:
   /klay/newPendingTransactionFilter:
     post:
       operationId: newPendingTransactionFilter
-      summary: "[newPendingTransactionFilter] Creates a filter in the node, to notify when new pending transactions arrive."
+      summary: "[newPendingTransactionFilter]"
       description: |
         Creates a filter in the node, to notify when a new block arrives. To check if the state has changed, call klay_getFilterChanges.
         

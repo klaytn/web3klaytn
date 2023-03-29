@@ -13,7 +13,7 @@ paths:
   /klay/maxPriorityFeePerGas:
     post:
       operationId: maxPriorityFeePerGas
-      summary: "[maxPriorityFeePerGas] Returns a suggestion for a gas tip cap for dynamic fee transactions in peb."
+      summary: "[maxPriorityFeePerGas]"
       description: |
         Returns a suggestion for a gas tip cap for dynamic fee transactions in peb.
 

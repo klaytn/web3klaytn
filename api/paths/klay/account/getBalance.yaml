@@ -13,7 +13,7 @@ paths:
   /klay/getBalance:
     post:
       operationId: getBalance
-      summary: "[getBalance] Returns the balance of the account of given address."
+      summary: "[getBalance]"
       description: |
         Returns the balance of the account of given address.
         
@@ -71,10 +71,10 @@ paths:
         #  label: "Javascript"
         #  source:
         #    $ref: ""
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/account/getBalance.py"
 
 components:
   schemas:

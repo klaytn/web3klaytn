@@ -10,4 +10,7 @@ cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/eth"
 
 "${PROJECT_DIR}"/bin/caver-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/eth/eth-config.yaml"
 
-cd "${CURRENT_FILE_DIR}/openapi"
+cd "${CURRENT_FILE_DIR}/openapi/eth"
+
+pip uninstall opensdk-python-eth -y
+pip install .

@@ -13,7 +13,7 @@ paths:
   /klay/chainID:
     post:
       operationId: chainID
-      summary: "[chainID] Returns the chain ID of the chain."
+      summary: "[chainID]"
       description: |
         Returns the chain ID of the chain.
 
@@ -64,7 +64,7 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klay/configuration/chainId.js"
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/configuration/chainId.py"

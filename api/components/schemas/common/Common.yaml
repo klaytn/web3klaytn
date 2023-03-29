@@ -40,8 +40,8 @@ components:
       format: 20-byte DATA
       description: Address
 
-    CallObject:
-      title: CallObject
+    EthCallObject:
+      title: EthCallObject
       type: object
       description: The transaction call object. See the next table for the object's properties.
       properties:
@@ -70,8 +70,39 @@ components:
           format: DATA
           description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
 
-    HeaderObject:
-      title: HeaderObject
+    KlayCallObject:
+      title: KlayCallObject
+      type: object
+      description: The transaction call object. See the next table for the object's properties.
+      properties:
+        from:
+          type: string
+          format: 20-byte DATA
+          description: (optional) The address the transaction is sent from.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: (optional when testing the deployment of a new contract) The address the transaction is directed to.
+        gas:
+          type: string
+          format: hex
+          description: (optional) Integer of the gas provided for the transaction execution. klay_call consumes zero gas, but this parameter may be needed by some executions.
+        gasPrice:
+          type: string
+          format: hex
+          description: (optional) Integer of the gasPrice used for each paid gas.
+        value:
+          type: string
+          format: hex
+          description: (optional) Integer of the value sent with this transaction.
+        input:
+          type: string
+          format: DATA
+          description: (optional) Hash of the method signature and encoded parameters. It replaces data field, but 'data` field is still supported for backward compatibility.
+
+
+    KlayHeaderObject:
+      title: KlayHeaderObject
       type: object
       description: The block header object.
       properties:
@@ -154,6 +185,109 @@ components:
           "transactionsRoot": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
         }
 
+    EthHeaderObject:
+      title: EthHeaderObject
+      type: object
+      description: The block header object.
+      properties:
+        baseFeePerGas:
+          type: string
+          format: hex
+          description: The base fee per gas.
+        difficulty:
+          type: string
+          format: hex
+          description: The integer of the difficulty for this block.
+        extraData:
+          type: string
+          format: DATA
+          description: The "extra data" field of this block.
+        gasLimit:
+          type: string
+          format: hex
+          description: The maximum gas allowed in this block.
+        gasUsed:
+          type: string
+          format: hex
+          description: The total used gas by all transactions in this block.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block. null when it is a pending block.
+        logsBloom:
+          type: string
+          format: 256-byte DATA
+          description: The bloom filter for the logs of the block.
+        miner:
+          type: string
+          format: 20-byte DATA
+          description: The address of the beneficiary to whom the mining rewards were given.
+        mixHash:
+          type: string
+          format: 32-byte DATA
+          description: The hash which proves combined with the nonce that a sufficient amount of computation has been carried out on this block.
+        nonce:
+          type: string
+          format: 8-byte DATA
+          description: The hash of the generated proof-of-work.
+        number:
+          type: string
+          format: hex
+          description: The block number. null when it is a pending block.
+        parentHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the parent block.
+        receiptsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the receipts trie of the block.
+        sha3Uncles:
+          type: string
+          format: 32-byte DATA
+          description: The SHA3 of the uncles data in the block.
+        size:
+          type: string
+          format: hex
+          description: Integer of the size of this block in bytes.
+        stateRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the final state trie of the block.
+        timestamp:
+          type: string
+          format: hex
+          description: The Unix timestamp for when the block was collated.
+        totalDifficulty:
+          type: string
+          format: hex
+          description: The total blockScore of the chain until this block.
+        transactionsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the transaction trie of the block.
+      example:
+        {
+          "baseFeePerGas": "0x5d21dba00",
+          "difficulty": "0x1",
+          "extraData": "0x",
+          "gasLimit": "0xe8d4a50fff",
+          "gasUsed": "0x28b484",
+          "hash": "0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c",
+          "logsBloom": "0x02200022800002050000084080014015001001004b0002440401060a0830000200014041044010180010430018800119120098000800200241c2090a4020011040004400002201081800440a340020a4000820100848081020003000892050105a05000002100000200012c0800408982000085100000c4040a03814000800200812210100200010004018410d80004214800123210400082002214620100021028800120309200802008291c8e000904210080008110900010100081000101000501002010a0080311886000008000000240900400000100200a402005830200010300804020200000002310000008004004080a58000550000508000000000",
+          "miner": "0xea674fdde714fd979de3edf0f56aa9716b898ec8",
+          "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "nonce": "0x0000000000000000",
+          "number": "0xd208de",
+          "parentHash": "0x99fcd33dddd763835ba8bdc842853d973496a7e64ea2f6cf826bc2c338e23b0c",
+          "receiptsRoot": "0xd3d70ed54a9274ba3191bf2d4fd8738c5d782fe17c8bfb45c03a25dc04120c35",
+          "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+          "size": "0x23a",
+          "stateRoot": "0x1076e6726164bd6f74720a717242584109f37c55017d004eefccf9ec3be76c18",
+          "timestamp": "0x61b0a6c6",
+          "totalDifficulty": "0xd208df",
+          "transactionsRoot": "0x6ec8daca98c1005d9bbd7716b5e94180e2bf0e6b77770174563a166337369344"
+        }
 
     LogObject:
       title: LogObject
@@ -198,8 +332,33 @@ components:
             format: 32-byte DATA
           description: Array of 0 to 4 32-byte DATA of indexed log arguments. (In Solidity The first topic is the hash of the signature of the event (e.g., Deposit(address,bytes32,uint256)), except you declared the event with the anonymous specifier.).
 
-    ArrayOfLog:
-      title: ArrayOfLog
+    EthArrayOfLog:
+      title: EthArrayOfLog
+      type: array
+      items:
+        anyOf:
+          - type: string
+            format: 32-byte DATA
+            description: For filters created with eth_newBlockFilter, the return are block hashes (32-byte DATA), e.g., ["0x3454645634534..."].
+          - type: string
+            format: 32-byte DATA
+            description: For filters created with eth_newPendingTransactionFilter, the return are transaction hashes (32-byte DATA), e.g., ["0x6345343454645..."].
+          - $ref: "#/components/schemas/LogObject"
+      description: Array of log objects, or an empty array if nothing has changed since last poll.
+      example: [ {
+        "address": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b",
+        "topics": [ "0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8" ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000064000000000000000000000000000000000000000000000000000000000000007b",
+        "blockNumber": "0x54",
+        "transactionHash": "0xcd4703cd62bd930d4652999bce8dcb75b7ade49d922fa42dc11e568c52a5fa6f",
+        "transactionIndex": "0x0",
+        "blockHash": "0x9a49f30f1d1876ff3913bd0aa58f328822e7a369cb13e0640b82234f26e781bb",
+        "logIndex": "0x0",
+        "removed": false
+      } ]
+
+    KlayArrayOfLog:
+      title: KlayArrayOfLog
       type: array
       items:
         anyOf:
@@ -446,7 +605,7 @@ components:
           format: DATA
           description: (optional) The data sent along with the transaction.
         logs:
-          $ref: "#/components/schemas/ArrayOfLog"
+          $ref: "#/components/schemas/KlayArrayOfLog"
           description: Array of log objects, which this transaction generated.
         logsBloom:
           type: string
@@ -567,3 +726,361 @@ components:
         items:
           type: string
           format: hex
+
+    LegacyTransaction:
+      type: object
+      properties:
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block where this transaction was in. null when it is pending.
+        blockNumber:
+          type: string
+          format: hex
+          description: Block number where this transaction was in. null when it is pending.
+        from:
+          type: string
+          format: 20-byte DATA
+          description: Address of the sender.
+        gas:
+          type: string
+          format: hex
+          description: Gas provided by the sender.
+        gasPrice:
+          type: string
+          format: hex
+          description: Gas price provided by the sender in peb.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transaction.
+        input:
+          type: string
+          format: DATA
+          description: The data sent along with the transaction.
+        nonce:
+          type: string
+          format: hex
+          description: The number of transactions made by the sender prior to this one.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: Address of the receiver. null when it is a contract creation transaction.
+        value:
+          type: string
+          format: hex
+          description: Integer of values sent with this transaction.
+        transactionIndex:
+          type: string
+          format: hex
+          description: Integer of the transaction index position in the block. null when it is pending.
+        type:
+          type: string
+          format: hex
+          description: An integer representing the type of the transaction.
+        v:
+          type: string
+          format: hex
+          description: ECDSA recovery id.
+        r:
+          type: string
+          format: 32-byte DATA
+          description: ECDSA signature r.
+        s:
+          type: string
+          format: 32-byte DATA
+          description: ECDSA signature s.
+
+    AccessListTransaction:
+      type: object
+      properties:
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block where this transaction was in. null when it is pending.
+        blockNumber:
+          type: string
+          format: hex
+          description: Block number where this transaction was in. null when it is pending.
+        from:
+          type: string
+          format: 20-byte DATA
+          description: Address of the sender.
+        gas:
+          type: string
+          format: hex
+          description: Gas provided by the sender.
+        gasPrice:
+          type: string
+          format: hex
+          description: Gas price provided by the sender in peb.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transaction.
+        input:
+          type: string
+          format: DATA
+          description: The data sent along with the transaction.
+        nonce:
+          type: string
+          format: hex
+          description: The number of transactions made by the sender prior to this one.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: Address of the receiver. null when it is a contract creation transaction.
+        value:
+          type: string
+          format: hex
+          description: Integer of values sent with this transaction.
+        transactionIndex:
+          type: string
+          format: hex
+          description: Integer of the transaction index position in the block. null when it is pending.
+        type:
+          type: string
+          format: hex
+          description: An integer representing the type of the transaction.
+        accessList:
+          type: array
+          description: An array of accessList.
+          items:
+            type: object
+            properties:
+              address:
+                type: string
+                format: 20-byte DATA
+                description: Address of the contract.
+              storageKeys:
+                type: array
+                description: An array of storage keys.
+                items:
+                  type: string
+                  format: 32-byte DATA
+        chainId:
+          type: string
+          format: hex
+          description: Chain id set on the requested node.
+        v:
+          type: string
+          format: hex
+          description: ECDSA recovery id.
+        r:
+          type: string
+          format: 32-byte DATA
+          description: ECDSA signature r.
+        s:
+          type: string
+          format: 32-byte DATA
+          description: ECDSA signature s.
+
+    DynamicFeeTransaction:
+      type: object
+      properties:
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block where this transaction was in. null when it is pending.
+        blockNumber:
+          type: string
+          format: hex
+          description: Block number where this transaction was in. null when it is pending.
+        from:
+          type: string
+          format: 20-byte DATA
+          description: Address of the sender.
+        gas:
+          type: string
+          format: hex
+          description: Gas provided by the sender.
+        gasPrice:
+          type: string
+          format: hex
+          description: Gas price provided by the sender in peb.
+        maxFeePerGas:
+          type: string
+          format: hex
+          description: A maximum amount to pay for the transaction to execute.
+        maxPriorityFeePerGas:
+          type: string
+          format: hex
+          description: Gas tip cap for dynamic fee transaction in peb.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transaction.
+        input:
+          type: string
+          format: DATA
+          description: The data sent along with the transaction.
+        nonce:
+          type: string
+          format: hex
+          description: The number of transactions made by the sender prior to this one.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: Address of the receiver. null when it is a contract creation transaction.
+        value:
+          type: string
+          format: hex
+          description: Integer of values sent with this transaction.
+        transactionIndex:
+          type: string
+          format: hex
+          description: Integer of the transaction index position in the block. null when it is pending.
+        type:
+          type: string
+          format: hex
+          description: An integer representing the type of the transaction.
+        accessList:
+          type: array
+          description: An array of accessList.
+          items:
+            type: object
+            properties:
+              address:
+                type: string
+                format: 20-byte DATA
+                description: Address of the contract.
+              storageKeys:
+                type: array
+                description: An array of storage keys.
+                items:
+                  type: string
+                  format: 32-byte DATA
+        chainId:
+          type: string
+          format: hex
+          description: Chain id set on the requested node.
+        v:
+          type: string
+          format: hex
+          description: ECDSA recovery id.
+        r:
+          type: string
+          format: 32-byte DATA
+          description: ECDSA signature r.
+        s:
+          type: string
+          format: 32-byte DATA
+          description: ECDSA signature s.
+
+    TransactionArgs:
+      type: object
+      required:
+        - from
+      properties:
+        from:
+          type: string
+          format: 20-byte DATA
+          description: The address from which the transaction is sent.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: (not required when creating a new contract) The address to which the transaction is directed.
+        gas:
+          type: string
+          format: hex
+          description: (optional) The integer of the gas provided for the transaction's execution. It will return unused gas.
+        maxFeePerGas:
+          type: string
+          format: hex
+          description: "(optional, default: 250 ston) The maximum amount to pay for the transaction's execution. Since Klaytn uses a fixed gas price, it must be set to 250 ston (Gpeb in Ethereum)."
+        maxPriorityFeePerGas:
+          type: string
+          format: hex
+          description: "(optional, default: 250 ston) Gas tip cap for dynamic fee transaction in peb. Since Klaytn uses a fixed gas price, it must be set to 250 ston (Gpeb in Ethereum)."
+        input:
+          type: string
+          format: DATA
+          description: "(optional) The hash of the method signature and the encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility."
+        value:
+          type: string
+          format: hex
+          description: "(optional) The integer of values sent with this transaction."
+        nonce:
+          type: string
+          format: hex
+          description: "(optional) The integer of a nonce."
+
+    EthBlockHeader:
+      type: object
+      properties:
+        baseFeePerGas:
+          type: string
+          format: hex
+          description: The base fee per gas.
+        difficulty:
+            type: string
+            format: hex
+            description: The integer of the difficulty for this block.
+        extraData:
+            type: string
+            format: DATA
+            description: The "extra data" field of this block.
+        gasLimit:
+            type: string
+            format: hex
+            description: The maximum gas allowed in this block.
+        gasUsed:
+            type: string
+            format: hex
+            description: The total used gas by all transactions in this block.
+        hash:
+            type: string
+            format: 32-byte DATA
+            description: Hash of the block. null when it is a pending block.
+        logsBloom:
+            type: string
+            format: 256-byte DATA
+            description: The bloom filter for the logs of the block.
+        miner:
+            type: string
+            format: 20-byte DATA
+            description: The address of the beneficiary to whom the mining rewards were given.
+        mixHash:
+            type: string
+            format: 32-byte DATA
+            description: The hash which proves combined with the nonce that a sufficient amount of computation has been carried out on this block.
+        nonce:
+            type: string
+            format: 8-byte DATA
+            description: The hash of the generated proof-of-work.
+        number:
+            type: string
+            format: hex
+            description: The block number. null when it is a pending block.
+        parentHash:
+            type: string
+            format: 32-byte DATA
+            description: Hash of the parent block.
+        receiptsRoot:
+            type: string
+            format: 32-byte DATA
+            description: The root of the receipts trie of the block.
+        sha3Uncles:
+            type: string
+            format: 32-byte DATA
+            description: The SHA3 of the uncles data in the block.
+        size:
+            type: string
+            format: hex
+            description: Integer of the size of this block in bytes.
+        stateRoot:
+            type: string
+            format: 32-byte DATA
+            description: The root of the final state trie of the block.
+        timestamp:
+            type: string
+            format: hex
+            description: The Unix timestamp for when the block was collated.
+        totalDifficulty:
+            type: string
+            format: hex
+            description: The total blockScore of the chain until this block.
+        transactionsRoot:
+            type: string
+            format: 32-byte DATA
+            description: The root of the transaction trie of the block.

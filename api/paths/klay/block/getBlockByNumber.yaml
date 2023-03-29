@@ -13,7 +13,7 @@ paths:
   /klay/getBlockByNumber:
     post:
       operationId: getBlockByNumber
-      summary: "[getBlockByNumber] Returns information about a block by block number. This API works only on RPC call, not on JavaScript console."
+      summary: "[getBlockByNumber]"
       description: |
         Returns information about a block by block number. This API works only on RPC call, not on JavaScript console.
         
@@ -22,6 +22,20 @@ paths:
         **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
       tags:
         - klay
+
+      parameters:
+        - name: blockNumberOrTag
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
+          in: query
+        - name: boolean
+          in: query
+          description: If true it returns the full transaction objects, if false only the hashes of the transactions.
+          required: true
+          schema:
+            type: boolean
 
       requestBody:
         content:
@@ -57,10 +71,10 @@ paths:
         #  label: "Javascript"
         #  source:
         #    $ref: ""
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/block/getBlockByNumber.py"
 
 components:
   schemas:
@@ -77,7 +91,7 @@ components:
           type: array
           items:
             anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
               - type: boolean
                 description: If true it returns the full transaction objects, if false only the hashes of the transactions.
           example:  ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]

@@ -13,7 +13,7 @@ paths:
   /klay/getTransactionByBlockHashAndIndex:
     post:
       operationId: getTransactionByBlockHashAndIndex
-      summary: "[getTransactionByBlockHashAndIndex] Returns information about a transaction by block hash and transaction index position."
+      summary: "[getTransactionByBlockHashAndIndex]"
       tags:
         - klay
       description: |
@@ -46,7 +46,7 @@ paths:
                 - $ref: "#/components/schemas/KlayGetTransactionByBlockHashAndIndexReq"
 
       responses:
-        default:
+        200:
           description: Object - A transaction object, or null when no transaction was found.
           content:
             application/json:

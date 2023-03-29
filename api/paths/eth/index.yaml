@@ -11,7 +11,6 @@ info:
 tags:
   - name: eth
     description: API for ethereum namespace
-x-redoc-operation-id-prefix: eth_
 x-tagGroups:
   - name: Eth
     tags:
@@ -27,21 +26,51 @@ paths:
   # eth/account
   /eth/account/accounts:
     $ref: ./account/accounts.yaml#/paths/~1eth~1accounts
+  /eth/account/getBalance:
+    $ref: ./account/getBalance.yaml#/paths/~1eth~1getBalance
+  /eth/account/getCode:
+    $ref: ./account/getCode.yaml#/paths/~1eth~1getCode
 
   # eth/block
   /eth/block/blockNumber:
     $ref: ./block/blockNumber.yaml#/paths/~1eth~1blockNumber
+  /eth/block/getBlockByHash:
+    $ref: ./block/getBlockByHash.yaml#/paths/~1eth~1getBlockByHash
+  /eth/block/getBlockByNumber:
+    $ref: ./block/getBlockByNumber.yaml#/paths/~1eth~1getBlockByNumber
+  /eth/block/getBlockTransactionCountByHash:
+    $ref: ./block/getBlockTransactionCountByHash.yaml#/paths/~1eth~1getBlockTransactionCountByHash
+  /eth/block/getHeaderByNumber:
+    $ref: ./block/getHeaderByNumber.yaml#/paths/~1eth~1getHeaderByNumber
+  /eth/block/getHeaderByHash:
+    $ref: ./block/getHeaderByHash.yaml#/paths/~1eth~1getHeaderByHash
+  /eth/block/getStorageAt:
+    $ref: ./block/getStorageAt.yaml#/paths/~1eth~1getStorageAt
 
   # eth/transaction
   /eth/transaction/call:
     $ref: ./transaction/call.yaml#/paths/~1eth~1call
+  /eth/transaction/getTransactionByBlockHashAndIndex:
+    $ref: ./transaction/getTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getTransactionByBlockHashAndIndex
 
   # eth/config
   /eth/config/chainID:
     $ref: ./config/chainId.yaml#/paths/~1eth~1chainId
   /eth/config/gasPrice:
     $ref: ./config/gasPrice.yaml#/paths/~1eth~1gasPrice
+  /eth/config/coinbase:
+    $ref: ./config/coinbase.yaml#/paths/~1eth~1coinbase
 
   # eth/gas
   /eth/gas/feeHistory:
     $ref: ./gas/feeHistory.yaml#/paths/~1eth~1feeHistory
+  /eth/transaction/estimateGas:
+    $ref: ./transaction/estimateGas.yaml#/paths/~1eth~1estimateGas
+  /eth/transaction/fillTransaction:
+    $ref: ./transaction/fillTransaction.yaml#/paths/~1eth~1fillTransaction
+
+  # eth/filter
+  /eth/filter/getFilterLogs:
+    $ref: ./filter/getFilterLogs.yaml#/paths/~1eth~1getFilterLogs
+  /eth/filter/getFilterChanges:
+    $ref: ./filter/getFilterChanges.yaml#/paths/~1eth~1getFilterChanges

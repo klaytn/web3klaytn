@@ -13,7 +13,7 @@ paths:
   /klay/feeHistory:
     post:
       operationId: feeHistory
-      summary: "[feeHistory] Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.d"
+      summary: "[feeHistory]"
       description: |
         Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.
 
@@ -76,10 +76,10 @@ paths:
         #  label: "Javascript"
         #  source:
         #    $ref: ""
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/gas/feeHistory.py"
 
 components:
   schemas:

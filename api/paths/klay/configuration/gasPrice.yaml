@@ -13,7 +13,7 @@ paths:
   /klay/gasPrice:
     post:
       operationId: gasPrice
-      summary: "[gasPrice] Returns a suggestion for a gas price in peb."
+      summary: "[gasPrice]"
       description: |
         Returns a suggestion for a gas price in peb.
         
@@ -61,11 +61,12 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        #- lang: "javascript"
-        #  label: "Javascript"
-        #  source:
-        #    $ref: ""
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/configuration/gasPrice.py"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/configuration/gasPrice.js"
+

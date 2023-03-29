@@ -16,4 +16,7 @@ sh ./scripts/klay/python-klay-generate.sh
 
 #cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi"
 
-cd "${CURRENT_FILE_DIR}/openapi"
+cd "${CURRENT_FILE_DIR}/opensdk"
+
+pip uninstall opensdk -y
+pip install .

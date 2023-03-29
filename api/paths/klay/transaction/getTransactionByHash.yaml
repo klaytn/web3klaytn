@@ -13,7 +13,7 @@ paths:
   /klay/getTransactionByHash:
     post:
       operationId: getTransactionByHash
-      summary: "[getTransactionByHash] Returns the information about a transaction requested by transaction hash."
+      summary: "[getTransactionByHash]"
       tags:
         - klay
       description: |
@@ -39,7 +39,7 @@ paths:
                 - $ref: "#/components/schemas/KlayGetTransactionByHashReq"
 
       responses:
-        default:
+        200:
           description: Object - A transaction object, or null when no transaction was found.
           content:
             application/json:
