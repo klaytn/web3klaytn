@@ -7,7 +7,8 @@ describe('Klay block number API', () => {
     test('should return block number', (done) => {
 
         let callbackOne = function (error, data, response) {
-
+            if (error)
+                done(error)
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
             expect(data.result).toBeDefined()
