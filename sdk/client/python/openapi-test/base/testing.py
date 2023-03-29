@@ -1,6 +1,7 @@
 import json
 from unittest import TestCase
-
+from base.constants import KLAYTN_URL
+from opensdk.sdk import OpenSDK
 from base.constants import (
     HTTP_200_OK,
     ERROR_CODE_INCORRECT_METHOD,
@@ -9,6 +10,7 @@ from base.constants import (
 
 
 class KlaytnBaseTesting(TestCase):
+    sdk = OpenSDK(KLAYTN_URL)
 
     def setUp(self) -> None:
         self.response = None
