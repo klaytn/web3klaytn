@@ -33,28 +33,28 @@ paths:
 
       parameters:
         - name: fromBlock
-          required: true
+          required: false
           schema:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
           description: |
             (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
           in: query
         - name: toBlock
-          required: true
+          required: false
           schema:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
           description: |
             (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
           in: query
         - name: address
-          required: true
+          required: false
           schema:
             $ref: "#/components/schemas/Addresses"
           description: |
             (optional) Contract address or a list of addresses from which logs should originate.
           in: query
         - name: topics
-          required: true
+          required: false
           schema:
             $ref: "#/components/schemas/Topics"
           description: |
@@ -115,8 +115,12 @@ components:
           type: array
           items:
             anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              - allOf:
+                  - title: fromBlock
+                  - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              - allOf:
+                  - title: toBlock
+                  - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
               - $ref: "#/components/schemas/Addresses"
               - $ref: "#/components/schemas/Topics"
           example:  [{"fromBlock":"earliest","toBlock":"latest","address":"0x87ac99835e67168d4f9a40580f8f5c33550ba88b","topics":["0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8"]}]

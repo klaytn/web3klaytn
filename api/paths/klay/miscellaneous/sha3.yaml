@@ -81,6 +81,7 @@ components:
         params:
           type: array
           items:
+            title: data
             type: string
             format: DATA
             description: The data to convert into a SHA3 hash.

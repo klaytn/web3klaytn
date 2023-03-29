@@ -86,6 +86,7 @@ components:
             anyOf:
               - type: string
                 format: 32-byte DATA
+                title: blockHash
                 description: Hash of a block.
           example:  ["0x1b4"]
 

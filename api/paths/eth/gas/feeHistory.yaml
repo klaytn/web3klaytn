@@ -18,7 +18,7 @@ paths:
       operationId: feeHistory
       description: |
         Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.
-        
+
         **JSONRPC:** `eth_feeHistory`
 
       parameters:

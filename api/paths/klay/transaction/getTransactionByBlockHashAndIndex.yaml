@@ -22,14 +22,14 @@ paths:
         **JSONRPC:** `klay_getTransactionByBlockHashAndIndex`
 
       parameters:
-        - name: Block hash
+        - name: blockHash
           in: query
           description: Hash of a block.
           required: true
           schema:
             type: string
             format: 32-byte DATA
-        - name: Transaction index
+        - name: transactionIndexPosition
           in: query
           description: Integer of the transaction index position.
           required: true
@@ -93,9 +93,11 @@ components:
             anyOf:
             - type: string
               format: 32-byte DATA
+              title: blockHash
               description: Hash of a block.
             - type: string
               format: hex
+              title: transactionIndexPosition
               description: Integer of the transaction index position.
           example: ["0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68", "0x0"]
 
