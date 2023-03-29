@@ -18,7 +18,7 @@ paths:
       operationId: getBlockByHash
       description: |
         Returns information about a block by hash.
-        
+
         **JSONRPC:** `eth_getBlockByHash`
 
       parameters:

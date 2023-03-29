@@ -18,7 +18,7 @@ paths:
       operationId: call
       description: |
         Executes a new message call immediately, without creating a transaction on the block chain. The eth_call method can be used to query internal contract state, to execute validations coded into a contract or even to test what the effect of a transaction would be without running it live.
-        
+
         **JSONRPC:** `eth_call`
 
       parameters:

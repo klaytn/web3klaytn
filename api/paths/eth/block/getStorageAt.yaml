@@ -96,11 +96,13 @@ components:
         params:
           type: array
           items:
-            allOf:
+            anyOf:
               - type: string
+                title: Address
                 description: Address of the storage.
                 format: 20-byte DATA
               - type: string
+                title: Quantity
                 description: Integer of the position in the storage.
                 format: hex
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"

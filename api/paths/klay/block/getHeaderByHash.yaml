@@ -23,6 +23,15 @@ paths:
       tags:
         - klay
 
+      parameters:
+        - name: hashOfBlock
+          in: query
+          description: Hash of a block.
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+
       requestBody:
         content:
           application/json:
@@ -78,6 +87,7 @@ components:
           items:
             anyOf:
               - type: string
+                title: hashOfBlock
                 format: 32-byte DATA
                 description: Hash of a block.
           example:  ["0x1b4"]

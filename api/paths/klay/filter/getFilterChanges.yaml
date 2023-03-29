@@ -45,7 +45,8 @@ paths:
                       type: array
                       items:
                         type: string
-                      description: The filter id
+                        title: QUANTITY
+                      description: The filter id (e.g., "0x16" // 22).
                       example: ["0x16"]
 
       responses:
