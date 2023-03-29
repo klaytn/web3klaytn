@@ -2,7 +2,6 @@ from base.testing import KlaytnBaseTesting
 
 
 class TestKlayEstimateGas(KlaytnBaseTesting):
-    sdk = OpenSDK(KLAYTN_URL)
 
     def setUp(self) -> None:
         super().setUp()
