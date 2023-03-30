@@ -153,6 +153,8 @@ paths:
     $ref: ./filter/uninstallFilter.yaml#/paths/~1klay~1uninstallFilter
   /klay/filter/unsubscribe:
     $ref: ./filter/unsubscribe.yaml#/paths/~1klay~1unsubscribe
+  /klay/filter/getLogs:
+    $ref: ./filter/getLogs.yaml#/paths/~1klay~1getLogs
 
   # klay/gas
   /klay/gas/feeHistory:
