@@ -169,4 +169,5 @@ paths:
     $ref: ./other/nodeAddress.yaml#/paths/~1klay~1nodeAddress
   /klay/getRawTransactionByHash:
     $ref: ./other/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
-
+  /klay/resend:
+    $ref: ./other/resend.yaml#/paths/~1klay~1resend

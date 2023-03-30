@@ -177,6 +177,8 @@ paths:
     $ref: ./paths/klay/other/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
   /klay/nodeAddress:
     $ref: ./paths/klay/other/nodeAddress.yaml#/paths/~1klay~1nodeAddress
+  /klay/resend:
+    $ref: ./paths/klay/other/resend.yaml#/paths/~1klay~1resend
 
   # eth/account
   /eth/account/accounts:
