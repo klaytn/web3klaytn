@@ -5,7 +5,7 @@ class TestKlayEstimateComputationCost(KlaytnBaseTesting):
 
     def setUp(self) -> None:
         super().setUp()
-        self.call_object = {
+        self.callObject = {
             "from": "0x73718c4980728857f3aa5148e9d1b471efa3a7dd",
             "to": "0x069942a3ca0dabf495dba872533134205764bc9c",
             "value": "0x0",
@@ -15,7 +15,7 @@ class TestKlayEstimateComputationCost(KlaytnBaseTesting):
 
     def test_post(self):
         klay_response = self.sdk.klay.estimate_computation_cost(
-            self.call_object, self.blockNumberOrHash
+            self.callObject, self.blockNumberOrHash
         )
         
         self.covert_response(klay_response.response)
@@ -25,7 +25,7 @@ class TestKlayEstimateComputationCost(KlaytnBaseTesting):
         self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        klay_response = self.sdk.klay.estimate_computation_cost(self.call_object)
+        klay_response = self.sdk.klay.estimate_computation_cost(self.callObject)
 
         self.covert_response(klay_response.response)
         self.assertResponseSuccess()
