@@ -1,28 +1,27 @@
-package opensdk.sdk.apis.klay.configuration;
+package opensdk.sdk.apis.klay.account;
 
 import opensdk.sdk.apis.BaseOpenSDK;
-import opensdk.sdk.models.ChainID200Response;
+import opensdk.sdk.models.GetAccountKey200Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * @author Tungnd
- * @since 28/03/2023 9:22 AM
- */
 @DisplayName("Klay RPC Test")
-public class KlayChainIdApiTest extends BaseOpenSDK {
+public class KlayGetAccountKeyApiTest extends BaseOpenSDK {
 
     @Test
-    @DisplayName("RPC klay_chainID")
+    @DisplayName("RPC klay_getAccountKey")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
+        //todo
+
+        //given
+        String address = "0x243d70bde2e421a8c9bd5d57598014055fb4b358";
+        String blockNumber = "latest";
         // when
-        ChainID200Response response = sdk.klay.chainID().send();
+        GetAccountKey200Response response = sdk.klay.getAccountKey(address, blockNumber).send();
         // then - expect
         var resultResponse = response.getResultResponse();
         var errorResponse = response.getErrorResponse();

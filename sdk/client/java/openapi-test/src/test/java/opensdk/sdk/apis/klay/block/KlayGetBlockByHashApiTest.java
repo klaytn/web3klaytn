@@ -1,28 +1,28 @@
-package opensdk.sdk.apis.klay.configuration;
+package opensdk.sdk.apis.klay.block;
 
 import opensdk.sdk.apis.BaseOpenSDK;
-import opensdk.sdk.models.ChainID200Response;
+import opensdk.sdk.models.GetBalance200Response;
+import opensdk.sdk.models.GetBlockByHash200Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * @author Tungnd
- * @since 28/03/2023 9:22 AM
- */
 @DisplayName("Klay RPC Test")
-public class KlayChainIdApiTest extends BaseOpenSDK {
+public class KlayGetBlockByHashApiTest extends BaseOpenSDK {
 
     @Test
-    @DisplayName("RPC klay_chainID")
+    @DisplayName("RPC klay_getBlockByHash")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
+        //todo
+
+        //given
+        String address = "0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c";
+        Boolean flag = Boolean.TRUE;
         // when
-        ChainID200Response response = sdk.klay.chainID().send();
+        GetBlockByHash200Response response = sdk.klay.getBlockByHash(address, flag).send();
         // then - expect
         var resultResponse = response.getResultResponse();
         var errorResponse = response.getErrorResponse();

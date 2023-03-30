@@ -1,28 +1,27 @@
-package opensdk.sdk.apis.klay.configuration;
+package opensdk.sdk.apis.klay.gas;
 
 import opensdk.sdk.apis.BaseOpenSDK;
-import opensdk.sdk.models.ChainID200Response;
+import opensdk.sdk.models.FeeHistory200Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * @author Tungnd
- * @since 28/03/2023 9:22 AM
- */
 @DisplayName("Klay RPC Test")
-public class KlayChainIdApiTest extends BaseOpenSDK {
+public class KlayFeeHistoryApiTest extends BaseOpenSDK {
 
     @Test
-    @DisplayName("RPC klay_chainID")
+    @DisplayName("RPC klay_feeHistory")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
+        //given
+        String blockCount = "0x10";
+        String blockTag = "latest";
+        List<Double> rewardPercentiles = List.of(0.1, 0.2, 0.3);
         // when
-        ChainID200Response response = sdk.klay.chainID().send();
+        FeeHistory200Response response = sdk.klay.feeHistory(blockCount, blockTag, rewardPercentiles).send();
         // then - expect
         var resultResponse = response.getResultResponse();
         var errorResponse = response.getErrorResponse();

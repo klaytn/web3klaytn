@@ -2,7 +2,7 @@ package opensdk.sdk.apis.eth.transaction;
 
 import opensdk.sdk.apis.BaseOpenSDK;
 import opensdk.sdk.models.Call200Response;
-import opensdk.sdk.models.CallObject;
+import opensdk.sdk.models.EthCallObject;
 import opensdk.sdk.models.StateOverrideSet;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,9 +11,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Tungnd
@@ -27,7 +25,7 @@ class EthCallApiEthApiTest extends BaseOpenSDK {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         // given
         String blockTag = "latest";
-        CallObject callObject = new CallObject();
+        EthCallObject callObject = new EthCallObject();
         callObject.setFrom("0xca7a99380131e6c76cfa622396347107aeedca2d");
         callObject.setTo("0xbE3892d33620bE5aca8c75D39e7401871194d290");
         callObject.setInput("0x2e64cec1");

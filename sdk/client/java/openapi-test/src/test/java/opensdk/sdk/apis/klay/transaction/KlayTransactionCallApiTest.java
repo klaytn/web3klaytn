@@ -2,15 +2,13 @@ package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.BaseOpenSDK;
 import opensdk.sdk.models.Call200Response;
-import opensdk.sdk.models.CallObject;
+import opensdk.sdk.models.KlayCallObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Tungnd
@@ -23,7 +21,7 @@ public class KlayTransactionCallApiTest extends BaseOpenSDK {
     @DisplayName("RPC klay_call")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         // given
-        CallObject callObject = new CallObject();
+        KlayCallObject callObject = new KlayCallObject();
         callObject.setFrom("0x3f71029af4e252b25b9ab999f77182f0cd3bc085");
         callObject.setTo("0x87ac99835e67168d4f9a40580f8f5c33550ba88b");
         callObject.setGas("0x100000");

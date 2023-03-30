@@ -1,28 +1,24 @@
 package opensdk.sdk.apis.klay.configuration;
 
 import opensdk.sdk.apis.BaseOpenSDK;
-import opensdk.sdk.models.ChainID200Response;
+import opensdk.sdk.models.GasPriceAt200Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * @author Tungnd
- * @since 28/03/2023 9:22 AM
- */
 @DisplayName("Klay RPC Test")
-public class KlayChainIdApiTest extends BaseOpenSDK {
+public class KlayGasPriceAtApiTest extends BaseOpenSDK {
 
     @Test
-    @DisplayName("RPC klay_chainID")
+    @DisplayName("RPC klay_gasPriceAt")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
+        //given
+        String blockNumber = "0x64";
         // when
-        ChainID200Response response = sdk.klay.chainID().send();
+        GasPriceAt200Response response = sdk.klay.gasPriceAt(blockNumber).send();
         // then - expect
         var resultResponse = response.getResultResponse();
         var errorResponse = response.getErrorResponse();
