@@ -92,6 +92,8 @@ paths:
     $ref: ./paths/klay/block/getStorageAt.yaml#/paths/~1klay~1getStorageAt
   /klay/block/syncing:
     $ref: ./paths/klay/block/syncing.yaml#/paths/~1klay~1syncing
+  /klay/block/getBlockWithConsensusInfoByNumberRange:
+    $ref: ./paths/klay/block/getBlockWithConsensusInfoByNumberRange.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumberRange
 
   # klay/transaction
   /klay/transaction/call:
@@ -124,7 +126,8 @@ paths:
     $ref: ./paths/klay/transaction/signTransaction.yaml#/paths/~1klay~1signTransaction
   /klay/transaction/signTransactionAsFeePayer:
     $ref: ./paths/klay/transaction/signTransactionAsFeePayer.yaml#/paths/~1klay~1signTransactionAsFeePayer
-
+  /klay/transaction/pendingTransactions:
+    $ref: ./paths/klay/transaction/pendingTransactions.yaml#/paths/~1klay~1pendingTransactions
 
   # klay/configuration
   /klay/configuration/chainID:
@@ -145,6 +148,8 @@ paths:
     $ref: ./paths/klay/configuration/protocolVersion.yaml#/paths/~1klay~1protocolVersion
   /klay/configuration/rewardBase:
     $ref: ./paths/klay/configuration/rewardBase.yaml#/paths/~1klay~1rewardBase
+  /klay/configuration/getChainConfig:
+    $ref: ./paths/klay/configuration/getChainConfig.yaml#/paths/~1klay~1getChainConfig
 
   # klay/filter
   /klay/filter/getFilterChanges:
@@ -167,6 +172,10 @@ paths:
   # klay/gas
   /klay/gas/feeHistory:
     $ref: ./paths/klay/gas/feeHistory.yaml#/paths/~1klay~1feeHistory
+  /klay/gas/lowerBoundGasPrice:
+    $ref: ./paths/klay/gas/lowerBoundGasPrice.yaml#/paths/~1klay~1lowerBoundGasPrice
+  /klay/gas/upperBoundGasPrice:
+    $ref: ./paths/klay/gas/upperBoundGasPrice.yaml#/paths/~1klay~1upperBoundGasPrice
 
   # klay/miscellaneous
   /klay/miscellaneous/sha3:
@@ -183,6 +192,10 @@ paths:
     $ref: ./paths/klay/other/nodeAddress.yaml#/paths/~1klay~1nodeAddress
   /klay/resend:
     $ref: ./paths/klay/other/resend.yaml#/paths/~1klay~1resend
+  /klay/getRawTransactionByBlockNumberAndIndex:
+    $ref: ./paths/klay/others/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockNumberAndIndex
+  /klay/getStakingInfo:
+    $ref: ./paths/klay/others/getStakingInfo.yaml#/paths/~1klay~1getStakingInfo
 
   # eth/account
   /eth/account/accounts:
