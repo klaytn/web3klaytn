@@ -1,17 +1,10 @@
-from base.constants import KLAYTN_URL
 from base.testing import KlaytnBaseTesting
-from eth.opensdk_python_eth.api_client import ApiClient
-from eth.opensdk_python_eth.apis.tags.eth_api import Call
-from eth.opensdk_python_eth.configuration import Configuration
 
 
 class TestBlockNumber(KlaytnBaseTesting):
-    _configuration = Configuration(host=KLAYTN_URL)
 
     def setUp(self) -> None:
         super().setUp()
-        self.api_client = ApiClient(configuration=self._configuration)
-        self.eth = Call(self.api_client)
         self.call_object = {
             "from": "0xca7a99380131e6c76cfa622396347107aeedca2d",
             "to": "0xbE3892d33620bE5aca8c75D39e7401871194d290",
@@ -26,7 +19,7 @@ class TestBlockNumber(KlaytnBaseTesting):
         }
 
     def test_post(self):
-        eth_response = self.eth.call(
+        eth_response = self.sdk.eth.call(
             self.call_object, self.block_tag, self.state_override_set
         )
 
@@ -37,7 +30,7 @@ class TestBlockNumber(KlaytnBaseTesting):
         self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        eth_response = self.eth.call(self.call_object)
+        eth_response = self.sdk.eth.call(self.call_object)
 
         self.covert_response(eth_response.response)
         self.assertResponseSuccess()
