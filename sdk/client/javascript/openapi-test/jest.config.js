@@ -7,9 +7,9 @@ module.exports = {
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     "testPathIgnorePatterns": [
         "<rootDir>/test/eth/",
-        "<rootDir>/test/klay/account",
-        //"<rootDir>/test/klay/configuration",
+        //"<rootDir>/test/klay/account",
+        "<rootDir>/test/klay/configuration",
         "<rootDir>/test/klay/transaction",
-        "<rootDir>/test/klay/block"
+        //"<rootDir>/test/klay/block"
     ]
 };

@@ -13,8 +13,7 @@ describe('Eth transaction call API', () => {
             }
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
-            expect(data.result).toBeDefined()
-            // console.log('API called successfully. Returned data: ' + JSON.stringify(data));
+            expect(data.result).toBeDefined()       
             done();
         };
         const callObject = {"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0xbE3892d33620bE5aca8c75D39e7401871194d290", "input": "0x2e64cec1"}
