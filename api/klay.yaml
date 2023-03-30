@@ -173,6 +173,8 @@ paths:
     $ref: ./paths/klay/other/createAccessList.yaml#/paths/~1klay~1createAccessList
   /klay/getRawTransactionByBlockHashAndIndex:
     $ref: ./paths/klay/other/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockHashAndIndex
+  /klay/nodeAddress:
+    $ref: ./paths/klay/other/nodeAddress.yaml#/paths/~1klay~1nodeAddress
 
   # eth/account
   /eth/account/accounts:

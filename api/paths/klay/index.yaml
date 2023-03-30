@@ -165,4 +165,6 @@ paths:
     $ref: ./other/createAccessList.yaml#/paths/~1klay~1createAccessList
   /klay/getRawTransactionByBlockHashAndIndex:
     $ref: ./other/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockHashAndIndex
+  /klay/nodeAddress:
+    $ref: ./other/nodeAddress.yaml#/paths/~1klay~1nodeAddress
 
