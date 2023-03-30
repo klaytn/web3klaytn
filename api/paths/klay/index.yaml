@@ -151,6 +151,8 @@ paths:
     $ref: ./filter/newPendingTransactionFilter.yaml#/paths/~1klay~1newPendingTransactionFilter
   /klay/filter/uninstallFilter:
     $ref: ./filter/uninstallFilter.yaml#/paths/~1klay~1uninstallFilter
+  /klay/filter/unsubscribe:
+    $ref: ./filter/unsubscribe.yaml#/paths/~1klay~1unsubscribe
 
   # klay/gas
   /klay/gas/feeHistory:
