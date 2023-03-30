@@ -1,0 +1,83 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/subscribe:
+    post:
+      operationId: subscribe
+      summary: "[subscribe]"
+      description: |
+        Creates a new subscription to specific events by using either RPC Pub/Sub over WebSockets or filters over HTTP. It allows clients to wait for events instead of polling for them.
+        The node will return a subscription id for each subscription created. For each event that matches the subscription, a notification with relevant data is sent together with the subscription id. If a connection is closed, all subscriptions created over the connection are removed.
+        **JSONRPC:** `klay_subscribe`
+
+      tags:
+        - klay
+
+      parameters:
+        - name: id
+          required: true
+          schema:
+            type: string
+          description: 'A notification type: "newHeads" or "logs"'
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: "klay_subscribe"
+                    params:
+                      type: array
+                      items:
+                        type: string
+                      description: 'A notification type: "newHeads" or "logs"'
+                      example: ["newHeads"]
+
+      responses:
+        200:
+          description: A subscription id when a subscription is created. For each event that matches the subscription, a notification with relevant data will be delivered as well.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: string
+                    format: hex
+                    example: "0xbdab16c8e4ae1b9e6930c78359de3e0e"
+                    description: A subscription id when a subscription is created. For each event that matches the subscription, a notification with relevant data will be delivered as well.
+
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/filter#klay_subscribe
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/filter/subscribe.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        #- lang: "javascript"
+        #  label: "Javascript"
+        #  source:
+        #    $ref: ""
+        #- lang: "python"
+        #  label: "Python"
+        #  source:
+        #    $ref: ""
