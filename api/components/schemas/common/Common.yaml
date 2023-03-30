@@ -345,17 +345,19 @@ components:
             description: For filters created with eth_newPendingTransactionFilter, the return are transaction hashes (32-byte DATA), e.g., ["0x6345343454645..."].
           - $ref: "#/components/schemas/LogObject"
       description: Array of log objects, or an empty array if nothing has changed since last poll.
-      example: [ {
-        "address": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b",
-        "topics": [ "0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8" ],
-        "data": "0x0000000000000000000000000000000000000000000000000000000000000064000000000000000000000000000000000000000000000000000000000000007b",
-        "blockNumber": "0x54",
-        "transactionHash": "0xcd4703cd62bd930d4652999bce8dcb75b7ade49d922fa42dc11e568c52a5fa6f",
-        "transactionIndex": "0x0",
-        "blockHash": "0x9a49f30f1d1876ff3913bd0aa58f328822e7a369cb13e0640b82234f26e781bb",
-        "logIndex": "0x0",
-        "removed": false
-      } ]
+      example: [
+          {
+          "address": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b",
+          "topics": [ "0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8" ],
+          "data": "0x0000000000000000000000000000000000000000000000000000000000000064000000000000000000000000000000000000000000000000000000000000007b",
+          "blockNumber": "0x54",
+          "transactionHash": "0xcd4703cd62bd930d4652999bce8dcb75b7ade49d922fa42dc11e568c52a5fa6f",
+          "transactionIndex": "0x0",
+          "blockHash": "0x9a49f30f1d1876ff3913bd0aa58f328822e7a369cb13e0640b82234f26e781bb",
+          "logIndex": "0x0",
+          "removed": false
+        }
+      ]
 
     KlayArrayOfLog:
       title: KlayArrayOfLog

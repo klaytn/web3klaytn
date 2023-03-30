@@ -87,7 +87,8 @@ paths:
     $ref: ./block/getStorageAt.yaml#/paths/~1klay~1getStorageAt
   /klay/block/syncing:
     $ref: ./block/syncing.yaml#/paths/~1klay~1syncing
-
+  /klay/block/getBlockWithConsensusInfoByNumberRange:
+    $ref: ./block/getBlockWithConsensusInfoByNumberRange.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumberRange
 
   # klay/transaction
   /klay/transaction/call:
@@ -118,6 +119,8 @@ paths:
     $ref: ./transaction/signTransaction.yaml#/paths/~1klay~1signTransaction
   /klay/transaction/signTransactionAsFeePayer:
     $ref: ./transaction/signTransactionAsFeePayer.yaml#/paths/~1klay~1signTransactionAsFeePayer
+  /klay/transaction/pendingTransactions:
+    $ref: ./transaction/pendingTransactions.yaml#/paths/~1klay~1pendingTransactions
 
 
   # klay/configuration
@@ -139,6 +142,8 @@ paths:
     $ref: ./configuration/protocolVersion.yaml#/paths/~1klay~1protocolVersion
   /klay/configuration/rewardBase:
     $ref: ./configuration/rewardBase.yaml#/paths/~1klay~1rewardBase
+  /klay/configuration/getChainConfig:
+    $ref: ./configuration/getChainConfig.yaml#/paths/~1klay~1getChainConfig
 
   # klay/filter
   /klay/filter/getFilterChanges:
@@ -175,3 +180,7 @@ paths:
     $ref: ./other/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
   /klay/resend:
     $ref: ./other/resend.yaml#/paths/~1klay~1resend
+  /klay/getRawTransactionByBlockNumberAndIndex:
+    $ref: ./others/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockNumberAndIndex
+  /klay/getStakingInfo:
+    $ref: ./others/getStakingInfo.yaml#/paths/~1klay~1getStakingInfo

@@ -30,7 +30,7 @@ paths:
   /klay/account/accountCreated:
     post:
       operationId: accountCreated
-      summary: '[accountCreated] Find if input address was created'
+      summary: '[accountCreated]'
       description: |
         Returns `true` if the account associated with the address is created. It returns `false` otherwise.
 
@@ -49,7 +49,7 @@ paths:
           in: query
         - name: blockNumberOrHash
           in: query
-          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.
           required: true
           schema:
             $ref: '#/components/schemas/BlockNumberOrHashOrTag'
@@ -92,24 +92,28 @@ paths:
                 "latest"
               ]
             }'
-        - lang: python
-          label: Python
+        - lang: java
+          label: Java
           source: |
-            import json
+            package opensdk.sdk.apis.klay.account;
 
-            from klay.opensdk_python_klay.configuration import Configuration
-            from klay.opensdk_python_klay.api_client import ApiClient
-            from klay.opensdk_python_klay.apis.tags.klay_api import AccountCreated
+            import opensdk.sdk.models.AccountCreated200Response;
+            import org.klaytn.OpenSDK;
 
-            host = "https://api.baobab.klaytn.net:8651"
+            import java.io.IOException;
 
-            address = '0xa4f42d4d2a3a13874406435500950c9bf2d783db'
-            blockTag = 'latest'
+            public class KlayAccountCreatedExample {
 
-            klay = AccountCreated(ApiClient(configuration=Configuration(host=host)))
-            klay_response = klay.account_created(address, blockTag)
+                private final OpenSDK sdk = new OpenSDK();
 
-            print(json.loads(klay_response.response.data))
+                void klayAccountCreatedExample() throws IOException {
+                    // given
+                    String account = "0xa4f42d4d2a3a13874406435500950c9bf2d783db";
+                    String blockHash = "latest";
+                    // when
+                    AccountCreated200Response response = sdk.klay.accountCreated(account, blockHash).send();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -124,10 +128,25 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            address = "0xa4f42d4d2a3a13874406435500950c9bf2d783db"
+            blockTag = "latest"
+
+            sdk = OpenSDK(host)
+            klay_response = sdk.klay.account_created(address, blockTag)
+
+            print(json.loads(klay_response.response.data))
   /klay/account/accounts:
     post:
       operationId: accounts
-      summary: '[accounts] Returns a list of addresses owned by client.'
+      summary: '[accounts]'
       description: |
         Returns a list of addresses owned by client.
 
@@ -174,10 +193,54 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.klay.account;
+
+            import opensdk.sdk.models.Accounts200Response;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class KlayAccountsExample {
+
+                private final OpenSDK sdk = new OpenSDK();
+
+                void klayAccountsExample() throws IOException {
+                    // when
+                    Accounts200Response response = sdk.klay.accounts().send();
+                }
+            }
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+                sdk.klay.accounts({}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
+        - lang: python
+          label: Python
+          source: |-
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            sdk = OpenSDK(host)
+            klay_response = sdk.klay.accounts()
+
+            print(json.loads(klay_response.response.data))
   /klay/account/decodeAccountKey:
     post:
       operationId: decodeAccountKey
-      summary: '[decodeAccountKey] Decodes an RLP encoded account key.'
+      summary: '[decodeAccountKey]'
       description: |
         Decodes an RLP encoded account key.
 
@@ -227,23 +290,6 @@ paths:
                 "0x05f898a302a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff72ff7dcdf01512db84e04f84b02f848e301a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff72ff7dcdf01512de301a10336f6355f5b532c3c1606f18fa2be7a16ae200c5159c8031dd25bfa389a4c9c06a302a102c8785266510368d9372badd4c7f4a94b692e82ba74e0b5e26b34558b0f081447"
               ]
             }'
-        - lang: python
-          label: Python
-          source: |
-            import json
-
-            from klay.opensdk_python_klay.configuration import Configuration
-            from klay.opensdk_python_klay.api_client import ApiClient
-            from klay.opensdk_python_klay.apis.tags.klay_api import DecodeAccountKey
-            host = "https://api.baobab.klaytn.net:8651"
-
-            accountKey = "0x05f898a302a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff72ff7dcdf01512db84e04f84b02f848e301a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff72ff7dcdf01512de301a10336f6355f5b532c3c1606f18fa2be7a16ae200c5159c8031dd25bfa389a4c9c06a302a102c8785266510368d9372badd4c7f4a94b692e82ba74e0b5e26b34558b0f081447"
-
-
-            klay = DecodeAccountKey(ApiClient(configuration=Configuration(host=host)))
-            klay_response = klay.decode_account_key(accountKey)
-
-            print(json.loads(klay_response.response.data))
         - lang: javascript
           label: Javascript
           source: |-
@@ -259,10 +305,24 @@ paths:
 
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            accountKey = "0x05f898a302a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff72ff7dcdf01512db84e04f84b02f848e301a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff72ff7dcdf01512de301a10336f6355f5b532c3c1606f18fa2be7a16ae200c5159c8031dd25bfa389a4c9c06a302a102c8785266510368d9372badd4c7f4a94b692e82ba74e0b5e26b34558b0f081447"
+
+            sdk = OpenSDK(host)
+            klay_response = sdk.klay.decode_account_key(accountKey)
+
+            print(json.loads(klay_response.response.data))
   /klay/account/getAccountKey:
     post:
       operationId: getAccountKey
-      summary: '[getAccountKey] Returns the account key of the Externally Owned Account (EOA) of a given address or an empty key value'
+      summary: '[getAccountKey]'
       description: |
         Returns the account key of the Externally Owned Account (EOA) of a given address. If the account has AccountKeyLegacy or the account of the given address is a Smart Contract Account, it will return an empty key value.
 
@@ -318,10 +378,28 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]
             }'
+        - lang: python
+          label: Python
+          source: |
+            import json
+
+            from klay.opensdk_python_klay.configuration import Configuration
+            from klay.opensdk_python_klay.api_client import ApiClient
+            from klay.opensdk_python_klay.apis.tags.klay_api import GetAccountKey
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            address = "0x3111a0577f322e8fb54f78d9982a26ae7ca0f722"
+            blockTag = "latest"
+
+            klay = GetAccountKey(ApiClient(configuration=Configuration(host=host)))
+            klay_response = klay.get_account_key(address, blockTag)
+
+            print(json.loads(klay_response.response.data))
   /klay/account/getCode:
     post:
       operationId: getCode
-      summary: '[getCode] Returns code at a given address.'
+      summary: '[getCode]'
       description: |
         Returns code at a given address.
 
@@ -386,7 +464,7 @@ paths:
   /klay/account/encodeAccountKey:
     post:
       operationId: encodeAccountKey
-      summary: '[encodeAccountKey] Decodes an RLP encoded account key.'
+      summary: '[encodeAccountKey]'
       description: |
         Encodes an account key using the Recursive Length Prefix (RLP) encoding scheme.
 
@@ -449,10 +527,27 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |-
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            accountKey = {
+                "keyType": 0,
+                "key": {}
+            }
+
+            sdk = OpenSDK(host)
+            klay_response = sdk.klay.encode_account_key(accountKey)
+
+            print(json.loads(klay_response.response.data))
   /klay/account/getAccount:
     post:
       operationId: getAccount
-      summary: '[getAccount] Get account'
+      summary: '[getAccount]'
       description: |
         Returns the account information of a given address. There are two different account types in Klaytn: Externally Owned Account (EOA) and Smart Contract Account. See Klaytn Accounts.
 
@@ -507,10 +602,42 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]
             }'
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+
+                const address = '0x1cbd3b2770909d4e10f157cabc84c7264073c9ec'
+                const blockNumberOrHash = 'latest'
+                
+                sdk.klay.getAccount(address, blockNumberOrHash, {}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
+        - lang: python
+          label: Python
+          source: |-
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            address = "0x3111a0577f322e8fb54f78d9982a26ae7ca0f722"
+            blockNumberOrHash = "latest"
+
+            sdk = OpenSDK(host)
+            klay_response = sdk.klay.get_account(address, blockNumberOrHash)
+
+            print(json.loads(klay_response.response.data))
   /klay/account/getBalance:
     post:
       operationId: getBalance
-      summary: '[getBalance] Returns the balance of the account of given address.'
+      summary: '[getBalance]'
       description: |
         Returns the balance of the account of given address.
 
@@ -565,10 +692,28 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]
             }'
+        - lang: python
+          label: Python
+          source: |
+            import json
+
+            from klay.opensdk_python_klay.configuration import Configuration
+            from klay.opensdk_python_klay.api_client import ApiClient
+            from klay.opensdk_python_klay.apis.tags.klay_api import GetBalance
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            address = "0x3111a0577f322e8fb54f78d9982a26ae7ca0f722"
+            blockTag = "latest"
+
+            klay = GetBalance(ApiClient(configuration=Configuration(host=host)))
+            klay_response = klay.get_balance(address, blockTag)
+
+            print(json.loads(klay_response.response.data))
   /klay/account/sign:
     post:
       operationId: sign
-      summary: '[sign] The sign method calculates a Klaytn-specific signature'
+      summary: '[sign]'
       description: |
         The sign method calculates a Klaytn-specific signature with:
 
@@ -641,7 +786,7 @@ paths:
   /klay/account/getTransactionCount:
     post:
       operationId: getTransactionCount
-      summary: '[getTransactionCount] Returns the number of transactions sent from an address.'
+      summary: '[getTransactionCount]'
       description: |
         Returns the number of transactions sent from an address.
 
@@ -700,7 +845,7 @@ paths:
   /klay/account/isContractAccount:
     post:
       operationId: isContractAccount
-      summary: '[isContractAccount] Returns true if an input account has a non-empty codeHash at the time of a specific block number.'
+      summary: '[isContractAccount]'
       description: |
         Returns true if an input account has a non-empty codeHash at the time of a specific block number. It returns false if the account is an EOA or a smart contract account which doesn't have codeHash.
 
@@ -759,7 +904,7 @@ paths:
   /klay/block/blockNumber:
     post:
       operationId: blockNumber
-      summary: '[blockNumber] Returns the number of most recent block.'
+      summary: '[blockNumber]'
       description: |
         Returns the number of most recent block.
 
@@ -808,10 +953,56 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.klay.block;
+
+            import opensdk.sdk.models.BlockNumber200Response;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class KlayBlockNumberExample {
+
+                private final OpenSDK sdk = new OpenSDK();
+
+                void klayBlockNumberExample() throws IOException {
+                    // when
+                    BlockNumber200Response response = sdk.klay.blockNumber().send();
+                }
+            }
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
+                sdk.klay.blockNumber({}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+
+            from klay.opensdk_python_klay.configuration import Configuration
+            from klay.opensdk_python_klay.api_client import ApiClient
+            from klay.opensdk_python_klay.apis.tags.klay_api import BlockNumber
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            klay = BlockNumber(ApiClient(configuration=Configuration(host=host)))
+            klay_response = klay.block_number()
+
+            print(json.loads(klay_response.response.data))
   /klay/block/getBlockByHash:
     post:
       operationId: getBlockByHash
-      summary: '[getBlockByHash] Returns information about a block by hash.'
+      summary: '[getBlockByHash]'
       description: |
         Returns information about a block by hash. This API works only on RPC call, not on JavaScript console.
 
@@ -868,7 +1059,7 @@ paths:
   /klay/block/getBlockReceipts:
     post:
       operationId: getBlockReceipts
-      summary: '[getBlockReceipts] Returns receipts included in a block identified by block hash.'
+      summary: '[getBlockReceipts]'
       description: |
         Returns receipts included in a block identified by block hash.
 
@@ -919,7 +1110,7 @@ paths:
   /klay/block/getBlockTransactionCountByNumber:
     post:
       operationId: getBlockTransactionCountByNumber
-      summary: '[getBlockTransactionCountByNumber] Returns the number of transactions in a block matching the given block number.'
+      summary: '[getBlockTransactionCountByNumber]'
       description: |
         Returns the number of transactions in a block matching the given block number.
 
@@ -977,7 +1168,7 @@ paths:
   /klay/block/getBlockWithConsensusInfoByNumber:
     post:
       operationId: getBlockWithConsensusInfoByNumber
-      summary: '[getBlockWithConsensusInfoByNumber] Returns a block with consensus information that matches the given block number.'
+      summary: '[getBlockWithConsensusInfoByNumber]'
       description: |
         Returns a block with consensus information that matches the given block number.
 
@@ -1029,7 +1220,7 @@ paths:
   /klay/block/getCommittee:
     post:
       operationId: getCommittee
-      summary: '[getCommittee] Returns a list of all validators in the committee at the specified block.'
+      summary: '[getCommittee]'
       description: |
         Returns a list of all validators in the committee at the specified block. If the parameter is not set, returns a list of all validators in the committee at the latest block.
 
@@ -1081,7 +1272,7 @@ paths:
   /klay/block/getCommitteeSize:
     post:
       operationId: getCommitteeSize
-      summary: '[getCommitteeSize] Returns the size of the committee at the specified block.'
+      summary: '[getCommitteeSize]'
       description: |
         Returns the size of the committee at the specified block. If the parameter is not set, returns the size of the committee at the latest block.
 
@@ -1138,7 +1329,7 @@ paths:
   /klay/block/getCouncil:
     post:
       operationId: getCouncil
-      summary: '[getCouncil] Returns a list of all validators of the council at the specified block'
+      summary: '[getCouncil]'
       description: |
         Returns a list of all validators of the council at the specified block. If the parameter is not set, returns a list of all validators of the council at the latest block.
 
@@ -1190,7 +1381,7 @@ paths:
   /klay/block/getCouncilSize:
     post:
       operationId: getCouncilSize
-      summary: '[getCouncilSize] Returns the size of the council at the specified block.'
+      summary: '[getCouncilSize]'
       description: |
         Returns the size of the council at the specified block. If the parameter is not set, returns the size of the council at the latest block.
 
@@ -1247,7 +1438,7 @@ paths:
   /klay/block/getBlockByNumber:
     post:
       operationId: getBlockByNumber
-      summary: '[getBlockByNumber] Returns information about a block by block number. This API works only on RPC call, not on JavaScript console.'
+      summary: '[getBlockByNumber]'
       description: |
         Returns information about a block by block number. This API works only on RPC call, not on JavaScript console.
 
@@ -1256,6 +1447,19 @@ paths:
         **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
       tags:
         - klay
+      parameters:
+        - name: blockNumberOrTag
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
+          in: query
+        - name: boolean
+          in: query
+          description: If true it returns the full transaction objects, if false only the hashes of the transactions.
+          required: true
+          schema:
+            type: boolean
       requestBody:
         content:
           application/json:
@@ -1289,16 +1493,42 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0x1b4", true]
             }'
+        - lang: python
+          label: Python
+          source: |
+            import json
+
+            from klay.opensdk_python_klay.configuration import Configuration
+            from klay.opensdk_python_klay.api_client import ApiClient
+            from klay.opensdk_python_klay.apis.tags.klay_api import GetBlockByNumber
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            blockCount = "0x1b4"
+            boolean = True
+
+            klay = GetBlockByNumber(ApiClient(configuration=Configuration(host=host)))
+            klay_response = klay.get_block_by_number(blockCount, boolean)
+
+            print(json.loads(klay_response.response.data))
   /klay/block/getBlockTransactionCountByHash:
     post:
       operationId: getBlockTransactionCountByHash
-      summary: '[getBlockTransactionCountByHash] Returns the number of transactions in a block from a block that matches the given hash.'
+      summary: '[getBlockTransactionCountByHash]'
       description: |
         Returns the number of transactions in a block from a block that matches the given hash.
 
         **JSONRPC:** `klay_getBlockTransactionCountByHash`
       tags:
         - klay
+      parameters:
+        - name: hashOfBlock
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+          description: Hash of a block
+          in: query
       requestBody:
         content:
           application/json:
@@ -1351,7 +1581,7 @@ paths:
   /klay/block/getHeaderByNumber:
     post:
       operationId: getHeaderByNumber
-      summary: '[getHeaderByNumber] Returns information about a header by number.'
+      summary: '[getHeaderByNumber]'
       description: |
         Returns information about a header by number. This API works only on RPC call, not on JavaScript console.
 
@@ -1403,7 +1633,7 @@ paths:
   /klay/block/getHeaderByHash:
     post:
       operationId: getHeaderByHash
-      summary: '[getHeaderByHash] Returns information about a header by hash.'
+      summary: '[getHeaderByHash]'
       description: |
         Returns information about a header by hash. This API works only on RPC call, not on JavaScript console.
 
@@ -1412,6 +1642,14 @@ paths:
         **NOTE:** *This API is supported from Klaytn v1.7.0.*
       tags:
         - klay
+      parameters:
+        - name: hashOfBlock
+          in: query
+          description: Hash of a block.
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
       requestBody:
         content:
           application/json:
@@ -1420,7 +1658,7 @@ paths:
                 - $ref: '#/components/schemas/JsonRpcRequest'
                 - $ref: '#/components/schemas/KlayGetHeaderByHashReq'
       responses:
-        default:
+        '200':
           description: Returns a header object, or error when no header was found
           content:
             application/json:
@@ -1450,7 +1688,7 @@ paths:
       tags:
         - klay
       operationId: getRewards
-      summary: '[getRewards] Find distributed block rewards'
+      summary: '[getRewards]'
       description: |
         Returns distributed block rewards information at the latest block number
 
@@ -1497,7 +1735,7 @@ paths:
   /klay/getStorageAt:
     post:
       operationId: getStorageAt
-      summary: '[getStorageAt] Returns the value from a storage position at a given address.'
+      summary: '[getStorageAt]'
       description: |
         Returns the value from a storage position at a given address.
 
@@ -1569,7 +1807,7 @@ paths:
   /klay/block/syncing:
     post:
       operationId: syncing
-      summary: '[syncing] Returns an object with data about the sync status or false.'
+      summary: '[syncing]'
       description: |
         Returns an object with data about the sync status or false.
 
@@ -1613,10 +1851,66 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+  /klay/block/getBlockWithConsensusInfoByNumberRange:
+    post:
+      operationId: getBlockWithConsensusInfoByNumberRange
+      summary: '[getBlockWithConsensusInfoByNumberRange]'
+      description: |
+        Returns a block with consensus information matched by the given block hash or block number.
+
+        **JSONRPC:** `klay_getBlockWithConsensusInfoByNumberRange`
+      tags:
+        - klay
+      parameters:
+        - name: blockHashOrBlockNumber
+          in: query
+          description: The block hash or block number. Or the string "genesis" or "latest".
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+        - name: range
+          in: query
+          description: The range
+          required: true
+          schema:
+            type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetBlockWithConsensusInfoByNumberRangeReq'
+      responses:
+        '200':
+          description: Returns Object - A block object with consensus information (a proposer and a list of committee members)
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetBlockWithConsensusInfoByNumberRangeResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/sdk/caver-js/v1.4.1/api-references/caver.klay/block#getblockwithconsensusinfo
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/klay_getBlockWithConsensusInfoByNumberRange' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getBlockWithConsensusInfoByNumberRange",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": [1, 1]
+            }'
   /klay/transaction/call:
     post:
       operationId: call
-      summary: '[call] Executes a new message call immediately without creating a transaction on the block chain'
+      summary: '[call]'
       tags:
         - klay
       description: |
@@ -1633,7 +1927,7 @@ paths:
           description: The transaction call object. See the next table for the object's properties.
           required: true
           schema:
-            $ref: '#/components/schemas/CallObject'
+            $ref: '#/components/schemas/KlayCallObject'
         - name: blockNumberOrHash
           in: query
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
@@ -1683,6 +1977,35 @@ paths:
                 "latest"
               ]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.klay.transaction;
+
+            import opensdk.sdk.models.Call200Response;
+            import opensdk.sdk.models.CallObject;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class KlayTransactionCallExample {
+
+                private final OpenSDK sdk = new OpenSDK();
+
+                void klayTransactionCallExample() throws IOException {
+                    // given
+                    CallObject callObject = new CallObject();
+                    callObject.setFrom("0x3f71029af4e252b25b9ab999f77182f0cd3bc085");
+                    callObject.setTo("0x87ac99835e67168d4f9a40580f8f5c33550ba88b");
+                    callObject.setGas("0x100000");
+                    callObject.setGasPrice("0x5d21dba00");
+                    callObject.setValue("0x0");
+                    callObject.setInput("0x8ada066e");
+                    String blockTag = "latest";
+                    // when
+                    Call200Response response = sdk.klay.call(callObject, blockTag).send();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -1705,10 +2028,32 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            callObject = {
+                "from": "0x3f71029af4e252b25b9ab999f77182f0cd3bc085",
+                "to": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b",
+                "gas": "0x100000",
+                "gasPrice": "0x5d21dba00",
+                "value": "0x0",
+                "input": "0x8ada066e"
+            }
+            blockTag = "latest"
+
+            sdk = OpenSDK(host)
+            klay_response = sdk.klay.call(callObject, blockTag)
+
+            print(json.loads(klay_response.response.data))
   /klay/transaction/getDecodedAnchoringTransactionByHash:
     post:
       operationId: getDecodedAnchoringTransactionByHash
-      summary: '[getDecodedAnchoringTransactionByHash] Returns the decoded anchored data in the transaction for the given transaction hash.'
+      summary: '[getDecodedAnchoringTransactionByHash]'
       description: |
         Returns the decoded anchored data in the transaction for the given transaction hash.
 
@@ -1759,7 +2104,7 @@ paths:
   /klay/transaction/estimateGas:
     post:
       operationId: estimateGas
-      summary: '[estimateGas] Estimate gas'
+      summary: '[estimateGas]'
       tags:
         - klay
       description: |
@@ -1772,7 +2117,7 @@ paths:
           description: The transaction call object. See the next table for the object's properties.
           required: true
           schema:
-            $ref: '#/components/schemas/CallObject'
+            $ref: '#/components/schemas/KlayCallObject'
       requestBody:
         content:
           application/json:
@@ -1815,10 +2160,52 @@ paths:
                 }
               ]
             }'
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+                const callObject = {
+                    "from": "0x3f71029af4e252b25b9ab999f77182f0cd3bc085",
+                    "to": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b",
+                    "gas": "0x100000",
+                    "gasPrice": "0x5d21dba00",
+                    "value": "0x0",
+                    "input": "0x8ada066e"
+                }
+                sdk.klay.estimateGas(callObject, {}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            callObject = {
+                "from": "0x3f71029af4e252b25b9ab999f77182f0cd3bc085",
+                "to": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b",
+                "gas": "0x100000",
+                "gasPrice": "0x5d21dba00",
+                "value": "0x0",
+                "input": "0x8ada066e"
+            }
+
+            sdk = OpenSDK(host)
+            klay_response = sdk.klay.estimate_gas(callObject)
+
+            print(json.loads(klay_response.response.data))
   /klay/transaction/getTransactionByBlockNumberAndIndex:
     post:
       operationId: getTransactionByBlockNumberAndIndex
-      summary: '[getTransactionByBlockNumberAndIndex] Returns information about a transaction by block number and transaction index position.'
+      summary: '[getTransactionByBlockNumberAndIndex]'
       description: |
         Returns information about a transaction by block number and transaction index position. This API works only on RPC call, not on JavaScript console.
 
@@ -1874,10 +2261,25 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0x27", "0x0"]
             }'
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            blockTag = "0x27"
+            transactionIndex = "0x0"
+
+            sdk = OpenSDK(host)
+            klay_response = sdk.klay.get_transaction_by_block_number_and_index(blockTag, transactionIndex)
+
+            print(json.loads(klay_response.response.data))
   /klay/transaction/getTransactionBySenderTxHash:
     post:
       operationId: getTransactionBySenderTxHash
-      summary: '[getTransactionBySenderTxHash] Returns the information about a transaction requested by sender transaction hash.'
+      summary: '[getTransactionBySenderTxHash]'
       description: |
         Returns the information about a transaction requested by sender transaction hash. This API works only on RPC call, not on JavaScript console. Please note that this API returns correct result only if indexing feature is enabled by --sendertxhashindexing. This can be checked by call klay_isSenderTxHashIndexingEnabled.
 
@@ -1928,7 +2330,7 @@ paths:
   /klay/transaction/getTransactionByBlockHashAndIndex:
     post:
       operationId: getTransactionByBlockHashAndIndex
-      summary: '[getTransactionByBlockHashAndIndex] Returns information about a transaction by block hash and transaction index position.'
+      summary: '[getTransactionByBlockHashAndIndex]'
       tags:
         - klay
       description: |
@@ -1936,14 +2338,14 @@ paths:
 
         **JSONRPC:** `klay_getTransactionByBlockHashAndIndex`
       parameters:
-        - name: Block hash
+        - name: blockHash
           in: query
           description: Hash of a block.
           required: true
           schema:
             type: string
             format: 32-byte DATA
-        - name: Transaction index
+        - name: transactionIndexPosition
           in: query
           description: Integer of the transaction index position.
           required: true
@@ -1958,7 +2360,7 @@ paths:
                 - $ref: '#/components/schemas/JsonRpcRequest'
                 - $ref: '#/components/schemas/KlayGetTransactionByBlockHashAndIndexReq'
       responses:
-        default:
+        '200':
           description: Object - A transaction object, or null when no transaction was found.
           content:
             application/json:
@@ -1986,7 +2388,7 @@ paths:
   /klay/transaction/getTransactionByHash:
     post:
       operationId: getTransactionByHash
-      summary: '[getTransactionByHash] Returns the information about a transaction requested by transaction hash.'
+      summary: '[getTransactionByHash]'
       tags:
         - klay
       description: |
@@ -1994,7 +2396,7 @@ paths:
 
         **JSONRPC:** `klay_getTransactionByHash`
       parameters:
-        - name: Transaction hash
+        - name: transactionHash
           schema:
             type: string
             format: 32-byte DATA
@@ -2009,7 +2411,7 @@ paths:
                 - $ref: '#/components/schemas/JsonRpcRequest'
                 - $ref: '#/components/schemas/KlayGetTransactionByHashReq'
       responses:
-        default:
+        '200':
           description: Object - A transaction object, or null when no transaction was found.
           content:
             application/json:
@@ -2034,10 +2436,24 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
             }'
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            transactionHash = "0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"
+
+            sdk = OpenSDK(host)
+            klay_response = sdk.klay.get_transaction_by_hash(transactionHash)
+
+            print(json.loads(klay_response.response.data))
   /klay/transaction/getTransactionReceipt:
     post:
       operationId: getTransactionReceipt
-      summary: '[getTransactionReceipt] Returns the receipt of a transaction by transaction hash.'
+      summary: '[getTransactionReceipt]'
       description: |
         Returns the receipt of a transaction by transaction hash.
 
@@ -2087,10 +2503,24 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
             }'
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            transactionHash = "0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"
+
+            sdk = OpenSDK(host)
+            klay_response = sdk.klay.get_transaction_receipt(transactionHash)
+
+            print(json.loads(klay_response.response.data))
   /klay/transaction/sendRawTransaction:
     post:
       operationId: sendRawTransaction
-      summary: '[sendRawTransaction] Creates a new message call transaction or a contract creation for signed transactions.'
+      summary: '[sendRawTransaction]'
       description: |
         Creates a new message call transaction or a contract creation for signed transactions.
 
@@ -2149,7 +2579,7 @@ paths:
   /klay/transaction/estimateComputationCost:
     post:
       operationId: estimateComputationCost
-      summary: '[estimateComputationCost] Generates and returns an estimate of how much computation cost will be spent to execute the transaction. '
+      summary: '[estimateComputationCost]'
       tags:
         - klay
       description: |
@@ -2160,13 +2590,13 @@ paths:
         - name: callObject
           in: query
           description: The transaction call object. See the next table for the object's properties.
-          required: false
+          required: true
           schema:
-            $ref: '#/components/schemas/CallObject'
+            $ref: '#/components/schemas/KlayCallObject'
         - name: blockNumberOrHash
           in: query
-          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
-          required: false
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.
+          required: true
           schema:
             $ref: '#/components/schemas/BlockNumberOrHashOrTag'
       requestBody:
@@ -2224,10 +2654,30 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            callObject = {
+                "from": "0x73718c4980728857f3aa5148e9d1b471efa3a7dd",
+                "to": "0x069942a3ca0dabf495dba872533134205764bc9c",
+                "value": "0x0",
+                "input": "0x2a31efc7000000000000000000000000000000000000000000000000000000000000271000000000000000000000000000000000000000000000000000000000000000420000000000000000000000000000000000000000000000000000000000003039"
+            }
+            blockNumberOrHash = "latest"
+
+            sdk = OpenSDK(host)
+            klay_response = sdk.klay.estimate_computation_cost(callObject, blockNumberOrHash)
+
+            print(json.loads(klay_response.response.data))
   /klay/transaction/sendTransaction:
     post:
       operationId: sendTransaction
-      summary: '[sendTransaction] Constructs a transaction with given parameters, signs the transaction with a sender''s private key and propagates the transaction to Klaytn network.'
+      summary: '[sendTransaction]'
       description: |
         Constructs a transaction with given parameters, signs the transaction with a sender's private key and propagates the transaction to Klaytn network.
 
@@ -2292,7 +2742,7 @@ paths:
   /klay/transaction/sendTransactionAsFeePayer:
     post:
       operationId: sendTransactionAsFeePayer
-      summary: '[sendTransactionAsFeePayer] Constructs a transaction with given parameters, signs the transaction with a fee payer''s private key and propagates the transaction to Klaytn network.'
+      summary: '[sendTransactionAsFeePayer]'
       description: |
         Constructs a transaction with given parameters, signs the transaction with a fee payer's private key and propagates the transaction to Klaytn network. This API supports only fee delegated type (including partial fee delegated type) transactions.
 
@@ -2366,7 +2816,7 @@ paths:
   /klay/transaction/signTransaction:
     post:
       operationId: signTransaction
-      summary: '[signTransaction] Constructs a transaction with given parameters and signs the transaction with a sender''s private key.'
+      summary: '[signTransaction]'
       description: |
         Constructs a transaction with given parameters and signs the transaction with a sender's private key. This method can be used either to generate a sender signature or to make a final raw transaction that is ready to submit to Klaytn network.
 
@@ -2427,7 +2877,7 @@ paths:
   /klay/transaction/signTransactionAsFeePayer:
     post:
       operationId: signTransactionAsFeePayer
-      summary: '[signTransactionAsFeePayer] Constructs a transaction with given parameters and signs the transaction with a fee payer''s private key.'
+      summary: '[signTransactionAsFeePayer]'
       description: |
         Constructs a transaction with given parameters and signs the transaction with a fee payer's private key. This method can be used either to generate a fee payer signature or to make a final raw transaction that is ready to submit to Klaytn network. In case you just want to extract the fee-payer signature, simply take the feePayerSignatures from the result. Note that the raw transaction is not final if the sender's signature is not attached (that is, signatures in tx is empty).
 
@@ -2487,10 +2937,53 @@ paths:
                 }
               ]
             }'
+  /klay/transaction/pendingTransactions:
+    post:
+      operationId: pendingTransactions
+      summary: '[pendingTransactions]'
+      tags:
+        - klay
+      description: |
+        Returns the transactions that are in the transaction pool and have a from address that is one of the accounts this node manages.
+
+        **JSONRPC:** `klay_pendingTransactions`
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayPendingTransactionsReq'
+      responses:
+        '200':
+          description: An array of transactions. For the returned transaction object.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayPendingTransactionsResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/transaction#eth_pendingtransactions
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/pendingTransactions' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_pendingTransactions",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": []
+            }'
   /klay/configuration/chainID:
     post:
       operationId: chainID
-      summary: '[chainID] Returns the chain ID of the chain.'
+      summary: '[chainID]'
       description: |
         Returns the chain ID of the chain.
 
@@ -2551,10 +3044,25 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+
+            from klay.opensdk_python_klay.configuration import Configuration
+            from klay.opensdk_python_klay.api_client import ApiClient
+            from klay.opensdk_python_klay.apis.tags.klay_api import ChainId
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            klay = ChainId(ApiClient(configuration=Configuration(host=host)))
+            klay_response = klay.chain_id()
+
+            print(json.loads(klay_response.response.data))
   /klay/configuration/clientVersion:
     post:
       operationId: clientVersion
-      summary: '[clientVersion] Returns the current client version of a Klaytn node.'
+      summary: '[clientVersion]'
       description: |
         Returns the current client version of a Klaytn node.
 
@@ -2615,10 +3123,25 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+
+            from klay.opensdk_python_klay.configuration import Configuration
+            from klay.opensdk_python_klay.api_client import ApiClient
+            from klay.opensdk_python_klay.apis.tags.klay_api import ClientVersion
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            klay = ClientVersion(ApiClient(configuration=Configuration(host=host)))
+            klay_response = klay.client_version()
+
+            print(json.loads(klay_response.response.data))
   /klay/configuration/gasPriceAt:
     post:
       operationId: gasPriceAt
-      summary: '[gasPriceAt] Returns the unit price from the governance parameter or the gas price of the txpool or the base fee of the given block'
+      summary: '[gasPriceAt]'
       description: |
         Returns different values based on the condition described below. The unit of the return value is peb.
 
@@ -2661,7 +3184,7 @@ paths:
                         description: Integer of the current gas price in peb.
                         example: '0xAE9F7BCC00'
       externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_clientversion
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_gaspriceat
         description: Klaytn Docs
       x-codeSamples:
         - lang: curl
@@ -2677,10 +3200,42 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0x64"]
             }'
+        - lang: javascript
+          label: Javascript
+          source: |-
+
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+                const blockNumber = 1;
+                sdk.klay.gasPriceAt({ blockNumber }, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+
+            from klay.opensdk_python_klay.configuration import Configuration
+            from klay.opensdk_python_klay.api_client import ApiClient
+            from klay.opensdk_python_klay.apis.tags.klay_api import GasPriceAt
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            baseFee = "0x64"
+
+            klay = GasPriceAt(ApiClient(configuration=Configuration(host=host)))
+            klay_response = klay.gas_price_at(baseFee)
+
+            print(json.loads(klay_response.response.data))
   /klay/configuration/gasPrice:
     post:
       operationId: gasPrice
-      summary: '[gasPrice] Returns a suggestion for a gas price in peb.'
+      summary: '[gasPrice]'
       description: |
         Returns a suggestion for a gas price in peb.
 
@@ -2730,10 +3285,35 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+        - lang: python
+          label: Python
+          source: |-
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            sdk = OpenSDK(host)
+            klay_response = sdk.klay.gas_price()
+
+            print(json.loads(klay_response.response.data))
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
+                
+                sdk.klay.gasPrice({}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
   /klay/configuration/isParallelDBWrite:
     post:
       operationId: isParallelDBWrite
-      summary: '[isParallelDBWrite] Returns true if the node is writing blockchain data in parallel manner. It is enabled by default.'
+      summary: '[isParallelDBWrite]'
       description: |
         Returns true if the node is writing blockchain data in parallel manner. It is enabled by default.
 
@@ -2785,7 +3365,7 @@ paths:
   /klay/configuration/isSenderTxHashIndexingEnabled:
     post:
       operationId: isSenderTxHashIndexingEnabled
-      summary: '[isSenderTxHashIndexingEnabled] Returns true if the node is indexing sender transaction hash to transaction hash mapping information.'
+      summary: '[isSenderTxHashIndexingEnabled]'
       description: |
         Returns true if the node is indexing sender transaction hash to transaction hash mapping information. It is disabled by default and can be enabled by --sendertxhashindexing.
 
@@ -2837,7 +3417,7 @@ paths:
   /klay/configuration/maxPriorityFeePerGas:
     post:
       operationId: maxPriorityFeePerGas
-      summary: '[maxPriorityFeePerGas] Returns a suggestion for a gas tip cap for dynamic fee transactions in peb.'
+      summary: '[maxPriorityFeePerGas]'
       description: |
         Returns a suggestion for a gas tip cap for dynamic fee transactions in peb.
 
@@ -2890,7 +3470,7 @@ paths:
   /klay/configuration/protocolVersion:
     post:
       operationId: protocolVersion
-      summary: '[protocolVersion] Returns the Klaytn protocol version of the node.'
+      summary: '[protocolVersion]'
       description: |
         Returns the Klaytn protocol version of the node. The current version (as of v1.9.0) of Cypress/Baobab is istanbul/65.
 
@@ -2943,7 +3523,7 @@ paths:
   /klay/configuration/rewardBase:
     post:
       operationId: rewardBase
-      summary: '[rewardBase] Returns the rewardbase of the current node.'
+      summary: '[rewardBase]'
       description: |
         Returns the rewardbase of the current node. Rewardbase is the address of the account where the block rewards goes to. It is only required for CNs.
 
@@ -2993,10 +3573,60 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+  /klay/configuration/getChainConfig:
+    post:
+      operationId: getChainConfig
+      summary: '[getChainConfig]'
+      description: |
+        Returns the configuration of the chain.
+
+        **JSONRPC:** `klay_getChainConfig`
+      tags:
+        - klay
+      parameters:
+        - name: blockNumberOrTag
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetChainConfigReq'
+      responses:
+        '200':
+          description: The chain configuration of the chain.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetChainConfigResp'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/sdk/caver-js/api-references/caver.rpc/governance#caver-rpc-governance-getchainconfig
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getChainConfig' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getChainConfig",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": [100]
+            }'
   /klay/filter/getFilterChanges:
     post:
       operationId: getFilterChanges
-      summary: '[getFilterChanges] Polling method for a filter'
+      summary: '[getFilterChanges]'
       description: |
         Polling method for a filter, which returns an array of logs which occurred since last poll.
 
@@ -3025,7 +3655,8 @@ paths:
                       type: array
                       items:
                         type: string
-                      description: The filter id
+                        title: QUANTITY
+                      description: The filter id (e.g., "0x16" // 22).
                       example:
                         - '0x16'
       responses:
@@ -3057,7 +3688,7 @@ paths:
   /klay/filter/getFilterLogs:
     post:
       operationId: getFilterLogs
-      summary: '[getFilterLogs] Find if input address was created'
+      summary: '[getFilterLogs]'
       description: |
         Returns an array of all logs matching filter with given id, which has been obtained using klay_newFilter.Note that filter ids returned by other filter creation functions, such as klay_newBlockFilter or klay_newPendingTransactionFilter, cannot be used with this function.
 
@@ -3092,6 +3723,7 @@ paths:
                       type: array
                       items:
                         type: string
+                        title: QUANTITY
                       description: The filter id
                       example:
                         - '0xd32fd16b6906e67f6e2b65dcf48fc272'
@@ -3124,7 +3756,7 @@ paths:
   /klay/filter/newBlockFilter:
     post:
       operationId: newBlockFilter
-      summary: '[newBlockFilter] Creates a filter in the node, to notify when a new block arrives.'
+      summary: '[newBlockFilter]'
       description: |
         Creates a filter in the node, to notify when a new block arrives. To check if the state has changed, call klay_getFilterChanges.
 
@@ -3177,7 +3809,7 @@ paths:
   /klay/filter/newPendingTransactionFilter:
     post:
       operationId: newPendingTransactionFilter
-      summary: '[newPendingTransactionFilter] Creates a filter in the node, to notify when new pending transactions arrive.'
+      summary: '[newPendingTransactionFilter]'
       description: |
         Creates a filter in the node, to notify when a new block arrives. To check if the state has changed, call klay_getFilterChanges.
 
@@ -3230,7 +3862,7 @@ paths:
   /klay/filter/uninstallFilter:
     post:
       operationId: uninstallFilter
-      summary: '[uninstallFilter] Uninstalls a filter with given id.'
+      summary: '[uninstallFilter]'
       description: |
         Uninstalls a filter with given id. Should always be called when watch is no longer needed. Additionally, filters timeout when they are not requested with klay_getFilterChanges for a period of time.
 
@@ -3259,6 +3891,7 @@ paths:
                       type: array
                       items:
                         type: string
+                        title: QUANTITY
                       description: The filter id
                       example:
                         - '0xd32fd16b6906e67f6e2b65dcf48fc272'
@@ -3295,7 +3928,7 @@ paths:
   /klay/gas/feeHistory:
     post:
       operationId: feeHistory
-      summary: '[feeHistory] Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.d'
+      summary: '[feeHistory]'
       description: |
         Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.
 
@@ -3356,6 +3989,25 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0x10", "latest", [0.1, 0.2, 0.3]]
             }'
+        - lang: python
+          label: Python
+          source: |
+            import json
+
+            from klay.opensdk_python_klay.configuration import Configuration
+            from klay.opensdk_python_klay.api_client import ApiClient
+            from klay.opensdk_python_klay.apis.tags.klay_api import FeeHistory
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            blockCount = "0x10"
+            lastBlock = "latest"
+            rewardPercentiles = [0.1, 0.2, 0.3]
+
+            klay = FeeHistory(ApiClient(configuration=Configuration(host=host)))
+            klay_response = klay.fee_history(blockCount, lastBlock, rewardPercentiles)
+
+            print(json.loads(klay_response.response.data))
   /klay/miscellaneous/sha3:
     post:
       operationId: sha3
@@ -3404,6 +4056,122 @@ paths:
               "id": 1,
               "jsonrpc": "2.0",
               "params": []
+            }'
+  /klay/getRawTransactionByBlockNumberAndIndex:
+    post:
+      operationId: getRawTransactionByBlockNumberAndIndex
+      summary: '[getRawTransactionByBlockNumberAndIndex]'
+      tags:
+        - klay
+      description: |
+        GetRawTransactionByBlockNumberAndIndex returns the bytes of the transaction for the given block number and index.
+
+        **JSONRPC:** `klay_getRawTransactionByBlockNumberAndIndex`
+      parameters:
+        - name: blockNumber
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+        - name: transactionIndex
+          required: true
+          schema:
+            type: string
+            format: hex
+          description: The transaction index position.
+          in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetRawTransactionByBlockNumberAndIndexReq'
+      responses:
+        '200':
+          description: Returns the bytes of the transaction for the given block number and index.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetRawTransactionByBlockNumberAndIndexResp'
+      externalDocs:
+        url: https://etclabscore.github.io/core-geth/JSON-RPC-API/modules/eth/#eth_getrawtransactionbyblocknumberandindex
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getRawTransactionByBlockNumberAndIndex' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getRawTransactionByBlockNumberAndIndex",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0x27", "0x0"]
+            }'
+  /klay/getStakingInfo:
+    post:
+      operationId: getStakingInfo
+      summary: '[getStakingInfo]'
+      tags:
+        - klay
+      description: |
+        The getStakingInfo returns staking information at a specific block. The result includes the following information.
+        - BlockNum: The block number at which the staking information is given.
+        - CouncilNodeAddrs: The addresses of the consensus node.
+        - CouncilRewardAddrs: The addresses to which the block reward of the associated nodes is sent.
+        - CouncilStakingAddrs: The contract addresses in which the associated nodes deploy for staking.
+        - CouncilStakingAmounts: The amount of KLAY which the associated nodes stake.
+        - Gini: Gini coefficient.
+        - KIRAddr: The contract address of KIR.
+        - PoCAddr: The contract address of KGF. PoC is the previous name of KGF.
+        - UseGini: The boolean value whether or not the Gini coefficient is used.
+        Note that the order of all addresses and the staking amounts are matched.
+        **JSONRPC:** `klay_getStakingInfo`
+      parameters:
+        - name: blockNumber
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/KlayGetStakingInfoRep'
+      responses:
+        '200':
+          description: Returns the bytes of the transaction for the given block number and index.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/KlayGetStakingInfoResq'
+      externalDocs:
+        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/governance#governance_getstakinginfo
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/klay/getStakingInfo' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "klay_getStakingInfo",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["latest"]
             }'
 components:
   schemas:
@@ -3543,10 +4311,13 @@ components:
           type: string
           default: klay_decodeAccountKey
         params:
-          title: encodedAccountKey
-          type: string
-          format: DATA
-          example: '0x05f898a302a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff72ff7dcdf01512db84e04f84b02f848e301a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff72ff7dcdf01512de301a10336f6355f5b532c3c1606f18fa2be7a16ae200c5159c8031dd25bfa389a4c9c06a302a102c8785266510368d9372badd4c7f4a94b692e82ba74e0b5e26b34558b0f081447'
+          type: array
+          items:
+            title: encodedAccountKey
+            type: string
+            format: DATA
+          example:
+            - '0x05f898a302a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff72ff7dcdf01512db84e04f84b02f848e301a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff72ff7dcdf01512de301a10336f6355f5b532c3c1606f18fa2be7a16ae200c5159c8031dd25bfa389a4c9c06a302a102c8785266510368d9372badd4c7f4a94b692e82ba74e0b5e26b34558b0f081447'
     KlayDecodeAccountKeyResp:
       type: object
       properties:
@@ -3739,19 +4510,22 @@ components:
         method:
           type: string
           default: klay_encodeAccountKey
-        param:
-          type: object
-          properties:
-            keytype:
-              type: number
-              description: Integer value indicating account key type.
-            key:
-              type: string
-              format: JSON DATA
-              description: Account key object
+        params:
+          type: array
+          items:
+            title: encodedAccountKey
+            type: object
+            properties:
+              keytype:
+                type: number
+                description: Integer value indicating account key type.
+              key:
+                type: string
+                format: JSON DATA
+                description: Account key object
           example:
-            keyType: 1
-            key: {}
+            - keyType: 1
+              key: {}
     KlayEncodeAccountKeyResp:
       type: object
       properties:
@@ -3950,7 +4724,7 @@ components:
           example:
             - '0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c'
             - true
-    Block:
+    KlayBlock:
       type: object
       description: A block object
       properties:
@@ -4060,7 +4834,7 @@ components:
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/Block'
+          $ref: '#/components/schemas/KlayBlock'
     KlayGetBlockReceiptsReq:
       type: object
       required:
@@ -4455,7 +5229,7 @@ components:
           type: array
           items:
             anyOf:
-              - $ref: '#/components/schemas/Address'
+              - $ref: '#/components/schemas/BlockNumberOrTag'
               - type: boolean
                 description: If true it returns the full transaction objects, if false only the hashes of the transactions.
           example:
@@ -4465,100 +5239,7 @@ components:
       type: object
       properties:
         result:
-          type: object
-          properties:
-            number:
-              type: number
-              format: QUANTITY
-              description: The block number. null when it is pending block.
-            hash:
-              type: string
-              format: 32-byte DATA
-              description: Hash of the block. null when it is pending block.
-            parentHash:
-              type: string
-              format: 32-byte DATA
-              description: Hash of the parent block.
-            logsBloom:
-              type: string
-              format: 256-byte DATA
-              description: The bloom filter for the logs of the block. null when it is pending block.
-            transactionsRoot:
-              type: string
-              format: 32-byte DATA
-              description: The root of the transaction trie of the block.
-            stateRoot:
-              type: string
-              format: 32-byte DATA
-              description: The root of the final state trie of the block.
-            receiptsRoot:
-              type: string
-              format: 32-byte DATA
-              description: The root of the receipts trie of the block.
-            reward:
-              type: string
-              format: 20-byte DATA
-              description: The address of the beneficiary to whom the block rewards were given.
-            blockScore:
-              type: string
-              format: QUANTITY
-              description: Former difficulty. Always 1 in the BFT consensus engine
-            extraData:
-              type: string
-              format: DATA
-              description: The "extra data" field of this block.
-            size:
-              type: string
-              format: QUANTITY
-              description: size
-            gasUsed:
-              type: string
-              format: QUANTITY
-              description: The total used gas by all transactions in this block.
-            timestamp:
-              type: string
-              format: QUANTITY
-              description: The Unix timestamp for when the block was collated.
-            timestampFoS:
-              type: string
-              format: QUANTITY
-              description: The fraction of a second of the timestamp for when the block was collated.
-            transactions:
-              type: string
-              format: array
-              description: Array of transaction objects, or 32-byte transaction hashes depending on the last given parameter.
-            governanceData:
-              type: string
-              format: DATA
-              description: RLP encoded governance configuration
-            voteData:
-              type: string
-              format: DATA
-              description: RLP encoded governance vote of the proposer
-            baseFeePerGas:
-              type: string
-              format: QUANTITY
-              description: The base fee per gas. It has a meaningful value when EthTxTypeCompatible and Magma hardforks are activated.
-          example:
-            baseFeePerGas: '0x0'
-            blockscore: '0x1'
-            extraData: '0xda83010800846b6c617989676f312e31362e31338664617277696e0000000000f89ed5949712f943b296758aaae79944ec975884188d3a96b841ddfdf7e2cb0a93538f757f87f23a93ee35df703c781c6f15e31e4978ecdfb3501fc00924372b9a01df2bc452f2a924c242d83580183d131c47e49a25b78f625201f843b841b9b6034d5a8c5f5b057274cda4f427614cd1f448ee781f4c4322861d1361d09d47d6030f2b69a26cb426db984f54e71f8c112fbf882930ccd715d595e8d8307500'
-            gasUsed: '0x0'
-            governanceData: 0x
-            hash: '0xe882d7a16f38126dc0c507f990b3fe18fa2d3a380002538581327abe96ca6edc'
-            logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
-            number: '0x1e67'
-            parentHash: '0x28b1c054346c3bd083741c757a750dcabf94b6d50c7f87158753544e96e73550'
-            receiptsRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
-            reward: '0x4b2c736fd05c2e2da3ccbd001a395a444f16a861'
-            size: '0x272'
-            stateRoot: '0xdf9885621c9e6e75912ca94d6987bcb1b54fef0e4a99cbec5e68f1ffc7468a78'
-            timestamp: '0x62130beb'
-            timestampFoS: '0x0'
-            totalBlockScore: '0x1e68'
-            transactions: []
-            transactionsRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
-            voteData: 0x
+          $ref: '#/components/schemas/KlayBlock'
     KlayGetHeaderByNumberReq:
       type: object
       required:
@@ -4575,8 +5256,8 @@ components:
               - $ref: '#/components/schemas/BlockNumberOrTag'
           example:
             - '0x1b4'
-    HeaderObject:
-      title: HeaderObject
+    KlayHeaderObject:
+      title: KlayHeaderObject
       type: object
       description: The block header object.
       properties:
@@ -4660,7 +5341,7 @@ components:
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/HeaderObject'
+          $ref: '#/components/schemas/KlayHeaderObject'
     KlayGetHeaderByHashReq:
       type: object
       required:
@@ -4675,6 +5356,7 @@ components:
           items:
             anyOf:
               - type: string
+                title: hashOfBlock
                 format: 32-byte DATA
                 description: Hash of a block.
           example:
@@ -4683,7 +5365,7 @@ components:
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/HeaderObject'
+          $ref: '#/components/schemas/KlayHeaderObject'
     KlayGetRewardsReq:
       type: object
       required:
@@ -4814,35 +5496,182 @@ components:
             - type: boolean
               example: false
             - $ref: '#/components/schemas/SyncingObject'
-    CallObject:
-      title: CallObject
+    KlayGetBlockWithConsensusInfoByNumberRangeReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: klay_getBlockWithConsensusInfoByNumberRange
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+              - type: number
+                title: Range
+    GetBlockWithConsensusInfoByNumberRangeObject:
+      type: object
+      properties:
+        blockScore:
+          type: string
+          format: hex
+          description: Former difficulty. Always 1 in the BFT consensus engine
+        committee:
+          type: array
+          items:
+            type: string
+            format: 20-byte DATA
+          description: Array of addresses of committee members of this block. The committee is a subset of validators participated in the consensus protocol for this block.
+        extraData:
+          type: string
+          description: The "extra data" field of this block.
+        gasUsed:
+          type: string
+          format: hex
+          description: The total used gas by all transactions in this block.
+        governanceData:
+          type: string
+          format: DATA
+          description: RLP encoded governance configuration
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block. null when it is a pending block.
+        logsBloom:
+          type: 256-byte string
+          description: The bloom filter for the logs of the block. null when it is a pending block.
+        number:
+          type: string
+          format: hex
+          description: The block number. null when it is a pending block.
+        parentHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the parent block.
+        proposer:
+          type: string
+          format: 20-byte DATA
+          description: The address of the block proposer.
+        receiptsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the receipts trie of the block.
+        reward:
+          type: string
+          format: 20-byte DATA
+          description: The address of the beneficiary to whom the block rewards were given.
+        size:
+          type: string
+          format: hex
+          description: Integer the size of this block in bytes.
+        stateRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the final state trie of the block.
+        timestamp:
+          type: string
+          format: hex
+          description: The unix timestamp for when the block was collated.
+        timestampFoS:
+          type: string
+          format: hex
+          description: The fraction of a second of the timestamp for when the block was collated.
+        totalBlockScore:
+          type: string
+          format: hex
+          description: Integer of the total blockScore of the chain until this block.
+        transactions:
+          type: array
+          items:
+            type: object
+          description: Array of transaction objects.
+        transactionsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the transaction trie of the block.
+        voteData:
+          type: string
+          format: DATA
+          description: RLP encoded governance vote of the proposer
+      example:
+        blockscore: '0x1'
+        committee:
+          - '0x715dd3ce7a285f21111715a2ba5537414d40506b'
+          - '0x71959675eeb7c7ec1e0c74f206a9c488d7f178d4'
+        extraData: '0xd7820a01846b6c617988676f312e31312e32856c696e75780000000000000000f8b3ea94715dd3ce7a285f21111715a2ba5537414d40506b9471959675eeb7c7ec1e0c74f206a9c488d7f178d4b8418e55cfb464eed804671bbee503f2dcacae9349f23aa3c42fc43349f96ef08bb07c1039541a3b768af32384c8e29ec7e673356a6b0ea4c6d88604ae8abae4303201f843b841386a3fbd09cd3a7c82c0b8fdc9ae8c3e624be5f12553dde42bed456093e40c113aa36fb7015b578611e2cd2ee979e6017b15be7d3cc645f455b32e8607c85d7100'
+        gasUsed: '0x5208'
+        governanceData: 0x
+        hash: '0x6ccef34eb59fab927705d344f080f449b576c0626e4aa3e20f569feb8df6e283'
+        logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+        number: '0x4a99'
+        parentHash: '0x3b56b598828368d86b175a78ba21845125372851154840c6b1b318da910849c2'
+        proposer: '0x715dd3ce7a285f21111715a2ba5537414d40506b'
+        receiptsRoot: '0xe38e5532717f12f769b07ea016014bd39b74fb72def4de8442114cc2728609f2'
+        reward: '0x59e6931f46b091f4ecbc39e8626fc0be7d3fcdeb'
+        size: '0x314'
+        stateRoot: '0xc65b3e3f1c32c33c095507d6d37e2a8a5589b178b5b03a1365295908ac92c40c'
+        timestamp: '0x5d11f951'
+        timestampFoS: '0x0'
+        totalBlockScore: '0x4a9a'
+        transactions:
+          - blockHash: '0x6ccef34eb59fab927705d344f080f449b576c0626e4aa3e20f569feb8df6e283'
+            blockNumber: '0x4a99'
+            contractAddress: null
+            from: '0x71959675eeb7c7ec1e0c74f206a9c488d7f178d4'
+            gas: '0x493e0'
+            gasPrice: '0x5d21dba00'
+            gasUsed: '0x5208'
+            logs: []
+            logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+            nonce: '0x2'
+            senderTxHash: '0xac418c96f7386a3343d149eeb29e48e28905525dda2e5afe55b0661f9ab01aca'
+            signatures:
+              - V: '0x4e43'
+                R: '0xa857ef0676d7e65697cadeaf1654b2facd71d0b9f942d695f3972a1f7c34c25c'
+                S: '0x43fba9e5c2c16511f951e27957f1279ea3c1f913b27f9fbb2a8dcb5884e37e3d'
+            status: '0x1'
+            to: '0xef5cd886c7f8d85fbe8023291761341acbb4da01'
+            transactionHash: '0xac418c96f7386a3343d149eeb29e48e28905525dda2e5afe55b0661f9ab01aca'
+            transactionIndex: '0x0'
+            type: TxTypeValueTransfer
+            typeInt: 8
+            value: '0xde0b6b3a7640000'
+        transactionsRoot: '0xac418c96f7386a3343d149eeb29e48e28905525dda2e5afe55b0661f9ab01aca'
+        voteData: 0x
+    KlayGetBlockWithConsensusInfoByNumberRangeResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/GetBlockWithConsensusInfoByNumberRangeObject'
+    KlayCallObject:
+      title: KlayCallObject
       type: object
       description: The transaction call object. See the next table for the object's properties.
       properties:
         from:
           type: string
           format: 20-byte DATA
-          description: (optional) Address the transaction is simulated to have been sent from. The 0x00..0 address is used if no address is specified.
+          description: (optional) The address the transaction is sent from.
         to:
           type: string
           format: 20-byte DATA
-          description: (optional) Address the transaction is sent to.
+          description: (optional when testing the deployment of a new contract) The address the transaction is directed to.
         gas:
-          type: integer
-          format: int64
-          description: (optional) Maximum gas allowance for the code execution to avoid infinite loops. Defaults to 2^63 or whatever value the node operator specified via --rpc.gascap.
+          type: string
+          format: hex
+          description: (optional) Integer of the gas provided for the transaction execution. klay_call consumes zero gas, but this parameter may be needed by some executions.
         gasPrice:
-          type: integer
-          format: int64
-          description: (optional) Number of peb to simulate paying for each unit of gas during execution. Defaults to 0 peb.
+          type: string
+          format: hex
+          description: (optional) Integer of the gasPrice used for each paid gas.
         value:
-          type: integer
-          format: int64
-          description: (optional) Amount of peb to simulate sending along with the transaction. Defaults to 0.
+          type: string
+          format: hex
+          description: (optional) Integer of the value sent with this transaction.
         input:
           type: string
           format: DATA
-          description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
+          description: (optional) Hash of the method signature and encoded parameters. It replaces data field, but 'data` field is still supported for backward compatibility.
     KlayCallReq:
       type: object
       required:
@@ -4853,11 +5682,12 @@ components:
           type: string
           default: klay_call
         params:
-          title: encodedAccountKey
           type: array
           items:
             anyOf:
-              - $ref: '#/components/schemas/CallObject'
+              - allOf:
+                  - title: callObject
+                  - $ref: '#/components/schemas/KlayCallObject'
               - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
           example:
             - from: '0x3f71029af4e252b25b9ab999f77182f0cd3bc085'
@@ -4890,6 +5720,7 @@ components:
             anyOf:
               - type: string
                 format: 32-byte DATA
+                title: hashOfTransaction
                 description: Hash of a transaction.
           example:
             - '0x499350bc5e2f6fee1ba78b4d40a7a1db0a64f3c091112e6798a02ed9a4140084'
@@ -4947,11 +5778,11 @@ components:
           type: string
           default: klay_estimateGas
         params:
-          title: estimateGas
           type: array
           items:
-            anyOf:
-              - $ref: '#/components/schemas/CallObject'
+            allOf:
+              - title: callObject
+              - $ref: '#/components/schemas/KlayCallObject'
           example:
             - from: '0x3f71029af4e252b25b9ab999f77182f0cd3bc085'
               to: '0x87ac99835e67168d4f9a40580f8f5c33550ba88b'
@@ -5168,9 +5999,11 @@ components:
             anyOf:
               - type: string
                 format: 32-byte DATA
+                title: blockHash
                 description: Hash of a block.
               - type: string
                 format: hex
+                title: transactionIndexPosition
                 description: Integer of the transaction index position.
           example:
             - '0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68'
@@ -5195,6 +6028,7 @@ components:
             anyOf:
               - type: string
                 format: 32-byte DATA
+                title: transactionHash
                 description: Hash of a transaction.
           example:
             - '0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67'
@@ -5264,8 +6098,8 @@ components:
             type: string
             format: 32-byte DATA
           description: Array of 0 to 4 32-byte DATA of indexed log arguments. (In Solidity The first topic is the hash of the signature of the event (e.g., Deposit(address,bytes32,uint256)), except you declared the event with the anonymous specifier.).
-    ArrayOfLog:
-      title: ArrayOfLog
+    KlayArrayOfLog:
+      title: KlayArrayOfLog
       type: array
       items:
         anyOf:
@@ -5363,7 +6197,7 @@ components:
           format: DATA
           description: (optional) The data sent along with the transaction.
         logs:
-          $ref: '#/components/schemas/ArrayOfLog'
+          $ref: '#/components/schemas/KlayArrayOfLog'
           description: Array of log objects, which this transaction generated.
         logsBloom:
           type: string
@@ -5476,13 +6310,14 @@ components:
       properties:
         method:
           type: string
-          default: klay_call
+          default: klay_estimateComputationCost
         params:
-          title: encodedAccountKey
           type: array
           items:
             anyOf:
-              - $ref: '#/components/schemas/CallObject'
+              - allOf:
+                  - title: callObject
+                  - $ref: '#/components/schemas/KlayCallObject'
               - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
           example:
             - from: '0x73718c4980728857f3aa5148e9d1b471efa3a7dd'
@@ -6531,6 +7366,30 @@ components:
               r: '0x56d2ddd231c3c111687ab351d339240db18cd721e5aa33c601dd4fc3927fb4d1'
               s: '0x3443443392517aa7da082aa0a00b9ee5e3e1ee007d22e57cd9ff55b5ddbf4a64'
               hash: '0xb53cc9128a19c3916c0de1914725b7337bba84666c2556d8682c72ca34c6874c'
+    KlayPendingTransactionsReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_pendingTransactions
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                format: 32-byte DATA
+                title: transactionHash
+                description: Hash of a transaction.
+          example:
+            - '0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67'
+    KlayPendingTransactionsResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/TransactionObject'
     KlayGasPriceAtReq:
       type: object
       required:
@@ -6548,21 +7407,77 @@ components:
               - $ref: '#/components/schemas/HexadecimalBlockNumber'
           example:
             - '0x64'
+    KlayGetChainConfigReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getChainConfig
+        params:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+          example:
+            - 100
+    KlayGetChainConfigResp:
+      type: object
+      properties:
+        result:
+          type: object
+          example:
+            chainId: 1001
+            istanbulCompatibleBlock: 75373312
+            londonCompatibleBlock: 80295291
+            ethTxTypeCompatibleBlock: 86513895
+            magmaCompatibleBlock: 98347376
+            koreCompatibleBlock: 111736800
+            kip103CompatibleBlock: 119145600
+            kip103ContractAddress: '0xd5ad6d61dd87edabe2332607c328f5cc96aecb95'
+            istanbul:
+              epoch: 604800
+              policy: 2
+              sub: 22
+            unitPrice: 25000000000
+            deriveShaImpl: 2
+            governance:
+              governingNode: '0x99fb17d324fa0e07f23b49d09028ac0919414db6'
+              governanceMode: single
+              govParamContract: '0x0000000000000000000000000000000000000000'
+              reward:
+                mintingAmount: 9600000000000000000
+                ratio: 34/54/12
+                kip82ratio: 20/80
+                useGiniCoeff: true
+                deferredTxFee: true
+                stakingUpdateInterval: 86400
+                proposerUpdateInterval: 3600
+                minimumStake: 5000000
+              kip71:
+                lowerboundbasefee: 25000000000
+                upperboundbasefee: 750000000000
+                gastarget: 30000000
+                maxblockgasusedforbasefee: 60000000
+                basefeedenominator: 20
     KlayGetFilterChangesResp:
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/ArrayOfLog'
+          $ref: '#/components/schemas/KlayArrayOfLog'
     KlayGetFilterLogsResp:
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/ArrayOfLog'
+          $ref: '#/components/schemas/KlayArrayOfLog'
     BlockCount:
+      title: BlockCount
       type: string
       format: Hexadecimal
       description: Number of blocks in the requested range in hexadecimal. Between 1 (0x1) and 1024 (0x400) blocks can be requested in a single query. Less than requested may be returned if not all blocks are available.
     RewardPercentiles:
+      title: RewardPercentiles
       type: array
       items:
         type: number
@@ -6590,6 +7505,22 @@ components:
             - - 0.1
               - 0.2
               - 0.3
+    BaseFeePerGas:
+      title: BaseFeePerGas
+      type: array
+      items:
+        type: string
+        format: Hexadecimal
+      description: An array of block base fees per gas. This includes the next block after the newest of the returned range, because this value can be derived from the newest block.
+    Reward:
+      title: Reward
+      type: array
+      description: An array of effective priority fee per gas data points from a single block. All zeroes are returned if the block is empty.
+      items:
+        type: array
+        items:
+          type: string
+          format: hex
     KlayFeeHistoryResp:
       type: object
       required:
@@ -6606,11 +7537,7 @@ components:
               format: Hexadecimal
               description: Lowest numbered block of the returned range in hexadecimal.
             baseFeePerGas:
-              type: array
-              items:
-                type: string
-                format: Hexadecimal
-              description: An array of block base fees per gas. This includes the next block after the newest of the returned range, because this value can be derived from the newest block.
+              $ref: '#/components/schemas/BaseFeePerGas'
             gasUsedRatio:
               type: array
               items:
@@ -6618,13 +7545,7 @@ components:
                 format: float
               description: An array of the ratios of gas used per block. These are calculated as the ratio of gasUsed and gasLimit.
             reward:
-              type: array
-              items:
-                type: array
-                items:
-                  type: string
-                  format: Hexadecimal
-              description: An array of effective priority fee per gas data points from a single block. All zeroes are returned if the block is empty.
+              $ref: '#/components/schemas/Reward'
           example:
             oldestBlock: '0xa5b'
             reward:
@@ -6654,6 +7575,7 @@ components:
         params:
           type: array
           items:
+            title: data
             type: string
             format: DATA
             description: The data to convert into a SHA3 hash.
@@ -6665,3 +7587,91 @@ components:
         result:
           type: string
           example: '0x36712aa4d0dd2f64a9ae6ac09555133a157c74ddf7c079a70c33e8b4bf70dd73'
+    KlayGetRawTransactionByBlockNumberAndIndexReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getRawTransactionByBlockNumberAndIndex
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BlockNumberOrTag'
+              - type: string
+                format: hex
+                title: transactionIndex
+                description: The transaction index position.
+          example:
+            - '0x27'
+            - '0x0'
+    KlayGetRawTransactionByBlockNumberAndIndexResp:
+      type: object
+      properties:
+        result:
+          type: string
+          description: The bytes of the transaction
+          example: '0x0'
+    KlayGetStakingInfoRep:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: klay_getStakingInfo
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BlockNumberOrTag'
+          example:
+            - latest
+    KlayGetStakingInfoResq:
+      type: object
+      properties:
+        result:
+          type: object
+          description: Staking information
+          example:
+            BlockNum: 57801600
+            CouncilNodeAddrs:
+              - '0x99fb17d324fa0e07f23b49d09028ac0919414db6'
+              - '0x571e53df607be97431a5bbefca1dffe5aef56f4d'
+              - '0xb74ff9dea397fe9e231df545eb53fe2adf776cb2'
+              - '0x5cb1a7dccbd0dc446e3640898ede8820368554c8'
+              - '0x776817c0ef3d06d794cf01ae9afa33d7397b9b40'
+              - '0xc180ca565b34b5b63877674f5fe647e7da079022'
+              - '0x03497f51c31fe8b402df0bde90fd5a85f87aa943'
+            CouncilRewardAddrs:
+              - '0xb2bd3178affccd9f9f5189457f1cad7d17a01c9d'
+              - '0x6559a7b6248b342bc11fbcdf9343212bbc347edc'
+              - '0x82829a60c6eac4e3e9d6ed00891c69e88537fd4d'
+              - '0xa86fd667c6a340c53cc5d796ba84dbe1f29cb2f7'
+              - '0x6e22cbe2b8bbd1df9f1d3c8ebae6d7ff5414a734'
+              - '0x24e593fb29731e54905025c230727dc28d229f77'
+              - '0x2b2a7a1d29a203f60e0a964fc64231265a49cd97'
+            CouncilStakingAddrs:
+              - '0x12fa1ab4c3e17c1c08c1b5a945c864c8e8bf707e'
+              - '0xfd56604f1a20268ff7a0eab2ab48e25ee1e0f653'
+              - '0x1e0f6aaa9baa6081dc4910a854eebf8854c262ab'
+              - '0x5e6988415ebe0f6b088f5a676003ba60f572875a'
+              - '0xbb44998c2af35b8faee694cffe216558056d747e'
+              - '0x68cba498b7175cde9de08fc2e85ad3e9c8caefa8'
+              - '0x98efb31eeccafe35d53a6926e2a54c0858d9eebc'
+            CouncilStakingAmounts:
+              - 5000000
+              - 5000000
+              - 5000000
+              - 5000000
+              - 5000000
+              - 5000000
+              - 5000000
+            Gini: 0
+            KIRAddr: '0x716f89d9bc333286c79db4ebb05516897c8d208a'
+            PoCAddr: '0x2bcf9d3e4a846015e7e3152a614c684de16f37c6'
+            UseGini: true
