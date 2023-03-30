@@ -1,23 +1,15 @@
 from base.testing import KlaytnBaseTesting
 
 
-class TestKlayCall(KlaytnBaseTesting):
-    
+class TestGetDecodedAnchoringTransactionByHash(KlaytnBaseTesting):
+
     def setUp(self) -> None:
         super().setUp()
-        self.callObject = {
-            "from": "0x3f71029af4e252b25b9ab999f77182f0cd3bc085",
-            "to": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b",
-            "gas": "0x100000",
-            "gasPrice": "0x5d21dba00",
-            "value": "0x0",
-            "input": "0x8ada066e"
-        }
-        self.blockTag = 'latest'
+        self.hashOfTransaction = "0x72cde80650c7c6745e4cf4c162e9ce1e5542f4d86112925faa6aa75f6a6142ec"
 
     def test_post(self):
-        klay_response = self.sdk.klay.call(
-            self.callObject, self.blockTag
+        klay_response = self.sdk.klay.get_decoded_anchoring_transaction_by_hash(
+            self.hashOfTransaction
         )
 
         self.covert_response(klay_response.response)
@@ -27,7 +19,7 @@ class TestKlayCall(KlaytnBaseTesting):
         self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        klay_response = self.sdk.klay.call(self.callObject)
+        klay_response = self.sdk.klay.get_decoded_anchoring_transaction_by_hash()
 
         self.covert_response(klay_response.response)
         self.assertResponseSuccess()
