@@ -1,0 +1,101 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/getRawTransactionByHash:
+    post:
+      operationId: getRawTransactionByHash
+      summary: "[getRawTransactionByHash]"
+      description: |
+        GetRawTransactionByHash returns the bytes of the transaction for the given hash.
+        
+        **JSONRPC:** `klay_getRawTransactionByHash`
+
+      tags:
+        - klay
+
+      parameters:
+        - name: hash
+          required: true
+          schema:
+            type: string
+            format: hex
+          description: Hex representation of a Keccak 256 hash
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/KlayGetRawTransactionByHashReq"
+
+      responses:
+        200:
+          description: returns the bytes of the transaction for the given hash.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/KlayGetRawTransactionByHashResp"
+
+      externalDocs:
+        url: https://etclabscore.github.io/core-geth/JSON-RPC-API/modules/eth/#eth_getrawtransactionbyhash
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/other/getRawTransactionByHash.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/account/KlayAccountCreatedExample.java"
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: "../../../code-samples/javascript/klay/account/accountCreated.js"
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: "../../../code-samples/python/klay/account/accountCreated.py"
+components:
+  schemas:
+    KlayGetRawTransactionByHashReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getRawTransactionByHash'
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: hash
+                type: string
+                format: hex
+                description: Hex representation of a Keccak 256 hash
+          example:  ["0x29b6cd965c7d9a53a6f068da259dce1d3810ba79fff8eebac5d4da14754e67e6"]
+
+    KlayGetRawTransactionByHashResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: hex
+          title: dataWord
+          description: Hex representation of some bytes
+          example: "0x"
