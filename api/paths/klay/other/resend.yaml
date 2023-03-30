@@ -1,0 +1,162 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/resend:
+    post:
+      operationId: resend
+      summary: "[resend]"
+      description: |
+        Resend accepts an existing transaction and a new gas price and limit. It will remove the given transaction from the pool and reinsert it with the new gas price and limit.
+        
+        **JSONRPC:** `klay_resend`
+
+      tags:
+        - klay
+
+      parameters:
+        - name: sendArgs
+          required: true
+          schema:
+            $ref: "#/components/schemas/SendArgs"
+          in: query
+        - name: gasPrice
+          in: query
+          required: true
+          description: Hex representation of the integer
+          schema:
+            type: string
+            format: hex
+        - name: gasLimit
+          in: query
+          required: true
+          description: Hex representation of a uint64
+          schema:
+            type: string
+            format: hex
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/KlayResendReq"
+
+      responses:
+        200:
+          description: Resend accepts an existing transaction and a new gas price and limit. It will remove the given transaction from the pool and reinsert it with the new gas price and limit.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: hex
+
+      externalDocs:
+        url: https://etclabscore.github.io/core-geth/JSON-RPC-API/modules/eth/#eth_resend
+        description: Klaytn Docs
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/other/resend.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/account/KlayAccountCreatedExample.java"
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: "../../../code-samples/javascript/klay/account/accountCreated.js"
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: "../../../code-samples/python/klay/account/accountCreated.py"
+components:
+  schemas:
+    KlayResendReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_resend'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/SendArgs"
+              - title: gasPrice
+                description: Hex representation of the integer
+                type: string
+                format: hex
+              - title: gasLimit
+                description: Hex representation of a uint64
+                type: string
+                format: hex
+
+    SendArgs:
+      type: object
+      properties:
+        accessList:
+          type: array
+          items:
+            type: object
+            properties:
+              address:
+                type: string
+                format: hex
+              storageKeys:
+                type: array
+                items:
+                  type: string
+                  format: hex
+        chainId:
+            type: string
+            format: hex
+        data:
+            type: string
+            format: hex
+        from:
+            type: string
+            format: hex
+        gas:
+            type: string
+            format: hex
+        gasPrice:
+            type: string
+            format: hex
+        input:
+            type: string
+            format: hex
+        maxFeePerGas:
+            type: string
+            format: hex
+        maxPriorityFeePerGas:
+            type: string
+            format: hex
+        nonce:
+            type: string
+            format: hex
+        to:
+            type: string
+            format: hex
+        value:
+            type: string
+            format: hex
+

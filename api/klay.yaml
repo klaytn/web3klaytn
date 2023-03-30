@@ -159,6 +159,10 @@ paths:
     $ref: ./paths/klay/filter/newFilter.yaml#/paths/~1klay~1newFilter
   /klay/filter/uninstallFilter:
     $ref: ./paths/klay/filter/uninstallFilter.yaml#/paths/~1klay~1uninstallFilter
+  /klay/filter/unsubscribe:
+    $ref: ./paths/klay/filter/unsubscribe.yaml#/paths/~1klay~1unsubscribe
+  /klay/filter/getLogs:
+    $ref: ./paths/klay/filter/getLogs.yaml#/paths/~1klay~1getLogs
 
   # klay/gas
   /klay/gas/feeHistory:
@@ -177,6 +181,8 @@ paths:
     $ref: ./paths/klay/other/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
   /klay/nodeAddress:
     $ref: ./paths/klay/other/nodeAddress.yaml#/paths/~1klay~1nodeAddress
+  /klay/resend:
+    $ref: ./paths/klay/other/resend.yaml#/paths/~1klay~1resend
 
   # eth/account
   /eth/account/accounts:

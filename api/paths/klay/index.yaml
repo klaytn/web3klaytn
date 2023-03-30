@@ -151,6 +151,10 @@ paths:
     $ref: ./filter/newPendingTransactionFilter.yaml#/paths/~1klay~1newPendingTransactionFilter
   /klay/filter/uninstallFilter:
     $ref: ./filter/uninstallFilter.yaml#/paths/~1klay~1uninstallFilter
+  /klay/filter/unsubscribe:
+    $ref: ./filter/unsubscribe.yaml#/paths/~1klay~1unsubscribe
+  /klay/filter/getLogs:
+    $ref: ./filter/getLogs.yaml#/paths/~1klay~1getLogs
 
   # klay/gas
   /klay/gas/feeHistory:
@@ -169,4 +173,5 @@ paths:
     $ref: ./other/nodeAddress.yaml#/paths/~1klay~1nodeAddress
   /klay/getRawTransactionByHash:
     $ref: ./other/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
-
+  /klay/resend:
+    $ref: ./other/resend.yaml#/paths/~1klay~1resend
