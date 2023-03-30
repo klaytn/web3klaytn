@@ -1,7 +1,7 @@
 package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.models.Call200Response;
-import opensdk.sdk.models.CallObject;
+import opensdk.sdk.models.EthCallObject;
 import org.klaytn.OpenSDK;
 
 import java.io.IOException;
@@ -12,7 +12,7 @@ public class KlayTransactionCallExample {
 
     void klayTransactionCallExample() throws IOException {
         // given
-        CallObject callObject = new CallObject();
+        EthCallObject callObject = new EthCallObject();
         callObject.setFrom("0x3f71029af4e252b25b9ab999f77182f0cd3bc085");
         callObject.setTo("0x87ac99835e67168d4f9a40580f8f5c33550ba88b");
         callObject.setGas("0x100000");

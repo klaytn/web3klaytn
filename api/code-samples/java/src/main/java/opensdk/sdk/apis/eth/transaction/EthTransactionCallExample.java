@@ -2,7 +2,7 @@ package opensdk.sdk.apis.eth.transaction;
 
 import opensdk.sdk.apis.EthApi;
 import opensdk.sdk.models.Call200Response;
-import opensdk.sdk.models.CallObject;
+import opensdk.sdk.models.EthCallObject;
 import opensdk.sdk.models.StateOverrideSet;
 import org.klaytn.OpenSDK;
 import org.web3j.protocol.http.HttpService;
@@ -19,7 +19,7 @@ public class EthTransactionCallExample {
         // given
         EthApi ethApi = new EthApi(new HttpService("http://localhost:8551"));
         String blockTag = "latest";
-        CallObject callObject = new CallObject();
+        EthCallObject callObject = new EthCallObject();
         callObject.setFrom("0xca7a99380131e6c76cfa622396347107aeedca2d");
         callObject.setTo("0xbE3892d33620bE5aca8c75D39e7401871194d290");
         callObject.setInput("0x2e64cec1");
