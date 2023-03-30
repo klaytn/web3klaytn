@@ -1,7 +1,5 @@
 import json
-
-from eth.opensdk_python_eth import ApiClient, Configuration
-from eth.opensdk_python_eth.apis.tags.eth_api import Call
+from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
 
@@ -18,7 +16,7 @@ state_override_set = {
         }
 }
 
-eth = Call(ApiClient(configuration=Configuration(host=host)))
-eth_response = eth.call(call_object, block_tag, state_override_set)
+sdk = OpenSDK(host)
+eth_response = sdk.eth.call(call_object, block_tag, state_override_set)
 
 print(json.loads(eth_response.response.data))
