@@ -53,8 +53,6 @@ paths:
     $ref: ./account/getTransactionCount.yaml#/paths/~1klay~1getTransactionCount
   /klay/account/isContractAccount:
     $ref: ./account/isContractAccount.yaml#/paths/~1klay~1isContractAccount
-  /klay/account/createAccessList:
-    $ref: ./account/createAccessList.yaml#/paths/~1klay~1createAccessList
 
   # klay/block
   /klay/block/blockNumber:
@@ -161,3 +159,10 @@ paths:
   # klay/miscellaneous
   /klay/miscellaneous/sha3:
     $ref: ./miscellaneous/sha3.yaml#/paths/~1klay~1sha3
+
+  # klay/other
+  /klay/createAccessList:
+    $ref: ./other/createAccessList.yaml#/paths/~1klay~1createAccessList
+  /klay/getRawTransactionByBlockHashAndIndex:
+    $ref: ./other/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockHashAndIndex
+
