@@ -58,8 +58,8 @@ paths:
     $ref: ./paths/klay/account/getTransactionCount.yaml#/paths/~1klay~1getTransactionCount
   /klay/account/isContractAccount:
     $ref: ./paths/klay/account/isContractAccount.yaml#/paths/~1klay~1isContractAccount
-  /klay/account/createAccessList:
-    $ref: ./paths/klay/account/createAccessList.yaml#/paths/~1klay~1createAccessList
+  /klay/createAccessList:
+    $ref: ./paths/klay/other/createAccessList.yaml#/paths/~1klay~1createAccessList
 
   # klay/block
   /klay/block/blockNumber:
