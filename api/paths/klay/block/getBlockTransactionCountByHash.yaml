@@ -76,10 +76,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        #- lang: "javascript"
-        #  label: "Javascript"
-        #  source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/block/getBlockTransactionCountByHash.js"
         #- lang: "python"
         #  label: "Python"
         #  source:
