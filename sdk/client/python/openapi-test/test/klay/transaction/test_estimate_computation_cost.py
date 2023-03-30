@@ -1,10 +1,7 @@
-from base.constants import KLAYTN_URL
 from base.testing import KlaytnBaseTesting
-from opensdk.sdk import OpenSDK
 
 
 class TestKlayEstimateComputationCost(KlaytnBaseTesting):
-    sdk = OpenSDK(KLAYTN_URL)
 
     def setUp(self) -> None:
         super().setUp()
@@ -17,7 +14,9 @@ class TestKlayEstimateComputationCost(KlaytnBaseTesting):
         self.blockNumberOrHash = "latest"
 
     def test_post(self):
-        klay_response = self.sdk.klay.estimate_computation_cost(self.call_object, self.blockNumberOrHash)
+        klay_response = self.sdk.klay.estimate_computation_cost(
+            self.call_object, self.blockNumberOrHash
+        )
         
         self.covert_response(klay_response.response)
         self.assertResponseSuccess()

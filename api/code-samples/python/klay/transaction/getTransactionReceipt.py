@@ -3,10 +3,9 @@ from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
 
-address = "0xa4f42d4d2a3a13874406435500950c9bf2d783db"
-blockTag = "latest"
+transactionHash = "0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"
 
 sdk = OpenSDK(host)
-klay_response = sdk.klay.account_created(address, blockTag)
+klay_response = sdk.klay.get_transaction_receipt(transactionHash)
 
 print(json.loads(klay_response.response.data))

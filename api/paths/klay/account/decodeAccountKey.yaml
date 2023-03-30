@@ -60,15 +60,14 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        - lang: "python"
-          label: "Python"
-          source:
-            $ref: "../../../code-samples/python/klay/account/decodeAccountKey.py"
         - lang: "javascript"
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klay/account/decodeAccountKey.js"
-
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/account/decodeAccountKey.py"
 components:
   schemas:
     KlayDecodeAccountKeyReq:

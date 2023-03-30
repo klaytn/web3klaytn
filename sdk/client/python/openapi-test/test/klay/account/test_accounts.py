@@ -1,10 +1,7 @@
-from base.constants import KLAYTN_URL
 from base.testing import KlaytnBaseTesting
-from opensdk.sdk import OpenSDK
 
 
 class TestKlayAccounts(KlaytnBaseTesting):
-    sdk = OpenSDK(KLAYTN_URL)
 
     def test_post(self):
         klay_response = self.sdk.klay.accounts()
