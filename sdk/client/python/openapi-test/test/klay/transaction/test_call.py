@@ -1,10 +1,7 @@
-from base.constants import KLAYTN_URL
 from base.testing import KlaytnBaseTesting
-from opensdk.sdk import OpenSDK
 
 
 class TestKlayCall(KlaytnBaseTesting):
-    sdk = OpenSDK(KLAYTN_URL)
     
     def setUp(self) -> None:
         super().setUp()
@@ -20,7 +17,8 @@ class TestKlayCall(KlaytnBaseTesting):
 
     def test_post(self):
         klay_response = self.sdk.klay.call(
-            self.call_object, self.block_tag)
+            self.call_object, self.block_tag
+        )
 
         self.covert_response(klay_response.response)
         self.assertResponseSuccess()

@@ -1,16 +1,16 @@
 from base.testing import KlaytnBaseTesting
 
 
-class TestAccountCreated(KlaytnBaseTesting):
+class TestGetTransactionByBlocNumberAndIndex(KlaytnBaseTesting):
 
     def setUp(self) -> None:
         super().setUp()
-        self.blockTag = "latest"
-        self.address = "0xa4f42d4d2a3a13874406435500950c9bf2d783db"
+        self.blockTag = "0x27"
+        self.transactionIndex = "0x0"
 
     def test_post(self):
-        klay_response = self.sdk.klay.account_created(
-            self.address, self.blockTag
+        klay_response = self.sdk.klay.get_transaction_by_block_number_and_index(
+            self.blockTag, self.transactionIndex
         )
 
         self.covert_response(klay_response.response)
@@ -20,8 +20,8 @@ class TestAccountCreated(KlaytnBaseTesting):
         self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        klay_response = self.sdk.klay.account_created(self.blockTag)
-        
+        klay_response = self.sdk.klay.get_transaction_by_block_number_and_index()
+
         self.covert_response(klay_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)
