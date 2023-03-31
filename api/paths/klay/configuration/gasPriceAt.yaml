@@ -45,7 +45,7 @@ paths:
 
       responses:
         200:
-          description:
+          description: Return integer of the current gas price in peb.
           content:
             application/json:
               schema:
