@@ -424,11 +424,11 @@ components:
         blockHash:
           type: string
           format: 32-byte DATA
-          description: Hash of the block where this transaction was in. null when its pending.
+          description: Hash of the block where this transaction was in. null when it is pending.
         blockNumber:
           type: string
           format: hex
-          description: Block number where this transaction was in. null when its pending.
+          description: Block number where this transaction was in. null when it is pending.
         codeFormat:
           type: string
           description: (optional) The code format of smart contract code.
@@ -493,7 +493,7 @@ components:
         transactionIndex:
           type: string
           format: hex
-          description: Integer of the transactions index position in the block. null when its pending.
+          description: Integer of the transactions index position in the block. null when it is pending.
         type:
           type: string
           description: A string representing the type of the transaction.
