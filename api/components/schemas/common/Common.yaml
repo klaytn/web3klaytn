@@ -32,6 +32,7 @@ components:
     BlockHash:
       title: BlockHash
       type: string
+      format: 32-byte DATA
       description: the block hash
 
     Address:

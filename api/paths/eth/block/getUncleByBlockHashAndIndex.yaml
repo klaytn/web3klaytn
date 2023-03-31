@@ -1,0 +1,105 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/getUncleByBlockHashAndIndex:
+    post:
+      summary: "[getUncleByBlockHashAndIndex]"
+      tags:
+        - eth
+      operationId: getUncleByBlockHashAndIndex
+      description: |
+        Returns information about a block by hash.
+
+        **JSONRPC:** `eth_getUncleByBlockHashAndIndex`
+
+      parameters:
+        - name: blockHash
+          in: query
+          description: Hash of a block.
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+        - name: uncleIndex
+          in: query
+          description: The uncle's index position.
+          required: true
+          schema:
+            type: string
+            format: hex
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthGetUncleByBlockHashAndIndexReq"
+
+      responses:
+        200:
+          description: Returns information about a block by hash.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthGetUncleByBlockHashAndIndexResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/block/getUncleByBlockHashAndIndex.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/transaction/EthTransactionCallExample.java"
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: "../../../code-samples/javascript/eth/transaction/call.js"
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: "../../../code-samples/python/eth/transaction/call.py"
+
+components:
+  schemas:
+    EthGetUncleByBlockHashAndIndexReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'eth_getUncleByBlockHashAndIndex'
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: blockHash
+                description: Hash of a block.
+                type: string
+                format: 32-byte DATA
+              - title: uncleIndex
+                description: The uncle's index position.
+                type: string
+                format: hex
+          example: ["0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c", "0x1"]
+
+    EthGetUncleByBlockHashAndIndexResp:
+      type: object
+      properties:
+        result:
+            type: string
+            example: null
