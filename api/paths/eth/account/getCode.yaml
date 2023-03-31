@@ -54,9 +54,6 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/EthGetCodeResp"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/account#eth_getcode
-        description: ethtn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

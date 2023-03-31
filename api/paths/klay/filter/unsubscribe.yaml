@@ -66,9 +66,6 @@ paths:
                         description: true if the subscription was successfully canceled, otherwise false.
                         example: true
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/filter#klay_unsubscribe
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

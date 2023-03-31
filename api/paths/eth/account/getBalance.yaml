@@ -54,9 +54,6 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/EthGetBalanceResp"
 
-      externalDocs:
-        url: https://docs.ethtn.foundation/content/dapp/json-rpc/api-references/eth/account#eth_getbalance
-        description: ethtn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

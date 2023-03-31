@@ -54,9 +54,6 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/KlayGetBlockWithConsensusInfoByNumberRangeResp"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/sdk/caver-js/v1.4.1/api-references/caver.klay/block#getblockwithconsensusinfo
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

@@ -52,9 +52,7 @@ paths:
                         format: hex
                         description: Integer of the number of transactions in this block.
                         example: "0x0"
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/block#eth_getblocktransactioncountbyhash
-        description: Klaytn Docs
+
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

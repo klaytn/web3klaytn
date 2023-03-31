@@ -49,9 +49,6 @@ paths:
                         description: "Integer of the current gas price in peb."
                         example: "0xAE9F7BCC00"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/gas#klay_maxpriorityfeepergas
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

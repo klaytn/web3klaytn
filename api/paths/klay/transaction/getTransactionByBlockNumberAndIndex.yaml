@@ -56,9 +56,6 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/KlayGetTransactionByBlockNumberAndIndexResp"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_gettransactionbyblocknumberandindex
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

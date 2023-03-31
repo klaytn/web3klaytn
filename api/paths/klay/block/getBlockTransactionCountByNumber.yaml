@@ -56,9 +56,6 @@ paths:
                         description: Integer of the number of transactions in this block.
                         example: "0xa"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getblocktransactioncountbynumber
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

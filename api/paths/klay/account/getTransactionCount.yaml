@@ -56,9 +56,6 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/KlayGetTransactionCountResp"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/account#klay_getaccountkey
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

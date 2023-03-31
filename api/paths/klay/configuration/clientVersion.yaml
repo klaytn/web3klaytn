@@ -48,9 +48,6 @@ paths:
                         description: "The current client version of a Klaytn node."
                         example: "Klaytn/v0.9.1+3518232250/linux-amd64/go1.11.2"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_clientversion
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
