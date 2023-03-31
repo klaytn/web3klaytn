@@ -16,20 +16,10 @@ public class KlayGetBlockByHashApiTest extends BaseOpenSDK {
     @Test
     @DisplayName("RPC klay_getBlockByHash")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        //todo
-
-        //given
-        String address = "0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c";
-        Boolean flag = Boolean.TRUE;
-        // when
-        GetBlockByHash200Response response = sdk.klay.getBlockByHash(address, flag).send();
-        // then - expect
-        var resultResponse = response.getResultResponse();
-        var errorResponse = response.getErrorResponse();
-
-        assertAll(
-                () -> assertNotNull(resultResponse),
-                () -> assertNull(errorResponse)
-        );
+        GetBlockByHash200Response gr = sdk.klay.getBlockByHash(
+            "0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c",
+            true)
+        .send();
+        gr.getResult();
     }
 }

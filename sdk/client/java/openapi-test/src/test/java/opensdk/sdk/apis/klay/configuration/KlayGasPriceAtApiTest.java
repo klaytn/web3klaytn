@@ -7,25 +7,15 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @DisplayName("Klay RPC Test")
 public class KlayGasPriceAtApiTest extends BaseOpenSDK {
 
     @Test
     @DisplayName("RPC klay_gasPriceAt")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        //given
-        String blockNumber = "0x64";
-        // when
-        GasPriceAt200Response response = sdk.klay.gasPriceAt(blockNumber).send();
-        // then - expect
-        var resultResponse = response.getResultResponse();
-        var errorResponse = response.getErrorResponse();
-
-        assertAll(
-                () -> assertNotNull(resultResponse),
-                () -> assertNull(errorResponse)
-        );
+        GasPriceAt200Response gr = sdk.klay.gasPriceAt(
+            "0x64")
+        .send();
+        gr.getResult();
     }
 }

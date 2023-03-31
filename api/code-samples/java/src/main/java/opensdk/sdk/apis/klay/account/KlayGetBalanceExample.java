@@ -10,9 +10,10 @@ public class KlayGetBalanceExample {
     private final OpenSDK sdk = new OpenSDK();
 
     void klayGetBalanceExample() throws IOException {
-        String address = "0xc94770007dda54cF92009BFF0dE90c06F603a09f";
-        String blockNumber = "latest";
-
-        GetBalance200Response response = sdk.klay.getBalance(address, blockNumber).send();
+        GetBalance200Response gr = sdk.klay.getBalance(
+            "0xc94770007dda54cF92009BFF0dE90c06F603a09f",
+            "latest")
+        .send();
+        gr.getResult();
     }
 }

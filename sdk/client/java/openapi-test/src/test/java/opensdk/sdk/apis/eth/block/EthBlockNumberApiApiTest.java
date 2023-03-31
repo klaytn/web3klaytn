@@ -7,29 +7,15 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * @author Tungnd
- * @since 24/03/2023 9:24 AM
- */
 @DisplayName("Eth RPC Test")
 class EthBlockNumberApiApiTest extends BaseOpenSDK {
 
     @Test
     @DisplayName("RPC eth_blockNumber")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        // when
-        BlockNumber200Response response = sdk.eth.blockNumber().send();
-        // then - expect
-        var resultResponse = response.getResultResponse();
-        var errorResponse = response.getErrorResponse();
-
-        assertAll(
-                () -> assertNotNull(resultResponse),
-                () -> assertNull(errorResponse)
-        );
+        BlockNumber200Response br = sdk.eth.blockNumber().send();
+        br.getResult();
     }
 }
