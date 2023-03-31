@@ -222,12 +222,28 @@ paths:
     $ref: ./paths/eth/block/getHeaderByHash.yaml#/paths/~1eth~1getHeaderByHash
   /eth/block/getStorageAt:
     $ref: ./paths/eth/block/getStorageAt.yaml#/paths/~1eth~1getStorageAt
+  /eth/block/getUncleCountByBlockHash:
+    $ref: ./paths/eth/block/getUncleCountByBlockHash.yaml#/paths/~1eth~1getUncleCountByBlockHash
+  /eth/block/getUncleByBlockHashAndIndex:
+    $ref: ./paths/eth/block/getUncleByBlockHashAndIndex.yaml#/paths/~1eth~1getUncleByBlockHashAndIndex
+  /eth/block/getUncleByBlockNumberAndIndex:
+    $ref: ./paths/eth/block/getUncleByBlockNumberAndIndex.yaml#/paths/~1eth~1getUncleByBlockNumberAndIndex
+  /eth/block/getUncleCountByBlockNumber:
+    $ref: ./paths/eth/block/getUncleCountByBlockNumber.yaml#/paths/~1eth~1getUncleCountByBlockNumber
 
   # eth/transaction
   /eth/transaction/call:
     $ref: ./paths/eth/transaction/call.yaml#/paths/~1eth~1call
   /eth/transaction/getTransactionByBlockHashAndIndex:
     $ref: ./paths/eth/transaction/getTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getTransactionByBlockHashAndIndex
+  /eth/transaction/getTransactionByBlockNumberAndIndex:
+    $ref: ./paths/eth/transaction/getTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getTransactionByBlockNumberAndIndex
+  /eth/transaction/getTransactionByHash:
+    $ref: ./paths/eth/transaction/getTransactionByHash.yaml#/paths/~1eth~1getTransactionByHash
+  /eth/transaction/getTransactionCount:
+    $ref: ./paths/eth/transaction/getTransactionCount.yaml#/paths/~1eth~1getTransactionCount
+  /eth/transaction/getTransactionReceipt:
+    $ref: ./paths/eth/transaction/getTransactionReceipt.yaml#/paths/~1eth~1getTransactionReceipt
 
   # eth/config
   /eth/config/chainID:

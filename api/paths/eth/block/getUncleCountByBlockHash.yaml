@@ -1,0 +1,96 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/getUncleCountByBlockHash:
+    post:
+      summary: "[getUncleCountByBlockHash]"
+      tags:
+        - eth
+      operationId: getUncleCountByBlockHash
+      description: |
+        Returns the number of uncles in a block from a block matching the given block hash. Since there are no uncles in Klaytn, it returns 0x0. It returns null if there is no matching block.
+
+        **JSONRPC:** `eth_getUncleCountByBlockHash`
+
+      parameters:
+        - name: blockHash
+          in: query
+          description: Hash of a block.
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthGetUncleCountByBlockHashReq"
+
+      responses:
+        200:
+          description: Integer of the number of transactions in this block. It returns null if there is no matching block.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthGetUncleCountByBlockHashResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/block/getUncleCountByBlockHash.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/transaction/EthTransactionCallExample.java"
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: "../../../code-samples/javascript/eth/transaction/call.js"
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: "../../../code-samples/python/eth/transaction/call.py"
+
+components:
+  schemas:
+    EthGetUncleCountByBlockHashReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'eth_getUncleCountByBlockHash'
+        params:
+          type: array
+          items:
+            allOf:
+              - title: blockHash
+                description: Hash of a block.
+                type: string
+                format: 32-byte DATA
+          example: ["0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c"]
+
+    EthGetUncleCountByBlockHashResp:
+      type: object
+      properties:
+        result:
+            type: string
+            format: hex
+            description: Integer of the number of transactions in this block. It returns null if there is no matching block.
+            example: "0x0"

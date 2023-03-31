@@ -1,0 +1,181 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/getTransactionReceipt:
+    post:
+      summary: "[getTransactionReceipt]"
+      tags:
+        - eth
+      operationId: getTransactionReceipt
+      description: |
+        Returns the receipt of a transaction by transaction hash.
+
+        *NOTE:* The receipt is not available for pending transactions.
+
+        **JSONRPC:** `eth_getTransactionReceipt`
+
+      parameters:
+        - name: blockHash
+          in: query
+          description: Hash of a transaction.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthGetTransactionByHashReq"
+
+      responses:
+        200:
+          description: Object - A transaction object, or null when no transaction was found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthGetTransactionByHashResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/transaction/getTransactionReceipt.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #    $ref: ""
+
+components:
+  schemas:
+    EthGetTransactionByHashReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'eth_getTransactionReceipt'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
+          example: ["0x27"]
+
+    EthGetTransactionByHashResp:
+      type: object
+      properties:
+        result:
+          $ref: "#/components/schemas/TransactionReceiptObject"
+
+    TransactionReceiptObject:
+      title: TransactionReceiptObject
+      type: object
+      properties:
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block where this transaction was in.
+        blockNumber:
+          type: string
+          format: hex
+          description: The block number where this transaction was in.
+        contractAddress:
+          type: string
+          format: DATA
+          description: The contract address created, if the transaction was a contract creation, otherwise null.
+        cumulativeGasUsed:
+          type: string
+          format: hex
+          description: The total amount of gas used when this transaction was executed in the block.
+        effectiveGasPrice:
+          type: string
+          format: hex
+          description: The actual value per gas deducted from the senders account. Before EIP-1559, this is equal to the transaction's gas price. After, it is equal to baseFeePerGas + min(maxFeePerGas - baseFeePerGas, maxPriorityFeePerGas).
+        from:
+          type: string
+          format: 20-byte DATA
+          description: Address of the sender.
+        logs:
+          type: array
+          items:
+            type: object
+          description: Array of log objects, which this transaction generated.
+        logsBloom:
+          type: string
+          format: 256-byte DATA
+          description: Bloom filter for light clients to quickly retrieve related logs.
+        status:
+          type: string
+          format: hex
+          description: Either 1 (success) or 0 (failure).
+        to:
+          type: string
+          format: 20-byte DATA
+          description: Address of the receiver. null when it is a contract creation transaction.
+        transactionHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transaction.
+        transactionIndex:
+          type: string
+          format: hex
+          description: Integer of the transaction index position in the block.
+        type:
+          type: string
+          format: hex
+          description: An integer representing the type of the transaction.
+      example: {
+        "blockHash": "0xd49c770e1c6fdf340e25aca6d2de0ddf3d10873582b62b7ad604ff5b291bdbe5",
+        "blockNumber": "0xd017a7",
+        "contractAddress": null,
+        "cumulativeGasUsed": "0x8dc5d",
+        "effectiveGasPrice": "0x315c2f4800",
+        "from": "0x46705dfff24256421a05d056c29e81bdc09723b8",
+        "gasUsed": "0xf6e9",
+        "logs": [
+          {
+            "address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+            "blockHash": "0xd49c770e1c6fdf340e25aca6d2de0ddf3d10873582b62b7ad604ff5b291bdbe5",
+            "blockNumber": "0xd017a7",
+            "data": "0x000000000000000000000000000000000000000000000000000000000cd0a3c0",
+            "logIndex": "0x13",
+            "removed": false,
+            "topics": [
+              "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+              "0x00000000000000000000000046705dfff24256421a05d056c29e81bdc09723b8",
+              "0x000000000000000000000000cad1d9c2ad1860d4d4fb53782720279c60ae4de8"
+            ],
+            "transactionHash": "0x73af85890dd29691ff807b8d9e10c5a4d3349d28b6b143fa5e46db2c61b376e9",
+            "transactionIndex": "0x3"
+          }
+        ],
+        "logsBloom": "0x00000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000400000000000000000008000000000000008000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000080000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000004000800000000000000000000000000000000000000000000000000000000000000",
+        "status": "0x1",
+        "to": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+        "transactionHash": "0x73af85890dd29691ff807b8d9e10c5a4d3349d28b6b143fa5e46db2c61b376e9",
+        "transactionIndex": "0x3",
+        "type": "0x0"
+      }
