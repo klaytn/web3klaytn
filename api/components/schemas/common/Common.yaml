@@ -299,7 +299,7 @@ components:
           description: true when the log was removed, due to a chain reorganization. false if its a valid log.
         logIndex:
           type: string
-          format: QUANTITY
+          format: hex
           description: Integer of the log index position in the block. null when its pending log.
         transactionIndex:
           type: string
@@ -366,9 +366,11 @@ components:
         anyOf:
           - type: string
             format: 32-byte DATA
+            title: blockHash
             description: For filters created with klay_newBlockFilter, the return are block hashes (32-byte DATA), e.g., ["0x3454645634534..."].
           - type: string
             format: 32-byte DATA
+            title: transactionHash
             description: For filters created with klay_newPendingTransactionFilter, the return are transaction hashes (32-byte DATA), e.g., ["0x6345343454645..."].
           - $ref: "#/components/schemas/LogObject"
       description: Array of log objects, or an empty array if nothing has changed since last poll.
