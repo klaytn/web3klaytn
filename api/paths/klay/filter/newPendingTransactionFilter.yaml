@@ -50,9 +50,6 @@ paths:
                         description: "A filter id."
                         example: "0x90cec22a723fcc725fb2462733c2880f"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/filter#klay_newpendingtransactionfilter
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

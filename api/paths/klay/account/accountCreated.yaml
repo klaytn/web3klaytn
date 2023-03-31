@@ -58,9 +58,6 @@ paths:
                     properties:
                       result:
                         type: boolean
-      externalDocs:
-        url: https://docs.klaytn.foundation/dapp/json-rpc/api-references/klay/account#klay_accountcreated
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

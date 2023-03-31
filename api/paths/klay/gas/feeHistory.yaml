@@ -60,9 +60,7 @@ paths:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/KlayFeeHistoryResp"
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/gas#klay_feehistory
-        description: Klaytn Docs
+
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

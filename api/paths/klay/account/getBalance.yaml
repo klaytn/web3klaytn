@@ -55,9 +55,6 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/KlayGetBalanceResp"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/account#klay_getbalance
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

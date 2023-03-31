@@ -48,9 +48,6 @@ paths:
                         description: "`true` means the node is indexing sender transaction hash to transaction hash mapping information."
                         example: "0xAE9F7BCC00"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_issendertxhashindexingenabled
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

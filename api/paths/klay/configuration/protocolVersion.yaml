@@ -49,9 +49,6 @@ paths:
                         description: "The Klaytn protocol version of the node."
                         example: "0xAE9F7BCC00"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_protocolversion
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

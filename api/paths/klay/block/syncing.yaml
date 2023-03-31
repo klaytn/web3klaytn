@@ -44,9 +44,6 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/KlaySyncingResp"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_syncing
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

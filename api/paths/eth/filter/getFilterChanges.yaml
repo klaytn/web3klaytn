@@ -58,9 +58,6 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/EthGetFilterChangesResp"
 
-      externalDocs:
-        url: https://docs.ethtn.foundation/content/dapp/json-rpc/api-references/eth/filter#eth_getfilterChanges
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

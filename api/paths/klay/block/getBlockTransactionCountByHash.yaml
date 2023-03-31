@@ -64,9 +64,6 @@ paths:
                         format: hex
                         example: "0x0"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getBlockTransactionCountByHash
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

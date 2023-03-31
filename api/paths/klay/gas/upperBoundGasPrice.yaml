@@ -49,9 +49,7 @@ paths:
                         format: QUANTITY
                         description: Upper bound gas price.
                         example: "0xae9f7bcc00"
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/gas
-        description: Klaytn Docs
+
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

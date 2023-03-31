@@ -55,9 +55,6 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/EthGetTransactionByBlockHashAndIndexResp"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/transaction#eth_gettransactionbyblockhashandindex
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

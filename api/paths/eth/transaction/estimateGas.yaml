@@ -47,9 +47,6 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/EthEstimateGasResp"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/transaction#eth_estimategas
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

@@ -39,9 +39,6 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/CoinbaseResp"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/eth/config#eth_coinbase
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

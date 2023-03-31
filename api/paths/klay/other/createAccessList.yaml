@@ -54,9 +54,7 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/KlayCreateAccessListResp"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/sdk/caver-js/api-references/caver.rpc/klay#caver-rpc-klay-createaccesslist
-        description: Klaytn Docs
+
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

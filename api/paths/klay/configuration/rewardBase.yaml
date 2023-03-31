@@ -49,9 +49,6 @@ paths:
                         description: Address.
                         example: "0x96Fd91f34Cc8da9f6338C106Ba37aA8B48FB4Fa5"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_rewardbase
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

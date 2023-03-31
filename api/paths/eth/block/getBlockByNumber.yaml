@@ -53,9 +53,6 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/EthGetBlockByNumberResp"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/block#klay_getblockbyhash
-        description: ethtn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

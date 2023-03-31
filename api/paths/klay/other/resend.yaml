@@ -65,9 +65,6 @@ paths:
                         type: string
                         format: hex
 
-      externalDocs:
-        url: https://etclabscore.github.io/core-geth/JSON-RPC-API/modules/eth/#eth_resend
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

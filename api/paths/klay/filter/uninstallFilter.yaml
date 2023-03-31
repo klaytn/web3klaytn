@@ -63,9 +63,6 @@ paths:
                         type: boolean
                         description: true if the filter was successfully uninstalled, otherwise false.
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/filter#klay_uninstallfilter
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

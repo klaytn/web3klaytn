@@ -57,9 +57,6 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/KlayCallResp"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_call
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

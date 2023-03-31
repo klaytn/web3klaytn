@@ -64,9 +64,6 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/KlayGetLogsResp"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/filter#klay_getlogs
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

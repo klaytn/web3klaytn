@@ -56,9 +56,6 @@ paths:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/KlayGetRawTransactionByBlockHashAndIndexResp"
 
-      externalDocs:
-        url: https://etclabscore.github.io/core-geth/JSON-RPC-API/modules/eth/#eth_getrawtransactionbyblockhashandindex
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

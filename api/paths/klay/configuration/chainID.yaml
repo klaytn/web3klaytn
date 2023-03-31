@@ -48,9 +48,6 @@ paths:
                         description: "Integer of the chain ID of the chain."
                         example: "0x7e2"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/config#klay_chainid
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

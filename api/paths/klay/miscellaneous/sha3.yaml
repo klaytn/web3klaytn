@@ -46,9 +46,7 @@ paths:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/KlaySha3Resp"
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/misc#klay_sha3
-        description: Klaytn Docs
+
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

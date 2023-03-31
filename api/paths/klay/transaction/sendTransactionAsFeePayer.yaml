@@ -56,9 +56,6 @@ paths:
                         description: "The transaction hash"
                         example: "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_sendtransactionasfeepayer
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

@@ -59,9 +59,6 @@ paths:
                         description: "The amount of computation cost used."
                         example: "0x1e8b0ad"
 
-      externalDocs:
-        url: https://docs.klaytn.foundation/content/dapp/json-rpc/api-references/klay/transaction#klay_estimatecomputationcost
-        description: Klaytn Docs
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
