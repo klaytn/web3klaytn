@@ -3,13 +3,14 @@ module.exports = {
     verbose: true,
     collectCoverage: true,
     testEnvironment: 'node',
+    testTimeout: 30000,
     testRegex: '/test/.*\\.(test|spec)?\\.(js)$',
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     "testPathIgnorePatterns": [
-        "<rootDir>/test/eth/",
-        //"<rootDir>/test/klay/account",
-        "<rootDir>/test/klay/configuration",
-        "<rootDir>/test/klay/transaction",
+        // "<rootDir>/test/eth/",
+        // "<rootDir>/test/klay/account",
+        // "<rootDir>/test/klay/configuration",
+        // "<rootDir>/test/klay/transaction",
         //"<rootDir>/test/klay/block"
     ]
 };

@@ -14,6 +14,6 @@ describe('klay_getCouncil API', () => {
             done();
         };
         const blockNumberOrTag = '0x1b4'
-        sdk.klay.getCouncil(blockNumberOrTag, {}, callbackOne);
+        sdk.klay.getCouncil({blockNumberOrTag}, callbackOne);
     });
 });

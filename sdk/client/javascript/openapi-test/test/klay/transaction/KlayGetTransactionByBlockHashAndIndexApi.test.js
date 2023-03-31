@@ -8,7 +8,6 @@ describe('klay_getTransactionByBlockHashAndIndex API', () => {
     test.skip('should return klay_getTransactionByBlockHashAndIndex', (done) => {
 
         let callbackOne = function (error, data, response) {
-            console.log(error,data);
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
             expect(data.result).toBeDefined()

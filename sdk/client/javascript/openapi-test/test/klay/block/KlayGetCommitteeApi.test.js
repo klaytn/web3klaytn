@@ -14,6 +14,6 @@ describe('klay_getCommittee API', () => {
             done();
         };
         const blockNumberOrTag = '0x1b4'
-        sdk.klay.getCommittee(blockNumberOrTag, {}, callbackOne);
+        sdk.klay.getCommittee({blockNumberOrTag}, callbackOne);
     });
 });
