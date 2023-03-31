@@ -58,10 +58,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klay/block/getCouncil.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/block/KlayGetCouncilExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
@@ -69,7 +69,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/p/klay/block/getCouncil.py"
+            $ref: "../../../code-samples/python/klay/block/getCouncil.py"
 components:
   schemas:
     KlayGetCouncilReq:
