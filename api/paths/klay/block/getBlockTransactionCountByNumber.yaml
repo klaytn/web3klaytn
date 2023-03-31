@@ -25,7 +25,7 @@ paths:
         - klay
 
       parameters:
-        - name: blockNumber
+        - name: blockNumberOrTag
           in: query
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
           required: true

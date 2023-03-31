@@ -84,7 +84,7 @@ components:
         params:
           type: array
           items:
-            anyOf:
+             allOf:
               - type: string
                 title: hashOfBlock
                 format: 32-byte DATA
