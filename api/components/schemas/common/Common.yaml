@@ -540,6 +540,10 @@ components:
     Signature:
       title: Signature
       type: object
+      required:
+        - V
+        - R
+        - S
       properties:
         V:
           type: string

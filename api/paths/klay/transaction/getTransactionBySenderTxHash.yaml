@@ -77,7 +77,7 @@ components:
       properties:
         method:
           type: string
-          default: 'klay_getTransactionByBlockNumberAndIndex'
+          default: 'klay_getTransactionBySenderTxHash'
         params:
           type: array
           items:

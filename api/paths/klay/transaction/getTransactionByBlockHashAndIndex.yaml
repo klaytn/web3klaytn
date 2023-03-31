@@ -103,4 +103,3 @@ components:
       properties:
         result:
           $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionObject"
-
