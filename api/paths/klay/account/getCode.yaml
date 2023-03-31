@@ -31,9 +31,9 @@ paths:
             format: 20-byte DATA
           description: Address
           in: query
-        - name: blockNumberOrHash
+        - name: blockNumberOrHashOrTag
           in: query
-          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.The block number is mandatory and defines the context (state) against which the specified transaction should be executed.
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter, or block hash.
           required: true
           schema:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
