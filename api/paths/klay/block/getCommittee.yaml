@@ -27,7 +27,7 @@ paths:
         - name: blockNumberOrTag
           in: query
           description: (optional) Integer or hexadecimal block number, or the string "earliest" or "latest" as in the default block parameter.
-          required: true
+          required: false
           schema:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
 

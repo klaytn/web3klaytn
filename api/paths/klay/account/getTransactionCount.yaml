@@ -100,7 +100,7 @@ components:
       type: object
       properties:
         result:
-          type: number
+          type: string
           format: hex
           description: Integer of the number of transactions send from this address.
           example: "0x1"

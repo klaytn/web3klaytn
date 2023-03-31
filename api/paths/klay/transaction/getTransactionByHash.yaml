@@ -83,7 +83,7 @@ components:
         params:
           type: array
           items:
-            anyOf:
+            allOf:
             - type: string
               format: 32-byte DATA
               title: transactionHash
