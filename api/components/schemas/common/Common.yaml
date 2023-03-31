@@ -299,7 +299,7 @@ components:
           description: true when the log was removed, due to a chain reorganization. false if its a valid log.
         logIndex:
           type: string
-          format: QUANTITY
+          format: hex
           description: Integer of the log index position in the block. null when its pending log.
         transactionIndex:
           type: string
@@ -366,9 +366,11 @@ components:
         anyOf:
           - type: string
             format: 32-byte DATA
+            title: blockHash
             description: For filters created with klay_newBlockFilter, the return are block hashes (32-byte DATA), e.g., ["0x3454645634534..."].
           - type: string
             format: 32-byte DATA
+            title: transactionHash
             description: For filters created with klay_newPendingTransactionFilter, the return are transaction hashes (32-byte DATA), e.g., ["0x6345343454645..."].
           - $ref: "#/components/schemas/LogObject"
       description: Array of log objects, or an empty array if nothing has changed since last poll.
@@ -422,11 +424,11 @@ components:
         blockHash:
           type: string
           format: 32-byte DATA
-          description: Hash of the block where this transaction was in. null when its pending.
+          description: Hash of the block where this transaction was in. null when it is pending.
         blockNumber:
           type: string
           format: hex
-          description: Block number where this transaction was in. null when its pending.
+          description: Block number where this transaction was in. null when it is pending.
         codeFormat:
           type: string
           description: (optional) The code format of smart contract code.
@@ -491,7 +493,7 @@ components:
         transactionIndex:
           type: string
           format: hex
-          description: Integer of the transactions index position in the block. null when its pending.
+          description: Integer of the transactions index position in the block. null when it is pending.
         type:
           type: string
           description: A string representing the type of the transaction.
@@ -1114,16 +1116,16 @@ components:
 
     KlayBlock:
       type: object
-      description: A block object
+      description: A block object, or error when no block was found
       properties:
         number:
           type: string
           format: hex
-          description: The block number. null when its pending block.
+          description: The block number. null when it is pending block.
         hash:
           type: string
           format: 32-byte DATA
-          description: Hash of the block. null when its pending block.
+          description: Hash of the block. null when it is pending block.
         parentHash:
           type: string
           format: 32-byte DATA

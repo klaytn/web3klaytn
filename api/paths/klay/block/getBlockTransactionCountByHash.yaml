@@ -61,7 +61,7 @@ paths:
                     properties:
                       result:
                         type: string
-                        format: QUANTITY
+                        format: hex
                         example: "0x0"
 
       externalDocs:
