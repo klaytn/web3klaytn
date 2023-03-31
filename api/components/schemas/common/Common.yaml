@@ -1185,12 +1185,19 @@ components:
         transactions:
           type: array
           items:
-            anyOf:
+            oneOf:
               - type: string
                 format: 32-byte DATA
                 description: Hash of a transaction.
               - type: object
-                description: transaction objects
+                required:
+                 - hash
+                properties:
+                  hash:
+                    type: string
+                    format: 32-byte DATA
+                    description: Hash of the transaction.  
+                additionalProperties: true
           description: Array of transaction objects, or 32-byte transaction hashes depending on the last given parameter.
         governanceData:
           type: string
@@ -1226,4 +1233,3 @@ components:
           "transactionsRoot": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
           "voteData": "0x"
         }
-
