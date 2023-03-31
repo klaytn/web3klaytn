@@ -47,7 +47,7 @@ paths:
 
       responses:
         200:
-          description: A block object, or error when no block was found.
+          description: Returns information about a block by block number.
           content:
             application/json:
               schema:

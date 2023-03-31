@@ -35,7 +35,7 @@ paths:
 
       responses:
         200:
-          description: The current client version of a Klaytn node.
+          description: Returns a suggestion for a gas price in peb.
           content:
             application/json:
               schema:
