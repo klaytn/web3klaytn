@@ -51,7 +51,7 @@ paths:
 
       responses:
         200:
-          description:
+          description: The returned data of the call
           content:
             application/json:
               schema:
