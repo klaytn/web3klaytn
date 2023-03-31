@@ -1114,16 +1114,16 @@ components:
 
     KlayBlock:
       type: object
-      description: A block object
+      description: A block object, or error when no block was found
       properties:
         number:
           type: string
           format: hex
-          description: The block number. null when its pending block.
+          description: The block number. null when it is pending block.
         hash:
           type: string
           format: 32-byte DATA
-          description: Hash of the block. null when its pending block.
+          description: Hash of the block. null when it is pending block.
         parentHash:
           type: string
           format: 32-byte DATA
