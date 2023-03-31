@@ -8,9 +8,9 @@ import java.io.IOException;
 public class EthBlockNumberExample {
 
     private final OpenSDK sdk = new OpenSDK();
-    void ethBlockNumberApiTest() throws IOException {
-        // when
-        BlockNumber200Response response = sdk.eth.blockNumber().send();
 
+    void ethBlockNumberExample() throws IOException {
+        BlockNumber200Response br = sdk.eth.blockNumber().send();
+        br.getResult();
     }
 }

@@ -1,23 +1,16 @@
 package opensdk.sdk.apis.eth.transaction;
 
-import opensdk.sdk.apis.BaseOpenSDK;
 import opensdk.sdk.models.Call200Response;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.klaytn.OpenSDK;
 import org.web3j.protocol.core.methods.request.Transaction;
 
 import java.io.IOException;
 
-/**
- * @author Tungnd
- * @since 24/03/2023 9:25 AM
- */
-@DisplayName("Eth RPC Test")
-class EthCallApiEthApiTest extends BaseOpenSDK {
+public class EthCallExample {
 
-    @Test
-    @DisplayName("RPC eth_call")
-    void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
+    private final OpenSDK sdk = new OpenSDK();
+
+    void ethCallExample() throws IOException {
         Call200Response cr =sdk.eth.call(
             Transaction.createEthCallTransaction(
                 "0xca7a99380131e6c76cfa622396347107aeedca2d",

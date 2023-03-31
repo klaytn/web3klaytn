@@ -10,7 +10,7 @@ public class KlayAccountsExample {
     private final OpenSDK sdk = new OpenSDK();
 
     void klayAccountsExample() throws IOException {
-        // when
-        Accounts200Response response = sdk.klay.accounts().send();
+        Accounts200Response ar = sdk.klay.accounts().send();
+        ar.getResult();
     }
 }
