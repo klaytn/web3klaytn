@@ -4,9 +4,11 @@ const OpenSdk = require("opensdk-javascript");
     const sdk = new OpenSdk(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 
-    const blockNumberOrTag = '0x1b4'
-    sdk.klay.getCouncil(blockNumberOrTag, {}, (err, data, response) => {
+    const blockHash = '0xba647d41423faeebe8a7c64737d284fc2eba6f0388a3e1ebf6243db509ec1577'
+    
+    sdk.klay.getBlockTransactionCountByHash(blockHash, {}, (err, data, response) => {
         console.log(data);
     });
+
 }
 )()
