@@ -10,10 +10,10 @@ public class KlayAccountCreatedExample {
     private final OpenSDK sdk = new OpenSDK();
 
     void klayAccountCreatedExample() throws IOException {
-        // given
-        String account = "0xa4f42d4d2a3a13874406435500950c9bf2d783db";
-        String blockHash = "latest";
-        // when
-        AccountCreated200Response response = sdk.klay.accountCreated(account, blockHash).send();
+        AccountCreated200Response ar = sdk.klay.accountCreated(
+            "0xa4f42d4d2a3a13874406435500950c9bf2d783db",
+            "latest")
+        .send();
+        ar.getResult();
     }
 }

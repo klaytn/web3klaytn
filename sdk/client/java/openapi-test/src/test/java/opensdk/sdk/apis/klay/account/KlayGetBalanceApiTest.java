@@ -1,22 +1,22 @@
 package opensdk.sdk.apis.klay.account;
 
 import opensdk.sdk.apis.BaseOpenSDK;
-import opensdk.sdk.models.AccountCreated200Response;
+import opensdk.sdk.models.GetBalance200Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 @DisplayName("Klay RPC Test")
-public class KlayAccountCreatedApiTest extends BaseOpenSDK {
+public class KlayGetBalanceApiTest extends BaseOpenSDK {
 
     @Test
-    @DisplayName("RPC klay_accountCreated")
+    @DisplayName("RPC klay_getBalance")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        AccountCreated200Response ar = sdk.klay.accountCreated(
-            "0xa4f42d4d2a3a13874406435500950c9bf2d783db",
+        GetBalance200Response gr = sdk.klay.getBalance(
+            "0xc94770007dda54cF92009BFF0dE90c06F603a09f",
             "latest")
         .send();
-        ar.getResult();
+        gr.getResult();
     }
 }

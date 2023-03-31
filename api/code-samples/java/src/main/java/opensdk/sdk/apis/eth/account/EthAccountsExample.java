@@ -9,8 +9,8 @@ public class EthAccountsExample {
 
     private final OpenSDK sdk = new OpenSDK();
 
-    void ethAccountsApiTest() throws IOException {
-        // when
-        Accounts200Response response = sdk.eth.accounts().send();
+    void ethAccountsExample() throws IOException {
+        Accounts200Response ar = sdk.eth.accounts().send();
+        ar.getResult();
     }
 }

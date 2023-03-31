@@ -10,7 +10,7 @@ public class KlayBlockNumberExample {
     private final OpenSDK sdk = new OpenSDK();
 
     void klayBlockNumberExample() throws IOException {
-        // when
-        BlockNumber200Response response = sdk.klay.blockNumber().send();
+        BlockNumber200Response br = sdk.klay.blockNumber().send();
+        br.getResult();
     }
 }
