@@ -53,7 +53,7 @@ paths:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/other/getRawTransactionByHash.sh"
+            $ref: "../../../code-samples/curl/klay/others/getRawTransactionByHash.sh"
 #        - lang: "java"
 #          label: "Java"
 #          source:

@@ -183,17 +183,17 @@ paths:
   /klay/miscellaneous/sha3:
     $ref: ./paths/klay/miscellaneous/sha3.yaml#/paths/~1klay~1sha3
 
-  # klay/other
+  # klay/others
   /klay/createAccessList:
-    $ref: ./paths/klay/other/createAccessList.yaml#/paths/~1klay~1createAccessList
+    $ref: ./paths/klay/others/createAccessList.yaml#/paths/~1klay~1createAccessList
   /klay/getRawTransactionByBlockHashAndIndex:
-    $ref: ./paths/klay/other/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockHashAndIndex
+    $ref: ./paths/klay/others/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockHashAndIndex
   /klay/getRawTransactionByHash:
-    $ref: ./paths/klay/other/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
+    $ref: ./paths/klay/others/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
   /klay/nodeAddress:
-    $ref: ./paths/klay/other/nodeAddress.yaml#/paths/~1klay~1nodeAddress
+    $ref: ./paths/klay/others/nodeAddress.yaml#/paths/~1klay~1nodeAddress
   /klay/resend:
-    $ref: ./paths/klay/other/resend.yaml#/paths/~1klay~1resend
+    $ref: ./paths/klay/others/resend.yaml#/paths/~1klay~1resend
   /klay/getRawTransactionByBlockNumberAndIndex:
     $ref: ./paths/klay/others/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockNumberAndIndex
   /klay/getStakingInfo:
