@@ -59,7 +59,7 @@ paths:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/account/createAccessList.sh"
+            $ref: "../../../code-samples/curl/klay/others/createAccessList.sh"
 #        - lang: "java"
 #          label: "Java"
 #          source:

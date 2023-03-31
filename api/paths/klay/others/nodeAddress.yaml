@@ -52,7 +52,7 @@ paths:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/other/nodeAddress.sh"
+            $ref: "../../../code-samples/curl/klay/others/nodeAddress.sh"
 #        - lang: "java"
 #          label: "Java"
 #          source:
