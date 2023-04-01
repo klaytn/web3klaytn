@@ -1,6 +1,6 @@
 package opensdk.sdk.apis.klay.transaction;
 
-import opensdk.sdk.models.EstimateComputationCost200Response;
+import opensdk.sdk.models.KlayEstimateComputationCostResponse;
 import opensdk.sdk.models.KlayCallReqParamsInner;
 import org.klaytn.OpenSDK;
 
@@ -17,7 +17,7 @@ public class KlayEstimateComputationCostExample {
         klayCallReqParamsInner.setValue("0x0");
         klayCallReqParamsInner.setInput("0x2a31efc7000000000000000000000000000000000000000000000000000000000000271000000000000000000000000000000000000000000000000000000000000000420000000000000000000000000000000000000000000000000000000000003039");
 
-        EstimateComputationCost200Response er = sdk.klay.estimateComputationCost(
+        KlayEstimateComputationCostResponse er = sdk.klay.estimateComputationCost(
             klayCallReqParamsInner,
             "latest")
         .send();

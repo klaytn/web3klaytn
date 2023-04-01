@@ -1,7 +1,7 @@
 package opensdk.sdk.apis.eth.acount;
 
 import opensdk.sdk.apis.BaseOpenSDK;
-import opensdk.sdk.models.Accounts200Response;
+import opensdk.sdk.models.EthAccountsResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ class EthAccountsApiEthApiTest extends BaseOpenSDK {
     @Test
     @DisplayName("RPC eth_accounts")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        Accounts200Response ar = sdk.eth.accounts().send();
+        EthAccountsResponse ar = sdk.eth.accounts().send();
         ar.getResult();
     }
 
