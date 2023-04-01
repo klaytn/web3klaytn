@@ -1,7 +1,7 @@
 package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.BaseOpenSDK;
-import opensdk.sdk.models.EstimateGas200Response;
+import opensdk.sdk.models.KlayEstimateGasResponse;
 import opensdk.sdk.models.KlayCallReqParamsInnerAnyOf;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ public class KlayEstimateGasApiTest extends BaseOpenSDK {
         klayCallReqParamsInnerAnyOf.setValue("0x0");
         klayCallReqParamsInnerAnyOf.setInput("0x8ada066e");
 
-        EstimateGas200Response er = sdk.klay.estimateGas(
+        KlayEstimateGasResponse er = sdk.klay.estimateGas(
             klayCallReqParamsInnerAnyOf)
         .send();
         er.getResult();

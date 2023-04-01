@@ -18,6 +18,8 @@ additionalProperties:
   modelPackage: opensdk.sdk.models
 typeMappings:
   double: java.math.BigInteger
+  Long: long
+  ErrorMember: Error
 importMappings:
   GetRewardsDefaultResponse: opensdk.sdk.models.GetRewardsResponse
 inlineSchemaNameMappings:

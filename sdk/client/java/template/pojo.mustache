@@ -3,7 +3,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class {{classname}} {{#vars}}{{#-last}}extends Response<{{{datatypeWithEnum}}}>{{/-last}}{{/vars}} {
+public class {{classname}} {{#vars}}{{#-last}}extends Response<{{#lambda.titlecase}}{{{datatypeWithEnum}}}{{/lambda.titlecase}}>{{/-last}}{{/vars}} {
 {{#serializableModel}}
   private static final long serialVersionUID = 1L;
 
@@ -27,20 +27,20 @@ public class {{classname}} {{#vars}}{{#-last}}extends Response<{{{datatypeWithEn
   @SerializedName("{{baseName}}")
   {{/gson}}
   {{#isContainer}}
-  private {{{datatypeWithEnum}}} {{name}}Response{{#required}} = {{{defaultValue}}}{{/required}}{{^required}} = null{{/required}};
+  private {{{datatypeWithEnum}}} {{name}}{{#required}} = {{{defaultValue}}}{{/required}}{{^required}} = null{{/required}};
   {{/isContainer}}
   {{^isContainer}}
-  private {{{datatypeWithEnum}}} {{name}}Response{{#defaultValue}} = {{{.}}}{{/defaultValue}};
+  private {{{datatypeWithEnum}}} {{name}}{{#defaultValue}} = {{{.}}}{{/defaultValue}};
   {{/isContainer}}
 
   @JsonProperty("{{baseName}}")
-  public {{{datatypeWithEnum}}} {{getter}}Response() {
-    return {{name}}Response;
+  public {{{datatypeWithEnum}}} {{getter}}() {
+    return {{name}};
   }
 
   @JsonProperty("{{baseName}}")
-  public void {{setter}}({{{datatypeWithEnum}}} {{name}}Response) {
-    this.{{name}}Response = {{name}}Response;
+  public void {{setter}}({{{datatypeWithEnum}}} {{name}}) {
+    this.{{name}} = {{name}};
   }
   {{/vars}}
 
