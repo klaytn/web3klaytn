@@ -1,7 +1,7 @@
 ## site
 
 - klaytn-openapi.yaml
-    - Define OpenAPIs created with `yarn build` 
+    - Define OpenAPIs created with `yarn build` using [redocly](https://redocly.com/)
     - Create divided API files as one Yaml file
     - This document is used as a specification in redocly format API document and SwaggerUI
 - index.html

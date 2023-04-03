@@ -1,4 +1,4 @@
-# Klaytn Open SDK
+# Klaytn OpenSDK
 
 The OpenSDK generates codes by language which you want to support.
 - It uses Klaytn JSON-RPC call.
@@ -24,9 +24,11 @@ bin/caver-openapi-generator-cli config-help -g typescript-axios
 
 ## Document
 ### redocly site
-[redoc style site](https://github.com/klaytn/OpenSDK)
+- To be updated
+### Swagger UI
+- To be updated
 
-### User Guide for Open SDK
+### User Guide for OpenSDK
 [User Guide](UserGuide.md)
 
 #### [api](api/README.md) directory
