@@ -1,16 +1,21 @@
 from base.testing import KlaytnBaseTesting
 
 
-class TestGetRawTransactionByBlockHashAndIndex(KlaytnBaseTesting):
+class TestCreateAccessList(KlaytnBaseTesting):
 
     def setUp(self) -> None:
-        super().setUp()
-        self.blockHash = "0x29b6cd965c7d9a53a6f068da259dce1d3810ba79fff8eebac5d4da14754e67e6"
-        self.index = "0x20965255"
+        self.callObject = {
+            "from": "0x3bc5885c2941c5cda454bdb4a8c88aa7f248e312",
+            "to": "0x00f5f5f3a25f142fafd0af24a754fafa340f32c7",
+            "gas": "0x3d0900",
+            "gasPrice": "0x3b9aca00",
+            "data": "0x20965255"
+        }
+        self.blockTag = "latest"
 
     def test_post(self):
-        klay_response = self.sdk.klay.get_raw_transaction_by_block_hash_and_index(
-            self.blockHash, self.index
+        klay_response = self.sdk.klay.create_access_list(
+            self.callObject, self.blockTag
         )
 
         self.covert_response(klay_response.response)
@@ -20,7 +25,7 @@ class TestGetRawTransactionByBlockHashAndIndex(KlaytnBaseTesting):
         self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        klay_response = self.sdk.klay.get_raw_transaction_by_block_hash_and_index(self.blockHash)
+        klay_response = self.sdk.klay.create_access_list()
 
         self.covert_response(klay_response.response)
         self.assertResponseSuccess()

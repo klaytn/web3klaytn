@@ -71,10 +71,10 @@ paths:
         #  label: "Javascript"
         #  source:
         #    $ref: ""
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../../code-samples/python/klay/transaction/getStakingInfo.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/others/getStakingInfo.py"
 
 components:
   schemas:
