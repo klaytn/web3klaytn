@@ -35,7 +35,7 @@ paths:
 
       responses:
         200:
-          description: successfully response
+          description: Returns true if the node is indexing sender transaction hash to transaction hash mapping information.
           content:
             application/json:
               schema:
