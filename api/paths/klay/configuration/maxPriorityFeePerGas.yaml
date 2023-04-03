@@ -18,6 +18,9 @@ paths:
         Returns a suggestion for a gas tip cap for dynamic fee transactions in peb.
 
         **JSONRPC:** `klay_maxPriorityFeePerGas`
+
+        **NOTE:** This API is effective after Klaytn v1.8.0
+
       tags:
         - klay
 

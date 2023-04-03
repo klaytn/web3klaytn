@@ -80,7 +80,7 @@ components:
         params:
           type: array
           items:
-            anyOf:
+            allOf:
               - title: hash
                 type: string
                 format: hex

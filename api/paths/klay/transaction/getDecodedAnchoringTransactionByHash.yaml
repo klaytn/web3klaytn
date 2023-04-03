@@ -99,8 +99,7 @@ components:
               format: 32-byte DATA
               description: Hash of the child chain block that this anchoring transaction was performed.
             BlockNumber:
-              type: string
-              format: hex
+              type: number
               description: The child chain block number that this anchoring transaction was performed.
             ParentHash:
                 type: string
