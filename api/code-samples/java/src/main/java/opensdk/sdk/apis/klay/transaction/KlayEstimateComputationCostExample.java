@@ -1,5 +1,6 @@
 package opensdk.sdk.apis.klay.transaction;
 
+import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.KlayEstimateComputationCostResponse;
 import opensdk.sdk.models.KlayCallReqParamsInner;
 import org.klaytn.OpenSDK;
@@ -8,7 +9,7 @@ import java.io.IOException;
 
 public class KlayEstimateComputationCostExample {
 
-    private final OpenSDK sdk = new OpenSDK();
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
 
     void klayEstimateComputationCostExample() throws IOException {
         KlayCallReqParamsInner klayCallReqParamsInner = new KlayCallReqParamsInner();

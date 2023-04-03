@@ -1,15 +1,17 @@
 package opensdk.sdk.apis.klay.transaction;
 
-import opensdk.sdk.apis.BaseOpenSDK;
+import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.KlayEstimateComputationCostResponse;
 import opensdk.sdk.models.KlayCallReqParamsInner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
 @DisplayName("Klay RPC Test")
-public class KlayEstimateComputationCostApiTest extends BaseOpenSDK {
+public class KlayEstimateComputationCostApiTest {
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
 
     @Test
     @DisplayName("RPC klay_estimateComputationCost")

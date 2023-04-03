@@ -1,9 +1,10 @@
 package opensdk.sdk.apis.eth.transaction;
 
-import opensdk.sdk.apis.BaseOpenSDK;
+import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthCallResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.klaytn.OpenSDK;
 import org.web3j.protocol.core.methods.request.Transaction;
 
 import java.io.IOException;
@@ -13,7 +14,9 @@ import java.io.IOException;
  * @since 24/03/2023 9:25 AM
  */
 @DisplayName("Eth RPC Test")
-class EthCallApiEthApiTest extends BaseOpenSDK {
+class EthCallApiEthApiTest {
+
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
 
     @Test
     @DisplayName("RPC eth_call")

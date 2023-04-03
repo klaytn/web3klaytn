@@ -1,14 +1,17 @@
 package opensdk.sdk.apis.eth.block;
 
-import opensdk.sdk.apis.BaseOpenSDK;
+import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthBlockNumberResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
 @DisplayName("Eth RPC Test")
-class EthBlockNumberApiApiTest extends BaseOpenSDK {
+class EthBlockNumberApiApiTest {
+
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
 
     @Test
     @DisplayName("RPC eth_blockNumber")

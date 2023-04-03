@@ -1,5 +1,6 @@
 package opensdk.sdk.apis.klay.account;
 
+import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.KlayGetBalanceResponse;
 import org.klaytn.OpenSDK;
 
@@ -7,7 +8,7 @@ import java.io.IOException;
 
 public class KlayGetBalanceExample {
 
-    private final OpenSDK sdk = new OpenSDK();
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
 
     void klayGetBalanceExample() throws IOException {
         KlayGetBalanceResponse gr = sdk.klay.getBalance(

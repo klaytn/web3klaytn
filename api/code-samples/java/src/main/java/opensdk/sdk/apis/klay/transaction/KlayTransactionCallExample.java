@@ -1,5 +1,6 @@
 package opensdk.sdk.apis.klay.transaction;
 
+import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.KlayCallResponse;
 import opensdk.sdk.models.EthCallObject;
 import org.klaytn.OpenSDK;
@@ -8,7 +9,7 @@ import java.io.IOException;
 
 public class KlayTransactionCallExample {
 
-    private final OpenSDK sdk = new OpenSDK();
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
 
     void klayTransactionCallExample() throws IOException {
         EthCallObject callObject = new EthCallObject();
