@@ -99,5 +99,5 @@ components:
       properties:
         result:
           type: string
-          description: The bytes of the transaction
+          description: Hex representation of some bytes
           example: "0x0"
