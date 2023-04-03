@@ -246,6 +246,8 @@ paths:
     $ref: ./paths/eth/transaction/getTransactionReceipt.yaml#/paths/~1eth~1getTransactionReceipt
   /eth/transaction/sendRawTransaction:
     $ref: ./paths/eth/transaction/sendRawTransaction.yaml#/paths/~1eth~1sendRawTransaction
+  /eth/transaction/sendTransaction:
+    $ref: ./paths/eth/transaction/sendTransaction.yaml#/paths/~1eth~1sendTransaction
 
   # eth/config
   /eth/config/chainID:
