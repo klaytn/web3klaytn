@@ -27,7 +27,9 @@ paths:
         - KIRAddr: The contract address of KIR.
         - PoCAddr: The contract address of KGF. PoC is the previous name of KGF.
         - UseGini: The boolean value whether or not the Gini coefficient is used.
+        
         Note that the order of all addresses and the staking amounts are matched.
+        
         **JSONRPC:** `klay_getStakingInfo`
 
       parameters:
@@ -48,7 +50,7 @@ paths:
 
       responses:
         200:
-          description: Returns the bytes of the transaction for the given block number and index.
+          description: Returns staking information at a specific block
           content:
             application/json:
               schema:
