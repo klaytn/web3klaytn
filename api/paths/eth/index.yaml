@@ -56,6 +56,8 @@ paths:
     $ref: ./block/getUncleByBlockNumberAndIndex.yaml#/paths/~1eth~1getUncleByBlockNumberAndIndex
   /eth/block/getUncleCountByBlockNumber:
     $ref: ./block/getUncleCountByBlockNumber.yaml#/paths/~1eth~1getUncleCountByBlockNumber
+  /eth/block/syncing:
+    $ref: ./block/syncing.yaml#/paths/~1eth~1syncing
 
   # eth/transaction
   /eth/transaction/call:
