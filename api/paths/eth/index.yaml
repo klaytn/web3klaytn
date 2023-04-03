@@ -30,6 +30,8 @@ paths:
     $ref: ./account/getBalance.yaml#/paths/~1eth~1getBalance
   /eth/account/getCode:
     $ref: ./account/getCode.yaml#/paths/~1eth~1getCode
+  /eth/account/sign:
+    $ref: ./account/sign.yaml#/paths/~1eth~1sign
 
   # eth/block
   /eth/block/blockNumber:

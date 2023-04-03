@@ -1,0 +1,103 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/sign:
+    post:
+      summary: "[sign]"
+      tags:
+        - eth
+      operationId: sign
+      description: |
+        The sign method calculates a Klaytn-specific signature with:
+        
+        sign(keccak256("\x19Klaytn Signed Message:\n" + len(message) + message)))
+        
+        Adding a prefix to the message makes the calculated signature recognizable as a Klaytn-specific signature. This prevents misuse where a malicious dApp signs arbitrary data (e.g. transaction) and uses the signature for impersonation.
+        
+        NOTE: The address to sign with must be unlocked.
+        
+        **JSONRPC:** `eth_sign`
+
+      parameters:
+        - name: account
+          in: query
+          description: Address
+          required: true
+          schema:
+            type: string
+            format: 20-byte DATA
+        - name: message
+          in: query
+          description: Message to sign
+          required: true
+          schema:
+            type: string
+            format: N-byte DATA
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: eth_sign
+                    params:
+                      type: array
+                      items:
+                        anyOf:
+                          - title: account
+                            description: Address
+                            type: string
+                            format: 20-byte DATA
+                          - title: message
+                            description: Message to sign
+                            type: string
+                            format: N-byte DATA
+                      example: ["0x9b2055d370f73ec7d8a03e965129118dc8f5bf83", "0xdeadbeaf"]
+
+      responses:
+        200:
+          description: Return signature
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: DATA
+                        description: Signature
+                        example: "0xa3f20717a250c2b0b729b7e5becbff67fdaef7e0699da4de7ca5895b02a170a12d887fd3b17bfdce3481f10bea41f45ba9f709d39ce8325427b57afcfc994cee1b"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/account/sign.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/account/EthAccountsExample.java"
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: "../../../code-samples/javascript/eth/account/accounts.js"
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: "../../../code-samples/python/eth/account/accounts.py"
