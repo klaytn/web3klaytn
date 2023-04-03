@@ -1,0 +1,285 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/signTransaction:
+    post:
+      summary: "[signTransaction]"
+      tags:
+        - eth
+      operationId: signTransaction
+      description: |
+        Signs a transaction that can be submitted to the network at a later time using with eth_sendRawTransaction.
+        
+        NOTE: The address to sign with must be unlocked.
+        
+        **JSONRPC:** `eth_signTransaction`
+
+      parameters:
+        - name: transactionArgs
+          in: query
+          description: An object of transaction arguments. See the table below for the object's properties.
+          required: true
+          schema:
+            type: object
+            required:
+              - from
+              - gas
+              - maxFeePerGas
+              - maxPriorityFeePerGas
+              - nonce
+            properties:
+              from:
+                type: string
+                format: 20-byte DATA
+                description: The address from which the transaction is sent.
+              to:
+                type: string
+                format: 20-byte DATA
+                description: (not required when creating a new contract) The address to which the transaction is directed.
+              gas:
+                type: string
+                format: hex
+                description: The integer of the gas provided for the transaction's execution. It will return unused gas.
+              maxFeePerGas:
+                type: string
+                format: hex
+                description: The maximum amount to pay for the transaction's execution. Since Klaytn uses a fixed gas price, it must be set to 250 ston (Gpeb in Ethereum).
+              maxPriorityFeePerGas:
+                type: string
+                format: hex
+                description: Gas tip cap for dynamic fee transaction in peb. Since Klaytn uses a fixed gas price, it must be set to 250 ston (Gpeb in Ethereum).
+              input:
+                type: string
+                format: DATA
+                description: (optional) The hash of the method signature and the encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
+              value:
+                type: string
+                format: hex
+                description: (optional) The integer of values sent with this transaction.
+              nonce:
+                type: string
+                format: hex
+                description: The integer of a nonce.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/KlaySignTransactionReq"
+
+      responses:
+        200:
+          description: Return the signed transaction object.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/KlaySignTransactionResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/transaction/signTransaction.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/transaction/EthCallExample.java"
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: "../../../code-samples/javascript/eth/transaction/call.js"
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: "../../../code-samples/python/eth/transaction/call.py"
+
+components:
+  schemas:
+    KlaySignTransactionReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'eth_signTransaction'
+        params:
+          type: array
+          items:
+            title: transactionArgs
+            type: object
+            required:
+              - from
+              - gas
+              - maxFeePerGas
+              - maxPriorityFeePerGas
+              - nonce
+            properties:
+              from:
+                type: string
+                format: 20-byte DATA
+                description: The address from which the transaction is sent.
+              to:
+                type: string
+                format: 20-byte DATA
+                description: (not required when creating a new contract) The address to which the transaction is directed.
+              gas:
+                type: string
+                format: hex
+                description: The integer of the gas provided for the transaction's execution. It will return unused gas.
+              maxFeePerGas:
+                type: string
+                format: hex
+                description: The maximum amount to pay for the transaction's execution. Since Klaytn uses a fixed gas price, it must be set to 250 ston (Gpeb in Ethereum).
+              maxPriorityFeePerGas:
+                type: string
+                format: hex
+                description: Gas tip cap for dynamic fee transaction in peb. Since Klaytn uses a fixed gas price, it must be set to 250 ston (Gpeb in Ethereum).
+              input:
+                type: string
+                format: DATA
+                description: (optional) The hash of the method signature and the encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
+              value:
+                type: string
+                format: hex
+                description: (optional) The integer of values sent with this transaction.
+              nonce:
+                type: string
+                format: hex
+                description: The integer of a nonce.
+
+
+    KlaySignTransactionResp:
+      type: object
+      properties:
+        result:
+          type: object
+          required:
+            - raw
+            - tx
+          properties:
+            raw:
+              type: string
+              format: DATA
+              description: A rawTransaction string (a RLP-encoded transaction string).
+            tx:
+              type: object
+              required:
+                - type
+                - nonce
+                - gasPrice
+                - maxFeePerGas
+                - maxPriorityFeePerGas
+                - gas
+                - value
+                - v
+                - r
+                - s
+                - chainId
+                - accessList
+                - hash
+              properties:
+                type:
+                  type: string
+                  format: hex
+                  description: An integer representing the type of the transaction.
+                nonce:
+                  type: string
+                  format: hex
+                  description: The block number where this transaction was in.
+                gasPrice:
+                  type: string
+                  format: hex
+                  description: Gas price provided by the sender in peb. null when it is not a legacy transaction.
+                maxFeePerGas:
+                  type: string
+                  format: hex
+                  description: A maximum amount to pay for the transaction to execute. null when it is a legacy transaction.
+                maxPriorityFeePerGas:
+                    type: string
+                    format: hex
+                    description: Gas tip cap for dynamic fee transaction in peb. null when it is a legacy transaction.
+                gas:
+                    type: string
+                    format: hex
+                    description: Gas provided by the sender.
+                value:
+                    type: string
+                    format: hex
+                    description: Integer of values sent with this transaction.
+                v:
+                    type: string
+                    format: hex
+                    description: ECDSA recovery id.
+                r:
+                    type: string
+                    format: 32-byte DATA
+                    description: ECDSA recovery r.
+                s:
+                    type: string
+                    format: 32-byte DATA
+                    description: ECDSA recovery s.
+                chainId:
+                    type: string
+                    format: hex
+                    description: Chain id set on the requested node.
+                accessList:
+                    type: array
+                    items:
+                        type: object
+                        required:
+                            - address
+                            - storageKeys
+                        properties:
+                            address:
+                                type: string
+                                format: 20-byte DATA
+                                description: The address of the account.
+                            storageKeys:
+                                type: array
+                                items:
+                                    type: string
+                                    format: 32-byte DATA
+                                    description: The storage key of the account.
+                hash:
+                    type: string
+                    format: 32-byte DATA
+                    description: Hash of the transaction.
+          example:
+            {
+              "jsonrpc": "2.0",
+              "id": 1,
+              "result": {
+                "raw": "0x02f86f8302edaf048505d21dba008505d21dba00829999948c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee0180c001a0b6e16781d247b505aa8eaf363a6ea61e7c23c77ad64846ffda28e73e31304884a05a296904cd009506cb5ed006af016d2c5dab255966af9ba6f8fc352f75e9b079",
+                "tx": {
+                  "type": "0x2",
+                  "nonce": "0x4",
+                  "gasPrice": null,
+                  "maxPriorityFeePerGas": "0x5d21dba00",
+                  "maxFeePerGas": "0x5d21dba00",
+                  "gas": "0x9999",
+                  "value": "0x1",
+                  "input": "0x",
+                  "v": "0x1",
+                  "r": "0xb6e16781d247b505aa8eaf363a6ea61e7c23c77ad64846ffda28e73e31304884",
+                  "s": "0x5a296904cd009506cb5ed006af016d2c5dab255966af9ba6f8fc352f75e9b079",
+                  "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",
+                  "chainId": "0x2edaf",
+                  "accessList": [ ],
+                  "hash": "0x9cfbea4942b334050660ec7207f3323ee13e3196b06279f922404384acbf7b47"
+                }
+              }
+            }
