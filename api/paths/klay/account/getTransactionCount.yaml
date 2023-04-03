@@ -48,7 +48,7 @@ paths:
 
       responses:
         200:
-          description: Returns the account key or an empty key value.
+          description: Returns the number of transactions sent from an address.
           content:
             application/json:
               schema:
