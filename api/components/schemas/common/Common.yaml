@@ -481,12 +481,10 @@ components:
           format: 32-byte DATA
           description: Hash of a transaction that is signed only by the sender. See SenderTxHash. This value is always the same as hash for non fee-delegated transactions.
         signatures:
-          type: array
-          items:
-            anyOf:
-              - $ref: "#/components/schemas/Signature"
-            type: object
-          description: An array of signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s
+            type: array
+            items:
+              $ref: "#/components/schemas/Signature"
+            description: An array of signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s
         to:
           type: string
           format: 20-byte DATA
@@ -1186,12 +1184,19 @@ components:
         transactions:
           type: array
           items:
-            anyOf:
+            oneOf:
               - type: string
                 format: 32-byte DATA
                 description: Hash of a transaction.
               - type: object
-                description: transaction objects
+                required:
+                 - hash
+                properties:
+                  hash:
+                    type: string
+                    format: 32-byte DATA
+                    description: Hash of the transaction.  
+                additionalProperties: true
           description: Array of transaction objects, or 32-byte transaction hashes depending on the last given parameter.
         governanceData:
           type: string
@@ -1227,4 +1232,3 @@ components:
           "transactionsRoot": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
           "voteData": "0x"
         }
-

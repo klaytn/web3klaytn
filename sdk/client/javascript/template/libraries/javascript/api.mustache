@@ -58,11 +58,11 @@ export default class <&classname> {
 
       let postBody = <#bodyParam>new <dataType>(undefined, undefined, undefined)</bodyParam>;
       postBody.params = [];
-      <#queryParams><^collectionFormat><#required>
+      <#queryParams><#required>
       postBody.params.push(<paramName>);</required><^required>
       if(opts['<paramName>']) {
         postBody.params.push(opts['<paramName>']);
-      }</required></collectionFormat></queryParams>
+      }</required></queryParams>
 
       let authNames = [<#authMethods>'<name>'<^-last>, </-last></authMethods>];
       let contentTypes = [<#consumes>'<& mediaType>'<^-last>, </-last></consumes>];

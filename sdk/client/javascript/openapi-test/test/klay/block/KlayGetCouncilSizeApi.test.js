@@ -13,6 +13,6 @@ describe('klay_getCouncilSize API', () => {
             done();
         };
         const blockNumberOrTag = '0x1b4'
-        sdk.klay.getCouncilSize(blockNumberOrTag, {}, callbackOne);
+        sdk.klay.getCouncilSize({blockNumberOrTag}, callbackOne);
     });
 });

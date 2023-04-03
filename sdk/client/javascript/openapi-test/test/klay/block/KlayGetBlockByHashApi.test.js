@@ -4,7 +4,7 @@ const { expect } = require("@jest/globals");
 const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('Klay getBlockByHash API', () => {
-    test.skip('should return block.', (done) => {
+    test('should return block.', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
