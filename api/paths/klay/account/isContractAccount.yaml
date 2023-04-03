@@ -48,7 +48,7 @@ paths:
 
       responses:
         200:
-          description: Returns the account key or an empty key value.
+          description: Returns true if an input account has a non-empty codeHash at the time of a specific block number. It returns false if the account is an EOA or a smart contract account which doesn't have codeHash.
           content:
             application/json:
               schema:

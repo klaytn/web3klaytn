@@ -38,7 +38,7 @@ paths:
 
       responses:
         200:
-          description: The chain ID of the chain.
+          description: Returns a suggestion for a gas tip cap for dynamic fee transactions in peb.
           content:
             application/json:
               schema:

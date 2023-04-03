@@ -132,7 +132,7 @@ components:
                     items:
                       type: string
                   gasUsedRatio:
-                    description: The ratio of gas used in the block.
+                    description: An array of gasUsed/gasLimit in the block.
                     type: array
                     items:
                       type: string
