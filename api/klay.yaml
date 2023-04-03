@@ -274,3 +274,7 @@ paths:
     $ref: ./paths/eth/filter/getFilterLogs.yaml#/paths/~1eth~1getFilterLogs
   /eth/filter/getFilterChanges:
     $ref: ./paths/eth/filter/getFilterChanges.yaml#/paths/~1eth~1getFilterChanges
+
+  # eth/miscellaneous:
+  /eth/miscellaneous/submitWork:
+    $ref: ./paths/eth/miscellaneous/submitWork.yaml#/paths/~1eth~1submitWork
