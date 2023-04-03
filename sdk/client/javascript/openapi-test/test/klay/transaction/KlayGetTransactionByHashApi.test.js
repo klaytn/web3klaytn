@@ -5,7 +5,7 @@ const { RPC } = require("../../constant");
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
 describe('klay_getTransactionByHash API', () => {
-    test.skip('should return klay_getTransactionByHash', (done) => {
+    test('should return klay_getTransactionByHash', (done) => {
 
         let callbackOne = function (error, data, response) {
             console.log(error,data);

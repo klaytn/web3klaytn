@@ -14,6 +14,6 @@ describe('klay_getCommitteeSize API', () => {
             done();
         };
         const blockNumberOrTag = '0x1b4'
-        sdk.klay.getCommitteeSize(blockNumberOrTag, {}, callbackOne);
+        sdk.klay.getCommitteeSize({blockNumberOrTag}, callbackOne);
     });
 });

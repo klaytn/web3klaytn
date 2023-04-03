@@ -5,7 +5,7 @@ const { RPC } = require("../../constant");
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
 describe('klay_getTransactionByBlockNumberAndIndex API', () => {
-    test.skip('should return klay_getTransactionByBlockNumberAndIndex', (done) => {
+    test('should return klay_getTransactionByBlockNumberAndIndex', (done) => {
 
         let callbackOne = function (error, data, response) {
             console.log(error,data);

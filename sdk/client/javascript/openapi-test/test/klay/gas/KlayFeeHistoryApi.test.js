@@ -4,7 +4,7 @@ const { expect } = require("@jest/globals");
 const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('Klay feeHistory API', () => {
-    test.skip('should return fee information', (done) => {
+    test('should return fee information', (done) => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
