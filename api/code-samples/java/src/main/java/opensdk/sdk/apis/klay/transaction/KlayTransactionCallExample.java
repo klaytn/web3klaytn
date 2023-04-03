@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class KlayTransactionCallExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void klayTransactionCallExample() throws IOException {
         EthCallObject callObject = new EthCallObject();

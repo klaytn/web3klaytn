@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class KlayClientVersionExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void klayClientVersionExample() throws IOException {
         KlayClientVersionResponse cr = sdk.klay.clientVersion().send();

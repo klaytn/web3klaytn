@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class KlayChainIdExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void klayChainIdExample() throws IOException {
         KlayChainIDResponse cr = sdk.klay.chainID().send();

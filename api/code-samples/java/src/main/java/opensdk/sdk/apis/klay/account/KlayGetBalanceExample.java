@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class KlayGetBalanceExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void klayGetBalanceExample() throws IOException {
         KlayGetBalanceResponse gr = sdk.klay.getBalance(

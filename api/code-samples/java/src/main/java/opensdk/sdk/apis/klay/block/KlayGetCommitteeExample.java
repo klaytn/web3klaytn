@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class KlayGetCommitteeExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void klayGetCommitteeExample() throws IOException {
         KlayGetCommitteeResponse gr = sdk.klay.getCommittee(

@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class KlayEstimateComputationCostExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void klayEstimateComputationCostExample() throws IOException {
         KlayCallReqParamsInner klayCallReqParamsInner = new KlayCallReqParamsInner();

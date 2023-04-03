@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class KlayGetCouncilSizeExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void klayGetCouncilSizeExample() throws IOException {
         KlayGetCommitteeSizeResponse gr = sdk.klay.getCouncilSize(
