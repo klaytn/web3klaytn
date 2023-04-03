@@ -68,6 +68,9 @@ paths:
     $ref: ./transaction/getTransactionCount.yaml#/paths/~1eth~1getTransactionCount
   /eth/transaction/getTransactionReceipt:
     $ref: ./transaction/getTransactionReceipt.yaml#/paths/~1eth~1getTransactionReceipt
+  /eth/transaction/sendRawTransaction:
+    $ref: ./transaction/sendRawTransaction.yaml#/paths/~1eth~1sendRawTransaction
+
 
   # eth/config
   /eth/config/chainID:
