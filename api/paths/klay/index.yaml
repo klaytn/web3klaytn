@@ -121,7 +121,8 @@ paths:
     $ref: ./transaction/signTransactionAsFeePayer.yaml#/paths/~1klay~1signTransactionAsFeePayer
   /klay/transaction/pendingTransactions:
     $ref: ./transaction/pendingTransactions.yaml#/paths/~1klay~1pendingTransactions
-
+  /klay/transaction/getTransactionReceiptBySenderTxHash:
+    $ref: ./transaction/getTransactionReceiptBySenderTxHash.yaml#/paths/~1klay~1getTransactionReceiptBySenderTxHash
 
   # klay/configuration
   /klay/configuration/chainID:
