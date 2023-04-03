@@ -68,10 +68,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klay/block/getBlockByHash.js"
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/block/getBlockByHash.py"
 
 components:
   schemas:
