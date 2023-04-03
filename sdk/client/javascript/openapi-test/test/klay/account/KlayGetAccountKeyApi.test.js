@@ -7,13 +7,13 @@ describe('klay_getAccountKey API', () => {
     test('should return accountKey', (done) => {
 
         let callbackOne = function (error, data, response) {
-            
+            console.log(data);
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
             expect(data.result).toBeDefined()
             done();
         };
-        const address = '0x1cbd3b2770909d4e10f157cabc84c7264073c9ec'
+        const address = '0x68756d616e616161000000000000000000000000'
         const blockNumberOrHash = 'latest'
         sdk.klay.getAccountKey(address,blockNumberOrHash, {}, callbackOne);
     });
