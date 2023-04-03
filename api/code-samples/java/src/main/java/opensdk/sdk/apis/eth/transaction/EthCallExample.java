@@ -1,5 +1,6 @@
 package opensdk.sdk.apis.eth.transaction;
 
+import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthCallResponse;
 import org.klaytn.OpenSDK;
 import org.web3j.protocol.core.methods.request.Transaction;
@@ -8,7 +9,7 @@ import java.io.IOException;
 
 public class EthCallExample {
 
-    private final OpenSDK sdk = new OpenSDK();
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
 
     void ethCallExample() throws IOException {
         EthCallResponse cr =sdk.eth.call(

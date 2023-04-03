@@ -1,15 +1,17 @@
 package opensdk.sdk.apis.klay.transaction;
 
-import opensdk.sdk.apis.BaseOpenSDK;
+import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.KlayEstimateGasResponse;
 import opensdk.sdk.models.KlayCallReqParamsInnerAnyOf;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
 @DisplayName("Klay RPC Test")
-public class KlayEstimateGasApiTest extends BaseOpenSDK {
+public class KlayEstimateGasApiTest {
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
 
     @Test
     @DisplayName("RPC klay_estimateGas")

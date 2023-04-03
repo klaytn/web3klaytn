@@ -1,5 +1,6 @@
 package opensdk.sdk.apis.klay.block;
 
+import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.KlayGetBlockByHashResponse;
 import org.klaytn.OpenSDK;
 
@@ -7,7 +8,7 @@ import java.io.IOException;
 
 public class KlayGetBlockByHashExample {
 
-    private final OpenSDK sdk = new OpenSDK();
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
 
     void klayGetBlockByHashExample() throws IOException {
         KlayGetBlockByHashResponse gr = sdk.klay.getBlockByHash(

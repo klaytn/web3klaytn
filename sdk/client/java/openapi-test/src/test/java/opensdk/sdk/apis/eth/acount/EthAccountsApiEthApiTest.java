@@ -1,14 +1,16 @@
 package opensdk.sdk.apis.eth.acount;
 
-import opensdk.sdk.apis.BaseOpenSDK;
+import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthAccountsResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
 @DisplayName("Eth RPC Test")
-class EthAccountsApiEthApiTest extends BaseOpenSDK {
+class EthAccountsApiEthApiTest {
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
 
     @Test
     @DisplayName("RPC eth_accounts")

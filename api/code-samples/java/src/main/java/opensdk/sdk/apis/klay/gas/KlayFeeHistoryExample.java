@@ -1,5 +1,6 @@
 package opensdk.sdk.apis.klay.gas;
 
+import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.KlayFeeHistoryResponse;
 import org.klaytn.OpenSDK;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class KlayFeeHistoryExample {
 
-    private final OpenSDK sdk = new OpenSDK();
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
 
     void klayFeeHistoryExample() throws IOException {
         KlayFeeHistoryResponse fr = sdk.klay.feeHistory(

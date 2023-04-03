@@ -1,14 +1,17 @@
 package opensdk.sdk.apis.klay.block;
 
-import opensdk.sdk.apis.BaseOpenSDK;
+import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.KlayGetBlockByHashResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
 @DisplayName("Klay RPC Test")
-public class KlayGetBlockByHashApiTest extends BaseOpenSDK {
+public class KlayGetBlockByHashApiTest {
+
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
 
     @Test
     @DisplayName("RPC klay_getBlockByHash")
