@@ -101,6 +101,8 @@ paths:
     $ref: ./filter/getFilterLogs.yaml#/paths/~1eth~1getFilterLogs
   /eth/filter/getFilterChanges:
     $ref: ./filter/getFilterChanges.yaml#/paths/~1eth~1getFilterChanges
+  /eth/filter/uninstallFilter:
+    $ref: ./filter/uninstallFilter.yaml#/paths/~1eth~1uninstallFilter
 
   # eth/miscellaneous:
   /eth/miscellaneous/submitWork:
