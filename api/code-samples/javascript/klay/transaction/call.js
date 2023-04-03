@@ -1,7 +1,7 @@
 const OpenSdk = require("opensdk-javascript");
 
 (() => {
-    const sdk = new OpenSdk(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
+    const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
     const callObject = {
         "from": "0x3f71029af4e252b25b9ab999f77182f0cd3bc085",
