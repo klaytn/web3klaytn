@@ -5,8 +5,6 @@ const OpenSdk = require("opensdk-javascript");
 
     const blockNumberOrTag = '0x1b4'
     
-    sdk.klay.getCommittee(blockNumberOrTag, {}, (err, data, response) => {
-        console.log(data);
-    });
+    sdk.klay.getCommitteeSize({blockNumberOrTag}, callbackOne);
 }
 )()
