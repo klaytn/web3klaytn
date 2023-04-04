@@ -67,10 +67,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klay/block/getBlockWithConsensusInfoByNumberRange.js"
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/block/getBlockWithConsensusInfoByNumberRange.py"
 
 components:
   schemas:
