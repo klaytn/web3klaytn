@@ -163,9 +163,16 @@ paths:
     $ref: ./filter/getLogs.yaml#/paths/~1klay~1getLogs
   /klay/filter/subscribe:
     $ref: ./filter/subscribe.yaml#/paths/~1klay~1subscribe
+  /klay/filter/newFilter:
+    $ref: ./filter/newFilter.yaml#/paths/~1klay~1newFilter
+
   # klay/gas
   /klay/gas/feeHistory:
     $ref: ./gas/feeHistory.yaml#/paths/~1klay~1feeHistory
+  /klay/gas/lowerBoundGasPrice:
+    $ref: ./gas/lowerBoundGasPrice.yaml#/paths/~1klay~1lowerBoundGasPrice
+  /klay/gas/upperBoundGasPrice:
+    $ref: ./gas/upperBoundGasPrice.yaml#/paths/~1klay~1upperBoundGasPrice
 
   # klay/miscellaneous
   /klay/miscellaneous/sha3:
