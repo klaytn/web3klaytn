@@ -14,9 +14,9 @@ describe('klay_getTransactionByBlockNumberAndIndex API', () => {
             expect(data.result).toBeDefined()
             done();
         };
-        const blockHash = 118593751
+        const blockNumber = 118593751
         const transactionIndexPosition = '0x0'
 
-        sdk.klay.getTransactionByBlockNumberAndIndex(blockHash, transactionIndexPosition, {}, callbackOne);
+        sdk.klay.getTransactionByBlockNumberAndIndex(blockNumber, transactionIndexPosition, {}, callbackOne);
     });
 });

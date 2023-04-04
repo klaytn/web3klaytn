@@ -64,10 +64,10 @@ paths:
           label: "Java"
           source:
             $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/transaction/KlayGetTransactionByBlockHashAndIndexExample.java"
-        #- lang: "javascript"
-        #  label: "Javascript"
-        #  source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/transaction/getTransactionByBlockHashAndIndex.js"
         #- lang: "python"
         #  label: "Python"
         #  source:

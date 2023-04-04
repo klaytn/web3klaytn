@@ -1,0 +1,88 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/sendRawTransaction:
+    post:
+      summary: "[sendRawTransaction]"
+      tags:
+        - eth
+      operationId: sendRawTransaction
+      description: |
+        Creates a new message call transaction or a contract creation for signed transactions.
+        
+        **JSONRPC:** `eth_sendRawTransaction`
+
+      parameters:
+        - name: signedTransactionData
+          in: query
+          description: The signed transaction data.
+          required: true
+          schema:
+            type: string
+            format: DATA
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  required:
+                    - method
+                  properties:
+                    method:
+                      type: string
+                      default: 'eth_sendRawTransaction'
+                    params:
+                      type: array
+                      items:
+                        type: string
+                        format: DATA
+                        title: signedTransactionData
+                        description: The signed transaction data.
+                      example: [ "0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67" ]
+
+      responses:
+        200:
+          description: Return the transaction hash or the zero hash if the transaction is not yet available.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: 32-byte DATA
+                        description: The transaction hash or the zero hash if the transaction is not yet available.
+                        example: "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331"
+
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/transaction/sendRawTransaction.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/transaction/EthCallExample.java"
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: "../../../code-samples/javascript/eth/transaction/call.js"
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: "../../../code-samples/python/eth/transaction/call.py"

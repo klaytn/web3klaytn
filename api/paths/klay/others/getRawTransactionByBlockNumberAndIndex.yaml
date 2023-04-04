@@ -63,10 +63,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        #- lang: "javascript"
-        #  label: "Javascript"
-        #  source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/transaction/getRawTransactionByBlockNumberAndIndex.js"
         - lang: "python"
           label: "Python"
           source:
@@ -99,5 +99,5 @@ components:
       properties:
         result:
           type: string
-          description: The bytes of the transaction
+          description: Hex representation of some bytes
           example: "0x0"

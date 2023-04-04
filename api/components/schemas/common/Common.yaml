@@ -1036,6 +1036,7 @@ components:
           type: string
           format: hex
           description: "(optional) The integer of a nonce."
+      example: [{"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee", "value": "0x1", "gas": "0x9999", "maxFeePerGas": "0x5d21dba00", "maxPriorityPerGas": "0x5d21dba00"}]
 
     EthBlockHeader:
       type: object
@@ -1195,7 +1196,7 @@ components:
                   hash:
                     type: string
                     format: 32-byte DATA
-                    description: Hash of the transaction.  
+                    description: Hash of the transaction.
                 additionalProperties: true
           description: Array of transaction objects, or 32-byte transaction hashes depending on the last given parameter.
         governanceData:

@@ -17,6 +17,8 @@ paths:
       tags:
         - klay
       description: |
+        Returns the receipt of a transaction by sender transaction hash.
+
         **NOTE:** The receipt is not available for pending transactions. Please note that this API returns correct result only if indexing feature is enabled by --sendertxhashindexing. This can be checked by call klay_isSenderTxHashIndexingEnabled.
 
         **JSONRPC:** `klay_getTransactionReceiptBySenderTxHash`
@@ -57,10 +59,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        #- lang: "javascript"
-        #  label: "Javascript"
-        #  source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/transaction/getTransactionReceiptBySenderTxHash.js"
         #- lang: "python"
         #  label: "Python"
         #  source:
@@ -91,5 +93,115 @@ components:
       type: object
       properties:
         result:
-          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionObject"
+          $ref: "#/components/schemas/TransactionObject"
 
+    TransactionObject:
+      type: object
+      properties:
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block where this transaction was in.
+        blockNumber:
+          type: string
+          format: hex
+          description: The block number where this transaction was in.
+        codeFormat:
+          type: string
+          description: (optional) The code format of smart contract code.
+        contractAddress:
+          type: string
+          format: DATA
+          description: The contract address created, if the transaction was a contract creation, otherwise null.
+        feePayer:
+          type: string
+          format: 20-byte DATA
+          description: Address of the fee payer.
+        feePayerSignatures:
+          type: array
+          items:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Signature"
+          description: An array of fee payer's signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
+        feeRatio:
+          type: string
+          format: hex
+          description: (optional) Fee ratio of the fee payer. If it is 30, 30% of the fee will be paid by the fee payer. 70% will be paid by the sender.
+        from:
+          type: string
+          format: 20-byte DATA
+          description: Address of the sender.
+        gas:
+          type: string
+          format: hex
+          description: Gas provided by the sender.
+        gasPrice:
+          type: string
+          format: hex
+          description: Gas price provided by the sender in peb.
+        gasUsed:
+          type: string
+          format: hex
+          description: The amount of gas used by this specific transaction alone.
+        humanReadable:
+          type: boolean
+          description: (optional) true if the address is humanReadable, false if the address is not humanReadable.
+        key:
+          type: string
+          description: (optional) Key of the newly created account.
+        input:
+          type: string
+          format: DATA
+          description: (optional) The data sent along with the transaction.
+        logs:
+          type: array
+          items:
+            type: object
+          description: Array of log objects, which this transaction generated.
+        logsBloom:
+          type: string
+          format: 256-byte DATA
+          description: Bloom filter for light clients to quickly retrieve related logs.
+        nonce:
+          type: string
+          format: hex
+          description: The number of transactions made by the sender prior to this one.
+        senderTxHash:
+          type: string
+          format: (optional) 32-byte DATA
+          description: Hash of the tx without the fee payer's address and signature. This value is always the same as the value of transactionHash for non fee-delegated transactions.
+        signature:
+          type: array
+          items:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Signature"
+
+          description: An array of signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
+        status:
+          type: string
+          format: hex
+          description: Either 1 (success) or 0 (failure).
+        txError:
+          type: string
+          format: hex
+          description: (optional) detailed error code if status is equal to zero.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: Address of the receiver. null when it is a contract creation transaction.
+        transactionHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transaction.
+        transactionIndex:
+          type: string
+          format: hex
+          description: Integer of the transaction index position in the block.
+        type:
+          type: string
+          description: A string representing the type of the transaction.
+        typeInt:
+          type: number
+          description: An integer representing the type of the transaction.
+        value:
+          type: string
+          format: hex
+          description: Value transferred in peb.
