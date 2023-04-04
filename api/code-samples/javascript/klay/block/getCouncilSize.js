@@ -5,7 +5,9 @@ const OpenSdk = require("opensdk-javascript");
 
 
     const blockNumberOrTag = '0x1b4'
-    
-    sdk.klay.getCouncilSize({blockNumberOrTag}, callbackOne);
+
+    sdk.klay.getCouncilSize({ blockNumberOrTag }, (err, data, response) => {
+        console.log(data);
+    });
 }
 )()
