@@ -124,6 +124,9 @@ components:
     AccountKeyLegacy:
       title: AccountKeyLegacy
       type: object
+      required:
+        - key
+        - keyType
       description: "AccountKeyLegacy is used for the account having an address derived from the corresponding key pair"
       properties:
         key:
@@ -135,10 +138,16 @@ components:
     AccountKeyPublic:
       title: AccountKeyPublic
       type: object
+      required:
+        - key
+        - keyType
       description: "AccountKeyPublic is used for accounts having one public key."
       properties:
         key:
           type: object
+          required:
+            - x
+            - y
           description: "Key should be a compressed public key on S256 curve."
           properties:
             x:
@@ -156,8 +165,13 @@ components:
     AccountKeyFail:
         title: AccountKeyFail
         type: object
+        required:
+          - keyType
+          - key
         description: "If an account has the key AccountKeyFail, the transaction validation process always fails. It can be used for smart contract accounts so that a transaction sent from the smart contract account always fails."
         properties:
+            key:
+              type: object
             keyType:
               type: integer
               description: "The type of AccountKeyFail. This must be 0x03."
@@ -165,6 +179,10 @@ components:
     AccountKeyWeightedMultiSig:
       title: AccountKeyWeightedMultiSig
       type: object
+      required:
+        - keyType
+        - Threshold
+        - WeightedPublicKeys
       description: "AccountKeyWeightedMultiSig is an account key type containing a threshold and WeightedPublicKeys which contains a list consisting of a public key and its weight."
       properties:
         keyType:
@@ -178,9 +196,15 @@ components:
             description: "A list of weighted public keys. A weighted public key contains a compressed public key and its weight."
             items:
                 type: object
+                required:
+                  - PublicKey
+                  - Weight
                 properties:
                   PublicKey:
                       type: object
+                      required:
+                          - x
+                          - y
                       properties:
                         x:
                             type: string
@@ -193,11 +217,12 @@ components:
                   Weight:
                       type: integer
 
-
-
     AccountKeyRoleBased:
       title: AccountKeyRoleBased
       type: object
+      required:
+          - keyType
+          - key
       description: "AccountKeyRoleBased represents a role-based key"
       properties:
         key:
