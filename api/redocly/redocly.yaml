@@ -13,6 +13,14 @@ apis:
     root: ../paths/klay/index.yaml
     labels:
       - v1.10.2
+  klay@v1.10.3:
+    root: ../paths/net/index.yaml
+    labels:
+      - v1.10.3
+  klay@v1.10.4:
+    root: ../paths/txpool/index.yaml
+    labels:
+      - v1.10.4
 extends:
   - recommended
 features.openapi:
