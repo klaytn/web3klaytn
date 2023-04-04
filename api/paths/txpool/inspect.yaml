@@ -10,16 +10,16 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /txpool/status:
+  /txpool/inspect:
     post:
-      operationId: status
-      summary: "[status]"
+      operationId: inspect
+      summary: "[inspect]"
       description: |
-        The status inspection property can be queried for the number of transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
+        The inspect inspection property can be queried to list a textual summary of all the transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only. This is a method specifically tailored to developers to quickly see the transactions in the pool and find any potential issues.
         
-        The result is an object with two fields pending and queued, each of which is a counter representing the number of transactions in that particular state.
+        The result is an object with two fields pending and queued. Each of these fields is associative arrays, in which each entry maps an origin-address to a batch of scheduled transactions. These batches themselves are maps associating nonces with transactions summary strings.
         
-        **JSONRPC:** `txpool_status`
+        **JSONRPC:** `txpool_inspect`
       tags:
         - txpool
 
@@ -33,11 +33,11 @@ paths:
                   properties:
                     method:
                       type: string
-                      default: txpool_status
+                      default: txpool_inspect
 
       responses:
         200:
-          description: Returns an object with two fields pending and queued, each of which is a counter representing the number of transactions in that particular state.
+          description: Returns an object with two fields pending and queued.
           content:
             application/json:
               schema:
@@ -52,20 +52,17 @@ paths:
                           - queued
                         properties:
                           pending:
-                            type: string
-                            format: hex
-                            description: The number of pending transactions.
+                            type: object
                           queued:
-                            type: string
-                            format: hex
-                            description: The number of queued transactions.
-                        example: {"pending":"0x0","queued":"0x0"}
+                            type: object
+                        example:
+                          {"pending":{"0x1A789E38cD567a00b7Fb8e1D39100ac395fa463B":{"0":"0x87AC99835e67168d4f9a40580f8F5C33550bA88b: 0 peb + 99000000 gas × 25000000000 peb"},"0xAb552FC3d76de919c74435A4C6B04576a9763934":{"0":"0x87AC99835e67168d4f9a40580f8F5C33550bA88b: 0 peb + 99000000 gas × 25000000000 peb"}},"queued":{}}
 
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../code-samples/curl/txpool/status.sh"
+            $ref: "../../code-samples/curl/txpool/inspect.sh"
 #        - lang: "java"
 #          label: "Java"
 #          source:

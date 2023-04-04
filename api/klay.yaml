@@ -17,6 +17,8 @@ tags:
     description: klaytn governance API
   - name: eth
     description: API for ethereum namespace
+  - name: txpool
+    description: API for txpool namespace
   - name: net
     description: API for net namespace
 #  - name: RewardSpec
@@ -29,6 +31,9 @@ x-tagGroups:
   - name: Klay
     tags:
       - klay
+  - name: Txpool
+    tags:
+      - txpool
   - name: Net
     tags:
       - net
@@ -303,3 +308,7 @@ paths:
   # txpool
   /txpool/status:
     $ref: ./paths/txpool/status.yaml#/paths/~1txpool~1status
+  /txpool/content:
+    $ref: ./paths/txpool/content.yaml#/paths/~1txpool~1content
+  /txpool/inspect:
+    $ref: ./paths/txpool/inspect.yaml#/paths/~1txpool~1inspect
