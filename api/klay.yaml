@@ -17,6 +17,8 @@ tags:
     description: klaytn governance API
   - name: eth
     description: API for ethereum namespace
+  - name: net
+    description: API for net namespace
 #  - name: RewardSpec
 #    description: |
 #      <SchemaDefinition schemaRef="#/components/schemas/RewardSpec" />
@@ -27,6 +29,9 @@ x-tagGroups:
   - name: Klay
     tags:
       - klay
+  - name: Net
+    tags:
+      - net
   - name: Models
     tags:
       - RewardSpec
@@ -282,3 +287,15 @@ paths:
   # eth/miscellaneous:
   /eth/miscellaneous/submitWork:
     $ref: ./paths/eth/miscellaneous/submitWork.yaml#/paths/~1eth~1submitWork
+
+  # net
+  /net/listening:
+    $ref: ./paths/net/listening.yaml#/paths/~1net~1listening
+  /net/networkID.yaml:
+    $ref: ./paths/net/networkID.yaml#/paths/~1net~1networkID
+  /net/peerCount:
+    $ref: ./paths/net/peerCount.yaml#/paths/~1net~1peerCount
+  /net/peerCountByType:
+    $ref: ./paths/net/peerCountByType.yaml#/paths/~1net~1peerCountByType
+  /net/version:
+    $ref: ./paths/net/version.yaml#/paths/~1net~1version
