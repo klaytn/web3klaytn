@@ -17,7 +17,7 @@ paths:
       description: |
         Returns true if the client is actively listening for network connections.
         
-        **JSONRPC:** `klay_listening`
+        **JSONRPC:** `net_listening`
       tags:
         - net
 
@@ -26,7 +26,7 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
                 - type: object
                   properties:
                     method:
@@ -40,7 +40,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - type: object
                     properties:
                       result:
@@ -52,7 +52,7 @@ paths:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/net/listening.sh"
+            $ref: "../../code-samples/curl/net/listening.sh"
 #        - lang: "java"
 #          label: "Java"
 #          source:
