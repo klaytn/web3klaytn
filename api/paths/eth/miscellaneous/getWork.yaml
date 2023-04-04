@@ -1,0 +1,79 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/getWork:
+    post:
+      summary: "[getWork]"
+      tags:
+        - eth
+      operationId: getWork
+      description: |
+        Returns the hash of the current block, the seedHash, and the boundary condition to be met ("target").
+
+        Please note that it always return `errNoMiningWork` because there is no PoW mechanism in Klaytn.
+
+        **JSONRPC:** `eth_getWork`
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthGetWorkReq"
+
+      responses:
+        200:
+          description: List of current block header pow-hash, the seed hash used for the DAG, the boundary condition ("target"), 2^256 / difficulty.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthGetWorkResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/miscellaneous/getWork.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: ""
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: ""
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: ""
+
+components:
+  schemas:
+    EthGetWorkReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: 'eth_getWork'
+
+    EthGetWorkResp:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            type: string
+            format: 32-byte DATA
+          example: []
