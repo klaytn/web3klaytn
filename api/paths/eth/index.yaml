@@ -58,6 +58,8 @@ paths:
     $ref: ./block/getUncleCountByBlockNumber.yaml#/paths/~1eth~1getUncleCountByBlockNumber
   /eth/block/syncing:
     $ref: ./block/syncing.yaml#/paths/~1eth~1syncing
+  /eth/block/mining:
+    $ref: ./block/mining.yaml#/paths/~1eth~1mining
 
   # eth/transaction
   /eth/transaction/call:
@@ -79,6 +81,10 @@ paths:
   /eth/transaction/signTransaction:
     $ref: ./transaction/signTransaction.yaml#/paths/~1eth~1signTransaction
 
+  /eth/transaction/pendingTransactions:
+    $ref: ./transaction/pendingTransactions.yaml#/paths/~1eth~1pendingTransactions
+  /eth/transaction/fillTransaction:
+    $ref: ./transaction/fillTransaction.yaml#/paths/~1eth~1fillTransaction
 
   # eth/config
   /eth/config/chainID:
@@ -91,10 +97,10 @@ paths:
   # eth/gas
   /eth/gas/feeHistory:
     $ref: ./gas/feeHistory.yaml#/paths/~1eth~1feeHistory
-  /eth/transaction/estimateGas:
+  /eth/gas/estimateGas:
     $ref: ./transaction/estimateGas.yaml#/paths/~1eth~1estimateGas
-  /eth/transaction/fillTransaction:
-    $ref: ./transaction/fillTransaction.yaml#/paths/~1eth~1fillTransaction
+  /eth/gas/maxPriorityFeePerGas:
+    $ref: ./gas/maxPriorityFeePerGas.yaml#/paths/~1eth~1maxPriorityFeePerGas
 
   # eth/filter
   /eth/filter/getFilterLogs:
@@ -107,3 +113,13 @@ paths:
   # eth/miscellaneous:
   /eth/miscellaneous/submitWork:
     $ref: ./miscellaneous/submitWork.yaml#/paths/~1eth~1submitWork
+  /eth/filter/newBlockFilter:
+    $ref: ./filter/newBlockFilter.yaml#/paths/~1eth~1newBlockFilter
+  /eth/filter/newFilter:
+    $ref: ./filter/newFilter.yaml#/paths/~1eth~1newFilter
+  /eth/filter/newPendingTransactionFilter:
+    $ref: ./filter/newPendingTransactionFilter.yaml#/paths/~1eth~1newPendingTransactionFilter
+  /eth/miscellaneous/hashRate:
+    $ref: ./miscellaneous/hashRate.yaml#/paths/~1eth~1hashRate
+  /eth/miscellaneous/getWork:
+    $ref: ./miscellaneous/getWork.yaml#/paths/~1eth~1getWork

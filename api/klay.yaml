@@ -104,6 +104,8 @@ paths:
     $ref: ./paths/klay/block/syncing.yaml#/paths/~1klay~1syncing
   /klay/block/getBlockWithConsensusInfoByNumberRange:
     $ref: ./paths/klay/block/getBlockWithConsensusInfoByNumberRange.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumberRange
+  /klay/block/getBlockWithConsensusInfoByHash:
+    $ref: ./paths/klay/block/getBlockWithConsensusInfoByHash.yaml#/paths/~1klay~1getBlockWithConsensusInfoByHash
 
   # klay/transaction
   /klay/transaction/call:
@@ -244,6 +246,8 @@ paths:
     $ref: ./paths/eth/block/getUncleCountByBlockNumber.yaml#/paths/~1eth~1getUncleCountByBlockNumber
   /eth/block/syncing:
     $ref: ./paths/eth/block/syncing.yaml#/paths/~1eth~1syncing
+  /eth/block/mining:
+    $ref: ./paths/eth/block/mining.yaml#/paths/~1eth~1mining
 
   # eth/transaction
   /eth/transaction/call:
@@ -264,6 +268,10 @@ paths:
     $ref: ./paths/eth/transaction/sendTransaction.yaml#/paths/~1eth~1sendTransaction
   /eth/transaction/signTransaction:
     $ref: ./paths/eth/transaction/signTransaction.yaml#/paths/~1eth~1signTransaction
+  /eth/transaction/pendingTransactions:
+    $ref: ./paths/eth/transaction/pendingTransactions.yaml#/paths/~1eth~1pendingTransactions
+  /eth/transaction/fillTransaction:
+    $ref: ./paths/eth/transaction/fillTransaction.yaml#/paths/~1eth~1fillTransaction
 
   # eth/config
   /eth/config/chainID:
@@ -276,10 +284,10 @@ paths:
   # eth/gas
   /eth/gas/feeHistory:
     $ref: ./paths/eth/gas/feeHistory.yaml#/paths/~1eth~1feeHistory
-  /eth/transaction/estimateGas:
+  /eth/gas/estimateGas:
     $ref: ./paths/eth/transaction/estimateGas.yaml#/paths/~1eth~1estimateGas
-  /eth/transaction/fillTransaction:
-    $ref: ./paths/eth/transaction/fillTransaction.yaml#/paths/~1eth~1fillTransaction
+  /eth/gas/maxPriorityFeePerGas:
+    $ref: ./paths/eth/gas/maxPriorityFeePerGas.yaml#/paths/~1eth~1maxPriorityFeePerGas
 
   # eth/filter
   /eth/filter/getFilterLogs:
@@ -288,10 +296,20 @@ paths:
     $ref: ./paths/eth/filter/getFilterChanges.yaml#/paths/~1eth~1getFilterChanges
   /eth/filter/uninstallFilter:
     $ref: ./paths/eth/filter/uninstallFilter.yaml#/paths/~1eth~1uninstallFilter
+  /eth/filter/newBlockFilter:
+    $ref: ./paths/eth/filter/newBlockFilter.yaml#/paths/~1eth~1newBlockFilter
+  /eth/filter/newFilter:
+    $ref: ./paths/eth/filter/newFilter.yaml#/paths/~1eth~1newFilter
+  /eth/filter/newPendingTransactionFilter:
+    $ref: ./paths/eth/filter/newPendingTransactionFilter.yaml#/paths/~1eth~1newPendingTransactionFilter
 
   # eth/miscellaneous:
   /eth/miscellaneous/submitWork:
     $ref: ./paths/eth/miscellaneous/submitWork.yaml#/paths/~1eth~1submitWork
+  /eth/miscellaneous/hashRate:
+    $ref: ./paths/eth/miscellaneous/hashRate.yaml#/paths/~1eth~1hashRate
+  /eth/miscellaneous/getWork:
+    $ref: ./paths/eth/miscellaneous/getWork.yaml#/paths/~1eth~1getWork
 
   # net
   /net/listening:

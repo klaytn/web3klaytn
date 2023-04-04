@@ -10,16 +10,16 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/pendingTransactions:
+  /eth/pendingTransactions:
     post:
       operationId: pendingTransactions
       summary: "[pendingTransactions]"
       tags:
-        - klay
+        - eth
       description: |
         Returns the transactions that are in the transaction pool and have a from address that is one of the accounts this node manages.
 
-        **JSONRPC:** `klay_pendingTransactions`
+        **JSONRPC:** `eth_pendingTransactions`
 
       requestBody:
         content:
@@ -27,7 +27,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "#/components/schemas/KlayPendingTransactionsReq"
+                - $ref: "#/components/schemas/ethPendingTransactionsReq"
 
       responses:
         200:
@@ -37,13 +37,13 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "#/components/schemas/KlayPendingTransactionsResp"
+                  - $ref: "#/components/schemas/ethPendingTransactionsResp"
 
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/transaction/pendingTransactions.sh"
+            $ref: "../../../code-samples/curl/eth/transaction/pendingTransactions.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
@@ -55,20 +55,20 @@ paths:
         # - lang: "python"
         #   label: "Python"
         #   source:
-        #     $ref: "../../../code-samples/python/klay/transaction/pendingTransactions.py"
+        #     $ref: "../../../code-samples/python/eth/transaction/pendingTransactions.py"
 
 components:
   schemas:
-    KlayPendingTransactionsReq:
+    ethPendingTransactionsReq:
       type: object
       required:
         - method
       properties:
         method:
           type: string
-          default: 'klay_pendingTransactions'
+          default: 'eth_pendingTransactions'
 
-    KlayPendingTransactionsResp:
+    ethPendingTransactionsResp:
       type: object
       properties:
         result:

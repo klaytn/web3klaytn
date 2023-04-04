@@ -1,0 +1,76 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/mining:
+    post:
+      summary: "[mining]"
+      tags:
+        - eth
+      operationId: mining
+      description: |
+        Returns true if client is actively mining new blocks.
+
+        **NOTE:** Currently, every node is on mining mode by default to resend transactions. Please note that the actual "mining" is only performed by the Consensus Nodes (CNs).
+
+        **JSONRPC:** `eth_mining`
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthMiningReq"
+
+      responses:
+        200:
+          description: true if the client is mining, otherwise false.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthMiningResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/block/mining.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: ""
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: ""
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: ""
+
+components:
+  schemas:
+    EthMiningReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: 'eth_mining'
+
+    EthMiningResp:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true

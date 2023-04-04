@@ -1,0 +1,90 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/getBlockWithConsensusInfoByHash:
+    post:
+      operationId: getBlockWithConsensusInfoByHash
+      summary: "[getBlockWithConsensusInfoByHash]"
+      description: |
+        Returns a block with consensus information that matches the given hash.
+
+        **JSONRPC:** `klay_getBlockWithConsensusInfoByHash`
+
+      tags:
+        - klay
+
+      parameters:
+        - name: blockHash
+          in: query
+          description: Hash of a block.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/KlayGetBlockWithConsensusInfoByHashReq"
+
+      responses:
+        200:
+          description: Object - A block object with consensus information (a proposer and a list of committee members), or error when no block was found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/KlayGetBlockWithConsensusInfoByHashResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/block/getBlockWithConsensusInfoByHash.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../../code-samples/javascript/klay/block/getBlockWithConsensusInfoByHash.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../../code-samples/python/klay/block/getBlockWithConsensusInfoByHash.py"
+
+components:
+  schemas:
+    KlayGetBlockWithConsensusInfoByHashReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getBlockWithConsensusInfoByHash'
+        params:
+          type: array
+          items:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
+          example:  ["0x7d68d09a7a571cdf8a3b6a5ef6e037265b3e3093cf145b0954d22bde5c1d4f61"]
+
+    KlayGetBlockWithConsensusInfoByHashResp:
+      type: object
+      properties:
+        result:
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockWithConsensusInfo"

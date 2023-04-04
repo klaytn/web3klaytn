@@ -89,6 +89,8 @@ paths:
     $ref: ./block/syncing.yaml#/paths/~1klay~1syncing
   /klay/block/getBlockWithConsensusInfoByNumberRange:
     $ref: ./block/getBlockWithConsensusInfoByNumberRange.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumberRange
+  /klay/block/getBlockWithConsensusInfoByHash:
+    $ref: ./block/getBlockWithConsensusInfoByHash.yaml#/paths/~1klay~1getBlockWithConsensusInfoByHash
 
   # klay/transaction
   /klay/transaction/call:
