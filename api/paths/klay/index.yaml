@@ -161,7 +161,8 @@ paths:
     $ref: ./filter/unsubscribe.yaml#/paths/~1klay~1unsubscribe
   /klay/filter/getLogs:
     $ref: ./filter/getLogs.yaml#/paths/~1klay~1getLogs
-
+  /klay/filter/subscribe:
+    $ref: ./filter/subscribe.yaml#/paths/~1klay~1subscribe
   # klay/gas
   /klay/gas/feeHistory:
     $ref: ./gas/feeHistory.yaml#/paths/~1klay~1feeHistory
