@@ -97,6 +97,28 @@ components:
 
     TransactionObject:
       type: object
+      required:
+        - blockHash
+        - blockNumber
+        - contractAddress
+        - feePayer
+        - feePayerSignatures
+        - from
+        - gas
+        - gasPrice
+        - gasUsed
+        - logs
+        - logsBloom
+        - nonce
+        - senderTxHash
+        - signatures
+        - status
+        - to
+        - transactionHash
+        - transactionIndex
+        - type
+        - typeInt
+        - value
       properties:
         blockHash:
           type: string
