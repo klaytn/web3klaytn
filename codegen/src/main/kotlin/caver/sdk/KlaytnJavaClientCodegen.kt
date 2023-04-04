@@ -135,4 +135,30 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
         }
         super.handleMethodResponse(operation, schemas, op, methodResponse, schemaMappings)
     }
+
+    override fun postProcessModelProperty(model: CodegenModel?, property: CodegenProperty?) {
+        var namespace = String()
+        if (openAPI?.tags?.size!! > 0) {
+            namespace = openAPI.tags?.get(0)?.name!!
+        }
+        if (property?.ref?.contains("_200") == true) {
+            val newRef = property.ref!!.replace("_200", "")
+            property.ref = newRef.
+            replaceAfterLast("/", namespace.lowercase()+"_"+newRef.substringAfterLast("/"), "")
+        }
+        if (property?.dataType?.contains("200") == true) {
+            val newDataType = property.dataType!!.replace("200", "")
+            property.dataType = newDataType.replaceBefore("", namespace.capitalize())
+        }
+        if (property?.datatypeWithEnum?.contains("200") == true) {
+            val newDatatypeWithEnum = property.datatypeWithEnum!!.replace("200", "")
+            property.datatypeWithEnum = newDatatypeWithEnum.replaceBefore("", namespace.capitalize())
+        }
+        model?.imports?.forEach {
+            if (it?.contains("200") == true) {
+                model.imports?.remove(it)
+            }
+        }
+        super.postProcessModelProperty(model, property)
+    }
 }
