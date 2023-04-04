@@ -68,10 +68,11 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klay/transaction/getTransactionByBlockHashAndIndex.js"
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/transaction/getTransactionByBlockHashAndIndex.py"
+
 
 components:
   schemas:
