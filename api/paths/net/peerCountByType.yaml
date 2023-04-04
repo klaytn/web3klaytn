@@ -1,0 +1,74 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /net/peerCountByType:
+    post:
+      operationId: peerCountByType
+      summary: "[peerCountByType]"
+      description: |
+        Returns the number of connected nodes by type and the total number of connected nodes with key/value pairs.
+
+        **JSONRPC:** `klay_peerCountByType`
+      tags:
+        - net
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: net_peerCountByType
+
+      responses:
+        200:
+          description: Returns the number of connected nodes by type and the total number of connected nodes with key/value pairs.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: object
+                        description: "The number of connected peers by type as well as the total number of connected peers."
+                        properties:
+                          en:
+                            type: integer
+                          pn:
+                            type: integer
+                          total:
+                            type: integer
+                        example: {"en":3,"pn":2,"total":5}
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/net/peerCountByType.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/block/KlayBlockNumberExample.java"
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: "../../../code-samples/javascript/klay/block/blockNumber.js"
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: "../../../code-samples/python/klay/block/blockNumber.py"
