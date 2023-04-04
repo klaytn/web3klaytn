@@ -299,3 +299,7 @@ paths:
     $ref: ./paths/net/peerCountByType.yaml#/paths/~1net~1peerCountByType
   /net/version:
     $ref: ./paths/net/version.yaml#/paths/~1net~1version
+
+  # txpool
+  /txpool/status:
+    $ref: ./paths/txpool/status.yaml#/paths/~1txpool~1status
