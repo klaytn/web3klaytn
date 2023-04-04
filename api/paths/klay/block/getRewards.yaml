@@ -52,10 +52,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klay/getReward.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/block/KlayGetRewardsExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
