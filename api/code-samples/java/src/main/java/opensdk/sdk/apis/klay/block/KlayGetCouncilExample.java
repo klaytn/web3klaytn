@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class KlayGetCouncilExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void klayGetCouncilExample() throws IOException {
         KlayGetCouncilResponse gr = sdk.klay.getCouncil(

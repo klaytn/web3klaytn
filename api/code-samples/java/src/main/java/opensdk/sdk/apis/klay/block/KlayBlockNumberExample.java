@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class KlayBlockNumberExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void klayBlockNumberExample() throws IOException {
         KlayBlockNumberResponse br = sdk.klay.blockNumber().send();

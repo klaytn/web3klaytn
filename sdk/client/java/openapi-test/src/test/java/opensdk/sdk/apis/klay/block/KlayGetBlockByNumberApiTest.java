@@ -1,7 +1,7 @@
-package opensdk.sdk.apis.klay.account;
+package opensdk.sdk.apis.klay.block;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayGetCodeResponse;
+import opensdk.sdk.models.KlayGetBlockByNumberResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
@@ -9,16 +9,16 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 @DisplayName("Klay RPC Test")
-public class KlayGetCodeApiTest {
+public class KlayGetBlockByNumberApiTest {
 
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     @Test
-    @DisplayName("RPC klay_getCode")
+    @DisplayName("RPC klay_getBlockByNumber")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayGetCodeResponse gr = sdk.klay.getCode(
-            "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
-            "0x2")
+        KlayGetBlockByNumberResponse gr = sdk.klay.getBlockByNumber(
+            "0x1b4",
+            true)
         .send();
         gr.getResult();
     }

@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class KlayGasPriceAtExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void klayGasPriceAtExample() throws IOException {
         KlayGasPriceAtResponse gr = sdk.klay.gasPriceAt(

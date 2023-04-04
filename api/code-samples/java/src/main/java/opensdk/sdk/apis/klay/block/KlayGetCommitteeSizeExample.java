@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class KlayGetCommitteeSizeExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void klayGetCommitteeSizeExample() throws IOException {
         KlayGetCommitteeSizeResponse gr = sdk.klay.getCommitteeSize(

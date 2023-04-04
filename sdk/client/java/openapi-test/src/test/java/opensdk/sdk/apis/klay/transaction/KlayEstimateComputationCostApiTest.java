@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @DisplayName("Klay RPC Test")
 public class KlayEstimateComputationCostApiTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     @Test
     @DisplayName("RPC klay_estimateComputationCost")
@@ -21,6 +21,7 @@ public class KlayEstimateComputationCostApiTest {
         klayCallReqParamsInner.setTo("0x069942a3ca0dabf495dba872533134205764bc9c");
         klayCallReqParamsInner.setValue("0x0");
         klayCallReqParamsInner.setInput("0x2a31efc7000000000000000000000000000000000000000000000000000000000000271000000000000000000000000000000000000000000000000000000000000000420000000000000000000000000000000000000000000000000000000000003039");
+
         KlayEstimateComputationCostResponse er = sdk.klay.estimateComputationCost(
             klayCallReqParamsInner,
             "latest")

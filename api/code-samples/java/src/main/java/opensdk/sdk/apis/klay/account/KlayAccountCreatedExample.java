@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class KlayAccountCreatedExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void klayAccountCreatedExample() throws IOException {
         KlayAccountCreatedResponse ar = sdk.klay.accountCreated(

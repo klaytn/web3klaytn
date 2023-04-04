@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @DisplayName("Klay RPC Test")
 public class KlayTransactionCallApiTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     @Test
     @DisplayName("RPC klay_call")

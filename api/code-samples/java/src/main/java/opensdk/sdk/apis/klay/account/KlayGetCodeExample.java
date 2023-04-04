@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class KlayGetCodeExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void klayGetCodeExample() throws IOException {
         KlayGetCodeResponse gr = sdk.klay.getCode(
