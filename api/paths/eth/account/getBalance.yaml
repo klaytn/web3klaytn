@@ -46,7 +46,7 @@ paths:
 
       responses:
         200:
-          description: Integer of the current balance in peb.
+          description: Returns the balance of the account of given address.
           content:
             application/json:
               schema:
