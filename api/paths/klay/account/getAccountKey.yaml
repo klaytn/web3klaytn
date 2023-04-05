@@ -24,7 +24,7 @@ paths:
         - klay
 
       parameters:
-        - name: Address
+        - name: address
           required: true
           schema:
             type: string
@@ -90,7 +90,7 @@ components:
           items:
             anyOf:
               - type: string
-                title: address
+                title: Address
                 format: 20-byte DATA
                 description: Address
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
