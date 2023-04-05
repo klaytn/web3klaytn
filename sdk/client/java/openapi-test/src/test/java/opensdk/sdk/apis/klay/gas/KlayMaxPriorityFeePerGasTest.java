@@ -8,6 +8,7 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 @DisplayName("Klay RPC Test")
 public class KlayMaxPriorityFeePerGasTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
@@ -15,6 +16,6 @@ public class KlayMaxPriorityFeePerGasTest {
     @DisplayName("RPC klay_maxPriorityFeePerGas")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         KlayGasPriceResponse response = sdk.klay.maxPriorityFeePerGas().send();
-        response.getResult();
+        assertNotNull(response.getResult());
     }
 }

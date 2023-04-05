@@ -17,7 +17,7 @@ paths:
         - eth
       operationId: gasPrice
       description: |
-        Return current chainId set on the requested node.
+        Returns the current price per gas in peb.
         
         **JSONRPC:** `eth_gasPrice`
         

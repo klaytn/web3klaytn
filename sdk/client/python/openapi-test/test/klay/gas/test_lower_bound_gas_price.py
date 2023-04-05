@@ -1,12 +1,12 @@
 from base.testing import KlaytnBaseTesting
 
 
-class TestCoinBase(KlaytnBaseTesting):
+class TestLowerBoundGasPrice(KlaytnBaseTesting):
 
     def test_post(self):
-        eth_response = self.sdk.eth.coinbase()
+        klay_response = self.sdk.klay.lower_bound_gas_price()
 
-        self.covert_response(eth_response.response)
+        self.covert_response(klay_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)
         self.assertIn("id", self.response)
