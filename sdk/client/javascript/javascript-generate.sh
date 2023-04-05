@@ -12,8 +12,8 @@ mkdir "${CURRENT_FILE_DIR}/openapi"
 
 sh ./scripts/eth/javascript-eth-generate.sh
 sh ./scripts/klay/javascript-klay-generate.sh
-
-
+sh ./scripts/txpool/javascript-txpool-generate.sh
+sh ./scripts/net/javascript-net-generate.sh
 cd "${CURRENT_FILE_DIR}/opensdk"
 yarn link
 

@@ -33,5 +33,5 @@ paths:
   /net/peerCountByType:
     $ref: ./peerCountByType.yaml#/paths/~1net~1peerCountByType
   /net/version:
-    $ref: ./version.yaml#/paths/~1net~version
+    $ref: ./version.yaml#/paths/~1net~1version
 
