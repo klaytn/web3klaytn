@@ -40,7 +40,7 @@ paths:
 
       responses:
         200:
-          description: Object - A block object with consensus information (a proposer and a list of committee members), or error when no block was found
+          description: Returns a block with consensus information that matches the given hash.
           content:
             application/json:
               schema:

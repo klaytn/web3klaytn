@@ -1245,6 +1245,23 @@ components:
 
     BlockWithConsensusInfo:
       type: object
+      required:
+        - blockScore
+        - totalBlockScore
+        - committee
+        - gasUsed
+        - hash
+        - number
+        - parentHash
+        - proposer
+        - receiptsRoot
+        - size
+        - stateRoot
+        - timestamp
+        - timestampFoS
+        - transactions
+        - transactionsRoot
+        - baseFeePerGas
       properties:
         blockScore:
           type: string
@@ -1303,7 +1320,7 @@ components:
         transactions:
           type: array
           items:
-            $ref: "#/components/schemas/TransactionObject"
+            type: object
           description: Array of transaction objects.
         transactionsRoot:
           type: string

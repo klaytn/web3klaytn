@@ -39,14 +39,18 @@ paths:
         - name: fromBlock
           required: false
           schema:
-            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+            allOf:
+             - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+             - default: "latest"
           description: |
             (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
           in: query
         - name: toBlock
           required: false
           schema:
-            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+            allOf:
+             - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+             - default: "latest"
           description: |
             (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
           in: query
@@ -118,9 +122,11 @@ components:
             anyOf:
               - allOf:
                   - title: FromBlock
+                    default: "latest"
                   - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
               - allOf:
                   - title: ToBlock
+                    default: "latest"
                   - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
               - $ref: "#/components/schemas/Topics"
