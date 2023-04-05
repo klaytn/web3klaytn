@@ -18,6 +18,8 @@ paths:
       operationId: getBlockByHash
       description: |
         Returns information about a block by hash.
+        
+        Please check Caution-Block before using this API
 
         **JSONRPC:** `eth_getBlockByHash`
 
@@ -29,7 +31,7 @@ paths:
           schema:
             type: string
             format: 32-byte DATA
-        - name: returnTransactionObjects
+        - name: transactionObjects
           in: query
           description: If true, it returns the full transaction objects, if false only the hashes of the transactions.
           required: true
@@ -86,11 +88,11 @@ components:
           type: array
           items:
             anyOf:
-              - title: blockHash
+              - title: BlockHash
                 description: Hash of a block.
                 type: string
                 format: 32-byte DATA
-              - title: returnTransactionObjects
+              - title: TransactionObjects
                 description: If true, it returns the full transaction objects, if false only the hashes of the transactions.
                 type: boolean
           example: ["0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c", true]
@@ -128,6 +130,26 @@ components:
 
     EthBlockObject:
       type: object
+      required:
+        - baseFeePerGas
+        - difficulty
+        - extraData
+        - gasLimit
+        - gasUsed
+        - hash
+        - logsBloom
+        - miner
+        - mixHash
+        - nonce
+        - number
+        - parentHash
+        - receiptsRoot
+        - sha3Uncles
+        - size
+        - stateRoot
+        - timestamp
+        - totalDifficulty
+        - transactionsRoot
       properties:
         baseFeePerGas:
           type: string

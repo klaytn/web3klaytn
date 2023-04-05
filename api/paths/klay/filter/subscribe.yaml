@@ -52,7 +52,7 @@ paths:
 
       responses:
         200:
-          description: A subscription id when a subscription is created. For each event that matches the subscription, a notification with relevant data will be delivered as well.
+          description: Return a subscription id when a subscription is created
           content:
             application/json:
               schema:
