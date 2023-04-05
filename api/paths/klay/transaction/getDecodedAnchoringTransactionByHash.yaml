@@ -89,6 +89,7 @@ components:
           example: ["0x499350bc5e2f6fee1ba78b4d40a7a1db0a64f3c091112e6798a02ed9a4140084"]
 
     KlayGetDecodedAnchoringTransactionByHashResp:
+      title: KlayGetDecodedAnchoringTransactionByHashResp
       type: object
       properties:
         result:

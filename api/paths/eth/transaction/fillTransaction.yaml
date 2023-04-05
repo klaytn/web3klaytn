@@ -161,8 +161,9 @@ components:
           format: hex
           description: Chain id set on the requested node.
         accessList:
-          type: string
-          format: hex
+          type: array
+          items:
+            type: string
           description: An array of accessList.
         hash:
           type: string
