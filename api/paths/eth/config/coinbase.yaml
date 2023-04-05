@@ -52,10 +52,10 @@ paths:
         #   label: "Javascript"
         #   source:
         #     $ref: "../../../code-samples/javascript/eth/transaction/coinbase.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../../code-samples/python/eth/transaction/coinbase.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/config/coinbase.py"
 
 components:
   schemas:

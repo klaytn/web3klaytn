@@ -58,10 +58,10 @@ paths:
 #          label: "Javascript"
 #          source:
 #            $ref: ""
-#        - lang: "python"
-#          label: "Python"
-#          source:
-#            $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/config/gasPrice.py"
 
 components:
   schemas:
