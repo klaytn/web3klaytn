@@ -42,7 +42,7 @@ paths:
 
       responses:
         200:
-          description: Returns the transaction hash or the zero hash if the transaction is not yet available.
+          description: Returns the transaction hash.
           content:
             application/json:
               schema:

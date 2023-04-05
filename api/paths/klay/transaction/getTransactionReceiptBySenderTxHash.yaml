@@ -42,7 +42,7 @@ paths:
 
       responses:
         200:
-          description: Object - A transaction object, or null when no transaction was found.
+          description: Returns the receipt of a transaction by sender transaction hash.
           content:
             application/json:
               schema:
