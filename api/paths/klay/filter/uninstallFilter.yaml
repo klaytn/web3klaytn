@@ -23,7 +23,7 @@ paths:
         - klay
 
       parameters:
-        - name: QUANTITY
+        - name: filter
           required: true
           schema:
             type: string
@@ -45,7 +45,7 @@ paths:
                       type: array
                       items:
                         type: string
-                        title: QUANTITY
+                        title: Filter
                       description: The filter id
                       example: ["0xd32fd16b6906e67f6e2b65dcf48fc272"]
 

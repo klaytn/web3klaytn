@@ -13,8 +13,10 @@ paths:
   /klay/sha3:
     post:
       operationId: sha3
-      summary: "[sha3] Returns Keccak-256 (not the standardized SHA3-256) of the given data."
+      summary: "[sha3]"
       description: |
+        Returns Keccak-256 (not the standardized SHA3-256) of the given data.
+        
         **JSONRPC:** `klay_sha3`
 
       tags:
@@ -90,4 +92,5 @@ components:
         properties:
             result:
               type: string
+              format: 32-byte DATA
               example: "0x36712aa4d0dd2f64a9ae6ac09555133a157c74ddf7c079a70c33e8b4bf70dd73"
