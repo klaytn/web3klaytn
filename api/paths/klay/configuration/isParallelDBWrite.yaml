@@ -46,17 +46,17 @@ paths:
                       result:
                         type: boolean
                         description: "true means the node is writing blockchain data in parallel manner. It is false if the node is writing the data in serial manner."
-                        example: "true"
+                        example: true
 
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klay/configuration/isParallelDBWrite.sh"
-#        - lang: "java"
-#          label: "Java"
-#          source:
-#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/transaction/KlayIsParallelDBWriteExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/configuration/KlayIsParallelDBWriteExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

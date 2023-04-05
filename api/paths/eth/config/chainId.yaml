@@ -35,7 +35,7 @@ paths:
 
       responses:
         200:
-          description: Chain id set on the requested node.
+          description: Return current chainId set on the requested node.
           content:
             application/json:
               schema:
@@ -48,10 +48,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/eth/config/chainId.sh"
-#        - lang: "java"
-#          label: "Java"
-#          source:
-#            $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/configuration/EthChainIdExample.java"
 #        - lang: "javascript"
 #          label: "Javascript"
 #          source:

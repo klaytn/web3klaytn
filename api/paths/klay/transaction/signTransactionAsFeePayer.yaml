@@ -42,7 +42,7 @@ paths:
 
       responses:
         200:
-          description: Returns the transaction hash or the zero hash if the transaction is not yet available.
+          description: Returns signed raw transaction and transaction object including the fee payer's signature
           content:
             application/json:
               schema:
@@ -94,7 +94,7 @@ components:
               description: Signed raw transaction
             tx:
               type: object
-              description: Transaction object including the sender's signature
+              description: Transaction object including the fee payer's signature
           example:
             {
               "raw":"0xf86c0286025000000000840100000094cd6bfdb523a4d030890d28bf1eb6ef36307c9aaa8301000080820fe8a056d2ddd231c3c111687ab351d339240db18cd721e5aa33c601dd4fc3927fb4d1a03443443392517aa7da082aa0a00b9ee5e3e1ee007d22e57cd9ff55b5ddbf4a64",

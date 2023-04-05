@@ -46,17 +46,17 @@ paths:
                       result:
                         type: boolean
                         description: "`true` means the node is indexing sender transaction hash to transaction hash mapping information."
-                        example: "0xAE9F7BCC00"
+                        example: true
 
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klay/configuration/isSenderTxHashIndexingEnabled.sh"
-#        - lang: "java"
-#          label: "Java"
-#          source:
-#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/transaction/KlayIsSenderTxHashIndexingEnabledExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/configuration/KlayIsSenderTxHashIndexingEnabledExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

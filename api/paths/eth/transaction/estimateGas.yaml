@@ -39,7 +39,7 @@ paths:
 
       responses:
         200:
-          description: The amount of gas used.
+          description: Return the amount of gas used.
           content:
             application/json:
               schema:
@@ -52,10 +52,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/eth/transaction/estimateGas.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/transaction/EthEstimateGasExample.java"
         # - lang: "javascript"
         #   label: "Javascript"
         #   source:

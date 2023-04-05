@@ -293,6 +293,16 @@ components:
     LogObject:
       title: LogObject
       type: object
+      required:
+        - removed
+        - logIndex
+        - transactionIndex
+        - transactionHash
+        - blockHash
+        - blockNumber
+        - address
+        - data
+        - topics
       description: For filters created with klay_newFilter logs are objects with following properties
       properties:
         removed:
@@ -367,11 +377,11 @@ components:
         anyOf:
           - type: string
             format: 32-byte DATA
-            title: blockHash
+            title: BlockHash
             description: For filters created with klay_newBlockFilter, the return are block hashes (32-byte DATA), e.g., ["0x3454645634534..."].
           - type: string
             format: 32-byte DATA
-            title: transactionHash
+            title: TransactionHash
             description: For filters created with klay_newPendingTransactionFilter, the return are transaction hashes (32-byte DATA), e.g., ["0x6345343454645..."].
           - $ref: "#/components/schemas/LogObject"
       description: Array of log objects, or an empty array if nothing has changed since last poll.
@@ -440,7 +450,7 @@ components:
         feePayerSignatures:
           type: array
           items:
-            type: object
+            $ref: "#/components/schemas/Signature"
           description: (optional) An array of fee payer's signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
         feeRatio:
           type: string
@@ -1036,7 +1046,6 @@ components:
           type: string
           format: hex
           description: "(optional) The integer of a nonce."
-      example: [{"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee", "value": "0x1", "gas": "0x9999", "maxFeePerGas": "0x5d21dba00", "maxPriorityPerGas": "0x5d21dba00"}]
 
     EthBlockHeader:
       type: object
@@ -1236,6 +1245,23 @@ components:
 
     BlockWithConsensusInfo:
       type: object
+      required:
+        - blockScore
+        - totalBlockScore
+        - committee
+        - gasUsed
+        - hash
+        - number
+        - parentHash
+        - proposer
+        - receiptsRoot
+        - size
+        - stateRoot
+        - timestamp
+        - timestampFoS
+        - transactions
+        - transactionsRoot
+        - baseFeePerGas
       properties:
         blockScore:
           type: string
@@ -1294,7 +1320,7 @@ components:
         transactions:
           type: array
           items:
-            $ref: "#/components/schemas/TransactionObject"
+            type: object
           description: Array of transaction objects.
         transactionsRoot:
           type: string

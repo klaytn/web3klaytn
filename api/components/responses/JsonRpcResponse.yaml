@@ -19,7 +19,7 @@ components:
 
             | code | message | description |
             |-----|-----|-------|
-            | -32700   | Parse error   | invalid JSON was received by the server. \nAn error occurred on the server while parsing the JSON text. |
+            | -32700   | Parse error   | invalid JSON was received by the server. An error occurred on the server while parsing the JSON text. |
             |-32602 | Invalid params | Invalid method parameter(s). |
         message:
           type: string

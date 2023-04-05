@@ -63,7 +63,7 @@ paths:
 
       responses:
         200:
-          description: Array - Array of log objects, or an empty array if nothing has changed since last poll.
+          description: Returns an array of all logs matching a given filter object.
           content:
             application/json:
               schema:
@@ -84,10 +84,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klay/filter/getLogs.js"
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/filter/getLogs.py"
 
 components:
   schemas:
@@ -98,15 +98,18 @@ components:
           $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/KlayArrayOfLog"
 
     FilterOptions:
+      title: FilterOptions
       type: object
       properties:
         fromBlock:
           allOf:
             - title: "fromBlock"
+              default: "latest"
             - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
         toBlock:
           allOf:
             - title: "toBlock"
+              default: "latest"
             - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
         address:
           oneOf:

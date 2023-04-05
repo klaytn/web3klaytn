@@ -31,7 +31,7 @@ paths:
 
       responses:
         200:
-          description: The current coinbase address.
+          description: Returns the client coinbase address.
           content:
             application/json:
               schema:
@@ -44,10 +44,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/eth/config/coinbase.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/configuration/EthCoinbaseExample.java"
         # - lang: "javascript"
         #   label: "Javascript"
         #   source:

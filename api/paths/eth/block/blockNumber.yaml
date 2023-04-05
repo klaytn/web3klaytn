@@ -34,7 +34,7 @@ paths:
 
       responses:
         200:
-          description: return block number
+          description: Returns the number of the most recent block.
           content:
             application/json:
               schema:
@@ -44,7 +44,7 @@ paths:
                     properties:
                       result:
                         type: string
-                        format: QUANTITY
+                        format: hex
                         description: Integer of the current block number the client is on.
                         example: "0xc94"
 

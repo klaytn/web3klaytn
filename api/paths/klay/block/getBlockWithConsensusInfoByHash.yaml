@@ -40,7 +40,7 @@ paths:
 
       responses:
         200:
-          description: Object - A block object with consensus information (a proposer and a list of committee members), or error when no block was found
+          description: Returns a block with consensus information that matches the given hash.
           content:
             application/json:
               schema:
@@ -57,10 +57,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #     $ref: "../../../code-samples/javascript/klay/block/getBlockWithConsensusInfoByHash.js"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/block/getBlockWithConsensusInfoByHash.js"
         # - lang: "python"
         #   label: "Python"
         #   source:

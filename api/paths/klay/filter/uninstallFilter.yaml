@@ -51,7 +51,7 @@ paths:
 
       responses:
         200:
-          description: true if the filter was successfully uninstalled, otherwise false.
+          description: Return true if the filter was successfully uninstalled, otherwise false.
           content:
             application/json:
               schema:

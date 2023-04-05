@@ -16,7 +16,7 @@ paths:
       summary: "[sha3]"
       description: |
         Returns Keccak-256 (not the standardized SHA3-256) of the given data.
-        
+
         **JSONRPC:** `klay_sha3`
 
       tags:
@@ -62,10 +62,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klay/miscellaneous/sha3.js"
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/miscellaneous/sha3.py"
 
 components:
   schemas:
