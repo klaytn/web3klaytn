@@ -22,13 +22,18 @@ paths:
         - klay
 
       parameters:
-        - name: encodedAccountKey
+        - name: keytype
           in: query
-          description: RLP encoded account key
+          description: Integer value indicating account key type. For the value of each account key type, see AccountKey.
           required: true
           schema:
-            type: string
-            format: DATA
+            type: integer
+        - name: key
+          in: query
+          description: Account key object
+          required: true
+          schema:
+            type: object
 
       requestBody:
         content:
@@ -80,15 +85,12 @@ components:
         params:
           type: array
           items:
-            title: encodedAccountKey
-            type: object
-            properties:
-              keytype:
-                type: number
-                description: "Integer value indicating account key type."
-              key:
-                type: string
-                format: JSON DATA
+           anyOf:
+              - title: keytype
+                type: integer
+                description: "Integer value indicating account key type. For the value of each account key type, see AccountKey."
+              - title: key
+                type: object
                 description: "Account key object"
           example: [{"keyType": 1, "key": {}}]
 

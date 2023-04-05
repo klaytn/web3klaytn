@@ -35,7 +35,7 @@ paths:
 
       responses:
         200:
-          description: The chain ID of the chain.
+          description: Returns the Klaytn protocol version of the node.
           content:
             application/json:
               schema:

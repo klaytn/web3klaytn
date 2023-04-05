@@ -35,7 +35,7 @@ paths:
 
       responses:
         200:
-          description: successfully response
+          description: Returns the rewardbase of the current node
           content:
             application/json:
               schema:

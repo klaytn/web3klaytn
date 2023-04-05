@@ -455,7 +455,7 @@ components:
       properties:
         typeInt:
           type: number
-          description: "The integer indicating TxTypeFeeDelegatedAccountUpdate: 34"
+          description: "The integer indicating TxTypeFeeDelegatedAccountUpdateWithRatio: 34"
         from:
           type: string
           format: 20-byte DATA
@@ -501,7 +501,7 @@ components:
       properties:
         typeInt:
           type: number
-          description: "The integer indicating TxTypeFeeDelegatedAccountUpdate: 40"
+          description: "The integer indicating TxTypeSmartContractDeploy: 40"
         from:
           type: string
           format: 20-byte DATA
@@ -553,7 +553,7 @@ components:
       properties:
         typeInt:
           type: number
-          description: "The integer indicating TxTypeFeeDelegatedAccountUpdate: 41"
+          description: "The integer indicating TxTypeFeeDelegatedSmartContractDeploy: 41"
         from:
           type: string
           format: 20-byte DATA
@@ -612,7 +612,7 @@ components:
       properties:
         typeInt:
           type: number
-          description: "The integer indicating TxTypeFeeDelegatedAccountUpdate: 42"
+          description: "The integer indicating TxTypeFeeDelegatedSmartContractDeployWithRatio: 42"
         from:
           type: string
           format: 20-byte DATA
@@ -671,7 +671,7 @@ components:
       properties:
         typeInt:
           type: number
-          description: "The integer indicating TxTypeFeeDelegatedAccountUpdate: 48"
+          description: "The integer indicating TxTypeSmartContractExecution: 48"
         from:
           type: string
           format: 20-byte DATA
@@ -696,6 +696,10 @@ components:
           type: string
           format: hex
           description: Integer of the value sent with this transaction.
+        input:
+          type: string
+          format: DATA
+          description: The data sent along with the transaction.
 
     TxTypeFeeDelegatedSmartContractExecution:
       title: TxTypeFeeDelegatedSmartContractExecution
@@ -710,7 +714,7 @@ components:
       properties:
         typeInt:
           type: number
-          description: "The integer indicating TxTypeFeeDelegatedAccountUpdate: 49"
+          description: "The integer indicating TxTypeFeeDelegatedSmartContractExecution: 49"
         from:
           type: string
           format: 20-byte DATA
@@ -760,7 +764,7 @@ components:
       properties:
         typeInt:
           type: number
-          description: "The integer indicating TxTypeFeeDelegatedAccountUpdate: 50"
+          description: "The integer indicating TxTypeFeeDelegatedSmartContractExecutionWithRatio: 50"
         from:
           type: string
           format: 20-byte DATA
@@ -809,7 +813,7 @@ components:
       properties:
         typeInt:
           type: number
-          description: "The integer indicating TxTypeFeeDelegatedAccountUpdate: 56"
+          description: "The integer indicating TxTypeCancel: 56"
         from:
           type: string
           format: 20-byte DATA
@@ -837,7 +841,7 @@ components:
       properties:
         typeInt:
           type: number
-          description: "The integer indicating TxTypeFeeDelegatedAccountUpdate: 42"
+          description: "The integer indicating TxTypeFeeDelegatedCancel: 42"
         from:
           type: string
           format: 20-byte DATA
@@ -871,7 +875,7 @@ components:
       properties:
         typeInt:
           type: number
-          description: "The integer indicating TxTypeFeeDelegatedAccountUpdate: 42"
+          description: "The integer indicating TxTypeFeeDelegatedCancelWithRatio: 42"
         from:
           type: string
           format: 20-byte DATA
