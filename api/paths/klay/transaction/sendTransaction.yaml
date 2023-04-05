@@ -65,10 +65,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        #- lang: "javascript"
+        # - lang: "javascript"
         #  label: "Javascript"
         #  source:
-        #    $ref: ""
+        #    $ref: "../../../code-samples/javascript/klay/transaction/sendTransaction.js"
         #- lang: "python"
         #  label: "Python"
         #  source:
