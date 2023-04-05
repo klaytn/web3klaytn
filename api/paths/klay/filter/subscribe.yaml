@@ -16,7 +16,9 @@ paths:
       summary: "[subscribe]"
       description: |
         Creates a new subscription to specific events by using either RPC Pub/Sub over WebSockets or filters over HTTP. It allows clients to wait for events instead of polling for them.
+        
         The node will return a subscription id for each subscription created. For each event that matches the subscription, a notification with relevant data is sent together with the subscription id. If a connection is closed, all subscriptions created over the connection are removed.
+        
         **JSONRPC:** `klay_subscribe`
 
       tags:
@@ -56,10 +58,13 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - type: string
-                    format: hex
-                    example: "0xbdab16c8e4ae1b9e6930c78359de3e0e"
-                    description: A subscription id when a subscription is created. For each event that matches the subscription, a notification with relevant data will be delivered as well.
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: hex
+                        example: "0xbdab16c8e4ae1b9e6930c78359de3e0e"
+                        description: A subscription id when a subscription is created. For each event that matches the subscription, a notification with relevant data will be delivered as well.
 
       x-codeSamples:
         - lang: "curl"
