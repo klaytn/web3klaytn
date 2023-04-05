@@ -16,9 +16,9 @@ paths:
       summary: "[sendRawTransaction]"
       description: |
         Creates a new message call transaction or a contract creation for signed transactions.
-        
+
         **JSONRPC:** `klay_sendRawTransaction`
-        
+
         **NOTE:** If you deployed a contract, use klay_getTransactionReceipt to get the contract address.
 
       tags:
@@ -89,8 +89,8 @@ components:
         params:
           type: array
           items:
-              type: string
-              format:  DATA
-              title: singedTransactionData
-              description: The signed transaction data.
+            type: string
+            format:  DATA
+            title: singedTransactionData
+            description: The signed transaction data.
           example:  ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]

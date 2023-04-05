@@ -91,7 +91,9 @@ components:
       type: object
       properties:
         result:
-          $ref: "#/components/schemas/BlockReceipts"
+          type: array
+          items:
+            $ref: "#/components/schemas/BlockReceipts"
 
     BlockReceipts:
       type: object

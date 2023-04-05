@@ -16,7 +16,7 @@ paths:
       summary: "[newBlockFilter]"
       description: |
         Creates a filter in the node, to notify when a new block arrives. To check if the state has changed, call klay_getFilterChanges.
-        
+
         **JSONRPC:** `klay_newBlockFilter`
 
       tags:

@@ -440,7 +440,7 @@ components:
         feePayerSignatures:
           type: array
           items:
-            type: object
+            $ref: "#/components/schemas/Signature"
           description: (optional) An array of fee payer's signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
         feeRatio:
           type: string
