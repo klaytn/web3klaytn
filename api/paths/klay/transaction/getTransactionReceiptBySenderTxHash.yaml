@@ -82,11 +82,10 @@ components:
         params:
           type: array
           items:
-            anyOf:
-            - type: string
-              format: 32-byte DATA
-              title: Hash
-              description: Hash of a transaction before signing of feePayer(senderTransactionHash).
+            type: string
+            format: 32-byte DATA
+            title: Hash
+            description: Hash of a transaction before signing of feePayer(senderTransactionHash).
           example: ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
 
     KlayGetTransactionByHashResp:

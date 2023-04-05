@@ -56,7 +56,7 @@ paths:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/configuration/maxPriorityFeePerGas.sh"
+            $ref: "../../../code-samples/curl/klay/gas/maxPriorityFeePerGas.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
