@@ -56,14 +56,14 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #     $ref: "../../../code-samples/javascript/klay/configuration/chainId.js"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/configuration/getChainConfig.js"
         # - lang: "python"
         #   label: "Python"
         #   source:
-        #     $ref: "../../../code-samples/python/klay/configuration/chainId.py"
+        #     $ref: "../../../code-samples/python/klay/configuration/getChainConfig.py"
 
 components:
   schemas:
