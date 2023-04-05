@@ -46,7 +46,7 @@ paths:
                       result:
                         type: boolean
                         description: "true means the node is writing blockchain data in parallel manner. It is false if the node is writing the data in serial manner."
-                        example: "true"
+                        example: true
 
       x-codeSamples:
         - lang: "curl"

@@ -16,7 +16,7 @@ paths:
       summary: "[syncing]"
       description: |
         Returns an object with data about the sync status or false.
-        
+
         **JSONRPC:** `klay_syncing`
 
       tags:
@@ -74,6 +74,7 @@ components:
             - $ref: "#/components/schemas/SyncingObject"
 
     SyncingObject:
+      title: SyncingObject
       type: object
       required:
         - startingBlock

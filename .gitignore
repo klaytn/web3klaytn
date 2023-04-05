@@ -377,3 +377,5 @@ bin/**.jar
 .DS_Store
 
 /site/namespace
+/sdk/client/javascript/**/*.bat
+/api/redocly/**/*.bat

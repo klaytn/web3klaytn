@@ -46,7 +46,7 @@ paths:
                       result:
                         type: boolean
                         description: "`true` means the node is indexing sender transaction hash to transaction hash mapping information."
-                        example: "0xAE9F7BCC00"
+                        example: true
 
       x-codeSamples:
         - lang: "curl"

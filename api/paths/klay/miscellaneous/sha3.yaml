@@ -16,7 +16,7 @@ paths:
       summary: "[sha3]"
       description: |
         Returns Keccak-256 (not the standardized SHA3-256) of the given data.
-        
+
         **JSONRPC:** `klay_sha3`
 
       tags:
