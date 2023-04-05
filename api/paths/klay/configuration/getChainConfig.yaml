@@ -56,10 +56,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #     $ref: "../../../code-samples/javascript/klay/configuration/chainId.js"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/configuration/getChainConfig.js"
         # - lang: "python"
         #   label: "Python"
         #   source:
