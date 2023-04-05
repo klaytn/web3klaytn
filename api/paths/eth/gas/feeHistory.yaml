@@ -25,12 +25,13 @@ paths:
         - name: blockCount
           required: true
           schema:
-            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockCount"
-          description: Number of blocks in the requested range in hexadecimal. Between 1 (0x1) and 1024 (0x400) blocks can be requested in a single query. Less than requested may be returned if not all blocks are available.
+            type: string
+            format: Hexadecimal
+          description: Number of blocks in the requested range expressed as a hexidecimal number. Between 1 (0x1) and 1024 (0x400) blocks can be requested in a single query. Less than requested may be returned if not all blocks are available.
           in: query
         - name: lastBlock
           in: query
-          description: Highest numbered block of the requested range as block number or block tag.
+          description: Highest number block of the requested range as a block number or block tag.
           required: true
           schema:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
@@ -38,7 +39,7 @@ paths:
           required: true
           schema:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/RewardPercentiles"
-          description: An array of floating point values between 0 and 100.
+          description: Array of floating point value between 0 and 100.
           in: query
 
       requestBody:
@@ -51,7 +52,7 @@ paths:
 
       responses:
         200:
-          description: Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.
+          description: Returns base fee per gas and transaction effective priority fee per gas history
           content:
             application/json:
               schema:
@@ -89,7 +90,10 @@ components:
           type: array
           items:
             anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockCount"
+              - title: BlockCount
+                type: string
+                format: Hexadecimal
+                description: Number of blocks in the requested range expressed as a hexidecimal number. Between 1 (0x1) and 1024 (0x400) blocks can be requested in a single query. Less than requested may be returned if not all blocks are available.
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/RewardPercentiles"
           example: [ "0x10", "latest", [ 0.1, 0.2, 0.3 ] ]

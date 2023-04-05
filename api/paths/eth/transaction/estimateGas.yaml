@@ -39,7 +39,7 @@ paths:
 
       responses:
         200:
-          description: The amount of gas used.
+          description: Return the amount of gas used.
           content:
             application/json:
               schema:
