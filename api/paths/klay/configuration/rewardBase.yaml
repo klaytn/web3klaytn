@@ -10,10 +10,10 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/rewardBase:
+  /klay/rewardbase:
     post:
-      operationId: rewardBase
-      summary: "[rewardBase]"
+      operationId: rewardbase
+      summary: "[rewardbase]"
       description: |
         Returns the rewardbase of the current node. Rewardbase is the address of the account where the block rewards goes to. It is only required for CNs.
 

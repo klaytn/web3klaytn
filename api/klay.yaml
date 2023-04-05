@@ -156,8 +156,8 @@ paths:
     $ref: ./paths/klay/configuration/isSenderTxHashIndexingEnabled.yaml#/paths/~1klay~1isSenderTxHashIndexingEnabled
   /klay/configuration/protocolVersion:
     $ref: ./paths/klay/configuration/protocolVersion.yaml#/paths/~1klay~1protocolVersion
-  /klay/configuration/rewardBase:
-    $ref: ./paths/klay/configuration/rewardBase.yaml#/paths/~1klay~1rewardBase
+  /klay/configuration/rewardbase:
+    $ref: ./paths/klay/configuration/rewardBase.yaml#/paths/~1klay~1rewardbase
   /klay/configuration/getChainConfig:
     $ref: ./paths/klay/configuration/getChainConfig.yaml#/paths/~1klay~1getChainConfig
 
