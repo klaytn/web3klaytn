@@ -52,10 +52,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klay/transaction/pendingTransactions.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../../code-samples/python/klay/transaction/pendingTransactions.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/transaction/pendingTransactions.py"
 
 components:
   schemas:
