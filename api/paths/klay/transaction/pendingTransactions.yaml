@@ -31,7 +31,7 @@ paths:
 
       responses:
         200:
-          description: An array of transactions. For the returned transaction object.
+          description: Returns an array of transactions
           content:
             application/json:
               schema:

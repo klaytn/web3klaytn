@@ -1013,6 +1013,10 @@ components:
       type: object
       required:
         - from
+        - gas
+        - maxFeePerGas
+        - maxPriorityFeePerGas
+        - nonce
       properties:
         from:
           type: string
