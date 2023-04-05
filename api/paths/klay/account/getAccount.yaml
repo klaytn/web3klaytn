@@ -106,7 +106,7 @@ components:
               type: object
               properties:
                 balance:
-                  type: number
+                  type: string
                 humanReadable:
                   type: boolean
                 key:

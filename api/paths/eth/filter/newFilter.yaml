@@ -46,13 +46,13 @@ paths:
           description: |
             (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
           in: query
-        # - name: address
-        #   required: false
-        #   schema:
-        #     $ref: "#/components/schemas/Addresses"
-        #   description: |
-        #     (optional) Contract address or a list of addresses from which logs should originate.
-        #   in: query
+        - name: address
+          required: false
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+          description: |
+            (optional) Contract address or a list of addresses from which logs should originate.
+          in: query
         - name: topics
           required: false
           schema:
@@ -118,7 +118,7 @@ components:
               - allOf:
                   - title: toBlock
                   - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              # - $ref: "#/components/schemas/Addresses"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
               - $ref: "#/components/schemas/Topics"
           example:  [{"fromBlock":"earliest","toBlock":"latest","address":"0x87ac99835e67168d4f9a40580f8f5c33550ba88b","topics":["0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8"]}]
 
