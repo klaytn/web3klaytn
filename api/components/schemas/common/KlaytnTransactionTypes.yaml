@@ -841,7 +841,7 @@ components:
       properties:
         typeInt:
           type: number
-          description: "The integer indicating TxTypeFeeDelegatedCancel: 42"
+          description: "The integer indicating TxTypeFeeDelegatedCancel: 57"
         from:
           type: string
           format: 20-byte DATA
@@ -875,7 +875,7 @@ components:
       properties:
         typeInt:
           type: number
-          description: "The integer indicating TxTypeFeeDelegatedCancelWithRatio: 42"
+          description: "The integer indicating TxTypeFeeDelegatedCancelWithRatio: 58"
         from:
           type: string
           format: 20-byte DATA
