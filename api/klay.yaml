@@ -321,6 +321,16 @@ paths:
   /eth/miscellaneous/submitHashrate:
     $ref: ./paths/eth/miscellaneous/submitHashrate.yaml#/paths/~1eth~1submitHashrate
 
+  # eth/others
+  /eth/createAccessList:
+    $ref: ./paths/eth/others/createAccessList.yaml#/paths/~1eth~1createAccessList
+  /eth/getRawTransactionByBlockHashAndIndex:
+    $ref: ./paths/eth/others/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockHashAndIndex
+  /eth/getRawTransactionByBlockNumberAndIndex:
+    $ref: ./paths/eth/others/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockNumberAndIndex
+  /eth/getRawTransactionByHash:
+    $ref: ./paths/eth/others/getRawTransactionByHash.yaml#/paths/~1eth~1getRawTransactionByHash
+
   # net
   /net/listening:
     $ref: ./paths/net/listening.yaml#/paths/~1net~1listening
