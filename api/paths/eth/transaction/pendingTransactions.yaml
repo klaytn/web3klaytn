@@ -48,10 +48,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        #- lang: "javascript"
-        #  label: "Javascript"
-        #  source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/transaction/pendingTransactions.js"
         # - lang: "python"
         #   label: "Python"
         #   source:
@@ -66,7 +66,7 @@ components:
       properties:
         method:
           type: string
-          default: 'eth_pendingTransactions'
+          default: "eth_pendingTransactions"
 
     ethPendingTransactionsResp:
       type: object
@@ -75,26 +75,27 @@ components:
           type: array
           items:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionArgs"
-          example: [
-            {
-              "blockHash": null,
-              "blockNumber": null,
-              "from": "0xca7a99380131e6c76cfa622396347107aeedca2d",
-              "gas": "0x5208",
-              "gasPrice": "0x5d21dba00",
-              "maxFeePerGas": "0x5d21dba00",
-              "maxPriorityFeePerGas": "0x5d21dba00",
-              "hash": "0xb5cd867ccc356b86634092919fb1acf4e315618d6c804df3ec3d30d66b6baba5",
-              "input": "0x",
-              "nonce": "0xdb",
-              "to": "0x3e2ac308cd78ac2fe162f9522deb2b56d9da9499",
-              "transactionIndex": null,
-              "value": "0x1",
-              "type": "0x2",
-              "accessList": [],
-              "chainId": "0x2edaf",
-              "v": "0x1",
-              "r": "0x73992e7c3b9f6cd73176969efa8509d8e9ae0739e24b03d514508f8ef03f19ef",
-              "s": "0x7035dd8639e82ea3ba922ff02e1f21f4cff92d0de33050934f5c70908d61e8c3"
-            }
-          ]
+          example:
+            [
+              {
+                "blockHash": null,
+                "blockNumber": null,
+                "from": "0xca7a99380131e6c76cfa622396347107aeedca2d",
+                "gas": "0x5208",
+                "gasPrice": "0x5d21dba00",
+                "maxFeePerGas": "0x5d21dba00",
+                "maxPriorityFeePerGas": "0x5d21dba00",
+                "hash": "0xb5cd867ccc356b86634092919fb1acf4e315618d6c804df3ec3d30d66b6baba5",
+                "input": "0x",
+                "nonce": "0xdb",
+                "to": "0x3e2ac308cd78ac2fe162f9522deb2b56d9da9499",
+                "transactionIndex": null,
+                "value": "0x1",
+                "type": "0x2",
+                "accessList": [],
+                "chainId": "0x2edaf",
+                "v": "0x1",
+                "r": "0x73992e7c3b9f6cd73176969efa8509d8e9ae0739e24b03d514508f8ef03f19ef",
+                "s": "0x7035dd8639e82ea3ba922ff02e1f21f4cff92d0de33050934f5c70908d61e8c3",
+              },
+            ]
