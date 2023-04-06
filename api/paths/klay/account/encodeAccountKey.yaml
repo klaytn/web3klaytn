@@ -85,11 +85,12 @@ components:
         params:
           type: array
           items:
-           anyOf:
-              - title: keytype
+            type: object
+            properties:
+              keytype:
                 type: integer
                 description: "Integer value indicating account key type. For the value of each account key type, see AccountKey."
-              - title: key
+              key:
                 type: object
                 description: "Account key object"
           example: [{"keyType": 1, "key": {}}]
