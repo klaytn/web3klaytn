@@ -56,10 +56,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #     $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/transaction/fillTransaction.js"
         # - lang: "python"
         #   label: "Python"
         #   source:
@@ -74,12 +74,21 @@ components:
       properties:
         method:
           type: string
-          default: 'eth_fillTransaction'
+          default: "eth_fillTransaction"
         params:
           type: array
           items:
-             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionArgs"
-          example: [{"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee", "value": "0x1", "gas": "0x9999", "maxFeePerGas": "0x5d21dba00"}]
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionArgs"
+          example:
+            [
+              {
+                "from": "0xca7a99380131e6c76cfa622396347107aeedca2d",
+                "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",
+                "value": "0x1",
+                "gas": "0x9999",
+                "maxFeePerGas": "0x5d21dba00",
+              },
+            ]
 
     EthFillTransactionResp:
       type: object
@@ -95,23 +104,24 @@ components:
           example:
             {
               "raw": "0x02ef8302edaf808505d21dba008505d21dba00829999948c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee0180c0808080",
-              "tx": {
-                "type": "0x2",
-                "nonce": "0x0",
-                "gasPrice": null,
-                "maxPriorityFeePerGas": "0x5d21dba00",
-                "maxFeePerGas": "0x5d21dba00",
-                "gas": "0x9999",
-                "value": "0x1",
-                "input": "0x",
-                "v": "0x0",
-                "r": "0x0",
-                "s": "0x0",
-                "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",
-                "chainId": "0x2edaf",
-                "accessList": [],
-                "hash": "0x83e382bfb39249dc0e2b4283702bc1c0685deffad1316d166546da9c4c14c59d"
-              }
+              "tx":
+                {
+                  "type": "0x2",
+                  "nonce": "0x0",
+                  "gasPrice": null,
+                  "maxPriorityFeePerGas": "0x5d21dba00",
+                  "maxFeePerGas": "0x5d21dba00",
+                  "gas": "0x9999",
+                  "value": "0x1",
+                  "input": "0x",
+                  "v": "0x0",
+                  "r": "0x0",
+                  "s": "0x0",
+                  "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",
+                  "chainId": "0x2edaf",
+                  "accessList": [],
+                  "hash": "0x83e382bfb39249dc0e2b4283702bc1c0685deffad1316d166546da9c4c14c59d",
+                },
             }
     Tx:
       type: object
