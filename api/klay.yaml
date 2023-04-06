@@ -328,6 +328,8 @@ paths:
     $ref: ./paths/eth/others/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockHashAndIndex
   /eth/getRawTransactionByBlockNumberAndIndex:
     $ref: ./paths/eth/others/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockNumberAndIndex
+  /eth/getRawTransactionByHash:
+    $ref: ./paths/eth/others/getRawTransactionByHash.yaml#/paths/~1eth~1getRawTransactionByHash
 
   # net
   /net/listening:

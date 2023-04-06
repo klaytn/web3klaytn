@@ -141,4 +141,5 @@ paths:
     $ref: ./others/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockHashAndIndex
   /eth/getRawTransactionByBlockNumberAndIndex:
     $ref: ./others/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockNumberAndIndex
-
+  /eth/getRawTransactionByHash:
+    $ref: ./others/getRawTransactionByHash.yaml#/paths/~1eth~1getRawTransactionByHash
