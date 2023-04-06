@@ -74,7 +74,7 @@ components:
         result:
           type: array
           items:
-            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionArgs"
+            $ref: "#/components/schemas/TransactionObject"
           example: [
             {
               "blockHash": null,
@@ -98,3 +98,74 @@ components:
               "s": "0x7035dd8639e82ea3ba922ff02e1f21f4cff92d0de33050934f5c70908d61e8c3"
             }
           ]
+
+    TransactionObject:
+      type: object
+      required:
+        - type
+        - nonce
+        - gasPrice
+        - maxFeePerGas
+        - maxPriorityFeePerGas
+        - gas
+        - value
+        - v
+        - r
+        - s
+        - chainId
+        - accessList
+        - hash
+      properties:
+        type:
+          type: string
+          format: hex
+          description: An integer representing the type of the transaction.
+        nonce:
+          type: string
+          format: hex
+          description: The block number where this transaction was in.
+        gasPrice:
+          type: string
+          format: hex
+          description: Gas price provided by the sender in peb. null when it is not a legacy transaction.
+        maxFeePerGas:
+          type: string
+          format: hex
+          description: A maximum amount to pay for the transaction to execute. null when it is a legacy transaction.
+        maxPriorityFeePerGas:
+          type: string
+          format: hex
+          description: Gas tip cap for dynamic fee transaction in peb. null when it is a legacy transaction.
+        gas:
+          type: string
+          format: hex
+          description: Gas provided by the sender.
+        value:
+          type: string
+          format: hex
+          description: Integer of values sent with this transaction.
+        v:
+          type: string
+          format: hex
+          description: ECDSA recovery id.
+        r:
+          type: string
+          format: 32-byte DATA
+          description: ECDSA signature r.
+        s:
+          type: string
+          format: 32-byte DATA
+          description: ECDSA signature s.
+        chainId:
+          type: string
+          format: hex
+          description: Chain id set on the requested node.
+        accessList:
+          type: array
+          items:
+            type: string
+          description: An array of accessList.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transaction.
