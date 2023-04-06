@@ -61,7 +61,7 @@ paths:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../code-samples/curl/personal/openWallets.sh"
+            $ref: "../../code-samples/curl/personal/openWallet.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
