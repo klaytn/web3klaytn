@@ -155,7 +155,7 @@ components:
           format: hex
         type:
           type: string
-          format: integer
+          format: 256-byte DATA
         typeInt:
           type: integer
         value:

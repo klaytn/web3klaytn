@@ -1,7 +1,7 @@
 package opensdk.sdk.apis.klay.block;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayGetCommitteeSizeResponse;
+import opensdk.sdk.models.KlayGetCouncilSizeResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
@@ -16,7 +16,7 @@ public class KlayGetCouncilSizeApiTest {
     @Test
     @DisplayName("RPC klay_getCouncilSize")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayGetCommitteeSizeResponse gr = sdk.klay.getCouncilSize(
+        KlayGetCouncilSizeResponse gr = sdk.klay.getCouncilSize(
             "0x1b4")
         .send();
         gr.getResult();
