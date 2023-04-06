@@ -1,0 +1,66 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /personal/listAccounts:
+    post:
+      operationId: listAccounts
+      summary: "[listAccounts]"
+      description: |
+        Returns all the Klaytn account addresses of all keys in the key store.
+
+        | Client | Method invocation |
+        |-----|-----|
+        | Console   | personal.listAccounts |
+        | RPC | {"method": "personal_listAccounts", "params": []} |
+
+        **JSONRPC:** `personal_listAccounts`
+      tags:
+        - personal
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+
+      responses:
+        200:
+          description: Returns all the Klaytn account addresses of all keys in the key store.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        example: ["0x5e97870f263700f46aa00d967821199b9bc5a120", "0x3d80b31a78c30fc628f20b2c89d7ddbf6e53cedc"]
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/personal/listAccounts.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""

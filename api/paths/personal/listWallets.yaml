@@ -1,0 +1,85 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /personal/listWallets:
+    post:
+      operationId: listWallets
+      summary: "[listWallets]"
+      description: |
+        Returns a list of wallets this node manages.
+
+        | Client | Method invocation |
+        |-----|-----|
+        | Console   | personal.listWallets |
+        | RPC | {"method": "personal_listWallets", "params": []} |
+
+        **JSONRPC:** `personal_listWallets`
+      tags:
+        - personal
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+
+      responses:
+        200:
+          description: Returns a list of wallets this node manages.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/PersonalListWalletsResp" 
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/personal/listWallets.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""
+
+components:
+  schemas:
+    PersonalListWalletsResp:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/ListWallets"
+          example: [
+            {
+              "url": "keystore:///",
+              "status": "Locked",
+              "accounts": [
+                {
+                  "address":"0x336010a2f91728ffe01414a87ae5d8af55f310c6",
+                  "url":"keystore://"
+                }
+              ]
+            }
+          ]
+        

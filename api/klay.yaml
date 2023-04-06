@@ -21,6 +21,8 @@ tags:
     description: API for txpool namespace
   - name: net
     description: API for net namespace
+  - name: personal
+    description: API for personal namespace
 #  - name: RewardSpec
 #    description: |
 #      <SchemaDefinition schemaRef="#/components/schemas/RewardSpec" />
@@ -40,6 +42,9 @@ x-tagGroups:
   - name: Models
     tags:
       - RewardSpec
+  - name: Personal
+    tags:
+      - personal
 servers:
   - url: http://localhost:7151
   - url: https://api.baobab.klaytn.net:8651
@@ -350,3 +355,25 @@ paths:
     $ref: ./paths/txpool/content.yaml#/paths/~1txpool~1content
   /txpool/inspect:
     $ref: ./paths/txpool/inspect.yaml#/paths/~1txpool~1inspect
+
+  # personal
+  /personal/deriveAccount:
+    $ref: ./paths/personal/deriveAccount.yaml#/paths/~1personal~1deriveAccount
+  /personal/ecRecover:
+    $ref: ./paths/personal/ecRecover.yaml#/paths/~1personal~1ecRecover
+  /personal/sign:
+    $ref: ./paths/personal/sign.yaml#/paths/~1personal~1sign
+  /personal/importRawKey:
+    $ref: ./paths/personal/importRawKey.yaml#/paths/~1personal~1importRawKey
+  /personal/listAccounts:
+    $ref: ./paths/personal/listAccounts.yaml#/paths/~1personal~1listAccounts
+  /personal/listWallets:
+    $ref: ./paths/personal/listWallets.yaml#/paths/~1personal~1listWallets
+  /personal/lockAccount:
+    $ref: ./paths/personal/lockAccount.yaml#/paths/~1personal~1lockAccount
+  /personal/newAccount:
+    $ref: ./paths/personal/newAccount.yaml#/paths/~1personal~1newAccount
+  /personal/openWallet:
+    $ref: ./paths/personal/openWallet.yaml#/paths/~1personal~1openWallet
+  /personal/replaceRawKey:
+    $ref: ./paths/personal/replaceRawKey.yaml#/paths/~1personal~1replaceRawKey
