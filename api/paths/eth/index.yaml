@@ -131,3 +131,5 @@ paths:
     $ref: ./miscellaneous/hashRate.yaml#/paths/~1eth~1hashRate
   /eth/miscellaneous/getWork:
     $ref: ./miscellaneous/getWork.yaml#/paths/~1eth~1getWork
+  /eth/miscellaneous/submitHashrate:
+    $ref: .//miscellaneous/submitHashrate.yaml#/paths/~1eth~1submitHashrate

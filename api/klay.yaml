@@ -318,6 +318,8 @@ paths:
     $ref: ./paths/eth/miscellaneous/hashRate.yaml#/paths/~1eth~1hashRate
   /eth/miscellaneous/getWork:
     $ref: ./paths/eth/miscellaneous/getWork.yaml#/paths/~1eth~1getWork
+  /eth/miscellaneous/submitHashrate:
+    $ref: ./paths/eth/miscellaneous/submitHashrate.yaml#/paths/~1eth~1submitHashrate
 
   # net
   /net/listening:
