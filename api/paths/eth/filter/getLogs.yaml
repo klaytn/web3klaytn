@@ -10,25 +10,23 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getLogs:
+  /eth/getLogs:
     post:
       operationId: getLogs
       summary: "[getLogs]"
       description: |
         Returns an array of all logs matching a given filter object.
-
+        
         The execution of this API can be limited by two node configurations to manage resources of Klaytn node safely.
-
-        -The number of maximum returned results in a single query (Default: 10,000).
-
-        -The execution duration limit of a single query (Default: 10 seconds).
         
-        **JSONRPC:** `klay_getLogs`
+        - The number of maximum returned results in a single query (Default: 10,000).
         
-        **NOTE**: In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.
+        - The execution duration limit of a single query (Default: 10 seconds).
+
+        **JSONRPC:** `eth_getLogs`
 
       tags:
-        - klay
+        - eth
 
       parameters:
         - name: filterOptions
@@ -48,20 +46,13 @@ paths:
                   properties:
                     method:
                       type: string
-                      default: "klay_getLogs"
+                      default: "eth_getLogs"
                     params:
                       type: array
                       items:
                         $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/FilterOptions"
                       description: The filter options.
-                      example:
-                        [
-                          {
-                            "fromBlock": "0x1",
-                            "toBlock": "latest",
-                            "address": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b",
-                          },
-                        ]
+                      example: [{"fromBlock":"0x1","toBlock":"latest","address":"0x87ac99835e67168d4f9a40580f8f5c33550ba88b"}]
 
       responses:
         200:
@@ -71,30 +62,30 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "#/components/schemas/KlayGetLogsResp"
+                  - $ref: "#/components/schemas/EthGetLogsResp"
 
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/filter/getLogs.sh"
+            $ref: "../../../code-samples/curl/eth/filter/getLogs.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
         #     $ref: ""
-        - lang: "javascript"
-          label: "Javascript"
-          source:
-            $ref: "../../../code-samples/javascript/klay/filter/getLogs.js"
-        - lang: "python"
-          label: "Python"
-          source:
-            $ref: "../../../code-samples/python/klay/filter/getLogs.py"
+        #- lang: "javascript"
+        #  label: "Javascript"
+        #  source:
+        #    $ref: ""
+        #- lang: "python"
+        #  label: "Python"
+        #  source:
+        #    $ref: ""
 
 components:
   schemas:
-    KlayGetLogsResp:
+    EthGetLogsResp:
       type: object
       properties:
         result:
-          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/KlayArrayOfLog"
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/EthArrayOfLog"
