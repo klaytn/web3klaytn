@@ -133,3 +133,7 @@ paths:
     $ref: ./miscellaneous/getWork.yaml#/paths/~1eth~1getWork
   /eth/miscellaneous/submitHashrate:
     $ref: .//miscellaneous/submitHashrate.yaml#/paths/~1eth~1submitHashrate
+
+  # eth/others
+#  /eth/createAccessList:
+#    $ref: ./others/createAccessList.yaml#/paths/~1eth~1createAccessList
