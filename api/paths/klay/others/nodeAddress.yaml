@@ -15,6 +15,7 @@ paths:
       operationId: nodeAddress
       summary: "[nodeAddress]"
       description: |
+        The nodeAddress property provides the address of the node that a user is using. It is derived from the nodekey and used to sign consensus messages.
         
         **JSONRPC:** `klay_nodeAddress`
 
@@ -35,7 +36,7 @@ paths:
 
       responses:
         200:
-          description:
+          description: Return 20 BYTE address of a node
           content:
             application/json:
               schema:
