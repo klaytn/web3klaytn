@@ -1053,6 +1053,106 @@ components:
           format: hex
           description: "(optional) The integer of a nonce."
 
+    ListWallets:
+      type: object
+      required:
+        - url
+        - status
+        - accounts
+      properties:
+        url:
+          type: string
+          description: Wallet url
+        status:
+          type: string
+          description: Locking status
+        failure:
+          type: string
+          description: Error condition
+        accounts:
+          type: string
+          description: The list of account addresses.
+
+    EthBlockHeader:
+      type: object
+      properties:
+        baseFeePerGas:
+          type: string
+          format: hex
+          description: The base fee per gas.
+        difficulty:
+            type: string
+            format: hex
+            description: The integer of the difficulty for this block.
+        extraData:
+            type: string
+            format: DATA
+            description: The "extra data" field of this block.
+        gasLimit:
+            type: string
+            format: hex
+            description: The maximum gas allowed in this block.
+        gasUsed:
+            type: string
+            format: hex
+            description: The total used gas by all transactions in this block.
+        hash:
+            type: string
+            format: 32-byte DATA
+            description: Hash of the block. null when it is a pending block.
+        logsBloom:
+            type: string
+            format: 256-byte DATA
+            description: The bloom filter for the logs of the block.
+        miner:
+            type: string
+            format: 20-byte DATA
+            description: The address of the beneficiary to whom the mining rewards were given.
+        mixHash:
+            type: string
+            format: 32-byte DATA
+            description: The hash which proves combined with the nonce that a sufficient amount of computation has been carried out on this block.
+        nonce:
+            type: string
+            format: 8-byte DATA
+            description: The hash of the generated proof-of-work.
+        number:
+            type: string
+            format: hex
+            description: The block number. null when it is a pending block.
+        parentHash:
+            type: string
+            format: 32-byte DATA
+            description: Hash of the parent block.
+        receiptsRoot:
+            type: string
+            format: 32-byte DATA
+            description: The root of the receipts trie of the block.
+        sha3Uncles:
+            type: string
+            format: 32-byte DATA
+            description: The SHA3 of the uncles data in the block.
+        size:
+            type: string
+            format: hex
+            description: Integer of the size of this block in bytes.
+        stateRoot:
+            type: string
+            format: 32-byte DATA
+            description: The root of the final state trie of the block.
+        timestamp:
+            type: string
+            format: hex
+            description: The Unix timestamp for when the block was collated.
+        totalDifficulty:
+            type: string
+            format: hex
+            description: The total blockScore of the chain until this block.
+        transactionsRoot:
+            type: string
+            format: 32-byte DATA
+            description: The root of the transaction trie of the block.
+
     KlayBlock:
       type: object
       description: A block object, or error when no block was found

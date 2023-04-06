@@ -1,0 +1,114 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /personal/deriveAccount:
+    post:
+      operationId: deriveAccount
+      summary: "[deriveAccount]"
+      description: |
+        Requests a HD wallet to derive a new account, optionally pinning it for later reuse.
+
+        | Client | Method invocation |
+        |-----|-----|
+        | Console   | personal.deriveAccount(url, path, pin) |
+        | RPC | {"method": "personal_deriveAccount", "params": [url, path, pin]} |
+
+        **JSONRPC:** `personal_deriveAccount`
+      tags:
+        - personal
+
+      parameters:
+        - name: URL
+          required: true
+          schema:
+            type: string
+          description: Wallet url
+          in: query
+        - name: path
+          required: true
+          schema:
+            type: string
+          description: derivation path
+          in: query 
+        - name: pin
+          required: false
+          schema:
+            type: boolean
+          description: optionally pinning
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/PersonalDeriveAccountReq"
+
+      responses:
+        200:
+          description: Return the address of the new account.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        example: "0xed1b12248aee85a32aead06c7789d3fcdcd4dae6"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/personal/deriveAccount.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""
+
+components:
+  schemas:
+    PersonalDeriveAccountReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'personal_deriveAccount'
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                title: Url
+                description: Wallet url
+              - type: string
+                title: Path
+                description: derivation path
+              - type: boolean
+                title: Pin
+                description: optionally pinning
+          example: [ "0x4abd4157a85bbd6ffb853d1f411147eec0d36458c275a3f4527fa171a0f0b6c4", "m/44'/0'/0'", false]
+
