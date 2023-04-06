@@ -49,7 +49,7 @@ paths:
                     params:
                       type: array
                       items:
-                        title: notificationType
+                        title: NotificationType
                         type: string
                         enum:
                           - newHeads

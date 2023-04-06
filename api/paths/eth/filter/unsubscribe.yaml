@@ -10,17 +10,17 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/unsubscribe:
+  /eth/unsubscribe:
     post:
       operationId: unsubscribe
       summary: "[unsubscribe]"
       description: |
         Cancels the subscription with a specific subscription id by using either RPC Pub/Sub over WebSockets or filters over HTTP. Only the connection that created a subscription can unsubscribe from it.
         
-        **JSONRPC:** `klay_unsubscribe`
+        **JSONRPC:** `eth_unsubscribe`
 
       tags:
-        - klay
+        - eth
 
       parameters:
         - name: subscriptionId
@@ -41,7 +41,7 @@ paths:
                   properties:
                     method:
                       type: string
-                      default: "klay_unsubscribe"
+                      default: "eth_unsubscribe"
                     params:
                       type: array
                       items:
@@ -70,7 +70,7 @@ paths:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/filter/unsubscribe.sh"
+            $ref: "../../../code-samples/curl/eth/filter/unsubscribe.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:

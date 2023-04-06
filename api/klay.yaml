@@ -308,6 +308,8 @@ paths:
     $ref: ./paths/eth/filter/getLogs.yaml#/paths/~1eth~1getLogs
   /eth/filter/subscribe:
     $ref: ./paths/eth/filter/subscribe.yaml#/paths/~1eth~1subscribe
+  /eth/filter/unsubscribe:
+    $ref: ./paths/eth/filter/unsubscribe.yaml#/paths/~1eth~1unsubscribe
 
   # eth/miscellaneous:
   /eth/miscellaneous/submitWork:

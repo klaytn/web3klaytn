@@ -115,6 +115,8 @@ paths:
     $ref: ./filter/getLogs.yaml#/paths/~1eth~1getLogs
   /eth/filter/subscribe:
     $ref: ./filter/subscribe.yaml#/paths/~1eth~1subscribe
+  /eth/filter/unsubscribe:
+    $ref: ./filter/unsubscribe.yaml#/paths/~1eth~1unsubscribe
 
   # eth/miscellaneous:
   /eth/miscellaneous/submitWork:
