@@ -10,10 +10,10 @@ rm -rf "${CURRENT_FILE_DIR}/openapi"
 mkdir "${CURRENT_FILE_DIR}/openapi"
 
 
-sh ./scripts/eth/javascript-eth-generate.sh
-sh ./scripts/klay/javascript-klay-generate.sh
-sh ./scripts/txpool/javascript-txpool-generate.sh
-sh ./scripts/net/javascript-net-generate.sh
+sh ./scripts/eth/javascript-eth-generate.sh ${CURRENT_FILE_DIR}
+sh ./scripts/klay/javascript-klay-generate.sh ${CURRENT_FILE_DIR}
+sh ./scripts/txpool/javascript-txpool-generate.sh ${CURRENT_FILE_DIR}
+sh ./scripts/net/javascript-net-generate.sh ${CURRENT_FILE_DIR}
 cd "${CURRENT_FILE_DIR}/opensdk"
 yarn link
 
