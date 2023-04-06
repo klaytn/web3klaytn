@@ -8,7 +8,6 @@ describe('klay_getRawTransactionByHash API', () => {
     test('should return klay_getRawTransactionByHash', (done) => {
 
         let callbackOne = function (error, data, response) {
-            console.log(data);
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
             expect(data.result).toBeDefined()
