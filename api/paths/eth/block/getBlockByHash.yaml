@@ -69,10 +69,10 @@ paths:
 #          label: "Javascript"
 #          source:
 #            $ref: "../../../code-samples/javascript/eth/transaction/call.js"
-#        - lang: "python"
-#          label: "Python"
-#          source:
-#            $ref: "../../../code-samples/python/eth/transaction/call.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/block/getBlockByHash.py"
 
 components:
   schemas:
