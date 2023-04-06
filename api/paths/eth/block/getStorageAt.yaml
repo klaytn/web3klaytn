@@ -70,10 +70,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        #- lang: "javascript"
-        #  label: "Javascript"
-        #  source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/block/getStorageAt.js"
         #- lang: "python"
         #  label: "Python"
         #  source:
@@ -89,7 +89,7 @@ components:
       properties:
         method:
           type: string
-          default: 'eth_getStorageAt'
+          default: "eth_getStorageAt"
         params:
           type: array
           items:
@@ -103,7 +103,8 @@ components:
                 description: Integer of the position in the storage.
                 format: hex
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
-          example:  ["0x295a70b2de5e3953354a6a8344e616ed314d7251", "0x0", "latest"]
+          example:
+            ["0x295a70b2de5e3953354a6a8344e616ed314d7251", "0x0", "latest"]
 
     EthGetHeaderByHashResp:
       type: object
