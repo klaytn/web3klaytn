@@ -326,6 +326,8 @@ paths:
     $ref: ./paths/eth/others/createAccessList.yaml#/paths/~1eth~1createAccessList
   /eth/getRawTransactionByBlockHashAndIndex:
     $ref: ./paths/eth/others/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockHashAndIndex
+  /eth/getRawTransactionByBlockNumberAndIndex:
+    $ref: ./paths/eth/others/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockNumberAndIndex
 
   # net
   /net/listening:
