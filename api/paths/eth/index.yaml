@@ -93,6 +93,8 @@ paths:
     $ref: ./config/gasPrice.yaml#/paths/~1eth~1gasPrice
   /eth/config/coinbase:
     $ref: ./config/coinbase.yaml#/paths/~1eth~1coinbase
+  /eth/config/etherbase:
+    $ref: ./config/etherbase.yaml#/paths/~1eth~1etherbase
 
   # eth/gas
   /eth/gas/feeHistory:
@@ -109,6 +111,12 @@ paths:
     $ref: ./filter/getFilterChanges.yaml#/paths/~1eth~1getFilterChanges
   /eth/filter/uninstallFilter:
     $ref: ./filter/uninstallFilter.yaml#/paths/~1eth~1uninstallFilter
+  /eth/filter/getLogs:
+    $ref: ./filter/getLogs.yaml#/paths/~1eth~1getLogs
+  /eth/filter/subscribe:
+    $ref: ./filter/subscribe.yaml#/paths/~1eth~1subscribe
+  /eth/filter/unsubscribe:
+    $ref: ./filter/unsubscribe.yaml#/paths/~1eth~1unsubscribe
 
   # eth/miscellaneous:
   /eth/miscellaneous/submitWork:
@@ -123,3 +131,5 @@ paths:
     $ref: ./miscellaneous/hashRate.yaml#/paths/~1eth~1hashRate
   /eth/miscellaneous/getWork:
     $ref: ./miscellaneous/getWork.yaml#/paths/~1eth~1getWork
+  /eth/miscellaneous/submitHashrate:
+    $ref: .//miscellaneous/submitHashrate.yaml#/paths/~1eth~1submitHashrate

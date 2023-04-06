@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/subscribe:
+  /eth/subscribe:
     post:
       operationId: subscribe
       summary: "[subscribe]"
@@ -19,10 +19,10 @@ paths:
         
         The node will return a subscription id for each subscription created. For each event that matches the subscription, a notification with relevant data is sent together with the subscription id. If a connection is closed, all subscriptions created over the connection are removed.
         
-        **JSONRPC:** `klay_subscribe`
+        **JSONRPC:** `eth_subscribe`
 
       tags:
-        - klay
+        - eth
 
       parameters:
         - name: notificationType
@@ -45,7 +45,7 @@ paths:
                   properties:
                     method:
                       type: string
-                      default: "klay_subscribe"
+                      default: "eth_subscribe"
                     params:
                       type: array
                       items:
@@ -59,7 +59,7 @@ paths:
 
       responses:
         200:
-          description: Return a subscription id when a subscription is created
+          description: Return a subscription id when a subscription is created.
           content:
             application/json:
               schema:
@@ -70,14 +70,14 @@ paths:
                       result:
                         type: string
                         format: hex
-                        example: "0xbdab16c8e4ae1b9e6930c78359de3e0e"
+                        example: "0x48bb6cb35d6ccab6eb2b4799f794c312"
                         description: A subscription id when a subscription is created. For each event that matches the subscription, a notification with relevant data will be delivered as well.
 
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/filter/subscribe.sh"
+            $ref: "../../../code-samples/curl/eth/filter/subscribe.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:

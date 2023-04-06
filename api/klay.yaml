@@ -280,6 +280,8 @@ paths:
     $ref: ./paths/eth/config/gasPrice.yaml#/paths/~1eth~1gasPrice
   /eth/config/coinbase:
     $ref: ./paths/eth/config/coinbase.yaml#/paths/~1eth~1coinbase
+  /eth/config/etherbase:
+    $ref: ./paths/eth/config/etherbase.yaml#/paths/~1eth~1etherbase
 
   # eth/gas
   /eth/gas/feeHistory:
@@ -302,6 +304,12 @@ paths:
     $ref: ./paths/eth/filter/newFilter.yaml#/paths/~1eth~1newFilter
   /eth/filter/newPendingTransactionFilter:
     $ref: ./paths/eth/filter/newPendingTransactionFilter.yaml#/paths/~1eth~1newPendingTransactionFilter
+  /eth/filter/getLogs:
+    $ref: ./paths/eth/filter/getLogs.yaml#/paths/~1eth~1getLogs
+  /eth/filter/subscribe:
+    $ref: ./paths/eth/filter/subscribe.yaml#/paths/~1eth~1subscribe
+  /eth/filter/unsubscribe:
+    $ref: ./paths/eth/filter/unsubscribe.yaml#/paths/~1eth~1unsubscribe
 
   # eth/miscellaneous:
   /eth/miscellaneous/submitWork:
@@ -310,6 +318,8 @@ paths:
     $ref: ./paths/eth/miscellaneous/hashRate.yaml#/paths/~1eth~1hashRate
   /eth/miscellaneous/getWork:
     $ref: ./paths/eth/miscellaneous/getWork.yaml#/paths/~1eth~1getWork
+  /eth/miscellaneous/submitHashrate:
+    $ref: ./paths/eth/miscellaneous/submitHashrate.yaml#/paths/~1eth~1submitHashrate
 
   # net
   /net/listening:
