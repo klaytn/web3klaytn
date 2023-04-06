@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "klay_sha3",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": []
+  "params": ["0x11223344"]
 }'

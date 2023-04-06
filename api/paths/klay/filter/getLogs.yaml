@@ -107,11 +107,13 @@ components:
           allOf:
             - title: "fromBlock"
               default: "latest"
+              description: (optional, default "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
             - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
         toBlock:
           allOf:
             - title: "toBlock"
               default: "latest"
+              description: (optional, default "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
             - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
         address:
           oneOf:
