@@ -41,7 +41,7 @@ paths:
 
       responses:
         200:
-          description: Integer - The size of the committee, or -1 when no committee was found
+          description: Integer - The size of the council, or -1 when no council was found
           content:
             application/json:
               schema:
