@@ -132,8 +132,11 @@ paths:
   /eth/miscellaneous/getWork:
     $ref: ./miscellaneous/getWork.yaml#/paths/~1eth~1getWork
   /eth/miscellaneous/submitHashrate:
-    $ref: .//miscellaneous/submitHashrate.yaml#/paths/~1eth~1submitHashrate
+    $ref: ./miscellaneous/submitHashrate.yaml#/paths/~1eth~1submitHashrate
 
   # eth/others
-#  /eth/createAccessList:
-#    $ref: ./others/createAccessList.yaml#/paths/~1eth~1createAccessList
+  /eth/createAccessList:
+    $ref: ./others/createAccessList.yaml#/paths/~1eth~1createAccessList
+  /eth/getRawTransactionByBlockHashAndIndex:
+    $ref: ./others/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockHashAndIndex
+
