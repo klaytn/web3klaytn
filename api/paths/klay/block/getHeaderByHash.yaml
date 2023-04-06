@@ -82,11 +82,10 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - type: string
-                title: hashOfBlock
-                format: 32-byte DATA
-                description: Hash of a block.
+              type: string
+              title: hashOfBlock
+              format: 32-byte DATA
+              description: Hash of a block.
           example:  ["0x1b4"]
 
     KlayGetHeaderByHashResp:
