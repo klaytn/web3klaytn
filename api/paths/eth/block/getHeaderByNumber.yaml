@@ -18,7 +18,9 @@ paths:
       operationId: getHeaderByNumber
       description: |
         Returns information about a header by number.
-        
+
+        Please check the Caution-Header before using this API.
+
         **JSONRPC:** `eth_getHeaderByNumber`
 
       parameters:
@@ -75,35 +77,140 @@ components:
           default: 'eth_getHeaderByNumber'
         params:
           type: array
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
           items:
             anyOf:
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
           example: [ "0x1b4" ]
 
     EthGetHeaderByNumberResp:
+      title: EthGetHeaderByNumberResp
       type: object
       properties:
         result:
-          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/EthBlockHeader"
-          example:
-              {
-                "baseFeePerGas": "0x5d21dba00",
-                "difficulty": "0x1",
-                "extraData": "0x",
-                "gasLimit": "0xe8d4a50fff",
-                "gasUsed": "0x28b484",
-                "hash": "0x5de0dc71dec2e724be002dcad135b602810769ce26e16b3b06862405e08ca71b",
-                "logsBloom": "0x02200022800002050000084080014015001001004b0002440401060a0830000200014041044010180010430018800119120098000800200241c2090a4020011040004400002201081800440a340020a4000820100848081020003000892050105a05000002100000200012c0800408982000085100000c4040a03814000800200812210100200010004018410d80004214800123210400082002214620100021028800120309200802008291c8e000904210080008110900010100081000101000501002010a0080311886000008000000240900400000100200a402005830200010300804020200000002310000008004004080a58000550000508000000000",
-                "miner": "0xea674fdde714fd979de3edf0f56aa9716b898ec8",
-                "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-                "nonce": "0x0000000000000000",
-                "number": "0x1b4",
-                "parentHash": "0x99fcd33dddd763835ba8bdc842853d973496a7e64ea2f6cf826bc2c338e23b0c",
-                "receiptsRoot": "0xd3d70ed54a9274ba3191bf2d4fd8738c5d782fe17c8bfb45c03a25dc04120c35",
-                "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
-                "size": "0x23a",
-                "stateRoot": "0x1076e6726164bd6f74720a717242584109f37c55017d004eefccf9ec3be76c18",
-                "timestamp": "0x61b0a6c6",
-                "totalDifficulty": "0x12",
-                "transactionsRoot": "0x6ec8daca98c1005d9bbd7716b5e94180e2bf0e6b77770174563a166337369344"
-            }
+          $ref: "#/components/schemas/EthHeaderObject"
+
+    EthHeaderObject:
+      title: EthHeaderObject
+      type: object
+      required:
+        - baseFeePerGas
+        - difficulty
+        - extraData
+        - gasLimit
+        - gasUsed
+        - hash
+        - logsBloom
+        - miner
+        - mixHash
+        - nonce
+        - number
+        - parentHash
+        - receiptsRoot
+        - sha3Uncles
+        - size
+        - stateRoot
+        - timestamp
+        - totalDifficulty
+        - transactionsRoot
+      properties:
+        baseFeePerGas:
+          type: string
+          format: hex
+          description: The base fee per gas.
+        difficulty:
+          type: string
+          format: hex
+          description: The integer of the difficulty for this block.
+        extraData:
+          type: string
+          format: DATA
+          description: The "extra data" field of this block.
+        gasLimit:
+          type: string
+          format: hex
+          description: The maximum gas allowed in this block.
+        gasUsed:
+          type: string
+          format: hex
+          description: The total used gas by all transactions in this block.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block. null when it is a pending block.
+        logsBloom:
+          type: string
+          format: 256-byte DATA
+          description: The bloom filter for the logs of the block.
+        miner:
+          type: string
+          format: 20-byte DATA
+          description: The address of the beneficiary to whom the mining rewards were given.
+        mixHash:
+          type: string
+          format: 32-byte DATA
+          description: The hash which proves combined with the nonce that a sufficient amount of computation has been carried out on this block.
+        nonce:
+          type: string
+          format: 8-byte DATA
+          description: The hash of the generated proof-of-work.
+        number:
+          type: string
+          format: hex
+          description: The block number. null when it is a pending block.
+        parentHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the parent block.
+        receiptsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the receipts trie of the block.
+        sha3Uncles:
+          type: string
+          format: 32-byte DATA
+          description: The SHA3 of the uncles data in the block.
+        size:
+          type: string
+          format: hex
+          description: Integer of the size of this block in bytes.
+        stateRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the final state trie of the block.
+        timestamp:
+          type: string
+          format: hex
+          description: The Unix timestamp for when the block was collated.
+        totalDifficulty:
+          type: string
+          format: hex
+          description: The total blockScore of the chain until this block.
+        transactionsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the transaction trie of the block.
+      example: {
+        baseFeePerGas: "0x5d21dba00",
+        difficulty: "0x1",
+        extraData: "0xd8820505846b6c617988676f312e31312e328664617277696e00000000000000f89ed594e733cb4d279da696f30d470f8c04decb54fcb0d2b841f1f600d136f93a5a2d9c12a7a9f6d7ba80a047c3910a2bbc01e38bcce25e48ed2004d21f134df5efaf1f8cbb9a26e1548e57628ab258c935490c11a7cd65324701f843b841444b3efc40071b6eec2c4d2630b483710b8fc7a601432431b0161f489102d1ca02f2ef93153d0be3843aa563d34cee1716163f58711843442aedd94a56303c0400",
+        gasLimit: "0xe8d4a50fff",
+        gasUsed: "0x0",
+        governanceData: "0x",
+        hash: "0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c",
+        logsBloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        miner: "0x0000000000000000000000000000000000000000",
+        mixHash: "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
+        nonce: "0x0000000000000000",
+        number: "0x1",
+        parentHash: "0x73255a60e9491b5715f9bfcb7fa1143296810f629836d4cefbd1921d9173d63d",
+        receiptsRoot: "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+        reward: "0x0000000000000000000000000000000000000000",
+        size: "0x2d7",
+        stateRoot: "0xedb87f4b0f905a655c80d1768eb22b1eff2405098c4748b8364c869611e02a2b",
+        timestamp: "0x5c99cbd8",
+        totalDifficulty: "0x2",
+        transactions: [],
+        transactionsRoot: "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+        uncles: [],
+      }

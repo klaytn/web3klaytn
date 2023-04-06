@@ -272,6 +272,8 @@ paths:
     $ref: ./paths/eth/transaction/pendingTransactions.yaml#/paths/~1eth~1pendingTransactions
   /eth/transaction/fillTransaction:
     $ref: ./paths/eth/transaction/fillTransaction.yaml#/paths/~1eth~1fillTransaction
+  /eth/transaction/estimateGas:
+    $ref: ./paths/eth/transaction/estimateGas.yaml#/paths/~1eth~1estimateGas
 
   # eth/config
   /eth/config/chainID:
@@ -286,8 +288,6 @@ paths:
   # eth/gas
   /eth/gas/feeHistory:
     $ref: ./paths/eth/gas/feeHistory.yaml#/paths/~1eth~1feeHistory
-  /eth/gas/estimateGas:
-    $ref: ./paths/eth/transaction/estimateGas.yaml#/paths/~1eth~1estimateGas
   /eth/gas/maxPriorityFeePerGas:
     $ref: ./paths/eth/gas/maxPriorityFeePerGas.yaml#/paths/~1eth~1maxPriorityFeePerGas
 

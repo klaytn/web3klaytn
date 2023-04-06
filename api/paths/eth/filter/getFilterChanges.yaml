@@ -45,6 +45,7 @@ paths:
                       type: array
                       items:
                         type: string
+                        format: hex
                       description: The filter id
                       example: ["0x16"]
 

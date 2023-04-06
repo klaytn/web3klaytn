@@ -39,7 +39,7 @@ paths:
                 - $ref: "#/components/schemas/KlayGetBlockTransactionCountByHashReq"
       responses:
         200:
-          description: return block number
+          description: Returns the number of transactions in a block from a block that matches the given hash.
           content:
             application/json:
               schema:
@@ -83,9 +83,9 @@ components:
           default: 'eth_getBlockTransactionCountByHash'
         params:
           type: array
+          description: Hash of a block.
           items:
-              title: blockHash
-              description: Hash of a block.
-              type: string
-              format: 32-byte DATA
+            title: blockHash
+            type: string
+            format: 32-byte DATA
           example: ["0x0c11803ab36110db993e7520908b9ba9336cca2f2dcc9b6130c481a3ccdc2621"]

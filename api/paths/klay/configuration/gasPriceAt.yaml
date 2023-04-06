@@ -45,7 +45,7 @@ paths:
 
       responses:
         200:
-          description: Return the unit price from the governance parameter or the gas price of the txpool or the base fee of the given block.
+          description: Integer of the current gas price in peb.
           content:
             application/json:
               schema:
@@ -55,6 +55,7 @@ paths:
                     properties:
                       result:
                         type: string
+                        format: hex
                         description: "Integer of the current gas price in peb."
                         example: "0xAE9F7BCC00"
 

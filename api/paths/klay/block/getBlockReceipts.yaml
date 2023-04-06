@@ -104,7 +104,7 @@ components:
           format: 32-byte DATA
         blockNumber:
           type: string
-          format: integer
+          format: hex
         contractAddress:
           type: string
           format: 20-byte DATA

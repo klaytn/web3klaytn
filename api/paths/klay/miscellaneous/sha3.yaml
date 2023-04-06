@@ -84,7 +84,7 @@ components:
             title: data
             type: string
             format: DATA
-            description: The data to convert into a SHA3 hash.
+          description: The data to convert into a SHA3 hash.
           example:  ["0x11223344"]
 
     KlaySha3Resp:
