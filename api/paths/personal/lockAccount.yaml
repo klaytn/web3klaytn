@@ -71,7 +71,7 @@ paths:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../code-samples/curl/personal/lockAccounts.sh"
+            $ref: "../../code-samples/curl/personal/lockAccount.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
