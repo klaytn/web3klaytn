@@ -49,7 +49,7 @@ paths:
                       result:
                         type: string
                         format: hex
-                        description: "Integer of the current gas price in peb."
+                        description: "Integer of the current max priority fee per gas"
                         example: "0xAE9F7BCC00"
 
       x-codeSamples:

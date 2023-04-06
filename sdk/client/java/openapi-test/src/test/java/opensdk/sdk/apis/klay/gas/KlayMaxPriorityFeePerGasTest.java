@@ -1,7 +1,7 @@
 package opensdk.sdk.apis.klay.gas;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayGasPriceResponse;
+import opensdk.sdk.models.KlayMaxPriorityFeePerGasResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
@@ -15,7 +15,7 @@ public class KlayMaxPriorityFeePerGasTest {
     @Test
     @DisplayName("RPC klay_maxPriorityFeePerGas")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayGasPriceResponse response = sdk.klay.maxPriorityFeePerGas().send();
+        KlayMaxPriorityFeePerGasResponse response = sdk.klay.maxPriorityFeePerGas().send();
         assertNotNull(response.getResult());
     }
 }
