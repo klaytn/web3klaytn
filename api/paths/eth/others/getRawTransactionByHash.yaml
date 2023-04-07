@@ -61,7 +61,7 @@ paths:
         - lang: "javascript"
           label: "Javascript"
           source:
-            $ref: "api/code-samples/javascript/eth/transaction/getRawTransactionByHash.js"
+            $ref: "../../../code-samples/javascript/eth/transaction/getRawTransactionByHash.js"
 #        - lang: "python"
 #          label: "Python"
 #          source:
