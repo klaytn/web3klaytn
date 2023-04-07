@@ -18,7 +18,7 @@ paths:
       operationId: createAccessList
       description: |
         CreateAccessList creates a EIP-2930 type AccessList for the given transaction. Reexec and BlockNrOrHash can be specified to create the accessList on top of a certain state.
-        
+
         **JSONRPC:** `eth_createAccessList`
 
       parameters:
@@ -29,7 +29,7 @@ paths:
             $ref: "#/components/schemas/EthTransactionArgs"
         - name: blockNumberOrHash
           in: query
-          required: false
+          required: true
           schema:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
 

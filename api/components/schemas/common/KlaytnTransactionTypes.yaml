@@ -114,6 +114,8 @@ components:
         - typeInt
         - from
         - to
+        - value
+        - feePayer
       description: Fee delegating version of TxTypeValueTransfer. For more information, see TxTypeFeeDelegatedValueTransfer.
       properties:
         typeInt:
@@ -872,6 +874,7 @@ components:
         - typeInt
         - from
         - feePayer
+        - feeRatio
       properties:
         typeInt:
           type: number

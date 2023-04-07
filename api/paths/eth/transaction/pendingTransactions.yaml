@@ -73,6 +73,7 @@ components:
       properties:
         result:
           type: array
+          description: An array of transactions.
           items:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionArgs"
           example:
