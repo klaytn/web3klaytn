@@ -54,10 +54,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/eth/block/getHeaderByNumber.sh"
-#        - lang: "java"
-#          label: "Java"
-#          source:
-#            $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/block/EthGetHeaderByNumberExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
