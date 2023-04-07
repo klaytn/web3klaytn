@@ -46,7 +46,7 @@ paths:
                     properties:
                       result:
                         type: string
-                        format: QUANTITY
+                        format: hex
                         description: Lower bound gas price.
                         example: "0xae9f7bcc00"
 

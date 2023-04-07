@@ -120,12 +120,12 @@ components:
           oneOf:
             - type: string
               format: 20-byte DATA
-              description: (optional) Contract address or a list of addresses from which logs should originate.
+              description: Contract address
             - type: array
               items:
                 type: string
                 format: 20-byte DATA
-              description: (optional) Contract address or a list of addresses from which logs should originate.
+              description: A list of addresses
         topics:
           type: array
           items:
