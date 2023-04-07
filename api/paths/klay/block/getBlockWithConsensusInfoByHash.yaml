@@ -61,10 +61,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klay/block/getBlockWithConsensusInfoByHash.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../../code-samples/python/klay/block/getBlockWithConsensusInfoByHash.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/block/getBlockWithConsensusInfoByHash.py"
 
 components:
   schemas:

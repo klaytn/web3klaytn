@@ -90,7 +90,7 @@ paths:
 #          label: "Javascript"
 #          source:
 #            $ref: "../../../code-samples/javascript/eth/block/blockNumber.js"
-#        - lang: "python"
-#          label: "Python"
-#          source:
-#            $ref: "../../../code-samples/python/eth/block/blockNumber.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/block/syncing.py"
