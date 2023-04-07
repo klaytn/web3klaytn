@@ -5,22 +5,22 @@ class TestEthGetHeaderByNumber(KlaytnBaseTesting):
 
     def setUp(self) -> None:
         super().setUp()
-        self.blochTag = "0x1b4"
+        self.blockTag = "0x1b4"
 
     def test_post(self):
-        klay_response = self.sdk.eth.get_header_by_number(
-            self.blochTag
+        eth_response = self.sdk.eth.get_header_by_number(
+            self.blockTag
         )
 
-        self.covert_response(klay_response.response)
+        self.covert_response(eth_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)
         self.assertIn("id", self.response)
         self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        klay_response = self.sdk.eth.get_header_by_number()
-        self.covert_response(klay_response.response)
+        eth_response = self.sdk.eth.get_header_by_number()
+        self.covert_response(eth_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)
         self.assertIn("id", self.response)
