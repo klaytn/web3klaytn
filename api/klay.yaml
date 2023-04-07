@@ -361,8 +361,6 @@ paths:
     $ref: ./paths/personal/deriveAccount.yaml#/paths/~1personal~1deriveAccount
   /personal/ecRecover:
     $ref: ./paths/personal/ecRecover.yaml#/paths/~1personal~1ecRecover
-  /personal/sign:
-    $ref: ./paths/personal/sign.yaml#/paths/~1personal~1sign
   /personal/importRawKey:
     $ref: ./paths/personal/importRawKey.yaml#/paths/~1personal~1importRawKey
   /personal/listAccounts:
@@ -377,3 +375,15 @@ paths:
     $ref: ./paths/personal/openWallet.yaml#/paths/~1personal~1openWallet
   /personal/replaceRawKey:
     $ref: ./paths/personal/replaceRawKey.yaml#/paths/~1personal~1replaceRawKey
+  /personal/sendAccountUpdate:
+    $ref: ./paths/personal/sendAccountUpdate.yaml#/paths/~1personal~1sendAccountUpdate
+  /personal/sendTransaction:
+    $ref: ./paths/personal/sendTransaction.yaml#/paths/~1personal~1sendTransaction
+  /personal/sendValueTransfer:
+    $ref: ./paths/personal/sendValueTransfer.yaml#/paths/~1personal~1sendValueTransfer
+  /personal/sign:
+    $ref: ./paths/personal/sign.yaml#/paths/~1personal~1sign
+  /personal/signTransaction:
+    $ref: ./paths/personal/signTransaction.yaml#/paths/~1personal~1signTransaction
+  /personal/unlockAccount:
+    $ref: ./paths/personal/unlockAccount.yaml#/paths/~1personal~1unlockAccount

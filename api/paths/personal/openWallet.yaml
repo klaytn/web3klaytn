@@ -23,6 +23,9 @@ paths:
         | RPC | {"method": "personal_openWallet", "params": [url, passphrase]} |
 
         **JSONRPC:** `personal_openWallet`
+
+        **NOTE:** The method may return an extra challenge requiring a second open (e.g., the Trezor PIN matrix challenge).
+
       tags:
         - personal
 
