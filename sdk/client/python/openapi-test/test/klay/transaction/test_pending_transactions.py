@@ -11,4 +11,3 @@ class TestPendingTransactions(KlaytnBaseTesting):
         self.assertIn("jsonrpc", self.response)
         self.assertIn("id", self.response)
         self.assertIn("result", self.response)
-
