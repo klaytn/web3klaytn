@@ -19,15 +19,18 @@ paths:
       description: |
         Returns information about a transaction by block hash and transaction index position.
 
+        Please check the Caution-Transaction before using this API.
+
         **JSONRPC:** `eth_getTransactionByHash`
 
       parameters:
-        - name: blockHash
+        - name: transactionHash
           in: query
           description: Hash of a transaction.
           required: true
           schema:
-            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
+            type: string
+            format: hex
 
       requestBody:
         content:
@@ -78,8 +81,9 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
+            type: string
+            format: hex
+          description: Hash of a transaction.
           example: ["0x27"]
 
     EthGetTransactionByHashResp:

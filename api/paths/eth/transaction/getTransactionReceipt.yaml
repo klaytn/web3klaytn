@@ -21,10 +21,12 @@ paths:
 
         *NOTE:* The receipt is not available for pending transactions.
 
+        Please check the Caution-TransactionReceipt before using this API.
+
         **JSONRPC:** `eth_getTransactionReceipt`
 
       parameters:
-        - name: blockHash
+        - name: transactionHash
           in: query
           description: Hash of a transaction.
           required: true
@@ -41,7 +43,7 @@ paths:
 
       responses:
         200:
-          description: Object - A transaction object, or null when no transaction was found
+          description: Object - A transaction receipt object, or null when no receipt was found
           content:
             application/json:
               schema:
@@ -80,8 +82,9 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
+            type: string
+            format: hex
+          description: Hash of a transaction.
           example: ["0x27"]
 
     EthGetTransactionByHashResp:
@@ -93,6 +96,20 @@ components:
     TransactionReceiptObject:
       title: TransactionReceiptObject
       type: object
+      required:
+        - blockHash
+        - blockNumber
+        - contractAddress
+        - cumulativeGasUsed
+        - effectiveGasPrice
+        - from
+        - logs
+        - logsBloom
+        - status
+        - to
+        - transactionHash
+        - transactionIndex
+        - type
       properties:
         blockHash:
           type: string

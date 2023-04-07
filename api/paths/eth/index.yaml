@@ -32,6 +32,8 @@ paths:
     $ref: ./account/getCode.yaml#/paths/~1eth~1getCode
   /eth/account/sign:
     $ref: ./account/sign.yaml#/paths/~1eth~1sign
+  /eth/account/getTransactionCount:
+    $ref: ./account/getTransactionCount.yaml#/paths/~1eth~1getTransactionCount
 
   # eth/block
   /eth/block/blockNumber:
@@ -70,8 +72,6 @@ paths:
     $ref: ./transaction/getTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getTransactionByBlockNumberAndIndex
   /eth/transaction/getTransactionByHash:
     $ref: ./transaction/getTransactionByHash.yaml#/paths/~1eth~1getTransactionByHash
-  /eth/transaction/getTransactionCount:
-    $ref: ./transaction/getTransactionCount.yaml#/paths/~1eth~1getTransactionCount
   /eth/transaction/getTransactionReceipt:
     $ref: ./transaction/getTransactionReceipt.yaml#/paths/~1eth~1getTransactionReceipt
   /eth/transaction/sendRawTransaction:

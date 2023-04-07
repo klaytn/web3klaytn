@@ -772,7 +772,24 @@ components:
           format: hex
 
     LegacyTransaction:
+      title: LegacyTransaction
       type: object
+      required:
+        - blockHash
+        - blockNumber
+        - from
+        - gas
+        - gasPrice
+        - hash
+        - input
+        - nonce
+        - to
+        - value
+        - transactionIndex
+        - type
+        - v
+        - r
+        - s
       properties:
         blockHash:
           type: string
@@ -836,7 +853,26 @@ components:
           description: ECDSA signature s.
 
     AccessListTransaction:
+      title: AccessListTransaction
       type: object
+      required:
+        - blockHash
+        - blockNumber
+        - from
+        - gas
+        - gasPrice
+        - hash
+        - input
+        - nonce
+        - to
+        - value
+        - transactionIndex
+        - type
+        - accessList
+        - chainId
+        - v
+        - r
+        - s
       properties:
         blockHash:
           type: string
@@ -920,7 +956,28 @@ components:
           description: ECDSA signature s.
 
     DynamicFeeTransaction:
+      title: DynamicFeeTransaction
       type: object
+      required:
+        - blockHash
+        - blockNumber
+        - from
+        - gas
+        - gasPrice
+        - maxFeePerGas
+        - maxPriorityFeePerGas
+        - hash
+        - input
+        - nonce
+        - to
+        - value
+        - transactionIndex
+        - type
+        - accessList
+        - chainId
+        - v
+        - r
+        - s
       properties:
         blockHash:
           type: string

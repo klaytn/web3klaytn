@@ -225,6 +225,8 @@ paths:
     $ref: ./paths/eth/account/getCode.yaml#/paths/~1eth~1getCode
   /eth/account/sign:
     $ref: ./paths/eth/account/sign.yaml#/paths/~1eth~1sign
+  /eth/account/getTransactionCount:
+    $ref: ./paths/eth/account/getTransactionCount.yaml#/paths/~1eth~1getTransactionCount
 
   # eth/block
   /eth/block/blockNumber:
@@ -263,8 +265,6 @@ paths:
     $ref: ./paths/eth/transaction/getTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getTransactionByBlockNumberAndIndex
   /eth/transaction/getTransactionByHash:
     $ref: ./paths/eth/transaction/getTransactionByHash.yaml#/paths/~1eth~1getTransactionByHash
-  /eth/transaction/getTransactionCount:
-    $ref: ./paths/eth/transaction/getTransactionCount.yaml#/paths/~1eth~1getTransactionCount
   /eth/transaction/getTransactionReceipt:
     $ref: ./paths/eth/transaction/getTransactionReceipt.yaml#/paths/~1eth~1getTransactionReceipt
   /eth/transaction/sendRawTransaction:
