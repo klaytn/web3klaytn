@@ -38,8 +38,8 @@ paths:
           required: false
           schema:
             allOf:
-             - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-             - default: "latest"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              - default: "latest"
           description: |
             (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
           in: query
@@ -47,17 +47,20 @@ paths:
           required: false
           schema:
             allOf:
-             - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-             - default: "latest"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              - default: "latest"
           description: |
             (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
           in: query
-        - name: address
+        - name: addresses
           required: false
           schema:
-            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+            type: array
+            items:
+              type: string
+              format: 20-byte DATA
           description: |
-            (optional) Contract address or a list of addresses from which logs should originate.
+            (optional) List of addresses from which logs should originate.
           in: query
         - name: topics
           required: false
@@ -126,7 +129,11 @@ components:
                   - title: ToBlock
                     default: "latest"
                   - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+              - type: array
+                items:
+                  type: string
+                  format: 20-byte DATA
+                description: (optional) List of addresses from which logs should originate.
               - $ref: "#/components/schemas/Topics"
           example:  [{"fromBlock":"earliest","toBlock":"latest","address":"0x87ac99835e67168d4f9a40580f8f5c33550ba88b","topics":["0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8"]}]
 

@@ -90,7 +90,8 @@ components:
     KlaySha3Resp:
         type: object
         properties:
-            result:
-              type: string
-              format: 32-byte DATA
-              example: "0x36712aa4d0dd2f64a9ae6ac09555133a157c74ddf7c079a70c33e8b4bf70dd73"
+          result:
+            type: string
+            format: 32-byte DATA
+            example: "0x36712aa4d0dd2f64a9ae6ac09555133a157c74ddf7c079a70c33e8b4bf70dd73"
+            description: The SHA3 result of the given data.
