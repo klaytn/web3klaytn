@@ -18,7 +18,9 @@ paths:
       operationId: getTransactionByBlockHashAndIndex
       description: |
         Returns information about a transaction by block hash and transaction index position.
-        
+
+        Please check the Caution-Transaction before using this API.
+
         **JSONRPC:** `eth_getTransactionByBlockHashAndIndex`
 
       parameters:
@@ -87,11 +89,11 @@ components:
           type: array
           items:
             anyOf:
-              - title: blockHash
+              - title: BlockHash
                 description: Hash of a block.
                 type: string
                 format: 32-byte DATA
-              - title: transactionIndexPosition
+              - title: TransactionIndexPosition
                 description: Integer of the transaction index position.
                 type: string
                 format: hex

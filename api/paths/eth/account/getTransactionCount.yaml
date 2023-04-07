@@ -57,7 +57,7 @@ paths:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/eth/transaction/getTransactionCount.sh"
+            $ref: "../../../code-samples/curl/eth/account/getTransactionCount.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:

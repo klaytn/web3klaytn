@@ -19,6 +19,8 @@ paths:
       description: |
         Returns information about a transaction by block hash and transaction index position.
 
+        Please check the Caution-Transaction before using this API.
+
         **JSONRPC:** `eth_getTransactionByBlockNumberAndIndex`
 
       parameters:
@@ -46,7 +48,7 @@ paths:
 
       responses:
         200:
-          description: Returns information about a transaction by block hash and transaction index position.
+          description: Returns information about a transaction by block number and transaction index position.
           content:
             application/json:
               schema:
@@ -87,7 +89,7 @@ components:
           items:
             anyOf:
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              - title: transactionIndexPosition
+              - title: TransactionIndexPosition
                 description: Integer of the transaction index position.
                 type: string
                 format: hex
