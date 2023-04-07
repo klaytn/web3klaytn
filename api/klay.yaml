@@ -45,6 +45,9 @@ x-tagGroups:
   - name: Personal
     tags:
       - personal
+  - name: Debug
+    tags:
+      - debug
 servers:
   - url: http://localhost:7151
   - url: https://api.baobab.klaytn.net:8651
@@ -387,3 +390,7 @@ paths:
     $ref: ./paths/personal/signTransaction.yaml#/paths/~1personal~1signTransaction
   /personal/unlockAccount:
     $ref: ./paths/personal/unlockAccount.yaml#/paths/~1personal~1unlockAccount
+
+  # debug/logging:
+  /debug/logging/setVMLogTarget:
+    $ref: ./paths/debug/logging/setVMLogTarget.yaml#/paths/~1debug~1setVMLogTarget
