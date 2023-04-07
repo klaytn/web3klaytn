@@ -10,8 +10,8 @@ rm -rf "${CURRENT_FILE_DIR}/openapi"
 mkdir "${CURRENT_FILE_DIR}/openapi"
 
 
-sh ./scripts/eth/python-eth-generate.sh
-sh ./scripts/klay/python-klay-generate.sh
+sh ./scripts/eth/python-eth-generate.sh ${CURRENT_FILE_DIR}
+sh ./scripts/klay/python-klay-generate.sh ${CURRENT_FILE_DIR}
 
 
 #cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi"
