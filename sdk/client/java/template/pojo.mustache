@@ -1,6 +1,9 @@
 import org.web3j.protocol.core.Response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+{{#vars}}{{#isEnum}}import opensdk.sdk.models.{{classname}}.*;{{/isEnum}}{{/vars}}
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class {{classname}} {{#vars}}{{#-last}}extends Response<{{#lambda.titlecase}}{{{datatypeWithEnum}}}{{/lambda.titlecase}}>{{/-last}}{{/vars}} {
