@@ -77,6 +77,7 @@ components:
           default: "eth_fillTransaction"
         params:
           type: array
+          description: An object of transaction arguments. See the table below for the object's properties.
           items:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionArgs"
           example:
@@ -95,6 +96,9 @@ components:
       properties:
         result:
           type: object
+          required:
+            - raw
+            - tx
           properties:
             raw:
               type: string
@@ -124,7 +128,22 @@ components:
                 },
             }
     Tx:
+      title: Tx
       type: object
+      required:
+        - type
+        - nonce
+        - gasPrice
+        - maxFeePerGas
+        - maxPriorityFeePerGas
+        - gas
+        - value
+        - v
+        - r
+        - s
+        - chainId
+        - accessList
+        - hash
       properties:
         type:
           type: string
@@ -160,11 +179,11 @@ components:
           description: ECDSA recovery id.
         r:
           type: string
-          format: hex
+          format: 32-byte DATA
           description: ECDSA signature r.
         s:
           type: string
-          format: hex
+          format: 32-byte DATA
           description: ECDSA signature s.
         chainId:
           type: string
@@ -177,5 +196,5 @@ components:
           description: An array of accessList.
         hash:
           type: string
-          format: hex
+          format: 32-byte DATA
           description: Hash of the transaction.

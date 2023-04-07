@@ -1069,6 +1069,7 @@ components:
           description: ECDSA signature s.
 
     TransactionArgs:
+      title: TransactionArgs
       type: object
       required:
         - from
