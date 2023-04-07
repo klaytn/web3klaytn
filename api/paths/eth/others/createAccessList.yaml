@@ -60,10 +60,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-#        - lang: "javascript"
-#          label: "Javascript"
-#          source:
-#            $ref: "../../../code-samples/javascript/eth/transaction/fillTransaction.js"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+           $ref: "../../../code-samples/javascript/eth/others/createAccessList.js"
         # - lang: "python"
         #   label: "Python"
         #   source:

@@ -14,6 +14,6 @@ describe('klay_rewardbase API', () => {
             done();
         };
        
-        sdk.klay.rewardBase({}, callbackOne);
+        sdk.klay.rewardbase({}, callbackOne);
     });
 });
