@@ -1,28 +1,34 @@
 from base.testing import KlaytnBaseTesting
 
 
-class TestGetRawTransactionByBlockNumberAndIndex(KlaytnBaseTesting):
+class TestEstimateGas(KlaytnBaseTesting):
 
     def setUp(self) -> None:
         super().setUp()
-        self.blockTag = "0x27"
-        self.transactionIndex = "0x0"
+        self.callObject = {
+            "from": "0x51239f87c33e95e3bdb72e31d06b5306bcec81cc",
+            "to": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b",
+            "gas": "0x100000",
+            "gasPrice": "0x5d21dba00",
+            "value": "0x0",
+            "input": "0x8ada066e"
+        }
 
     def test_post(self):
-        klay_response = self.sdk.klay.get_raw_transaction_by_block_number_and_index(
-            self.blockTag, self.transactionIndex
+        eth_response = self.sdk.eth.estimate_gas(
+            self.callObject
         )
 
-        self.covert_response(klay_response.response)
+        self.covert_response(eth_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)
         self.assertIn("id", self.response)
         self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        klay_response = self.sdk.klay.get_raw_transaction_by_block_number_and_index(self.blockTag)
+        eth_response = self.sdk.eth.estimate_gas()
 
-        self.covert_response(klay_response.response)
+        self.covert_response(eth_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)
         self.assertIn("id", self.response)

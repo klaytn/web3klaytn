@@ -3,7 +3,7 @@ from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
 
-blogTag = "0x27"
+blockTag = "0x27"
 transactionIndex = "0x0"
 
 sdk = OpenSDK(host)
