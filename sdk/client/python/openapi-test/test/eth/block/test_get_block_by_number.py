@@ -5,23 +5,23 @@ class TestEthGetBlockByNumber(KlaytnBaseTesting):
 
     def setUp(self) -> None:
         super().setUp()
-        self.blochTag = "0xd0054e"
+        self.blockTag = "0xd0054e"
         self.boolean = False
 
     def test_post(self):
-        klay_response = self.sdk.eth.get_block_by_number(
-            self.blochTag, self.boolean
+        eth_response = self.sdk.eth.get_block_by_number(
+            self.blockTag, self.boolean
         )
 
-        self.covert_response(klay_response.response)
+        self.covert_response(eth_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)
         self.assertIn("id", self.response)
         self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        klay_response = self.sdk.eth.get_block_by_number(self.blochTag)
-        self.covert_response(klay_response.response)
+        eth_response = self.sdk.eth.get_block_by_number(self.blockTag)
+        self.covert_response(eth_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)
         self.assertIn("id", self.response)
