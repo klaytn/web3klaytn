@@ -23,6 +23,10 @@ tags:
     description: API for net namespace
   - name: personal
     description: API for personal namespace
+  - name: debug
+    description: API for debug namespace
+  - name: governance
+    description: API for governance namespace
 #  - name: RewardSpec
 #    description: |
 #      <SchemaDefinition schemaRef="#/components/schemas/RewardSpec" />
@@ -39,15 +43,18 @@ x-tagGroups:
   - name: Net
     tags:
       - net
-  - name: Models
-    tags:
-      - RewardSpec
   - name: Personal
     tags:
       - personal
   - name: Debug
     tags:
       - debug
+  - name: Governance
+    tags:
+      - governance
+  - name: Models
+    tags:
+      - RewardSpec
 servers:
   - url: http://localhost:7151
   - url: https://api.baobab.klaytn.net:8651
@@ -393,8 +400,12 @@ paths:
 
   # debug/logging:
   /debug/logging/setVMLogTarget:
-    $ref: ./paths/KlaytnDebug/logging/setVMLogTarget.yaml#/paths/~1debug~1setVMLogTarget
+    $ref: ./paths/klaytnDebug/logging/setVMLogTarget.yaml#/paths/~1debug~1setVMLogTarget
 
   # debug/blockchainInspection:
   /debug/blockchainInspection/preimage:
-    $ref: ./paths/KlaytnDebug/blockchainInspection/preimage.yaml#/paths/~1debug~1preimage
+    $ref: ./paths/klaytnDebug/blockchainInspection/preimage.yaml#/paths/~1debug~1preimage
+
+  # governance/votes
+  /governance/votes:
+    $ref: ./paths/governance/votes.yaml#/paths/~1governance~1votes

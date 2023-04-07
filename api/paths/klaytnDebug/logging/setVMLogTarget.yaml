@@ -67,7 +67,7 @@ paths:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/debug/logging/setVMLogTarget.sh"
+            $ref: "../../../code-samples/curl/klaytnDebug/logging/setVMLogTarget.sh"
 #        - lang: "java"
 #          label: "Java"
 #          source:
