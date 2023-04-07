@@ -393,8 +393,8 @@ paths:
 
   # debug/logging:
   /debug/logging/setVMLogTarget:
-    $ref: ./paths/debug/logging/setVMLogTarget.yaml#/paths/~1debug~1setVMLogTarget
+    $ref: ./paths/KlaytnDebug/logging/setVMLogTarget.yaml#/paths/~1debug~1setVMLogTarget
 
   # debug/blockchainInspection:
   /debug/blockchainInspection/preimage:
-    $ref: ./paths/debug/blockchainInspection/preimage.yaml#/paths/~1debug~1preimage
+    $ref: ./paths/KlaytnDebug/blockchainInspection/preimage.yaml#/paths/~1debug~1preimage

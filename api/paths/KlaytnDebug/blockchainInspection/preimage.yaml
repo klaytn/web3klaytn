@@ -1,0 +1,83 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/preimage:
+    post:
+      summary: "[preimage]"
+      tags:
+        - debug
+      operationId: preimage
+      description: |
+        Returns the preimage for a sha3 hash, if known.
+        
+        **JSONRPC:** `debug_preimage`
+
+      parameters:
+        - name: hash
+          in: query
+          description: sha3 hash.
+          required: true
+          schema:
+            type: string
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: debug_preimage
+                    params:
+                      type: array
+                      items:
+                        title: hash
+                        type: string
+                        description: sha3 hash.
+                        example: "0xaf953a2d01f55cfe080c0c94150a60105e8ac3d51153058a1f03dd239dd08586"
+
+      responses:
+        200:
+          description: Returns the preimage for a sha3 hash, if known.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        title: preimage
+                        type: string
+                        description: Preimage for a sha3 hash.
+                        example: "0xaf953a2d01f55cfe080c0c94150a60105e8ac3d51153058a1f03dd239dd08586"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/blockchainInspection/preimage.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/account/EthAccountsExample.java"
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: "../../../code-samples/javascript/eth/account/accounts.js"
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: "../../../code-samples/python/eth/account/accounts.py"
