@@ -38,8 +38,9 @@ paths:
           required: false
           schema:
             allOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              - default: "latest"
+             - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+             - title: fromBlock
+               default: "latest"
           description: |
             (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
           in: query
@@ -47,8 +48,9 @@ paths:
           required: false
           schema:
             allOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              - default: "latest"
+             - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+             - title: toBlock
+               default: "latest"
           description: |
             (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
           in: query

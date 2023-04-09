@@ -264,9 +264,6 @@ class BaseApi(api_client.Api):
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
-    {{#if queryParams}}
-        self._verify_typed_dict_inputs_oapg(RequestQueryParams, query_params)
-    {{/if}}
     {{#if headerParams}}
         self._verify_typed_dict_inputs_oapg(RequestHeaderParams, header_params)
     {{/if}}

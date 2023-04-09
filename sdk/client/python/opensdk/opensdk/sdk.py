@@ -4,6 +4,12 @@ from eth.opensdk_python_eth.configuration import Configuration as EthConfigurati
 from klay.opensdk_python_klay.apis.tags.klay_api import KlayApi
 from klay.opensdk_python_klay.configuration import Configuration as KlayConfiguration
 from klay.opensdk_python_klay.api_client import ApiClient as KlayApiClient
+from net.opensdk_python_net.api_client import ApiClient as NetApiClient
+from net.opensdk_python_net.configuration import Configuration as NetConfiguration
+from net.opensdk_python_net.apis.tags.net_api import NetApi
+from txpool.opensdk_python_txpool.api_client import ApiClient as TxPollApiClient
+from txpool.opensdk_python_txpool.configuration import Configuration as TxPollConfiguration
+from txpool.opensdk_python_txpool.apis.tags.txpool_api import TxpoolApi
 
 
 class OpenSDK:
@@ -18,3 +24,11 @@ class OpenSDK:
     @property
     def klay(self):
         return KlayApi(KlayApiClient(configuration=KlayConfiguration(self.kalytn_url)))
+
+    @property
+    def net(self):
+        return NetApi(NetApiClient(configuration=NetConfiguration(self.kalytn_url)))
+
+    @property
+    def txpool(self):
+        return TxpoolApi(TxPollApiClient(configuration=TxPollConfiguration(self.kalytn_url)))
