@@ -12,6 +12,8 @@ mkdir "${CURRENT_FILE_DIR}/openapi"
 
 sh ./scripts/eth/python-eth-generate.sh ${CURRENT_FILE_DIR}
 sh ./scripts/klay/python-klay-generate.sh ${CURRENT_FILE_DIR}
+sh ./scripts/net/python-net-generate.sh ${CURRENT_FILE_DIR}
+sh ./scripts/txpool/python-txpool-generate.sh ${CURRENT_FILE_DIR}
 
 
 #cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi"

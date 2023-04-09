@@ -648,7 +648,7 @@ paths:
 
                 const address = '0x1cbd3b2770909d4e10f157cabc84c7264073c9ec'
                 const blockNumberOrHash = 'latest'
-                
+            
                 sdk.klay.getAccount(address, blockNumberOrHash, {}, (err, data, response) => {
                     console.log(data);
                 });
@@ -1328,7 +1328,7 @@ paths:
 
         **JSONRPC:** `klay_getBlockWithConsensusInfoByNumber`
 
-        **NOTE:**  In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available. 
+        **NOTE:**  In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.
       tags:
         - klay
       parameters:
@@ -1566,7 +1566,7 @@ paths:
                 const sdk = new OpenSdk(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
 
                 const blockNumberOrTag = '0x1b4'
-                
+            
                 sdk.klay.getCommittee(blockNumberOrTag, {}, (err, data, response) => {
                     console.log(data);
                 });
@@ -1859,7 +1859,7 @@ paths:
 
                 const blockNumber = 1
                 const returnTransactionObject = true
-                
+            
                 sdk.klay.getBlockByNumber(blockNumber, returnTransactionObject, {}, (err, data, response) => {
                     console.log(data);
                 });
@@ -1954,7 +1954,7 @@ paths:
 
 
                 const blockHash = '0xba647d41423faeebe8a7c64737d284fc2eba6f0388a3e1ebf6243db509ec1577'
-                
+            
                 sdk.klay.getBlockTransactionCountByHash(blockHash, {}, (err, data, response) => {
                     console.log(data);
                 });
@@ -2034,7 +2034,7 @@ paths:
 
 
                 const blockNumber = 1
-                
+            
                 sdk.klay.getHeaderByNumber(blockNumber, {}, (err, data, response) => {
                     console.log(data);
                 });
@@ -2101,7 +2101,7 @@ paths:
 
 
                 const blockHash = '0xba647d41423faeebe8a7c64737d284fc2eba6f0388a3e1ebf6243db509ec1577'
-                
+            
                 sdk.klay.getHeaderByHash(blockHash, {}, (err, data, response) => {
                     console.log(data);
                 });
@@ -2251,7 +2251,7 @@ paths:
                 const storageAddress = '0x295a70b2de5e3953354a6a8344e616ed314d7251'
                 const position = '0x0'
                 const blockNumberOrHash = 'latest'
-                
+            
                 sdk.klay.getStorageAt(storageAddress, position, blockNumberOrHash, {}, (err, data, response) => {
                     console.log(data);
                 });
@@ -2553,9 +2553,9 @@ paths:
 
             (() => {
                 const sdk = new OpenSdk(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
-
-
-               
+            
+            
+            
                 (err, data, response) => {
                     console.log(data);
                 }
@@ -3855,7 +3855,7 @@ paths:
 
             (() => {
                 const sdk = new OpenSdk(new Caver.ApiClient("https://api.baobab.klaytn.net:8651"));
-                
+            
                 sdk.klay.gasPrice({}, (err, data, response) => {
                     console.log(data);
                 });

@@ -2,10 +2,12 @@ package caver.sdk
 
 import io.swagger.v3.oas.models.Operation
 import io.swagger.v3.oas.models.media.Schema
+import io.swagger.v3.oas.models.parameters.Parameter
 import io.swagger.v3.oas.models.servers.Server
 import org.openapitools.codegen.CodegenComposedSchemas
 import org.openapitools.codegen.CodegenModel
 import org.openapitools.codegen.CodegenOperation
+import org.openapitools.codegen.CodegenParameter
 import org.openapitools.codegen.languages.PythonClientCodegen
 import org.openapitools.codegen.model.ModelsMap
 
@@ -68,7 +70,7 @@ class KlaytnPythonClientCodegen : PythonClientCodegen {
     }
 
     override fun updateModelForComposedSchema(m: CodegenModel?, schema: Schema<*>?, allDefinitions: MutableMap<String, Schema<Any>>?) {
-        val titles = listOf("callObject", "fromBlock", "toBlock")
+        val titles = listOf("callObject", "fromBlock", "toBlock", "FromBlock", "ToBlock")
         m?.composedSchemas?.allOf?.removeAll { titles.contains(it.title) }
         val codegenComposedSchemas = CodegenComposedSchemas(
             m?.composedSchemas?.allOf?.asReversed(),
@@ -78,5 +80,13 @@ class KlaytnPythonClientCodegen : PythonClientCodegen {
         )
         m?.composedSchemas = codegenComposedSchemas
         super.updateModelForComposedSchema(m, schema, allDefinitions)
+    }
+
+
+    override fun fromParameter(parameter: Parameter, imports: Set<String?>?): CodegenParameter? {
+        val cp = super.fromParameter(parameter, imports)
+        val titles = listOf("fromBlock", "toBlock")
+        cp?.schema?.composedSchemas?.allOf?.removeAll { titles.contains(it.title) }
+        return cp
     }
 }
