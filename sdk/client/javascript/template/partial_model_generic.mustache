@@ -64,6 +64,10 @@ class {{classname}} {{#parent}}{{^parentModel}}{{#vendorExtensions.x-is-array}}e
         {{#-first}}
         // check to make sure all required properties are present in the JSON string
         for (const property of {{classname}}.RequiredProperties) {
+            const firstCapProperty = property.charAt(0).toUpperCase() + property.slice(1)
+            if ({{classname}}[firstCapProperty+"Enum"] && !Object.values({{classname}}[firstCapProperty+"Enum"]).includes(data[property])) {
+              throw new Error("The required field `" + property + "` should be a value in [" + Object.values({{classname}}[firstCapProperty+"Enum"]) + "]");
+            }
             if (!data[property]) {
                 throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
             }
