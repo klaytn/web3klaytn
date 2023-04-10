@@ -64,6 +64,7 @@ paths:
                       result:
                         type: string
                         format: hex
+                        description: Hex representation of a Keccak 256 hash
                         example: "0xced304149857009d8767c54b7e624f700c39afe8b93d61b970902d95ac6271d1"
 
       x-codeSamples:
