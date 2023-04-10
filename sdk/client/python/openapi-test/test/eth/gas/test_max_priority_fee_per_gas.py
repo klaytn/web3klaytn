@@ -4,9 +4,9 @@ from base.testing import KlaytnBaseTesting
 class TestMaxPriorityFeePerGas(KlaytnBaseTesting):
 
     def test_post(self):
-        klay_response = self.sdk.klay.max_priority_fee_per_gas()
+        eth_response = self.sdk.eth.max_priority_fee_per_gas()
 
-        self.covert_response(klay_response.response)
+        self.covert_response(eth_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)
         self.assertIn("id", self.response)

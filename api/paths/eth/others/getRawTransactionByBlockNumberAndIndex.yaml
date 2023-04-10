@@ -66,10 +66,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/eth/transaction/getRawTransactionByBlockNumberAndIndex.js"
-#        - lang: "python"
-#          label: "Python"
-#          source:
-#            $ref: "../../../code-samples/python/klay/others/getRawTransactionByBlockNumberAndIndex.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/others/getRawTransactionByBlockNumberAndIndex.py"
 
 components:
   schemas:
