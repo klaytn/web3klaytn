@@ -1,0 +1,68 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/stopWarmUp:
+    post:
+      operationId: stopWarmUp
+      summary: "[stopWarmUp]"
+      description: |
+        The stopWarmUp stops the currently running warm-up. This method takes no parameters, and returns null or an error depending on a warm-up was stopped or not.
+        
+        | Client | Method invocation |
+        |-----|-----|
+        | Console   | debug.stopWarmUp() |
+        | RPC | {"method": "debug_stopWarmUp"} |
+
+        **JSONRPC:** `debug_stopWarmUp`
+      
+      tags:
+        - debug
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+
+      responses:
+        200:
+          description: Return null if a warm-up is started, or an error if not.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: error
+                        description: null if a warm-up is started, or an error if not.
+                        example: null
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klaytnDebug/blockchainInspection/stopWarmUp.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""

@@ -10,23 +10,30 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/getModifiedAccountsByNumber:
+  /debug/getModifiedStorageNodesByNumber:
     post:
-      operationId: getModifiedAccountsByNumber
-      summary: "[getModifiedAccountsByNumber]"
+      operationId: getModifiedStorageNodesByNumber
+      summary: "[getModifiedStorageNodesByNumber]"
       description: |
-        Returns all accounts that have changed between the two blocks specified by their block numbers. Changes made in endBlockNum are included, but changes made in startBlockNum are not. If endBlockNum is not given, it returns the accounts modified in the startBlockNum. A change is defined as a difference in nonce, balance, code hash, or storage hash.
+        Returns the number of changed or modified state trie nodes.
 
         | Client | Method invocation |
         |-----|-----|
-        | Console   | debug.getModifiedAccountsByNumber(startBlockNum, endBlockNum) |
-        | RPC | {"method": "debug_getModifiedAccountsByNumber", "params": [startBlockNum, endBlockNum]} |
+        | Console   | debug.getModifiedStorageNodesByNumber(startBlockNum, endBlockNum) |
+        | RPC | {"method": "debug_getModifiedStorageNodesByNumber", "params": [contractAddress, startBlockNum, endBlockNum]} |
 
-        **JSONRPC:** `debug_getModifiedAccountsByNumber`
+        **JSONRPC:** `debug_getModifiedStorageNodesByNumber`
       tags:
         - debug
 
       parameters:
+        - name: address
+          required: true
+          schema:
+            type: string
+            format: 20-byte DATA
+          description: Address
+          in: query
         - name: startBlockNum
           required: true
           schema:
@@ -46,11 +53,11 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "#/components/schemas/GetModifiedAccountsByNumberReq"
+                - $ref: "#/components/schemas/GetModifiedStorageNodesByNumberReq"
 
       responses:
         200:
-          description: Return the list of addresses modified between the given range.
+          description: Return the number of changed or modified state trie nodes (int)
           content:
             application/json:
               schema:
@@ -60,14 +67,14 @@ paths:
                     properties:
                       result:
                         type: array
-                        description: The list of addresses modified between the given range.
-                        example: ["0x31b93ca83b5ad17582e886c400667c6f698b8ccd", "0xb7fe15c42e66bd71835b07dc6e7daee7729f6235", "0xe31a0edb11357dba71377e625fc6174da4ef4321", "0x16b11cf9c2186a117b0da38315b42b1eaa03bbe5", "0xd3ec3c7e4cad042dbdcb6a7e0fdbc55a92276f12", "0xa4e0d726ce51572e66295756ad93206592c43a59", "0xf65e07b6626ab43ecea744803fa46bd4a89bfdb6", "0xaac56dfe44f9894d4f536cd17acfbc44bf81a843", "0x3855407fa65c4c5104648b3a9e495072df62b585", "0x61a7cbdd597848494fa85cbb76f9c63ad9c06cad", "0xa4845491cb0dad5bd6707a33c02af0d9db435c15", "0x026e8f70a26b6e5c8bec25e23869846edfdd6728", "0x3cf3e8caea91501321feee0f0692fcd98f1c6292", "0x18822790d7baf2fa6bbca6ad8baa46985abeb81b"]
+                        example: ['0x59f6b08c7b4fbd00e1d4b4e334f1a09a8e8d1667', '0xcabd65e5488748f8a7f9a1e9ed3b3db2a8f962a7']
+
 
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klaytnDebug/blockchainInspection/getModifiedAccountsByNumber.sh"
+            $ref: "../../../code-samples/curl/klaytnDebug/others/getModifiedStorageNodesByNumber.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
@@ -83,7 +90,7 @@ paths:
 
 components:
   schemas:
-    GetModifiedAccountsByNumberReq:
+    GetModifiedStorageNodesByNumberReq:
       type: object
       required:
         - method
@@ -91,15 +98,18 @@ components:
       properties:
         method:
           type: string
-          default: 'debug_getModifiedAccountsByNumber'
+          default: 'debug_getModifiedStorageNodesByNumber'
         params:
           type: array
           items:
             anyOf:
+              - type: string
+                title: Address
+                description: The contract address.
               - type: integer
                 title: StartBlockNum
                 description: The first block number of the range to check.
               - type: integer
                 title: EndBlockNum
                 description: (optional) The last block number of the range.
-            example: [171904, 172160]
+            example: ["0x77982323172e5b6182539d3522d5a33a944206d4", 100, 200]

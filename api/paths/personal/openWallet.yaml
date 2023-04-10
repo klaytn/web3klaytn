@@ -65,7 +65,7 @@ paths:
                         title: Error
                         type: error
                         description: Error condition
-                        example: 
+                        example: null
       
       x-codeSamples:
         - lang: "curl"
