@@ -58,10 +58,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klay/account/encodeAccountKey.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/account/KlayEncodeAccountKeyExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
