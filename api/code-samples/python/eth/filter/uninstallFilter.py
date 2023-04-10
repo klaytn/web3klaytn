@@ -3,10 +3,9 @@ from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
 
-blockTag = "0xd0054e"
-transactionObject = False
+filterId = "0xb"
 
 sdk = OpenSDK(host)
-eth_response = sdk.eth.get_block_by_number(blockTag, transactionObject)
+eth_response = sdk.eth.uninstall_filter(filterId)
 
 print(json.loads(eth_response.response.data))
