@@ -20,6 +20,7 @@ class TestKlayGetBlockTransactionCountByNumber(KlaytnBaseTesting):
 
     def test_post_wrong_with_lack_paramaters(self):
         klay_response = self.sdk.klay.get_block_transaction_count_by_number()
+
         self.covert_response(klay_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)

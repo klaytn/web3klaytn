@@ -60,10 +60,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/eth/transaction/fillTransaction.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../../code-samples/python/eth/account/fillTransaction.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/transaction/fillTransaction.py"
 
 components:
   schemas:

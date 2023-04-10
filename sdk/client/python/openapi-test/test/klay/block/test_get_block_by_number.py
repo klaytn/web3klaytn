@@ -21,6 +21,7 @@ class TestKlayGetBlockByNumber(KlaytnBaseTesting):
 
     def test_post_wrong_with_lack_paramaters(self):
         klay_response = self.sdk.klay.get_block_by_number(self.blockTag)
+
         self.covert_response(klay_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)

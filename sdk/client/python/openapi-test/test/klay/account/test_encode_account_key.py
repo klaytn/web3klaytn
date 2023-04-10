@@ -9,6 +9,7 @@ class TestEncodeAccountKey(KlaytnBaseTesting):
             "keyType": 0,
             "key": {}
         }
+
     def test_post(self):
         klay_response = self.sdk.klay.encode_account_key(
             self.accountKey
@@ -22,6 +23,7 @@ class TestEncodeAccountKey(KlaytnBaseTesting):
 
     def test_post_wrong_with_lack_paramaters(self):
         klay_response = self.sdk.klay.encode_account_key()
+
         self.covert_response(klay_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)

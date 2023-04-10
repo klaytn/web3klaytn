@@ -73,10 +73,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/eth/gas/feeHistory.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../../code-samples/python/eth/account/feeHistory.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/gas/feeHistory.py"
 
 components:
   schemas:

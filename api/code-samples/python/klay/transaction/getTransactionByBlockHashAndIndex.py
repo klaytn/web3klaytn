@@ -10,4 +10,3 @@ sdk = OpenSDK(host)
 klay_response = sdk.klay.get_transaction_by_block_hash_and_index(blockHash, transactionIndexPosition)
 
 print(json.loads(klay_response.response.data))
-

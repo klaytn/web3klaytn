@@ -21,6 +21,7 @@ class TestEthGetUncleByBlockNumberAndIndex(KlaytnBaseTesting):
 
     def test_post_wrong_with_lack_paramaters(self):
         eth_response = self.sdk.eth.get_uncle_by_block_number_and_index(self.blockTag)
+
         self.covert_response(eth_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)

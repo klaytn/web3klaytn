@@ -22,6 +22,7 @@ class TestEthGetStorageAt(KlaytnBaseTesting):
 
     def test_post_wrong_with_lack_paramaters(self):
         eth_response = self.sdk.eth.get_storage_at(self.blockTag)
+
         self.covert_response(eth_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)

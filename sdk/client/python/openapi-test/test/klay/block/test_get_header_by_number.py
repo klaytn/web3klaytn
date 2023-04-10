@@ -20,6 +20,7 @@ class TestKlayGetHeaderByNumber(KlaytnBaseTesting):
 
     def test_post_wrong_with_lack_paramaters(self):
         klay_response = self.sdk.klay.get_header_by_number()
+
         self.covert_response(klay_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)
