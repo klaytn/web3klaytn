@@ -405,6 +405,16 @@ paths:
   # debug/blockchainInspection:
   /debug/blockchainInspection/preimage:
     $ref: ./paths/klaytnDebug/blockchainInspection/preimage.yaml#/paths/~1debug~1preimage
+  /debug/blockchainInspection/dumpBlock:
+    $ref: ./paths/klaytnDebug/blockchainInspection/dumpBlock.yaml#/paths/~1debug~1dumpBlock
+  /debug/blockchainInspection/dumpStateTrie:
+    $ref: ./paths/klaytnDebug/blockchainInspection/dumpStateTrie.yaml#/paths/~1debug~1dumpStateTrie
+  /debug/blockchainInspection/getBlockRlp:
+    $ref: ./paths/klaytnDebug/blockchainInspection/getBlockRlp.yaml#/paths/~1debug~1getBlockRlp
+  /debug/blockchainInspection/getModifiedAccountsByNumber:
+    $ref: ./paths/klaytnDebug/blockchainInspection/getModifiedAccountsByNumber.yaml#/paths/~1debug~1getModifiedAccountsByNumber
+  /debug/blockchainInspection/getModifiedAccountsByHash:
+    $ref: ./paths/klaytnDebug/blockchainInspection/getModifiedAccountsByHash.yaml#/paths/~1debug~1getModifiedAccountsByHash
 
   # governance/votes
   /governance/votes:

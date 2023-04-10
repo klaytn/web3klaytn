@@ -1,0 +1,101 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/dumpStateTrie:
+    post:
+      operationId: dumpStateTrie
+      summary: "[dumpStateTrie]"
+      description: |
+        Retrieves all state/storage tries of the given state root.
+
+        | Client | Method invocation |
+        |-----|-----|
+        | Console   | debug.dumpStateTrie(number) |
+        | RPC | {"method": "debug_dumpStateTrie", "params": [number]} |
+
+        **JSONRPC:** `debug_dumpStateTrie`
+      tags:
+        - debug
+
+      parameters:
+        - name: number
+          required: true
+          schema:
+            type: integer
+          description: The block number.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: "debug_dumpStateTrie"
+                    params:
+                      type: array
+                      items:
+                        title: number
+                        type: integer
+                      description: "The block number."
+                      example: [10]
+
+      responses:
+        200:
+          description: Return the dump state Trie result
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/DumpStateTrieResp"
+      
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klaytnDebug/blockchainInspection/dumpStateTrie.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""
+
+components:
+  schemas:
+    DumpStateTrieResp:
+      type: object
+      properties:
+        result:
+          type: object
+          description: The dump state Trie result
+          properties:
+            root:
+                type: string
+            tries:
+              type: array
+          example: {
+            "root": "70383c826d1161ec2f12d799023317d8da7775dd47b8502d2d7ef646d094d3a5",
+            "tries": [...]
+          }
+
