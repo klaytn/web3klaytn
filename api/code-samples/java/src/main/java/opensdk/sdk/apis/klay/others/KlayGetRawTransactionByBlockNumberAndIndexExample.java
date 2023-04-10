@@ -9,11 +9,11 @@ import java.io.IOException;
 public class KlayGetRawTransactionByBlockNumberAndIndexExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
     void klayGetRawTransactionByBlockNumberAndIndexExample() throws IOException {
-        String blogTag = "0x27";
+        String blockTag = "0x27";
         String index = "0x0";
 
         KlayGetRawTransactionByBlockNumberAndIndexResponse response = sdk.klay
-                .getRawTransactionByBlockNumberAndIndex(blogTag, index)
+                .getRawTransactionByBlockNumberAndIndex(blockTag, index)
                 .send();
         response.getResult();
 

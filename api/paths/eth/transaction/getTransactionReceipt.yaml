@@ -56,10 +56,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/eth/transaction/getTransactionReceipt.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/transaction/EthGetTransactionReceiptExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

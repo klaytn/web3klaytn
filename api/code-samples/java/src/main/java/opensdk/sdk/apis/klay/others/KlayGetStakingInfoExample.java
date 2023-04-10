@@ -9,10 +9,10 @@ import java.io.IOException;
 public class KlayGetStakingInfoExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
     void klayGetStakingInfoExample() throws IOException {
-        String blogTag = "latest";
+        String blockTag = "latest";
 
         KlayGetStakingInfoResponse response = sdk.klay
-                .getStakingInfo(blogTag)
+                .getStakingInfo(blockTag)
                 .send();
         response.getResult();
     }
