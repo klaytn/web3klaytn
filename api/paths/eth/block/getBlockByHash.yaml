@@ -31,7 +31,7 @@ paths:
           schema:
             type: string
             format: 32-byte DATA
-        - name: transactionObjects
+        - name: isTransactionObjects
           in: query
           description: If true, it returns the full transaction objects, if false only the hashes of the transactions.
           required: true
@@ -92,7 +92,7 @@ components:
                 description: Hash of a block.
                 type: string
                 format: 32-byte DATA
-              - title: TransactionObjects
+              - title: IsTransactionObjects
                 description: If true, it returns the full transaction objects, if false only the hashes of the transactions.
                 type: boolean
           example: ["0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c", true]
@@ -204,15 +204,14 @@ components:
           description: The root of the transaction trie of the block.
         transactions:
           type: array
-          description: Array of transaction objects, or 32-byte transaction hashes depending on the last given parameter.
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/LegacyTransaction"
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/AccessListTransaction"
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/DynamicFeeTransaction"
+            oneOf:
               - type: string
+                title: TransactionHash
                 format: 32-byte DATA
-                description: 32-byte transaction hash
+              - type: object
+                title: TransactionObject
+          description: Array of transaction objects, or 32-byte transaction hashes depending on the last given parameter.
         uncles:
           type: array
           description: Array of uncle hashes.
