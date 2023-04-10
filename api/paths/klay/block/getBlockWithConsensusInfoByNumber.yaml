@@ -82,8 +82,7 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
           example:  ["0x6e0431"]
 
     KlayGetBlockWithConsensusInfoByNumberResp:

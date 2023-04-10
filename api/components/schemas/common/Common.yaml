@@ -1358,7 +1358,6 @@ components:
           type: array
           items:
             type: string
-            format: 20-byte DATA
           description: Array of addresses of committee members of this block. The committee is a subset of validators participated in the consensus protocol for this block.
         gasUsed:
           type: string
