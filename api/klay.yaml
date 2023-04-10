@@ -415,6 +415,20 @@ paths:
     $ref: ./paths/klaytnDebug/blockchainInspection/getModifiedAccountsByNumber.yaml#/paths/~1debug~1getModifiedAccountsByNumber
   /debug/blockchainInspection/getModifiedAccountsByHash:
     $ref: ./paths/klaytnDebug/blockchainInspection/getModifiedAccountsByHash.yaml#/paths/~1debug~1getModifiedAccountsByHash
+  /debug/blockchainInspection/getBadBlocks:
+    $ref: ./paths/klaytnDebug/blockchainInspection/getBadBlocks.yaml#/paths/~1debug~1getBadBlocks
+  /debug/blockchainInspection/printBlock:
+    $ref: ./paths/klaytnDebug/blockchainInspection/printBlock.yaml#/paths/~1debug~1printBlock
+  /debug/blockchainInspection/setHead:
+    $ref: ./paths/klaytnDebug/blockchainInspection/setHead.yaml#/paths/~1debug~1setHead
+  /debug/blockchainInspection/startWarmUp:
+    $ref: ./paths/klaytnDebug/blockchainInspection/startWarmUp.yaml#/paths/~1debug~1startWarmUp
+  /debug/blockchainInspection/startContractWarmUp:
+    $ref: ./paths/klaytnDebug/blockchainInspection/startContractWarmUp.yaml#/paths/~1debug~1startContractWarmUp
+  /debug/blockchainInspection/stopWarmUp:
+    $ref: ./paths/klaytnDebug/blockchainInspection/stopWarmUp.yaml#/paths/~1debug~1stopWarmUp
+  /debug/blockchainInspection/startCollectingTrieStats:
+    $ref: ./paths/klaytnDebug/blockchainInspection/startCollectingTrieStats.yaml#/paths/~1debug~1startCollectingTrieStats
 
   # debug/vMTracing:
   /debug/vMTracing/traceTransaction:
@@ -441,3 +455,8 @@ paths:
   # governance/votes
   /governance/votes:
     $ref: ./paths/governance/votes.yaml#/paths/~1governance~1votes
+
+  # debug/others:
+  /debug/getModifiedStorageNodesByNumber:
+    $ref: ./paths/klaytnDebug/others/getModifiedStorageNodesByNumber.yaml#/paths/~1debug~1getModifiedStorageNodesByNumber
+

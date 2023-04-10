@@ -1,0 +1,68 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/startWarmUp:
+    post:
+      operationId: startWarmUp
+      summary: "[startWarmUp]"
+      description: |
+        The startWarmUp iterates the latest state trie to warm-up the trie cache. The iteration will be automatically stopped if 90% of the trie cache is full. The method returns an error if it fails in starting a warm-up, or null if it successfully has started it.
+
+        | Client | Method invocation |
+        |-----|-----|
+        | Console   | debug.startWarmUp() |
+        | RPC | {"method": "debug_startWarmUp"} |
+
+        **JSONRPC:** `debug_startWarmUp`
+      
+      tags:
+        - debug
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+
+      responses:
+        200:
+          description: Return null if a warm-up is started, or an error if not.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: error
+                        description: null if a warm-up is started, or an error if not.
+                        example: null
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klaytnDebug/blockchainInspection/startWarmUp.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""

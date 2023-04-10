@@ -40,6 +40,24 @@ paths:
     $ref: ./blockchainInspection/getModifiedAccountsByNumber.yaml#/paths/~1debug~1getModifiedAccountsByNumber
   /debug/blockchainInspection/getModifiedAccountsByHash:
     $ref: ./blockchainInspection/getModifiedAccountsByHash.yaml#/paths/~1debug~1getModifiedAccountsByHash
+  /debug/blockchainInspection/getBadBlocks:
+    $ref: ./blockchainInspection/getBadBlocks.yaml#/paths/~1debug~1getBadBlocks
+  /debug/blockchainInspection/printBlock:
+    $ref: ./blockchainInspection/printBlock.yaml#/paths/~1debug~1printBlock
+  /debug/blockchainInspection/setHead:
+    $ref: ./blockchainInspection/setHead.yaml#/paths/~1debug~1setHead
+  /debug/blockchainInspection/startWarmUp:
+    $ref: ./blockchainInspection/startWarmUp.yaml#/paths/~1debug~1startWarmUp
+  /debug/blockchainInspection/startContractWarmUp:
+    $ref: ./blockchainInspection/startContractWarmUp.yaml#/paths/~1debug~1startContractWarmUp
+  /debug/blockchainInspection/stopWarmUp:
+    $ref: ./blockchainInspection/stopWarmUp.yaml#/paths/~1debug~1stopWarmUp
+  /debug/blockchainInspection/startCollectingTrieStats:
+    $ref: ./blockchainInspection/startCollectingTrieStats.yaml#/paths/~1debug~1startCollectingTrieStats
+
+  #debug/others
+  /debug/getModifiedStorageNodesByNumber:
+    $ref: ./others/getModifiedStorageNodesByNumber.yaml#/paths/~1debug~1getModifiedStorageNodesByNumber
 
   # debug/vMTracing:
   /debug/vMTracing/traceTransaction:
