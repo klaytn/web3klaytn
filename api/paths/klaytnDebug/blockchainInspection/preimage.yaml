@@ -18,7 +18,7 @@ paths:
       operationId: preimage
       description: |
         Returns the preimage for a sha3 hash, if known.
-        
+
         **JSONRPC:** `debug_preimage`
 
       parameters:

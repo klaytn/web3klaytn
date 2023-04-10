@@ -101,7 +101,6 @@ components:
           format: DATA
           description: (optional) Hash of the method signature and encoded parameters. It replaces data field, but 'data` field is still supported for backward compatibility.
 
-
     KlayHeaderObject:
       title: KlayHeaderObject
       type: object
@@ -1516,3 +1515,61 @@ components:
           format: 32-byte DATA
           description: (optional) A filter option that restricts the logs returned to the single block with the 32-byte hash blockHash. Using blockHash is equivalent to fromBlock = toBlock = the block number with hash blockHash. If blockHash is present in in the filter criteria, then neither fromBlock nor toBlock are allowed
 
+    TracingOptions:
+      title: TracingOptions
+      type: object
+      properties:
+        disableStorage:
+          type: boolean
+          description: Setting this to true will disable storage capture (default = false).
+          default: false
+        disableMemory:
+          type: boolean
+          description: Setting this to true will disable memory capture (default = false).
+          default: false
+        disableStack:
+          type: boolean
+          description: Setting this to true will disable stack capture (default = false).
+          default: false
+        timeout:
+          type: string
+          description: Overrides the default timeout of 5 seconds for JavaScript-based tracing calls. A duration string is a possibly signed sequence of decimal numbers, each with optional fraction and a unit suffix, such as "300ms", "-1.5h" or "2h45m". Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
+        trace:
+          type: string
+          enum: ["4byteTracer","callTracer","fastCallTracer","evmdisTracer","noopTracer","opcountTracer","prestateTracer","revertTracer","unigramTracer","bigramTracer","trigramTracer"]
+          description: |
+            Setting this will enable JavaScript-based transaction tracing, described in the next section. If set, the previous four arguments will be ignored. The predefined tracers can also be used as the following table.
+            | Tracer Name | Description |
+            |-----|-----|
+            | 4byteTracer | 4byteTracer searches for 4byte-identifiers, and collects them for post-processing. It collects the methods identifiers along with the size of the supplied data, so a reversed signature can be matched against the size of the data. |
+            | callTracer | callTracer is a full-blown transaction tracer that extracts and reports all the internal calls made by a transaction, along with any useful information. |
+            | fastCallTracer | fastCallTracer is a Go-native version of callTracer. Since it is not executed on JavaScript VM, it shows more than 10x speedup compared to callTracer. Please use fastCallTracer instead of callTracer if the performance is the matter of the first importance. |
+            | evmdisTracer | evmdisTracer returns sufficient information from a trace to perform evmdis-style disassembly. |
+            | noopTracer | noopTracer is just the barebone boilerplate code required from a JavaScript object to be usable as a transaction tracer. |
+            | opcountTracer | opcountTracer is a sample tracer that just counts the number of instructions executed by the KLVM before the transaction terminated. |
+            | prestateTracer | prestateTracer outputs sufficient information to create a local execution of the transaction from a custom assembled genesis block. |
+            | revertTracer | revertTracer outputs the error string of REVERT. If the execution is not reverted, it outputs an empty string. |
+            | unigramTracer | unigramTracer returns the number of occurrences of each opcode. |
+            | bigramTracer | bigramTracer returns the number of occurrences of two consecutive opcodes. |
+            | trigramTracer | trigramTracer returns the number of occurrences of three consecutive opcodes. |
+
+    StandardTracingOptions:
+      title: StandardTracingOptions
+      type: object
+      description: You may give trace API function a secondary optional argument, which specifies the options for this specific call.
+      properties:
+        disableStorage:
+          type: boolean
+          default: false
+          description: Setting this to true will disable storage capture.
+        disableMemory:
+          type: boolean
+          default: false
+          description: Setting this to true will disable memory capture.
+        disableStack:
+          type: boolean
+          default: false
+          description: Setting this to true will disable stack capture.
+        txHash:
+          type: string
+          description: Setting this value will trace only the specified transaction.
