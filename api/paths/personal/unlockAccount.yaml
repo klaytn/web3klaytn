@@ -48,7 +48,7 @@ paths:
         - name: duration
           required: false
           schema:
-            type: int
+            type: integer
           description: (optional) the unlock duration (default to 300 seconds).
           in: query
 
@@ -114,7 +114,7 @@ components:
               - type: string
                 title: Passphrase
                 description: the passphrase used for the encryption.
-              - type: int
+              - type: integer
                 title: Duration
                 description: (optional) the unlock duration (default to 300 seconds).
           example: ["0xda04fb00e2cb5745cef7d8c4464378202a1673ef", "gr8=B!0@uc$b", 30]

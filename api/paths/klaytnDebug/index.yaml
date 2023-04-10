@@ -30,3 +30,14 @@ paths:
   # debug/blockchainInspection:
   /debug/blockchainInspection/preimage:
     $ref: ./blockchainInspection/preimage.yaml#/paths/~1debug~1preimage
+  /debug/blockchainInspection/dumpBlock:
+    $ref: ./blockchainInspection/dumpBlock.yaml#/paths/~1debug~1dumpBlock
+  /debug/blockchainInspection/dumpStateTrie:
+    $ref: ./blockchainInspection/dumpStateTrie.yaml#/paths/~1debug~1dumpStateTrie
+  /debug/blockchainInspection/getBlockRlp:
+    $ref: ./blockchainInspection/getBlockRlp.yaml#/paths/~1debug~1getBlockRlp
+  /debug/blockchainInspection/getModifiedAccountsByNumber:
+    $ref: ./blockchainInspection/getModifiedAccountsByNumber.yaml#/paths/~1debug~1getModifiedAccountsByNumber
+  /debug/blockchainInspection/getModifiedAccountsByHash:
+    $ref: ./blockchainInspection/getModifiedAccountsByHash.yaml#/paths/~1debug~1getModifiedAccountsByHash
+    
