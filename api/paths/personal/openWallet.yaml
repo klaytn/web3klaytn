@@ -59,6 +59,13 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        title: Error
+                        type: error
+                        description: Error condition
+                        example: 
       
       x-codeSamples:
         - lang: "curl"

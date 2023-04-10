@@ -61,6 +61,7 @@ paths:
                       result:
                         type: string
                         format: 32-byte DATA
+                        description: a transaction hash if succeeded. Otherwise, an error is raised.
                         example: "0x8474441674cdd47b35b875fd1a530b800b51a5264b9975fb21129eeb8c18582f"
       
       x-codeSamples:
@@ -98,7 +99,7 @@ components:
             anyOf:
               - type: object
                 title: Tx
-                description: A transaction object. from, to, and value must be specified.
+                description: A transaction object. from is a required field. to, value, gas, gasPrice and nonce are optional fields.
               - type: string
                 title: Passphrase
                 description: The passphrase to decrypt the private key of tx.from.

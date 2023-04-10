@@ -64,7 +64,8 @@ paths:
                   - type: object
                     properties:
                       result:
-                        type: boolean
+                        type: bool
+                        description: true if the account was successfully locked, false otherwise.
                         example: true
       
       x-codeSamples:

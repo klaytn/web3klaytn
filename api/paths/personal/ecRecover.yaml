@@ -60,6 +60,7 @@ paths:
                     properties:
                       result:
                         type: string
+                        description: The account address.
                         example: "0xda04fb00e2cb5745cef7d8c4464378202a1673ef"
       
       x-codeSamples:

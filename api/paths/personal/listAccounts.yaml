@@ -45,6 +45,7 @@ paths:
                     properties:
                       result:
                         type: string
+                        description: The list of all the Klaytn account addresses
                         example: ["0x5e97870f263700f46aa00d967821199b9bc5a120", "0x3d80b31a78c30fc628f20b2c89d7ddbf6e53cedc"]
 
       x-codeSamples:

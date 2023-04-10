@@ -13,7 +13,7 @@ curl -X 'POST' \
       "value":"0x10000",
       "gas":"0x1000000",
       "nonce":"0x2",
-      "gasprice":"0x25000000000"
+      "gasPrice":"0x25000000000"
     }
   ]
 }'
