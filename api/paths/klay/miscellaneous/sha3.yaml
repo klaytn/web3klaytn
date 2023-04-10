@@ -41,7 +41,7 @@ paths:
 
       responses:
         200:
-          description: The SHA3 result of the given data.
+          description: Return the SHA3 result of the given data.
           content:
             application/json:
               schema:

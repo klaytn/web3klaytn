@@ -1497,13 +1497,14 @@ components:
             - type: string
               format: 20-byte DATA
               title: "Address"
-              description: (optional) Contract address or a list of addresses from which logs should originate.
+              description: Contract address
             - type: array
               title: ArrayOfAddress
               items:
                 type: string
                 format: 20-byte DATA
-              description: (optional) Contract address or a list of addresses from which logs should originate.
+                description: Address
+          description: (optional) Contract address or a list of addresses from which logs should originate.
         topics:
           type: array
           items:
