@@ -40,4 +40,26 @@ paths:
     $ref: ./blockchainInspection/getModifiedAccountsByNumber.yaml#/paths/~1debug~1getModifiedAccountsByNumber
   /debug/blockchainInspection/getModifiedAccountsByHash:
     $ref: ./blockchainInspection/getModifiedAccountsByHash.yaml#/paths/~1debug~1getModifiedAccountsByHash
-    
+
+  # debug/vMTracing:
+  /debug/vMTracing/traceTransaction:
+    $ref: ./vMTracing/traceTransaction.yaml#/paths/~1debug~1traceTransaction
+  /debug/vMTracing/traceBlockByHash:
+    $ref: ./vMTracing/traceBlockByHash.yaml#/paths/~1debug~1traceBlockByHash
+  /debug/vMTracing/traceBlockByNumberRange:
+    $ref: ./vMTracing/traceBlockByNumberRange.yaml#/paths/~1debug~1traceBlockByNumberRange
+  /debug/vMTracing/traceBlockByNumber:
+    $ref: ./vMTracing/traceBlockByNumber.yaml#/paths/~1debug~1traceBlockByNumber
+  /debug/vMTracing/traceBlockFromFile:
+    $ref: ./vMTracing/traceBlockFromFile.yaml#/paths/~1debug~1traceBlockFromFile
+  /debug/vMTracing/traceBadBlock:
+    $ref: ./vMTracing/traceBadBlock.yaml#/paths/~1debug~1traceBadBlock
+  /debug/vMTracing/traceBlock:
+    $ref: ./vMTracing/traceBlock.yaml#/paths/~1debug~1traceBlock
+
+  # debug/vMStandardTracing:
+  /debug/vMStandardTracing/standardTraceBlockToFile:
+    $ref: ./vMStandardTracing/standardTraceBlockToFile.yaml#/paths/~1debug~1standardTraceBlockToFile
+  /debug/vMStandardTracing/standardTraceBadBlockToFile:
+    $ref: ./vMStandardTracing/standardTraceBadBlockToFile.yaml#/paths/~1debug~1standardTraceBadBlockToFile
+
