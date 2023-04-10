@@ -1,10 +1,10 @@
 from base.testing import KlaytnBaseTesting
 
 
-class TestMaxPriorityFeePerGas(KlaytnBaseTesting):
+class TestUpperBoundGasPrice(KlaytnBaseTesting):
 
     def test_post(self):
-        klay_response = self.sdk.klay.max_priority_fee_per_gas()
+        klay_response = self.sdk.klay.upper_bound_gas_price()
 
         self.covert_response(klay_response.response)
         self.assertResponseSuccess()
