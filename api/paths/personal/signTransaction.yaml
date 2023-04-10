@@ -15,7 +15,7 @@ paths:
       operationId: signTransaction
       summary: "[signTransaction]"
       description: |
-        Constructs a transaction with given parameters and signs the transaction with a sender's private key. This method can be used either to generate a sender signature or to make a final raw transaction that is ready to submit to Klaytn network.
+        Sets default configuration and signs the given transaction.
 
         **JSONRPC:** `personal_signTransaction`
 
@@ -81,7 +81,7 @@ components:
           default: 'personal_signTransaction'
         params:
           $ref: "../../components/schemas/common/KlaytnTransactionTypes.yaml#/components/schemas/KlaytnTransactionTypes"
-          example:  [{"from":"0x77982323172e5b6182539d3522d5a33a944206d4", "to":"0xcd6bfdb523a4d030890d28bf1eb6ef36307c9aaa", "value":"0x10000", "gas":"0x1000000", "nonce":"0x2", "gasprice":"0x25000000000"}]
+          example:  [{"from":"0x77982323172e5b6182539d3522d5a33a944206d4", "to":"0xcd6bfdb523a4d030890d28bf1eb6ef36307c9aaa", "value":"0x10000", "gas":"0x1000000", "nonce":"0x2", "gasPrice":"0x25000000000"}]
 
     PersonalSignTransactionResp:
       type: object

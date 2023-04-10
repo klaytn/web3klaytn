@@ -49,6 +49,7 @@ paths:
           required: false
           schema:
             type: integer
+            default: 300
           description: (optional) the unlock duration (default to 300 seconds).
           in: query
 
@@ -73,6 +74,7 @@ paths:
                     properties:
                       result:
                         type: boolean
+                        description: true if unlocked, false otherwise
                         example: true
       
       x-codeSamples:
@@ -116,5 +118,6 @@ components:
                 description: the passphrase used for the encryption.
               - type: integer
                 title: Duration
+                default: 300
                 description: (optional) the unlock duration (default to 300 seconds).
           example: ["0xda04fb00e2cb5745cef7d8c4464378202a1673ef", "gr8=B!0@uc$b", 30]

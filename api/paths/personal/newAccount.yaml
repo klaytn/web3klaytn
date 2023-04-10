@@ -67,6 +67,7 @@ paths:
                     properties:
                       result:
                         type: string
+                        description: The address of the new account.
                         example: "0xed1b12248aee85a32aead06c7789d3fcdcd4dae6"
       
       x-codeSamples:
