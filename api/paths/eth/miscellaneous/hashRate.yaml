@@ -53,10 +53,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/eth/miscellaneous/hashRate.js"
-#        - lang: "python"
-#          label: "Python"
-#          source:
-#            $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/miscellaneous/hashRate.py"
 
 components:
   schemas:
