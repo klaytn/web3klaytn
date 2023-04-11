@@ -79,6 +79,7 @@ components:
           default: 'klay_getBlockWithConsensusInfoByHash'
         params:
           type: array
+          description: Hash of a block.
           items:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
           example:  ["0x7d68d09a7a571cdf8a3b6a5ef6e037265b3e3093cf145b0954d22bde5c1d4f61"]

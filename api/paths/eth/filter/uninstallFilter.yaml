@@ -24,7 +24,7 @@ paths:
       parameters:
         - name: filter
           in: query
-          description: The filter id
+          description: A filter id
           required: true
           schema:
             type: string
@@ -78,9 +78,9 @@ components:
           default: 'eth_uninstallFilter'
         params:
           type: array
+          description: A filter id
           items:
-            title: filter
-            description: The filter id
+            title: Filter
             type: string
             format: hex
           example: ["0xb"]

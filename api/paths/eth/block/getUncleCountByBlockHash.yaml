@@ -79,7 +79,7 @@ components:
         params:
           type: array
           items:
-            title: blockHash
+            title: BlockHash
             description: Hash of a block.
             type: string
             format: 32-byte DATA
@@ -89,7 +89,8 @@ components:
       type: object
       properties:
         result:
-            type: string
-            format: hex
-            description: Integer of the number of transactions in this block. It returns null if there is no matching block.
-            example: "0x0"
+          type: string
+          format: hex
+          nullable: true
+          description: Integer of the number of transactions in this block. It returns null if there is no matching block.
+          example: "0x0"

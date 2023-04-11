@@ -47,6 +47,7 @@ paths:
                       result:
                         type: string
                         format: hex
+                        description: "20 BYTE address of a node"
                         example: "0x86a68a935953996509e724c6afd521df8d7d13ba"
 
       x-codeSamples:

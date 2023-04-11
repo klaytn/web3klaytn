@@ -310,11 +310,11 @@ components:
         logIndex:
           type: string
           format: hex
-          description: Integer of the log index position in the block. null when its pending log.
+          description: Integer of the log index position in the block. null when it is a pending log.
         transactionIndex:
           type: string
           format: hex
-          description: Integer of the transactions index position log was created from. null when its pending log.
+          description: Integer of the transactions index position log was created from. null when pending.
         transactionHash:
           type: string
           format: 32-byte DATA
@@ -1358,7 +1358,6 @@ components:
           type: array
           items:
             type: string
-            format: 20-byte DATA
           description: Array of addresses of committee members of this block. The committee is a subset of validators participated in the consensus protocol for this block.
         gasUsed:
           type: string

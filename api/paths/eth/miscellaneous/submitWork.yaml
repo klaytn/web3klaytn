@@ -96,18 +96,19 @@ components:
           type: array
           items:
             anyOf:
-              - title: nonce
+              - title: Nonce
                 description: The nonce found (64 bits)
                 type: string
                 format: 8-byte DATA
-              - title: powHash
+              - title: PowHash
                 description: The header’s pow-hash (256 bits)
                 type: string
                 format: 32-byte DATA
-              - title: mixDigest
+              - title: MixDigest
                 description: The mix digest (256 bits)
                 type: string
                 format: 32-byte DATA
+          example: ["0x0000000000000001", "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"]
 
     KlaySubmitWorkResp:
       type: object

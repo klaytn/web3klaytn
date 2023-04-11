@@ -28,7 +28,8 @@ paths:
           description: Address to check for balance.
           required: true
           schema:
-            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+            type: string
+            format: 20-byte DATA
         - name: blockNumberOrHash
           in: query
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter, or block hash.
@@ -87,7 +88,10 @@ components:
           type: array
           items:
             anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+              - title: Address
+                type: string
+                format: 20-byte DATA
+                description: Address to check for balance.
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
           example:  ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]
 
