@@ -23,6 +23,7 @@ typeMappings:
 importMappings:
   GetRewardsDefaultResponse: opensdk.sdk.models.GetRewardsResponse
   AnyOfstring: java.util.Objects
+  Error: java.util.Objects
 inlineSchemaNameMappings:
   accountCreated_default_response: AccountCreatedResponse
   getRewards_default_response: GetRewardsResponse

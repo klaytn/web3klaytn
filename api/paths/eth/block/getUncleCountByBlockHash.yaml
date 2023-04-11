@@ -53,10 +53,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/eth/block/getUncleCountByBlockHash.sh"
-#        - lang: "java"
-#          label: "Java"
-#          source:
-#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/transaction/EthTransactionCallExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/block/EthGetUncleCountByBlockHashExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
