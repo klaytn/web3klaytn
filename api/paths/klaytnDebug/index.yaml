@@ -81,14 +81,38 @@ paths:
   /debug/vMStandardTracing/standardTraceBadBlockToFile:
     $ref: ./vMStandardTracing/standardTraceBadBlockToFile.yaml#/paths/~1debug~1standardTraceBadBlockToFile
 
+  # debug/runtimeDebugging:
+  /debug/runtimeDebugging/gcStats:
+    $ref: ./runtimeDebugging/gcStats.yaml#/paths/~1debug~1gcStats
 
   # debug/profiling:
   /debug/profiling/startPProf:
     $ref: ./profiling/startPProf.yaml#/paths/~1debug~1startPProf
   /debug/profiling/stopPProf:
     $ref: ./profiling/stopPProf.yaml#/paths/~1debug~1stopPProf
+  /debug/profiling/blockProfile:
+    $ref: ./profiling/blockProfile.yaml#/paths/~1debug~1blockProfile
+  /debug/profiling/cpuProfile:
+    $ref: ./profiling/cpuProfile.yaml#/paths/~1debug~1cpuProfile
+  /debug/profiling/mutexProfile:
+    $ref: ./profiling/mutexProfile.yaml#/paths/~1debug~1mutexProfile
+  /debug/profiling/setBlockProfileRate:
+    $ref: ./profiling/setBlockProfileRate.yaml#/paths/~1debug~1setBlockProfileRate
+  /debug/profiling/startCPUProfile:
+    $ref: ./profiling/startCPUProfile.yaml#/paths/~1debug~1startCPUProfile
+  /debug/profiling/stopCPUProfile:
+    $ref: ./profiling/stopCPUProfile.yaml#/paths/~1debug~1stopCPUProfile
+  /debug/profiling/writeBlockProfile:
+    $ref: ./profiling/writeBlockProfile.yaml#/paths/~1debug~1writeBlockProfile
+  /debug/profiling/writeMemProfile:
+    $ref: ./profiling/writeMemProfile.yaml#/paths/~1debug~1writeMemProfile
+  /debug/profiling/writeMutexProfile:
+    $ref: ./profiling/writeMutexProfile.yaml#/paths/~1debug~1writeMutexProfile
 
-  # debug/runtimeDebugging:
-  /debug/runtimeDebugging/gcStats:
-    $ref: ./runtimeDebugging/gcStats.yaml#/paths/~1debug~1gcStats
-    
+  # debug/runtimeTracing:
+  /debug/runtimeTracing/goTrace:
+    $ref: ./runtimeTracing/goTrace.yaml#/paths/~1debug~1goTrace
+  /debug/runtimeTracing/startGoTrace:
+    $ref: ./runtimeTracing/startGoTrace.yaml#/paths/~1debug~1startGoTrace
+  /debug/runtimeTracing/stopGoTrace:
+    $ref: ./runtimeTracing/stopGoTrace.yaml#/paths/~1debug~1stopGoTrace

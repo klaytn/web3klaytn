@@ -470,3 +470,31 @@ paths:
   /debug/getModifiedStorageNodesByNumber:
     $ref: ./paths/klaytnDebug/others/getModifiedStorageNodesByNumber.yaml#/paths/~1debug~1getModifiedStorageNodesByNumber
 
+  # debug/profiling:
+  /debug/profiling/blockProfile:
+    $ref: ./paths/klaytnDebug/profiling/blockProfile.yaml#/paths/~1debug~1blockProfile
+  /debug/profiling/cpuProfile:
+    $ref: ./paths/klaytnDebug/profiling/cpuProfile.yaml#/paths/~1debug~1cpuProfile
+  /debug/profiling/mutexProfile:
+    $ref: ./paths/klaytnDebug/profiling/mutexProfile.yaml#/paths/~1debug~1mutexProfile
+  /debug/profiling/setBlockProfileRate:
+    $ref: ./paths/klaytnDebug/profiling/setBlockProfileRate.yaml#/paths/~1debug~1setBlockProfileRate
+  /debug/profiling/startCPUProfile:
+    $ref: ./paths/klaytnDebug/profiling/startCPUProfile.yaml#/paths/~1debug~1startCPUProfile
+  /debug/profiling/stopCPUProfile:
+    $ref: ./paths/klaytnDebug/profiling/stopCPUProfile.yaml#/paths/~1debug~1stopCPUProfile
+  /debug/profiling/writeBlockProfile:
+    $ref: ./paths/klaytnDebug/profiling/writeBlockProfile.yaml#/paths/~1debug~1writeBlockProfile
+  /debug/profiling/writeMemProfile:
+    $ref: ./paths/klaytnDebug/profiling/writeMemProfile.yaml#/paths/~1debug~1writeMemProfile
+  /debug/profiling/writeMutexProfile:
+    $ref: ./paths/klaytnDebug/profiling/writeMutexProfile.yaml#/paths/~1debug~1writeMutexProfile
+
+  # debug/runtimeTracing:
+  /debug/runtimeTracing/goTrace:
+    $ref: ./paths/klaytnDebug/runtimeTracing/goTrace.yaml#/paths/~1debug~1goTrace
+  /debug/runtimeTracing/startGoTrace:
+    $ref: ./paths/klaytnDebug/runtimeTracing/startGoTrace.yaml#/paths/~1debug~1startGoTrace
+  /debug/runtimeTracing/stopGoTrace:
+    $ref: ./paths/klaytnDebug/runtimeTracing/stopGoTrace.yaml#/paths/~1debug~1stopGoTrace
+
