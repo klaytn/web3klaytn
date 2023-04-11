@@ -101,4 +101,6 @@ components:
       type: object
       properties:
         result:
-            type: "null"
+            type: string
+            nullable: true
+            default: null
