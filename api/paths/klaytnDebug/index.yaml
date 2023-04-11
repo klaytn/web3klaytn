@@ -81,3 +81,14 @@ paths:
   /debug/vMStandardTracing/standardTraceBadBlockToFile:
     $ref: ./vMStandardTracing/standardTraceBadBlockToFile.yaml#/paths/~1debug~1standardTraceBadBlockToFile
 
+
+  # debug/profiling:
+  /debug/profiling/startPProf:
+    $ref: ./profiling/startPProf.yaml#/paths/~1debug~1startPProf
+  /debug/profiling/stopPProf:
+    $ref: ./profiling/stopPProf.yaml#/paths/~1debug~1stopPProf
+
+  # debug/runtimeDebugging:
+  /debug/runtimeDebugging/gcStats:
+    $ref: ./runtimeDebugging/gcStats.yaml#/paths/~1debug~1gcStats
+    

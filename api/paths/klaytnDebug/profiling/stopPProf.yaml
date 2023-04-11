@@ -1,0 +1,84 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/stopPProf:
+    post:
+      operationId: stopPProf
+      summary: "[stopPProf]"
+      description: |
+        Stops the pprof HTTP server.
+        
+        | Client | Method invocation |
+        |-----|-----|
+        | Console   | debug.stopPProf() |
+        | RPC | {"method": "debug_stopPProf", "params": []} |
+
+        **JSONRPC:** `debug_stopPProf`
+        
+      tags:
+        - debug
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/StopPProfReq"
+
+      responses:
+        200:
+          description: Return value null
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/StopPProfResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klaytnDebug/profiling/stopPProf.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""
+
+components:
+  schemas:
+    StopPProfReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'debug_stopPProf'
+        
+    StopPProfResp:
+      type: object
+      properties:
+        result:
+            type: string
+            example: null
+
+
