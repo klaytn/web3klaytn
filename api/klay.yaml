@@ -452,6 +452,16 @@ paths:
   /debug/vMStandardTracing/standardTraceBadBlockToFile:
     $ref: ./paths/klaytnDebug/vMStandardTracing/standardTraceBadBlockToFile.yaml#/paths/~1debug~1standardTraceBadBlockToFile
 
+ # debug/profiling:
+  /debug/profiling/startPProf:
+    $ref: ./paths/klaytnDebug/profiling/startPProf.yaml#/paths/~1debug~1startPProf
+  /debug/profiling/stopPProf:
+    $ref: ./paths/klaytnDebug/profiling/stopPProf.yaml#/paths/~1debug~1stopPProf
+
+  # debug/runtimeDebugging:
+  /debug/runtimeDebugging/gcStats:
+    $ref: ./paths/klaytnDebug/runtimeDebugging/gcStats.yaml#/paths/~1debug~1gcStats
+
   # governance/votes
   /governance/votes:
     $ref: ./paths/governance/votes.yaml#/paths/~1governance~1votes
