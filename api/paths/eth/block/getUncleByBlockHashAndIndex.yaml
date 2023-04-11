@@ -17,7 +17,7 @@ paths:
         - eth
       operationId: getUncleByBlockHashAndIndex
       description: |
-        Returns information about a block by hash.
+        Returns information about a uncle of a block by hash and the uncle's index position. Since there are no uncles in Klaytn, it always returns null.
 
         **JSONRPC:** `eth_getUncleByBlockHashAndIndex`
 
@@ -47,7 +47,7 @@ paths:
 
       responses:
         200:
-          description: Returns information about a block by hash.
+          description: Return null
           content:
             application/json:
               schema:
@@ -87,11 +87,11 @@ components:
           type: array
           items:
             anyOf:
-              - title: blockHash
+              - title: BlockHash
                 description: Hash of a block.
                 type: string
                 format: 32-byte DATA
-              - title: uncleIndex
+              - title: UncleIndex
                 description: The uncle's index position.
                 type: string
                 format: hex
@@ -101,5 +101,4 @@ components:
       type: object
       properties:
         result:
-            type: string
-            example: null
+            type: "null"

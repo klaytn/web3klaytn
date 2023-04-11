@@ -46,7 +46,7 @@ paths:
 
       responses:
         200:
-          description: Return Value null.
+          description: Return value null.
           content:
             application/json:
               schema:
@@ -87,7 +87,7 @@ components:
           items:
             anyOf:
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              - title: uncleIndex
+              - title: UncleIndex
                 description: The uncle's index position.
                 type: string
                 format: hex
@@ -97,5 +97,4 @@ components:
       type: object
       properties:
         result:
-            type: string
-            example: null
+            type: "null"

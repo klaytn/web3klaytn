@@ -22,7 +22,7 @@ paths:
         **JSONRPC:** `klay_getRawTransactionByBlockNumberAndIndex`
 
       parameters:
-        - name: BlockNumberOrHashOrTag
+        - name: blockNumberOrHashOrTag
           in: query
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.
           required: true
@@ -90,7 +90,7 @@ components:
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
               - type: string
                 format: hex
-                title: transactionIndex
+                title: TransactionIndex
                 description: The transaction index position.
           example:  ["0x27", "0x0"]
 

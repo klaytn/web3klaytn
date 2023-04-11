@@ -349,7 +349,7 @@ paths:
   # net
   /net/listening:
     $ref: ./paths/net/listening.yaml#/paths/~1net~1listening
-  /net/networkID.yaml:
+  /net/networkID:
     $ref: ./paths/net/networkID.yaml#/paths/~1net~1networkID
   /net/peerCount:
     $ref: ./paths/net/peerCount.yaml#/paths/~1net~1peerCount

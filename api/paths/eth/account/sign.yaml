@@ -58,11 +58,11 @@ paths:
                       type: array
                       items:
                         anyOf:
-                          - title: account
+                          - title: Account
                             description: Address
                             type: string
                             format: 20-byte DATA
-                          - title: message
+                          - title: Message
                             description: Message to sign
                             type: string
                             format: N-byte DATA
