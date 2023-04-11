@@ -89,10 +89,8 @@ components:
       type: object
       properties:
         result:
-          oneOf:
-            - type: string
-              format: hex
-              description: Integer of the number of transactions in this block.
-            - type: "null"
-              description: It returns null if there is no matching block.
+          type: string
+          format: hex
+          nullable: true
+          description: Integer of the number of transactions in this block. It returns null if there is no matching block.
           example: "0x0"
