@@ -1,0 +1,90 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/startCPUProfile:
+    post:
+      summary: "[startCPUProfile]"
+      tags:
+        - debug
+      operationId: startCPUProfile
+      description: |
+        Turns on CPU profiling indefinitely, writing to the given file.
+
+        **JSONRPC:** `debug_startCPUProfile`
+
+      parameters:
+        - name: file
+          in: query
+          description: The filename for the profiling output.
+          required: true
+          schema:
+            type: string
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/DebugStartCPUProfileReq"
+
+      responses:
+        200:
+          description: Turns on CPU profiling indefinitely, writing to the given file.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/DebugStartCPUProfileResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klaytnDebug/profiling/startCPUProfile.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/account/EthAccountsExample.java"
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: "../../../code-samples/javascript/eth/account/accounts.js"
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: "../../../code-samples/python/eth/account/accounts.py"
+
+components:
+  schemas:
+    DebugStartCPUProfileReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: debug_startCPUProfile
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: File
+                type: string
+                description: The filename for the profiling output.
+          example: ["cpu.profile"]
+
+    DebugStartCPUProfileResp:
+      type: object
+      properties:
+        result:
+          type: string
+          example: null
