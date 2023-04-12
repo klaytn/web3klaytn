@@ -63,8 +63,6 @@ components:
           type: string
           format: hex
           description: (optional) Integer of a nonce.
-      example:
-        {"from":"0x77982323172e5b6182539d3522d5a33a944206d4", "to":"0xcd6bfdb523a4d030890d28bf1eb6ef36307c9aaa", "value":"0x10000", "gas":"0x1000000", "nonce":"0x2", "gasprice":"0x25000000000"}
 
     TxTypeValueTransfer:
       title: TxTypeValueTransfer
@@ -104,8 +102,6 @@ components:
           type: string
           format: hex
           description: Integer of the value sent with this transaction.
-      example:
-        {"typeInt": 8, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "to": "0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075", "gas": "0x76c0", "gasPrice": "0x5d21dba00", "value": "0xf4"}
 
     TxTypeFeeDelegatedValueTransfer:
       title: TxTypeFeeDelegatedValueTransfer
@@ -152,8 +148,6 @@ components:
           description: The address which pays the transaction fee.
         signatures:
           $ref: "#/components/schemas/SignatureArray"
-      example:
-        {"typeInt": 9, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "to": "0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075", "gas": "0x76c0", "gasPrice": "0x5d21dba00", "value": "0xf4", "feePayer": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d"}
 
     TxTypeFeeDelegatedValueTransferWithRatio:
       title: TxTypeFeeDelegatedValueTransferWithRatio
@@ -205,8 +199,6 @@ components:
           description: Fee ratio of the fee payer. If it is 30, 30% of the fee will be paid by the fee payer. 70% will be paid by the sender. The range of fee ratio is 1 ~ 99, if it is out of range, the transaction will not be accepted.
         signatures:
           $ref: "#/components/schemas/SignatureArray"
-      example:
-        {"typeInt": 10, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "to": "0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075", "gas": "0x76c0", "gasPrice": "0x5d21dba00", "value": "0xf4", "feePayer": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "feeRatio": 30}
 
     TxTypeValueTransferMemo:
       title: TxTypeValueTransferMemo
@@ -251,8 +243,6 @@ components:
           type: string
           format: DATA
           description: The data sent along with the transaction.
-      example:
-        {"typeInt": 16, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "to": "0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075", "gas": "0x76c0", "gasPrice": "0x5d21dba00", "value": "0xf4", "input": "0xb3f98adc0000000000000000000000000000000000000000000000000000000000000001"}
 
     TxTypeFeeDelegatedValueTransferMemo:
       title: TxTypeFeeDelegatedValueTransferMemo
@@ -305,8 +295,6 @@ components:
           description: The fee payer address of the transaction.
         signatures:
           $ref: "#/components/schemas/SignatureArray"
-      example:
-        {"typeInt": 17, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "to": "0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075", "gas": "0x76c0", "gasPrice": "0x5d21dba00", "value": "0xf4", "input": "0xb3f98adc0000000000000000000000000000000000000000000000000000000000000001", "feePayer": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d"}
 
     TxTypeFeeDelegatedValueTransferMemoWithRatio:
       title: TxTypeFeeDelegatedValueTransferMemoWithRatio
@@ -363,8 +351,6 @@ components:
           description: Fee ratio of the fee payer. If it is 30, 30% of the fee will be paid by the fee payer. 70% will be paid by the sender. The range of fee ratio is 1 ~ 99, if it is out of range, the transaction will not be accepted.
         signatures:
           $ref: "#/components/schemas/SignatureArray"
-      example:
-        {"typeInt": 18, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "to": "0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075", "gas": "0x76c0", "gasPrice": "0x5d21dba00", "value": "0xf4", "input": "0xb3f98adc0000000000000000000000000000000000000000000000000000000000000001", "feePayer": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "feeRatio": 30}
 
     TxTypeAccountUpdate:
       title: TxTypeAccountUpdate
@@ -399,8 +385,6 @@ components:
           type: string
           format: DATA
           description: The new account key of the from account in RLP encoded format. For more information about the account key, see Account Key.
-      example:
-        {"typeInt": 32, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "gas": "0x4a380", "gasPrice": "0x5d21dba00", "key": "0x01c0"}
 
     TxTypeFeeDelegatedAccountUpdate:
       title: TxTypeFeeDelegatedAccountUpdate
@@ -442,8 +426,6 @@ components:
           description: The fee payer address of the transaction.
         signatures:
           $ref: "#/components/schemas/SignatureArray"
-      example:
-        {"typeInt": 33, "from": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d", "gas": "0x4a380", "gasPrice": "0x5d21dba00", "key": "0x01c0", "feePayer": "0xcd01b2b44584fb143824c1ea0231bebaea826b9d"}
 
     TxTypeFeeDelegatedAccountUpdateWithRatio:
       title: TxTypeFeeDelegatedAccountUpdateWithRatio
