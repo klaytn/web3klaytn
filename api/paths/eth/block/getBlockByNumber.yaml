@@ -30,7 +30,7 @@ paths:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
           in: query
-        - name: boolean
+        - name: isTransactionObjects
           in: query
           description: If true it returns the full transaction objects, if false only the hashes of the transactions.
           required: true
@@ -90,6 +90,7 @@ components:
             anyOf:
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
               - type: boolean
+                title: IsTransactionObjects
                 description: If true it returns the full transaction objects, if false only the hashes of the transactions.
           example:  ["0xd0054e", false]
 
@@ -203,9 +204,13 @@ components:
               description: The root of the transaction trie of the block.
             transactions:
               type: array
-              items:
-                type: object
               description: Array of transaction objects, or 32-byte transaction hashes depending on the last given parameter.
+              items:
+                anyOf:
+                  - type: string
+                    format: 32-byte DATA
+                  - type: object
+                    title: TransactionObject
             uncles:
               type: array
               items:

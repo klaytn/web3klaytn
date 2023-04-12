@@ -43,6 +43,7 @@ paths:
                       default: klay_getBlockTransactionCountByHash
                     params:
                       type: array
+                      description: Hash of a block
                       items:
                         title: hashOfBlock
                         type: string
