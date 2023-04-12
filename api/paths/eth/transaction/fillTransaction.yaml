@@ -27,7 +27,7 @@ paths:
           description: An object of transaction arguments. See the table below for the object's properties.
           required: true
           schema:
-            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionArgs"
+            $ref: "#/components/schemas/TransactionArgsInEthSendTransaction"
 
       requestBody:
         content:
@@ -79,7 +79,7 @@ components:
           type: array
           description: An object of transaction arguments. See the table below for the object's properties.
           items:
-            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionArgs"
+            $ref: "#/components/schemas/TransactionArgsInEthSendTransaction"
           example:
             [
               {
@@ -156,14 +156,17 @@ components:
         gasPrice:
           type: string
           format: hex
+          nullable: true
           description: Gas price provided by the sender in peb. null when it is not a legacy transaction.
         maxFeePerGas:
           type: string
           format: hex
+          nullable: true
           description: A maximum amount to pay for the transaction to execute. null when it is a legacy transaction.
         maxPriorityFeePerGas:
           type: string
           format: hex
+          nullable: true
           description: Gas tip cap for dynamic fee transaction in peb. null when it is a legacy transaction.
         gas:
           type: string
@@ -198,3 +201,43 @@ components:
           type: string
           format: 32-byte DATA
           description: Hash of the transaction.
+
+    TransactionArgsInEthSendTransaction:
+      title: TransactionArgs
+      type: object
+      required:
+        - from
+      properties:
+        from:
+          type: string
+          format: 20-byte DATA
+          description: "The address from which the transaction is sent."
+        to:
+          type: string
+          format: 20-byte DATA
+          description: "(not required when creating a new contract) The address to which the transaction is directed."
+        gas:
+          type: string
+          format: hex
+          description: "(optional) The integer of the gas provided for the transaction's execution. It will return unused gas."
+        maxFeePerGas:
+          type: string
+          format: hex
+          description: "(optional, default: 250 ston) The maximum amount to pay for the transaction's execution. Since Klaytn uses a fixed gas price, it must be set to 250 ston (Gpeb in Ethereum)."
+        maxPriorityFeePerGas:
+          type: string
+          format: hex
+          description: "(optional, default: 250 ston) Gas tip cap for dynamic fee transaction in peb. Since Klaytn uses a fixed gas price, it must be set to 250 ston (Gpeb in Ethereum)."
+        input:
+          type: string
+          format: DATA
+          description: "(optional) The hash of the method signature and the encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility."
+        value:
+          type: string
+          format: hex
+          description: "(optional) The integer of values sent with this transaction."
+        nonce:
+          type: string
+          format: hex
+          description: "(optional) The integer of a nonce."
+

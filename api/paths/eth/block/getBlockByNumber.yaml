@@ -47,7 +47,7 @@ paths:
 
       responses:
         200:
-          description: Returns information about a header by hash.
+          description: Returns information about a block by block number.
           content:
             application/json:
               schema:
@@ -91,13 +91,14 @@ components:
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
               - type: boolean
                 description: If true it returns the full transaction objects, if false only the hashes of the transactions.
-          example:  ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]
+          example:  ["0xd0054e", false]
 
     EthGetBlockByNumberResp:
       type: object
       properties:
         result:
           type: object
+          nullable: true
           required:
             - baseFeePerGas
             - difficulty
@@ -144,10 +145,12 @@ components:
             hash:
               type: string
               format: 32-byte DATA
+              nullable: true
               description: Hash of the block. null when it is a pending block.
             logsBloom:
               type: string
               format: 256-byte DATA
+              nullable: true
               description: The bloom filter for the logs of the block. null when it is a pending block.
             miner:
               type: string
@@ -164,6 +167,7 @@ components:
             number:
               type: string
               format: hex
+              nullable: true
               description: The block number. null when it is a pending block.
             parentHash:
               type: string
@@ -208,24 +212,30 @@ components:
                 type: string
               description: Array of uncle hashes.
           example:
-            {
-              "baseFeePerGas":"0x0",
-              "blockscore":"0x1",
-              "extraData":"0xda83010800846b6c617989676f312e31362e31338664617277696e0000000000f89ed5949712f943b296758aaae79944ec975884188d3a96b841ddfdf7e2cb0a93538f757f87f23a93ee35df703c781c6f15e31e4978ecdfb3501fc00924372b9a01df2bc452f2a924c242d83580183d131c47e49a25b78f625201f843b841b9b6034d5a8c5f5b057274cda4f427614cd1f448ee781f4c4322861d1361d09d47d6030f2b69a26cb426db984f54e71f8c112fbf882930ccd715d595e8d8307500",
-              "gasUsed":"0x0",
-              "governanceData":"0x",
-              "hash":"0xe882d7a16f38126dc0c507f990b3fe18fa2d3a380002538581327abe96ca6edc",
-              "logsBloom":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-              "number":"0x1e67",
-              "parentHash":"0x28b1c054346c3bd083741c757a750dcabf94b6d50c7f87158753544e96e73550",
-              "receiptsRoot":"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
-              "reward":"0x4b2c736fd05c2e2da3ccbd001a395a444f16a861",
-              "size":"0x272",
-              "stateRoot":"0xdf9885621c9e6e75912ca94d6987bcb1b54fef0e4a99cbec5e68f1ffc7468a78",
-              "timestamp":"0x62130beb",
-              "timestampFoS":"0x0",
-              "totalBlockScore":"0x1e68",
-              "transactions":[],
-              "transactionsRoot":"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
-              "voteData":"0x"
-            }
+              {
+                "baseFeePerGas": "0x5d21dba00",
+                "difficulty": "0x1",
+                "extraData": "0x",
+                "gasLimit": "0xe8d4a50fff",
+                "gasUsed": "0x44437",
+                "hash": "0x456a7cbb6fada11a0ca8cec24510d89da1c52898f1087528752ae6e13973fbc5",
+                "logsBloom": "0x0000100000000094000000400000080000000040000000000000000000000002000000000000000000000000004001000000200000000000000008000220000000080400000800000000000a000000000000000000000000000010000000000000002000000408000000000000000010000080101002000000000010000000100000010000200800000400000080000000000000000000000002000000102000024000080200000000000082000000000000000000000000010000000000000000100012000000000000011000000000002000201000000008000000002000000010002800000000001400000000000000000000000100000000200000000000",
+                "miner": "0x1ad91ee08f21be3de0ba2ba6918e714da6b45836",
+                "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "nonce": "0x0000000000000000",
+                "number": "0xd0054e",
+                "parentHash": "0x2b88fdb3821669357a0b8367115e30145135c44bb8f62641d4e7765a7f555d17",
+                "receiptsRoot": "0xc36bc44d0b52dee954be9bbd519bddc0bf6e991af2ed6f6ba506f89f10cdb9a7",
+                "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+                "size": "0x64c",
+                "stateRoot": "0x123a0da1c621236e64f9b486a9a9712ec6ce07d6690acab5a18b716d17cdc29f",
+                "timestamp": "0x6194f184",
+                "totalDifficulty": "0xd0054f",
+                "transactions": [
+                  "0x5b3492f8199ee2a551d991b7d00bd48967ca5e5c1c15d6e1ee9fda97e3126e9a",
+                  "0x8e1870262f2ba0452458280ad6ad5d54e5288623e415692c822979b7608c7297",
+                  "0x98053d20b01c9e56964a57084fb91ccc01b242adfb09c23534162dcbbcc094c2",
+                ],
+                "transactionsRoot": "0x29b9880f57c0e79d0be5aa4fcc6b4cfcbed3e51478ad8f44533acce012df8cf1",
+                "uncles": [ ]
+              }

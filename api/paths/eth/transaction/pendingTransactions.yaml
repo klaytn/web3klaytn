@@ -31,7 +31,7 @@ paths:
 
       responses:
         200:
-          description: An array of transactions. For the returned transaction object.
+          description: Return an array of transactions. For the returned transaction object.
           content:
             application/json:
               schema:
@@ -75,28 +75,105 @@ components:
           type: array
           description: An array of transactions.
           items:
-            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionArgs"
-          example:
-            [
+            type: object
+            required:
+              - type
+              - nonce
+              - gasPrice
+              - maxFeePerGas
+              - maxPriorityFeePerGas
+              - gas
+              - value
+              - v
+              - r
+              - s
+              - chainId
+              - accessList
+              - hash
+            properties:
+              type:
+                type: string
+                format: hex
+                description: An integer representing the type of the transaction.
+              nonce:
+                type: string
+                format: hex
+                description: The block number where this transaction was in.
+              gasPrice:
+                type: string
+                format: hex
+                nullable: true
+                description: Gas price provided by the sender in peb. null when it is not a legacy transaction.
+              maxFeePerGas:
+                type: string
+                format: hex
+                nullable: true
+                description: A maximum amount to pay for the transaction to execute. null when it is a legacy transaction.
+              maxPriorityFeePerGas:
+                type: string
+                format: hex
+                nullable: true
+                description: Gas tip cap for dynamic fee transaction in peb. null when it is a legacy transaction.
+              gas:
+                type: string
+                format: hex
+                description: Gas provided by the sender.
+              value:
+                type: string
+                format: hex
+                description: Integer of values sent with this transaction.
+              v:
+                type: string
+                format: hex
+                description: ECDSA recovery id.
+              r:
+                type: string
+                format: 32-byte DATA
+                description: ECDSA recovery r.
+              s:
+                type: string
+                format: 32-byte DATA
+                description: ECDSA recovery s.
+              chainId:
+                type: string
+                format: hex
+                description: Chain id set on the requested node.
+              accessList:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - address
+                    - storageKeys
+                  properties:
+                    address:
+                      type: string
+                    storageKeys:
+                      type: array
+                      items:
+                        type: string
+              hash:
+                type: string
+                format: 32-byte DATA
+                description: Hash of the transaction.
+            example:
               {
-                "blockHash": null,
-                "blockNumber": null,
-                "from": "0xca7a99380131e6c76cfa622396347107aeedca2d",
-                "gas": "0x5208",
-                "gasPrice": "0x5d21dba00",
-                "maxFeePerGas": "0x5d21dba00",
-                "maxPriorityFeePerGas": "0x5d21dba00",
-                "hash": "0xb5cd867ccc356b86634092919fb1acf4e315618d6c804df3ec3d30d66b6baba5",
-                "input": "0x",
-                "nonce": "0xdb",
-                "to": "0x3e2ac308cd78ac2fe162f9522deb2b56d9da9499",
-                "transactionIndex": null,
-                "value": "0x1",
-                "type": "0x2",
-                "accessList": [],
-                "chainId": "0x2edaf",
-                "v": "0x1",
-                "r": "0x73992e7c3b9f6cd73176969efa8509d8e9ae0739e24b03d514508f8ef03f19ef",
-                "s": "0x7035dd8639e82ea3ba922ff02e1f21f4cff92d0de33050934f5c70908d61e8c3",
-              },
-            ]
+                "raw": "0x02f86f8302edaf048505d21dba008505d21dba00829999948c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee0180c001a0b6e16781d247b505aa8eaf363a6ea61e7c23c77ad64846ffda28e73e31304884a05a296904cd009506cb5ed006af016d2c5dab255966af9ba6f8fc352f75e9b079",
+                "tx": {
+                  "type": "0x2",
+                  "nonce": "0x4",
+                  "gasPrice": null,
+                  "maxPriorityFeePerGas": "0x5d21dba00",
+                  "maxFeePerGas": "0x5d21dba00",
+                  "gas": "0x9999",
+                  "value": "0x1",
+                  "input": "0x",
+                  "v": "0x1",
+                  "r": "0xb6e16781d247b505aa8eaf363a6ea61e7c23c77ad64846ffda28e73e31304884",
+                  "s": "0x5a296904cd009506cb5ed006af016d2c5dab255966af9ba6f8fc352f75e9b079",
+                  "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",
+                  "chainId": "0x2edaf",
+                  "accessList": [ ],
+                  "hash": "0x9cfbea4942b334050660ec7207f3323ee13e3196b06279f922404384acbf7b47"
+                }
+              }
