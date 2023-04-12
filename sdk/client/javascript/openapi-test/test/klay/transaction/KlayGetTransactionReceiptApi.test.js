@@ -5,7 +5,7 @@ const { RPC } = require("../../constant");
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
 describe('klay_getTransactionReceipt API', () => {
-    test.skip('should return klay_getTransactionReceipt', (done) => {
+    test('should return klay_getTransactionReceipt', (done) => {
 
         let callbackOne = function (error, data, response) {
             

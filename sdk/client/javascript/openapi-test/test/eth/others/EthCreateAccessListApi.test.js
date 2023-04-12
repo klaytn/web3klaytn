@@ -21,6 +21,6 @@ describe('eth_createAccessList API', () => {
             "to": "0x00f5f5f3a25f142fafd0af24a754fafa340f32c7"
         }
         const blockNumberOrHash = 'latest'
-        sdk.eth.createAccessList(transactionArgs, { blockNumberOrHash }, callbackOne);
+        sdk.eth.createAccessList(transactionArgs, blockNumberOrHash, {}, callbackOne);
     });
 });
