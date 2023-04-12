@@ -246,21 +246,16 @@ components:
                         properties:
                             address:
                                 type: string
-                                description: The address of the account.
                             storageKeys:
                                 type: array
                                 items:
                                     type: string
-                                    description: The storage key of the account.
                 hash:
                     type: string
                     format: 32-byte DATA
                     description: Hash of the transaction.
           example:
-            {
-              "jsonrpc": "2.0",
-              "id": 1,
-              "result": {
+              {
                 "raw": "0x02f86f8302edaf048505d21dba008505d21dba00829999948c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee0180c001a0b6e16781d247b505aa8eaf363a6ea61e7c23c77ad64846ffda28e73e31304884a05a296904cd009506cb5ed006af016d2c5dab255966af9ba6f8fc352f75e9b079",
                 "tx": {
                   "type": "0x2",
@@ -280,4 +275,3 @@ components:
                   "hash": "0x9cfbea4942b334050660ec7207f3323ee13e3196b06279f922404384acbf7b47"
                 }
               }
-            }
