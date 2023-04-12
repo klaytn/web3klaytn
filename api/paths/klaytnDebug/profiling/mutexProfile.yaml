@@ -82,12 +82,13 @@ components:
         params:
           type: array
           items:
-            - title: File
-              type: string
-              description: The filename for the profiling result.
-            - title: Seconds
-              type: int
-              description: The profiling duration in seconds.
+            anyOf:
+              - title: File
+                type: string
+                description: The filename for the profiling result.
+              - title: Seconds
+                type: int
+                description: The profiling duration in seconds.
           example: ["mutex.profile", 10]
 
     DebugMutexProfileResp:

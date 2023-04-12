@@ -86,6 +86,7 @@ components:
       type: object
       required:
         - method
+        - params
       properties:
         method:
           type: string
@@ -93,19 +94,20 @@ components:
         params:
           type: array
           items:
-            - title: Address
-              description: pprof HTTP server listening interface 
-              type: string
-            - title: Port
-              description: pprof HTTP server listening port 
-              type: integer
+            anyOf:
+              - title: Address
+                description: pprof HTTP server listening interface
+                type: string
+              - title: Port
+                description: pprof HTTP server listening port
+                type: integer
           example: ["localhost", 6000]
 
     StartPProfResp:
       type: object
       properties:
         result:
-            type: string
-            example: null
+          type: string
+          example: null
 
 

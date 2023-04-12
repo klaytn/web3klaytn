@@ -23,12 +23,13 @@ paths:
         | RPC | {"method": "debug_startContractWarmUp", "params": [address]} |
 
         **JSONRPC:** `debug_startContractWarmUp`
-      
+
       tags:
         - debug
 
       parameters:
-        - in: query
+        - name: address
+          in: query
           description: Contract address
           required: true
           schema:

@@ -23,12 +23,13 @@ paths:
         | RPC | {"method": "debug_startCollectingTrieStats", "params": [address]} |
 
         **JSONRPC:** `debug_startCollectingTrieStats`
-      
+
       tags:
         - debug
 
       parameters:
-        - in: query
+        - name: address
+          in: query
           description: Contract address
           required: true
           schema:
