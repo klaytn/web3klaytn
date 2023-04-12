@@ -54,6 +54,12 @@ x-tagGroups:
   - name: Governance
     tags:
       - governance
+  - name: Mainbridge
+    tags:
+      - mainbridge
+  - name: Subbridge
+    tags:
+      - subbridge
   - name: Models
     tags:
       - RewardSpec
@@ -514,3 +520,27 @@ paths:
     $ref: ./paths/admin/removePeer.yaml#/paths/~1admin~1removePeer
   /admin/importChainFromString: 
     $ref: ./paths/admin/importChainFromString.yaml#/paths/~1admin~1importChainFromString
+
+  # mainbridge:
+  /mainbridge/getChildChainIndexingEnabled:
+    $ref: ./paths/mainbridge/getChildChainIndexingEnabled.yaml#/paths/~1mainbridge~1getChildChainIndexingEnabled
+  /mainbridge/nodeInfo:
+    $ref: ./paths/mainbridge/nodeInfo.yaml#/paths/~1mainbridge~1nodeInfo
+
+  # subbridge:
+  /subbridge/getReceiptFromParentChain:
+    $ref: ./paths/subbridge/getReceiptFromParentChain.yaml#/paths/~1subbridge~1getReceiptFromParentChain
+  /subbridge/deployBridge:
+    $ref: ./paths/subbridge/deployBridge.yaml#/paths/~1subbridge~1deployBridge
+  /subbridge/subscribeBridge:
+    $ref: ./paths/subbridge/subscribeBridge.yaml#/paths/~1subbridge~1subscribeBridge
+  /subbridge/unsubscribeBridge:
+    $ref: ./paths/subbridge/unsubscribeBridge.yaml#/paths/~1subbridge~1unsubscribeBridge
+  /subbridge/registerBridge:
+    $ref: ./paths/subbridge/registerBridge.yaml#/paths/~1subbridge~1registerBridge
+  /subbridge/deregisterBridge:
+    $ref: ./paths/subbridge/deregisterBridge.yaml#/paths/~1subbridge~1deregisterBridge
+  /subbridge/registerToken:
+    $ref: ./paths/subbridge/registerToken.yaml#/paths/~1subbridge~1registerToken
+  /subbridge/deregisterToken:
+    $ref: ./paths/subbridge/deregisterToken.yaml#/paths/~1subbridge~1deregisterToken

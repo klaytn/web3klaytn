@@ -1,0 +1,103 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /subbridge/registerToken:
+    post:
+      summary: "[registerToken]"
+      tags:
+        - subbridge
+      operationId: registerToken
+      description: |
+        The subbridge_registerToken registers a pair of ERC-20 or 721 tokens with the bridge contracts.
+
+        **JSONRPC:** `subbridge_registerToken`
+
+      parameters:
+        - name: account
+          in: query
+          required: true
+          description: Address of bridge contract on child chain.
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+        - name: account
+          in: query
+          required: true
+          description: Address of bridge contract on parent chain.
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+        - name: account
+          in: query
+          required: true
+          description: Address of token contract on child chain.
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+        - name: account
+          in: query
+          required: true
+          description: Address of token contract on parent chain.
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/SubbridgeRegisterTokenReq"
+
+      responses:
+        200:
+          description: The subbridge.registerToken deregisters already registered bridge contracts in the parent/child chain.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/SubbridgeRegisterTokenResp"
+
+      x-codeSamples:
+        # - lang: "curl"
+        #   label: "Curl"
+        #   source:
+        #     $ref: "../../../code-samples/curl/subbridge/registerToken.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../../code-samples/javascript/eth/miscellaneous/registerToken.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../../code-samples/python/eth/miscellaneous/registerToken.py"
+
+components:
+  schemas:
+    SubbridgeRegisterTokenReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'subbridge_registerToken'
+
+    SubbridgeRegisterTokenResp:
+      type: object
+      properties:
+        result:
+          type: string
+          example: null
+          # error
