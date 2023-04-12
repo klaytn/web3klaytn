@@ -86,10 +86,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/eth/block/syncing.sh"
-#        - lang: "java"
-#          label: "Java"
-#          source:
-#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/block/EthBlockNumberExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/block/EthSycingExample.java"
 #        - lang: "javascript"
 #          label: "Javascript"
 #          source:
