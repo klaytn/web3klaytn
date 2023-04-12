@@ -1,0 +1,103 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /admin/importChainFromString:
+    post:
+      operationId: importChainFromString
+      summary: "[importChainFromString]"
+      description: |
+        The importChainFromString is an administrative method that imports a chain from a RLP-encoded string of blocks into a Klaytn node. This only works if there is no existing chain in a Klaytn node. This method does not delete any data of the existing chain.       
+        
+        | Client | Method invocation |
+        |-----|-----|
+        | Console   | admin.importChainFromString(blockRlp) |
+        | RPC | {"method": "admin_importChainFromString"}, "params": [<blockRlp>]} |
+
+        **JSONRPC:** `admin_importChainFromString`
+
+      tags:
+        - admin
+
+      parameters:
+        - name: blockRlp
+          required: true
+          schema:
+            type: string
+          description: the RLP-encoded string that represents the blocks to be imported. (equals to the return value of debug.getBlockRlp)
+          in: query
+  
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/ImportChainFromStringReq"
+
+      responses:
+        200:
+          description: true if chain was imported, false if not.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/ImportChainFromStringResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/admin/importChainFromString.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""
+
+components:
+  schemas:
+    ImportChainFromStringReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'admin_importChainFromString'
+        params:
+          type: array
+          description: the RLP-encoded string that represents the blocks to be imported. (equals to the return value of debug.getBlockRlp)
+          items:
+            title: BlockRlp
+            type: string
+          example: ["f9071...080c0"]
+
+    ImportChainFromStringResp:
+      description: true if chain was imported, false if not.
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+      
+    
+
+
