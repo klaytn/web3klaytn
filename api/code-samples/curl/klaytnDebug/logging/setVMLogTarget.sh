@@ -1,5 +1,5 @@
 curl -X 'POST' \
-  'https://api.baobab.klaytn.net:8651/debug/setVMLogTarget' \
+  'https://public-en-cypress.klaytn.net/debug/blockProfile' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{

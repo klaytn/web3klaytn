@@ -67,6 +67,8 @@ paths:
                     properties:
                       result:
                         type: array
+                        items:
+                          type: string
                         example: ['0x59f6b08c7b4fbd00e1d4b4e334f1a09a8e8d1667', '0xcabd65e5488748f8a7f9a1e9ed3b3db2a8f962a7']
 
 
@@ -112,4 +114,4 @@ components:
               - type: integer
                 title: EndBlockNum
                 description: (optional) The last block number of the range.
-            example: ["0x77982323172e5b6182539d3522d5a33a944206d4", 100, 200]
+          example: ["0x77982323172e5b6182539d3522d5a33a944206d4", 100, 200]

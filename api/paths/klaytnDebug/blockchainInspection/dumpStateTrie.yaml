@@ -91,9 +91,11 @@ components:
           description: The dump state Trie result
           properties:
             root:
-                type: string
+              type: string
             tries:
               type: array
+              items:
+                type: string
           example: {
             "root": "70383c826d1161ec2f12d799023317d8da7775dd47b8502d2d7ef646d094d3a5",
             "tries": [...]
