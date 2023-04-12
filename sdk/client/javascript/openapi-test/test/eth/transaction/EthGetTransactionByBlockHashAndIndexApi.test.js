@@ -5,7 +5,7 @@ const { RPC } = require("../../constant");
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
 describe('eth_getTransactionByBlockHashAndIndex API', () => {
-    test.skip('should return eth_getTransactionByBlockHashAndIndex', (done) => {
+    test('should return eth_getTransactionByBlockHashAndIndex', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();

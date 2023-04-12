@@ -21,14 +21,3 @@ yarn link
 
 cd "${CURRENT_FILE_DIR}/openapi-test"
 yarn link opensdk-javascript
-
-
-
-# "${PROJECT_DIR}"/bin/caver-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/javascript-config.yaml"
-
-# cd "${CURRENT_FILE_DIR}/openapi"
-# yarn install
-# yarn link
-
-# cd "${CURRENT_FILE_DIR}"/openapi-test
-# yarn link opensdk-javascript-eth

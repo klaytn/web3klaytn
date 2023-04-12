@@ -5,7 +5,7 @@ const { RPC } = require("../../constant");
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
 describe('eth_getBlockByNumber API', () => {
-    test.skip('should return eth_getBlockByNumber', (done) => {
+    test('should return eth_getBlockByNumber', (done) => {
 
         let callbackOne = function (error, data, response) {
 

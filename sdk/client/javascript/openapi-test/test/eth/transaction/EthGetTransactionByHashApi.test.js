@@ -5,7 +5,7 @@ const { RPC } = require("../../constant");
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
 describe('eth_getTransactionByHash API', () => {
-    test.skip('should return eth_getTransactionByHash', (done) => {
+    test('should return eth_getTransactionByHash', (done) => {
 
         let callbackOne = function (error, data, response) {
 
