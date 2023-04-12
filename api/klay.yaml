@@ -27,6 +27,8 @@ tags:
     description: API for debug namespace
   - name: governance
     description: API for governance namespace
+  - name: admin
+    description: API for admin namespace
 #  - name: RewardSpec
 #    description: |
 #      <SchemaDefinition schemaRef="#/components/schemas/RewardSpec" />
@@ -55,6 +57,9 @@ x-tagGroups:
   - name: Models
     tags:
       - RewardSpec
+  - name: Admin
+    tags: 
+      - admin
 servers:
   - url: http://localhost:7151
   - url: https://api.baobab.klaytn.net:8651
@@ -498,3 +503,14 @@ paths:
   /debug/runtimeTracing/stopGoTrace:
     $ref: ./paths/klaytnDebug/runtimeTracing/stopGoTrace.yaml#/paths/~1debug~1stopGoTrace
 
+  # admin
+  /admin/addPeer:
+    $ref: ./paths/admin/addPeer.yaml#/paths/~1admin~1addPeer
+  /admin/exportChain: 
+    $ref: ./paths/admin/exportChain.yaml#/paths/~1admin~1exportChain
+  /admin/importChain: 
+    $ref: ./paths/admin/importChain.yaml#/paths/~1admin~1importChain
+  /admin/removePeer: 
+    $ref: ./paths/admin/removePeer.yaml#/paths/~1admin~1removePeer
+  /admin/importChainFromString: 
+    $ref: ./paths/admin/importChainFromString.yaml#/paths/~1admin~1importChainFromString

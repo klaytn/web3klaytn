@@ -1,0 +1,36 @@
+openapi: "3.0.2"
+info:
+  title: KLAYTN OPEN API
+  version: "1.10.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: admin
+    description: API for admin namespace
+x-tagGroups:
+  - name: Admin
+    tags:
+      - admin
+  - name: Models
+    tags:
+      - RewardSpec
+servers:
+  - url: http://localhost:7151
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+  # admin
+  /admin/addPeer:
+    $ref: ./addPeer.yaml#/paths/~1admin~1addPeer
+  /admin/exportChain: 
+    $ref: ./exportChain.yaml#/paths/~1admin~1exportChain
+  /admin/importChain: 
+    $ref: ./importChain.yaml#/paths/~1admin~1importChain
+  /admin/removePeer: 
+    $ref: ./removePeer.yaml#/paths/~1admin~1removePeer
+  /admin/importChainFromString: 
+    $ref: ./importChainFromString.yaml#/paths/~1admin~1importChainFromString

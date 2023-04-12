@@ -1,0 +1,103 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /admin/removePeer:
+    post:
+      operationId: removePeer
+      summary: "[removePeer]"
+      description: |
+        The removePeer is an administrative method that requests removing a node from the list of tracked static nodes.
+       
+        The method accepts a single argument kni, which means "Klaytn Network Identifier". It is similar to the enode concept in the geth. It is URL of the remote peer to be removed from a list and returns a BOOL indicating whether the peer was removed or some error occurred.        
+
+        | Client | Method invocation |
+        |-----|-----|
+        | Console   | admin.removePeer(url) |
+        | RPC | {"method": "admin_removePeer", "params": [url]} |
+
+        **JSONRPC:** `admin_removePeer`
+
+      tags:
+        - admin
+
+      parameters:
+        - name: url
+          required: true
+          schema:
+            type: string
+          description: Peer's kni URL.
+          in: query
+  
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/RemovePeerReq"
+
+      responses:
+        200:
+          description: true if the peer was accepted, false otherwise.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/RemovePeerResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/admin/removePeer.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""
+
+components:
+  schemas:
+    RemovePeerReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'admin_removePeer'
+        params:
+          type: array
+          description: Peer's kni URL.
+          items:
+            title: Url
+            type: string
+          example: ["kni://a979fb575495b8d6db44f750317d0f4622bf4c2aa3365d6af7c284339968eef29b69ad0dce72a4d8db5ebb4968de0e3bec910127f134779fbcb0cb6d3331163c@10.0.0.1:32323"]
+
+    RemovePeerResp:
+      description: true if the peer was accepted, false otherwise.
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+
+
