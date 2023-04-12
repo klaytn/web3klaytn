@@ -62,10 +62,10 @@ paths:
 #          label: "Java"
 #          source:
 #            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/account/EthAccountsExample.java"
-#        - lang: "javascript"
-#          label: "Javascript"
-#          source:
-#            $ref: "../../../code-samples/javascript/eth/account/accounts.js"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klaytnDebug/vMStandardTracing/standardTraceBlockToFile.js"
 #        - lang: "python"
 #          label: "Python"
 #          source:
