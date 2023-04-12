@@ -21,6 +21,10 @@ apis:
     root: ../paths/txpool/index.yaml
     labels:
       - v1.10.4
+  klay@v1.10.5:
+    root: ../paths/klaytnDebug/index.yaml
+    labels:
+      - v1.10.5
 extends:
   - recommended
 features.openapi:
