@@ -203,14 +203,17 @@ components:
                 gasPrice:
                   type: string
                   format: hex
+                  nullable: true
                   description: Gas price provided by the sender in peb. null when it is not a legacy transaction.
                 maxFeePerGas:
                   type: string
                   format: hex
+                  nullable: true
                   description: A maximum amount to pay for the transaction to execute. null when it is a legacy transaction.
                 maxPriorityFeePerGas:
                     type: string
                     format: hex
+                    nullable: true
                     description: Gas tip cap for dynamic fee transaction in peb. null when it is a legacy transaction.
                 gas:
                     type: string
