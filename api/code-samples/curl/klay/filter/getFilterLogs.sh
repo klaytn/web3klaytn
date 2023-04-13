@@ -1,4 +1,4 @@
-curl -X 'POST' \
+fcurl -X 'POST' \
   'https://api.baobab.klaytn.net:8651/klay/getFilterLogs' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \

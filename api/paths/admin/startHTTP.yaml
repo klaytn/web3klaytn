@@ -1,0 +1,128 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /admin/startHTTP:
+    post:
+      operationId: startHTTP
+      summary: "[startHTTP]"
+      description: |
+        The startHTTP is an administrative method that starts an HTTP based JSON RPC API webserver to handle client requests.
+        
+        The method returns a boolean flag specifying whether the HTTP RPC listener was opened or not. Please note, only one HTTP endpoint is allowed to be active at any time.       
+
+        **JSONRPC:** `admin_startHTTP`
+
+        **NOTE:** `This API replaces admin_startRPC. The admin_startRPC will be deprecated soon.`
+
+      tags:
+        - admin
+
+      parameters:
+        - name: host
+          schema:
+            type: string
+          description: (optional) network interface to open the listener socket on (default "localhost").
+          in: query
+        - name: port
+          schema:
+            type: integer
+          description: (optional) network port to open the listener socket on (default 8551).
+          in: query
+        - name: cors
+          schema:
+            type: string
+          description: (optional) cross-origin resource sharing header to use (default "").
+          in: query
+        - name: apis
+          schema:
+            type: string
+          description: (optional) API modules to offer over this interface (default "klay,net,rpc").
+          in: query
+  
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/StartHTTPReq"
+
+      responses:
+        200:
+          description: true if the HTTP RPC listener was opened, false if not.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/StartHTTPResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/admin/startHTTP.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""
+
+components:
+  schemas:
+    StartHTTPReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'admin_startHTTP'
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                title: host
+                description: (optional) network interface to open the listener socket on (default "localhost").
+              - type: integer
+                title: port
+                description: (optional) network port to open the listener socket on (default 8551).
+              - type: string
+                title: cors
+                description: (optional) cross-origin resource sharing header to use (default "").
+              - type: string
+                title: apis
+                description: (optional) API modules to offer over this interface (default "klay,net,rpc").
+          example:
+            ["127.0.0.1", 8551, "", "klay"]
+
+    StartHTTPResp:
+      description: true if the HTTP RPC listener was opened, false if not.
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+
+
+
+
+
