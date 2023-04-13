@@ -1,0 +1,91 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /subbridge/deregisterBridge:
+    post:
+      summary: "[deregisterBridge]"
+      tags:
+        - subbridge
+      operationId: deregisterBridge
+      description: |
+        The subbridge.deregisterBridge deregisters already registered bridge contracts in the parent/child chain.
+
+        **JSONRPC:** `subbridge_deregisterBridge`
+
+      parameters:
+        - name: account
+          in: query
+          required: true
+          description: Address of bridge contract on child chain.
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+        - name: account
+          in: query
+          required: true
+          description: Address of bridge contract on parent chain.
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/SubbridgeDeregisterBridgeReq"
+
+      responses:
+        200:
+          description: The subbridge.deregisterBridge deregisters already registered bridge contracts in the parent/child chain.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/SubbridgeDeregisterBridgeResp"
+
+      x-codeSamples:
+        # - lang: "curl"
+        #   label: "Curl"
+        #   source:
+        #     $ref: "../../../code-samples/curl/subbridge/deregisterBridge.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../../code-samples/javascript/eth/miscellaneous/deregisterBridge.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../../code-samples/python/eth/miscellaneous/deregisterBridge.py"
+
+components:
+  schemas:
+    SubbridgeDeregisterBridgeReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'subbridge_deregisterBridge'
+
+    SubbridgeDeregisterBridgeResp:
+      type: object
+      properties:
+        result:
+          type: string
+          example: null
+          # error

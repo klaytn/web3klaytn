@@ -1,0 +1,27 @@
+openapi: "3.0.2"
+info:
+  title: KLAYTN OPEN API
+  version: "1.10.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: mainbridge
+    description: API for debug namespace
+x-tagGroups:
+  - name: mainbridge
+    tags:
+      - mainbridge
+servers:
+  - url: http://localhost:7151
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+  # mainbridge:
+  /mainbridge/getChildChainIndexingEnabled:
+    $ref: ./mainbridge/getChildChainIndexingEnabled.yaml#/paths/~1mainbridge~1getChildChainIndexingEnabled
+  /mainbridge/nodeInfo:
+    $ref: ./mainbridge/nodeInfo.yaml#/paths/~1mainbridge~1nodeInfo

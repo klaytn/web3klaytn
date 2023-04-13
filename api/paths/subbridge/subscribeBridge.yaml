@@ -1,0 +1,91 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /subbridge/subscribeBridge:
+    post:
+      summary: "[subscribeBridge]"
+      tags:
+        - subbridge
+      operationId: subscribeBridge
+      description: |
+        The subbridge_subscribeBridge subscribes to the registered bridge contracts in the parent and child chains. If the sub-bridge node is subscribed to the bridge contract pair, cross-chain value-transfer requests are handled automatically by the sub-bridge.
+
+        **JSONRPC:** `subbridge_subscribeBridge`
+
+      parameters:
+        - name: account
+          in: query
+          required: true
+          description: Address of bridge contract on child chain.
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+        - name: account
+          in: query
+          required: true
+          description: Address of bridge contract on parent chain.
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/SubbridgeSubscribeBridgeReq"
+
+      responses:
+        200:
+          description: The subbridge_subscribeBridge subscribes to the registered bridge contracts in the parent and child chains.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/SubbridgeSubscribeBridgeResp"
+
+      x-codeSamples:
+        # - lang: "curl"
+        #   label: "Curl"
+        #   source:
+        #     $ref: "../../../code-samples/curl/subbridge/subscribeBridge.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../../code-samples/javascript/eth/miscellaneous/subscribeBridge.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../../code-samples/python/eth/miscellaneous/subscribeBridge.py"
+
+components:
+  schemas:
+    SubbridgeSubscribeBridgeReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'subbridge_subscribeBridge'
+
+    SubbridgeSubscribeBridgeResp:
+      type: object
+      properties:
+        result:
+          type: string
+          example: null
+          # error

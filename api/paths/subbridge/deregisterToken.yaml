@@ -1,0 +1,103 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /subbridge/deregisterToken:
+    post:
+      summary: "[deregisterToken]"
+      tags:
+        - subbridge
+      operationId: deregisterToken
+      description: |
+        The subbridge_deregisterBridge deregisters already registered token pair from the bridge contracts.
+
+        **JSONRPC:** `subbridge_deregisterToken`
+
+      parameters:
+        - name: account
+          in: query
+          required: true
+          description: Address of bridge contract on child chain.
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+        - name: account
+          in: query
+          required: true
+          description: Address of bridge contract on parent chain.
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+        - name: account
+          in: query
+          required: true
+          description: Address of token contract on child chain.
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+        - name: account
+          in: query
+          required: true
+          description: Address of token contract on parent chain.
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/SubbridgeDeregisterTokenReq"
+
+      responses:
+        200:
+          description: The subbridge.deregisterToken deregisters already registered bridge contracts in the parent/child chain.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/SubbridgeDeregisterTokenResp"
+
+      x-codeSamples:
+        # - lang: "curl"
+        #   label: "Curl"
+        #   source:
+        #     $ref: "../../../code-samples/curl/subbridge/deregisterToken.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../../code-samples/javascript/eth/miscellaneous/deregisterToken.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../../code-samples/python/eth/miscellaneous/deregisterToken.py"
+
+components:
+  schemas:
+    SubbridgeDeregisterTokenReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'subbridge_deregisterToken'
+
+    SubbridgeDeregisterTokenResp:
+      type: object
+      properties:
+        result:
+          type: string
+          example: null
+          # error
