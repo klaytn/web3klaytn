@@ -4,8 +4,8 @@ const { RPC } = require("../../constant");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
-describe('debug_getBadBlocks API', () => {
-    test('should return debug_getBadBlocks', (done) => {
+describe('debug_preimage API', () => {
+    test('should return debug_preimage', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
@@ -14,7 +14,9 @@ describe('debug_getBadBlocks API', () => {
             done();
         };
 
-        sdk.debug.getBadBlocks({}, callbackOne);
+        const sha3Hash = "0xaf953a2d01f55cfe080c0c94150a60105e8ac3d51153058a1f03dd239dd08586"
+
+        sdk.debug.preimage(sha3Hash, {}, callbackOne);
     });
 });
 
