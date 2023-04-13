@@ -63,10 +63,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/personal/ecRecover.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/personal/PersonalEcRecoverExample.java"
         # - lang: "javascript"
         #   label: "Javascript"
         #   source:
