@@ -4,8 +4,8 @@ const { RPC } = require("../../constant");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
-describe('debug_getBadBlocks API', () => {
-    test('should return debug_getBadBlocks', (done) => {
+describe('debug_getBlockRlp API', () => {
+    test('should return debug_getBlockRlp', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
@@ -14,7 +14,9 @@ describe('debug_getBadBlocks API', () => {
             done();
         };
 
-        sdk.debug.getBadBlocks({}, callbackOne);
+        const blockNumber = "200"
+
+        sdk.debug.getBlockRlp(blockNumber, {}, callbackOne);
     });
 });
 

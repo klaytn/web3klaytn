@@ -61,10 +61,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+           $ref: "../../../code-samples/javascript/klaytnDebug/blockchainInspection/printBlock.js"
         # - lang: "python"
         #   label: "Python"
         #   source:
