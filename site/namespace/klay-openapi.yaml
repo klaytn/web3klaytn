@@ -368,6 +368,23 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]
             }'
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+                const address = '0xa36a5fdc679ecaabe057556ccec2f3558068bdc8'
+                const blockNumberOrHash = 'latest'
+
+                sdk.klay.getAccountKey(address, blockNumberOrHash, {}, (err, data, response) => {
+                    console.log(data);
+                });
+
+            }
+            )()
         - lang: python
           label: Python
           source: |
@@ -553,6 +570,37 @@ paths:
               "jsonrpc": "2.0",
               "params": [{"keyType": 0, "key": {}}]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.klay.account;
+
+            import com.fasterxml.jackson.databind.ObjectMapper;
+            import com.fasterxml.jackson.databind.node.ObjectNode;
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.KlayEncodeAccountKeyReqParamsInner;
+            import opensdk.sdk.models.KlayEncodeAccountKeyResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class KlayEncodeAccountKeyExample {
+
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+
+                void klayEncodeAccountKeyExample() throws IOException {
+                    KlayEncodeAccountKeyReqParamsInner paramsInner = new KlayEncodeAccountKeyReqParamsInner();
+                    ObjectMapper mapper = new ObjectMapper();
+                    ObjectNode obj = mapper.createObjectNode();
+                    paramsInner.setKeytype(0);
+                    paramsInner.setKey(obj);
+
+                    KlayEncodeAccountKeyResponse ar = sdk.klay.encodeAccountKey(
+                        paramsInner)
+                    .send();
+                    ar.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -2135,14 +2183,17 @@ paths:
                       default: klay_getBlockTransactionCountByHash
                     params:
                       type: array
+                      description: Hash of a block
                       items:
+                        title: hashOfBlock
                         type: string
                         format: 32-byte DATA
                         description: Hash of a block
-                        default: '0x0c11803ab36110db993e7520908b9ba9336cca2f2dcc9b6130c481a3ccdc2621'
+                        example:
+                          - '0x0c11803ab36110db993e7520908b9ba9336cca2f2dcc9b6130c481a3ccdc2621'
       responses:
         '200':
-          description: Integer of the number of transactions in this block.
+          description: Return integer of the number of transactions in this block.
           content:
             application/json:
               schema:
@@ -2152,6 +2203,7 @@ paths:
                     properties:
                       result:
                         type: string
+                        description: Integer of the number of transactions in this block.
                         format: hex
                         example: '0x0'
       x-codeSamples:
@@ -2697,6 +2749,19 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+                sdk.klay.syncing({}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
         - lang: python
           label: Python
           source: |
@@ -2762,6 +2827,26 @@ paths:
               "jsonrpc": "2.0",
               "params": [1, 1]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.klay.block;
+
+            import opensdk.sdk.models.KlayGetBlockWithConsensusInfoByNumberRangeResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class KlayGetBlockWithConsensusInfoByNumberRangeExample {
+                private final OpenSDK sdk = new OpenSDK("https://api.baobab.klaytn.net:8651");
+                void klayGetBlockWithConsensusInfoByNumberRangeExample() throws IOException {
+                    Integer blockNumber = 1;
+                    Integer numberRange = 1;
+                    KlayGetBlockWithConsensusInfoByNumberRangeResponse response = sdk.klay
+                            .getBlockWithConsensusInfoByNumberRange(blockNumber , numberRange).send();
+                    response.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -3746,6 +3831,21 @@ paths:
                     response.getResult();
                 }
             }
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+
+                const transactionHash = '0x2781f2f57b2587f6d9ad80a9e5f60158439d2548eebbc23bd806ecb856fe724e'
+                sdk.klay.getTransactionReceipt(transactionHash, {}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
         - lang: python
           label: Python
           source: |
@@ -5263,6 +5363,20 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0xd32fd16b6906e67f6e2b65dcf48fc272"]
             }'
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+                const quantity = "0x16"
+                sdk.klay.getFilterChanges(quantity, {}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
   /klay/filter/getFilterLogs:
     post:
       operationId: getFilterLogs
@@ -5328,6 +5442,20 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0xd32fd16b6906e67f6e2b65dcf48fc272"]
             }'
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+                const quantity = "0x16"
+                sdk.klay.getFilterLogs(quantity, {}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
   /klay/filter/newBlockFilter:
     post:
       operationId: newBlockFilter
@@ -5893,42 +6021,11 @@ paths:
       tags:
         - klay
       parameters:
-        - name: fromBlock
-          required: false
+        - name: filterOptions
+          required: true
           schema:
-            allOf:
-              - $ref: '#/components/schemas/BlockNumberOrTag'
-              - title: fromBlock
-                default: latest
-          description: |
-            (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
-          in: query
-        - name: toBlock
-          required: false
-          schema:
-            allOf:
-              - $ref: '#/components/schemas/BlockNumberOrTag'
-              - title: toBlock
-                default: latest
-          description: |
-            (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
-          in: query
-        - name: addresses
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-              format: 20-byte DATA
-          description: |
-            (optional) List of addresses from which logs should originate.
-          in: query
-        - name: topics
-          required: false
-          schema:
-            $ref: '#/components/schemas/Topics'
-          description: |
-            (optional) Array of 32-byte DATA topics. Topics are order-dependent. Each topic can also be an array of DATA with "or" options.
+            $ref: '#/components/schemas/schemas-FilterOptions'
+          description: The filter options
           in: query
       requestBody:
         content:
@@ -6269,6 +6366,24 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.klay.gas;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.KlayUpperBoundGasPriceResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class KlayUpperBoundGasPriceExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+                void klayUpperBoundGasPriceExample() throws IOException {
+                    KlayUpperBoundGasPriceResponse response = sdk.klay.upperBoundGasPrice().send();
+                    response.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -6283,6 +6398,18 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            sdk = OpenSDK(host)
+            klay_response = sdk.klay.upper_bound_gas_price()
+
+            print(json.loads(klay_response.response.data))
   /klay/gas/maxPriorityFeePerGas:
     post:
       operationId: maxPriorityFeePerGas
@@ -6405,7 +6532,7 @@ paths:
                 - $ref: '#/components/schemas/KlaySha3Req'
       responses:
         '200':
-          description: The SHA3 result of the given data.
+          description: Return the SHA3 result of the given data.
           content:
             application/json:
               schema:
@@ -6750,6 +6877,7 @@ paths:
                       result:
                         type: string
                         format: hex
+                        description: 20 BYTE address of a node
                         example: '0x86a68a935953996509e724c6afd521df8d7d13ba'
       x-codeSamples:
         - lang: curl
@@ -6958,6 +7086,7 @@ paths:
                       result:
                         type: string
                         format: hex
+                        description: Hex representation of a Keccak 256 hash
                         example: '0xced304149857009d8767c54b7e624f700c39afe8b93d61b970902d95ac6271d1'
       x-codeSamples:
         - lang: curl
@@ -6971,7 +7100,7 @@ paths:
               "method": "klay_resend",
               "id": 1,
               "jsonrpc": "2.0",
-              "params": [{"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee", "value": "0x1", "gas": "0x9999", "maxFeePerGas": "0x5d21dba00", "maxPriorityPerGas": "0x5d21dba00"}, "0x5d21dba99"]
+              "params": [{"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee", "value": "0x1", "gas": "0x9999", "maxFeePerGas": "0x5d21dba00", "maxPriorityPerGas": "0x5d21dba00"}, "0x5d21dba99","0x5d21dba99"]
             }'
   /klay/getRawTransactionByBlockNumberAndIndex:
     post:
@@ -6984,7 +7113,7 @@ paths:
 
         **JSONRPC:** `klay_getRawTransactionByBlockNumberAndIndex`
       parameters:
-        - name: BlockNumberOrHashOrTag
+        - name: blockNumberOrHashOrTag
           in: query
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.
           required: true
@@ -7041,11 +7170,11 @@ paths:
             public class KlayGetRawTransactionByBlockNumberAndIndexExample {
                 private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
                 void klayGetRawTransactionByBlockNumberAndIndexExample() throws IOException {
-                    String blogTag = "0x27";
+                    String blockTag = "0x27";
                     String index = "0x0";
 
                     KlayGetRawTransactionByBlockNumberAndIndexResponse response = sdk.klay
-                            .getRawTransactionByBlockNumberAndIndex(blogTag, index)
+                            .getRawTransactionByBlockNumberAndIndex(blockTag, index)
                             .send();
                     response.getResult();
 
@@ -7156,10 +7285,10 @@ paths:
             public class KlayGetStakingInfoExample {
                 private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
                 void klayGetStakingInfoExample() throws IOException {
-                    String blogTag = "latest";
+                    String blockTag = "latest";
 
                     KlayGetStakingInfoResponse response = sdk.klay
-                            .getStakingInfo(blogTag)
+                            .getStakingInfo(blockTag)
                             .send();
                     response.getResult();
                 }
@@ -8032,8 +8161,7 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: '#/components/schemas/BlockNumberOrTag'
+            $ref: '#/components/schemas/BlockNumberOrTag'
           example:
             - '0x6e0431'
     BlockWithConsensusInfo:
@@ -8068,7 +8196,6 @@ components:
           type: array
           items:
             type: string
-            format: 20-byte DATA
           description: Array of addresses of committee members of this block. The committee is a subset of validators participated in the consensus protocol for this block.
         gasUsed:
           type: string
@@ -8728,6 +8855,7 @@ components:
           default: klay_getBlockWithConsensusInfoByHash
         params:
           type: array
+          description: Hash of a block.
           items:
             $ref: '#/components/schemas/BlockHash'
           example:
@@ -9170,11 +9298,11 @@ components:
         logIndex:
           type: string
           format: hex
-          description: Integer of the log index position in the block. null when its pending log.
+          description: Integer of the log index position in the block. null when it is a pending log.
         transactionIndex:
           type: string
           format: hex
-          description: Integer of the transactions index position log was created from. null when its pending log.
+          description: Integer of the transactions index position log was created from. null when pending.
         transactionHash:
           type: string
           format: 32-byte DATA
@@ -9486,13 +9614,6 @@ components:
           type: string
           format: hex
           description: (optional) Integer of a nonce.
-      example:
-        from: '0x77982323172e5b6182539d3522d5a33a944206d4'
-        to: '0xcd6bfdb523a4d030890d28bf1eb6ef36307c9aaa'
-        value: '0x10000'
-        gas: '0x1000000'
-        nonce: '0x2'
-        gasprice: '0x25000000000'
     TxTypeValueTransfer:
       title: TxTypeValueTransfer
       type: object
@@ -9531,13 +9652,6 @@ components:
           type: string
           format: hex
           description: Integer of the value sent with this transaction.
-      example:
-        typeInt: 8
-        from: '0xcd01b2b44584fb143824c1ea0231bebaea826b9d'
-        to: '0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075'
-        gas: '0x76c0'
-        gasPrice: '0x5d21dba00'
-        value: '0xf4'
     SignatureArray:
       title: SignatureArray
       type: array
@@ -9589,14 +9703,6 @@ components:
           description: The address which pays the transaction fee.
         signatures:
           $ref: '#/components/schemas/SignatureArray'
-      example:
-        typeInt: 9
-        from: '0xcd01b2b44584fb143824c1ea0231bebaea826b9d'
-        to: '0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075'
-        gas: '0x76c0'
-        gasPrice: '0x5d21dba00'
-        value: '0xf4'
-        feePayer: '0xcd01b2b44584fb143824c1ea0231bebaea826b9d'
     TxTypeFeeDelegatedValueTransferWithRatio:
       title: TxTypeFeeDelegatedValueTransferWithRatio
       type: object
@@ -9647,15 +9753,6 @@ components:
           description: Fee ratio of the fee payer. If it is 30, 30% of the fee will be paid by the fee payer. 70% will be paid by the sender. The range of fee ratio is 1 ~ 99, if it is out of range, the transaction will not be accepted.
         signatures:
           $ref: '#/components/schemas/SignatureArray'
-      example:
-        typeInt: 10
-        from: '0xcd01b2b44584fb143824c1ea0231bebaea826b9d'
-        to: '0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075'
-        gas: '0x76c0'
-        gasPrice: '0x5d21dba00'
-        value: '0xf4'
-        feePayer: '0xcd01b2b44584fb143824c1ea0231bebaea826b9d'
-        feeRatio: 30
     TxTypeValueTransferMemo:
       title: TxTypeValueTransferMemo
       type: object
@@ -9699,14 +9796,6 @@ components:
           type: string
           format: DATA
           description: The data sent along with the transaction.
-      example:
-        typeInt: 16
-        from: '0xcd01b2b44584fb143824c1ea0231bebaea826b9d'
-        to: '0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075'
-        gas: '0x76c0'
-        gasPrice: '0x5d21dba00'
-        value: '0xf4'
-        input: '0xb3f98adc0000000000000000000000000000000000000000000000000000000000000001'
     TxTypeFeeDelegatedValueTransferMemo:
       title: TxTypeFeeDelegatedValueTransferMemo
       type: object
@@ -9757,15 +9846,6 @@ components:
           description: The fee payer address of the transaction.
         signatures:
           $ref: '#/components/schemas/SignatureArray'
-      example:
-        typeInt: 17
-        from: '0xcd01b2b44584fb143824c1ea0231bebaea826b9d'
-        to: '0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075'
-        gas: '0x76c0'
-        gasPrice: '0x5d21dba00'
-        value: '0xf4'
-        input: '0xb3f98adc0000000000000000000000000000000000000000000000000000000000000001'
-        feePayer: '0xcd01b2b44584fb143824c1ea0231bebaea826b9d'
     TxTypeFeeDelegatedValueTransferMemoWithRatio:
       title: TxTypeFeeDelegatedValueTransferMemoWithRatio
       type: object
@@ -9821,16 +9901,6 @@ components:
           description: Fee ratio of the fee payer. If it is 30, 30% of the fee will be paid by the fee payer. 70% will be paid by the sender. The range of fee ratio is 1 ~ 99, if it is out of range, the transaction will not be accepted.
         signatures:
           $ref: '#/components/schemas/SignatureArray'
-      example:
-        typeInt: 18
-        from: '0xcd01b2b44584fb143824c1ea0231bebaea826b9d'
-        to: '0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075'
-        gas: '0x76c0'
-        gasPrice: '0x5d21dba00'
-        value: '0xf4'
-        input: '0xb3f98adc0000000000000000000000000000000000000000000000000000000000000001'
-        feePayer: '0xcd01b2b44584fb143824c1ea0231bebaea826b9d'
-        feeRatio: 30
     TxTypeAccountUpdate:
       title: TxTypeAccountUpdate
       type: object
@@ -9864,12 +9934,6 @@ components:
           type: string
           format: DATA
           description: The new account key of the from account in RLP encoded format. For more information about the account key, see Account Key.
-      example:
-        typeInt: 32
-        from: '0xcd01b2b44584fb143824c1ea0231bebaea826b9d'
-        gas: '0x4a380'
-        gasPrice: '0x5d21dba00'
-        key: '0x01c0'
     TxTypeFeeDelegatedAccountUpdate:
       title: TxTypeFeeDelegatedAccountUpdate
       type: object
@@ -9910,13 +9974,6 @@ components:
           description: The fee payer address of the transaction.
         signatures:
           $ref: '#/components/schemas/SignatureArray'
-      example:
-        typeInt: 33
-        from: '0xcd01b2b44584fb143824c1ea0231bebaea826b9d'
-        gas: '0x4a380'
-        gasPrice: '0x5d21dba00'
-        key: '0x01c0'
-        feePayer: '0xcd01b2b44584fb143824c1ea0231bebaea826b9d'
     TxTypeFeeDelegatedAccountUpdateWithRatio:
       title: TxTypeFeeDelegatedAccountUpdateWithRatio
       type: object
@@ -10400,7 +10457,16 @@ components:
           type: string
           default: klay_sendTransaction
         params:
-          $ref: '#/components/schemas/KlaytnTransactionTypes'
+          type: array
+          items:
+            $ref: '#/components/schemas/KlaytnTransactionTypes'
+          example:
+            - from: '0xb60e8dd61c5d32be8058bb8eb970870f07233155'
+              to: '0xd46e8dd67c5d32be8058bb8eb970870f07244567'
+              gas: '0x76c0'
+              gasPrice: '0x5d21dba00'
+              value: '0x9184e72a'
+              input: '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675'
     KlaySendTransactionAsFeePayerReq:
       type: object
       required:
@@ -10411,7 +10477,24 @@ components:
           type: string
           default: klay_sendTransactionAsFeePayer
         params:
-          $ref: '#/components/schemas/KlaytnTransactionTypes'
+          type: array
+          items:
+            $ref: '#/components/schemas/KlaytnTransactionTypes'
+          example:
+            - typeInt: 18
+              from: '0xcd01b2b44584fb143824c1ea0231bebaea826b9d'
+              to: '0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075'
+              gas: '0x4a380'
+              gasPrice: '0x5d21dba00'
+              nonce: '0x2c'
+              value: '0xf4'
+              input: '0xb3f98adc0000000000000000000000000000000000000000000000000000000000000001'
+              feePayer: '0xcd01b2b44584fb143824c1ea0231bebaea826b9d'
+              feeRatio: 30
+              signatures:
+                - V: '0x4e43'
+                  R: '0xd3ff5ca7bdd0120d79e8aa875593d05022fe74ce2b7a0594218d53c0fdca7fa9'
+                  S: '0x2c100e69d2455afc9393e017514063da18b18db6f7e811d0aeaf6002515b58ef'
     KlaySignTransactionReq:
       type: object
       required:
@@ -10422,7 +10505,9 @@ components:
           type: string
           default: klay_signTransaction
         params:
-          $ref: '#/components/schemas/KlaytnTransactionTypes'
+          type: array
+          items:
+            $ref: '#/components/schemas/KlaytnTransactionTypes'
           example:
             - from: '0x77982323172e5b6182539d3522d5a33a944206d4'
               to: '0xcd6bfdb523a4d030890d28bf1eb6ef36307c9aaa'
@@ -10465,7 +10550,9 @@ components:
           type: string
           default: klay_signTransactionAsFeePayer
         params:
-          $ref: '#/components/schemas/KlaytnTransactionTypes'
+          type: array
+          items:
+            $ref: '#/components/schemas/KlaytnTransactionTypes'
           example:
             - from: '0x77982323172e5b6182539d3522d5a33a944206d4'
               to: '0xcd6bfdb523a4d030890d28bf1eb6ef36307c9aaa'
@@ -10581,6 +10668,7 @@ components:
       properties:
         result:
           type: array
+          description: An array of transactions.
           items:
             $ref: '#/components/schemas/schemas-TransactionObject'
           example:
@@ -10887,13 +10975,14 @@ components:
             - type: string
               format: 20-byte DATA
               title: Address
-              description: (optional) Contract address or a list of addresses from which logs should originate.
+              description: Contract address
             - type: array
               title: ArrayOfAddress
               items:
                 type: string
                 format: 20-byte DATA
-              description: (optional) Contract address or a list of addresses from which logs should originate.
+                description: Address
+          description: (optional) Contract address or a list of addresses from which logs should originate.
         topics:
           type: array
           items:
@@ -10911,9 +11000,34 @@ components:
           $ref: '#/components/schemas/KlayArrayOfLog'
     Topics:
       type: array
+      description: (optional) Array of 32-byte DATA topics. Topics are order-dependent. Each topic can also be an array of DATA with "or" options.
       items:
         type: string
         format: 32-byte DATA
+    schemas-FilterOptions:
+      title: FilterOptions
+      type: object
+      properties:
+        fromBlock:
+          allOf:
+            - $ref: '#/components/schemas/BlockNumberOrTag'
+            - description: |
+                (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
+        toBlock:
+          allOf:
+            - $ref: '#/components/schemas/BlockNumberOrTag'
+            - description: |
+                (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
+        address:
+          oneOf:
+            - type: array
+              items:
+                anyOf:
+                  - $ref: '#/components/schemas/Address'
+            - $ref: '#/components/schemas/Address'
+          description: (optional) Contract address or a list of addresses from which logs should originate.
+        topics:
+          $ref: '#/components/schemas/Topics'
     KlayNewFilterReq:
       type: object
       required:
@@ -10926,21 +11040,7 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - allOf:
-                  - title: FromBlock
-                    default: latest
-                  - $ref: '#/components/schemas/BlockNumberOrTag'
-              - allOf:
-                  - title: ToBlock
-                    default: latest
-                  - $ref: '#/components/schemas/BlockNumberOrTag'
-              - type: array
-                items:
-                  type: string
-                  format: 20-byte DATA
-                description: (optional) List of addresses from which logs should originate.
-              - $ref: '#/components/schemas/Topics'
+            $ref: '#/components/schemas/schemas-FilterOptions'
           example:
             - fromBlock: earliest
               toBlock: latest
@@ -11293,6 +11393,7 @@ components:
               maxFeePerGas: '0x5d21dba00'
               maxPriorityPerGas: '0x5d21dba00'
             - '0x5d21dba99'
+            - '0x5d21dba99'
     KlayGetRawTransactionByBlockNumberAndIndexReq:
       type: object
       required:
@@ -11309,7 +11410,7 @@ components:
               - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
               - type: string
                 format: hex
-                title: transactionIndex
+                title: TransactionIndex
                 description: The transaction index position.
           example:
             - '0x27'
