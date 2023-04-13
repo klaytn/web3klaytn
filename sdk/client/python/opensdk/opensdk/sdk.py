@@ -10,6 +10,9 @@ from net.opensdk_python_net.apis.tags.net_api import NetApi
 from txpool.opensdk_python_txpool.api_client import ApiClient as TxPollApiClient
 from txpool.opensdk_python_txpool.configuration import Configuration as TxPollConfiguration
 from txpool.opensdk_python_txpool.apis.tags.txpool_api import TxpoolApi
+from personal.opensdk_python_personal.api_client import ApiClient as PersonalApiClient
+from personal.opensdk_python_personal.configuration import Configuration as PersonalConfiguration
+from personal.opensdk_python_personal.apis.tags.personal_api import PersonalApi
 
 
 class OpenSDK:
@@ -32,3 +35,7 @@ class OpenSDK:
     @property
     def txpool(self):
         return TxpoolApi(TxPollApiClient(configuration=TxPollConfiguration(self.kalytn_url)))
+
+    @property
+    def personal(self):
+        return PersonalApi(PersonalApiClient(configuration=PersonalConfiguration(self.kalytn_url)))
