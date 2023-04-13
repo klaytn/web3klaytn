@@ -17,11 +17,6 @@ paths:
       description: |
         Returns all the Klaytn account addresses of all keys in the key store.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | personal.listAccounts |
-        | RPC | {"method": "personal_listAccounts", "params": []} |
-
         **JSONRPC:** `personal_listAccounts`
       tags:
         - personal

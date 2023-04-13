@@ -17,11 +17,6 @@ paths:
       description: |
         Returns GC statistics.
         
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | debug.gcStats() |
-        | RPC | {"method": "debug_gcStats", "params": []} |
-
         **JSONRPC:** `debug_gcStats`
 
       tags:

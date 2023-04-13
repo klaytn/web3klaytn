@@ -19,11 +19,6 @@ paths:
 
         At the Klaytn console, newAccount will prompt for a passphrase when it is not supplied as the argument.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | personal.newAccount(passphrase) |
-        | RPC | {"method": "personal_newAccount", "params": [passphrase]} |
-
         **JSONRPC:** `personal_newAccount`
       tags:
         - personal

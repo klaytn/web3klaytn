@@ -23,11 +23,6 @@ paths:
         
         The account can be used with klay_sign and klay_sendTransaction while it is unlocked.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | personal.unlockAccount(address, passphrase, duration) |
-        | RPC | {"method": "personal_unlockAccount", "params": [address, passphrase, duration]} |
-
         **JSONRPC:** `personal_unlockAccount`
       tags:
         - personal

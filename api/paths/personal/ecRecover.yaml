@@ -17,11 +17,6 @@ paths:
       description: |
         ecRecover returns the address associated with the private key that was used to calculate the signature in personal_sign.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | personal.ecRecover(message, signature) |
-        | RPC | {"method": "personal_ecRecover", "params": [message, signature]} |
-
         **JSONRPC:** `personal_ecRecover`
       tags:
         - personal

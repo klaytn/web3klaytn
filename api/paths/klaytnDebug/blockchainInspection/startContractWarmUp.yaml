@@ -17,11 +17,6 @@ paths:
       description: |
         The startContractWarmUp iterates the latest storage trie of the given contract address to warm-up the trie cache. The iteration will be automatically stopped if 90% of the trie cache is full. The method returns an error if it fails in starting a warm-up or the given address is not a contract address, or null if it successfully has started it.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | debug.startContractWarmUp(address) |
-        | RPC | {"method": "debug_startContractWarmUp", "params": [address]} |
-
         **JSONRPC:** `debug_startContractWarmUp`
 
       tags:

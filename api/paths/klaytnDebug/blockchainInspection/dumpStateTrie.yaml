@@ -17,11 +17,6 @@ paths:
       description: |
         Retrieves all state/storage tries of the given state root.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | debug.dumpStateTrie(number) |
-        | RPC | {"method": "debug_dumpStateTrie", "params": [number]} |
-
         **JSONRPC:** `debug_dumpStateTrie`
       tags:
         - debug

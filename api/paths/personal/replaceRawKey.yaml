@@ -19,11 +19,6 @@ paths:
         
         Returns the address of the replaced account if successful.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | personal.replaceRawKey(keydata, oldPassphrase, newPassphrase) |
-        | RPC | {"method": "personal_replaceRawKey", "params": [keydata, oldPassphrase, newPassphrase]} |
-
         **JSONRPC:** `personal_replaceRawKey`
       tags:
         - personal

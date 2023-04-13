@@ -17,11 +17,6 @@ paths:
       description: |
         Initiates a hardware wallet opening procedure, establishing a USB connection and attempting to authenticate via the provided passphrase.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | personal.openWallet(url, passhrase) |
-        | RPC | {"method": "personal_openWallet", "params": [url, passphrase]} |
-
         **JSONRPC:** `personal_openWallet`
 
         **NOTE:** The method may return an extra challenge requiring a second open (e.g., the Trezor PIN matrix challenge).

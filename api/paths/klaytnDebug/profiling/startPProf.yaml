@@ -21,11 +21,6 @@ paths:
          * http://localhost:6060/debug/vars (for the metrics)
         
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | debug.startPProf(address, port) |
-        | RPC | {"method": "debug_startPProf", "params": [string, number]} |
-
         **JSONRPC:** `debug_startPProf`
 
       tags:

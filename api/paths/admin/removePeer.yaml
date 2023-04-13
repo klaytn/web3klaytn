@@ -19,11 +19,6 @@ paths:
        
         The method accepts a single argument kni, which means "Klaytn Network Identifier". It is similar to the enode concept in the geth. It is URL of the remote peer to be removed from a list and returns a BOOL indicating whether the peer was removed or some error occurred.        
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | admin.removePeer(url) |
-        | RPC | {"method": "admin_removePeer", "params": [url]} |
-
         **JSONRPC:** `admin_removePeer`
 
       tags:

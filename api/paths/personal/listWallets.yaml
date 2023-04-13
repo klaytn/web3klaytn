@@ -17,11 +17,6 @@ paths:
       description: |
         Returns a list of wallets this node manages.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | personal.listWallets |
-        | RPC | {"method": "personal_listWallets", "params": []} |
-
         **JSONRPC:** `personal_listWallets`
       tags:
         - personal
