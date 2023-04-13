@@ -1,0 +1,83 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /admin/startStateMigration:
+    post:
+      operationId: startStateMigration
+      summary: "[startStateMigration]"
+      description: |
+        The startStateMigration is an administrative method that starts a state migration and removes old state/storage trie nodes. This can save the storage space of a Klaytn node. The method returns an error if it fails to start a state migration, or null if it succeeds to start. NOTE: After the state migration, the node cannot serve APIs with previous states.
+       
+        **JSONRPC:** `admin_startStateMigration`
+
+      tags:
+        - admin
+  
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/StartStateMigrationReq"
+
+      responses:
+        200:
+          description: null if the state migration has started, or an error message if not.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/StartStateMigrationResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/admin/startStateMigration.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""
+
+components:
+  schemas:
+    StartStateMigrationReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'admin_startStateMigration'
+
+    StartStateMigrationResp:
+      description: null if the state migration has started, or an error message if not.
+      type: object
+      properties:
+        result:
+          type: string
+          example: null
+
+
+
+
+

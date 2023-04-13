@@ -1,0 +1,135 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /admin/peers:
+    post:
+      operationId: peers
+      summary: "[peers]"
+      description: |
+        The peers administrative property can be queried for all the information known about the connected remote nodes at the networking granularity. These include general information about the nodes themselves as participants of the devp2p P2P overlay protocol, as well as specialized information added by each of the running application protocols.        
+        
+        **JSONRPC:** `admin_peers`
+
+      tags:
+        - admin
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/PeersReq"
+
+      responses:
+        200:
+          description: The information about all connected peers.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/PeersResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/admin/peers.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""
+
+components:
+  schemas:
+    PeersReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'admin_peers'
+            
+    PeersResp:
+      description: The information about all connected peers.
+      type: object
+      properties:
+        result: 
+          type: array
+          items: 
+            $ref: "#/components/schemas/PeersModel"
+    
+    PeersModel: 
+      type: object
+      properties:   
+        caps: 
+          type: array
+          items: 
+            type: string
+          example: ["istanbul/64"]
+        id: 
+          type: string
+          example: 5d73afadf1eb4d6ccd1e10ab0f00301a1642b102fb521f170f4eaa4b3cb9a58788d1e2b387d6ce3726cb4786d034feb7dd17b5055b6d9a888520011e5756c89e
+        name: 
+          type: string
+          example: Klaytn/validator-3/vX.X.X/XXXX-XXXX/goX.X.X
+        network: 
+          type: object
+          properties: 
+            inbound: 
+              type: boolean
+              example: true
+            localAddress: 
+              type: string
+              example: 127.0.0.1:32323
+            nodeType: 
+              type: string
+              example: cn
+            remoteAddress: 
+              type: string
+              example: 127.0.0.1:63323
+            static: 
+              type: boolean
+              example: false
+            trusted: 
+              type: boolean
+              example: false
+        protocols: 
+          type: object
+          properties: 
+            istanbul: 
+              type: object
+              properties: 
+                difficulty: 
+                  type: integer
+                  example: 52794
+                head: 
+                  type: string
+                  example: 0x4c3000a6f8c40b0507d8ee4a3fc5c9865df0a8d66f882366ea95473c87342005
+                version: 
+                  type: integer
+                  example: 64
+                
+                  
+
+
+

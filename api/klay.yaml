@@ -526,6 +526,31 @@ paths:
     $ref: ./paths/admin/removePeer.yaml#/paths/~1admin~1removePeer
   /admin/importChainFromString: 
     $ref: ./paths/admin/importChainFromString.yaml#/paths/~1admin~1importChainFromString
+  /admin/startHTTP: 
+    $ref: ./paths/admin/startHTTP.yaml#/paths/~1admin~1startHTTP
+  /admin/stopHTTP: 
+    $ref: ./paths/admin/stopHTTP.yaml#/paths/~1admin~1stopHTTP
+  /admin/startWS: 
+    $ref: ./paths/admin/startWS.yaml#/paths/~1admin~1startWS
+  /admin/stopWS: 
+    $ref: ./paths/admin/stopWS.yaml#/paths/~1admin~1stopWS
+  /admin/startStateMigration: 
+    $ref: ./paths/admin/startStateMigration.yaml#/paths/~1admin~1startStateMigration
+  /admin/stopStateMigration: 
+    $ref: ./paths/admin/stopStateMigration.yaml#/paths/~1admin~1stopStateMigration
+  /admin/saveTrieNodeCacheToDisk: 
+    $ref: ./paths/admin/saveTrieNodeCacheToDisk.yaml#/paths/~1admin~1saveTrieNodeCacheToDisk
+  /admin/setMaxSubscriptionPerWSConn: 
+    $ref: ./paths/admin/setMaxSubscriptionPerWSConn.yaml#/paths/~1admin~1setMaxSubscriptionPerWSConn
+  /admin/nodeInfo: 
+    $ref: ./paths/admin/nodeInfo.yaml#/paths/~1admin~1nodeInfo
+  /admin/peers: 
+    $ref: ./paths/admin/peers.yaml#/paths/~1admin~1peers
+  /admin/datadir: 
+    $ref: ./paths/admin/datadir.yaml#/paths/~1admin~1datadir
+  /admin/stateMigrationStatus: 
+    $ref: ./paths/admin/stateMigrationStatus.yaml#/paths/~1admin~1stateMigrationStatus
+  
 
   # mainbridge:
   /mainbridge/getChildChainIndexingEnabled:

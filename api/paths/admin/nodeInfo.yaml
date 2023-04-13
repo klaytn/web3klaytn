@@ -1,0 +1,152 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /admin/nodeInfo:
+    post:
+      operationId: nodeInfo
+      summary: "[nodeInfo]"
+      description: |
+        The nodeInfo administrative property can be queried for all the information known about the running Klaytn node at the networking granularity. These include general information about the node itself as a participant of the devp2p P2P overlay protocol, as well as specialized information added by each of the running application protocols, e.g., klay.
+        
+        **JSONRPC:** `admin_nodeInfo`
+
+      tags:
+        - admin
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/NodeInfoReq"
+
+      responses:
+        200:
+          description: The node information.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/NodeInfoResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/admin/nodeInfo.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""
+
+components:
+  schemas:
+    NodeInfoReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'admin_nodeInfo'
+            
+    NodeInfoResp:
+      description: The node information.
+      type: object
+      properties:
+        result: 
+          $ref: "#/components/schemas/NodeInfoModel"
+    
+    NodeInfoModel: 
+      type: object
+      properties:   
+        kni: 
+          type: string
+          example: kni://0bbff960d26fc12a5153ac25d7aaffd654e073a74a8b1aa65034250d47fac610ebe99a83d21d741c6121a32fb01312b49fc0633ae04e80c5eb73c3bc71c5a850@[::]:32323?discport=0
+        id: 
+          type: string
+          example: 0bbff960d26fc12a5153ac25d7aaffd654e073a74a8b1aa65034250d47fac610ebe99a83d21d741c6121a32fb01312b49fc0633ae04e80c5eb73c3bc71c5a850
+        ip: 
+          type: string
+          example: "::"
+        listenAddr: 
+          type: string
+          example: "[::]:32323"
+        name: 
+          type: string
+          example: "Klaytn/validator-1/vX.X.X/XXXX-XXXX/goX.X.X"
+        ports: 
+          type: object
+          properties: 
+            discovery: 
+              type: integer
+              example: 0
+            listener: 
+              type: integer
+              example: 32323
+        protocols: 
+          type: object
+          properties: 
+            istanbul: 
+              type: object
+              properties: 
+                config: 
+                  type: object
+                  properties: 
+                    chainId: 
+                      type: integer
+                      example: 2018
+                    isBFT:
+                      type: boolean
+                      example: true
+                    istanbul:  
+                      type: object
+                      properties: 
+                        epoch: 
+                          type: integer
+                          example: 30000
+                        policy: 
+                          type: integer
+                          example: 0
+                        sub: 
+                          type: integer
+                          example: 7
+                    unitPrice: 
+                      type: integer
+                      example: 0
+                difficulty: 
+                  type: integer
+                  example: 52794
+                genesis: 
+                  type: string
+                  example: 0x42824367c973785245923a712cf2e5a99aae6a26f44e4f1ec686a0e60986644e
+                head: 
+                  type: string
+                  example: 0x4c3000a6f8c40b0507d8ee4a3fc5c9865df0a8d66f882366ea95473c87342005
+                network: 
+                  type: integer
+                  example: 2017
+                
+                  
+
+
+

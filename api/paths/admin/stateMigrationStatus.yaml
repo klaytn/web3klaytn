@@ -1,0 +1,117 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /admin/stateMigrationStatus:
+    post:
+      operationId: stateMigrationStatus
+      summary: "[stateMigrationStatus]"
+      description: |
+        The stateMigrationStatus is an administrative method that returns the status information of the state migration. This method takes no parameters and returns the status of the currently running state migration.
+        
+        **JSONRPC:** `admin_stateMigrationStatus`
+
+      tags:
+        - admin
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/StateMigrationStatusReq"
+
+      responses:
+        200:
+          description: returns the status information of the state migration
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/StateMigrationStatusResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/admin/stateMigrationStatus.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""
+
+components:
+  schemas:
+    StateMigrationStatusReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'admin_stateMigrationStatus'
+            
+    StateMigrationStatusResp:
+      description: returns the status information of the state migration
+      type: object
+      properties:
+        result: 
+          type: object
+          properties: 
+            committed: 
+              type: integer
+              description: committed is the number of trie nodes that have been copied by the state migration.
+              example: 1585169
+            err: 
+              type: string
+              description: null if the state migration finished well, or an error if not.
+              example: "null"
+            isMigration: 
+              type: boolean
+              description: true if the state migration is running, or false if not.
+              example: true
+            migrationBlockNumber:
+              type: integer
+              format: uint64
+              description: a blockNumber which the state migration started at. (0 if the state migration is not running.)
+              example: 32527233
+            pending: 
+              type: integer
+              description: pending represents the number of trie nodes that have not been processed by the state migration.
+              example: 27677
+            progress: 
+              type: number
+              format: float64
+              description: progress is the progress of the state migration calculated in percent.
+              example: 0.3662109375
+            read: 
+              type: integer
+              description: read represents the number of trie nodes that have been read by the state migration.
+              example: 1587473
+            
+
+          
+         
+             
+                  
+
+
+
