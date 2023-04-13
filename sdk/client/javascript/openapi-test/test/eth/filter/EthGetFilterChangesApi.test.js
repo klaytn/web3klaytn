@@ -1,6 +1,7 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
+const { getEthFilterId } = require("../../../helpers/eth");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
@@ -13,7 +14,9 @@ describe('eth_getFilterChanges API', () => {
             expect(data.result).toBeDefined()
             done();
         };
-        const id = '0x1407bf28e80aebf04cf757812428b076'
-        sdk.eth.getFilterChanges(id, {}, callbackOne);
+        getEthFilterId().then(id => {
+
+            sdk.eth.getFilterChanges(id, {}, callbackOne);
+        })
     });
 });
