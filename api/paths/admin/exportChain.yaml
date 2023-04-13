@@ -16,11 +16,6 @@ paths:
       summary: "[exportChain]"
       description: |
         The exportChain is an administrative method that exports the blockchain to a file.
-       
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | admin.exportChain(fileName) |
-        | RPC | {"method": "admin_importChain"}, "params": [fileName]} |
 
         **JSONRPC:** `admin_exportChain`
 
@@ -34,7 +29,7 @@ paths:
             type: string
           description: the fully qualified path to the file where the blockchain must be exported.
           in: query
-  
+
       requestBody:
         content:
           application/json:
