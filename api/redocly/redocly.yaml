@@ -25,6 +25,10 @@ apis:
     root: ../paths/klaytnDebug/index.yaml
     labels:
       - v1.10.5
+  klay@v1.10.6:
+    root: ../paths/personal/index.yaml
+    labels:
+      - v1.10.6
 extends:
   - recommended
 features.openapi:
