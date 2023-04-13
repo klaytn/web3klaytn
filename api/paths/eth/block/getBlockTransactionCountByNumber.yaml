@@ -1,0 +1,89 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/getBlockTransactionCountByNumber:
+    post:
+      summary: "[getBlockTransactionCountByNumber]"
+      tags:
+        - eth
+      operationId: getBlockTransactionCountByNumber
+      description: |
+        Returns the number of transactions in a block matching the given block number.
+
+        **JSONRPC:** `eth_getBlockTransactionCountByNumber`
+
+      parameters:
+        - name: blockNumber
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthGetBlockTransactionCountByNumberReq"
+
+      responses:
+        200:
+          description: Integer of the number of transactions in this block.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthGetBlockTransactionCountByNumberResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/block/getBlockTransactionCountByNumber.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/block/EthGetBlockByHashExample.java"
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../../code-samples/javascript/eth/block/getBlockTransactionCountByNumber.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../../code-samples/python/eth/block/getBlockTransactionCountByNumber.py"
+
+components:
+  schemas:
+    EthGetBlockTransactionCountByNumberReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'eth_getBlockTransactionCountByNumber'
+        params:
+          type: array
+          items:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+          example: ["0xe8"]
+
+    EthGetBlockTransactionCountByNumberResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: hex

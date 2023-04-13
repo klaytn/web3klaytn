@@ -1,0 +1,68 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/protocolVersion:
+    post:
+      operationId: protocolVersion
+      summary: "[protocolVersion]"
+      description: |
+        Returns the Eth protocol version of the node.
+
+        **JSONRPC:** `eth_protocolVersion`
+      tags:
+        - eth
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: eth_protocolVersion
+
+      responses:
+        200:
+          description: Returns the Eth protocol version of the node.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: hex
+                        description: "The Eth protocol version of the node."
+                        example: "0xAE9F7BCC00"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/config/protocolVersion.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/configuration/KlayProtocolVersionExample.java"
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../../code-samples/javascript/eth/configuration/protocolVersion.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../../code-samples/python/eth/configuration/protocolVersion.py"

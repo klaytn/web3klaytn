@@ -62,6 +62,8 @@ paths:
     $ref: ./block/syncing.yaml#/paths/~1eth~1syncing
   /eth/block/mining:
     $ref: ./block/mining.yaml#/paths/~1eth~1mining
+  /eth/block/getBlockTransactionCountByNumber:
+    $ref: ./block/getBlockTransactionCountByNumber.yaml#/paths/~1eth~1getBlockTransactionCountByNumber
 
   # eth/transaction
   /eth/transaction/call:
@@ -95,6 +97,8 @@ paths:
     $ref: ./config/coinbase.yaml#/paths/~1eth~1coinbase
   /eth/config/etherbase:
     $ref: ./config/etherbase.yaml#/paths/~1eth~1etherbase
+  /eth/config/protocolVersion:
+    $ref: ./config/protocolVersion.yaml#/paths/~1eth~1protocolVersion
 
   # eth/gas
   /eth/gas/feeHistory:
@@ -143,3 +147,5 @@ paths:
     $ref: ./others/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockNumberAndIndex
   /eth/getRawTransactionByHash:
     $ref: ./others/getRawTransactionByHash.yaml#/paths/~1eth~1getRawTransactionByHash
+  /eth/getProof:
+    $ref: ./others/getProof.yaml#/paths/~1eth~1getProof

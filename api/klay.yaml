@@ -276,6 +276,8 @@ paths:
     $ref: ./paths/eth/block/syncing.yaml#/paths/~1eth~1syncing
   /eth/block/mining:
     $ref: ./paths/eth/block/mining.yaml#/paths/~1eth~1mining
+  /eth/block/getBlockTransactionCountByNumber:
+    $ref: ./paths/eth/block/getBlockTransactionCountByNumber.yaml#/paths/~1eth~1getBlockTransactionCountByNumber
 
   # eth/transaction
   /eth/transaction/call:
@@ -310,6 +312,8 @@ paths:
     $ref: ./paths/eth/config/coinbase.yaml#/paths/~1eth~1coinbase
   /eth/config/etherbase:
     $ref: ./paths/eth/config/etherbase.yaml#/paths/~1eth~1etherbase
+  /eth/protocolVersion:
+    $ref: ./paths/eth/config/protocolVersion.yaml#/paths/~1eth~1protocolVersion
 
   # eth/gas
   /eth/gas/feeHistory:
@@ -356,6 +360,8 @@ paths:
     $ref: ./paths/eth/others/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockNumberAndIndex
   /eth/getRawTransactionByHash:
     $ref: ./paths/eth/others/getRawTransactionByHash.yaml#/paths/~1eth~1getRawTransactionByHash
+  /eth/getProof:
+    $ref: ./paths/eth/others/getProof.yaml#/paths/~1eth~1getProof
 
   # net
   /net/listening:
@@ -463,7 +469,7 @@ paths:
   /debug/vMStandardTracing/standardTraceBadBlockToFile:
     $ref: ./paths/klaytnDebug/vMStandardTracing/standardTraceBadBlockToFile.yaml#/paths/~1debug~1standardTraceBadBlockToFile
 
- # debug/profiling:
+# debug/profiling:
   /debug/profiling/startPProf:
     $ref: ./paths/klaytnDebug/profiling/startPProf.yaml#/paths/~1debug~1startPProf
   /debug/profiling/stopPProf:
