@@ -15,8 +15,8 @@ describe('eth_getCode API', () => {
             done();
         };
 
-        const address = '0xce9fba8dca42d096d019cc1cb89f5803a2c40fb3'
-        const blockNumberOrHash = '0x2'
+        const address = '0x623fa116b9cac1709b490dc24d6408b14220214f'
+        const blockNumberOrHash = 'latest'
         sdk.eth.getCode(address, blockNumberOrHash, {}, callbackOne);
     });
 });

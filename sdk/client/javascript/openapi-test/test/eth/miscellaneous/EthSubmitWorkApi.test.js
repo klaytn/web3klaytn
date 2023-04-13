@@ -4,16 +4,19 @@ const { RPC } = require("../../constant");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
-describe('eth_getFilterChanges API', () => {
-    test('should return eth_getFilterChanges', (done) => {
+describe('eth_submitWork API', () => {
+    test('should return eth_submitWork', (done) => {
 
         let callbackOne = function (error, data, response) {
+
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
             expect(data.result).toBeDefined()
             done();
         };
-        const id = '0x1407bf28e80aebf04cf757812428b076'
-        sdk.eth.getFilterChanges(id, {}, callbackOne);
+        const nonce = '0x0000000000000001'
+        const powHash = '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
+        const mixDigest = '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
+        sdk.eth.submitWork(nonce, powHash, mixDigest, {}, callbackOne);
     });
 });

@@ -5,12 +5,13 @@ const { RPC } = require("../../constant");
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
 describe('eth_newFilter API', () => {
-    test.skip('should return eth_newFilter', (done) => {
+    test('should return eth_newFilter', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
             expect(data.result).toBeDefined()
+            console.log(data.result);
             done();
         };
         const opts = {
