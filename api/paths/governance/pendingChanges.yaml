@@ -1,0 +1,73 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /governance/pendingChanges:
+    post:
+      operationId: pendingChanges
+      summary: "[pendingChanges]"
+      description: |
+        The pendingChanges returns the list of items that have received enough number of votes but not yet finalized. At the end of the current epoch, these changes will be finalized and the result will be in effect from the epoch after next epoch.
+
+        **JSONRPC:** `governance_pendingChanges`
+
+      tags:
+        - governance
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  required:
+                    - method
+                  properties:
+                    method:
+                      type: string
+                      default: 'governance_pendingChanges'
+
+      responses:
+        200:
+          description: Currently pending changes composed of keys and values
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: object
+                        description: Currently pending changes composed of keys and values
+                        example: {
+                          reward.minimumstake: "5000000",
+                          reward.useginicoeff: false
+                        }
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/governance/pendingChanges.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/account/KlayAccountCreatedExample.java"
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: "../../../code-samples/javascript/klay/account/accountCreated.js"
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: "../../../code-samples/python/klay/account/accountCreated.py"

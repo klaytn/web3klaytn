@@ -58,7 +58,7 @@ paths:
                     properties:
                       result:
                         title: Error
-                        type: error
+                        type: string
                         description: Error condition
                         example: null
       

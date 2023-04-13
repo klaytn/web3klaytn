@@ -479,9 +479,17 @@ paths:
   /debug/runtimeDebugging/gcStats:
     $ref: ./paths/klaytnDebug/runtimeDebugging/gcStats.yaml#/paths/~1debug~1gcStats
 
-  # governance/votes
+  # governance
   /governance/votes:
     $ref: ./paths/governance/votes.yaml#/paths/~1governance~1votes
+  /governance/idxCache:
+    $ref: ./paths/governance/idxCache.yaml#/paths/~1governance~1idxCache
+  /governance/idxCacheFromDb:
+    $ref: ./paths/governance/idxCacheFromDb.yaml#/paths/~1governance~1idxCacheFromDb
+  /governance/nodeAddress:
+    $ref: ./paths/governance/nodeAddress.yaml#/paths/~1governance~1nodeAddress
+  /governance/pendingChanges:
+    $ref: ./paths/governance/pendingChanges.yaml#/paths/~1governance~1pendingChanges
 
   # debug/others:
   /debug/getModifiedStorageNodesByNumber:

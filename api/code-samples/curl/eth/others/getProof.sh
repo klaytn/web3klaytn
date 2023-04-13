@@ -1,5 +1,5 @@
 curl -X 'POST' \
-  'https://dev.api.klaytn.sotatek.works/eth/getProof' \
+  'https://api.baobab.klaytn.net:8651/eth/getProof' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{

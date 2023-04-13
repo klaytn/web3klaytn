@@ -128,7 +128,8 @@ paths:
           description: Address to check for balance.
           required: true
           schema:
-            $ref: '#/components/schemas/Address'
+            type: string
+            format: 20-byte DATA
         - name: blockNumberOrHash
           in: query
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter, or block hash.
@@ -374,11 +375,11 @@ paths:
                       type: array
                       items:
                         anyOf:
-                          - title: account
+                          - title: Account
                             description: Address
                             type: string
                             format: 20-byte DATA
-                          - title: message
+                          - title: Message
                             description: Message to sign
                             type: string
                             format: N-byte DATA
@@ -470,6 +471,26 @@ paths:
                 "latest"
               ]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.account;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthGetTransactionCountResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthGetTransactionCountExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethGetTransactionCountExample() throws IOException {
+                    String address = "0xc94770007dda54cF92009BFF0dE90c06F603a09f";
+                    String blockNumberOrHashOrTag = "latest";
+                    EthGetTransactionCountResponse response = sdk.eth.getTransactionCount(address,blockNumberOrHashOrTag).send();
+                    response.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -617,7 +638,7 @@ paths:
           schema:
             type: string
             format: 32-byte DATA
-        - name: transactionObjects
+        - name: isTransactionObjects
           in: query
           description: If true, it returns the full transaction objects, if false only the hashes of the transactions.
           required: true
@@ -659,7 +680,7 @@ paths:
             package opensdk.sdk.apis.eth.block;
 
             import opensdk.sdk.apis.constant.UrlConstants;
-            import opensdk.sdk.models.KlayGetBlockByHashResponse;
+            import opensdk.sdk.models.EthGetBlockByHashResponse;
             import org.klaytn.OpenSDK;
 
             import java.io.IOException;
@@ -669,13 +690,29 @@ paths:
                 private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
 
                 void ethGetBlockByHashExample() throws IOException {
-                    KlayGetBlockByHashResponse br = sdk.klay.getBlockByHash(
+                    EthGetBlockByHashResponse br = sdk.eth.getBlockByHash(
                         "0x21509a5aa2c03e9c99e3320cc7805c601b370c6a4529b29000fd8e2360d8c659",
                         true)
                     .send();
                     br.getResult();
                 }
             }
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+
+                const blockHash = '0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c'
+                const transactionObject = true
+                sdk.eth.getBlockByHash(blockHash, transactionObject, {}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
         - lang: python
           label: Python
           source: |
@@ -710,7 +747,7 @@ paths:
             $ref: '#/components/schemas/BlockNumberOrTag'
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
           in: query
-        - name: boolean
+        - name: isTransactionObjects
           in: query
           description: If true it returns the full transaction objects, if false only the hashes of the transactions.
           required: true
@@ -725,7 +762,7 @@ paths:
                 - $ref: '#/components/schemas/EthGetBlockByNumberReq'
       responses:
         '200':
-          description: Returns information about a header by hash.
+          description: Returns information about a block by block number.
           content:
             application/json:
               schema:
@@ -746,6 +783,46 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0xd0054e", false]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.block;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthGetBlockByNumberResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthGetBlockByNumberExample {
+
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+
+                void ethGetBlockByNumberExample() throws IOException {
+                    EthGetBlockByNumberResponse er = sdk.eth.getBlockByNumber(
+                        "0x8f668",
+                        false)
+                    .send();
+                    er.getResult();
+                }
+            }
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+
+                const blockNumber = 1
+                const transactionObject = true
+                sdk.eth.getBlockByNumber(blockNumber, transactionObject, {}, (err, data, response) => {
+                    console.log(data);
+                });
+
+            }
+            )()
         - lang: python
           label: Python
           source: |
@@ -755,10 +832,10 @@ paths:
             host = "https://api.baobab.klaytn.net:8651"
 
             blockTag = "0xd0054e"
-            boolean = False
+            transactionObject = False
 
             sdk = OpenSDK(host)
-            eth_response = sdk.eth.get_block_by_number(blockTag, boolean)
+            eth_response = sdk.eth.get_block_by_number(blockTag, transactionObject)
 
             print(json.loads(eth_response.response.data))
   /eth/block/getBlockTransactionCountByHash:
@@ -1239,9 +1316,28 @@ paths:
               "id": 1,
               "jsonrpc": "2.0",
               "params": [
-                "0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c",
+                "0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c"
               ]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.block;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthGetUncleCountByBlockHashResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthGetUncleCountByBlockHashExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethGetUncleCountByBlockHashExample() throws IOException {
+                    String blockHash ="0xc9dbfbab67e9a0508bcb3f95ae408023668cef431b805592781a821926715b8a";
+                    EthGetUncleCountByBlockHashResponse response = sdk.eth.getUncleCountByBlockHash(blockHash).send();
+                    response.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -1278,7 +1374,7 @@ paths:
         - eth
       operationId: getUncleByBlockHashAndIndex
       description: |
-        Returns information about a block by hash.
+        Returns information about a uncle of a block by hash and the uncle's index position. Since there are no uncles in Klaytn, it always returns null.
 
         **JSONRPC:** `eth_getUncleByBlockHashAndIndex`
       parameters:
@@ -1305,7 +1401,7 @@ paths:
                 - $ref: '#/components/schemas/EthGetUncleByBlockHashAndIndexReq'
       responses:
         '200':
-          description: Returns information about a block by hash.
+          description: Return null
           content:
             application/json:
               schema:
@@ -1329,6 +1425,26 @@ paths:
                 "0x1"
               ]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.block;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthGetUncleByBlockHashAndIndexResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthGetUncleByBlockHashAndIndexExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethGetUncleByBlockHashAndIndexExample() throws IOException {
+                    String blockHash = "0xc9dbfbab67e9a0508bcb3f95ae408023668cef431b805592781a821926715b8a";
+                    String uncleIndex = "0x1";
+                    EthGetUncleByBlockHashAndIndexResponse response = sdk.eth.getUncleByBlockHashAndIndex(blockHash, uncleIndex).send();
+                    response.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -1393,7 +1509,7 @@ paths:
                 - $ref: '#/components/schemas/EthGetUncleByBlockNumberAndIndexReq'
       responses:
         '200':
-          description: Return Value null.
+          description: Return value null.
           content:
             application/json:
               schema:
@@ -1414,6 +1530,26 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0xe8", "0x1"]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.block;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthGetUncleByBlockNumberAndIndexResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthGetUncleByBlockNumberAndIndexExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethGetUncleByBlockNumberAndIndexExample() throws IOException {
+                    String blockTag = "0xe8";
+                    String uncleIndex = "0x1";
+                    EthGetUncleByBlockNumberAndIndexResponse response = sdk.eth.getUncleByBlockNumberAndIndex(blockTag, uncleIndex).send();
+                    response.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -1493,6 +1629,25 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0xe8"]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.block;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthGetUncleCountByBlockNumberResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthGetUncleCountByBlockNumberExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethGetUncleCountByBlockNumberExample() throws IOException {
+                    String blockTag = "0xe8";
+                    EthGetUncleCountByBlockNumberResponse response = sdk.eth.getUncleCountByBlockNumber(blockTag).send();
+                    response.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -1555,39 +1710,43 @@ paths:
                   - type: object
                     properties:
                       result:
-                        type: object
-                        required:
-                          - startingBlock
-                          - currentBlock
-                          - highestBlock
-                          - pulledStates
-                          - knownStates
-                        properties:
-                          startingBlock:
-                            type: string
-                            format: hex
-                            description: The block at which the import started (will only be reset, after the sync reached his head).
-                            example: '0x0'
-                          currentBlock:
-                            type: string
-                            description: The current block, same as eth_blockNumber.
-                            format: hex
-                            example: '0x3e31e'
-                          highestBlock:
-                            type: string
-                            format: hex
-                            description: The estimated highest block.
-                            example: '0x827eef'
-                          pulledStates:
-                            type: string
-                            format: hex
-                            description: The number of state entries processed until now. If the sync mode is not "fast", zero is returned.
-                            example: '0x0'
-                          knownStates:
-                            type: string
-                            format: hex
-                            description: The number of known state entries that still need to be pulled. If the sync mode is not "fast", zero is returned.
-                            example: '0x0'
+                        oneOf:
+                          - type: boolean
+                            description: Returns false when not syncing.
+                            example: false
+                          - type: object
+                            required:
+                              - startingBlock
+                              - currentBlock
+                              - highestBlock
+                              - pulledStates
+                              - knownStates
+                            properties:
+                              startingBlock:
+                                type: string
+                                format: hex
+                                description: The block at which the import started (will only be reset, after the sync reached his head).
+                                example: '0x0'
+                              currentBlock:
+                                type: string
+                                description: The current block, same as eth_blockNumber.
+                                format: hex
+                                example: '0x3e31e'
+                              highestBlock:
+                                type: string
+                                format: hex
+                                description: The estimated highest block.
+                                example: '0x827eef'
+                              pulledStates:
+                                type: string
+                                format: hex
+                                description: The number of state entries processed until now. If the sync mode is not "fast", zero is returned.
+                                example: '0x0'
+                              knownStates:
+                                type: string
+                                format: hex
+                                description: The number of known state entries that still need to be pulled. If the sync mode is not "fast", zero is returned.
+                                example: '0x0'
       x-codeSamples:
         - lang: curl
           label: Curl
@@ -1602,6 +1761,37 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.block;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthSyncingResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthSycingExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethSycingExample() throws IOException {
+                    EthSyncingResponse response = sdk.eth.syncing().send();
+                    response.getResult();
+                }
+            }
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+                sdk.eth.syncing({}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
         - lang: python
           label: Python
           source: |
@@ -1656,6 +1846,24 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.block;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthMiningResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthMiningExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethMiningExample() throws IOException {
+                    EthMiningResponse response = sdk.eth.mining().send();
+                    response.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -1681,6 +1889,53 @@ paths:
             eth_response = sdk.eth.mining()
 
             print(json.loads(eth_response.response.data))
+  /eth/block/getBlockTransactionCountByNumber:
+    post:
+      summary: '[getBlockTransactionCountByNumber]'
+      tags:
+        - eth
+      operationId: getBlockTransactionCountByNumber
+      description: |
+        Returns the number of transactions in a block matching the given block number.
+
+        **JSONRPC:** `eth_getBlockTransactionCountByNumber`
+      parameters:
+        - name: blockNumber
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - $ref: '#/components/schemas/EthGetBlockTransactionCountByNumberReq'
+      responses:
+        '200':
+          description: Integer of the number of transactions in this block.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/EthGetBlockTransactionCountByNumberResp'
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/eth/getBlockTransactionCountByNumber' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "eth_getBlockTransactionCountByNumber",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": ["0xe8"]
+            }'
   /eth/transaction/call:
     post:
       summary: '[call]'
@@ -1868,6 +2123,43 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68", "0x0"]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.transaction;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthGetTransactionByBlockHashAndIndexResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthGetTransactionByBlockHashAndIndexExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethGetTransactionByBlockHashAndIndexExample() throws IOException {
+                    String blockHash = "0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68";
+                    String transactionIndexPos = "0x0";
+                    EthGetTransactionByBlockHashAndIndexResponse response = sdk.eth.getTransactionByBlockHashAndIndex(blockHash, transactionIndexPos).send();
+                    response.getResult();
+
+                }
+            }
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+
+                const blockHash = '0xc9dbfbab67e9a0508bcb3f95ae408023668cef431b805592781a821926715b8a'
+                const index = '0x0'
+                sdk.eth.getTransactionByBlockHashAndIndex(blockHash, index, {}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
         - lang: python
           label: Python
           source: |
@@ -1939,6 +2231,42 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0x27", "0x0"]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.transaction;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthGetTransactionByBlockNumberAndIndexResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthGetTransactionByBlockNumberAndIndexExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethGetTransactionByBlockNumberAndIndexExample() throws IOException {
+                    String blockNumber = "0x27";
+                    String transactionIndexPos = "0x0";
+                    EthGetTransactionByBlockNumberAndIndexResponse response = sdk.eth.getTransactionByBlockNumberAndIndex(blockNumber, transactionIndexPos).send();
+                    response.getResult();
+                }
+            }
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+
+                const blockNumber = 118593751
+                const index = '0x0'
+                sdk.eth.getTransactionByBlockNumberAndIndex(blockNumber, index, {}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
         - lang: python
           label: Python
           source: |
@@ -1947,11 +2275,11 @@ paths:
 
             host = "https://api.baobab.klaytn.net:8651"
 
-            blockHash = "0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68"
-            transactionIndexPosition = "0x0"
+            blockTag = "0x27"
+            transactionIndex = "0x0"
 
             sdk = OpenSDK(host)
-            eth_response = sdk.eth.get_transaction_by_block_hash_and_index(blockHash, transactionIndexPosition)
+            eth_response = sdk.eth.get_transaction_by_block_number_and_index(blockTag, transactionIndex)
 
             print(json.loads(eth_response.response.data))
   /eth/transaction/getTransactionByHash:
@@ -2004,6 +2332,40 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.transaction;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthGetTransactionByHashResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthGetTransactionByHashExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+
+                void ethGetTransactionByHashExample() throws IOException {
+                    String blockHash = "0x88df016429689c079f3b2f6ad39fa052532c56795b733da78a91ebe6a713944b";
+                    EthGetTransactionByHashResponse response = sdk.eth.getTransactionByHash(blockHash).send();
+                    response.getResult();
+                }
+            }
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+                const transactionHash = '0xc6acc62baaa57483da8d5e08aaed1907d82f0e25bd553ce3745ef1bc7b7f4476'
+                sdk.eth.getTransactionByHash(transactionHash, {}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
         - lang: python
           label: Python
           source: |
@@ -2069,6 +2431,25 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.transaction;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthGetTransactionReceiptResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthGetTransactionReceiptExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethGetTransactionReceiptExample() throws IOException {
+                    String transactionHash = "0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67";
+                    EthGetTransactionReceiptResponse response = sdk.eth.getTransactionReceipt(transactionHash).send();
+                    response.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -2132,13 +2513,13 @@ paths:
                       default: eth_sendRawTransaction
                     params:
                       type: array
+                      description: The signed transaction data.
                       items:
                         type: string
                         format: DATA
                         title: signedTransactionData
-                        description: The signed transaction data.
                       example:
-                        - '0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67'
+                        - '0xf86d03850ba43b7400829999948c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee87038d7ea4c68000808207f5a02c39a457ec76803901627392cbfb2107793bf4326e1f1100dc58d8a1216559bca07ce3a3517fce359c1fb6f5b1c1564dd9bb42d0d70a20ae9f4af95d46050ce55e'
       responses:
         '200':
           description: Return the transaction hash or the zero hash if the transaction is not yet available.
@@ -2166,7 +2547,7 @@ paths:
               "method": "eth_sendRawTransaction",
               "id": 1,
               "jsonrpc": "2.0",
-              "params": ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
+              "params": [ "0xf86d03850ba43b7400829999948c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee87038d7ea4c68000808207f5a02c39a457ec76803901627392cbfb2107793bf4326e1f1100dc58d8a1216559bca07ce3a3517fce359c1fb6f5b1c1564dd9bb42d0d70a20ae9f4af95d46050ce55e" ]
             }'
   /eth/transaction/sendTransaction:
     post:
@@ -2186,7 +2567,7 @@ paths:
           description: An object of transaction arguments. See the table below for the object's properties.
           required: true
           schema:
-            $ref: '#/components/schemas/TransactionArgs'
+            $ref: '#/components/schemas/TransactionArgsInEthSendTransaction'
       requestBody:
         content:
           application/json:
@@ -2215,7 +2596,7 @@ paths:
               "method": "eth_sendTransaction",
               "id": 1,
               "jsonrpc": "2.0",
-              "params": [{"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee", "value": "0x1", "gas": "0x9999", "maxFeePerGas": "0x5d21dba00", "maxPriorityPerGas": "0x5d21dba00"}]
+              "params": [{"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee", "value": "0x1", "gas": "0x9999", "maxFeePerGas": "0x5d21dba00", "maxPriorityFeePerGas": "0x5d21dba00"}]
             }'
   /eth/transaction/signTransaction:
     post:
@@ -2303,7 +2684,7 @@ paths:
               "method": "eth_signTransaction",
               "id": 1,
               "jsonrpc": "2.0",
-              "params": [{"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee", "value": "0x1", "gas": "0x9999", "maxFeePerGas": "0x5d21dba00", "maxPriorityPerGas": "0x5d21dba00"}]
+              "params": [{"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee", "value": "0x1", "gas": "0x9999", "maxFeePerGas": "0x5d21dba00", "maxPriorityFeePerGas": "0x5d21dba00","nonce": "0x1"}]
             }'
   /eth/transaction/pendingTransactions:
     post:
@@ -2324,7 +2705,7 @@ paths:
                 - $ref: '#/components/schemas/ethPendingTransactionsReq'
       responses:
         '200':
-          description: An array of transactions. For the returned transaction object.
+          description: Return an array of transactions. For the returned transaction object.
           content:
             application/json:
               schema:
@@ -2345,6 +2726,24 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.transaction;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthPendingTransactionsResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthPendingTransactionsExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethPendingTransactionsExample() throws IOException {
+                    EthPendingTransactionsResponse response = sdk.eth.pendingTransactions().send();
+                    response.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -2358,6 +2757,18 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            sdk = OpenSDK(host)
+            eth_response = sdk.eth.pending_transactions()
+
+            print(json.loads(eth_response.response.data))
   /eth/transaction/fillTransaction:
     post:
       summary: '[fillTransaction]'
@@ -2374,7 +2785,7 @@ paths:
           description: An object of transaction arguments. See the table below for the object's properties.
           required: true
           schema:
-            $ref: '#/components/schemas/TransactionArgs'
+            $ref: '#/components/schemas/TransactionArgsInEthSendTransaction'
       requestBody:
         content:
           application/json:
@@ -2414,6 +2825,40 @@ paths:
                 }
               ]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.transaction;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthFillTransactionResponse;
+            import org.klaytn.OpenSDK;
+            import org.web3j.protocol.core.methods.request.Transaction;
+            import org.web3j.utils.Numeric;
+
+            import java.io.IOException;
+
+            public class EthFillTransactionExample {
+
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+
+                void ethFillTransactionExample() throws IOException {
+                    EthFillTransactionResponse cr = sdk.eth.fillTransaction(
+                        new Transaction(
+                            "0xca7a99380131e6c76cfa622396347107aeedca2d",
+                            null,
+                            null,
+                            Numeric.decodeQuantity("0x9999"),
+                            "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",
+                            Numeric.decodeQuantity("0x1"),
+                            null,
+                            null,
+                            null,
+                            Numeric.decodeQuantity("0xba43b7400")))
+                    .send();
+                    cr.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -2761,6 +3206,24 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.configuration;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthEtherbaseResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthEtherbaseExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethEtherbaseExample() throws IOException {
+                    EthEtherbaseResponse response = sdk.eth.etherbase().send();
+                    response.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -2774,6 +3237,68 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            sdk = OpenSDK(host)
+            eth_response = sdk.eth.etherbase()
+
+            print(json.loads(eth_response.response.data))
+  /eth/config/protocolVersion:
+    post:
+      operationId: protocolVersion
+      summary: '[protocolVersion]'
+      description: |
+        Returns the Eth protocol version of the node.
+
+        **JSONRPC:** `eth_protocolVersion`
+      tags:
+        - eth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: eth_protocolVersion
+      responses:
+        '200':
+          description: Returns the Eth protocol version of the node.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: hex
+                        description: The Eth protocol version of the node.
+                        example: '0xAE9F7BCC00'
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/eth/protocolVersion' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "eth_protocolVersion",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": []
+            }'
   /eth/gas/feeHistory:
     post:
       summary: '[feeHistory]'
@@ -3058,6 +3583,24 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.gas;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthMaxPriorityFeePerGasResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthMaxPriorityFeePerGasExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethMaxPriorityFeePerGasExample() throws IOException {
+                    EthMaxPriorityFeePerGasResponse response = sdk.eth.maxPriorityFeePerGas().send();
+                    response.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -3071,6 +3614,18 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            sdk = OpenSDK(host)
+            eth_response = sdk.eth.max_priority_fee_per_gas()
+
+            print(json.loads(eth_response.response.data))
   /eth/filter/getFilterLogs:
     post:
       summary: '[getFilterLogs]'
@@ -3125,6 +3680,21 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0xd32fd16b6906e67f6e2b65dcf48fc272"]
             }'
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+                const id = '0xca6c12a3ecd1b44bb77f7b6536b7ce65'
+                
+                sdk.eth.getFilterLogs(id, {}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
   /eth/filter/getFilterChanges:
     post:
       operationId: getFilterChanges
@@ -3184,6 +3754,25 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0xd32fd16b6906e67f6e2b65dcf48fc272"]
             }'
+        - lang: javascript
+          label: Javascript
+          source: |-
+
+
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+
+                const id = '0x52421f131ef49ef6b7a8926b8e0a65e'
+                
+                sdk.eth.getFilterChanges(id, {}, (err, data, response) => {
+                    console.log(data);
+                });
+
+            }
+            )()
   /eth/filter/uninstallFilter:
     post:
       summary: '[uninstallFilter]'
@@ -3197,7 +3786,7 @@ paths:
       parameters:
         - name: filter
           in: query
-          description: The filter id
+          description: A filter id
           required: true
           schema:
             type: string
@@ -3232,6 +3821,25 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0xb"]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.filter;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthUninstallFilterResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthUninstallFilterExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethUninstallFilterExample() throws IOException {
+                    String  filterId = "0xb";
+                    EthUninstallFilterResponse response = sdk.eth.uninstallFilter(filterId).send();
+                    response.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -3247,6 +3855,20 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            filterId = "0xb"
+
+            sdk = OpenSDK(host)
+            eth_response = sdk.eth.uninstall_filter(filterId)
+
+            print(json.loads(eth_response.response.data))
   /eth/filter/getLogs:
     post:
       operationId: getLogs
@@ -3332,6 +3954,24 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            filterOptions = {
+                "fromBlock": "latest",
+                "toBlock": "latest",
+                "address": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b"
+            }
+
+            sdk = OpenSDK(host)
+            eth_response = sdk.eth.get_logs(filterOptions)
+
+            print(json.loads(eth_response.response.data))
   /eth/filter/subscribe:
     post:
       operationId: subscribe
@@ -3535,6 +4175,60 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0x0000000000000001", "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.miscellaneous;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthSubmitWorkResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthSubmitWorkExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethSubmitWorkExample() throws IOException {
+                    String nonce = "0x0000000000000001";
+                    String powHash = "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef";
+                    String mixDigest = "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef";
+                    EthSubmitWorkResponse response = sdk.eth.submitWork(nonce, powHash, mixDigest).send();
+                    response.getResult();
+                }
+            }
+        - lang: javascript
+          label: Javascript
+          source: |-
+            const OpenSdk = require("opensdk-javascript");
+
+            (() => {
+                const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+
+                const nonce = '0x0000000000000001'
+                const powHash = '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
+                const mixDigest = '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
+                
+                sdk.eth.submitWork(nonce, powHash, mixDigest, {}, (err, data, response) => {
+                    console.log(data);
+                });
+            }
+            )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            nonce = "0x0000000000000001"
+            powHash = "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+            mixDigest = "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+
+            sdk = OpenSDK(host)
+            eth_response = sdk.eth.submit_work(nonce, powHash, mixDigest)
+
+            print(json.loads(eth_response.response.data))
   /eth/filter/newBlockFilter:
     post:
       operationId: newBlockFilter
@@ -3585,6 +4279,24 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.filter;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthNewBlockFilterResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthNewBlockFilterExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethNewBlockFilterExample() throws IOException {
+                    EthNewBlockFilterResponse response = sdk.eth.newBlockFilter().send();
+                    response.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -3598,6 +4310,18 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            sdk = OpenSDK(host)
+            eth_response = sdk.eth.new_block_filter()
+
+            print(json.loads(eth_response.response.data))
   /eth/filter/newFilter:
     post:
       operationId: newFilter
@@ -3615,39 +4339,16 @@ paths:
         - [[A, B], [A, B]] "(A OR B) in first position AND (A OR B) in second position (and anything after)"
 
         **JSONRPC:** `eth_newFilter`
+
+        **NOTE**: In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.
       tags:
         - eth
       parameters:
-        - name: fromBlock
-          required: false
+        - name: filterOptions
+          required: true
           schema:
-            $ref: '#/components/schemas/BlockNumberOrTag'
-          description: |
-            (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
-          in: query
-        - name: toBlock
-          required: false
-          schema:
-            $ref: '#/components/schemas/BlockNumberOrTag'
-          description: |
-            (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
-          in: query
-        - name: addresses
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-              format: 20-byte DATA
-          description: |
-            (optional) List of addresses from which logs should originate.
-          in: query
-        - name: topics
-          required: false
-          schema:
-            $ref: '#/components/schemas/Topics'
-          description: |
-            (optional) Array of 32-byte DATA topics. Topics are order-dependent. Each topic can also be an array of DATA with "or" options.
+            $ref: '#/components/schemas/schemas-FilterOptions'
+          description: The filter options
           in: query
       requestBody:
         content:
@@ -3658,7 +4359,7 @@ paths:
                 - $ref: '#/components/schemas/EthNewFilterReq'
       responses:
         '200':
-          description: Returns an array of all logs matching filter with given id. See eth_getFilterChanges.
+          description: Returns a filter id
           content:
             application/json:
               schema:
@@ -3738,6 +4439,24 @@ paths:
               "jsonrpc": "2.0",
               "params": []
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.filter;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthNewPendingTransactionFilterResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthNewPendingTransactionFilterExample {
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+                void ethNewPendingTransactionFilterExample() throws IOException {
+                    EthNewPendingTransactionFilterResponse response = sdk.eth.newPendingTransactionFilter().send();
+                    response.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -3751,12 +4470,24 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            sdk = OpenSDK(host)
+            eth_response = sdk.eth.new_pending_transaction_filter()
+
+            print(json.loads(eth_response.response.data))
   /eth/miscellaneous/hashRate:
     post:
-      summary: '[hashRate]'
+      summary: '[hashrate]'
       tags:
         - eth
-      operationId: hashRate
+      operationId: hashrate
       description: |
         Returns the number of hashes per second that the node is mining with.
         Please note that it always return 0x0 because there is no PoW mechanism in Klaytn.
@@ -3805,6 +4536,18 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            sdk = OpenSDK(host)
+            eth_response = sdk.eth.hash_rate()
+
+            print(json.loads(eth_response.response.data))
   /eth/miscellaneous/getWork:
     post:
       summary: '[getWork]'
@@ -3920,6 +4663,21 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            hashrate = "0x5"
+            hashrateId = "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+
+            sdk = OpenSDK(host)
+            eth_response = sdk.eth.submit_hashrate(hashrate, hashrateId)
+
+            print(json.loads(eth_response.response.data))
   /eth/createAccessList:
     post:
       summary: '[createAccessList]'
@@ -3987,12 +4745,32 @@ paths:
 
 
                 const blockNumberOrHash = 'latest'
-                sdk.eth.createAccessList(transactionArgs, { blockNumberOrHash }, (err, data, response) => {
+                sdk.eth.createAccessList(transactionArgs, blockNumberOrHash, {}, (err, data, response) => {
                     console.log(data);
                 });
 
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            transactionArgs = {
+                "from": "0x3bc5885c2941c5cda454bdb4a8c88aa7f248e312",
+                "data": "0x20965255",
+                "gasPrice": "0x3b9aca00",
+                "gas": "0x3d0900",
+                "to": "0x00f5f5f3a25f142fafd0af24a754fafa340f32c7"
+            }
+
+            sdk = OpenSDK(host)
+            eth_response = sdk.eth.create_access_list(transactionArgs)
+
+            print(json.loads(eth_response.response.data))
   /eth/getRawTransactionByBlockHashAndIndex:
     post:
       operationId: getRawTransactionByBlockHashAndIndex
@@ -4048,6 +4826,29 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0x29b6cd965c7d9a53a6f068da259dce1d3810ba79fff8eebac5d4da14754e67e6","0x20965255"]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.others;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthGetRawTransactionByBlockHashAndIndexResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthGetRawTransactionByBlockHashAndIndexExample {
+
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+
+                void ethGetRawTransactionByBlockHashAndIndexExample() throws IOException {
+                    EthGetRawTransactionByBlockHashAndIndexResponse er = sdk.eth.getRawTransactionByBlockHashAndIndex(
+                        "0x4c4cbf242a80183d2ea2daf047c578d5fc89c0b14c4262606c8b6bb0b36715be",
+                        "0x0")
+                    .send();
+                    er.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -4065,6 +4866,21 @@ paths:
 
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            blockHash = "0x4c4cbf242a80183d2ea2daf047c578d5fc89c0b14c4262606c8b6bb0b36715be"
+            index = "0x0"
+
+            sdk = OpenSDK(host)
+            eth_response = sdk.eth.get_raw_transaction_by_block_hash_and_index(blockHash, index)
+
+            print(json.loads(eth_response.response.data))
   /eth/getRawTransactionByBlockNumberAndIndex:
     post:
       operationId: getRawTransactionByBlockNumberAndIndex
@@ -4076,11 +4892,11 @@ paths:
 
         **JSONRPC:** `eth_getRawTransactionByBlockNumberAndIndex`
       parameters:
-        - name: blockNumberOrHashOrTag
+        - name: blockNumberOrTag
           in: query
           required: true
           schema:
-            $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+            $ref: '#/components/schemas/BlockNumberOrTag'
         - name: index
           required: true
           schema:
@@ -4118,6 +4934,29 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0x27", "0x0"]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.others;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthGetRawTransactionByBlockNumberAndIndexResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthGetRawTransactionByBlockNumberAndIndexExample {
+
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+
+                void ethGetRawTransactionByBlockNumberAndIndexExample() throws IOException {
+                    EthGetRawTransactionByBlockNumberAndIndexResponse er = sdk.eth.getRawTransactionByBlockNumberAndIndex(
+                        118593751,
+                        "0x0")
+                    .send();
+                    er.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -4135,6 +4974,21 @@ paths:
 
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            blockNumber = 118593751
+            index = "0x0"
+
+            sdk = OpenSDK(host)
+            eth_response = sdk.eth.get_raw_transaction_by_block_number_and_index(blockNumber, index)
+
+            print(json.loads(eth_response.response.data))
   /eth/getRawTransactionByHash:
     post:
       operationId: getRawTransactionByHash
@@ -4183,6 +5037,28 @@ paths:
               "jsonrpc": "2.0",
               "params": ["0x29b6cd965c7d9a53a6f068da259dce1d3810ba79fff8eebac5d4da14754e67e6"]
             }'
+        - lang: java
+          label: Java
+          source: |
+            package opensdk.sdk.apis.eth.others;
+
+            import opensdk.sdk.apis.constant.UrlConstants;
+            import opensdk.sdk.models.EthGetRawTransactionByHashResponse;
+            import org.klaytn.OpenSDK;
+
+            import java.io.IOException;
+
+            public class EthGetRawTransactionByHashExample {
+
+                private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+
+                void ethGetRawTransactionByHashExample() throws IOException {
+                    EthGetRawTransactionByHashResponse er = sdk.eth.getRawTransactionByHash(
+                        "0x5bbcde52084defa9d1c7068a811363cc27a25c80d7e495180964673aa5f47687")
+                    .send();
+                    er.getResult();
+                }
+            }
         - lang: javascript
           label: Javascript
           source: |-
@@ -4199,6 +5075,102 @@ paths:
                 });
             }
             )()
+        - lang: python
+          label: Python
+          source: |
+            import json
+            from opensdk.sdk import OpenSDK
+
+            host = "https://api.baobab.klaytn.net:8651"
+
+            transactionHash = "0x29b6cd965c7d9a53a6f068da259dce1d3810ba79fff8eebac5d4da14754e67e6"
+
+            sdk = OpenSDK(host)
+            klay_response = sdk.klay.get_raw_transaction_by_hash(transactionHash)
+
+            print(json.loads(klay_response.response.data))
+  /eth/getProof:
+    post:
+      summary: '[getProof]'
+      tags:
+        - eth
+      operationId: getProof
+      description: |
+        Returns the account and storage values of the specified account including the Merkle-proof. This call can be used to verify that the data you are pulling from is not tampered with.
+
+        **JSONRPC:** `eth_getProof`
+      parameters:
+        - name: account
+          in: query
+          description: Address of the account.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Address'
+        - name: keys
+          in: query
+          description: Array of storage-keys which should be proofed and included
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+        - name: blockNumber
+          in: query
+          description: integer block number, or the string "latest" or "earliest", see the default block parameter
+          required: true
+          schema:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/JsonRpcRequest'
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: eth_getProof
+                    params:
+                      type: array
+                      items:
+                        anyOf:
+                          - $ref: '#/components/schemas/Address'
+                          - title: Keys
+                            description: Array of storage-keys which should be proofed and included
+                            type: string
+                            format: 32-byte DATA
+                          - $ref: '#/components/schemas/BlockNumberOrTag'
+                      example:
+                        - '0xe5cB067E90D5Cd1F8052B83562Ae670bA4A211a8'
+                        - - '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
+                        - latest
+      responses:
+        '200':
+          description: A account object
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/JsonRpcResponse'
+                  - $ref: '#/components/schemas/EthGetProofResp'
+      x-codeSamples:
+        - lang: curl
+          label: Curl
+          source: |
+            curl -X 'POST' \
+              'https://api.baobab.klaytn.net:8651/eth/getProof' \
+              -H 'accept: application/json' \
+              -H 'Content-Type: application/json' \
+              -d '{
+              "method": "eth_getProof",
+              "id": 1,
+              "jsonrpc": "2.0",
+              "params": [
+                "0xe5cB067E90D5Cd1F8052B83562Ae670bA4A211a8",
+                ["0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"],
+                "latest"
+              ]
+            }'
 components:
   schemas:
     JsonRpcRequest:
@@ -4279,11 +5251,6 @@ components:
             description: Addresses owned by the client.
             readOnly: true
             example: '0xc94770007dda54cF92009BFF0dE90c06F603a09f'
-    Address:
-      title: Address
-      type: string
-      format: 20-byte DATA
-      description: Address
     IntegerBlockNumber:
       title: IntegerBlockNumber
       description: the block number with type integer
@@ -4321,7 +5288,10 @@ components:
           type: array
           items:
             anyOf:
-              - $ref: '#/components/schemas/Address'
+              - title: Address
+                type: string
+                format: 20-byte DATA
+                description: Address to check for balance.
               - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
           example:
             - '0x3111a0577f322e8fb54f78d9982a26ae7ca0f722'
@@ -4334,6 +5304,11 @@ components:
           format: hex
           description: Integer of the current balance in peb.
           example: 158972490234375000
+    Address:
+      title: Address
+      type: string
+      format: 20-byte DATA
+      description: Address
     EthGetCodeReq:
       type: object
       required:
@@ -4401,12 +5376,786 @@ components:
                 description: Hash of a block.
                 type: string
                 format: 32-byte DATA
-              - title: TransactionObjects
+              - title: IsTransactionObjects
                 description: If true, it returns the full transaction objects, if false only the hashes of the transactions.
                 type: boolean
           example:
             - '0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c'
             - true
+    EthBlockObject:
+      type: object
+      required:
+        - baseFeePerGas
+        - difficulty
+        - extraData
+        - gasLimit
+        - gasUsed
+        - hash
+        - logsBloom
+        - miner
+        - mixHash
+        - nonce
+        - number
+        - parentHash
+        - receiptsRoot
+        - sha3Uncles
+        - size
+        - stateRoot
+        - timestamp
+        - totalDifficulty
+        - transactionsRoot
+      properties:
+        baseFeePerGas:
+          type: string
+          format: hex
+          description: The base fee per gas.
+        difficulty:
+          type: string
+          format: hex
+          description: The integer of the difficulty for this block
+        extraData:
+          type: string
+          format: DATA
+          description: The "extra data" field of this block.
+        gasLimit:
+          type: string
+          format: hex
+          description: The maximum gas allowed in this block.
+        gasUsed:
+          type: string
+          format: hex
+          description: The total used gas by all transactions in this block.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block. null when it is a pending block.
+        logsBloom:
+          type: string
+          format: 256-byte DATA
+          description: The bloom filter for the logs of the block. null when it is a pending block.
+        miner:
+          type: string
+          format: 20-byte DATA
+          description: The address of the beneficiary to whom the mining rewards were given.
+        mixHash:
+          type: string
+          format: 32-byte DATA
+          description: The hash which proves combined with the nonce that a sufficient amount of computation has been carried out on this block.
+        nonce:
+          type: string
+          format: 8-byte DATA
+          description: The hash of the generated proof-of-work.
+        number:
+          type: string
+          format: hex
+          description: The block number. null when it is a pending block.
+        parentHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the parent block.
+        receiptsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the receipts trie of the block.
+        sha3Uncles:
+          type: string
+          format: 32-byte DATA
+          description: The SHA3 of the uncles data in the block.
+        size:
+          type: string
+          format: hex
+          description: Integer of the size of this block in bytes.
+        stateRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the final state trie of the block.
+        timestamp:
+          type: string
+          format: hex
+          description: The Unix timestamp for when the block was collated.
+        totalDifficulty:
+          type: string
+          format: hex
+          description: The total blockScore of the chain until this block
+        transactionsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the transaction trie of the block.
+        transactions:
+          type: array
+          items:
+            oneOf:
+              - type: string
+                title: TransactionHash
+                format: 32-byte DATA
+              - type: object
+                title: TransactionObject
+          description: Array of transaction objects, or 32-byte transaction hashes depending on the last given parameter.
+        uncles:
+          type: array
+          description: Array of uncle hashes.
+          items:
+            type: string
+            format: 32-byte DATA
+      example:
+        baseFeePerGas: '0x5d21dba00'
+        difficulty: '0x1'
+        extraData: '0xd8820505846b6c617988676f312e31312e328664617277696e00000000000000f89ed594e733cb4d279da696f30d470f8c04decb54fcb0d2b841f1f600d136f93a5a2d9c12a7a9f6d7ba80a047c3910a2bbc01e38bcce25e48ed2004d21f134df5efaf1f8cbb9a26e1548e57628ab258c935490c11a7cd65324701f843b841444b3efc40071b6eec2c4d2630b483710b8fc7a601432431b0161f489102d1ca02f2ef93153d0be3843aa563d34cee1716163f58711843442aedd94a56303c0400'
+        gasLimit: '0xe8d4a50fff'
+        gasUsed: '0x0'
+        governanceData: 0x
+        hash: '0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c'
+        logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+        miner: '0x0000000000000000000000000000000000000000'
+        mixHash: '0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365'
+        nonce: '0x0000000000000000'
+        number: '0x1'
+        parentHash: '0x73255a60e9491b5715f9bfcb7fa1143296810f629836d4cefbd1921d9173d63d'
+        receiptsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
+        reward: '0x0000000000000000000000000000000000000000'
+        size: '0x2d7'
+        stateRoot: '0xedb87f4b0f905a655c80d1768eb22b1eff2405098c4748b8364c869611e02a2b'
+        timestamp: '0x5c99cbd8'
+        totalDifficulty: '0x2'
+        transactions: []
+        transactionsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
+        uncles: []
+    KlayGetBlockByHashResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/EthBlockObject'
+    BlockNumberOrTag:
+      oneOf:
+        - $ref: '#/components/schemas/IntegerBlockNumber'
+        - $ref: '#/components/schemas/HexadecimalBlockNumber'
+        - $ref: '#/components/schemas/BlockTag'
+    EthGetBlockByNumberReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: eth_getBlockByNumber
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BlockNumberOrTag'
+              - type: boolean
+                title: IsTransactionObjects
+                description: If true it returns the full transaction objects, if false only the hashes of the transactions.
+          example:
+            - '0xd0054e'
+            - false
+    EthGetBlockByNumberResp:
+      type: object
+      properties:
+        result:
+          type: object
+          nullable: true
+          required:
+            - baseFeePerGas
+            - difficulty
+            - extraData
+            - gasLimit
+            - gasUsed
+            - hash
+            - logsBloom
+            - miner
+            - mixHash
+            - nonce
+            - number
+            - parentHash
+            - receiptsRoot
+            - sha3Uncles
+            - size
+            - stateRoot
+            - timestamp
+            - totalDifficulty
+            - transactionsRoot
+            - transactions
+            - uncles
+          properties:
+            baseFeePerGas:
+              type: string
+              format: hex
+              description: The base fee per gas.
+            difficulty:
+              type: string
+              format: hex
+              description: The integer of the difficulty for this block
+            extraData:
+              type: string
+              format: DATA
+              description: The "extra data" field of this block.
+            gasLimit:
+              type: string
+              format: hex
+              description: The maximum gas allowed in this block.
+            gasUsed:
+              type: string
+              format: hex
+              description: The total used gas by all transactions in this block.
+            hash:
+              type: string
+              format: 32-byte DATA
+              nullable: true
+              description: Hash of the block. null when it is a pending block.
+            logsBloom:
+              type: string
+              format: 256-byte DATA
+              nullable: true
+              description: The bloom filter for the logs of the block. null when it is a pending block.
+            miner:
+              type: string
+              format: 20-byte DATA
+              description: The address of the beneficiary to whom the mining rewards were given.
+            mixHash:
+              type: string
+              format: 32-byte DATA
+              description: The hash which proves combined with the nonce that a sufficient amount of computation has been carried out on this block.
+            nonce:
+              type: string
+              format: 8-byte DATA
+              description: The hash of the generated proof-of-work.
+            number:
+              type: string
+              format: hex
+              nullable: true
+              description: The block number. null when it is a pending block.
+            parentHash:
+              type: string
+              format: 32-byte DATA
+              description: Hash of the parent block.
+            receiptsRoot:
+              type: string
+              format: 32-byte DATA
+              description: The root of the receipts trie of the block.
+            sha3Uncles:
+              type: string
+              format: 32-byte DATA
+              description: The SHA3 of the uncles data in the block.
+            size:
+              type: string
+              format: hex
+              description: Integer of the size of this block in bytes.
+            stateRoot:
+              type: string
+              format: 32-byte DATA
+              description: The root of the final state trie of the block.
+            timestamp:
+              type: string
+              format: hex
+              description: The Unix timestamp for when the block was collated.
+            totalDifficulty:
+              type: string
+              format: hex
+              description: The total blockScore of the chain until this block
+            transactionsRoot:
+              type: string
+              format: 32-byte DATA
+              description: The root of the transaction trie of the block.
+            transactions:
+              type: array
+              description: Array of transaction objects, or 32-byte transaction hashes depending on the last given parameter.
+              items:
+                anyOf:
+                  - type: string
+                    format: 32-byte DATA
+                  - type: object
+                    title: TransactionObject
+            uncles:
+              type: array
+              items:
+                type: string
+              description: Array of uncle hashes.
+          example:
+            baseFeePerGas: '0x5d21dba00'
+            difficulty: '0x1'
+            extraData: 0x
+            gasLimit: '0xe8d4a50fff'
+            gasUsed: '0x44437'
+            hash: '0x456a7cbb6fada11a0ca8cec24510d89da1c52898f1087528752ae6e13973fbc5'
+            logsBloom: '0x0000100000000094000000400000080000000040000000000000000000000002000000000000000000000000004001000000200000000000000008000220000000080400000800000000000a000000000000000000000000000010000000000000002000000408000000000000000010000080101002000000000010000000100000010000200800000400000080000000000000000000000002000000102000024000080200000000000082000000000000000000000000010000000000000000100012000000000000011000000000002000201000000008000000002000000010002800000000001400000000000000000000000100000000200000000000'
+            miner: '0x1ad91ee08f21be3de0ba2ba6918e714da6b45836'
+            mixHash: '0x0000000000000000000000000000000000000000000000000000000000000000'
+            nonce: '0x0000000000000000'
+            number: '0xd0054e'
+            parentHash: '0x2b88fdb3821669357a0b8367115e30145135c44bb8f62641d4e7765a7f555d17'
+            receiptsRoot: '0xc36bc44d0b52dee954be9bbd519bddc0bf6e991af2ed6f6ba506f89f10cdb9a7'
+            sha3Uncles: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347'
+            size: '0x64c'
+            stateRoot: '0x123a0da1c621236e64f9b486a9a9712ec6ce07d6690acab5a18b716d17cdc29f'
+            timestamp: '0x6194f184'
+            totalDifficulty: '0xd0054f'
+            transactions:
+              - '0x5b3492f8199ee2a551d991b7d00bd48967ca5e5c1c15d6e1ee9fda97e3126e9a'
+              - '0x8e1870262f2ba0452458280ad6ad5d54e5288623e415692c822979b7608c7297'
+              - '0x98053d20b01c9e56964a57084fb91ccc01b242adfb09c23534162dcbbcc094c2'
+            transactionsRoot: '0x29b9880f57c0e79d0be5aa4fcc6b4cfcbed3e51478ad8f44533acce012df8cf1'
+            uncles: []
+    KlayGetBlockTransactionCountByHashReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: eth_getBlockTransactionCountByHash
+        params:
+          type: array
+          description: Hash of a block.
+          items:
+            title: blockHash
+            type: string
+            format: 32-byte DATA
+          example:
+            - '0x0c11803ab36110db993e7520908b9ba9336cca2f2dcc9b6130c481a3ccdc2621'
+    EthGetHeaderByNumberReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: eth_getHeaderByNumber
+        params:
+          type: array
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BlockNumberOrTag'
+          example:
+            - '0x1b4'
+    EthHeaderObject:
+      title: EthHeaderObject
+      type: object
+      required:
+        - baseFeePerGas
+        - difficulty
+        - extraData
+        - gasLimit
+        - gasUsed
+        - hash
+        - logsBloom
+        - miner
+        - mixHash
+        - nonce
+        - number
+        - parentHash
+        - receiptsRoot
+        - sha3Uncles
+        - size
+        - stateRoot
+        - timestamp
+        - totalDifficulty
+        - transactionsRoot
+      properties:
+        baseFeePerGas:
+          type: string
+          format: hex
+          description: The base fee per gas.
+        difficulty:
+          type: string
+          format: hex
+          description: The integer of the difficulty for this block.
+        extraData:
+          type: string
+          format: DATA
+          description: The "extra data" field of this block.
+        gasLimit:
+          type: string
+          format: hex
+          description: The maximum gas allowed in this block.
+        gasUsed:
+          type: string
+          format: hex
+          description: The total used gas by all transactions in this block.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block. null when it is a pending block.
+        logsBloom:
+          type: string
+          format: 256-byte DATA
+          description: The bloom filter for the logs of the block.
+        miner:
+          type: string
+          format: 20-byte DATA
+          description: The address of the beneficiary to whom the mining rewards were given.
+        mixHash:
+          type: string
+          format: 32-byte DATA
+          description: The hash which proves combined with the nonce that a sufficient amount of computation has been carried out on this block.
+        nonce:
+          type: string
+          format: 8-byte DATA
+          description: The hash of the generated proof-of-work.
+        number:
+          type: string
+          format: hex
+          description: The block number. null when it is a pending block.
+        parentHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the parent block.
+        receiptsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the receipts trie of the block.
+        sha3Uncles:
+          type: string
+          format: 32-byte DATA
+          description: The SHA3 of the uncles data in the block.
+        size:
+          type: string
+          format: hex
+          description: Integer of the size of this block in bytes.
+        stateRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the final state trie of the block.
+        timestamp:
+          type: string
+          format: hex
+          description: The Unix timestamp for when the block was collated.
+        totalDifficulty:
+          type: string
+          format: hex
+          description: The total blockScore of the chain until this block.
+        transactionsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the transaction trie of the block.
+      example:
+        baseFeePerGas: '0x5d21dba00'
+        difficulty: '0x1'
+        extraData: '0xd8820505846b6c617988676f312e31312e328664617277696e00000000000000f89ed594e733cb4d279da696f30d470f8c04decb54fcb0d2b841f1f600d136f93a5a2d9c12a7a9f6d7ba80a047c3910a2bbc01e38bcce25e48ed2004d21f134df5efaf1f8cbb9a26e1548e57628ab258c935490c11a7cd65324701f843b841444b3efc40071b6eec2c4d2630b483710b8fc7a601432431b0161f489102d1ca02f2ef93153d0be3843aa563d34cee1716163f58711843442aedd94a56303c0400'
+        gasLimit: '0xe8d4a50fff'
+        gasUsed: '0x0'
+        governanceData: 0x
+        hash: '0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c'
+        logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+        miner: '0x0000000000000000000000000000000000000000'
+        mixHash: '0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365'
+        nonce: '0x0000000000000000'
+        number: '0x1'
+        parentHash: '0x73255a60e9491b5715f9bfcb7fa1143296810f629836d4cefbd1921d9173d63d'
+        receiptsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
+        reward: '0x0000000000000000000000000000000000000000'
+        size: '0x2d7'
+        stateRoot: '0xedb87f4b0f905a655c80d1768eb22b1eff2405098c4748b8364c869611e02a2b'
+        timestamp: '0x5c99cbd8'
+        totalDifficulty: '0x2'
+        transactions: []
+        transactionsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
+        uncles: []
+    EthGetHeaderByNumberResp:
+      title: EthGetHeaderByNumberResp
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/EthHeaderObject'
+    EthGetHeaderByHashReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: eth_getHeaderByHash
+        params:
+          type: array
+          items:
+            type: string
+            format: 32-byte DATA
+            title: blockHash
+          description: Hash of a block.
+          example:
+            - '0x1b4'
+    EthGetHeaderByHashResp:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/EthHeaderObject'
+    schemas-EthGetHeaderByHashReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: eth_getStorageAt
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                title: Address
+                description: Address of the storage.
+                format: 20-byte DATA
+              - type: string
+                title: Quantity
+                description: Integer of the position in the storage.
+                format: hex
+              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+          example:
+            - '0x295a70b2de5e3953354a6a8344e616ed314d7251'
+            - '0x0'
+            - latest
+    schemas-EthGetHeaderByHashResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: DATA
+          description: The value at this storage position.
+          example: '0x00000000000000000000000000000000000000000000000000000000000004d2'
+    EthGetUncleCountByBlockHashReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: eth_getUncleCountByBlockHash
+        params:
+          type: array
+          items:
+            title: BlockHash
+            description: Hash of a block.
+            type: string
+            format: 32-byte DATA
+          example:
+            - '0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c'
+    EthGetUncleCountByBlockHashResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: hex
+          nullable: true
+          description: Integer of the number of transactions in this block. It returns null if there is no matching block.
+          example: '0x0'
+    EthGetUncleByBlockHashAndIndexReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: eth_getUncleByBlockHashAndIndex
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: BlockHash
+                description: Hash of a block.
+                type: string
+                format: 32-byte DATA
+              - title: UncleIndex
+                description: The uncle's index position.
+                type: string
+                format: hex
+          example:
+            - '0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c'
+            - '0x1'
+    EthGetUncleByBlockHashAndIndexResp:
+      type: object
+      properties:
+        result:
+          type: string
+          nullable: true
+          default: null
+    EthGetUncleByBlockNumberAndIndexReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: eth_getUncleByBlockNumberAndIndex
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BlockNumberOrTag'
+              - title: UncleIndex
+                description: The uncle's index position.
+                type: string
+                format: hex
+          example:
+            - '0xe8'
+            - '0x1'
+    EthGetUncleByBlockNumberAndIndexResp:
+      type: object
+      properties:
+        result:
+          type: string
+          nullable: true
+          default: null
+    EthGetUncleCountByBlockNumberReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: eth_getUncleCountByBlockNumber
+        params:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/BlockNumberOrTag'
+          example:
+            - '0xe8'
+    EthGetUncleCountByBlockNumberResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: hex
+          description: Integer of the number of transactions in this block. It returns null if there is no matching block.
+          example: '0x0'
+    EthMiningReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: eth_mining
+    EthMiningResp:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+    EthGetBlockTransactionCountByNumberReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: eth_getBlockTransactionCountByNumber
+        params:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockNumberOrTag'
+          example:
+            - '0xe8'
+    EthGetBlockTransactionCountByNumberResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: hex
+    EthCallObject:
+      title: EthCallObject
+      type: object
+      description: The transaction call object. See the next table for the object's properties.
+      properties:
+        from:
+          type: string
+          format: 20-byte DATA
+          description: (optional) Address the transaction is simulated to have been sent from. The 0x00..0 address is used if no address is specified.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: (optional) Address the transaction is sent to.
+        gas:
+          type: string
+          format: hex
+          description: (optional) Maximum gas allowance for the code execution to avoid infinite loops. Defaults to 2^63 or whatever value the node operator specified via --rpc.gascap.
+        gasPrice:
+          type: string
+          format: hex
+          description: (optional) Number of peb to simulate paying for each unit of gas during execution. Defaults to 0 peb.
+        value:
+          type: string
+          format: hex
+          description: (optional) Amount of peb to simulate sending along with the transaction. Defaults to 0.
+        input:
+          type: string
+          format: DATA
+          description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
+    StateOverrideSet:
+      type: object
+      description: The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call.
+      properties:
+        balance:
+          type: integer
+          format: int64
+          description: (optional) Fake balance to set for the account before executing the call.
+        nonce:
+          type: integer
+          format: int64
+          description: (optional) Fake nonce to set for the account before executing the call.
+        code:
+          type: string
+          format: DATA
+          description: (optional) Fake EVM bytecode to inject into the account before executing the call.
+        state:
+          type: object
+          description: (optional) Fake key-value mapping to override all slots in the account storage before executing the call.
+        stateDiff:
+          type: object
+          description: (optional) Fake key-value mapping to override individual slots in the account storage before executing the call.
+    KlayCallReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: eth_call
+        params:
+          type: array
+          items:
+            anyOf:
+              - allOf:
+                  - title: callObject
+                  - $ref: '#/components/schemas/EthCallObject'
+              - $ref: '#/components/schemas/BlockNumberOrTag'
+              - $ref: '#/components/schemas/StateOverrideSet'
+          example:
+            - from: '0xca7a99380131e6c76cfa622396347107aeedca2d'
+              to: '0xbE3892d33620bE5aca8c75D39e7401871194d290'
+              input: '0x2e64cec1'
+            - latest
+            - '0xbE3892d33620bE5aca8c75D39e7401871194d290':
+                code: '0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e64cec114604e5780636057361d146076575b600080fd5b348015605957600080fd5b50606060a0565b6040518082815260200191505060405180910390f35b348015608157600080fd5b50609e6004803603810190808035906020019092919050505060a9565b005b60008054905090565b80600081905550505600a165627a7a723058207783dba41884f73679e167576362b7277f88458815141651f48ca38c25b498f80029'
+    KlayCallResp:
+      type: object
+      properties:
+        result:
+          type: string
+          example: '0x0000000000000000000000000000000000000000000000000000000000000000'
+    EthGetTransactionByBlockHashAndIndexReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: eth_getTransactionByBlockHashAndIndex
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: BlockHash
+                description: Hash of a block.
+                type: string
+                format: 32-byte DATA
+              - title: TransactionIndexPosition
+                description: Integer of the transaction index position.
+                type: string
+                format: hex
+          example:
+            - '0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68'
+            - '0x0'
     LegacyTransaction:
       title: LegacyTransaction
       type: object
@@ -4701,741 +6450,6 @@ components:
           type: string
           format: 32-byte DATA
           description: ECDSA signature s.
-    EthBlockObject:
-      type: object
-      required:
-        - baseFeePerGas
-        - difficulty
-        - extraData
-        - gasLimit
-        - gasUsed
-        - hash
-        - logsBloom
-        - miner
-        - mixHash
-        - nonce
-        - number
-        - parentHash
-        - receiptsRoot
-        - sha3Uncles
-        - size
-        - stateRoot
-        - timestamp
-        - totalDifficulty
-        - transactionsRoot
-      properties:
-        baseFeePerGas:
-          type: string
-          format: hex
-          description: The base fee per gas.
-        difficulty:
-          type: string
-          format: hex
-          description: The integer of the difficulty for this block
-        extraData:
-          type: string
-          format: DATA
-          description: The "extra data" field of this block.
-        gasLimit:
-          type: string
-          format: hex
-          description: The maximum gas allowed in this block.
-        gasUsed:
-          type: string
-          format: hex
-          description: The total used gas by all transactions in this block.
-        hash:
-          type: string
-          format: 32-byte DATA
-          description: Hash of the block. null when it is a pending block.
-        logsBloom:
-          type: string
-          format: 256-byte DATA
-          description: The bloom filter for the logs of the block. null when it is a pending block.
-        miner:
-          type: string
-          format: 20-byte DATA
-          description: The address of the beneficiary to whom the mining rewards were given.
-        mixHash:
-          type: string
-          format: 32-byte DATA
-          description: The hash which proves combined with the nonce that a sufficient amount of computation has been carried out on this block.
-        nonce:
-          type: string
-          format: 8-byte DATA
-          description: The hash of the generated proof-of-work.
-        number:
-          type: string
-          format: hex
-          description: The block number. null when it is a pending block.
-        parentHash:
-          type: string
-          format: 32-byte DATA
-          description: Hash of the parent block.
-        receiptsRoot:
-          type: string
-          format: 32-byte DATA
-          description: The root of the receipts trie of the block.
-        sha3Uncles:
-          type: string
-          format: 32-byte DATA
-          description: The SHA3 of the uncles data in the block.
-        size:
-          type: string
-          format: hex
-          description: Integer of the size of this block in bytes.
-        stateRoot:
-          type: string
-          format: 32-byte DATA
-          description: The root of the final state trie of the block.
-        timestamp:
-          type: string
-          format: hex
-          description: The Unix timestamp for when the block was collated.
-        totalDifficulty:
-          type: string
-          format: hex
-          description: The total blockScore of the chain until this block
-        transactionsRoot:
-          type: string
-          format: 32-byte DATA
-          description: The root of the transaction trie of the block.
-        transactions:
-          type: array
-          description: Array of transaction objects, or 32-byte transaction hashes depending on the last given parameter.
-          items:
-            anyOf:
-              - $ref: '#/components/schemas/LegacyTransaction'
-              - $ref: '#/components/schemas/AccessListTransaction'
-              - $ref: '#/components/schemas/DynamicFeeTransaction'
-              - type: string
-                format: 32-byte DATA
-                description: 32-byte transaction hash
-        uncles:
-          type: array
-          description: Array of uncle hashes.
-          items:
-            type: string
-            format: 32-byte DATA
-      example:
-        baseFeePerGas: '0x5d21dba00'
-        difficulty: '0x1'
-        extraData: '0xd8820505846b6c617988676f312e31312e328664617277696e00000000000000f89ed594e733cb4d279da696f30d470f8c04decb54fcb0d2b841f1f600d136f93a5a2d9c12a7a9f6d7ba80a047c3910a2bbc01e38bcce25e48ed2004d21f134df5efaf1f8cbb9a26e1548e57628ab258c935490c11a7cd65324701f843b841444b3efc40071b6eec2c4d2630b483710b8fc7a601432431b0161f489102d1ca02f2ef93153d0be3843aa563d34cee1716163f58711843442aedd94a56303c0400'
-        gasLimit: '0xe8d4a50fff'
-        gasUsed: '0x0'
-        governanceData: 0x
-        hash: '0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c'
-        logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
-        miner: '0x0000000000000000000000000000000000000000'
-        mixHash: '0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365'
-        nonce: '0x0000000000000000'
-        number: '0x1'
-        parentHash: '0x73255a60e9491b5715f9bfcb7fa1143296810f629836d4cefbd1921d9173d63d'
-        receiptsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
-        reward: '0x0000000000000000000000000000000000000000'
-        size: '0x2d7'
-        stateRoot: '0xedb87f4b0f905a655c80d1768eb22b1eff2405098c4748b8364c869611e02a2b'
-        timestamp: '0x5c99cbd8'
-        totalDifficulty: '0x2'
-        transactions: []
-        transactionsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
-        uncles: []
-    KlayGetBlockByHashResp:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/EthBlockObject'
-    BlockNumberOrTag:
-      oneOf:
-        - $ref: '#/components/schemas/IntegerBlockNumber'
-        - $ref: '#/components/schemas/HexadecimalBlockNumber'
-        - $ref: '#/components/schemas/BlockTag'
-    EthGetBlockByNumberReq:
-      type: object
-      required:
-        - method
-        - params
-      properties:
-        method:
-          type: string
-          default: eth_getBlockByNumber
-        params:
-          type: array
-          items:
-            anyOf:
-              - $ref: '#/components/schemas/BlockNumberOrTag'
-              - type: boolean
-                description: If true it returns the full transaction objects, if false only the hashes of the transactions.
-          example:
-            - '0x3111a0577f322e8fb54f78d9982a26ae7ca0f722'
-            - latest
-    EthGetBlockByNumberResp:
-      type: object
-      required:
-        - baseFeePerGas
-        - difficulty
-        - extraData
-        - gasLimit
-        - gasUsed
-        - hash
-        - logsBloom
-        - miner
-        - mixHash
-        - nonce
-        - number
-        - parentHash
-        - receiptsRoot
-        - sha3Uncles
-        - size
-        - stateRoot
-        - timestamp
-        - totalDifficulty
-        - transactionsRoot
-        - transactions
-        - uncles
-      properties:
-        baseFeePerGas:
-          type: string
-          format: hex
-          description: The base fee per gas.
-        difficulty:
-          type: string
-          format: hex
-          description: The integer of the difficulty for this block
-        extraData:
-          type: string
-          format: DATA
-          description: The "extra data" field of this block.
-        gasLimit:
-          type: string
-          format: hex
-          description: The maximum gas allowed in this block.
-        gasUsed:
-          type: string
-          format: hex
-          description: The total used gas by all transactions in this block.
-        hash:
-          type: string
-          format: 32-byte DATA
-          description: Hash of the block. null when it is a pending block.
-        logsBloom:
-          type: string
-          format: 256-byte DATA
-          description: The bloom filter for the logs of the block. null when it is a pending block.
-        miner:
-          type: string
-          format: 20-byte DATA
-          description: The address of the beneficiary to whom the mining rewards were given.
-        mixHash:
-          type: string
-          format: 32-byte DATA
-          description: The hash which proves combined with the nonce that a sufficient amount of computation has been carried out on this block.
-        nonce:
-          type: string
-          format: 8-byte DATA
-          description: The hash of the generated proof-of-work.
-        number:
-          type: string
-          format: hex
-          description: The block number. null when it is a pending block.
-        parentHash:
-          type: string
-          format: 32-byte DATA
-          description: Hash of the parent block.
-        receiptsRoot:
-          type: string
-          format: 32-byte DATA
-          description: The root of the receipts trie of the block.
-        sha3Uncles:
-          type: string
-          format: 32-byte DATA
-          description: The SHA3 of the uncles data in the block.
-        size:
-          type: string
-          format: hex
-          description: Integer of the size of this block in bytes.
-        stateRoot:
-          type: string
-          format: 32-byte DATA
-          description: The root of the final state trie of the block.
-        timestamp:
-          type: string
-          format: hex
-          description: The Unix timestamp for when the block was collated.
-        totalDifficulty:
-          type: string
-          format: hex
-          description: The total blockScore of the chain until this block
-        transactionsRoot:
-          type: string
-          format: 32-byte DATA
-          description: The root of the transaction trie of the block.
-        transactions:
-          type: array
-          items:
-            type: object
-          description: Array of transaction objects, or 32-byte transaction hashes depending on the last given parameter.
-        uncles:
-          type: array
-          items:
-            type: string
-          description: Array of uncle hashes.
-      example:
-        baseFeePerGas: '0x0'
-        blockscore: '0x1'
-        extraData: '0xda83010800846b6c617989676f312e31362e31338664617277696e0000000000f89ed5949712f943b296758aaae79944ec975884188d3a96b841ddfdf7e2cb0a93538f757f87f23a93ee35df703c781c6f15e31e4978ecdfb3501fc00924372b9a01df2bc452f2a924c242d83580183d131c47e49a25b78f625201f843b841b9b6034d5a8c5f5b057274cda4f427614cd1f448ee781f4c4322861d1361d09d47d6030f2b69a26cb426db984f54e71f8c112fbf882930ccd715d595e8d8307500'
-        gasUsed: '0x0'
-        governanceData: 0x
-        hash: '0xe882d7a16f38126dc0c507f990b3fe18fa2d3a380002538581327abe96ca6edc'
-        logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
-        number: '0x1e67'
-        parentHash: '0x28b1c054346c3bd083741c757a750dcabf94b6d50c7f87158753544e96e73550'
-        receiptsRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
-        reward: '0x4b2c736fd05c2e2da3ccbd001a395a444f16a861'
-        size: '0x272'
-        stateRoot: '0xdf9885621c9e6e75912ca94d6987bcb1b54fef0e4a99cbec5e68f1ffc7468a78'
-        timestamp: '0x62130beb'
-        timestampFoS: '0x0'
-        totalBlockScore: '0x1e68'
-        transactions: []
-        transactionsRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
-        voteData: 0x
-    KlayGetBlockTransactionCountByHashReq:
-      type: object
-      required:
-        - method
-      properties:
-        method:
-          type: string
-          default: eth_getBlockTransactionCountByHash
-        params:
-          type: array
-          description: Hash of a block.
-          items:
-            title: blockHash
-            type: string
-            format: 32-byte DATA
-          example:
-            - '0x0c11803ab36110db993e7520908b9ba9336cca2f2dcc9b6130c481a3ccdc2621'
-    EthGetHeaderByNumberReq:
-      type: object
-      properties:
-        method:
-          type: string
-          default: eth_getHeaderByNumber
-        params:
-          type: array
-          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
-          items:
-            anyOf:
-              - $ref: '#/components/schemas/BlockNumberOrTag'
-          example:
-            - '0x1b4'
-    EthHeaderObject:
-      title: EthHeaderObject
-      type: object
-      required:
-        - baseFeePerGas
-        - difficulty
-        - extraData
-        - gasLimit
-        - gasUsed
-        - hash
-        - logsBloom
-        - miner
-        - mixHash
-        - nonce
-        - number
-        - parentHash
-        - receiptsRoot
-        - sha3Uncles
-        - size
-        - stateRoot
-        - timestamp
-        - totalDifficulty
-        - transactionsRoot
-      properties:
-        baseFeePerGas:
-          type: string
-          format: hex
-          description: The base fee per gas.
-        difficulty:
-          type: string
-          format: hex
-          description: The integer of the difficulty for this block.
-        extraData:
-          type: string
-          format: DATA
-          description: The "extra data" field of this block.
-        gasLimit:
-          type: string
-          format: hex
-          description: The maximum gas allowed in this block.
-        gasUsed:
-          type: string
-          format: hex
-          description: The total used gas by all transactions in this block.
-        hash:
-          type: string
-          format: 32-byte DATA
-          description: Hash of the block. null when it is a pending block.
-        logsBloom:
-          type: string
-          format: 256-byte DATA
-          description: The bloom filter for the logs of the block.
-        miner:
-          type: string
-          format: 20-byte DATA
-          description: The address of the beneficiary to whom the mining rewards were given.
-        mixHash:
-          type: string
-          format: 32-byte DATA
-          description: The hash which proves combined with the nonce that a sufficient amount of computation has been carried out on this block.
-        nonce:
-          type: string
-          format: 8-byte DATA
-          description: The hash of the generated proof-of-work.
-        number:
-          type: string
-          format: hex
-          description: The block number. null when it is a pending block.
-        parentHash:
-          type: string
-          format: 32-byte DATA
-          description: Hash of the parent block.
-        receiptsRoot:
-          type: string
-          format: 32-byte DATA
-          description: The root of the receipts trie of the block.
-        sha3Uncles:
-          type: string
-          format: 32-byte DATA
-          description: The SHA3 of the uncles data in the block.
-        size:
-          type: string
-          format: hex
-          description: Integer of the size of this block in bytes.
-        stateRoot:
-          type: string
-          format: 32-byte DATA
-          description: The root of the final state trie of the block.
-        timestamp:
-          type: string
-          format: hex
-          description: The Unix timestamp for when the block was collated.
-        totalDifficulty:
-          type: string
-          format: hex
-          description: The total blockScore of the chain until this block.
-        transactionsRoot:
-          type: string
-          format: 32-byte DATA
-          description: The root of the transaction trie of the block.
-      example:
-        baseFeePerGas: '0x5d21dba00'
-        difficulty: '0x1'
-        extraData: '0xd8820505846b6c617988676f312e31312e328664617277696e00000000000000f89ed594e733cb4d279da696f30d470f8c04decb54fcb0d2b841f1f600d136f93a5a2d9c12a7a9f6d7ba80a047c3910a2bbc01e38bcce25e48ed2004d21f134df5efaf1f8cbb9a26e1548e57628ab258c935490c11a7cd65324701f843b841444b3efc40071b6eec2c4d2630b483710b8fc7a601432431b0161f489102d1ca02f2ef93153d0be3843aa563d34cee1716163f58711843442aedd94a56303c0400'
-        gasLimit: '0xe8d4a50fff'
-        gasUsed: '0x0'
-        governanceData: 0x
-        hash: '0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c'
-        logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
-        miner: '0x0000000000000000000000000000000000000000'
-        mixHash: '0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365'
-        nonce: '0x0000000000000000'
-        number: '0x1'
-        parentHash: '0x73255a60e9491b5715f9bfcb7fa1143296810f629836d4cefbd1921d9173d63d'
-        receiptsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
-        reward: '0x0000000000000000000000000000000000000000'
-        size: '0x2d7'
-        stateRoot: '0xedb87f4b0f905a655c80d1768eb22b1eff2405098c4748b8364c869611e02a2b'
-        timestamp: '0x5c99cbd8'
-        totalDifficulty: '0x2'
-        transactions: []
-        transactionsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
-        uncles: []
-    EthGetHeaderByNumberResp:
-      title: EthGetHeaderByNumberResp
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/EthHeaderObject'
-    EthGetHeaderByHashReq:
-      type: object
-      required:
-        - method
-        - params
-      properties:
-        method:
-          type: string
-          default: eth_getHeaderByHash
-        params:
-          type: array
-          items:
-            type: string
-            format: 32-byte DATA
-            title: blockHash
-          description: Hash of a block.
-          example:
-            - '0x1b4'
-    EthGetHeaderByHashResp:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/EthHeaderObject'
-    schemas-EthGetHeaderByHashReq:
-      type: object
-      required:
-        - method
-        - params
-      properties:
-        method:
-          type: string
-          default: eth_getStorageAt
-        params:
-          type: array
-          items:
-            anyOf:
-              - type: string
-                title: Address
-                description: Address of the storage.
-                format: 20-byte DATA
-              - type: string
-                title: Quantity
-                description: Integer of the position in the storage.
-                format: hex
-              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
-          example:
-            - '0x295a70b2de5e3953354a6a8344e616ed314d7251'
-            - '0x0'
-            - latest
-    schemas-EthGetHeaderByHashResp:
-      type: object
-      properties:
-        result:
-          type: string
-          format: DATA
-          description: The value at this storage position.
-          example: '0x00000000000000000000000000000000000000000000000000000000000004d2'
-    EthGetUncleCountByBlockHashReq:
-      type: object
-      required:
-        - method
-      properties:
-        method:
-          type: string
-          default: eth_getUncleCountByBlockHash
-        params:
-          type: array
-          items:
-            title: blockHash
-            description: Hash of a block.
-            type: string
-            format: 32-byte DATA
-          example:
-            - '0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c'
-    EthGetUncleCountByBlockHashResp:
-      type: object
-      properties:
-        result:
-          type: string
-          format: hex
-          description: Integer of the number of transactions in this block. It returns null if there is no matching block.
-          example: '0x0'
-    EthGetUncleByBlockHashAndIndexReq:
-      type: object
-      required:
-        - method
-      properties:
-        method:
-          type: string
-          default: eth_getUncleByBlockHashAndIndex
-        params:
-          type: array
-          items:
-            anyOf:
-              - title: blockHash
-                description: Hash of a block.
-                type: string
-                format: 32-byte DATA
-              - title: uncleIndex
-                description: The uncle's index position.
-                type: string
-                format: hex
-          example:
-            - '0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c'
-            - '0x1'
-    EthGetUncleByBlockHashAndIndexResp:
-      type: object
-      properties:
-        result:
-          type: string
-          example: null
-    EthGetUncleByBlockNumberAndIndexReq:
-      type: object
-      required:
-        - method
-      properties:
-        method:
-          type: string
-          default: eth_getUncleByBlockNumberAndIndex
-        params:
-          type: array
-          items:
-            anyOf:
-              - $ref: '#/components/schemas/BlockNumberOrTag'
-              - title: uncleIndex
-                description: The uncle's index position.
-                type: string
-                format: hex
-          example:
-            - '0xe8'
-            - '0x1'
-    EthGetUncleByBlockNumberAndIndexResp:
-      type: object
-      properties:
-        result:
-          type: string
-          example: null
-    EthGetUncleCountByBlockNumberReq:
-      type: object
-      required:
-        - method
-      properties:
-        method:
-          type: string
-          default: eth_getUncleCountByBlockNumber
-        params:
-          type: array
-          items:
-            allOf:
-              - $ref: '#/components/schemas/BlockNumberOrTag'
-          example:
-            - '0xe8'
-    EthGetUncleCountByBlockNumberResp:
-      type: object
-      properties:
-        result:
-          type: string
-          format: hex
-          description: Integer of the number of transactions in this block. It returns null if there is no matching block.
-          example: '0x0'
-    EthMiningReq:
-      type: object
-      properties:
-        method:
-          type: string
-          default: eth_mining
-    EthMiningResp:
-      type: object
-      properties:
-        result:
-          type: boolean
-          example: true
-    EthCallObject:
-      title: EthCallObject
-      type: object
-      description: The transaction call object. See the next table for the object's properties.
-      properties:
-        from:
-          type: string
-          format: 20-byte DATA
-          description: (optional) Address the transaction is simulated to have been sent from. The 0x00..0 address is used if no address is specified.
-        to:
-          type: string
-          format: 20-byte DATA
-          description: (optional) Address the transaction is sent to.
-        gas:
-          type: string
-          format: hex
-          description: (optional) Maximum gas allowance for the code execution to avoid infinite loops. Defaults to 2^63 or whatever value the node operator specified via --rpc.gascap.
-        gasPrice:
-          type: string
-          format: hex
-          description: (optional) Number of peb to simulate paying for each unit of gas during execution. Defaults to 0 peb.
-        value:
-          type: string
-          format: hex
-          description: (optional) Amount of peb to simulate sending along with the transaction. Defaults to 0.
-        input:
-          type: string
-          format: DATA
-          description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
-    StateOverrideSet:
-      type: object
-      description: The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call.
-      properties:
-        balance:
-          type: integer
-          format: int64
-          description: (optional) Fake balance to set for the account before executing the call.
-        nonce:
-          type: integer
-          format: int64
-          description: (optional) Fake nonce to set for the account before executing the call.
-        code:
-          type: string
-          format: DATA
-          description: (optional) Fake EVM bytecode to inject into the account before executing the call.
-        state:
-          type: object
-          description: (optional) Fake key-value mapping to override all slots in the account storage before executing the call.
-        stateDiff:
-          type: object
-          description: (optional) Fake key-value mapping to override individual slots in the account storage before executing the call.
-    KlayCallReq:
-      type: object
-      required:
-        - method
-      properties:
-        method:
-          type: string
-          default: eth_call
-        params:
-          type: array
-          items:
-            anyOf:
-              - allOf:
-                  - title: callObject
-                  - $ref: '#/components/schemas/EthCallObject'
-              - $ref: '#/components/schemas/BlockNumberOrTag'
-              - $ref: '#/components/schemas/StateOverrideSet'
-          example:
-            - from: '0xca7a99380131e6c76cfa622396347107aeedca2d'
-              to: '0xbE3892d33620bE5aca8c75D39e7401871194d290'
-              input: '0x2e64cec1'
-            - latest
-            - '0xbE3892d33620bE5aca8c75D39e7401871194d290':
-                code: '0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e64cec114604e5780636057361d146076575b600080fd5b348015605957600080fd5b50606060a0565b6040518082815260200191505060405180910390f35b348015608157600080fd5b50609e6004803603810190808035906020019092919050505060a9565b005b60008054905090565b80600081905550505600a165627a7a723058207783dba41884f73679e167576362b7277f88458815141651f48ca38c25b498f80029'
-    KlayCallResp:
-      type: object
-      properties:
-        result:
-          type: string
-          example: '0x0000000000000000000000000000000000000000000000000000000000000000'
-    EthGetTransactionByBlockHashAndIndexReq:
-      type: object
-      required:
-        - method
-      properties:
-        method:
-          type: string
-          default: eth_getTransactionByBlockHashAndIndex
-        params:
-          type: array
-          items:
-            anyOf:
-              - title: BlockHash
-                description: Hash of a block.
-                type: string
-                format: 32-byte DATA
-              - title: TransactionIndexPosition
-                description: Integer of the transaction index position.
-                type: string
-                format: hex
-          example:
-            - '0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68'
-            - '0x0'
     EthGetTransactionByBlockHashAndIndexResp:
       type: object
       properties:
@@ -5663,15 +6677,11 @@ components:
       properties:
         result:
           $ref: '#/components/schemas/TransactionReceiptObject'
-    TransactionArgs:
+    TransactionArgsInEthSendTransaction:
       title: TransactionArgs
       type: object
       required:
         - from
-        - gas
-        - maxFeePerGas
-        - maxPriorityFeePerGas
-        - nonce
       properties:
         from:
           type: string
@@ -5716,7 +6726,14 @@ components:
         params:
           type: array
           items:
-            $ref: '#/components/schemas/TransactionArgs'
+            $ref: '#/components/schemas/TransactionArgsInEthSendTransaction'
+          example:
+            - from: '0xca7a99380131e6c76cfa622396347107aeedca2d'
+              to: '0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee'
+              value: '0x1'
+              gas: '0x9999'
+              maxFeePerGas: '0x5d21dba00'
+              maxPriorityFeePerGas: '0x5d21dba00'
     KlaySendTransactionResp:
       type: object
       properties:
@@ -5777,6 +6794,14 @@ components:
                 type: string
                 format: hex
                 description: The integer of a nonce.
+          example:
+            - from: '0xca7a99380131e6c76cfa622396347107aeedca2d'
+              to: '0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee'
+              value: '0x1'
+              gas: '0x9999'
+              maxFeePerGas: '0x5d21dba00'
+              maxPriorityFeePerGas: '0x5d21dba00'
+              nonce: '0x1'
     KlaySignTransactionResp:
       type: object
       properties:
@@ -5818,14 +6843,17 @@ components:
                 gasPrice:
                   type: string
                   format: hex
+                  nullable: true
                   description: Gas price provided by the sender in peb. null when it is not a legacy transaction.
                 maxFeePerGas:
                   type: string
                   format: hex
+                  nullable: true
                   description: A maximum amount to pay for the transaction to execute. null when it is a legacy transaction.
                 maxPriorityFeePerGas:
                   type: string
                   format: hex
+                  nullable: true
                   description: Gas tip cap for dynamic fee transaction in peb. null when it is a legacy transaction.
                 gas:
                   type: string
@@ -5861,39 +6889,32 @@ components:
                     properties:
                       address:
                         type: string
-                        format: 20-byte DATA
-                        description: The address of the account.
                       storageKeys:
                         type: array
                         items:
                           type: string
-                          format: 32-byte DATA
-                          description: The storage key of the account.
                 hash:
                   type: string
                   format: 32-byte DATA
                   description: Hash of the transaction.
           example:
-            jsonrpc: '2.0'
-            id: 1
-            result:
-              raw: '0x02f86f8302edaf048505d21dba008505d21dba00829999948c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee0180c001a0b6e16781d247b505aa8eaf363a6ea61e7c23c77ad64846ffda28e73e31304884a05a296904cd009506cb5ed006af016d2c5dab255966af9ba6f8fc352f75e9b079'
-              tx:
-                type: '0x2'
-                nonce: '0x4'
-                gasPrice: null
-                maxPriorityFeePerGas: '0x5d21dba00'
-                maxFeePerGas: '0x5d21dba00'
-                gas: '0x9999'
-                value: '0x1'
-                input: 0x
-                v: '0x1'
-                r: '0xb6e16781d247b505aa8eaf363a6ea61e7c23c77ad64846ffda28e73e31304884'
-                s: '0x5a296904cd009506cb5ed006af016d2c5dab255966af9ba6f8fc352f75e9b079'
-                to: '0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee'
-                chainId: '0x2edaf'
-                accessList: []
-                hash: '0x9cfbea4942b334050660ec7207f3323ee13e3196b06279f922404384acbf7b47'
+            raw: '0x02f86f8302edaf048505d21dba008505d21dba00829999948c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee0180c001a0b6e16781d247b505aa8eaf363a6ea61e7c23c77ad64846ffda28e73e31304884a05a296904cd009506cb5ed006af016d2c5dab255966af9ba6f8fc352f75e9b079'
+            tx:
+              type: '0x2'
+              nonce: '0x4'
+              gasPrice: null
+              maxPriorityFeePerGas: '0x5d21dba00'
+              maxFeePerGas: '0x5d21dba00'
+              gas: '0x9999'
+              value: '0x1'
+              input: 0x
+              v: '0x1'
+              r: '0xb6e16781d247b505aa8eaf363a6ea61e7c23c77ad64846ffda28e73e31304884'
+              s: '0x5a296904cd009506cb5ed006af016d2c5dab255966af9ba6f8fc352f75e9b079'
+              to: '0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee'
+              chainId: '0x2edaf'
+              accessList: []
+              hash: '0x9cfbea4942b334050660ec7207f3323ee13e3196b06279f922404384acbf7b47'
     ethPendingTransactionsReq:
       type: object
       required:
@@ -5909,27 +6930,103 @@ components:
           type: array
           description: An array of transactions.
           items:
-            $ref: '#/components/schemas/TransactionArgs'
-          example:
-            - blockHash: null
-              blockNumber: null
-              from: '0xca7a99380131e6c76cfa622396347107aeedca2d'
-              gas: '0x5208'
-              gasPrice: '0x5d21dba00'
-              maxFeePerGas: '0x5d21dba00'
-              maxPriorityFeePerGas: '0x5d21dba00'
-              hash: '0xb5cd867ccc356b86634092919fb1acf4e315618d6c804df3ec3d30d66b6baba5'
-              input: 0x
-              nonce: '0xdb'
-              to: '0x3e2ac308cd78ac2fe162f9522deb2b56d9da9499'
-              transactionIndex: null
-              value: '0x1'
+            type: object
+            required:
+              - type
+              - nonce
+              - gasPrice
+              - maxFeePerGas
+              - maxPriorityFeePerGas
+              - gas
+              - value
+              - v
+              - r
+              - s
+              - chainId
+              - accessList
+              - hash
+            properties:
+              type:
+                type: string
+                format: hex
+                description: An integer representing the type of the transaction.
+              nonce:
+                type: string
+                format: hex
+                description: The block number where this transaction was in.
+              gasPrice:
+                type: string
+                format: hex
+                nullable: true
+                description: Gas price provided by the sender in peb. null when it is not a legacy transaction.
+              maxFeePerGas:
+                type: string
+                format: hex
+                nullable: true
+                description: A maximum amount to pay for the transaction to execute. null when it is a legacy transaction.
+              maxPriorityFeePerGas:
+                type: string
+                format: hex
+                nullable: true
+                description: Gas tip cap for dynamic fee transaction in peb. null when it is a legacy transaction.
+              gas:
+                type: string
+                format: hex
+                description: Gas provided by the sender.
+              value:
+                type: string
+                format: hex
+                description: Integer of values sent with this transaction.
+              v:
+                type: string
+                format: hex
+                description: ECDSA recovery id.
+              r:
+                type: string
+                format: 32-byte DATA
+                description: ECDSA recovery r.
+              s:
+                type: string
+                format: 32-byte DATA
+                description: ECDSA recovery s.
+              chainId:
+                type: string
+                format: hex
+                description: Chain id set on the requested node.
+              accessList:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - address
+                    - storageKeys
+                  properties:
+                    address:
+                      type: string
+                    storageKeys:
+                      type: array
+                      items:
+                        type: string
+              hash:
+                type: string
+                format: 32-byte DATA
+                description: Hash of the transaction.
+            example:
               type: '0x2'
-              accessList: []
-              chainId: '0x2edaf'
+              nonce: '0x4'
+              gasPrice: null
+              maxPriorityFeePerGas: '0x5d21dba00'
+              maxFeePerGas: '0x5d21dba00'
+              gas: '0x9999'
+              value: '0x1'
+              input: 0x
               v: '0x1'
-              r: '0x73992e7c3b9f6cd73176969efa8509d8e9ae0739e24b03d514508f8ef03f19ef'
-              s: '0x7035dd8639e82ea3ba922ff02e1f21f4cff92d0de33050934f5c70908d61e8c3'
+              r: '0xb6e16781d247b505aa8eaf363a6ea61e7c23c77ad64846ffda28e73e31304884'
+              s: '0x5a296904cd009506cb5ed006af016d2c5dab255966af9ba6f8fc352f75e9b079'
+              to: '0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee'
+              chainId: '0x2edaf'
+              accessList: []
+              hash: '0x9cfbea4942b334050660ec7207f3323ee13e3196b06279f922404384acbf7b47'
     EthFillTransactionReq:
       type: object
       required:
@@ -5942,7 +7039,7 @@ components:
           type: array
           description: An object of transaction arguments. See the table below for the object's properties.
           items:
-            $ref: '#/components/schemas/TransactionArgs'
+            $ref: '#/components/schemas/TransactionArgsInEthSendTransaction'
           example:
             - from: '0xca7a99380131e6c76cfa622396347107aeedca2d'
               to: '0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee'
@@ -5978,14 +7075,17 @@ components:
         gasPrice:
           type: string
           format: hex
+          nullable: true
           description: Gas price provided by the sender in peb. null when it is not a legacy transaction.
         maxFeePerGas:
           type: string
           format: hex
+          nullable: true
           description: A maximum amount to pay for the transaction to execute. null when it is a legacy transaction.
         maxPriorityFeePerGas:
           type: string
           format: hex
+          nullable: true
           description: Gas tip cap for dynamic fee transaction in peb. null when it is a legacy transaction.
         gas:
           type: string
@@ -6314,11 +7414,11 @@ components:
         logIndex:
           type: string
           format: hex
-          description: Integer of the log index position in the block. null when its pending log.
+          description: Integer of the log index position in the block. null when it is a pending log.
         transactionIndex:
           type: string
           format: hex
-          description: Integer of the transactions index position log was created from. null when its pending log.
+          description: Integer of the transactions index position log was created from. null when pending.
         transactionHash:
           type: string
           format: 32-byte DATA
@@ -6391,9 +7491,9 @@ components:
           default: eth_uninstallFilter
         params:
           type: array
+          description: A filter id
           items:
-            title: filter
-            description: The filter id
+            title: Filter
             type: string
             format: hex
           example:
@@ -6426,13 +7526,14 @@ components:
             - type: string
               format: 20-byte DATA
               title: Address
-              description: (optional) Contract address or a list of addresses from which logs should originate.
+              description: Contract address
             - type: array
               title: ArrayOfAddress
               items:
                 type: string
                 format: 20-byte DATA
-              description: (optional) Contract address or a list of addresses from which logs should originate.
+                description: Address
+          description: (optional) Contract address or a list of addresses from which logs should originate.
         topics:
           type: array
           items:
@@ -6460,18 +7561,22 @@ components:
           type: array
           items:
             anyOf:
-              - title: nonce
+              - title: Nonce
                 description: The nonce found (64 bits)
                 type: string
                 format: 8-byte DATA
-              - title: powHash
+              - title: PowHash
                 description: The header’s pow-hash (256 bits)
                 type: string
                 format: 32-byte DATA
-              - title: mixDigest
+              - title: MixDigest
                 description: The mix digest (256 bits)
                 type: string
                 format: 32-byte DATA
+          example:
+            - '0x0000000000000001'
+            - '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
+            - '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
     KlaySubmitWorkResp:
       type: object
       properties:
@@ -6481,9 +7586,34 @@ components:
           example: false
     Topics:
       type: array
+      description: (optional) Array of 32-byte DATA topics. Topics are order-dependent. Each topic can also be an array of DATA with "or" options.
       items:
         type: string
         format: 32-byte DATA
+    schemas-FilterOptions:
+      title: FilterOptions
+      type: object
+      properties:
+        fromBlock:
+          allOf:
+            - $ref: '#/components/schemas/BlockNumberOrTag'
+            - description: |
+                (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
+        toBlock:
+          allOf:
+            - $ref: '#/components/schemas/BlockNumberOrTag'
+            - description: |
+                (optional, default: "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
+        address:
+          oneOf:
+            - type: array
+              items:
+                anyOf:
+                  - $ref: '#/components/schemas/Address'
+            - $ref: '#/components/schemas/Address'
+          description: (optional) Contract address or a list of addresses from which logs should originate.
+        topics:
+          $ref: '#/components/schemas/Topics'
     EthNewFilterReq:
       type: object
       required:
@@ -6496,19 +7626,7 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - allOf:
-                  - title: fromBlock
-                  - $ref: '#/components/schemas/BlockNumberOrTag'
-              - allOf:
-                  - title: toBlock
-                  - $ref: '#/components/schemas/BlockNumberOrTag'
-              - type: array
-                items:
-                  type: string
-                  format: 20-byte DATA
-                description: (optional) List of addresses from which logs should originate.
-              - $ref: '#/components/schemas/Topics'
+            $ref: '#/components/schemas/schemas-FilterOptions'
           example:
             - fromBlock: earliest
               toBlock: latest
@@ -6522,7 +7640,7 @@ components:
           type: string
           format: hex
           description: A filter id
-          example: 2.807153925964932e+38
+          example: '0xd32fd16b6906e67f6e2b65dcf48fc272'
     EthHashRateReq:
       type: object
       properties:
@@ -6716,7 +7834,7 @@ components:
           type: array
           items:
             anyOf:
-              - $ref: '#/components/schemas/BlockNumberOrHashOrTag'
+              - $ref: '#/components/schemas/BlockNumberOrTag'
               - type: string
                 format: hex
                 title: Index
@@ -6729,6 +7847,7 @@ components:
       properties:
         result:
           type: string
+          format: hex
           description: Hex representation of some bytes
           example: '0x0'
     EthGetRawTransactionByHashReq:
@@ -6742,11 +7861,11 @@ components:
           default: eth_getRawTransactionByHash
         params:
           type: array
+          description: Hex representation of a Keccak 256 hash
           items:
-            title: hash
+            title: Hash
             type: string
             format: hex
-            description: Hex representation of a Keccak 256 hash
           example:
             - '0x29b6cd965c7d9a53a6f068da259dce1d3810ba79fff8eebac5d4da14754e67e6'
     EthGetRawTransactionByHashResp:
@@ -6758,3 +7877,50 @@ components:
           title: dataWord
           description: Hex representation of some bytes
           example: 0x
+    EthGetProofResp:
+      type: object
+      properties:
+        result:
+          type: object
+          description: Object - A account object
+          properties:
+            balance:
+              type: string
+              format: hex
+              description: the balance of the account. See eth_getBalance
+            codeHash:
+              type: string
+              format: 32-byte DATA
+              description: hash of the code of the account. For a simple Account without code it will return
+            nonce:
+              type: string
+              format: hex
+              description: nonce of the account. See eth-getTransactionCount
+            storageHash:
+              type: string
+              format: DATA
+              description: SHA3 of the StorageRoot. All storage will deliver a MerkleProof starting with this rootHash.
+            accountProof:
+              type: array
+              items:
+                type: string
+              description: Array of rlp-serialized MerkleTree-Nodes, starting with the stateRoot-Node, following the path of the SHA3 (address) as key.
+            storageProof:
+              type: array
+              items:
+                type: object
+                properties:
+                  key:
+                    type: string
+                    format: hex
+                    description: the requested storage key
+                  value:
+                    type: string
+                    format: hex
+                    description: the storage value
+                  proof:
+                    type: array
+                    items:
+                      type: string
+                    description: Array of rlp-serialized MerkleTree-Nodes, starting with the storageHash-Node, following the path of the SHA3 (key) as path.
+              description: Array of storage-entries as requested. Each entry is an object with these properties

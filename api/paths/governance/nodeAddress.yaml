@@ -1,0 +1,71 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /governance/nodeAddress:
+    post:
+      operationId: nodeAddress
+      summary: "[nodeAddress]"
+      description: |
+        The nodeAddress property provides the address of the node that a user is using. It is derived from the nodekey and used to sign consensus messages. And the value of "governingnode" has to be one of validator's node address.
+
+        **JSONRPC:** `governance_nodeAddress`
+
+      tags:
+        - governance
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  required:
+                    - method
+                  properties:
+                    method:
+                      type: string
+                      default: 'governance_nodeAddress'
+
+      responses:
+        200:
+          description: 20 BYTE address of a node
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: 20-byte DATA
+                        description: 20 BYTE address of a node
+                        example: "0xe733cb4d279da696f30d470f8c04decb54fcb0d2"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/governance/nodeAddress.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/account/KlayAccountCreatedExample.java"
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: "../../../code-samples/javascript/klay/account/accountCreated.js"
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: "../../../code-samples/python/klay/account/accountCreated.py"
