@@ -1,7 +1,8 @@
-package opensdk.sdk.apis.eth.miscellaneous;
+package opensdk.sdk.apis.eth.filter;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthHashrateResponse;
+import opensdk.sdk.models.EthGetLogsResponse;
+import opensdk.sdk.models.FilterOptions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
@@ -10,13 +11,15 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 @DisplayName("Eth RPC Test")
-public class EthHashrateTest {
+public class EthGetLogTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+
     @Test
-    @DisplayName("RPC eth_hashrate")
+    @DisplayName("RPC eth_getLogs")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        EthHashrateResponse response = sdk.eth.hashrate().send();
-        assertNotNull(response.getResult());
+        FilterOptions options = new FilterOptions();
+        EthGetLogsResponse response = sdk.eth.getLogs(options).send();
+        response.getResult();
     }
 
 }
