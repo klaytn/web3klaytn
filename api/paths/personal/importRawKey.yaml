@@ -19,11 +19,6 @@ paths:
         
         Returns the address of the imported account.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | personal.importRawKey(keydata, passphrase) |
-        | RPC | {"method": "personal_importRawKey", "params": [keydata, passphrase]} |
-
         **JSONRPC:** `personal_importRawKey`
       tags:
         - personal

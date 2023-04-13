@@ -17,11 +17,6 @@ paths:
       description: |
         Returns the number of changed or modified state trie nodes.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | debug.getModifiedStorageNodesByNumber(startBlockNum, endBlockNum) |
-        | RPC | {"method": "debug_getModifiedStorageNodesByNumber", "params": [contractAddress, startBlockNum, endBlockNum]} |
-
         **JSONRPC:** `debug_getModifiedStorageNodesByNumber`
       tags:
         - debug

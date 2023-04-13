@@ -17,11 +17,6 @@ paths:
       description: |
         Retrieves a block and returns its pretty printed form.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | debug.printBlock(number) |
-        | RPC | {"method": "debug_printBlock", "params": [number]} |
-
         **JSONRPC:** `debug_printBlock`
       tags:
         - debug

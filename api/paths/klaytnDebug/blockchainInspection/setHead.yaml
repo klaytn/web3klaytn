@@ -17,11 +17,6 @@ paths:
       description: |
         Sets the current head of the local chain by block number.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | debug.setHead(number) |
-        | RPC | {"method": "debug_setHead", "params": [number]} |
-
         **JSONRPC:** `debug_setHead`
 
         **WARNING:** This API is not yet implemented and always returns "not yet implemented API" error.

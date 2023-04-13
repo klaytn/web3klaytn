@@ -17,11 +17,6 @@ paths:
       description: |
         Stops the pprof HTTP server.
         
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | debug.stopPProf() |
-        | RPC | {"method": "debug_stopPProf", "params": []} |
-
         **JSONRPC:** `debug_stopPProf`
         
       tags:

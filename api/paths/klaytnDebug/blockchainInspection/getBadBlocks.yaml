@@ -17,11 +17,6 @@ paths:
       description: |
         Returns a list of the last 'bad blocks' that the client has seen on the network.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | debug.getBadBlocks() |
-        | RPC | {"method": "debug_getBadBlocks", "params": []} |
-
         **JSONRPC:** `debug_getBadBlocks`
       tags:
         - debug

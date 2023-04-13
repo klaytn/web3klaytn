@@ -17,11 +17,6 @@ paths:
       description: |
         The stopWarmUp stops the currently running warm-up. This method takes no parameters, and returns null or an error depending on a warm-up was stopped or not.
         
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | debug.stopWarmUp() |
-        | RPC | {"method": "debug_stopWarmUp"} |
-
         **JSONRPC:** `debug_stopWarmUp`
       
       tags:

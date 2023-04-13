@@ -21,11 +21,6 @@ paths:
         
         See personal_ecRecover to verify the signature.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | personal.sign(message, account, password) |
-        | RPC | {"method": "personal_sign", "params": [message, account, password]} |
-
         **JSONRPC:** `personal_sign`
       tags:
         - personal

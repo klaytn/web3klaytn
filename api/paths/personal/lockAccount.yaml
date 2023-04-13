@@ -17,11 +17,6 @@ paths:
       description: |
         Removes the private key with a given address from memory. The account can no longer be used to send transactions.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | personal.lockAccount(address) |
-        | RPC | {"method": "personal_lockAccount", "params": [address]} |
-
         **JSONRPC:** `personal_lockAccount`
       tags:
         - personal

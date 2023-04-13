@@ -17,11 +17,6 @@ paths:
       description: |
         Requests a HD wallet to derive a new account, optionally pinning it for later reuse.
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | personal.deriveAccount(url, path, pin) |
-        | RPC | {"method": "personal_deriveAccount", "params": [url, path, pin]} |
-
         **JSONRPC:** `personal_deriveAccount`
       tags:
         - personal

@@ -17,11 +17,6 @@ paths:
       description: |
         The importChain is an administrative method that imports an exported chain from a file into a node. This method imports only blocks that haven't existed in a Klaytn node. This method does not delete any data of the existing chain.
        
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | admin.importChain(fileName) |
-        | RPC | {"method": "admin_importChain"}, "params": [fileName]} |
-
         **JSONRPC:** `admin_importChain`
 
       tags:

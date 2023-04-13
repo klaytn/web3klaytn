@@ -17,11 +17,6 @@ paths:
       description: |
         Retrieves the state that corresponds to the block number and returns a list of accounts (including storage and code).
 
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | debug.getBlockRlp(number) |
-        | RPC | {"method": "debug_getBlockRlp", "params": [number]} |
-
         **JSONRPC:** `debug_getBlockRlp`
       tags:
         - debug

@@ -17,11 +17,6 @@ paths:
       description: |
         The importChainFromString is an administrative method that imports a chain from a RLP-encoded string of blocks into a Klaytn node. This only works if there is no existing chain in a Klaytn node. This method does not delete any data of the existing chain.       
         
-        | Client | Method invocation |
-        |-----|-----|
-        | Console   | admin.importChainFromString(blockRlp) |
-        | RPC | {"method": "admin_importChainFromString"}, "params": [<blockRlp>]} |
-
         **JSONRPC:** `admin_importChainFromString`
 
       tags:
