@@ -60,10 +60,10 @@ paths:
         #   label: "Javascript"
         #   source:
         #     $ref: "../../../code-samples/javascript/eth/block/getBlockTransactionCountByNumber.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../../code-samples/python/eth/block/getBlockTransactionCountByNumber.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/block/getBlockTransactionCountByNumber.py"
 
 components:
   schemas:
