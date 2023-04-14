@@ -43,3 +43,13 @@ paths:
     $ref: ./myVotingPower.yaml#/paths/~1governance~1myVotingPower
   /governance/myVotes:
     $ref: ./myVotes.yaml#/paths/~1governance~1myVotes
+  /governance/itemsAt:
+    $ref: ./itemsAt.yaml#/paths/~1governance~1itemsAt
+  /governance/itemCacheFromDb:
+    $ref: ./itemCacheFromDb.yaml#/paths/~1governance~1itemCacheFromDb
+  /governance/getStakingInfo:
+    $ref: ./getStakingInfo.yaml#/paths/~1governance~1getStakingInfo
+  /governance/showTally:
+    $ref: ./showTally.yaml#/paths/~1governance~1showTally
+  /governance/totalVotingPower:
+    $ref: ./totalVotingPower.yaml#/paths/~1governance~1totalVotingPower

@@ -1,0 +1,85 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /governance/itemsAt:
+    post:
+      operationId: itemsAt
+      summary: "[itemsAt]"
+      description: |
+        The itemsAt returns governance items at specific block. It is the result of previous voting of the block and used as configuration for chain at the given block number.
+
+        **NOTE:** In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.
+
+        **JSONRPC:** `governance_itemsAt`
+
+      tags:
+        - governance
+
+      parameters:
+        - name: blockNumber
+          required: true
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  required:
+                    - method
+                    - params
+                  properties:
+                    method:
+                      type: string
+                      default: 'governance_itemsAt'
+                    params:
+                      type: array
+                      items:
+                        $ref: "../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+                      example: [0]
+
+      responses:
+        200:
+          description: governance items
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: object
+                        description: governance items
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/governance/itemsAt.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/account/KlayAccountCreatedExample.java"
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: "../../../code-samples/javascript/klay/account/accountCreated.js"
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: "../../../code-samples/python/klay/account/accountCreated.py"

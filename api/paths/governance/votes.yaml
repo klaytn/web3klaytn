@@ -16,7 +16,7 @@ paths:
       summary: "[votes]"
       description: |
         The votes returns the votes from all nodes in the epoch. These votes are gathered from the header of each block.
-        
+
         **JSONRPC:** `governance_votes`
 
       tags:
