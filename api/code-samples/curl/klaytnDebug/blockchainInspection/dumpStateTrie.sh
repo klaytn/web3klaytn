@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "debug_dumpStateTrie",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": [10]
+  "params": ["0x80"]
 }'
