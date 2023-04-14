@@ -72,7 +72,7 @@ paths:
         - lang: "javascript"
           label: "Javascript"
           source:
-            $ref: "../../../code-samples/javascript/klaytnDebug/blockchainInspection/getModifiedAccountsByHash.js"
+            $ref: "../../../code-samples/javascript/klaytnDebug/blockchainInspection/getModifiedAccountsByNumber.js"
         # - lang: "python"
         #   label: "Python"
         #   source:
