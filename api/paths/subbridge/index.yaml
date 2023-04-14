@@ -22,18 +22,18 @@ servers:
 paths:
   # subbridge:
   /subbridge/getReceiptFromParentChain:
-    $ref: ./subbridge/getReceiptFromParentChain.yaml#/paths/~1subbridge~1getReceiptFromParentChain
+    $ref: ./getReceiptFromParentChain.yaml#/paths/~1subbridge~1getReceiptFromParentChain
   /subbridge/deployBridge:
-    $ref: ./subbridge/deployBridge.yaml#/paths/~1subbridge~1deployBridge
+    $ref: ./deployBridge.yaml#/paths/~1subbridge~1deployBridge
   /subbridge/subscribeBridge:
-    $ref: ./subbridge/subscribeBridge.yaml#/paths/~1subbridge~1subscribeBridge
+    $ref: ./subscribeBridge.yaml#/paths/~1subbridge~1subscribeBridge
   /subbridge/unsubscribeBridge:
-    $ref: ./subbridge/unsubscribeBridge.yaml#/paths/~1subbridge~1unsubscribeBridge
+    $ref: ./unsubscribeBridge.yaml#/paths/~1subbridge~1unsubscribeBridge
   /subbridge/registerBridge:
-    $ref: ./subbridge/registerBridge.yaml#/paths/~1subbridge~1registerBridge
+    $ref: ./registerBridge.yaml#/paths/~1subbridge~1registerBridge
   /subbridge/deregisterBridge:
-    $ref: ./subbridge/deregisterBridge.yaml#/paths/~1subbridge~1deregisterBridge
+    $ref: ./deregisterBridge.yaml#/paths/~1subbridge~1deregisterBridge
   /subbridge/registerToken:
-    $ref: ./subbridge/registerToken.yaml#/paths/~1subbridge~1registerToken
+    $ref: ./registerToken.yaml#/paths/~1subbridge~1registerToken
   /subbridge/deregisterToken:
-    $ref: ./subbridge/deregisterToken.yaml#/paths/~1subbridge~1deregisterToken
+    $ref: ./deregisterToken.yaml#/paths/~1subbridge~1deregisterToken

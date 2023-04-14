@@ -22,13 +22,13 @@ paths:
         **JSONRPC:** `subbridge_deregisterBridge`
 
       parameters:
-        - name: account
+        - name: childAccount
           in: query
           required: true
           description: Address of bridge contract on child chain.
           schema:
             $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
-        - name: account
+        - name: parentAccount
           in: query
           required: true
           description: Address of bridge contract on parent chain.
@@ -77,10 +77,23 @@ components:
       type: object
       required:
         - method
+        - params
       properties:
         method:
           type: string
           default: 'subbridge_deregisterBridge'
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: ChildAccount
+                type: string
+                format: 20-byte DATA
+                description: Address of bridge contract on child chain.
+              - title: ParentAccount
+                type: string
+                format: 20-byte DATA
+                description: Address of bridge contract on parent chain.
 
     SubbridgeDeregisterBridgeResp:
       type: object

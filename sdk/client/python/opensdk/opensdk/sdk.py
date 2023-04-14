@@ -13,7 +13,9 @@ from txpool.opensdk_python_txpool.apis.tags.txpool_api import TxpoolApi
 from personal.opensdk_python_personal.api_client import ApiClient as PersonalApiClient
 from personal.opensdk_python_personal.configuration import Configuration as PersonalConfiguration
 from personal.opensdk_python_personal.apis.tags.personal_api import PersonalApi
-
+from debug.opensdk_python_debug.api_client import ApiClient as DebugApiClient
+from debug.opensdk_python_debug.configuration import Configuration as DebugConfiguration
+from debug.opensdk_python_debug.apis.tags.debug_api import DebugApi
 
 class OpenSDK:
 
@@ -39,3 +41,7 @@ class OpenSDK:
     @property
     def personal(self):
         return PersonalApi(PersonalApiClient(configuration=PersonalConfiguration(self.kalytn_url)))
+
+    @property
+    def debug(self):
+        return DebugApi(DebugApiClient(configuration=DebugConfiguration(self.kalytn_url)))
