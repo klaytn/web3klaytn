@@ -29,6 +29,22 @@ apis:
     root: ../paths/personal/index.yaml
     labels:
       - v1.10.6
+  klay@v1.10.7:
+    root: ../paths/governance/index.yaml
+    labels:
+      - v1.10.7
+  klay@v1.10.8:
+    root: ../paths/admin/index.yaml
+    labels:
+      - v1.10.8
+  klay@v1.10.9:
+    root: ../paths/mainbridge/index.yaml
+    labels:
+      - v1.10.9
+  klay@v1.10.10:
+    root: ../paths/subbridge/index.yaml
+    labels:
+      - v1.10.10
 extends:
   - recommended
 features.openapi:

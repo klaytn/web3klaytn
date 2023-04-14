@@ -1,4 +1,3 @@
-
 yarn build klay@v1.10.0 -o ../../site/klaytn-openapi.yaml
 yarn build klay@v1.10.1 -o ../../site/namespace/eth-openapi.yaml
 yarn build klay@v1.10.2 -o ../../site/namespace/klay-openapi.yaml
@@ -6,3 +5,7 @@ yarn build klay@v1.10.3 -o ../../site/namespace/net-openapi.yaml
 yarn build klay@v1.10.4 -o ../../site/namespace/txpool-openapi.yaml
 yarn build klay@v1.10.5 -o ../../site/namespace/klaytnDebug-openapi.yaml
 yarn build klay@v1.10.6 -o ../../site/namespace/personal-openapi.yaml
+yarn build klay@v1.10.7 -o ../../site/namespace/governance-openapi.yaml
+yarn build klay@v1.10.8 -o ../../site/namespace/admin-openapi.yaml
+yarn build klay@v1.10.9 -o ../../site/namespace/mainbridge-openapi.yaml
+yarn build klay@v1.10.10 -o ../../site/namespace/subbridge-openapi.yaml
