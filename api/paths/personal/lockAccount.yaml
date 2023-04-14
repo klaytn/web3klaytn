@@ -62,7 +62,7 @@ paths:
                         type: boolean
                         description: true if the account was successfully locked, false otherwise.
                         example: true
-      
+
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
@@ -72,10 +72,10 @@ paths:
           label: "Java"
           source:
             $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/personal/PersonalLockAccountExample.java"
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/personal/lockAccount.js"
         - lang: "python"
           label: "Python"
           source:
