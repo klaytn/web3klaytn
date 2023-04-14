@@ -25,7 +25,10 @@ paths:
         - name: number
           required: true
           schema:
-            type: integer
+            oneOf:
+              - type: integer
+              - type: string
+                format: hex
           description: The block number.
           in: query
 
@@ -43,10 +46,13 @@ paths:
                     params:
                       type: array
                       items:
-                        title: number
-                        type: integer
+                        oneOf:
+                         - title: number
+                           type: integer
+                         - type: string
+                           format: hex
                       description: "The block number."
-                      example: [10]
+                      example: ["0x80"]
 
       responses:
         200:
@@ -57,7 +63,7 @@ paths:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/DumpStateTrieResp"
-      
+
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
@@ -90,9 +96,27 @@ components:
             tries:
               type: array
               items:
-                type: string
-          example: {
-            "root": "70383c826d1161ec2f12d799023317d8da7775dd47b8502d2d7ef646d094d3a5",
-            "tries": [...]
-          }
+                type: object
+                properties:
+                  type:
+                    type: string
+                  hash:
+                    type: string
+                  parent:
+                    type: string
+                  path:
+                    type: string
 
+          example:
+            {
+              "root": "0xd62748ae1ba12975f61470f06912c05d92b4366611338e57ee165802d392e628",
+              "tries":
+                [
+                  {
+                    "type": "state",
+                    "hash": "0xd62748ae1ba12975f61470f06912c05d92b4366611338e57ee165802d392e628",
+                    "parent": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                    "path": "0x"
+                  }
+                ]
+            }

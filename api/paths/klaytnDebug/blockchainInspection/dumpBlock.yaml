@@ -48,7 +48,7 @@ paths:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
                   - $ref: "#/components/schemas/DebugDumpBlockResp"
-      
+
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
@@ -83,7 +83,7 @@ components:
           items:
             anyOf:
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
-          example: ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722"]
+          example: ["latest"]
     DebugDumpBlockResp:
       type: object
       properties:
