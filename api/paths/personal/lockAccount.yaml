@@ -59,7 +59,7 @@ paths:
                   - type: object
                     properties:
                       result:
-                        type: bool
+                        type: boolean
                         description: true if the account was successfully locked, false otherwise.
                         example: true
       
@@ -68,10 +68,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/personal/lockAccount.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/personal/PersonalLockAccountExample.java"
         # - lang: "javascript"
         #   label: "Javascript"
         #   source:
