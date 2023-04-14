@@ -78,11 +78,11 @@ paths:
 #          label: "Java"
 #          source:
 #            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/transaction/EthCallExample.java"
-#        - lang: "javascript"
-#          label: "Javascript"
-#          source:
-#            $ref: "../../../code-samples/javascript/eth/transaction/call.js"
-#        - lang: "python"
-#          label: "Python"
-#          source:
-#            $ref: "../../../code-samples/python/eth/transaction/call.py"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/transaction/sendRawTransaction.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/transaction/sendRawTransaction.py"

@@ -66,14 +66,14 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #     $ref: "../../../code-samples/javascript/klay/transaction/sendRawTransaction.js"
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/transaction/sendRawTransaction.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/transaction/sendRawTransaction.py"
 
 components:
   schemas:
