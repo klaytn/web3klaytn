@@ -30,7 +30,7 @@ paths:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
         - name: options
           in: query
-          description: See standard tracing options.
+          description: Standard tracing options.
           required: false
           schema:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/StandardTracingOptions"
@@ -45,7 +45,7 @@ paths:
 
       responses:
         200:
-          description: Returns a list of file names containing tracing result
+          description: A list of file names.
           content:
             application/json:
               schema:
@@ -83,10 +83,7 @@ components:
           type: array
           items:
             anyOf:
-              - title: Hash
-                description: Hash of a block.
-                type: string
-                format: 32-byte DATA
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/StandardTracingOptions"
           example: ["0x1d5ba00e313a81ae6d409d459c153327072665d9ea2f47608369722baf0cfbb6"]
 

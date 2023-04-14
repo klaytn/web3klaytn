@@ -17,7 +17,7 @@ paths:
       description: |
         Returns all accounts that have changed between the two blocks specified by their block hashes. Changes made in endBlockHash are included, but changes made in startBlockHash are not. If endBlockHash is not given, it returns the accounts modified in the startBlockHash. A change is defined as a difference in nonce, balance, code hash, or storage hash.
 
-        **JSONRPC:** `debug_getModifiedAccountsByHash`
+        **JSONRPC:** `debug_getModifiedAccountsByNumber`
       tags:
         - debug
 
@@ -103,4 +103,4 @@ components:
                 format: 32-byte DATA
                 title: EndBlockHash
                 description: (optional) The last block number of the range.
-          example: ["0x583a02df4222c82d4ffe5d3658d0f7ac233f4dc5de83f6430d74199038b606b6", "0x69833f0fc012dc36be910aa6909f5395cd35136dbeae29ed2170a7d4162a009c"]
+            example: ["0x583a02df4222c82d4ffe5d3658d0f7ac233f4dc5de83f6430d74199038b606b6", "0x69833f0fc012dc36be910aa6909f5395cd35136dbeae29ed2170a7d4162a009c"]

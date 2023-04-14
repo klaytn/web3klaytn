@@ -27,7 +27,7 @@ paths:
           description: The profiling rate in samples/sec.
           required: true
           schema:
-            type: integer
+            type: int
 
       requestBody:
         content:
@@ -77,7 +77,7 @@ components:
           type: array
           items:
             title: Rate
-            type: integer
+            type: int
             description: The filename for the profiling output.
           example: ["block.profile"]
 

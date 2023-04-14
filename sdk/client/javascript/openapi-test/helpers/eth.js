@@ -1,10 +1,7 @@
 const OpenSdk = require("opensdk-javascript");
-const Web3 = require('web3');
-
 const { RPC } = require("../test/constant");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
-const web3 = new Web3(RPC);
 
 export const getEthFilterId = () => {
     return new Promise((res, ej) => {
@@ -21,39 +18,4 @@ export const getEthFilterId = () => {
             return res(data.result)
         });
     })
-}
-export const getRawTransaction = async () => {
-    const privateKey = '6cb442edb31d8a1c753f0c3c675588fceb4d82435a1c03b8bb92a5a9274ebbe0';
-
-    const fromAddress = '0xA1ee5975cfa2180450AeD555Ba06AB8108a87D4A';
-
-    const toAddress = '0x0123456789abcdef0123456789abcdef01234568';
-
-    const gasPrice = "0xba43b7400"
-
-    const gasLimit = 21000;
-
-    const value = web3.utils.toWei('0.001', 'ether');
-
-    const data = '';
-
-    return new Promise((res, ej) => {
-        web3.eth.getTransactionCount(fromAddress, 'pending', async (error, nonce) => {
-            const txObject = {
-                'from': fromAddress,
-                'nonce': nonce,
-                'gasPrice': gasPrice,
-                'gasLimit': gasLimit,
-                'to': toAddress,
-                'value': value,
-                'data': data,
-                "maxPriorityPerGas": "0x5d21dba00",
-            };
-            const signedTx = await web3.eth.accounts.signTransaction(txObject, privateKey);
-            return res(signedTx)
-        });
-    })
-}
-export const sendTransaction = async () => {
-
 }

@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "debug_getBlockRlp",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": ["latest"]
+  "params": ["200"]
 }'

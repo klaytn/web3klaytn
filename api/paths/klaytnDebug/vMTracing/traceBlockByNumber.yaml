@@ -22,15 +22,12 @@ paths:
         **JSONRPC:** `debug_traceBlockByNumber`
 
       parameters:
-        - name: number
+        - name: block
           in: query
           description: The block number.
           required: true
           schema:
-            oneOf:
-              - type: integer
-              - type: string
-                format: hex
+            type: number
         - name: options
           in: query
           description: Tracing options.
@@ -86,9 +83,11 @@ components:
           type: array
           items:
             anyOf:
-              - $ref: "#/components/schemas/BlockNumberInTraceBlockByNumber"
+              - title: Block
+                type: number
+                description: The block number.
+                example: 1449
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracingOptions"
-          example: [1449]
 
     DebugTraceBlockByNumberResp:
       type: object
@@ -106,12 +105,3 @@ components:
               }
             }
           ]
-
-    BlockNumberInTraceBlockByNumber:
-      title: Number
-      oneOf:
-        - type: number
-          title: number
-        - format: hex
-          type: string
-          title: string

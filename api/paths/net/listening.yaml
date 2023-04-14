@@ -53,10 +53,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/net/listening.sh"
-        - lang: "java"
-          label: "Java"
-          source:
-            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/net/NetListeningExample.java"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/block/KlayBlockNumberExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

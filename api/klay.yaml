@@ -490,12 +490,6 @@ paths:
     $ref: ./paths/governance/nodeAddress.yaml#/paths/~1governance~1nodeAddress
   /governance/pendingChanges:
     $ref: ./paths/governance/pendingChanges.yaml#/paths/~1governance~1pendingChanges
-  /governance/chainConfig:
-    $ref: ./paths/governance/chainConfig.yaml#/paths/~1governance~1chainConfig
-  /governance/myVotingPower:
-    $ref: ./paths/governance/myVotingPower.yaml#/paths/~1governance~1myVotingPower
-  /governance/myVotes:
-    $ref: ./paths/governance/myVotes.yaml#/paths/~1governance~1myVotes
 
   # debug/others:
   /debug/getModifiedStorageNodesByNumber:

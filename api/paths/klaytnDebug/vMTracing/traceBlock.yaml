@@ -32,7 +32,7 @@ paths:
             type: string
         - name: options
           in: query
-          description: See tracing options.
+          description: Tracing options.
           required: false
           schema:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracingOptions"
@@ -85,11 +85,11 @@ components:
           type: array
           items:
             anyOf:
-              - title: BlockRlp
+              - title: blockRlp
                 type: string
                 description: The RLP-encoded block.
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracingOptions"
-          example: ["0xbeb0c8cbe6a7433459bded0e0f5cf7e48dd9039d38f3a618a82dee63cf297e05"]
+          example: ["0xblock_rlp"]
 
     DebugTraceBlockResp:
       type: object

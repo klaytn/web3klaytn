@@ -72,7 +72,7 @@ paths:
         - lang: "javascript"
           label: "Javascript"
           source:
-            $ref: "../../../code-samples/javascript/klaytnDebug/blockchainInspection/getModifiedAccountsByNumber.js"
+            $ref: "../../../code-samples/javascript/klaytnDebug/blockchainInspection/getModifiedAccountsByHash.js"
         # - lang: "python"
         #   label: "Python"
         #   source:
@@ -99,4 +99,4 @@ components:
               - type: integer
                 title: EndBlockNum
                 description: (optional) The last block number of the range.
-          example: [128]
+            example: [171904, 172160]

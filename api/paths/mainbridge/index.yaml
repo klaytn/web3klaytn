@@ -22,6 +22,6 @@ servers:
 paths:
   # mainbridge:
   /mainbridge/getChildChainIndexingEnabled:
-    $ref: ./getChildChainIndexingEnabled.yaml#/paths/~1mainbridge~1getChildChainIndexingEnabled
+    $ref: ./mainbridge/getChildChainIndexingEnabled.yaml#/paths/~1mainbridge~1getChildChainIndexingEnabled
   /mainbridge/nodeInfo:
-    $ref: ./nodeInfo.yaml#/paths/~1mainbridge~1nodeInfo
+    $ref: ./mainbridge/nodeInfo.yaml#/paths/~1mainbridge~1nodeInfo

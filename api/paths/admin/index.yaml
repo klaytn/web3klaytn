@@ -26,35 +26,36 @@ paths:
   # admin
   /admin/addPeer:
     $ref: ./addPeer.yaml#/paths/~1admin~1addPeer
-  /admin/exportChain:
+  /admin/exportChain: 
     $ref: ./exportChain.yaml#/paths/~1admin~1exportChain
-  /admin/importChain:
+  /admin/importChain: 
     $ref: ./importChain.yaml#/paths/~1admin~1importChain
-  /admin/removePeer:
+  /admin/removePeer: 
     $ref: ./removePeer.yaml#/paths/~1admin~1removePeer
-  /admin/importChainFromString:
+  /admin/importChainFromString: 
     $ref: ./importChainFromString.yaml#/paths/~1admin~1importChainFromString
-  /admin/startHTTP:
+  /admin/startHTTP: 
     $ref: ./startHTTP.yaml#/paths/~1admin~1startHTTP
-  /admin/stopHTTP:
+  /admin/stopHTTP: 
     $ref: ./stopHTTP.yaml#/paths/~1admin~1stopHTTP
-  /admin/startWS:
+  /admin/startWS: 
     $ref: ./startWS.yaml#/paths/~1admin~1startWS
-  /admin/stopWS:
+  /admin/stopWS: 
     $ref: ./stopWS.yaml#/paths/~1admin~1stopWS
-  /admin/startStateMigration:
+  /admin/startStateMigration: 
     $ref: ./startStateMigration.yaml#/paths/~1admin~1startStateMigration
-  /admin/stopStateMigration:
+  /admin/stopStateMigration: 
     $ref: ./stopStateMigration.yaml#/paths/~1admin~1stopStateMigration
-  /admin/saveTrieNodeCacheToDisk:
+  /admin/saveTrieNodeCacheToDisk: 
     $ref: ./saveTrieNodeCacheToDisk.yaml#/paths/~1admin~1saveTrieNodeCacheToDisk
-  /admin/setMaxSubscriptionPerWSConn:
+  /admin/setMaxSubscriptionPerWSConn: 
     $ref: ./setMaxSubscriptionPerWSConn.yaml#/paths/~1admin~1setMaxSubscriptionPerWSConn
-  /admin/nodeInfo:
-    $ref: ./nodeInfo.yaml#/paths/~1admin~1nodeInfo
-  /admin/peers:
+  /admin/nodeInfo: 
+    $ref: ./nodeInfo.yaml#/paths/~1admin~1nodeInfo\
+  /admin/peers: 
     $ref: ./peers.yaml#/paths/~1admin~1peers
-  /admin/datadir:
+  /admin/datadir: 
     $ref: ./datadir.yaml#/paths/~1admin~1datadir
-  /admin/stateMigrationStatus:
+  /admin/stateMigrationStatus: 
     $ref: ./stateMigrationStatus.yaml#/paths/~1admin~1stateMigrationStatus
+  

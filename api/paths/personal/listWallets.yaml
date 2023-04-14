@@ -36,7 +36,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "#/components/schemas/PersonalListWalletsResp"
+                  - $ref: "#/components/schemas/PersonalListWalletsResp" 
 
       x-codeSamples:
         - lang: "curl"
@@ -47,10 +47,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        - lang: "javascript"
-          label: "Javascript"
-          source:
-           $ref: "../../code-samples/javascript/personal/listWallets.js"
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
         - lang: "python"
           label: "Python"
           source:

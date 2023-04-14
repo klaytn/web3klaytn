@@ -54,10 +54,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klay/configuration/rewardBase.sh"
-        - lang: "java"
-          label: "Java"
-          source:
-            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/configuration/KlayRewardBaseExample.java"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
         - lang: "javascript"
           label: "Javascript"
           source:

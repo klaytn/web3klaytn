@@ -16,7 +16,7 @@ paths:
       summary: "[getBlockReceipts]"
       description: |
         Returns receipts included in a block identified by block hash.
-
+        
         **JSONRPC:** `klay_getBlockReceipts`
 
       tags:
@@ -137,7 +137,10 @@ components:
           type: string
           format: 32-byte DATA
         signatures:
-          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Signature"
+          type: array
+          items:
+            type: string
+            format: 65-byte DATA
         status:
           type: string
           format: hex

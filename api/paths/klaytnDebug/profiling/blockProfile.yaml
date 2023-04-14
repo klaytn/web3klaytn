@@ -33,7 +33,7 @@ paths:
           description: The profiling duration in seconds.
           required: true
           schema:
-            type: integer
+            type: int
 
       requestBody:
         content:
@@ -87,7 +87,7 @@ components:
                 type: string
                 description: The filename for the profiling output.
               - title: Seconds
-                type: integer
+                type: int
                 description: The profiling duration in seconds.
           example: ["block.profile", 10]
 

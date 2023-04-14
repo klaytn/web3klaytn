@@ -56,10 +56,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/eth/others/createAccessList.sh"
-        - lang: "java"
-          label: "Java"
-          source:
-            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/others/EthCreateAccessListExample.java"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
         - lang: "javascript"
           label: "Javascript"
           source:
