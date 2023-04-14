@@ -33,7 +33,7 @@ paths:
           description: The profiling duration in seconds.
           required: true
           schema:
-            type: int
+            type: integer
 
       requestBody:
         content:
@@ -87,7 +87,7 @@ components:
                 type: string
                 description: The filename for the profiling result.
               - title: Seconds
-                type: int
+                type: integer
                 description: The profiling duration in seconds.
           example: ["mutex.profile", 10]
 

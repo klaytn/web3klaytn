@@ -70,7 +70,7 @@ class KlaytnPythonClientCodegen : PythonClientCodegen {
     }
 
     override fun updateModelForComposedSchema(m: CodegenModel?, schema: Schema<*>?, allDefinitions: MutableMap<String, Schema<Any>>?) {
-        val titles = listOf("callObject", "fromBlock", "toBlock", "FromBlock", "ToBlock")
+        val titles = listOf("callObject", "fromBlock", "toBlock", "FromBlock", "ToBlock", "BlockNumberOrTag")
         m?.composedSchemas?.allOf?.removeAll { titles.contains(it.title) }
         val codegenComposedSchemas = CodegenComposedSchemas(
             m?.composedSchemas?.allOf?.asReversed(),
