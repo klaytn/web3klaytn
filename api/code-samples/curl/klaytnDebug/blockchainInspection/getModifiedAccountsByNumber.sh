@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "debug_getModifiedAccountsByNumber",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": [171904, 172160]
+  "params": [128]
 }'
