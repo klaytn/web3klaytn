@@ -1,5 +1,5 @@
 curl -X 'POST' \
-  'https://api.baobab.klaytn.net:8651/klay/getUncleCountByBlockHash' \
+  'https://api.baobab.klaytn.net:8651/eth/getUncleCountByBlockHash' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{

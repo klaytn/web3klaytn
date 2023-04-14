@@ -496,6 +496,16 @@ paths:
     $ref: ./paths/governance/myVotingPower.yaml#/paths/~1governance~1myVotingPower
   /governance/myVotes:
     $ref: ./paths/governance/myVotes.yaml#/paths/~1governance~1myVotes
+  /governance/itemsAt:
+    $ref: ./paths/governance/itemsAt.yaml#/paths/~1governance~1itemsAt
+  /governance/itemCacheFromDb:
+    $ref: ./paths/governance/itemCacheFromDb.yaml#/paths/~1governance~1itemCacheFromDb
+  /governance/getStakingInfo:
+    $ref: ./paths/governance/getStakingInfo.yaml#/paths/~1governance~1getStakingInfo
+  /governance/showTally:
+    $ref: ./paths/governance/showTally.yaml#/paths/~1governance~1showTally
+  /governance/totalVotingPower:
+    $ref: ./paths/governance/totalVotingPower.yaml#/paths/~1governance~1totalVotingPower
 
   # debug/others:
   /debug/getModifiedStorageNodesByNumber:
