@@ -59,10 +59,10 @@ paths:
                   - type: object
                     properties:
                       result:
-                        type: bool
+                        type: boolean
                         description: true if the account was successfully locked, false otherwise.
                         example: true
-      
+
       x-codeSamples:
         - lang: "curl"
           label: "Curl"

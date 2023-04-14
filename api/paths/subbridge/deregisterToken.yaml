@@ -22,25 +22,25 @@ paths:
         **JSONRPC:** `subbridge_deregisterToken`
 
       parameters:
-        - name: account
+        - name: childAccount
           in: query
           required: true
           description: Address of bridge contract on child chain.
           schema:
             $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
-        - name: account
+        - name: parentAccount
           in: query
           required: true
           description: Address of bridge contract on parent chain.
           schema:
             $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
-        - name: account
+        - name: tokenChildAccount
           in: query
           required: true
           description: Address of token contract on child chain.
           schema:
             $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
-        - name: account
+        - name: tokenParentAccount
           in: query
           required: true
           description: Address of token contract on parent chain.
@@ -89,10 +89,31 @@ components:
       type: object
       required:
         - method
+        - params
       properties:
         method:
           type: string
           default: 'subbridge_deregisterToken'
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: ChildAccount
+                type: string
+                format: 20-byte DATA
+                description: Address of bridge contract on child chain.
+              - title: ParentAccount
+                type: string
+                format: 20-byte DATA
+                description: Address of bridge contract on parent chain.
+              - title: tokenChildAccount
+                type: string
+                format: 20-byte DATA
+                description: Address of token contract on child chain.
+              - title: tokenParentAccount
+                type: string
+                format: 20-byte DATA
+                description: Address of token contract on parent chain.
 
     SubbridgeDeregisterTokenResp:
       type: object

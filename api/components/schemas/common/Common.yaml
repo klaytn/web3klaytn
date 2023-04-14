@@ -1127,7 +1127,9 @@ components:
           type: string
           description: Error condition
         accounts:
-          type: string
+          type: array
+          items:
+            type: object
           description: The list of account addresses.
 
     EthBlockHeader:
