@@ -75,24 +75,36 @@ components:
         result:
             type: object
             description: GC statistics
-            properties: 
-              LastGC: 
+            required:
+                - LastGC
+                - NumGC
+                - Pause
+                - PauseEnd
+                - PauseQuantiles
+                - PauseTotal
+            properties:
+              LastGC:
                 type: string
                 format: date-time
-              NumGC: 
+                description: time of last collection
+              NumGC:
                 type: integer
-              Pause: 
+                description: number of garbage collections
+              Pause:
                 type: array
+                description: pause history, most recent first
                 items:
                   type: integer
-              PauseEnd: 
+              PauseEnd:
                 type: array
+                description: pause end times history, most recent first
                 items:
                   type: string
                   format: date-time
               PauseQuantiles:
                 type: string
-              PauseTotal: 
+              PauseTotal:
+                description: total pause for all collections
                 type: integer
             example: {
               "LastGC": "2018-10-08T14:27:34.030659164Z",

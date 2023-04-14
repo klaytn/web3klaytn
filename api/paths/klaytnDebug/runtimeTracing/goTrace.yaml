@@ -33,7 +33,7 @@ paths:
           description: The tracing duration in seconds.
           required: true
           schema:
-            type: int
+            type: integer
 
       requestBody:
         content:
@@ -87,7 +87,7 @@ components:
                 type: string
                 description: The filename for the trace output.
               - title: Seconds
-                type: int
+                type: integer
                 description: The tracing duration in seconds.
           example: ["go.trace",5]
 

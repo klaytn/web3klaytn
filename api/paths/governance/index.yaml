@@ -26,6 +26,20 @@ servers:
   - url: https://api.baobab.klaytn.net:8651
   - url: https://public-en-cypress.klaytn.net
 paths:
-  # governance/votes
+  # governance
   /governance/votes:
     $ref: ./votes.yaml#/paths/~1governance~1votes
+  /governance/idxCache:
+    $ref: ./idxCache.yaml#/paths/~1governance~1idxCache
+  /governance/idxCacheFromDb:
+    $ref: ./idxCacheFromDb.yaml#/paths/~1governance~1idxCacheFromDb
+  /governance/nodeAddress:
+    $ref: ./nodeAddress.yaml#/paths/~1governance~1nodeAddress
+  /governance/pendingChanges:
+    $ref: ./pendingChanges.yaml#/paths/~1governance~1pendingChanges
+  /governance/chainConfig:
+    $ref: ./chainConfig.yaml#/paths/~1governance~1chainConfig
+  /governance/myVotingPower:
+    $ref: ./myVotingPower.yaml#/paths/~1governance~1myVotingPower
+  /governance/myVotes:
+    $ref: ./myVotes.yaml#/paths/~1governance~1myVotes

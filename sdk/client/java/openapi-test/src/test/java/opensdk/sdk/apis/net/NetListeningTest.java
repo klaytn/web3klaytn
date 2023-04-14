@@ -1,7 +1,7 @@
-package opensdk.sdk.apis.personal;
+package opensdk.sdk.apis.net;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.PersonalNewAccountResponse;
+import opensdk.sdk.models.NetListeningResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
@@ -10,15 +10,13 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@DisplayName("Personal RPC Test")
-public class PersonalNewAccountTest {
-
+@DisplayName("Eth RPC Test")
+public class NetListeningTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
-
     @Test
-    @DisplayName("RPC personal_newAccount")
+    @DisplayName("RPC net_listening")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        PersonalNewAccountResponse response = sdk.personal.newAccount("helloWorld").send();
+        NetListeningResponse response = sdk.net.listening().send();
         assertNotNull(response.getResult());
     }
 }

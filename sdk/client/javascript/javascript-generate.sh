@@ -15,6 +15,12 @@ sh ./scripts/klay/javascript-klay-generate.sh ${CURRENT_FILE_DIR}
 sh ./scripts/txpool/javascript-txpool-generate.sh ${CURRENT_FILE_DIR}
 sh ./scripts/net/javascript-net-generate.sh ${CURRENT_FILE_DIR}
 sh ./scripts/klaytnDebug/javascript-debug-generate.sh ${CURRENT_FILE_DIR}
+sh ./scripts/personal/javascript-personal-generate.sh ${CURRENT_FILE_DIR}
+sh ./scripts/governance/javascript-governance-generate.sh ${CURRENT_FILE_DIR}
+sh ./scripts/governance/javascript-governance-generate.sh ${CURRENT_FILE_DIR}
+sh ./scripts/admin/javascript-admin-generate.sh ${CURRENT_FILE_DIR}
+sh ./scripts/subbridge/javascript-subbridge-generate.sh ${CURRENT_FILE_DIR}
+
 cd "${CURRENT_FILE_DIR}/opensdk"
 yarn link
 

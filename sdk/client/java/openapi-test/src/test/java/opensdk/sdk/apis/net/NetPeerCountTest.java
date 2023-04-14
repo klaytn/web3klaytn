@@ -1,7 +1,7 @@
-package opensdk.sdk.apis.personal;
+package opensdk.sdk.apis.net;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.PersonalLockAccountResponse;
+import opensdk.sdk.models.NetPeerCountResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
@@ -10,16 +10,14 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@DisplayName("Personal RPC Test")
-public class PersonalLockAccountTest {
-
+@DisplayName("Eth RPC Test")
+public class NetPeerCountTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
-
     @Test
-    @DisplayName("RPC personal_lockAccount")
+    @DisplayName("RPC net_peerCount")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        PersonalLockAccountResponse response = sdk.personal.lockAccount("0xda04fb00e2cb5745cef7d8c4464378202a1673ef")
-                .send();
+        NetPeerCountResponse response = sdk.net.peerCount().send();
         assertNotNull(response.getResult());
     }
+
 }
