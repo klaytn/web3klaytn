@@ -67,10 +67,10 @@ paths:
           label: "Java"
           source:
             $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/personal/PersonalEcRecoverExample.java"
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/personal/ecRecover.js"
         - lang: "python"
           label: "Python"
           source:
