@@ -30,7 +30,7 @@ paths:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
         - name: keys
           in: query
-          description: Array of storage-keys which should be proofed and included
+          description: Array of storage-keys which should be proofed and included. See eth_getStorageAt
           required: true
           schema:
             type: string
@@ -57,7 +57,10 @@ paths:
                       type: array
                       items:
                         anyOf:
-                          - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+                          - title: Address
+                            type: string
+                            format: 20-byte DATA
+                            description: Address of the account
                           - title: Keys
                             description: Array of storage-keys which should be proofed and included
                             type: string
@@ -104,6 +107,13 @@ components:
       properties:
         result:
           type: object
+          required:
+            - balance
+            - codeHash
+            - nonce
+            - storageHash
+            - accountProof
+            - storageProof
           description: Object - A account object
           properties:
             balance:
@@ -131,6 +141,10 @@ components:
               type: array
               items:
                 type: object
+                required:
+                  - key
+                  - value
+                  -  proof
                 properties:
                   key:
                     type: string

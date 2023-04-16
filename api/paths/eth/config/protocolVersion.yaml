@@ -15,7 +15,7 @@ paths:
       operationId: protocolVersion
       summary: "[protocolVersion]"
       description: |
-        Returns the Eth protocol version of the node.
+        Returns the Eth protocol version of the node. The current version (as of v1.9.0) of Cypress/Baobab is istanbul/65.
 
         **JSONRPC:** `eth_protocolVersion`
       tags:

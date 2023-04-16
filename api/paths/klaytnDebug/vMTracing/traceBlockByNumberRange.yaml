@@ -89,6 +89,7 @@ components:
           default: debug_traceBlockByNumberRange
         params:
           type: array
+          example: [21, 30]
           items:
             anyOf:
               - title: StartBlock

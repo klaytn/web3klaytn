@@ -38,7 +38,7 @@ paths:
 
       responses:
         200:
-          description: Node's Voting Power or error message
+          description: Node's Voting status in the epoch
           content:
             application/json:
               schema:

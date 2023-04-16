@@ -22,7 +22,7 @@ paths:
         **JSONRPC:** `eth_getBlockTransactionCountByNumber`
 
       parameters:
-        - name: blockNumber
+        - name: blockNumberOrTag
           in: query
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.
           required: true
@@ -87,3 +87,4 @@ components:
         result:
           type: string
           format: hex
+          description: Integer of the number of transactions in this block.
