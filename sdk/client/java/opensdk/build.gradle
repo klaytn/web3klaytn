@@ -20,6 +20,7 @@ dependencies {
     api "klaytn.foundation:opensdk-net-java:v1.10.0"
     api "klaytn.foundation:opensdk-personal-java:v1.10.0"
     api "klaytn.foundation:opensdk-txpool-java:v1.10.0"
+    api "klaytn.foundation:opensdk-klaytnDebug-java:v1.10.0"
 //    api(files("../openapi/eth/build/libs/opensdk-eth-java-v1.10.0.jar"))
 //    api(files("../openapi/klay/build/libs/opensdk-klay-java-v1.10.0.jar"))
     implementation "org.web3j:core:4.9.7"
