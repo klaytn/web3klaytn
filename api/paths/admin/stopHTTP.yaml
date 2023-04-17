@@ -15,15 +15,15 @@ paths:
       operationId: stopHTTP
       summary: "[stopHTTP]"
       description: |
-        The stopHTTP is an administrative method that closes the currently open HTTP RPC endpoint. As the node can only have a single HTTP endpoint running, this method takes no parameters, returning a boolean whether the endpoint was closed or not.
+        **NOTE:** *This API replaces admin_stopRPC. The admin_stopRPC will be deprecated soon.*
         
-        **JSONRPC:** `admin_stopHTTP`
+        The stopHTTP is an administrative method that closes the currently open HTTP RPC endpoint. As the node can only have a single HTTP endpoint running, this method takes no parameters, returning a boolean whether the endpoint was closed or not.
 
-        **NOTE:** `This API replaces admin_stopRPC. The admin_stopRPC will be deprecated soon.`
+        **JSONRPC:** `admin_stopHTTP`
 
       tags:
         - admin
-  
+
       requestBody:
         content:
           application/json:
@@ -72,11 +72,11 @@ components:
           default: 'admin_stopHTTP'
 
     StopHTTPResp:
-      description: true if the endpoint was closed, false if not.
       type: object
       properties:
         result:
           type: boolean
+          description: true if the endpoint was closed, false if not.
           example: true
 
 

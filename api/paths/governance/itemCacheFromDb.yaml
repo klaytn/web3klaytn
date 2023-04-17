@@ -1,0 +1,85 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /governance/itemCacheFromDb:
+    post:
+      operationId: itemCacheFromDb
+      summary: "[itemCacheFromDb]"
+      description: |
+        The itemCacheFromDb returns the governance information stored in the given block. If no changes were stored in the given block, the function returns null.
+
+        **JSONRPC:** `governance_itemCacheFromDb`
+
+      tags:
+        - governance
+
+      parameters:
+        - name: blockNumber
+          required: true
+          schema:
+            type: integer
+            format: uint64
+          description: A block number to query the governance change made in the block.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  required:
+                    - method
+                  properties:
+                    method:
+                      type: string
+                      default: 'governance_itemCacheFromDb'
+                    params:
+                      type: array
+                      items:
+                        type: integer
+                        format: uint64
+                      description: A block number to query the governance change made in the block.
+                      example: [0]
+
+      responses:
+        200:
+          description: Stored governance information at a given block
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: object
+                        description: Stored governance information at a given block
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/governance/itemCacheFromDb.sh"
+#        - lang: "java"
+#          label: "Java"
+#          source:
+#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/account/KlayAccountCreatedExample.java"
+#        - lang: "javascript"
+#          label: "Javascript"
+#          source:
+#            $ref: "../../../code-samples/javascript/klay/account/accountCreated.js"
+#        - lang: "python"
+#          label: "Python"
+#          source:
+#            $ref: "../../../code-samples/python/klay/account/accountCreated.py"

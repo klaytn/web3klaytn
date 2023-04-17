@@ -70,11 +70,11 @@ components:
           default: 'admin_stopStateMigration'
 
     StopStateMigrationResp:
-      description: null if the state migration is stopped, or an error if not.
       type: object
       properties:
         result:
           type: string
+          description: null if the state migration is stopped, or an error if not.
           example: null
 
 

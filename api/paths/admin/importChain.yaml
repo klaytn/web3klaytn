@@ -86,13 +86,9 @@ components:
           example: ["/tmp/chain.txt"]
 
     ImportChainResp:
-      description: true if chain was imported, false if not.
       type: object
       properties:
         result:
           type: boolean
+          description: true if chain was imported, false if not.
           example: true
-      
-    
-
-

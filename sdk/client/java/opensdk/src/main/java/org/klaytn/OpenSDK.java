@@ -23,6 +23,14 @@ public class OpenSDK {
 
     public DebugApi debug;
 
+    public AdminApi admin;
+
+    public MainbridgeApi mainbridge;
+
+    public SubbridgeApi subbridge;
+
+    public GovernanceApi governance;
+
     public OpenSDK(String url) {
         eth = new EthApi(new HttpService(url));
         klay = new KlayApi(new HttpService(url));
@@ -30,6 +38,10 @@ public class OpenSDK {
         txpool = new TxpoolApi(new HttpService(url));
         personal = new PersonalApi(new HttpService(url));
         debug = new DebugApi(new HttpService(url));
+        admin = new AdminApi(new HttpService(url));
+        mainbridge = new MainbridgeApi(new HttpService(url));
+        subbridge = new SubbridgeApi(new HttpService(url));
+        governance = new GovernanceApi(new HttpService(url));
     }
 
     public String getUrl() {

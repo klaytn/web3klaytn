@@ -5,5 +5,5 @@ curl -X 'POST' \
   -d '{
   "method": "admin_stopStateMigration",
   "id": 1,
-  "jsonrpc": "2.0",
+  "jsonrpc": "2.0"
 }'
