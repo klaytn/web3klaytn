@@ -1,9 +1,9 @@
 curl -X 'POST' \
-  'https://api.baobab.klaytn.net:8651/admin/stopWS' \
+  'https://api.baobab.klaytn.net:8651/debug/stacks' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "method": "admin_stopWS",
+  "method": "debug_stacks",
   "id": 1,
   "jsonrpc": "2.0"
 }'

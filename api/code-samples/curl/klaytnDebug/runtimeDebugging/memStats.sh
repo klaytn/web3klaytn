@@ -1,9 +1,9 @@
 curl -X 'POST' \
-  'https://api.baobab.klaytn.net:8651/admin/stopWS' \
+  'https://api.baobab.klaytn.net:8651/debug/memStats' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "method": "admin_stopWS",
-  "id": 1,
+  "method": "debug_memStats",
+  "id": 73,
   "jsonrpc": "2.0"
 }'
