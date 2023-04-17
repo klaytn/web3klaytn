@@ -17,8 +17,8 @@ paths:
         - debug
       operationId: writeMemProfile
       description: |
-        Writes an allocation profile to the given file. Note that the profiling rate cannot be set through the API.
-
+        Writes an allocation profile to the given file. Note that the profiling rate cannot be set through the API, it must be set on the command line using the --memprofilerate flag.
+        
         **JSONRPC:** `debug_writeMemProfile`
 
       parameters:
@@ -75,10 +75,10 @@ components:
           default: debug_writeMemProfile
         params:
           type: array
+          description: The filename for the profiling output.
           items:
             title: File
             type: string
-            description: The filename for the profiling output.
           example: ["mem.profile"]
 
     DebugWriteMemProfileResp:
@@ -86,4 +86,5 @@ components:
       properties:
         result:
           type: string
-          example: null
+          nullable: true
+          default: null
