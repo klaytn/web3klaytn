@@ -98,7 +98,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/eth/account/accounts.py"
+            $ref: "../../../code-samples/python/eth/others/getProof.py"
 
 components:
   schemas:
