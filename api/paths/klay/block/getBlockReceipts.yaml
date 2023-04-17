@@ -137,7 +137,9 @@ components:
           type: string
           format: 32-byte DATA
         signatures:
-          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Signature"
+          type: array
+          items:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Signature"
         status:
           type: string
           format: hex

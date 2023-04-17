@@ -94,33 +94,33 @@ components:
         result:
           type: object
           properties:
-            BlockHash:
+            blockHash:
               type: string
               format: 32-byte DATA
               description: Hash of the child chain block that this anchoring transaction was performed.
-            BlockNumber:
+            blockNumber:
               type: number
               description: The child chain block number that this anchoring transaction was performed.
-            ParentHash:
+            parentHash:
               type: string
               format: 32-byte DATA
               description: Hash of the parent block.
-            TxHash:
+            txHash:
               type: string
               format: 32-byte DATA
               description: The root of the transaction trie of the block.
-            StateRootHash:
+            stateRootHash:
               type: string
               format: 32-byte DATA
               description: The root of the final state trie of the block.
-            ReceiptHash:
+            receiptHash:
               type: string
               format: 32-byte DATA
               description: The root of the receipts trie of the block.
-            BlockCount:
+            blockCount:
               type: number
               description: The number of blocks generated during this anchoring period. In most cases, this number is equal to the child chain's SC_TX_PERIOD, with the exception of the case that this transaction was the first anchoring tx after turning on the anchoring.
-            TxCount:
+            txCount:
               type: number
               description: The number of transactions generated in the child chain during this anchoring period.
           example:

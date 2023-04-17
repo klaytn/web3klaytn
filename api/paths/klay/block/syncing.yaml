@@ -69,9 +69,9 @@ components:
       properties:
         result:
           oneOf:
+            - $ref: "#/components/schemas/SyncingObject"
             - type: boolean
               example: false
-            - $ref: "#/components/schemas/SyncingObject"
 
     SyncingObject:
       title: SyncingObject
