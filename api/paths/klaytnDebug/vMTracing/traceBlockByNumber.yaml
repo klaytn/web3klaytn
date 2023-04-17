@@ -27,10 +27,8 @@ paths:
           description: The block number.
           required: true
           schema:
-            oneOf:
-              - type: integer
-              - type: string
-                format: hex
+            type: string
+            format: hex
         - name: options
           in: query
           description: Tracing options.
