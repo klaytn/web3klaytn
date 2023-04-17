@@ -70,11 +70,11 @@ components:
           default: 'admin_peers'
             
     PeersResp:
-      description: The information about all connected peers.
       type: object
       properties:
         result: 
           type: array
+          description: The information about all connected peers.
           items: 
             $ref: "#/components/schemas/PeersModel"
     

@@ -86,11 +86,11 @@ components:
           example: ["f9071...080c0"]
 
     ImportChainFromStringResp:
-      description: true if chain was imported, false if not.
       type: object
       properties:
         result:
           type: boolean
+          description: true if chain was imported, false if not.
           example: true
       
     

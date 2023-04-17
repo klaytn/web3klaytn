@@ -5,6 +5,5 @@ curl -X 'POST' \
   -d '{
   "method": "admin_stopHTTP",
   "id": 1,
-  "jsonrpc": "2.0",
-  "params": []
+  "jsonrpc": "2.0"
 }'

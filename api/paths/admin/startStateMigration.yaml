@@ -70,11 +70,11 @@ components:
           default: 'admin_startStateMigration'
 
     StartStateMigrationResp:
-      description: null if the state migration has started, or an error message if not.
       type: object
       properties:
         result:
           type: string
+          description: null if the state migration has started, or an error message if not.
           example: null
 
 

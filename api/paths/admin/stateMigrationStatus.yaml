@@ -70,11 +70,11 @@ components:
           default: 'admin_stateMigrationStatus'
             
     StateMigrationStatusResp:
-      description: returns the status information of the state migration
       type: object
       properties:
         result: 
           type: object
+          description: returns the status information of the state migration
           properties: 
             committed: 
               type: integer

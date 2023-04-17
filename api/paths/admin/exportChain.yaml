@@ -86,11 +86,11 @@ components:
           example: ["/tmp/chain.txt"]
 
     ExportChainResp:
-      description: true if chain was exported, false if not.
       type: object
       properties:
         result:
           type: boolean
+          description: true if chain was exported, false if not.
           example: true
       
     

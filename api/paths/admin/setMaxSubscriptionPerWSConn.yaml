@@ -86,11 +86,11 @@ components:
             example: 5
             
     SetMaxSubscriptionPerWSConnResp:
-      description: true if the HTTP RPC listener was opened, false if not.
       type: object
       properties:
         result:
           type: string
+          description: true if the HTTP RPC listener was opened, false if not.
           example: null
 
 
