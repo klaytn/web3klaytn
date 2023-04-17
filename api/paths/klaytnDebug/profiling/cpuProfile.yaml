@@ -96,4 +96,5 @@ components:
       properties:
         result:
           type: string
-          example: null
+          nullable: true
+          default: null
