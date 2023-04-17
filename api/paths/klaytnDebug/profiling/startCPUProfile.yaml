@@ -56,10 +56,10 @@ paths:
           label: "Java"
           source:
             $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/profiling/DebugStartCPUProfileExample.java"
-#        - lang: "javascript"
-#          label: "Javascript"
-#          source:
-#            $ref: "../../../code-samples/javascript/eth/account/accounts.js"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klaytnDebug/profilling/startCPUProfile.js"
 #        - lang: "python"
 #          label: "Python"
 #          source:
