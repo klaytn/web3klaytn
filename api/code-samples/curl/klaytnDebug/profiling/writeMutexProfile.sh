@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "debug_writeMutexProfile",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": ["mem.profile"]
+  "params": ["mutex.profile"]
 }'
