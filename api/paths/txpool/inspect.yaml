@@ -37,7 +37,7 @@ paths:
 
       responses:
         200:
-          description: Returns an object with two fields pending and queued.
+          description: Returns a list of pending and queued transactions.
           content:
             application/json:
               schema:
@@ -47,16 +47,19 @@ paths:
                     properties:
                       result:
                         type: object
+                        description: A list of pending and queued transactions.
                         required:
                           - pending
                           - queued
                         properties:
                           pending:
                             type: object
+                            example: {"0x1A789E38cD567a00b7Fb8e1D39100ac395fa463B":{"0":"0x87AC99835e67168d4f9a40580f8F5C33550bA88b: 0 peb + 99000000 gas × 25000000000 peb"},"0xAb552FC3d76de919c74435A4C6B04576a9763934":{"0":"0x87AC99835e67168d4f9a40580f8F5C33550bA88b: 0 peb + 99000000 gas × 25000000000 peb"}}
                           queued:
                             type: object
-                        example:
-                          {"pending":{"0x1A789E38cD567a00b7Fb8e1D39100ac395fa463B":{"0":"0x87AC99835e67168d4f9a40580f8F5C33550bA88b: 0 peb + 99000000 gas × 25000000000 peb"},"0xAb552FC3d76de919c74435A4C6B04576a9763934":{"0":"0x87AC99835e67168d4f9a40580f8F5C33550bA88b: 0 peb + 99000000 gas × 25000000000 peb"}},"queued":{}}
+                            example: {}
+#                        example:
+#                          {"pending":{"0x1A789E38cD567a00b7Fb8e1D39100ac395fa463B":{"0":"0x87AC99835e67168d4f9a40580f8F5C33550bA88b: 0 peb + 99000000 gas × 25000000000 peb"},"0xAb552FC3d76de919c74435A4C6B04576a9763934":{"0":"0x87AC99835e67168d4f9a40580f8F5C33550bA88b: 0 peb + 99000000 gas × 25000000000 peb"}},"queued":{}}
 
       x-codeSamples:
         - lang: "curl"

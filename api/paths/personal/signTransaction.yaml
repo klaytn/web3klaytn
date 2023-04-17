@@ -42,7 +42,7 @@ paths:
 
       responses:
         200:
-          description: Returns signed raw transaction and transaction object including the sender's signature
+          description: Returns signed raw transaction and transaction object and sender's password
           content:
             application/json:
               schema:

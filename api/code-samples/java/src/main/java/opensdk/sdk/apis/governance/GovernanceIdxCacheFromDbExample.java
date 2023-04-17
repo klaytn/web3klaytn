@@ -7,7 +7,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 public class GovernanceIdxCacheFromDbExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void governanceIdxCacheFromDbExample() throws IOException {
         GovernanceIdxCacheFromDbResponse response = sdk.governance.idxCacheFromDb(0).send();

@@ -418,6 +418,16 @@ paths:
   # debug/logging:
   /debug/logging/setVMLogTarget:
     $ref: ./paths/klaytnDebug/logging/setVMLogTarget.yaml#/paths/~1debug~1setVMLogTarget
+  /debug/logging/verbosity:
+    $ref: ./paths/klaytnDebug/logging/verbosity.yaml#/paths/~1debug~1verbosity
+  /debug/logging/verbosityByName:
+    $ref: ./paths/klaytnDebug/logging/verbosityByName.yaml#/paths/~1debug~1verbosityByName
+  /debug/logging/verbosityByID:
+    $ref: ./paths/klaytnDebug/logging/verbosityByID.yaml#/paths/~1debug~1verbosityByID
+  /debug/logging/vmodule:
+    $ref: ./paths/klaytnDebug/logging/vmodule.yaml#/paths/~1debug~1vmodule
+  /debug/logging/backtraceAt:
+    $ref: ./paths/klaytnDebug/logging/backtraceAt.yaml#/paths/~1debug~1backtraceAt
 
   # debug/blockchainInspection:
   /debug/blockchainInspection/preimage:
@@ -474,10 +484,22 @@ paths:
     $ref: ./paths/klaytnDebug/profiling/startPProf.yaml#/paths/~1debug~1startPProf
   /debug/profiling/stopPProf:
     $ref: ./paths/klaytnDebug/profiling/stopPProf.yaml#/paths/~1debug~1stopPProf
+  /debug/profiling/isPProfRunning:
+    $ref: ./paths/klaytnDebug/profiling/isPProfRunning.yaml#/paths/~1debug~1isPProfRunning
 
   # debug/runtimeDebugging:
   /debug/runtimeDebugging/gcStats:
     $ref: ./paths/klaytnDebug/runtimeDebugging/gcStats.yaml#/paths/~1debug~1gcStats
+  /debug/runtimeDebugging/metrics:
+    $ref: ./paths/klaytnDebug/runtimeDebugging/metrics.yaml#/paths/~1debug~1metrics
+  /debug/runtimeDebugging/stacks:
+    $ref: ./paths/klaytnDebug/runtimeDebugging/stacks.yaml#/paths/~1debug~1stacks
+  /debug/runtimeDebugging/freeOSMemory:
+    $ref: ./paths/klaytnDebug/runtimeDebugging/freeOSMemory.yaml#/paths/~1debug~1freeOSMemory
+  /debug/runtimeDebugging/setGCPercent:
+    $ref: ./paths/klaytnDebug/runtimeDebugging/setGCPercent.yaml#/paths/~1debug~1setGCPercent
+  /debug/runtimeDebugging/memStats:
+    $ref: ./paths/klaytnDebug/runtimeDebugging/memStats.yaml#/paths/~1debug~1memStats
 
   # governance
   /governance/votes:

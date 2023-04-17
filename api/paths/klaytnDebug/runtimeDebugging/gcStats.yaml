@@ -16,7 +16,7 @@ paths:
       summary: "[gcStats]"
       description: |
         Returns GC statistics.
-        
+
         **JSONRPC:** `debug_gcStats`
 
       tags:

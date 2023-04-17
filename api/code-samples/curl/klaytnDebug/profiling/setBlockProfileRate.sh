@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "debug_setBlockProfileRate",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": ['3']
+  "params": [3]
 }'

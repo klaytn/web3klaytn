@@ -28,6 +28,11 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: debug_startWarmUp
 
       responses:
         200:
@@ -57,7 +62,7 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klaytnDebug/blockchainInspection/startWarmUp.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klaytnDebug/blockchainInspection/startWarmUp.py"

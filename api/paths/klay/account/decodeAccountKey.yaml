@@ -94,8 +94,9 @@ components:
               type: number
               description: "Integer value indicating account key type."
             key:
-              type: string
-              format: JSON DATA
+              type: array
+              items:
+                type: object
               description: "Account key object"
           example:
             {

@@ -9,7 +9,7 @@ import java.io.IOException;
 public class DebugBlockProfileExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
-    void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
+    void debugBlockProfileExample() throws IOException {
         String file = "block.profile";
         int seconds = 4;
 

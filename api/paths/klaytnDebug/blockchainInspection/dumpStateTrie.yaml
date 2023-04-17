@@ -77,10 +77,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klaytnDebug/blockchainInspection/dumpStateTrie.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klaytnDebug/blockchainInspection/dumpStateTrie.py"
 
 components:
   schemas:

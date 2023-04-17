@@ -74,10 +74,10 @@ paths:
           label: "Javascript"
           source:
            $ref: "../../../code-samples/javascript/klaytnDebug/vMTracing/traceBlockByNumberRange.js"
-#        - lang: "python"
-#          label: "Python"
-#          source:
-#            $ref: "../../../code-samples/python/eth/account/accounts.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klaytnDebug/vMTracing/traceBlockByNumberRange.py"
 
 components:
   schemas:
@@ -89,6 +89,7 @@ components:
           default: debug_traceBlockByNumberRange
         params:
           type: array
+          example: [21, 30]
           items:
             anyOf:
               - title: StartBlock

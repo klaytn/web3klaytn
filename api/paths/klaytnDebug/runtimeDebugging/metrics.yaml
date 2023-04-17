@@ -1,0 +1,147 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/metrics:
+    post:
+      operationId: metrics
+      summary: "[metrics]"
+      description: |
+        Retrieves all the known system metrics collected by the node.
+        
+        **JSONRPC:** `debug_metrics`
+
+      tags:
+        - debug
+
+      parameters:
+        - name: raw
+          in: query
+          description: true If raw data is output as it is, false If not
+          required: true
+          schema:
+            type: boolean
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/MetricsReq"
+
+      responses:
+        200:
+          description: The structured metrics collected by the node.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/MetricsResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klaytnDebug/runtimeDebugging/metrics.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""
+
+components:
+  schemas:
+    MetricsReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'debug_metrics'
+        params: 
+          description: true If raw data is output as it is, false If not
+          items: 
+            title: Raw
+            type: boolean
+          example: [true] 
+
+    MetricsResp:
+      type: object
+      properties:
+        result:
+            type: object
+            description: The structured metrics collected by the node.
+            required:
+                - blockchain
+                - bridgeTxpool
+                - Percentiles
+            properties:
+              blockchain:
+                type: object
+                properties: 
+                  block: 
+                    type: object
+                  head: 
+                    type: object
+              bridgeTxtool: 
+                type: object
+                properties: 
+                  refuse: 
+                    type: object
+              Percentiles: 
+                type: object
+              
+            example: 
+                    {
+                      "blockchain": {
+                        "block": {
+                          "tx": {
+                            "counter": {
+                              "Overall": 98307
+                            },
+                            "rate": {
+                              "AvgRate01Min": 19.99999999999893,
+                              "AvgRate05Min": 19.999669059400787,
+                              "AvgRate15Min": 19.91097896398045,
+                              "MeanRate": 16.321034565305364,
+                              "Overall": 98307
+                            }
+                          }
+                        },
+                        "head": {
+                          "blocknumber": "Unknown metric type"
+                        }
+                      },
+                      "bridgeTxpool": {
+                        "refuse": {
+                          "Overall": 0
+                        }
+                      },
+                      Percentiles": {
+                        "5": 5986862.3,
+                        "20": 6229668,
+                        "50": 6585653,
+                        "80": 6864326.2,
+                        "95": 7486187.249999999
+                      }
+                    }            
+

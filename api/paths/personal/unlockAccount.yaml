@@ -71,7 +71,7 @@ paths:
                         type: boolean
                         description: true if unlocked, false otherwise
                         example: true
-      
+
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
@@ -89,7 +89,7 @@ paths:
         #   label: "Python"
         #   source:
         #     $ref: ""
-  
+
 components:
   schemas:
     PersonalUnlockAccountReq:
@@ -115,4 +115,4 @@ components:
                 title: Duration
                 default: 300
                 description: (optional) the unlock duration (default to 300 seconds).
-          example: ["0xda04fb00e2cb5745cef7d8c4464378202a1673ef", "gr8=B!0@uc$b", 30]
+          example: ["0x5e97870f263700f46aa00d967821199b9bc5a120", "foo", 30]

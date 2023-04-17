@@ -75,10 +75,10 @@ components:
           default: debug_writeBlockProfile
         params:
           type: array
+          description: The filename for the profiling output.
           items:
             title: File
             type: string
-            description: The filename for the profiling output.
           example: ["block.profile"]
 
     DebugWriteBlockProfileResp:
@@ -86,4 +86,5 @@ components:
       properties:
         result:
           type: string
-          example: null
+          nullable: true
+          default: null

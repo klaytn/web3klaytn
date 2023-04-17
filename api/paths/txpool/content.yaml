@@ -37,7 +37,7 @@ paths:
 
       responses:
         200:
-          description: Returns an object with two fields pending and queued.
+          description: Returns the content of the transaction pool.
           content:
             application/json:
               schema:
@@ -53,12 +53,8 @@ paths:
                         properties:
                           pending:
                             type: object
-                          queued:
-                            type: object
-                        example:
-                          {
-                            pending: {
-                              0x952c9a710Ce70D58FD5C55d45c4479b82dEA6DAC: {
+                            example: {
+                              "0x952c9a710Ce70D58FD5C55d45c4479b82dEA6DAC": {
                                 756: {
                                   blockHash: "0x0000000000000000000000000000000000000000000000000000000000000000",
                                   blockNumber: "0x0",
@@ -90,9 +86,11 @@ paths:
                                   value: "0x1"
                                 },
                               },
-                            },
-                            queued: {
-                              0xd5B94dd456040612d721A8Eae1e4E97a70b92812: {
+                            }
+                          queued:
+                            type: object
+                            example: {
+                              "0xd5B94dd456040612d721A8Eae1e4E97a70b92812": {
                                 742: {
                                   blockHash: "0x0000000000000000000000000000000000000000000000000000000000000000",
                                   blockNumber: "0x0",
@@ -110,7 +108,6 @@ paths:
                                 },
                               }
                             }
-                          }
 
       x-codeSamples:
         - lang: "curl"

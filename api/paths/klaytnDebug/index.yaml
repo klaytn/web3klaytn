@@ -26,6 +26,16 @@ paths:
   # debug/logging:
   /debug/logging/setVMLogTarget:
     $ref: ./logging/setVMLogTarget.yaml#/paths/~1debug~1setVMLogTarget
+  /debug/logging/verbosity:
+    $ref: ./logging/verbosity.yaml#/paths/~1debug~1verbosity
+  /debug/logging/verbosityByName:
+    $ref: ./logging/verbosityByName.yaml#/paths/~1debug~1verbosityByName
+  /debug/logging/verbosityByID:
+    $ref: ./logging/verbosityByID.yaml#/paths/~1debug~1verbosityByID
+  /debug/logging/vmodule:
+    $ref: ./logging/vmodule.yaml#/paths/~1debug~1vmodule
+  /debug/logging/backtraceAt:
+    $ref: ./logging/backtraceAt.yaml#/paths/~1debug~1backtraceAt
 
   # debug/blockchainInspection:
   /debug/blockchainInspection/preimage:
@@ -84,6 +94,16 @@ paths:
   # debug/runtimeDebugging:
   /debug/runtimeDebugging/gcStats:
     $ref: ./runtimeDebugging/gcStats.yaml#/paths/~1debug~1gcStats
+  /debug/runtimeDebugging/metrics:
+    $ref: ./runtimeDebugging/metrics.yaml#/paths/~1debug~1metrics
+  /debug/runtimeDebugging/stacks:
+    $ref: ./runtimeDebugging/stacks.yaml#/paths/~1debug~1stacks
+  /debug/runtimeDebugging/freeOSMemory:
+    $ref: ./runtimeDebugging/freeOSMemory.yaml#/paths/~1debug~1freeOSMemory
+  /debug/runtimeDebugging/setGCPercent:
+    $ref: ./runtimeDebugging/setGCPercent.yaml#/paths/~1debug~1setGCPercent
+  /debug/runtimeDebugging/memStats:
+    $ref: ./runtimeDebugging/memStats.yaml#/paths/~1debug~1memStats
 
   # debug/profiling:
   /debug/profiling/startPProf:
@@ -108,6 +128,8 @@ paths:
     $ref: ./profiling/writeMemProfile.yaml#/paths/~1debug~1writeMemProfile
   /debug/profiling/writeMutexProfile:
     $ref: ./profiling/writeMutexProfile.yaml#/paths/~1debug~1writeMutexProfile
+  /debug/profiling/isPProfRunning:
+    $ref: ./profiling/isPProfRunning.yaml#/paths/~1debug~1isPProfRunning
 
   # debug/runtimeTracing:
   /debug/runtimeTracing/goTrace:

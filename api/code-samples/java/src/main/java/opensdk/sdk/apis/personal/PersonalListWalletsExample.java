@@ -7,7 +7,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 public class PersonalListWalletsExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void personalListWalletsExample() throws IOException {
         PersonalListWalletsResponse response = sdk.personal.listWallets()
