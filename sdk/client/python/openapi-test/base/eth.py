@@ -2,7 +2,6 @@ import json
 from opensdk.sdk import OpenSDK
 from base.constants import KLAYTN_URL
 
-host = KLAYTN_URL
 
 def create_new_filter():
 
@@ -13,7 +12,7 @@ def create_new_filter():
         "topics": ["0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8"]
     }
 
-    sdk = OpenSDK(host)
+    sdk = OpenSDK(KLAYTN_URL)
     eth_response = sdk.eth.new_filter(filterOptions)
 
     return json.loads(eth_response.response.data)['result']
