@@ -1,4 +1,4 @@
-KLAYTN_URL = "https://api.baobab.klaytn.net:8651"
+KLAYTN_URL = "https://dev.api.klaytn.sotatek.works"
 HTTP_200_OK = 200
 ERROR_CODE_INCORRECT_METHOD = -32601
 ERROR_CODE_REQUIRE_ARGUMENT = -32602
