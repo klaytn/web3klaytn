@@ -102,7 +102,7 @@ components:
                 description: (optional) network interface to open the listener socket on (default "localhost").
               - type: integer
                 title: Port
-                description: (optional) network port to open the listener socket on (default 8551).
+                description: (optional) network port to open the listener socket on (default 8552).
               - type: string
                 title: Cors
                 description: (optional) cross-origin resource sharing header to use (default "").

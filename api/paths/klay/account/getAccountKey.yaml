@@ -101,8 +101,8 @@ components:
       properties:
         result:
           oneOf:
-              - $ref: "#/components/schemas/AccountKeyNil"
               - $ref: "#/components/schemas/AccountKeyLegacy"
+              - $ref: "#/components/schemas/AccountKeyNil"
               - $ref: "#/components/schemas/AccountKeyPublic"
               - $ref: "#/components/schemas/AccountKeyFail"
               - $ref: "#/components/schemas/AccountKeyWeightedMultiSig"

@@ -16,7 +16,7 @@ paths:
       summary: "[resend]"
       description: |
         Resend accepts an existing transaction and a new gas price and limit. It will remove the given transaction from the pool and reinsert it with the new gas price and limit.
-        
+
         **JSONRPC:** `klay_resend`
 
       tags:
@@ -113,18 +113,8 @@ components:
     SendArgs:
       type: object
       required:
-        - accessList
-        - chainId
-        - data
-        - from
-        - gas
-        - gasPrice
-        - input
-        - maxFeePerGas
-        - maxPriorityFeePerGas
         - nonce
         - to
-        - value
       properties:
         accessList:
           type: array
