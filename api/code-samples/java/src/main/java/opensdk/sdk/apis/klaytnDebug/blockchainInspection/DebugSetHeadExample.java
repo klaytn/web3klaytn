@@ -7,7 +7,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 public class DebugSetHeadExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void debugSetHeadExample() throws IOException {
         DebugSetHeadResponse response = sdk.debug.setHead("0x100").send();

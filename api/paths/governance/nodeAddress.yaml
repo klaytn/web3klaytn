@@ -57,10 +57,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/governance/nodeAddress.sh"
-#        - lang: "java"
-#          label: "Java"
-#          source:
-#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/account/KlayAccountCreatedExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/governance/GovernanceNodeAddressExample.java"
 #        - lang: "javascript"
 #          label: "Javascript"
 #          source:
