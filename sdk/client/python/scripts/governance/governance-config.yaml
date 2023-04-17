@@ -1,0 +1,18 @@
+generatorName: caver-python
+outputDir: ./openapi/governance
+inputSpec: ../../../site/namespace/governance-openapi.yaml
+projectName: opensdk-python-governance
+packageName: opensdk_python_governance
+templateDir: ./template
+sortParamsByRequiredFlag: false
+globalProperties:
+  apiDocs: false
+  modelDocs: false
+  modelTests: false
+  apiTests: true
+inlineSchemaNameMappings:
+  accountCreated_default_response: AccountCreatedResponse
+  getRewards_default_response: GetRewardsResponse
+  ethAccounts_default_response: EthAccountsDefaultResponse
+  ethBlockNumber_default_response: EthBlockNumberDefaultResponse
+  ethCall_default_response: EthCallDefaultResponse
