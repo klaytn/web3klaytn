@@ -28,7 +28,7 @@ paths:
         - name: blockNumber
           required: true
           schema:
-            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
           in: query
 
@@ -49,7 +49,7 @@ paths:
                     params:
                       type: array
                       items:
-                        $ref: "../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+                        $ref: "../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
                       example: [0]
 
       responses:
@@ -65,6 +65,26 @@ paths:
                       result:
                         type: object
                         description: governance items
+                        example: {
+                          governance.governancemode: "single",
+                          governance.governingnode: "0x7bf29f69b3a120dae17bca6cf344cf23f2daf208",
+                          governance.unitprice: 25000000000,
+                          istanbul.committeesize: 13,
+                          istanbul.epoch: 30,
+                          istanbul.policy: 2,
+                          kip71.basefeedenominator: 20,
+                          kip71.gastarget: 30000000,
+                          kip71.lowerboundbasefee: 25000000000,
+                          kip71.maxblockgasusedforbasefee: 60000000,
+                          kip71.upperboundbasefee: 750000000000,
+                          reward.deferredtxfee: true,
+                          reward.minimumstake: "5000000",
+                          reward.mintingamount: "9600000000000000000",
+                          reward.proposerupdateinterval: 30,
+                          reward.ratio: "34/54/12",
+                          reward.stakingupdateinterval: 60,
+                          reward.useginicoeff: true
+                        }
 
       x-codeSamples:
         - lang: "curl"

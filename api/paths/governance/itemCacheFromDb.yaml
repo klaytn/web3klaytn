@@ -65,6 +65,21 @@ paths:
                       result:
                         type: object
                         description: Stored governance information at a given block
+                        example: {
+                          governance.governancemode: "single",
+                          governance.governingnode: "0xe733cb4d279da696f30d470f8c04decb54fcb0d2",
+                          governance.unitprice: 25000000000,
+                          istanbul.committeesize: 1,
+                          istanbul.epoch: 30,
+                          istanbul.policy: 2,
+                          reward.deferredtxfee: true,
+                          reward.minimumstake: "5000000",
+                          reward.mintingamount: "6400000000000000000",
+                          reward.proposerupdateinterval: 3600,
+                          reward.ratio: "50/40/10",
+                          reward.stakingupdateinterval: 20,
+                          reward.useginicoeff: false
+                        }
 
       x-codeSamples:
         - lang: "curl"
