@@ -85,10 +85,10 @@ paths:
 #          label: "Java"
 #          source:
 #            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/account/KlayAccountCreatedExample.java"
-#        - lang: "javascript"
-#          label: "Javascript"
-#          source:
-#            $ref: "../../../code-samples/javascript/klay/account/accountCreated.js"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/governance/myVotes.js"
 #        - lang: "python"
 #          label: "Python"
 #          source:

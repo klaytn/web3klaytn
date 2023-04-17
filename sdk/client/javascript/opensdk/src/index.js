@@ -4,6 +4,9 @@ const { TxpoolApi } = require('opensdk-javascript-txpool')
 const { NetApi } = require('opensdk-javascript-net')
 const { PersonalApi } = require('opensdk-javascript-personal')
 const { AdminApi } = require('opensdk-javascript-admin')
+const { GovernanceApi } = require('opensdk-javascript-governance')
+const { DebugApi } = require('opensdk-javascript-debug')
+
 class OpenSDK {
     static Eth = EthApi
     static Klay = KlayApi
@@ -12,6 +15,8 @@ class OpenSDK {
     static Personal = PersonalApi
     static Admin = AdminApi
     static ApiClient = ApiClient
+    static Debug = DebugApi
+    static Governance = GovernanceApi
 
     constructor(apiClient) {
         this.eth = new EthApi(apiClient)
@@ -20,6 +25,8 @@ class OpenSDK {
         this.net = new NetApi(apiClient)
         this.personal = new PersonalApi(apiClient)
         this.admin = new AdminApi(apiClient)
+        this.debug = new DebugApi(apiClient)
+        this.governance= new GovernanceApi(apiClient)
     }
     static eth(apiClient) {
         return new OpenSDK.Eth(apiClient)
@@ -38,6 +45,12 @@ class OpenSDK {
     }
     static admin(apiClient) {
         return new OpenSDK.Admin(apiClient)
+    }
+    static debug(apiClient) {
+        return new OpenSDK.Debug(apiClient)
+    }
+    static governance(apiClient) {
+        return new OpenSDK.Governance(apiClient)
     }
 
 }
