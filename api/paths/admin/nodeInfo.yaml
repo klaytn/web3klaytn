@@ -70,7 +70,6 @@ components:
           default: 'admin_nodeInfo'
             
     NodeInfoResp:
-      description: The node information.
       type: object
       properties:
         result: 
@@ -78,6 +77,7 @@ components:
     
     NodeInfoModel: 
       type: object
+      description: The node information.
       properties:   
         kni: 
           type: string

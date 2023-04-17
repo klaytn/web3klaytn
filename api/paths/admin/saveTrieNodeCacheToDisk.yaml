@@ -70,11 +70,11 @@ components:
           default: 'admin_saveTrieNodeCacheToDisk'
 
     SaveTrieNodeCacheToDiskResp:
-      description: null if saving the trie node has started, or an error message if not.
       type: object
       properties:
         result:
           type: string
+          description: null if saving the trie node has started, or an error message if not.
           example: null
 
 

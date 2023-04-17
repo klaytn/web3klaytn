@@ -17,7 +17,7 @@ paths:
       description: |
         The stopWS is an administrative method that closes the currently open WebSocket RPC endpoint. As the node can only have a single WebSocket endpoint running, this method takes no parameters, returning a boolean whether the endpoint was closed or not.        
        
-        **JSONRPC:** `admin_stopHTTP`
+        **JSONRPC:** `admin_stopWS`
 
       tags:
         - admin
@@ -70,11 +70,11 @@ components:
           default: 'admin_stopWS'
 
     StopWSResp:
-      description: true if the endpoint was closed, false if not.
       type: object
       properties:
         result:
           type: boolean
+          description: true if the endpoint was closed, false if not.
           example: true
 
 

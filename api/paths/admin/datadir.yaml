@@ -70,11 +70,11 @@ components:
           default: 'admin_datadir'
             
     DatadirResp:
-      description: The datadir path.
       type: object
       properties:
         result: 
           type: string
+          description: The datadir path.
           example: /your/dir/ken/data/dd
          
              

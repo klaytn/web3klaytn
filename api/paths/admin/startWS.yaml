@@ -98,26 +98,26 @@ components:
           items:
             anyOf:
               - type: string
-                title: host
+                title: Host
                 description: (optional) network interface to open the listener socket on (default "localhost").
               - type: integer
-                title: port
+                title: Port
                 description: (optional) network port to open the listener socket on (default 8551).
               - type: string
-                title: cors
+                title: Cors
                 description: (optional) cross-origin resource sharing header to use (default "").
               - type: string
-                title: apis
+                title: Apis
                 description: (optional) API modules to offer over this interface (default "klay,net,rpc").
           example:
             ["127.0.0.1", 8552, "", "klay"]
 
     StartWSResp:
-      description: true if the WebSocket RPC listener was opened, false if not.
       type: object
       properties:
         result:
           type: boolean
+          description: true if the WebSocket RPC listener was opened, false if not.
           example: true
 
 
