@@ -1,15 +1,6 @@
 package org.klaytn;
 
-import opensdk.sdk.apis.AdminApi;
-import opensdk.sdk.apis.DebugApi;
-import opensdk.sdk.apis.EthApi;
-import opensdk.sdk.apis.GovernanceApi;
-import opensdk.sdk.apis.KlayApi;
-import opensdk.sdk.apis.MainbridgeApi;
-import opensdk.sdk.apis.NetApi;
-import opensdk.sdk.apis.PersonalApi;
-import opensdk.sdk.apis.SubbridgeApi;
-import opensdk.sdk.apis.TxpoolApi;
+import opensdk.sdk.apis.*;
 import org.web3j.protocol.http.HttpService;
 
 /**
