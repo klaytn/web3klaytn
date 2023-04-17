@@ -69,10 +69,10 @@ paths:
           label: "Javascript"
           source:
            $ref: "../../../code-samples/javascript/klaytnDebug/vMTracing/traceBlockByNumber.js"
-#        - lang: "python"
-#          label: "Python"
-#          source:
-#            $ref: "../../../code-samples/python/eth/account/accounts.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klaytnDebug/vMTracing/traceBlockByNumber.py"
 
 components:
   schemas:
