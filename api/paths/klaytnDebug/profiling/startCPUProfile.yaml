@@ -75,11 +75,10 @@ components:
           default: debug_startCPUProfile
         params:
           type: array
+          description: The filename for the profiling output.
           items:
-            anyOf:
-              - title: File
-                type: string
-                description: The filename for the profiling output.
+              title: File
+              type: string
           example: ["cpu.profile"]
 
     DebugStartCPUProfileResp:
@@ -87,4 +86,5 @@ components:
       properties:
         result:
           type: string
-          example: null
+          nullable: true
+          default: null

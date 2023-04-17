@@ -37,7 +37,7 @@ paths:
 
       responses:
         200:
-          description: Returns an object with two fields pending and queued, each of which is a counter representing the number of transactions in that particular state.
+          description: Returns the number of pending transactions and the number of queued transactions
           content:
             application/json:
               schema:
@@ -52,13 +52,17 @@ paths:
                           - queued
                         properties:
                           pending:
-                            type: string
-                            format: hex
                             description: The number of pending transactions.
+                            oneOf:
+                              - type: string
+                                format: hex
+                              - type: integer
                           queued:
-                            type: string
-                            format: hex
                             description: The number of queued transactions.
+                            oneOf:
+                              - type: string
+                                format: hex
+                              - type: integer
                         example: {"pending":"0x0","queued":"0x0"}
 
       x-codeSamples:

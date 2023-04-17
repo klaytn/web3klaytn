@@ -75,11 +75,11 @@ components:
           default: debug_setBlockProfileRate
         params:
           type: array
+          description: The profiling rate in samples/sec.
           items:
             title: Rate
             type: integer
-            description: The filename for the profiling output.
-          example: ["block.profile"]
+          example: [3]
 
     DebugSetBlockProfileRateResp:
       type: object

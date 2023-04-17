@@ -75,15 +75,16 @@ components:
           default: debug_writeMutexProfile
         params:
           type: array
+          description: The filename for the profiling output.
           items:
             title: File
             type: string
-            description: The filename for the profiling output.
-          example: ["mem.profile"]
+          example: ["mutex.profile"]
 
     DebugWriteMutexProfileResp:
       type: object
       properties:
         result:
           type: string
-          example: null
+          nullable: true
+          default: null
