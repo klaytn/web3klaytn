@@ -25,10 +25,8 @@ paths:
         - name: number
           required: true
           schema:
-            oneOf:
-              - type: integer
-              - type: string
-                format: hex
+            type: string
+            format: hex
           description: The block number.
           in: query
 
@@ -47,10 +45,10 @@ paths:
                       type: array
                       items:
                         oneOf:
-                         - title: number
-                           type: integer
-                         - type: string
-                           format: hex
+                        - title: number
+                          type: integer
+                        - type: string
+                          format: hex
                       description: "The block number."
                       example: ["0x80"]
 
