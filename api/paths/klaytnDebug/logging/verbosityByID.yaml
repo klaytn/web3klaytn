@@ -1,0 +1,109 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/verbosityByID:
+    post:
+      operationId: verbosityByID
+      summary: "[verbosityByID]"
+      description: |
+        Sets the verbosity of log module with given ModuleID. Please note that VerbosityByID only works with zapLogger.
+
+        (ModuleID : Please refer to the code on the github. )
+
+        (Level : 0=crit, 1=error, 2=warn, 3=info, 4=debug, 5=trace)
+
+        The verbosity of individual packages and source files can be raised using debug_vmodule.
+        
+        **JSONRPC:** `debug_verbosityByID`
+
+      tags:
+        - debug
+
+      parameters:
+        - name: id
+          in: query
+          description: The module id.
+          required: true 
+          schema: 
+            type: integer
+        - name: level
+          in: query
+          description: The logging verbosity level.
+          required: true
+          schema:
+            type: integer
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/VerbosityByIDReq"
+
+      responses:
+        200:
+          description: Return value null.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/VerbosityByIDResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klaytnDebug/logging/verbosityByID.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""
+
+components:
+  schemas:
+    VerbosityByIDReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'debug_verbosityID'
+        params: 
+          items: 
+            anyOf:
+              - title: Id
+                description: The module id.
+                type: integer
+              - title: Level
+                description: The logging verbosity level.
+                type: integer
+          example: [1, 3] 
+
+    VerbosityByIDResp:
+      type: object
+      properties:
+        result:
+            type: string
+            description: Return value null
+            example: null
