@@ -75,10 +75,10 @@ components:
           default: debug_startGoTrace
         params:
           type: array
+          description: The filename for the tracing output.
           items:
             title: File
             type: string
-            description: The filename for the tracing output.
           example: ["go.trace"]
 
     DebugStartGoTraceResp:
@@ -86,4 +86,5 @@ components:
       properties:
         result:
           type: string
-          example: null
+          nullable: true
+          default: null
