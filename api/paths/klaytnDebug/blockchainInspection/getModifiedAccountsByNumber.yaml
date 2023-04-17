@@ -73,10 +73,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klaytnDebug/blockchainInspection/getModifiedAccountsByNumber.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klaytnDebug/blockchainInspection/getModifiedAccountsByNumber.py"
 
 components:
   schemas:
