@@ -15,6 +15,8 @@ REQUIRES = [
     "opensdk_python_net ~= 1.0.0",
     "opensdk_python_txpool ~= 1.0.0",
     "opensdk_python_personal ~= 1.0.0",
+    "opensdk_python_klaytnDebug ~= 1.0.0",
+    "opensdk_python_governance ~= 1.0.0",
 
 ]
 

@@ -16,6 +16,10 @@ from personal.opensdk_python_personal.apis.tags.personal_api import PersonalApi
 from debug.opensdk_python_debug.api_client import ApiClient as DebugApiClient
 from debug.opensdk_python_debug.configuration import Configuration as DebugConfiguration
 from debug.opensdk_python_debug.apis.tags.debug_api import DebugApi
+from governance.opensdk_python_governance.api_client import ApiClient as GovernanceApiClient
+from governance.opensdk_python_governance.configuration import Configuration as GovernanceConfiguration
+from governance.opensdk_python_governance.apis.tags.governance_api import GovernanceApi
+
 
 class OpenSDK:
 
@@ -45,3 +49,7 @@ class OpenSDK:
     @property
     def debug(self):
         return DebugApi(DebugApiClient(configuration=DebugConfiguration(self.kalytn_url)))
+
+    @property
+    def governance(self):
+        return GovernanceApi(GovernanceApiClient(configuration=GovernanceConfiguration(self.kalytn_url)))
