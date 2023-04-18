@@ -17,6 +17,7 @@ REQUIRES = [
     "opensdk_python_personal ~= 1.0.0",
     "opensdk_python_klaytnDebug ~= 1.0.0",
     "opensdk_python_governance ~= 1.0.0",
+    "opensdk_python_admin ~= 1.0.0",
 
 ]
 
