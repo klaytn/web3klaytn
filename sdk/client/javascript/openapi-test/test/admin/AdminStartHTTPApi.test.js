@@ -1,12 +1,11 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
-const { RPC } = require("../../constant");
-const { unlockAccount } = require("../../../helpers/eth");
+const { RPC } = require("../constant");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
-describe('klay_sign API', () => {
-    test('should return klay_sign', (done) => {
+describe('admin_startHTTP API', () => {
+    test('should return admin_startHTTP', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
@@ -14,11 +13,10 @@ describe('klay_sign API', () => {
             expect(data.result).toBeDefined()
             done();
         };
-        unlockAccount().then(address => {
-
-            const message = '0xdeadbeaf'
-            sdk.klay.sign(address, message, {}, callbackOne);
-        })
+        const host = '127.0.0.1'
+        const port = 8555
+        const cors = ''
+        const apis = 'klay'
+        sdk.admin.startHTTP({ host, port, cors, apis }, callbackOne);
     });
 });
-
