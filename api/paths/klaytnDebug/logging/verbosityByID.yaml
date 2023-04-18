@@ -72,7 +72,7 @@ paths:
         # - lang: "javascript"
         #   label: "Javascript"
         #   source:
-        #    $ref: ""
+        #     $ref: "../../../code-samples/javascript/klaytnDebug/logging/verbosityByID.js"
         # - lang: "python"
         #   label: "Python"
         #   source:
@@ -105,5 +105,4 @@ components:
       properties:
         result:
             type: string
-            description: Return value null
             example: null

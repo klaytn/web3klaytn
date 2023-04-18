@@ -532,6 +532,8 @@ paths:
   # debug/others:
   /debug/getModifiedStorageNodesByNumber:
     $ref: ./paths/klaytnDebug/others/getModifiedStorageNodesByNumber.yaml#/paths/~1debug~1getModifiedStorageNodesByNumber
+  /debug/chaindbCompact:
+    $ref: ./paths/klaytnDebug/others/chaindbCompact.yaml#/paths/~1debug~1chaindbCompact
 
   # debug/profiling:
   /debug/profiling/blockProfile:

@@ -171,7 +171,7 @@ components:
               MSpanInuse: 
                 type: integer
                 format: uint64
-                description: MCacheSys is bytes of memory obtained from the OS for mcache structures.
+                description: MCacheInuse is bytes of allocated mcache structures.
               MCacheSys: 
                 type: integer
                 format: uint64

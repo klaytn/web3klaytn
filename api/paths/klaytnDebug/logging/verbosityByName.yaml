@@ -70,8 +70,8 @@ paths:
         # - lang: "javascript"
         #   label: "Javascript"
         #   source:
-        #    $ref: ""
-        # - lang: "python"
+        #     $ref: "../../../code-samples/javascript/klaytnDebug/logging/verbosityByName.js"
+        # # - lang: "python"
         #   label: "Python"
         #   source:
         #     $ref: ""
@@ -103,5 +103,4 @@ components:
       properties:
         result:
             type: string
-            description: Return value null
             example: null

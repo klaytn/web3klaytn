@@ -74,7 +74,6 @@ components:
       properties:
         result:
             type: string
-            description: Returns value null
-            example: "null"           
+            example: null     
 
 

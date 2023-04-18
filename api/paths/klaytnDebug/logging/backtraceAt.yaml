@@ -57,10 +57,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klaytnDebug/logging/backtraceAt.js"
         # - lang: "python"
         #   label: "Python"
         #   source:
@@ -80,7 +80,7 @@ components:
         params: 
           description: The logging backtrace location specified as <filename>:<line>.
           items:
-            title: Module
+            title: Location
             type: string
           example: ["server.go:443"]
 
@@ -89,5 +89,4 @@ components:
       properties:
         result:
             type: string
-            description: Return value null
             example: null

@@ -1,28 +1,33 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
+const { unlockAccount, getNonce } = require("../../../helpers/eth");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
 describe('klay_signTransactionAsFeePayer API', () => {
-    test.skip('should return klay_signTransactionAsFeePayer', (done) => {
+    test('should return klay_signTransactionAsFeePayer', (done) => {
 
         let callbackOne = function (error, data, response) {
-
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
             expect(data.result).toBeDefined()
             done();
         };
-        const transactionData = {
-            "from": "0xbba981bbe3f9590bc1a6e81a3ac62b93a47c94bc",
-            "to": "0x8d61a599f489f3376afe22e8c3fae819b981c91b",
-            "value": "0x10000",
-            "gas": "0x1000000",
-            "nonce": "0x2",
-            "gasprice": "0x25000000000"
-        }
-        sdk.klay.signTransactionAsFeePayer(transactionData, {}, callbackOne);
+        unlockAccount().then(async address => {
+            const nonce = await getNonce(address)
+            sdk.klay.signTransactionAsFeePayer({
+                "typeInt": 17,
+                "from": address,
+                "to": "0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075",
+                "gas": "0x76c0", "gasPrice": "0x5d21dba00",
+                "value": "0xf4",
+                "input": "0xb3f98adc0000000000000000000000000000000000000000000000000000000000000001",
+                "feePayer": address,
+                nonce,
+            },
+                {}, callbackOne);
+        })
     });
 });
 
