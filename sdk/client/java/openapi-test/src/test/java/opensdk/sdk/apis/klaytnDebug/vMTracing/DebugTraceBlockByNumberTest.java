@@ -1,7 +1,7 @@
 package opensdk.sdk.apis.klaytnDebug.vMTracing;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.DebugTraceBlockByNumberRangeResponse;
+import opensdk.sdk.models.DebugTraceBlockByNumberResponse;
 import opensdk.sdk.models.TracingOptions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,16 +10,16 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 @DisplayName("Debug RPC Test")
-public class DebugTraceBlockByNumberRangeTest {
+public class DebugTraceBlockByNumberTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     @Test
-    @DisplayName("RPC debug_debugTraceBlockByNumberRange")
+    @DisplayName("RPC debug_traceBlockByNumber")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        int startBlockNum = 21;
-        int endBlockNum = 30;
+        int blockNum = 21;
         TracingOptions tracingOptions = new TracingOptions();
-        DebugTraceBlockByNumberRangeResponse response = sdk.debug.traceBlockByNumberRange(startBlockNum, endBlockNum, tracingOptions).send();
+
+        DebugTraceBlockByNumberResponse response = sdk.debug.traceBlockByNumber(blockNum, tracingOptions).send();
         response.getResult();
     }
 }

@@ -1,21 +1,20 @@
 package opensdk.sdk.apis.governance;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.GovernanceIdxCacheFromDbResponse;
+import opensdk.sdk.models.GovernancePendingChangesResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
-@DisplayName("Governance RPC Test")
-public class GovernanceIdxCacheFromDbTest {
+public class GovernancePendingChangesTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
     @Test
-    @DisplayName("RPC governance_idxCacheFromDb")
+    @DisplayName("RPC governance_pendingChanges")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        GovernanceIdxCacheFromDbResponse response = sdk.governance.idxCacheFromDb().send();
+        GovernancePendingChangesResponse response = sdk.governance.pendingChanges().send();
         response.getResult();
     }
 }
