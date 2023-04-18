@@ -41,7 +41,7 @@ paths:
 
       responses:
         200:
-          description: Returns a header object, or error when no header was found
+          description: Returns information about a header by number
           content:
             application/json:
               schema:
