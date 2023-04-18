@@ -14,9 +14,9 @@ describe('governance_getStakingInfo API', () => {
             done();
         };
 
-        const block = "latest";
+        const blockNumber = "latest";
 
-        sdk.governance.getStakingInfo(block, {}, callbackOne);
+        sdk.governance.getStakingInfo(blockNumber, {}, callbackOne);
     });
 });
 

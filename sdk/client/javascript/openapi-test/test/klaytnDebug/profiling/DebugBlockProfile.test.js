@@ -1,11 +1,11 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
-const { RPC } = require("../constant");
+const { RPC } = require("../../constant");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
-describe('governance_itemsAt API', () => {
-    test('should return governance_itemsAt', (done) => {
+describe('debug_blockProfile API', () => {
+    test('should return debug_blockProfile', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
@@ -14,9 +14,10 @@ describe('governance_itemsAt API', () => {
             done();
         };
 
-        const blockNumber = 89;
+        const file = "block.profile";
+        const seconds = 10;
 
-        sdk.governance.itemsAt(blockNumber, {}, callbackOne);
+        sdk.debug.blockProfile(file, seconds, {}, callbackOne);
     });
 });
 
