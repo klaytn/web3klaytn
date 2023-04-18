@@ -1,15 +1,15 @@
 from base.testing import KlaytnBaseTesting
 
 
-class TestItemsAt(KlaytnBaseTesting):
+class TestGetStakingInfo(KlaytnBaseTesting):
 
     def setUp(self) -> None:
         super().setUp()
-        self.blockTag = 0
+        self.blockNumber = "latest"
 
     def test_post(self):
-        governance_response = self.sdk.governance.items_at(
-            self.blockTag
+        governance_response = self.sdk.governance.get_staking_info(
+            self.blockNumber
         )
 
         self.covert_response(governance_response.response)

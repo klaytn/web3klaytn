@@ -74,7 +74,7 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../code-samples/javascript/governance/showTally.js"
-#        - lang: "python"
-#          label: "Python"
-#          source:
-#            $ref: "../../../code-samples/python/klay/account/accountCreated.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/governance/showTally.py"

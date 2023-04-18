@@ -1,16 +1,10 @@
 from base.testing import KlaytnBaseTesting
 
 
-class TestItemsAt(KlaytnBaseTesting):
-
-    def setUp(self) -> None:
-        super().setUp()
-        self.blockTag = 0
+class TestShowTally(KlaytnBaseTesting):
 
     def test_post(self):
-        governance_response = self.sdk.governance.items_at(
-            self.blockTag
-        )
+        governance_response = self.sdk.governance.show_tally()
 
         self.covert_response(governance_response.response)
         self.assertResponseSuccess()
