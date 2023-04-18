@@ -80,7 +80,7 @@ components:
         params: 
           description: The logging backtrace location specified as <filename>:<line>.
           items:
-            title: Module
+            title: Location
             type: string
           example: ["server.go:443"]
 
@@ -89,5 +89,4 @@ components:
       properties:
         result:
             type: string
-            description: Return value null
             example: null

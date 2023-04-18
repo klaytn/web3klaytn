@@ -105,5 +105,4 @@ components:
       properties:
         result:
             type: string
-            description: Return value null
             example: null

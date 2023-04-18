@@ -10,29 +10,16 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/verbosity:
+  /debug/chaindbCompact:
     post:
-      operationId: verbosity
-      summary: "[verbosity]"
+      operationId: chaindbCompact
+      summary: "[chaindbCompact]"
       description: |
-        Sets the logging verbosity ceiling. Log messages with level up to and including the given level will be printed.
+        ChaindbCompact flattens the entire key-value database into a single level, removing all unused slots and merging all keys.
 
-        (Level : 0=crit, 1=error, 2=warn, 3=info, 4=debug, 5=trace)
-
-        The verbosity of individual packages and source files can be raised using debug_vmodule.
-        
-        **JSONRPC:** `debug_verbosity`
-
+        **JSONRPC:** `debug_chaindbCompact`
       tags:
         - debug
-
-      parameters:
-        - name: level
-          in: query
-          description: The logging verbosity level.
-          required: true
-          schema:
-            type: integer
 
       requestBody:
         content:
@@ -40,23 +27,28 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "#/components/schemas/VerbosityReq"
+                - $ref: "#/components/schemas/ChaindbCompactReq"
 
       responses:
         200:
-          description: Return value null.
+          description: Return value null
           content:
             application/json:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "#/components/schemas/VerbosityResp"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        example: null
+
 
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klaytnDebug/logging/verbosity.sh"
+            $ref: "../../../code-samples/curl/klaytnDebug/others/chaindbCompact.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
@@ -72,25 +64,11 @@ paths:
 
 components:
   schemas:
-    VerbosityReq:
+    ChaindbCompactReq:
       type: object
       required:
         - method
-        - params
       properties:
         method:
           type: string
-          default: 'debug_verbosity'
-        params: 
-          description: The logging verbosity level.
-          items: 
-            title: Level
-            type: integer
-          example: [3] 
-
-    VerbosityResp:
-      type: object
-      properties:
-        result:
-            type: string
-            example: null
+          default: 'debug_chaindbCompact'
