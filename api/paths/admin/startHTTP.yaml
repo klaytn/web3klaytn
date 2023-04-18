@@ -47,7 +47,7 @@ paths:
             type: string
           description: (optional) API modules to offer over this interface (default "klay,net,rpc").
           in: query
-  
+
       requestBody:
         content:
           application/json:
@@ -58,7 +58,7 @@ paths:
 
       responses:
         200:
-          description: true if the HTTP RPC listener was opened, false if not.
+          description: Return true if the HTTP RPC listener was opened, false if not.
           content:
             application/json:
               schema:
