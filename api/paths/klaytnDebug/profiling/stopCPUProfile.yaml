@@ -52,10 +52,10 @@ paths:
 #          label: "Javascript"
 #          source:
 #            $ref: "../../../code-samples/javascript/eth/account/accounts.js"
-#        - lang: "python"
-#          label: "Python"
-#          source:
-#            $ref: "../../../code-samples/python/eth/account/accounts.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klaytnDebug/profiling/stopCPUProfile.py"
 
 components:
   schemas:
