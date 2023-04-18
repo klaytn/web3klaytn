@@ -32,7 +32,7 @@ paths:
 
       responses:
         200:
-          description: returns the status information of the state migration
+          description: Returns the status information of the state migration
           content:
             application/json:
               schema:
@@ -68,23 +68,31 @@ components:
         method:
           type: string
           default: 'admin_stateMigrationStatus'
-            
+
     StateMigrationStatusResp:
       type: object
       properties:
-        result: 
+        result:
           type: object
           description: returns the status information of the state migration
-          properties: 
-            committed: 
+          required:
+            - committed
+            - isMigration
+            - migrationBlockNumber
+            - pending
+            - progress
+            - read
+          properties:
+            committed:
               type: integer
               description: committed is the number of trie nodes that have been copied by the state migration.
               example: 1585169
-            err: 
+            err:
               type: string
+              nullable: true
               description: null if the state migration finished well, or an error if not.
               example: "null"
-            isMigration: 
+            isMigration:
               type: boolean
               description: true if the state migration is running, or false if not.
               example: true
@@ -93,25 +101,25 @@ components:
               format: uint64
               description: a blockNumber which the state migration started at. (0 if the state migration is not running.)
               example: 32527233
-            pending: 
+            pending:
               type: integer
               description: pending represents the number of trie nodes that have not been processed by the state migration.
               example: 27677
-            progress: 
+            progress:
               type: number
               format: float64
               description: progress is the progress of the state migration calculated in percent.
               example: 0.3662109375
-            read: 
+            read:
               type: integer
               description: read represents the number of trie nodes that have been read by the state migration.
               example: 1587473
-            
 
-          
-         
-             
-                  
+
+
+
+
+
 
 
 

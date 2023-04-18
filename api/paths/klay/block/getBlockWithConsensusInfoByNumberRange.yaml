@@ -46,7 +46,7 @@ paths:
 
       responses:
         200:
-          description: "Returns Object - A block object with consensus information (a proposer and a list of committee members)"
+          description: Returns a block with consensus information matched by the given block hash or block number.
           content:
             application/json:
               schema:
