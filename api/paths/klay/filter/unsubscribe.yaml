@@ -44,6 +44,7 @@ paths:
                       default: "klay_unsubscribe"
                     params:
                       type: array
+                      description: A subscription id.
                       items:
                         title: SubscriptionId
                         type: string

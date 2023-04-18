@@ -81,6 +81,7 @@ components:
           default: 'klay_getTransactionReceiptBySenderTxHash'
         params:
           type: array
+          description: Hash of a transaction before signing of feePayer(senderTransactionHash).
           items:
             type: string
             format: 32-byte DATA

@@ -82,10 +82,11 @@ components:
           default: 'klay_getTransactionReceipt'
         params:
           type: array
+          description: Hash of a transaction.
           items:
               type: string
               format: 32-byte DATA
-              title: transactionHash
+              title: TransactionHash
               description: Hash of a transaction.
           example:  ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
 
