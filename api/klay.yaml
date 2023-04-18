@@ -534,6 +534,10 @@ paths:
     $ref: ./paths/klaytnDebug/others/getModifiedStorageNodesByNumber.yaml#/paths/~1debug~1getModifiedStorageNodesByNumber
   /debug/chaindbCompact:
     $ref: ./paths/klaytnDebug/others/chaindbCompact.yaml#/paths/~1debug~1chaindbCompact
+  /debug/chaindbProperty:
+    $ref: ./paths/klaytnDebug/others/chaindbProperty.yaml#/paths/~1debug~1chaindbProperty
+  /debug/storageRangeAt:
+    $ref: ./paths/klaytnDebug/others/storageRangeAt.yaml#/paths/~1debug~1storageRangeAt
 
   # debug/profiling:
   /debug/profiling/blockProfile:
@@ -566,39 +570,52 @@ paths:
   # admin
   /admin/addPeer:
     $ref: ./paths/admin/addPeer.yaml#/paths/~1admin~1addPeer
-  /admin/exportChain: 
+  /admin/exportChain:
     $ref: ./paths/admin/exportChain.yaml#/paths/~1admin~1exportChain
-  /admin/importChain: 
+  /admin/importChain:
     $ref: ./paths/admin/importChain.yaml#/paths/~1admin~1importChain
-  /admin/removePeer: 
+  /admin/removePeer:
     $ref: ./paths/admin/removePeer.yaml#/paths/~1admin~1removePeer
-  /admin/importChainFromString: 
+  /admin/importChainFromString:
     $ref: ./paths/admin/importChainFromString.yaml#/paths/~1admin~1importChainFromString
-  /admin/startHTTP: 
+  /admin/startHTTP:
     $ref: ./paths/admin/startHTTP.yaml#/paths/~1admin~1startHTTP
-  /admin/stopHTTP: 
+  /admin/stopHTTP:
     $ref: ./paths/admin/stopHTTP.yaml#/paths/~1admin~1stopHTTP
-  /admin/startWS: 
+  /admin/startWS:
     $ref: ./paths/admin/startWS.yaml#/paths/~1admin~1startWS
-  /admin/stopWS: 
+  /admin/stopWS:
     $ref: ./paths/admin/stopWS.yaml#/paths/~1admin~1stopWS
-  /admin/startStateMigration: 
+  /admin/startStateMigration:
     $ref: ./paths/admin/startStateMigration.yaml#/paths/~1admin~1startStateMigration
-  /admin/stopStateMigration: 
+  /admin/stopStateMigration:
     $ref: ./paths/admin/stopStateMigration.yaml#/paths/~1admin~1stopStateMigration
-  /admin/saveTrieNodeCacheToDisk: 
+  /admin/saveTrieNodeCacheToDisk:
     $ref: ./paths/admin/saveTrieNodeCacheToDisk.yaml#/paths/~1admin~1saveTrieNodeCacheToDisk
-  /admin/setMaxSubscriptionPerWSConn: 
+  /admin/setMaxSubscriptionPerWSConn:
     $ref: ./paths/admin/setMaxSubscriptionPerWSConn.yaml#/paths/~1admin~1setMaxSubscriptionPerWSConn
-  /admin/nodeInfo: 
+  /admin/nodeInfo:
     $ref: ./paths/admin/nodeInfo.yaml#/paths/~1admin~1nodeInfo
-  /admin/peers: 
+  /admin/peers:
     $ref: ./paths/admin/peers.yaml#/paths/~1admin~1peers
-  /admin/datadir: 
+  /admin/datadir:
     $ref: ./paths/admin/datadir.yaml#/paths/~1admin~1datadir
-  /admin/stateMigrationStatus: 
+  /admin/stateMigrationStatus:
     $ref: ./paths/admin/stateMigrationStatus.yaml#/paths/~1admin~1stateMigrationStatus
-  
+  /admin/startSpamThrottler:
+    $ref: ./paths/admin/startSpamThrottler.yaml#/paths/~1admin~1startSpamThrottler
+  /admin/stopSpamThrottler:
+    $ref: ./paths/admin/stopSpamThrottler.yaml#/paths/~1admin~1stopSpamThrottler
+  /admin/setSpamThrottlerWhiteList:
+    $ref: ./paths/admin/setSpamThrottlerWhiteList.yaml#/paths/~1admin~1setSpamThrottlerWhiteList
+  /admin/getSpamThrottlerWhiteList:
+    $ref: ./paths/admin/getSpamThrottlerWhiteList.yaml#/paths/~1admin~1getSpamThrottlerWhiteList
+  /admin/getSpamThrottlerThrottleList:
+    $ref: ./paths/admin/getSpamThrottlerThrottleList.yaml#/paths/~1admin~1getSpamThrottlerThrottleList
+  /admin/getSpamThrottlerCandidateList:
+    $ref: ./paths/admin/getSpamThrottlerCandidateList.yaml#/paths/~1admin~1getSpamThrottlerCandidateList
+  /admin/spamThrottlerConfig:
+    $ref: ./paths/admin/spamThrottlerConfig.yaml#/paths/~1admin~1spamThrottlerConfig
 
   # mainbridge:
   /mainbridge/getChildChainIndexingEnabled:
@@ -623,3 +640,7 @@ paths:
     $ref: ./paths/subbridge/registerToken.yaml#/paths/~1subbridge~1registerToken
   /subbridge/deregisterToken:
     $ref: ./paths/subbridge/deregisterToken.yaml#/paths/~1subbridge~1deregisterToken
+  /subbridge/txPending:
+    $ref: ./paths/subbridge/txPending.yaml#/paths/~1subbridge~1txPending
+  /subbridge/txPendingCount:
+    $ref: ./paths/subbridge/txPendingCount.yaml#/paths/~1subbridge~1txPendingCount
