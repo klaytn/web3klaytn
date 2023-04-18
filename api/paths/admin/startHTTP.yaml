@@ -75,10 +75,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+           $ref: "../../code-samples/javascript/admin/startHTTP.js"
         # - lang: "python"
         #   label: "Python"
         #   source:

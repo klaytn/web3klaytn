@@ -6,6 +6,9 @@ const { RPC } = require("../test/constant");
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 const web3 = new Web3(RPC);
 
+const address = '0x487f2dfef230c2120b8cc55c5087b103146536ec'
+const passphrase = 'helloWorld'
+
 export const getEthFilterId = () => {
     return new Promise((res, ej) => {
         const opts = {
@@ -54,6 +57,28 @@ export const getRawTransaction = async () => {
         });
     })
 }
-export const sendTransaction = async () => {
+export const unlockAccount = () => {
+    return new Promise((res, ej) => {
 
+        sdk.personal.unlockAccount(address, passphrase, { duration: 30 }, (err, data, resp) => {
+            if (err) return ej(err)
+            return res(address)
+        })
+    })
+}
+export const getNonce = (address) => {
+    return new Promise((res, ej) => {
+        sdk.eth.getTransactionCount(address, 'latest', {}, (err, data, resp) => {
+            if (err) return ej(err)
+            return res(data.result)
+        })
+    })
+}
+export const getFeePayerSignatures = async (tx) => {
+    return new Promise((resolve, reject) => {
+        sdk.klay.signTransaction(tx, {}, (err, data) => {
+            if (err) return reject(err)
+            return resolve(data.result.tx)
+        });
+    })
 }
