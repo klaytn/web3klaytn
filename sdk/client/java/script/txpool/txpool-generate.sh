@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-CURRENT_FILE_DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && cd ../.. && pwd)
-PROJECT_DIR=$(cd "$CURRENT_FILE_DIR" && cd ../../.. && pwd )
+CURRENT_FILE_DIR=$1
+PROJECT_DIR=$(cd "$CURRENT_FILE_DIR" && cd ../../../ && pwd )
 
 # generate openapi yaml
 #cd "${PROJECT_DIR}"/api/redocly
