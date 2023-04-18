@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "admin_startHTTP",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": [5]
+  "params": ["127.0.0.1", 8551, "", "klay"]
 }'

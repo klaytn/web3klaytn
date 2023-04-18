@@ -80,10 +80,11 @@ components:
           default: 'klay_getDecodedAnchoringTransactionByHash'
         params:
           type:  array
+          description: Hash of a transaction.
           items:
               type: string
               format: 32-byte DATA
-              title: hashOfTransaction
+              title: HashOfTransaction
               description: Hash of a transaction.
           example: ["0x499350bc5e2f6fee1ba78b4d40a7a1db0a64f3c091112e6798a02ed9a4140084"]
 
@@ -93,34 +94,43 @@ components:
       properties:
         result:
           type: object
+          required:
+            - BlockHash
+            - BlockNumber
+            - ParentHash
+            - TxHash
+            - StateRootHash
+            - ReceiptHash
+            - BlockCount
+            - TxCount
           properties:
-            blockHash:
+            BlockHash:
               type: string
               format: 32-byte DATA
               description: Hash of the child chain block that this anchoring transaction was performed.
-            blockNumber:
+            BlockNumber:
               type: number
               description: The child chain block number that this anchoring transaction was performed.
-            parentHash:
+            ParentHash:
               type: string
               format: 32-byte DATA
               description: Hash of the parent block.
-            txHash:
+            TxHash:
               type: string
               format: 32-byte DATA
               description: The root of the transaction trie of the block.
-            stateRootHash:
+            StateRootHash:
               type: string
               format: 32-byte DATA
               description: The root of the final state trie of the block.
-            receiptHash:
+            ReceiptHash:
               type: string
               format: 32-byte DATA
               description: The root of the receipts trie of the block.
-            blockCount:
+            BlockCount:
               type: number
               description: The number of blocks generated during this anchoring period. In most cases, this number is equal to the child chain's SC_TX_PERIOD, with the exception of the case that this transaction was the first anchoring tx after turning on the anchoring.
-            txCount:
+            TxCount:
               type: number
               description: The number of transactions generated in the child chain during this anchoring period.
           example:

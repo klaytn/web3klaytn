@@ -80,10 +80,11 @@ components:
           default: 'klay_getTransactionBySenderTxHash'
         params:
           type: array
+          description: Hash of a transaction that is signed only by the sender.
           items:
               type: string
               format: 32-byte DATA
-              title: transactionHash
+              title: TransactionHash
               description: Hash of a transaction that is signed only by the sender.
           example:  ["0x18fe9e1007da7d20aad77778557fb8acc58c80054daba65124c8c843aadd3478"]
 

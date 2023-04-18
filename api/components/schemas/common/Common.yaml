@@ -105,10 +105,25 @@ components:
       title: KlayHeaderObject
       type: object
       description: The block header object.
+      required:
+        - parentHash
+        - transactionsRoot
+        - stateRoot
+        - receiptsRoot
+        - reward
+        - blockScore
+        - extraData
+        - gasUsed
+        - timestamp
+        - timestampFoS
+        - governanceData
+        - voteData
+        - baseFeePerGas
       properties:
         number:
           type: string
           format: hex
+          nullable: true
           description: The block number. null when its pending block.
         parentHash:
           type: string
@@ -117,6 +132,7 @@ components:
         logsBloom:
           type: string
           format: 256-byte DATA
+          nullable: true
           description: The bloom filter for the logs of the block. null when it is pending block.
         transactionsRoot:
           type: string

@@ -29,7 +29,7 @@ paths:
             type: integer
           description: The maximum allowed number of subscriptions per single WebSocket connection.
           in: query
-        
+
       requestBody:
         content:
           application/json:
@@ -40,7 +40,7 @@ paths:
 
       responses:
         200:
-          description: null if the limit is set successfully; otherwise, it returns an error message.
+          description: Return null if the limit is set successfully; otherwise, it returns an error message.
           content:
             application/json:
               schema:
@@ -79,19 +79,20 @@ components:
           default: 'admin_setMaxSubscriptionPerWSConn'
         params:
           type: array
-          description: (optional) network interface to open the listener socket on (default "localhost").
+          description: The maximum allowed number of subscriptions per single WebSocket connection.
           items:
             type: integer
-            title: limit
+            title: Limit
             example: 5
-            
+
     SetMaxSubscriptionPerWSConnResp:
       type: object
       properties:
         result:
           type: string
+          nullable: true
           description: true if the HTTP RPC listener was opened, false if not.
-          example: null
+          default: null
 
 
 

@@ -80,9 +80,10 @@ components:
           default: 'klay_getBlockReceipts'
         params:
           type: array
+          description: Hash of a block
           items:
               type: string
-              title: hashOfBlock
+              title: HashOfBlock
               format: 32-byte DATA
               description: Hash of a block.
           example:  ["0xdc762ed0274496e2a42278e2648d910d82468687b5415bb5eb058a96a0b93c30"]

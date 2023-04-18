@@ -46,7 +46,7 @@ paths:
 
       responses:
         200:
-          description: "Returns Object - A block object with consensus information (a proposer and a list of committee members)"
+          description: Returns a block with consensus information matched by the given block hash or block number.
           content:
             application/json:
               schema:
@@ -96,6 +96,24 @@ components:
 
     GetBlockWithConsensusInfoByNumberRangeObject:
       type: object
+      required:
+        - blockScore
+        - committee
+        - extraData
+        - gasUsed
+        - governanceData
+        - parentHash
+        - proposer
+        - receiptsRoot
+        - reward
+        - size
+        - stateRoot
+        - timestamp
+        - timestampFoS
+        - totalBlockScore
+        - transactions
+        - transactionsRoot
+        - voteData
       properties:
         blockScore:
           type: string
@@ -121,14 +139,17 @@ components:
         hash:
           type: string
           format: 32-byte DATA
+          nullable: true
           description: Hash of the block. null when it is a pending block.
         logsBloom:
           type: string
           format: 256-byte DATA
+          nullable: true
           description: The bloom filter for the logs of the block. null when it is a pending block.
         number:
           type: string
           format: hex
+          nullable: true
           description: The block number. null when it is a pending block.
         parentHash:
           type: string

@@ -115,6 +115,11 @@ components:
               type: array
               items:
                 type: object
+                required:
+                  - oldestBlock
+                  - reward
+                  - baseFeePerGas
+                  - gasUsedRatio
                 properties:
                   oldestBlock:
                     type: string

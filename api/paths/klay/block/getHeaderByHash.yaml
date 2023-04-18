@@ -42,7 +42,7 @@ paths:
 
       responses:
         200:
-          description: Returns a header object, or error when no header was found
+          description: Returns information about a header by hash.
           content:
             application/json:
               schema:
@@ -81,9 +81,10 @@ components:
           default: 'klay_getHeaderByHash'
         params:
           type: array
+          description: Hash of a block.
           items:
               type: string
-              title: hashOfBlock
+              title: HashOfBlock
               format: 32-byte DATA
               description: Hash of a block.
           example:  ["0x1b4"]

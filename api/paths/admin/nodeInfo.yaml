@@ -68,85 +68,87 @@ components:
         method:
           type: string
           default: 'admin_nodeInfo'
-            
+
     NodeInfoResp:
       type: object
       properties:
-        result: 
-          $ref: "#/components/schemas/NodeInfoModel"
-    
-    NodeInfoModel: 
+        result:
+          type: object
+          description: The node information.
+#          $ref: "#/components/schemas/NodeInfoModel"
+
+    NodeInfoModel:
       type: object
       description: The node information.
-      properties:   
-        kni: 
+      properties:
+        kni:
           type: string
           example: kni://0bbff960d26fc12a5153ac25d7aaffd654e073a74a8b1aa65034250d47fac610ebe99a83d21d741c6121a32fb01312b49fc0633ae04e80c5eb73c3bc71c5a850@[::]:32323?discport=0
-        id: 
+        id:
           type: string
           example: 0bbff960d26fc12a5153ac25d7aaffd654e073a74a8b1aa65034250d47fac610ebe99a83d21d741c6121a32fb01312b49fc0633ae04e80c5eb73c3bc71c5a850
-        ip: 
+        ip:
           type: string
           example: "::"
-        listenAddr: 
+        listenAddr:
           type: string
           example: "[::]:32323"
-        name: 
+        name:
           type: string
           example: "Klaytn/validator-1/vX.X.X/XXXX-XXXX/goX.X.X"
-        ports: 
+        ports:
           type: object
-          properties: 
-            discovery: 
+          properties:
+            discovery:
               type: integer
               example: 0
-            listener: 
+            listener:
               type: integer
               example: 32323
-        protocols: 
+        protocols:
           type: object
-          properties: 
-            istanbul: 
+          properties:
+            istanbul:
               type: object
-              properties: 
-                config: 
+              properties:
+                config:
                   type: object
-                  properties: 
-                    chainId: 
+                  properties:
+                    chainId:
                       type: integer
                       example: 2018
                     isBFT:
                       type: boolean
                       example: true
-                    istanbul:  
+                    istanbul:
                       type: object
-                      properties: 
-                        epoch: 
+                      properties:
+                        epoch:
                           type: integer
                           example: 30000
-                        policy: 
+                        policy:
                           type: integer
                           example: 0
-                        sub: 
+                        sub:
                           type: integer
                           example: 7
-                    unitPrice: 
+                    unitPrice:
                       type: integer
                       example: 0
-                difficulty: 
+                difficulty:
                   type: integer
                   example: 52794
-                genesis: 
+                genesis:
                   type: string
                   example: 0x42824367c973785245923a712cf2e5a99aae6a26f44e4f1ec686a0e60986644e
-                head: 
+                head:
                   type: string
                   example: 0x4c3000a6f8c40b0507d8ee4a3fc5c9865df0a8d66f882366ea95473c87342005
-                network: 
+                network:
                   type: integer
                   example: 2017
-                
-                  
+
+
 
 
 
