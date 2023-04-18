@@ -3,9 +3,9 @@ from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
 
-file = "go.trace"
+fileName = "go.trace"
 
 sdk = OpenSDK(host)
-debug_response = sdk.debug.start_go_trace(file)
+debug_response = sdk.debug.start_go_trace(fileName)
 
 print(json.loads(debug_response.response.data))
