@@ -21,8 +21,6 @@ describe('klay_signTransaction API', () => {
                 "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",
                 "value": "0x1",
                 "gas": "0x9999",
-                "maxFeePerGas": "0x5d21dba00",
-                "maxPriorityFeePerGas": "0x5d21dba00",
                 nonce
             }, {}, callbackOne);
         })
