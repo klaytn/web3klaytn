@@ -75,7 +75,7 @@ paths:
                             format: hex
                           storage:
                             type: object
-                        example: JS eval
+                        example:
                           {
                             "id":"377ef808aff73a397d133b3bf160df586054c98c0e6a65c8fce9560e6a0632bc975419f461803d27f28ee270287113cc2359225814debc1bfb2f811061e14c5d",
                             "name":"Klaytn/vvX.X.X/XXXX-XXXX/goX.X.X",
@@ -116,10 +116,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klaytnDebug/others/storageRangeAt.js"
         # - lang: "python"
         #   label: "Python"
         #   source:

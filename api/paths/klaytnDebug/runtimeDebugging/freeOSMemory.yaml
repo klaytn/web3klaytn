@@ -49,10 +49,10 @@ paths:
           label: "Java"
           source:
             $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/runtimeDebugging/DebugFreeOSMemoryExample.java"
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klaytnDebug/runtimeDebugging/freeOSMemory.js"
         # - lang: "python"
         #   label: "Python"
         #   source:
