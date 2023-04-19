@@ -74,9 +74,10 @@ components:
       properties:
         result:
           type: object
-          description: returns the status information of the state migration
+          description: Returns the status information of the state migration
           required:
             - committed
+            - err
             - isMigration
             - migrationBlockNumber
             - pending

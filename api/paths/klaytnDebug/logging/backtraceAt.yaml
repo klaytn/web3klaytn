@@ -25,7 +25,7 @@ paths:
       parameters:
         - name: location
           in: query
-          description: The logging backtrace location specified as <filename>:<line>.
+          description: The logging backtrace location specified as \<filename>:\<line>.
           required: true 
           schema: 
             type: string
@@ -78,7 +78,7 @@ components:
           type: string
           default: 'debug_backtraceAt'
         params: 
-          description: The logging backtrace location specified as <filename>:<line>.
+          description: The logging backtrace location specified as \<filename>:\<line>.
           items:
             title: Location
             type: string
