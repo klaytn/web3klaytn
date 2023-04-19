@@ -17,9 +17,9 @@ paths:
       description: |
         Returns the account information of a given address. There are two different account types in Klaytn: Externally Owned Account (EOA) and Smart Contract Account. See Klaytn Accounts.
 
-        **JSONRPC:** `klay_getAccount`
-
         **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*`
+
+        **JSONRPC:** `klay_getAccount`
       tags:
         - klay
 

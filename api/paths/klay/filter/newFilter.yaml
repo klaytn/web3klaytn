@@ -26,9 +26,9 @@ paths:
         - [A, B] "A in first position AND B in second position (and anything after)"
         - [[A, B], [A, B]] "(A OR B) in first position AND (A OR B) in second position (and anything after)"
 
-        **JSONRPC:** `klay_newFilter`
-
         **NOTE:** In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.
+
+        **JSONRPC:** `klay_newFilter`
 
       tags:
         - klay

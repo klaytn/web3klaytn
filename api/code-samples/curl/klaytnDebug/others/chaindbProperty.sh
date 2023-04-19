@@ -1,5 +1,5 @@
 curl -X 'POST' \
-  'https://dev.api.klaytn.sotatek.works' \
+  'https://api.baobab.klaytn.net:8651/debug/chaindbProperty' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{

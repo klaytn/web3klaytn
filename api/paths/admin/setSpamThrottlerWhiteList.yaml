@@ -25,7 +25,7 @@ paths:
       parameters:
         - name: addresses
           required: true
-          schemas:
+          schema:
             type: array
             items:
               $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"

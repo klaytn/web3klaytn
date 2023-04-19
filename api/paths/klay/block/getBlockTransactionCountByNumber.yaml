@@ -17,9 +17,9 @@ paths:
       description: |
         Returns the number of transactions in a block matching the given block number.
         
-        **JSONRPC:** `klay_getBlockTransactionCountByNumber`
-        
         **NOTE:**  In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.
+        
+        **JSONRPC:** `klay_getBlockTransactionCountByNumber`
 
       tags:
         - klay

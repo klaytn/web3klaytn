@@ -17,9 +17,9 @@ paths:
       description: |
         Returns information about a header by number. This API works only on RPC call, not on JavaScript console.
 
-        **JSONRPC:** `klay_getHeaderByNumber`
-
         **NOTE:** *This API is supported from Klaytn v1.7.0.*
+
+        **JSONRPC:** `klay_getHeaderByNumber`
       tags:
         - klay
 

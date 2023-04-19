@@ -17,9 +17,9 @@ paths:
       description: |
         Returns the receipt of a transaction by transaction hash.
         
-        **JSONRPC:** `klay_getTransactionReceipt`
-        
         **NOTE:** The receipt is not available for pending transactions.
+        
+        **JSONRPC:** `klay_getTransactionReceipt`
 
       tags:
         - klay

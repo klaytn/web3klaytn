@@ -17,9 +17,9 @@ paths:
       description: |
         Constructs a transaction with given parameters, signs the transaction with a fee payer's private key and propagates the transaction to Klaytn network. This API supports only fee delegated type (including partial fee delegated type) transactions.
         
-        **JSONRPC:** `klay_sendTransactionAsFeePayer`
-        
         **NOTE:** The fee payer address to sign with must be unlocked.
+        
+        **JSONRPC:** `klay_sendTransactionAsFeePayer`
 
       tags:
         - klay

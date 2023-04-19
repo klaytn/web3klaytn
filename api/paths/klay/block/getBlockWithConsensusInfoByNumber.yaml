@@ -17,9 +17,9 @@ paths:
       description: |
         Returns a block with consensus information that matches the given block number.
 
-        **JSONRPC:** `klay_getBlockWithConsensusInfoByNumber`
-
         **NOTE:**  In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available. 
+
+        **JSONRPC:** `klay_getBlockWithConsensusInfoByNumber`
 
       tags:
         - klay

@@ -17,11 +17,11 @@ paths:
       description: |
         Sets the current head of the local chain by block number.
 
-        **JSONRPC:** `debug_setHead`
-
         **WARNING:** This API is not yet implemented and always returns "not yet implemented API" error.
 
         **NOTE:** This is a destructive action and may severely damage your chain. Use with extreme caution.
+
+        **JSONRPC:** `debug_setHead`
       tags:
         - debug
 
