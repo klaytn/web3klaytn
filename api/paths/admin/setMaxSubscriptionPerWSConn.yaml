@@ -91,7 +91,7 @@ components:
         result:
           type: string
           nullable: true
-          description: true if the HTTP RPC listener was opened, false if not.
+          description: null if the limit is set successfully; otherwise, it returns an error message.
           default: null
 
 
