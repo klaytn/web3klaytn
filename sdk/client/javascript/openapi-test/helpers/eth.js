@@ -60,7 +60,7 @@ export const getRawTransaction = async () => {
 export const unlockAccount = () => {
     return new Promise((res, ej) => {
 
-        sdk.personal.unlockAccount(address, passphrase, { duration: 30 }, (err, data, resp) => {
+        sdk.personal.unlockAccount(address, passphrase, { duration: 300 }, (err, data, resp) => {
             if (err) return ej(err)
             return res(address)
         })

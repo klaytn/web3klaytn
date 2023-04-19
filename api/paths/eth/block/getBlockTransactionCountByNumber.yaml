@@ -56,10 +56,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/block/EthGetBlockByHashExample.java"
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #     $ref: "../../../code-samples/javascript/eth/block/getBlockTransactionCountByNumber.js"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/block/getBlockTransactionCountByNumber.js"
         - lang: "python"
           label: "Python"
           source:

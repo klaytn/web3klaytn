@@ -8,12 +8,13 @@ describe('klay_getTransactionByHash API', () => {
     test('should return klay_getTransactionByHash', (done) => {
 
         let callbackOne = function (error, data, response) {
+            console.log(JSON.stringify(data.result));
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
             expect(data.result).toBeDefined()
             done();
         };
-        const transactionHash = '0x21b2919b89278ca786226f10edbaadced7381dbd73df546a4823547aaebffa58'
+        const transactionHash = '0xa40911eedd636d62f09d5f670856e8f168a4372ca69119796c95df547fd6010c'
 
         sdk.klay.getTransactionByHash(transactionHash, {}, callbackOne);
     });
