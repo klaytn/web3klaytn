@@ -1,0 +1,109 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/storageRangeAt:
+    post:
+      operationId: storageRangeAt
+      summary: "[storageRangeAt]"
+      description: |
+        **JSONRPC:** `debug_storageRangeAt`
+      tags:
+        - debug
+
+      parameters:
+        - name: hash
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+          in: query
+        - name: integer1
+          required: true
+          schema:
+            type: integer
+          in: query
+        - name: address
+          required: true
+          schema:
+            type: string
+            format: hex
+          in: query
+        - name: integer2
+          required: true
+          schema:
+            type: integer
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/DebugStorageRangeAtReq"
+
+      responses:
+        200:
+          description: Return string
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: object
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klaytnDebug/others/storageRangeAt.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #    $ref: ""
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: ""
+
+components:
+  schemas:
+    DebugStorageRangeAtReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'debug_storageRangeAt'
+        params:
+          type: array
+          items:
+            - title: Hash
+              type: string
+              format: 32-byte DATA
+            - title: Integer1
+              type: integer
+            - title: Address
+              type: string
+              format: hex
+            - title: Integer2
+              type: integer
+          example: ["0x90c81195698bc9f282bbdec386b0afb4dcc28e43aae834894281c3ecb3c88d21", 1, "0x73a7d19d14f7dfac5b799e405e22133b2adc57a6", "0x12", 1]
