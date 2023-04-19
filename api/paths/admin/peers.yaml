@@ -76,60 +76,80 @@ components:
           type: array
           description: The information about all connected peers.
           items: 
-            $ref: "#/components/schemas/PeersModel"
-    
-    PeersModel: 
-      type: object
-      properties:   
-        caps: 
-          type: array
-          items: 
-            type: string
-          example: ["istanbul/64"]
-        id: 
-          type: string
-          example: 5d73afadf1eb4d6ccd1e10ab0f00301a1642b102fb521f170f4eaa4b3cb9a58788d1e2b387d6ce3726cb4786d034feb7dd17b5055b6d9a888520011e5756c89e
-        name: 
-          type: string
-          example: Klaytn/validator-3/vX.X.X/XXXX-XXXX/goX.X.X
-        network: 
-          type: object
-          properties: 
-            inbound: 
-              type: boolean
-              example: true
-            localAddress: 
-              type: string
-              example: 127.0.0.1:32323
-            nodeType: 
-              type: string
-              example: cn
-            remoteAddress: 
-              type: string
-              example: 127.0.0.1:63323
-            static: 
-              type: boolean
-              example: false
-            trusted: 
-              type: boolean
-              example: false
-        protocols: 
-          type: object
-          properties: 
-            istanbul: 
               type: object
-              properties: 
-                difficulty: 
-                  type: integer
-                  example: 52794
-                head: 
-                  type: string
-                  example: 0x4c3000a6f8c40b0507d8ee4a3fc5c9865df0a8d66f882366ea95473c87342005
-                version: 
-                  type: integer
-                  example: 64
-                
-                  
-
-
-
+          example: 
+            [
+              {
+                "id":"144af69d2bb030c6a2a5ceee7445dc613e200f19358547cffc353d56e6c8a5b4186a6953c028b6afd0ab3c2bfc4c86f24b0bf855d0686b964ec65cefd3deec37",
+                "name":"Klaytn/vvX.X.X/XXXX-XXXX/goX.X.X",
+                "caps":["istanbul/64"],
+                "network":
+                  {
+                    "localAddress":"10.0.10.1:49355",
+                    "remoteAddress":"10.0.0.1:32323",
+                    "inbound":false,
+                    "trusted":false,
+                    "static":true
+                  },
+                "protocols":
+                  {
+                    "istanbul":
+                      {
+                        "version":64,
+                        "difficulty":1285901,
+                        "head":"0x2d04ac52df4af08a9a0e15d5939c29decb00031e7b3f6abd05bc0c731f6b5561"
+                      }
+                  }
+                },
+                  {
+                    "id":"a875620f67f0b12edb97d0ec269e7940f2505b1f62576f39858c37e1d7f956318c3a619239f03f806a79ccaa8e7e9b5def343c24a9fd2e9d715964e0952dd995",
+                    "name":"Klaytn/vvX.X.X/XXXX-XXXX/goX.X.X",
+                    "caps":["istanbul/64"],
+                    "networks":
+                      [
+                        {
+                          "localAddress":"10.0.10.2:49353",
+                          "remoteAddress":"10.0.0.2:32323",
+                          "inbound":false,
+                          "trusted":false,
+                          "static":true
+                        }
+                      ],
+                    "protocols":
+                      {
+                        "istanbul":
+                          {
+                            "version":64,
+                            "difficulty":1285901,
+                            "head":"0x2d04ac52df4af08a9a0e15d5939c29decb00031e7b3f6abd05bc0c731f6b5561"
+                          }
+                      }
+                },
+                {
+                  "id":"e18d6d4e0ffac0a51028a8d49a548295ac8ac50d064f3581600799a3ae761a61f0b39c38b4195e163e01f30db616debf61b5b2ddea716bc8fb1c907ce7a1de26",
+                  "name":"Klaytn/vvX.X.X/XXXX-XXXX/goX.X.X",
+                  "caps":["istanbul/64"],
+                  "network":
+                    {
+                      "localAddress":"10.0.10.3:49354",
+                      "remoteAddress":"10.0.0.3:32323",
+                      "inbound":false,
+                      "trusted":false,
+                      "static":true
+                    },
+                  "protocols":
+                    {
+                      "istanbul":
+                        {
+                          "version":64,
+                          "difficulty":1285900,
+                          "head":"0x2e228a45c7c9b9e6729b6c66b31957d6cb62ce53e32cedf156615a4e8a2e253a"
+                        }
+                    }
+                }
+              ]
+      
+      
+  
+  
+  
