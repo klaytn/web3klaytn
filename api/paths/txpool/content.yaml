@@ -118,10 +118,10 @@ paths:
 #          label: "Java"
 #          source:
 #            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/block/KlayBlockNumberExample.java"
-#        - lang: "javascript"
-#          label: "Javascript"
-#          source:
-#            $ref: "../../../code-samples/javascript/klay/block/blockNumber.js"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/txpool/content.js"
         - lang: "python"
           label: "Python"
           source:
