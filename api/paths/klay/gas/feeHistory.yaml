@@ -17,9 +17,9 @@ paths:
       description: |
         Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.
 
-        **JSONRPC:** `klay_feeHistory`
-
         **NOTE:** This API is effective after Klaytn v1.8.0
+
+        **JSONRPC:** `klay_feeHistory`
       tags:
         - klay
 

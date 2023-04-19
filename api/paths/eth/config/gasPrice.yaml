@@ -18,10 +18,10 @@ paths:
       operationId: gasPrice
       description: |
         Returns the current price per gas in peb.
-        
-        **JSONRPC:** `eth_gasPrice`
-        
+
         **NOTE:** This API has different behavior from Ethereum's and returns a gas price of Klaytn instead of suggesting a gas price as in Ethereum.
+
+        **JSONRPC:** `eth_gasPrice`
 
       requestBody:
         content:

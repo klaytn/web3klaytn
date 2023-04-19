@@ -21,9 +21,9 @@ paths:
         
         Adding a prefix to the message makes the calculated signature recognizable as a Klaytn-specific signature. This prevents misuse where a malicious dApp can sign arbitrary data, e.g., transaction, and use the signature to impersonate the victim.
 
-        **JSONRPC:** `klay_sign`
-
         **NOTE:** *The address to sign with must be unlocked.*
+
+        **JSONRPC:** `klay_sign`
       tags:
         - klay
 

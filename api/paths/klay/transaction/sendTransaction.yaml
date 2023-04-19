@@ -17,9 +17,9 @@ paths:
       description: |
         Constructs a transaction with given parameters, signs the transaction with a sender's private key and propagates the transaction to Klaytn network.
         
-        **JSONRPC:** `klay_sendTransaction`
-        
         **NOTE:** The address to sign with must be unlocked.
+        
+        **JSONRPC:** `klay_sendTransaction`
 
       tags:
         - klay

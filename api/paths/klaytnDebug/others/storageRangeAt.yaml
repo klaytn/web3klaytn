@@ -15,18 +15,19 @@ paths:
       operationId: storageRangeAt
       summary: "[storageRangeAt]"
       description: |
+        StorageRangeAt returns the storage at the given block height and transaction index.
+
         **JSONRPC:** `debug_storageRangeAt`
       tags:
         - debug
 
       parameters:
-        - name: hash
+        - name: blockHash
           required: true
           schema:
-            type: string
-            format: 32-byte DATA
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
           in: query
-        - name: integer1
+        - name: txIndex
           required: true
           schema:
             type: integer
@@ -34,10 +35,15 @@ paths:
         - name: address
           required: true
           schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+          in: query
+        - name: keyStart
+          required: true
+          schema:
             type: string
             format: hex
           in: query
-        - name: integer2
+        - name: maxResult
           required: true
           schema:
             type: integer
@@ -53,7 +59,7 @@ paths:
 
       responses:
         200:
-          description: Return string
+          description: StorageRangeResult
           content:
             application/json:
               schema:
@@ -63,6 +69,43 @@ paths:
                     properties:
                       result:
                         type: object
+                        properties:
+                          nextKey:
+                            type: string
+                            format: hex
+                          storage:
+                            type: object
+                        example: JS eval
+                          {
+                            "id":"377ef808aff73a397d133b3bf160df586054c98c0e6a65c8fce9560e6a0632bc975419f461803d27f28ee270287113cc2359225814debc1bfb2f811061e14c5d",
+                            "name":"Klaytn/vvX.X.X/XXXX-XXXX/goX.X.X",
+                            "kni":"kni://377ef808aff73a397d133b3bf160df586054c98c0e6a65c8fce9560e6a0632bc975419f461803d27f28ee270287113cc2359225814debc1bfb2f811061e14c5d@[::]:32323?discport=0",
+                            "ip":"::",
+                            "ports":{
+                              "discovery":0,
+                              "listener":32323
+                            },
+                            "listenAddr":"[::]:32323",
+                            "protocols":{
+                              "istanbul":{
+                                "network":1000,
+                                "difficulty":1,
+                                "genesis":"0x06806bd8b1e086dfb7098a289da07037a3af58e793d205d20f61c88eeea9351d",
+                                "config":{
+                                  "chainId":1000,
+                                  "istanbul":{
+                                    "epoch":30000,
+                                    "policy":0,
+                                    "sub":7
+                                  },
+                                  "isBFT":true,
+                                  "unitPrice":25000000000,
+                                  "deriveShaImpl":0
+                                },
+                                "head":"0x06806bd8b1e086dfb7098a289da07037a3af58e793d205d20f61c88eeea9351d"
+                              }
+                            }
+                          }
 
       x-codeSamples:
         - lang: "curl"
@@ -96,14 +139,13 @@ components:
         params:
           type: array
           items:
-            - title: Hash
-              type: string
-              format: 32-byte DATA
-            - title: Integer1
+            - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
+            - title: TxIndex
               type: integer
-            - title: Address
+            - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+            - title: KeyStart
               type: string
               format: hex
-            - title: Integer2
+            - title: MaxResult
               type: integer
           example: ["0x90c81195698bc9f282bbdec386b0afb4dcc28e43aae834894281c3ecb3c88d21", 1, "0x73a7d19d14f7dfac5b799e405e22133b2adc57a6", "0x12", 1]

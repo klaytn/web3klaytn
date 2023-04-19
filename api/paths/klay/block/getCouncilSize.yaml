@@ -17,9 +17,9 @@ paths:
       description: |
         Returns the size of the council at the specified block. If the parameter is not set, returns the size of the council at the latest block.
 
-        **JSONRPC:** `klay_getCouncilSize`
-
         **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
+
+        **JSONRPC:** `klay_getCouncilSize`
       tags:
         - klay
 
