@@ -79,10 +79,10 @@ paths:
           label: "Javascript"
           source:
            $ref: "../../code-samples/javascript/admin/startHTTP.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/admin/startHTTP.py"
 
 components:
   schemas:
