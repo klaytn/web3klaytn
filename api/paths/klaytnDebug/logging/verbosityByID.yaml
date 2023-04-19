@@ -69,10 +69,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #     $ref: "../../../code-samples/javascript/klaytnDebug/logging/verbosityByID.js"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klaytnDebug/logging/verbosityByID.js"
         # - lang: "python"
         #   label: "Python"
         #   source:
@@ -88,7 +88,7 @@ components:
       properties:
         method:
           type: string
-          default: 'debug_verbosityID'
+          default: 'debug_verbosityByID'
         params: 
           items: 
             anyOf:
