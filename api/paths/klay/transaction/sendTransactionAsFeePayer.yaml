@@ -69,10 +69,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klay/transaction/sendTransactionAsFeePayer.js"
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/transaction/sendTransactionAsFeePayer.py"
 
 components:
   schemas:
