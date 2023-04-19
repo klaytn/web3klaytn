@@ -65,10 +65,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klaytnDebug/logging/verbosityByID.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/logging/DebugVerbosityByIDExample.java"
         # - lang: "javascript"
         #   label: "Javascript"
         #   source:
