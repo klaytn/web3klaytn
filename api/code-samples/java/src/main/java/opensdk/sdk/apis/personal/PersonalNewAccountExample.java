@@ -7,7 +7,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 public class PersonalNewAccountExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void personalNewAccountExample() throws IOException {
         PersonalNewAccountResponse response = sdk.personal.newAccount("helloWorld").send();

@@ -10,7 +10,7 @@ public class GovernanceIdxCacheFromDbExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void governanceIdxCacheFromDbExample() throws IOException {
-        GovernanceIdxCacheFromDbResponse response = sdk.governance.idxCacheFromDb(0).send();
+        GovernanceIdxCacheFromDbResponse response = sdk.governance.idxCacheFromDb().send();
         response.getResult();
     }
 }

@@ -45,10 +45,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klaytnDebug/runtimeDebugging/freeOSMemory.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/runtimeDebugging/DebugFreeOSMemoryExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

@@ -50,6 +50,7 @@ paths:
                         type: array
                         items:
                           type: object
+                          title: MyVoteList
                           required:
                             - BlockNum
                             - Casted
