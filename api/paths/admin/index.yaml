@@ -58,3 +58,17 @@ paths:
     $ref: ./datadir.yaml#/paths/~1admin~1datadir
   /admin/stateMigrationStatus:
     $ref: ./stateMigrationStatus.yaml#/paths/~1admin~1stateMigrationStatus
+  /admin/startSpamThrottler:
+    $ref: ./startSpamThrottler.yaml#/paths/~1admin~1startSpamThrottler
+  /admin/stopSpamThrottler:
+    $ref: ./stopSpamThrottler.yaml#/paths/~1admin~1stopSpamThrottler
+  /admin/setSpamThrottlerWhiteList:
+    $ref: ./setSpamThrottlerWhiteList.yaml#/paths/~1admin~1setSpamThrottlerWhiteList
+  /admin/getSpamThrottlerWhiteList:
+    $ref: ./getSpamThrottlerWhiteList.yaml#/paths/~1admin~1getSpamThrottlerWhiteList
+  /admin/getSpamThrottlerThrottleList:
+    $ref: ./getSpamThrottlerThrottleList.yaml#/paths/~1admin~1getSpamThrottlerThrottleList
+  /admin/getSpamThrottlerCandidateList:
+    $ref: ./getSpamThrottlerCandidateList.yaml#/paths/~1admin~1getSpamThrottlerCandidateList
+  /admin/spamThrottlerConfig:
+    $ref: ./spamThrottlerConfig.yaml#/paths/~1admin~1spamThrottlerConfig

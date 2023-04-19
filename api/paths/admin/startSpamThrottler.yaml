@@ -56,10 +56,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #    $ref: "../../code-samples/javascript/admin/startSpamThrottlerApi.js"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+           $ref: "../../code-samples/javascript/admin/startSpamThrottler.js"
         # - lang: "python"
         #   label: "Python"
         #   source:
