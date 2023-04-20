@@ -6,7 +6,9 @@ const { RPC } = require("../test/constant");
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 const web3 = new Web3(RPC);
 
-const address = '0x487f2dfef230c2120b8cc55c5087b103146536ec'
+// const address = '0x487f2dfef230c2120b8cc55c5087b103146536ec' #Sub address
+const address = '0x413ba0e5f6f00664598b5c80042b1308f4ff1408'
+
 const passphrase = 'helloWorld'
 
 export const getEthFilterId = () => {
