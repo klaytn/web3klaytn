@@ -1,21 +1,23 @@
-package opensdk.sdk.apis.admin;
+package opensdk.sdk.apis.klaytnDebug.logging;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.AdminSaveTrieNodeCacheToDiskResponse;
+import opensdk.sdk.models.DebugBacktraceAtResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
-@DisplayName("Admin RPC Test")
-public class AdminSaveTrieNodeCacheToDiskTest {
+@DisplayName("Debug RPC Test")
+public class DebugBacktraceAtTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
     @Test
-    @DisplayName("RPC admin_saveTrieNodeCacheToDisk")
+    @DisplayName("RPC debug_backTraceAt")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        AdminSaveTrieNodeCacheToDiskResponse response = sdk.admin.saveTrieNodeCacheToDisk().send();
+        String location = "server.go:443";
+
+        DebugBacktraceAtResponse response = sdk.debug.backtraceAt(location).send();
         response.getResult();
     }
 }

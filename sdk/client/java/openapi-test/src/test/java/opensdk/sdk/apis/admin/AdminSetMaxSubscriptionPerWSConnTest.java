@@ -16,7 +16,7 @@ public class AdminSetMaxSubscriptionPerWSConnTest {
     @DisplayName("RPC admin_setMaxSubscriptionPerWSConn")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         int limit = 5;
-        AdminSetMaxSubscriptionPerWSConnResponse response = this.sdk.admin.setMaxSubscriptionPerWSConn(limit).send();
+        AdminSetMaxSubscriptionPerWSConnResponse response = sdk.admin.setMaxSubscriptionPerWSConn(limit).send();
         response.getResult();
     }
 }
