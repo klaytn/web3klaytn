@@ -1,7 +1,6 @@
 package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthGetTransactionCountResponse;
 import opensdk.sdk.models.KlaySignTransactionResponse;
 import opensdk.sdk.models.KlaytnTransactionTypes;
 import org.klaytn.OpenSDK;
