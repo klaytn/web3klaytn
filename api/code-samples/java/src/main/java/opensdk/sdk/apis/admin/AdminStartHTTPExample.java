@@ -10,7 +10,7 @@ public class AdminStartHTTPExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void adminStartHTTPExample() throws IOException {
-        AdminStartHTTPResponse response = this.sdk.admin.startHTTP().send();
+        AdminStartHTTPResponse response = sdk.admin.startHTTP().send();
         response.getResult();
     }
 }

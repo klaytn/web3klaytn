@@ -12,7 +12,7 @@ public class AdminSetSpamThrottlerWhiteListExample {
 
     void adminSetSpamThrottlerWhiteListExample() throws IOException {
         List<String> addresses = List.of("0xfdeedbb2fe5b48d5b49e435ba00e0358740d0cf5");
-        AdminSetSpamThrottlerWhiteListResponse response = this.sdk.admin.setSpamThrottlerWhiteList(addresses).send();
+        AdminSetSpamThrottlerWhiteListResponse response = sdk.admin.setSpamThrottlerWhiteList(addresses).send();
         response.getResult();
     }
 }

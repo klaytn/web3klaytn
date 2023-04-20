@@ -10,7 +10,7 @@ public class AdminStateMigrationStatusExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void adminStateMigrationStatusExample() throws IOException {
-        AdminStateMigrationStatusResponse response = this.sdk.admin.stateMigrationStatus().send();
+        AdminStateMigrationStatusResponse response = sdk.admin.stateMigrationStatus().send();
         response.getResult();
     }
 }

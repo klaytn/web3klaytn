@@ -10,7 +10,7 @@ public class AdminSpamThrottlerConfigExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void adminSpamThrottlerConfigExample() throws IOException {
-        AdminSpamThrottlerConfigResponse response = this.sdk.admin.spamThrottlerConfig().send();
+        AdminSpamThrottlerConfigResponse response = sdk.admin.spamThrottlerConfig().send();
         response.getResult();
     }
 }

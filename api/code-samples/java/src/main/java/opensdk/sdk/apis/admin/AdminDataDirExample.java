@@ -10,7 +10,7 @@ public class AdminDataDirExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void adminDataDirExample() throws IOException {
-        AdminDatadirResponse response = this.sdk.admin.datadir().send();
+        AdminDatadirResponse response = sdk.admin.datadir().send();
         response.getResult();
     }
 }
