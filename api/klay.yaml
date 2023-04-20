@@ -346,6 +346,8 @@ paths:
     $ref: ./paths/eth/miscellaneous/submitWork.yaml#/paths/~1eth~1submitWork
   /eth/miscellaneous/hashRate:
     $ref: ./paths/eth/miscellaneous/hashRate.yaml#/paths/~1eth~1hashRate
+  /eth/miscellaneous/getHashrate:
+    $ref: ./paths/eth/miscellaneous/getHashrate.yaml#/paths/~1eth~1getHashrate
   /eth/miscellaneous/getWork:
     $ref: ./paths/eth/miscellaneous/getWork.yaml#/paths/~1eth~1getWork
   /eth/miscellaneous/submitHashrate:
@@ -538,6 +540,8 @@ paths:
     $ref: ./paths/klaytnDebug/others/chaindbProperty.yaml#/paths/~1debug~1chaindbProperty
   /debug/storageRangeAt:
     $ref: ./paths/klaytnDebug/others/storageRangeAt.yaml#/paths/~1debug~1storageRangeAt
+  /debug/seedHash:
+    $ref: ./paths/klaytnDebug/others/seedHash.yaml#/paths/~1debug~1seedHash
 
   # debug/profiling:
   /debug/profiling/blockProfile:
@@ -622,6 +626,8 @@ paths:
     $ref: ./paths/mainbridge/getChildChainIndexingEnabled.yaml#/paths/~1mainbridge~1getChildChainIndexingEnabled
   /mainbridge/nodeInfo:
     $ref: ./paths/mainbridge/nodeInfo.yaml#/paths/~1mainbridge~1nodeInfo
+  /mainbridge/convertChildChainBlockHashToParentChainTxHash:
+    $ref: ./paths/mainbridge/convertChildChainBlockHashToParentChainTxHash.yaml#/paths/~1mainbridge~1convertChildChainBlockHashToParentChainTxHash
 
   # subbridge:
   /subbridge/getReceiptFromParentChain:
@@ -644,3 +650,9 @@ paths:
     $ref: ./paths/subbridge/txPending.yaml#/paths/~1subbridge~1txPending
   /subbridge/txPendingCount:
     $ref: ./paths/subbridge/txPendingCount.yaml#/paths/~1subbridge~1txPendingCount
+  /subbridge/:
+    $ref: ./paths/subbridge/getBridgeInformation.yaml#/paths/~1subbridge~1getBridgeInformation
+  /subbridge/listBridge:
+    $ref: ./paths/subbridge/listBridge.yaml#/paths/~1subbridge~1listBridge
+  /subbridge/nodeInfo:
+    $ref: ./paths/subbridge/nodeInfo.yaml#/paths/~1subbridge~1nodeInfo

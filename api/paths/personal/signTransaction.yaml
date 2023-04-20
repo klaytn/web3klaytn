@@ -17,9 +17,9 @@ paths:
       description: |
         Sets default configuration and signs the given transaction.
 
-        **JSONRPC:** `personal_signTransaction`
-
         **NOTE:** Sending your account password over an unsecured HTTP RPC connection is highly unsecure. Use klay_signTransaction.
+
+        **JSONRPC:** `personal_signTransaction`
 
       tags:
         - personal
@@ -30,6 +30,12 @@ paths:
           schema:
             $ref: "../../components/schemas/common/KlaytnTransactionTypes.yaml#/components/schemas/KlaytnTransactionTypes"
           description: Transaction data.
+          in: query
+        - name: password
+          required: true
+          schema:
+            type: string
+          description: password
           in: query
 
       requestBody:
@@ -82,7 +88,11 @@ components:
         params:
           type: array
           items:
-            $ref: "../../components/schemas/common/KlaytnTransactionTypes.yaml#/components/schemas/KlaytnTransactionTypes"
+            anyOf:
+              - $ref: "../../components/schemas/common/KlaytnTransactionTypes.yaml#/components/schemas/KlaytnTransactionTypes"
+              - type: string
+                title: Password
+                description: password
           example: [{"from":"0x77982323172e5b6182539d3522d5a33a944206d4", "to":"0xcd6bfdb523a4d030890d28bf1eb6ef36307c9aaa", "value":"0x10000", "gas":"0x1000000", "nonce":"0x2", "gasPrice":"0x25000000000"}]
 
     PersonalSignTransactionResp:

@@ -133,6 +133,8 @@ paths:
     $ref: ./filter/newPendingTransactionFilter.yaml#/paths/~1eth~1newPendingTransactionFilter
   /eth/miscellaneous/hashRate:
     $ref: ./miscellaneous/hashRate.yaml#/paths/~1eth~1hashRate
+  /eth/miscellaneous/getHashrate:
+    $ref: ./miscellaneous/getHashrate.yaml#/paths/~1eth~1getHashrate
   /eth/miscellaneous/getWork:
     $ref: ./miscellaneous/getWork.yaml#/paths/~1eth~1getWork
   /eth/miscellaneous/submitHashrate:

@@ -20,6 +20,7 @@ paths:
         The method returns a boolean flag specifying whether the HTTP RPC listener was opened or not. Please note, only one HTTP endpoint is allowed to be active at any time.
 
         **NOTE:** *This API replaces admin_startRPC. The admin_startRPC will be deprecated soon.*
+
         **JSONRPC:** `admin_startHTTP`
 
       tags:

@@ -110,6 +110,9 @@ components:
       properties:
         result:
           type: object
+          required:
+            - accessList
+            - gasUsed
           properties:
             accessList:
               type: array
