@@ -52,10 +52,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/eth/block/getBlockTransactionCountByNumber.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/block/EthGetBlockByHashExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/block/EthGetBlockTransactionCountByNumberExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
