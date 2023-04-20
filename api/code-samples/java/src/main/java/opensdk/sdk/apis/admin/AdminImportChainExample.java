@@ -12,7 +12,7 @@ public class AdminImportChainExample {
     void adminImportChainExample() throws IOException {
         String fileName = "/tmp/chain.txt";
 
-        AdminImportChainResponse response = this.sdk.admin.importChain(fileName).send();
+        AdminImportChainResponse response = sdk.admin.importChain(fileName).send();
         response.getResult();
     }
 }

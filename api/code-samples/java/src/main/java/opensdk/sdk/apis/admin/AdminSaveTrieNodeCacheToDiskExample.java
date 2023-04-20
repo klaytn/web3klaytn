@@ -10,7 +10,7 @@ public class AdminSaveTrieNodeCacheToDiskExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void adminSaveTrieNodeCacheToDiskExample() throws IOException {
-        AdminSaveTrieNodeCacheToDiskResponse response = this.sdk.admin.saveTrieNodeCacheToDisk().send();
+        AdminSaveTrieNodeCacheToDiskResponse response = sdk.admin.saveTrieNodeCacheToDisk().send();
         response.getResult();
     }
 }

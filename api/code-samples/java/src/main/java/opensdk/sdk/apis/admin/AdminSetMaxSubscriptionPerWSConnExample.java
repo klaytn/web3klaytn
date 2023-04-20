@@ -12,7 +12,7 @@ public class AdminSetMaxSubscriptionPerWSConnExample {
     void adminSetMaxSubscriptionPerWSConnExample() throws IOException {
         int limit = 5;
 
-        AdminSetMaxSubscriptionPerWSConnResponse response = this.sdk.admin.setMaxSubscriptionPerWSConn(limit).send();
+        AdminSetMaxSubscriptionPerWSConnResponse response = sdk.admin.setMaxSubscriptionPerWSConn(limit).send();
         response.getResult();
     }
 }

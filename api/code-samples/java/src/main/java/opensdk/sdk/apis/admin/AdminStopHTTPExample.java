@@ -10,7 +10,7 @@ public class AdminStopHTTPExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void adminStopHttpExample() throws IOException {
-        AdminStopHTTPResponse response = this.sdk.admin.stopHTTP().send();
+        AdminStopHTTPResponse response = sdk.admin.stopHTTP().send();
         response.getResult();
     }
 }

@@ -10,7 +10,7 @@ public class AdminGetSpamThrottlerWhiteListExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void adminGetSpamThrottlerWhiteListExample() throws IOException {
-        AdminGetSpamThrottlerWhiteListResponse response = this.sdk.admin.getSpamThrottlerWhiteList().send();
+        AdminGetSpamThrottlerWhiteListResponse response = sdk.admin.getSpamThrottlerWhiteList().send();
         response.getResult();
     }
 }
