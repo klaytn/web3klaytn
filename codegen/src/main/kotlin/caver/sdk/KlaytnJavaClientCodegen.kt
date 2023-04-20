@@ -154,6 +154,16 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
             val newDatatypeWithEnum = property.datatypeWithEnum!!.replace("200", "")
             property.datatypeWithEnum = newDatatypeWithEnum.replaceBefore("", namespace.capitalize())
         }
+        if (property?.baseName?.contains("error") == true && property?.openApiType?.contains("string") == true) {
+            val newBaseName = property.baseName!!.replace("error", "error1")
+            val newGetter = property.getter!!.replace("getError", "getError1")
+            val newSetter = property.setter!!.replace("setError", "setError1")
+            val newName = property.name!!.replace("error", "error1")
+            property.baseName = newBaseName
+            property.getter = newGetter
+            property.setter = newSetter
+            property.name = newName
+        }
         model?.imports?.forEach {
             if (it?.contains("200") == true) {
                 model.imports?.remove(it)
