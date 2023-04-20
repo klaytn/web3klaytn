@@ -15,7 +15,7 @@ public class AdminStartStateMigrationTest {
     @Test
     @DisplayName("RPC admin_startStateMigration")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        AdminStartStateMigrationResponse response = this.sdk.admin.startStateMigration().send();
+        AdminStartStateMigrationResponse response = sdk.admin.startStateMigration().send();
         response.getResult();
     }
 }

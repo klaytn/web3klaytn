@@ -16,7 +16,7 @@ public class AdminImportChainTest {
     @DisplayName("RPC admin_importChain")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String fileName = "/tmp/chain.txt";
-        AdminImportChainResponse response = this.sdk.admin.importChain(fileName).send();
+        AdminImportChainResponse response = sdk.admin.importChain(fileName).send();
         response.getResult();
     }
 }

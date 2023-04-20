@@ -1,7 +1,7 @@
 package opensdk.sdk.apis.admin;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.AdminSaveTrieNodeCacheToDiskResponse;
+import opensdk.sdk.models.AdminStartHTTPResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
@@ -9,13 +9,13 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 @DisplayName("Admin RPC Test")
-public class AdminSaveTrieNodeCacheToDiskTest {
+public class AdminStartHTTPTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
     @Test
-    @DisplayName("RPC admin_saveTrieNodeCacheToDisk")
+    @DisplayName("RPC admin_startHttp")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        AdminSaveTrieNodeCacheToDiskResponse response = sdk.admin.saveTrieNodeCacheToDisk().send();
+        AdminStartHTTPResponse response = sdk.admin.startHTTP().send();
         response.getResult();
     }
 }

@@ -15,7 +15,7 @@ public class AdminStopHTTPTest {
     @Test
     @DisplayName("RPC admin_stopHttp")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        AdminStopHTTPResponse response = this.sdk.admin.stopHTTP().send();
+        AdminStopHTTPResponse response = sdk.admin.stopHTTP().send();
         response.getResult();
     }
 }
