@@ -1,0 +1,96 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /subbridge/convertRequestTxHashToHandleTxHash:
+    post:
+      summary: "[convertRequestTxHashToHandleTxHash]"
+      tags:
+        - subbridge
+      operationId: convertRequestTxHashToHandleTxHash
+      description: |
+        The subbridge_convertRequestTxHashToHandleTxHash returns the corresponding "handle value transfer transaction" hash in the opposite chain for the given "request value transfer transaction" hash. "Request value transfer transaction" is a transaction initiated by a user, requesting a cross-chain value transfer. "Handle value transfer transaction" is the transaction created by the sub-bridge to handle the value transfer request from the user.
+        
+        **JSONRPC:** `subbridge_convertRequestTxHashToHandleTxHash`
+
+      parameters:
+        - name: Hash
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+          description: Hash of a "request value transfer" transaction.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/ConvertRequestTxHashToHandleTxHashReq"
+
+      responses:
+        200:
+          description: Hash of a "handle value transfer" transaction. zero hash means there is no corresponding "handle value transfer" transaction.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/ConvertRequestTxHashToHandleTxHashResp"
+
+      x-codeSamples:
+        # - lang: "curl"
+        #   label: "Curl"
+        #   source:
+        #     $ref: "../../code-samples/curl/subbridge/convertRequestTxHashToHandleTxHash.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../../code-samples/javascript/eth/miscellaneous/txPending.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../../code-samples/python/eth/miscellaneous/txPending.py"
+
+components:
+  schemas:
+    ConvertRequestTxHashToHandleTxHashReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'subbridge_convertRequestTxHashToHandleTxHash'
+        params: 
+          type: array
+          description: Hash of a "request value transfer" transaction.
+          items: 
+            type: string
+            format: 32-byte DATA
+            title: Hash
+          example: ["0xc585cfd1e7047b4faae69e62e77db192d8a339701b40d6ab4adb58453b934bec"]
+
+    ConvertRequestTxHashToHandleTxHashResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: 32-byte DATA
+          description: Hash of a "handle value transfer" transaction. zero hash means there is no corresponding "handle value transfer" transaction.
+          example: "0x0000000000000000000000000000000000000000000000000000000000000000"
