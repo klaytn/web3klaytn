@@ -25,3 +25,5 @@ paths:
     $ref: ./getChildChainIndexingEnabled.yaml#/paths/~1mainbridge~1getChildChainIndexingEnabled
   /mainbridge/nodeInfo:
     $ref: ./nodeInfo.yaml#/paths/~1mainbridge~1nodeInfo
+  /mainbridge/convertChildChainBlockHashToParentChainTxHash:
+    $ref: ./convertChildChainBlockHashToParentChainTxHash.yaml#/paths/~1mainbridge~1convertChildChainBlockHashToParentChainTxHash

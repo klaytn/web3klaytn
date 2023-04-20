@@ -1,0 +1,76 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/getHashrate:
+    post:
+      summary: "[getHashrate]"
+      tags:
+        - eth
+      operationId: getHashrate
+      description: |
+        Returns the number of hashes per second that the node is mining with.
+        Please note that it always return 0x0 because there is no PoW mechanism in Klaytn.
+
+        **JSONRPC:** `eth_getHashrate`
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthGetHashrateReq"
+
+      responses:
+        200:
+          description: The number of hashes per second.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthGetHashrateResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/miscellaneous/getHashrate.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/miscellaneous/EthGetHashrateExample.java"
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../../code-samples/javascript/eth/miscellaneous/getHashrate.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../../code-samples/python/eth/miscellaneous/getHashrate.py"
+
+components:
+  schemas:
+    EthGetHashrateReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: 'eth_getHashrate'
+
+    EthGetHashrateResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: hex
+          example: "0x0"

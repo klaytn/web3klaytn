@@ -10,16 +10,16 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /mainbridge/nodeInfo:
+  /subbridge/nodeInfo:
     post:
       summary: "[nodeInfo]"
       tags:
-        - mainbridge
+        - subbridge
       operationId: nodeInfo
       description: |
-        Returns bridge node information including the KNI (Klaytn Network Identifier) of the node. A mainbridge node can connect to a subbrige node via the KNI.
+        Returns bridge node information including the KNI (Klaytn Network Identifier) of the node. A subbridge node can connect to a mainbridge node via the KNI.
 
-        **JSONRPC:** `mainbridge_nodeInfo`
+        **JSONRPC:** `subbridge_nodeInfo`
 
       requestBody:
         content:
@@ -27,23 +27,23 @@ paths:
             schema:
               allOf:
                 - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "#/components/schemas/MainbridgeNodeInfoReq"
+                - $ref: "#/components/schemas/NodeInfoReq"
 
       responses:
         200:
-          description: Returns bridge node information including the KNI (Klaytn Network Identifier) of the node.
+          description: the bridge node information.
           content:
             application/json:
               schema:
                 allOf:
                   - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "#/components/schemas/MainbridgeNodeInfoResp"
+                  - $ref: "#/components/schemas/NodeInfoResp"
 
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../code-samples/curl/mainbridge/nodeInfo.sh"
+            $ref: "../../code-samples/curl/subbridge/nodeInfo.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
@@ -59,21 +59,20 @@ paths:
 
 components:
   schemas:
-    MainbridgeNodeInfoReq:
+    NodeInfoReq:
       type: object
       required:
         - method
       properties:
         method:
           type: string
-          default: 'mainbridge_nodeInfo'
+          default: 'subbridge_unsubscribeBridge'
 
-    MainbridgeNodeInfoResp:
+    NodeInfoResp:
       type: object
       properties:
         result:
           type: object
-          description: the bridge node information.
           example: {
             kni: "kni://f8a1f0cd1e2bebeece571e4fda16e215218fd4b9bc2eddd924f7cd5b5f950fcec8f4b8cd3851390d1d0bacf1b15e1c4a38c882252e429a28d16eeb6edbacd726@[::]:50505?discport=0",
             id: "f8a1f0cd1e2bebeece571e4fda16e215218fd4b9bc2eddd924f7cd5b5f950fcec8f4b8cd3851390d1d0bacf1b15e1c4a38c882252e429a28d16eeb6edbacd726",

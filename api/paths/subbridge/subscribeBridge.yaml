@@ -54,10 +54,10 @@ paths:
                   - $ref: "#/components/schemas/SubbridgeSubscribeBridgeResp"
 
       x-codeSamples:
-        # - lang: "curl"
-        #   label: "Curl"
-        #   source:
-        #     $ref: "../../../code-samples/curl/subbridge/subscribeBridge.sh"
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/subbridge/subscribeBridge.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
@@ -65,11 +65,11 @@ paths:
         # - lang: "javascript"
         #   label: "Javascript"
         #   source:
-        #     $ref: "../../../code-samples/javascript/eth/miscellaneous/subscribeBridge.js"
+        #     $ref: "../../code-samples/javascript/eth/miscellaneous/subscribeBridge.js"
         # - lang: "python"
         #   label: "Python"
         #   source:
-        #     $ref: "../../../code-samples/python/eth/miscellaneous/subscribeBridge.py"
+        #     $ref: "../../code-samples/python/eth/miscellaneous/subscribeBridge.py"
 
 components:
   schemas:

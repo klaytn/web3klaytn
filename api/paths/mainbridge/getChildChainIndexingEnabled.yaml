@@ -40,10 +40,10 @@ paths:
                   - $ref: "#/components/schemas/MainbridgeGetChildChainIndexingEnabledResp"
 
       x-codeSamples:
-        # - lang: "curl"
-        #   label: "Curl"
-        #   source:
-        #     $ref: "../../../code-samples/curl/mainbridge/getChildChainIndexingEnabled.sh"
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/mainbridge/getChildChainIndexingEnabled.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
@@ -51,11 +51,11 @@ paths:
         # - lang: "javascript"
         #   label: "Javascript"
         #   source:
-        #     $ref: "../../../code-samples/javascript/eth/miscellaneous/getChildChainIndexingEnabled.js"
+        #     $ref: ""
         # - lang: "python"
         #   label: "Python"
         #   source:
-        #     $ref: "../../../code-samples/python/eth/miscellaneous/getChildChainIndexingEnabled.py"
+        #     $ref: ""
 
 components:
   schemas:

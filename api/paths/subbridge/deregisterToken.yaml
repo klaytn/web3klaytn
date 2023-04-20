@@ -66,10 +66,10 @@ paths:
                   - $ref: "#/components/schemas/SubbridgeDeregisterTokenResp"
 
       x-codeSamples:
-        # - lang: "curl"
-        #   label: "Curl"
-        #   source:
-        #     $ref: "../../../code-samples/curl/subbridge/deregisterToken.sh"
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/subbridge/deregisterToken.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
@@ -77,11 +77,11 @@ paths:
         # - lang: "javascript"
         #   label: "Javascript"
         #   source:
-        #     $ref: "../../../code-samples/javascript/eth/miscellaneous/deregisterToken.js"
+        #     $ref: "../../code-samples/javascript/eth/miscellaneous/deregisterToken.js"
         # - lang: "python"
         #   label: "Python"
         #   source:
-        #     $ref: "../../../code-samples/python/eth/miscellaneous/deregisterToken.py"
+        #     $ref: "../../code-samples/python/eth/miscellaneous/deregisterToken.py"
 
 components:
   schemas:

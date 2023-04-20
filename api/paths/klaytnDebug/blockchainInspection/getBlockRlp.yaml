@@ -17,9 +17,10 @@ paths:
       description: |
         Retrieves and returns the RLP-encoded block by the block number.
 
-        **JSONRPC:** `debug_getBlockRlp`
-        
         **NOTE**: In versions earlier than Klaytn v1.7.0, only integer type is available.
+
+        **JSONRPC:** `debug_getBlockRlp`
+
       tags:
         - debug
 

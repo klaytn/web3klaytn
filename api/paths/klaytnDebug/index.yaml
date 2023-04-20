@@ -70,6 +70,8 @@ paths:
     $ref: ./others/getModifiedStorageNodesByNumber.yaml#/paths/~1debug~1getModifiedStorageNodesByNumber
   /debug/chaindbCompact:
     $ref: ./others/chaindbCompact.yaml#/paths/~1debug~1chaindbCompact
+  /debug/seedHash:
+    $ref: ./others/seedHash.yaml#/paths/~1debug~1seedHash
 
   # debug/vMTracing:
   /debug/vMTracing/traceTransaction:
