@@ -650,9 +650,17 @@ paths:
     $ref: ./paths/subbridge/txPending.yaml#/paths/~1subbridge~1txPending
   /subbridge/txPendingCount:
     $ref: ./paths/subbridge/txPendingCount.yaml#/paths/~1subbridge~1txPendingCount
-  /subbridge/:
-    $ref: ./paths/subbridge/getBridgeInformation.yaml#/paths/~1subbridge~1getBridgeInformation
   /subbridge/listBridge:
     $ref: ./paths/subbridge/listBridge.yaml#/paths/~1subbridge~1listBridge
   /subbridge/nodeInfo:
     $ref: ./paths/subbridge/nodeInfo.yaml#/paths/~1subbridge~1nodeInfo
+  /subbridge/addPeer:
+    $ref: ./paths/subbridge/addPeer.yaml#/paths/~1subbridge~1addPeer
+  /subbridge/anchoring:
+    $ref: ./paths/subbridge/anchoring.yaml#/paths/~1subbridge~1anchoring
+  /subbridge/convertRequestTxHashToHandleTxHash:
+    $ref: ./paths/subbridge/convertRequestTxHashToHandleTxHash.yaml#/paths/~1subbridge~1convertRequestTxHashToHandleTxHash  
+  /subbridge/getBridgeInFormation:
+    $ref: ./paths/subbridge/getBridgeInformation.yaml#/paths/~1subbridge~1getBridgeInformation
+  /subbridge/removePeer:
+    $ref: ./paths/subbridge/removePeer.yaml#/paths/~1subbridge~1removePeer

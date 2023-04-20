@@ -37,9 +37,18 @@ paths:
     $ref: ./registerToken.yaml#/paths/~1subbridge~1registerToken
   /subbridge/deregisterToken:
     $ref: ./deregisterToken.yaml#/paths/~1subbridge~1deregisterToken
-  /subbridge/getBridgeInformation:
-    $ref: ./getBridgeInformation.yaml#/paths/~1subbridge~1getBridgeInformation
   /subbridge/listBridge:
     $ref: ./listBridge.yaml#/paths/~1subbridge~1listBridge
   /subbridge/nodeInfo:
     $ref: ./nodeInfo.yaml#/paths/~1subbridge~1nodeInfo
+  /subbridge/addPeer:
+    $ref: ./addPeer.yaml#/paths/~1subbridge~1addPeer
+  /subbridge/anchoring:
+    $ref: ./anchoring.yaml#/paths/~1subbridge~1anchoring
+  /subbridge/convertRequestTxHashToHandleTxHash:
+    $ref: ./convertRequestTxHashToHandleTxHash.yaml#/paths/~1subbridge~1convertRequestTxHashToHandleTxHash  
+  /subbridge/getBridgeInformation:
+    $ref: ./getBridgeInformation.yaml#/paths/~1subbridge~1getBridgeInformation
+  /subbridge/removePeer:
+    $ref: ./removePeer.yaml#/paths/~1subbridge~1removePeer
+
