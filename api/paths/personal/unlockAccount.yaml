@@ -77,10 +77,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/personal/unlockAccount.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/personal/PersonalUnlockAccountExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

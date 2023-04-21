@@ -114,10 +114,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/txpool/content.sh"
-#        - lang: "java"
-#          label: "Java"
-#          source:
-#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/block/KlayBlockNumberExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/txpool/TxpoolContentExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

@@ -66,10 +66,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/txpool/inspect.sh"
-#        - lang: "java"
-#          label: "Java"
-#          source:
-#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/block/KlayBlockNumberExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/txpool/TxpoolInspectExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
