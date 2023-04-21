@@ -88,6 +88,8 @@ paths:
     $ref: ./vMTracing/traceBadBlock.yaml#/paths/~1debug~1traceBadBlock
   /debug/vMTracing/traceBlock:
     $ref: ./vMTracing/traceBlock.yaml#/paths/~1debug~1traceBlock
+  /debug/vMTracing/traceChain:
+    $ref: ./vMTracing/traceChain.yaml#/paths/~1debug~1traceChain
 
   # debug/vMStandardTracing:
   /debug/vMStandardTracing/standardTraceBlockToFile:

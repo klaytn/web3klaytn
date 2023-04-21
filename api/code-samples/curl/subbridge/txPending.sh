@@ -1,5 +1,5 @@
 curl -X 'POST' \
-  'https://dev.api.klaytn.sotatek.works/subbridge/txPending' \
+  'https://api.baobab.klaytn.net:8651/subbridge/txPending' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{

@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "admin_startSpamThrottler",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": [{}]
+  "params": []
 }'

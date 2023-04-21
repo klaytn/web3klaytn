@@ -73,5 +73,7 @@ components:
       type: object
       properties:
         result:
-          type: object
-          example: {}
+          type: array
+          items:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+          example: []
