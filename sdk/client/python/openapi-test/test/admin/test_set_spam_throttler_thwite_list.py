@@ -1,28 +1,27 @@
 from base.testing import KlaytnBaseTesting
-from base.eth import get_raw_transaction
 
 
-class TestSendRawTransaction(KlaytnBaseTesting):
+class TestAdminSetSpamThrottlerWhiteList(KlaytnBaseTesting):
 
     def setUp(self) -> None:
         super().setUp()
-        self.singedTransactionData = get_raw_transaction()
+        self.address = ["0xfdeedbb2fe5b48d5b49e435ba00e0358740d0cf5"]
 
     def test_post(self):
-        klay_response = self.sdk.klay.send_raw_transaction(
-            self.singedTransactionData
+        admin_response = self.sdk.admin.set_spam_throttler_white_list(
+            self.address
         )
 
-        self.covert_response(klay_response.response)
+        self.covert_response(admin_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)
         self.assertIn("id", self.response)
         self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        klay_response = self.sdk.klay.send_raw_transaction()
+        admin_response = self.sdk.admin.set_spam_throttler_white_list()
 
-        self.covert_response(klay_response.response)
+        self.covert_response(admin_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)
         self.assertIn("id", self.response)
