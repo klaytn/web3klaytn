@@ -10,11 +10,11 @@ describe('debug_traceBadBlock API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
-            // expect(data.result).toBeDefined()
+            expect(data.result).toBeDefined()
             done();
         };
 
-        const blockHash = "0x1d5ba00e313a81ae6d409d459c153327072665d9ea2f47608369722baf0cfbb6";
+        const blockHash = "0xcecc781a00eaa53579c188e603b7726211c2ff765f06cf606e7638c884fa7c06";
 
         sdk.debug.traceBadBlock(blockHash, {}, callbackOne);
     });

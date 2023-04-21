@@ -14,7 +14,7 @@ describe('debug_getBlockRlp API', () => {
             done();
         };
 
-        const blockNumber = "200"
+        const blockNumber = "0x1"
 
         sdk.debug.getBlockRlp(blockNumber, {}, callbackOne);
     });

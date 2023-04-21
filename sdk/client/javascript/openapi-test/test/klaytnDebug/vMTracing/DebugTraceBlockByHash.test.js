@@ -8,14 +8,13 @@ describe('debug_traceBlockByHash API', () => {
     test('should return debug_traceBlockByHash', (done) => {
 
         let callbackOne = function (error, data, response) {
-            console.log("error:", error);
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
-            // expect(data.result).toBeDefined()
+            expect(data.result).toBeDefined()
             done();
         };
 
-        const blockHash = "0x244acf3f11f0999b93616cb156dc1b43ee87e27c9625a7170cf6de447189d890";
+        const blockHash = "0x651722eb826af57fd95a2381c9cc0c162f90087d8283d02945c42b48229edf86";
 
         sdk.debug.traceBlockByHash(blockHash, {}, callbackOne);
     });
