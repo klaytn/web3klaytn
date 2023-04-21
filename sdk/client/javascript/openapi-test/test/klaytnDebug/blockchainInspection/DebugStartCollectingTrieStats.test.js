@@ -14,7 +14,7 @@ describe('debug_startCollectingTrieStats API', () => {
             done();
         };
 
-        const address = "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"
+        const address = "0x487f2dfef230c2120b8cc55c5087b103146536ec"
 
         sdk.debug.startCollectingTrieStats(address, {}, callbackOne);
     });

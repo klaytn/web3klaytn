@@ -78,7 +78,7 @@ paths:
         - lang: "javascript"
           label: "Javascript"
           source:
-           $ref: "../../code-samples/javascript/personal/replaceRawKey.test.js"
+            $ref: "../../code-samples/javascript/personal/replaceRawKey.js"
         - lang: "python"
           label: "Python"
           source:
