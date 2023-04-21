@@ -5,7 +5,7 @@ from web3 import Web3
 
 
 sdk = OpenSDK(KLAYTN_URL)
-address = "0x487f2dfef230c2120b8cc55c5087b103146536ec"
+address = "0x413ba0e5f6f00664598b5c80042b1308f4ff1408"
 
 
 def create_new_filter():
