@@ -52,7 +52,7 @@ paths:
         - lang: "javascript"
           label: "Javascript"
           source:
-           $ref: "../../code-samples/javascript/admin/spamThrottlerConfig.js"
+            $ref: "../../code-samples/javascript/admin/spamThrottlerConfig.js"
         - lang: "python"
           label: "Python"
           source:

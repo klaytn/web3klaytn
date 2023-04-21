@@ -1,5 +1,5 @@
 curl -X 'POST' \
-  'https://public-en-cypress.klaytn.net/debug/startCPUProfile' \
+  'https://api.baobab.klaytn.net:8651/debug/startCPUProfile' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{

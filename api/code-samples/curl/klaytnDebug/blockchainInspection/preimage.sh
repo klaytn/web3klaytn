@@ -1,5 +1,5 @@
 curl -X 'POST' \
-  'https://public-en-cypress.klaytn.net/debug/blockProfile/debug/preimage' \
+  'https://api.baobab.klaytn.net:8651/debug/blockProfile/debug/preimage' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{

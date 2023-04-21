@@ -22,13 +22,6 @@ paths:
       tags:
         - admin
 
-      parameters:
-        - name: object
-          required: true
-          schema:
-            type: object
-          in: query
-
       requestBody:
         content:
           application/json:
@@ -59,7 +52,7 @@ paths:
         - lang: "javascript"
           label: "Javascript"
           source:
-           $ref: "../../code-samples/javascript/admin/startSpamThrottler.js"
+            $ref: "../../code-samples/javascript/admin/startSpamThrottler.js"
         - lang: "python"
           label: "Python"
           source:
@@ -71,16 +64,10 @@ components:
       type: object
       required:
         - method
-        - params
       properties:
         method:
           type: string
           default: 'admin_startSpamThrottler'
-        params:
-          type: array
-          items:
-            type: object
-          example: [{}]
 
     startSpamThrottlerResp:
       type: object

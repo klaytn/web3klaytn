@@ -364,6 +364,8 @@ paths:
     $ref: ./paths/eth/others/getRawTransactionByHash.yaml#/paths/~1eth~1getRawTransactionByHash
   /eth/getProof:
     $ref: ./paths/eth/others/getProof.yaml#/paths/~1eth~1getProof
+  /eth/resend:
+    $ref: ./paths/eth/others/resend.yaml#/paths/~1eth~1resend
 
   # net
   /net/listening:
@@ -474,6 +476,8 @@ paths:
     $ref: ./paths/klaytnDebug/vMTracing/traceBadBlock.yaml#/paths/~1debug~1traceBadBlock
   /debug/vMTracing/traceBlock:
     $ref: ./paths/klaytnDebug/vMTracing/traceBlock.yaml#/paths/~1debug~1traceBlock
+  /debug/vMTracing/traceChain:
+    $ref: ./paths/klaytnDebug/vMTracing/traceChain.yaml#/paths/~1debug~1traceChain
 
   # debug/vMStandardTracing:
   /debug/vMStandardTracing/standardTraceBlockToFile:

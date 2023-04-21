@@ -15,7 +15,7 @@ paths:
       operationId: getSpamThrottlerWhiteList
       summary: "[getSpamThrottlerWhiteList]"
       description: |
-        Set spam throttler white list
+        Get spam throttler white list
 
         **JSONRPC:** `admin_getSpamThrottlerWhiteList`
 
@@ -32,7 +32,7 @@ paths:
 
       responses:
         200:
-          description: Set spam throttler white list
+          description: Get spam throttler white list
           content:
             application/json:
               schema:
@@ -52,7 +52,7 @@ paths:
         - lang: "javascript"
           label: "Javascript"
           source:
-           $ref: "../../code-samples/javascript/admin/getSpamThrottlerWhiteList.js"
+            $ref: "../../code-samples/javascript/admin/getSpamThrottlerWhiteList.js"
         - lang: "python"
           label: "Python"
           source:

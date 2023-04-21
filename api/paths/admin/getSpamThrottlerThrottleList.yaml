@@ -52,7 +52,7 @@ paths:
         - lang: "javascript"
           label: "Javascript"
           source:
-           $ref: "../../code-samples/javascript/admin/getSpamThrottlerThrottleList.js"
+            $ref: "../../code-samples/javascript/admin/getSpamThrottlerThrottleList.js"
         - lang: "python"
           label: "Python"
           source:
@@ -75,5 +75,5 @@ components:
         result:
           type: array
           items:
-            type: string
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
           example: []
