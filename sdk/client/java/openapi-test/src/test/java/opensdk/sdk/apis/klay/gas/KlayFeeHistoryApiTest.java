@@ -11,7 +11,7 @@ import java.util.List;
 
 @DisplayName("Klay RPC Test")
 public class KlayFeeHistoryApiTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
     @Test
     @DisplayName("RPC klay_feeHistory")

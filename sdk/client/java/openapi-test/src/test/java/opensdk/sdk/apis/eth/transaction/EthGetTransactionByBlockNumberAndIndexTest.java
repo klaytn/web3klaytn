@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Eth RPC Test")
 public class EthGetTransactionByBlockNumberAndIndexTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
     @Test
     @DisplayName("RPC eth_getTransactionByBlockNumberAndIndex")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {

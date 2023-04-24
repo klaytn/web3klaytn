@@ -11,7 +11,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class EthMiningTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
     @Test
     @DisplayName("RPC eth_mining")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {

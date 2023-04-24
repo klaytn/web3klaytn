@@ -59,10 +59,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/eth/filter/getFilterLogs.sh"
-#        - lang: "java"
-#          label: "Java"
-#          source:
-#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/transaction/EthTransactionCallExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/filter/EthGetFilterLogsExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

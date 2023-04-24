@@ -10,7 +10,7 @@ import java.io.IOException;
 
 @DisplayName("Admin RPC Test")
 public class AdminStopSpamThrottlerTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     @Test
     @DisplayName("RPC admin_stopSpamThrottler")

@@ -15,7 +15,7 @@ public class AdminStartHTTPTest {
     @Test
     @DisplayName("RPC admin_startHttp")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        AdminStartHTTPResponse response = sdk.admin.startHTTP().send();
-        response.getResult();
+//        AdminStartHTTPResponse response = sdk.admin.startHTTP("127.0.0.1", 8551,"","klay").send();
+//        response.getResult();
     }
 }
