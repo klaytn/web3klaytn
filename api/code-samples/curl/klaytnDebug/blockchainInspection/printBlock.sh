@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "debug_printBlock",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": [65120]
+  "params": ["0x80"]
 }'

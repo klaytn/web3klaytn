@@ -29,6 +29,8 @@ paths:
   # governance
   /governance/votes:
     $ref: ./votes.yaml#/paths/~1governance~1votes
+  /governance/vote:
+    $ref: ./vote.yaml#/paths/~1governance~1vote
   /governance/idxCache:
     $ref: ./idxCache.yaml#/paths/~1governance~1idxCache
   /governance/idxCacheFromDb:

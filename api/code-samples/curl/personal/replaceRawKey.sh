@@ -7,8 +7,8 @@ curl -X 'POST' \
   "id": 1,
   "jsonrpc": "2.0",
   "params": [
-    "0xcd87934ee007b7a458fa00dc0314fff8b2bd43b3071f46c820c379e483b4fd8e",
-    "df4=B@0@xe$d",
-    "gr8=B!0@uc$b"
+    "ba4a5bbc0dc57d6348047be71773686d1739bf0a5ac6ca4c390f0e4d596a09a6",
+    "hello@1234",
+    "hello@1234"
   ]
 }'
