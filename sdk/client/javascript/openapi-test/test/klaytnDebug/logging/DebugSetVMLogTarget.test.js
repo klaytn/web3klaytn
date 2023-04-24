@@ -4,8 +4,8 @@ const { RPC } = require("../../constant");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
-describe('debug_standardTraceBlockToFile API', () => {
-    test('should return debug_standardTraceBlockToFile', (done) => {
+describe('debug_setVMLogTarget API', () => {
+    test('should return debug_setVMLogTarget', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
@@ -14,9 +14,9 @@ describe('debug_standardTraceBlockToFile API', () => {
             done();
         };
 
-        const blockHash = "0xf1b4df5d4457d4771740887eeb46de3fc26ae4cddf93d69b1b237c2366ff12eb";
+        const target = 3;
 
-        sdk.debug.standardTraceBlockToFile(blockHash, {}, callbackOne);
+        sdk.debug.setVMLogTarget(target, {}, callbackOne);
     });
 });
 
