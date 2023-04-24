@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @DisplayName("Eth RPC Test")
 
 public class EthGetUncleCountByBlockNumberTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
     @Test
     @DisplayName("RPC eth_getUncleCountByBlockNumber")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {

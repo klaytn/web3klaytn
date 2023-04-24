@@ -14,7 +14,7 @@ import java.io.IOException;
 @DisplayName("Klay RPC Test")
 public class KlayEncodeAccountKeyApiTest {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
     @Test
     @DisplayName("RPC klay_encodeAccountKey")
@@ -26,7 +26,7 @@ public class KlayEncodeAccountKeyApiTest {
         paramsInner.setKey(obj);
 
         KlayEncodeAccountKeyResponse ar = sdk.klay.encodeAccountKey(
-            paramsInner)
+            0,obj)
         .send();
         ar.getResult();
     }

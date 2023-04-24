@@ -11,7 +11,7 @@ import java.io.IOException;
 @DisplayName("Klay RPC Test")
 public class EthGetBlockByNumberApiTest {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
     @Test
     @DisplayName("RPC eth_getBlockByNumber")
