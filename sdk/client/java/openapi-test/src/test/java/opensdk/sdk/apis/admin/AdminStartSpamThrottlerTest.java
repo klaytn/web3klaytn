@@ -1,22 +1,21 @@
-package opensdk.sdk.apis.txpool;
+package opensdk.sdk.apis.admin;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.TxpoolContentResponse;
+import opensdk.sdk.models.AdminStartSpamThrottlerResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
-
-@DisplayName("Txpool RPC Test")
-public class TxpoolContentTest {
+@DisplayName("Admin RPC Test")
+public class AdminStartSpamThrottlerTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
     @Test
-    @DisplayName("RPC txpool_content")
+    @DisplayName("RPC admin_startSpamThrottler")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        TxpoolContentResponse response = sdk.txpool.content().send();
+        AdminStartSpamThrottlerResponse response = sdk.admin.startSpamThrottler().send();
         response.getResult();
     }
 }
