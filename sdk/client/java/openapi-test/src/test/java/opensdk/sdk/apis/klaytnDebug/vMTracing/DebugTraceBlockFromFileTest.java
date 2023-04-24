@@ -13,7 +13,7 @@ public class DebugTraceBlockFromFileTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
     @Test
-    @DisplayName("RPC debug_debugTraceBlockFromFile")
+    @DisplayName("RPC debug_traceBlockFromFile")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String fileName = "/home/sotatek/block.rlp";
 

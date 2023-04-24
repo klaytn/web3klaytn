@@ -13,7 +13,7 @@ public class DebugTraceBlockTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
     @Test
-    @DisplayName("RPC debug_debugTraceBlock")
+    @DisplayName("RPC debug_traceBlock")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String blockRlp = "0xf90273f9026fa01d006dc8738fb3e22cfe271e2f2abe00d4634c423f5e6fa1b6dc784eb60e19cf94043c471bee0" +
                 "60e00a56ccd02c0ca286808a5a436a0d044a2b68f0e5da76178af5ea4a7deb852fd6cb4a8369f6f924e72414ef1cf99a056e81f" +

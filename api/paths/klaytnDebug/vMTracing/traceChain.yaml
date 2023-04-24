@@ -53,7 +53,7 @@ paths:
 
       responses:
         200:
-          description: Returns the structured logs
+          description: Returns the structured logs created during the execution of EVM between two blocks (excluding start) as a JSON object. 
           content:
             application/json:
               schema:
@@ -92,10 +92,10 @@ components:
           example: []
           items:
             anyOf:
-              - title: startBlockNumber
+              - title: StartBlockNumber
                 type: integer
                 description: Tracing start block number.
-              - title: endBlockNumber
+              - title: EndBlockNumber
                 type: integer
                 description: Tracing end block number.
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracingOptions"
@@ -105,4 +105,4 @@ components:
       properties:
         result:
           type: object
-          description: Returns the structured logs
+          description: Returns the structured logs created during the execution of EVM between two blocks (excluding start) as a JSON object. 
