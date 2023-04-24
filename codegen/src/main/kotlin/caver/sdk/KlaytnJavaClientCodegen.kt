@@ -90,7 +90,6 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
             namespace = openAPI.tags?.get(0)?.name!!
         }
         openAPI.components?.schemas?.toList()?.forEach { (t, u) ->
-            print(t + "\n")
             if (t.contains("_200")) {
                 val newKey = t.replace("_200", "").replaceFirst("", namespace.lowercase()+"_")
                 oldKeys.add(t)
@@ -219,7 +218,6 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
     }
 
     override fun postProcessModelProperty(model: CodegenModel?, property: CodegenProperty?) {
-        print(property?.ref+"\n"+property?.dataType+"\n"+property?.datatypeWithEnum+"\n")
         var namespace = String()
         if (openAPI?.tags?.size!! > 0) {
             namespace = openAPI.tags?.get(0)?.name!!

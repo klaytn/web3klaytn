@@ -70,8 +70,8 @@ public class {{classname}} {
         {{/-last}}{{/queryParams}}
         {{#queryParams}}
         {{#vendorExtensions.x-default-latest}}
-    public Request<?,{{{returnType}}}> {{operationId}}({{#queryParams}}{{^vendorExtensions.x-default-latest}}{{^-first}}, {{/-first}}Object {{{paramName}}}{{/vendorExtensions.x-default-latest}}{{/queryParams}}) {
-        return new Request<>(namespace+"_{{operationId}}", Arrays.asList({{#queryParams}}{{^vendorExtensions.x-default-latest}}{{^-first}}, {{/-first}}{{{paramName}}}{{/vendorExtensions.x-default-latest}}{{#vendorExtensions.x-default-latest}}, "latest"{{/vendorExtensions.x-default-latest}}{{/queryParams}}), web3jService, {{{returnType}}}.class);
+    public Request<?,{{{returnType}}}> {{operationId}}({{#queryParams}}{{#-first}}{{#vendorExtensions.x-default-latest}}{{#queryParams}}{{^vendorExtensions.x-default-latest}}Object {{{paramName}}}{{^-last}}, {{/-last}}{{/vendorExtensions.x-default-latest}}{{/queryParams}}{{/vendorExtensions.x-default-latest}}{{^vendorExtensions.x-default-latest}}{{#queryParams}}{{^vendorExtensions.x-default-latest}}{{^-first}}, {{/-first}}Object {{{paramName}}}{{/vendorExtensions.x-default-latest}}{{/queryParams}}{{/vendorExtensions.x-default-latest}}{{/-first}}{{/queryParams}}) {
+        return new Request<>(namespace+"_{{operationId}}", Arrays.asList({{#queryParams}}{{^vendorExtensions.x-default-latest}}{{{paramName}}}{{^-last}}, {{/-last}}{{/vendorExtensions.x-default-latest}}{{#vendorExtensions.x-default-latest}}"latest"{{^-last}}, {{/-last}}{{/vendorExtensions.x-default-latest}}{{/queryParams}}), web3jService, {{{returnType}}}.class);
     }
         {{/vendorExtensions.x-default-latest}}
         {{/queryParams}}
