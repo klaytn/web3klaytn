@@ -1,7 +1,7 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
-const { unlockAccount, getFeePayerSignatures } = require("../../helpers/eth");
+const { unlockAccount } = require("../../helpers/eth");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
