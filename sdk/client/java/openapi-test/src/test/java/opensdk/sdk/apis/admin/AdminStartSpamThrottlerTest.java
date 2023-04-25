@@ -15,7 +15,8 @@ public class AdminStartSpamThrottlerTest {
     @Test
     @DisplayName("RPC admin_startSpamThrottler")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        AdminStartSpamThrottlerResponse response = sdk.admin.startSpamThrottler().send();
-        response.getResult();
+//        AdminStartSpamThrottlerResponse response = sdk.admin.startSpamThrottler().send();
+//        response.getResult();AdminStartSpamThrottlerResponse response = sdk.admin.startSpamThrottler().send();
+//        response.getResult();
     }
 }

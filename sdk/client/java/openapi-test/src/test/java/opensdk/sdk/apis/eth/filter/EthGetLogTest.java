@@ -2,6 +2,7 @@ package opensdk.sdk.apis.eth.filter;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthGetLogsResponse;
+import opensdk.sdk.models.EthGetTransactionByBlockHashAndIndexResp;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
