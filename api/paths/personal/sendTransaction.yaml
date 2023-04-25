@@ -54,6 +54,7 @@ paths:
                   - type: object
                     properties:
                       result:
+                        title: SendTransactionResponse
                         type: string
                         format: 32-byte DATA
                         description: a transaction hash if succeeded. Otherwise, an error is raised.
@@ -71,7 +72,7 @@ paths:
         - lang: "javascript"
           label: "Javascript"
           source:
-           $ref: "../../code-samples/javascript/personal/sendTransaction.js"
+            $ref: "../../code-samples/javascript/personal/sendTransaction.js"
         - lang: "python"
           label: "Python"
           source:
