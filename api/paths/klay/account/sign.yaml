@@ -24,8 +24,8 @@ paths:
         `klay_sign` will be failed to baobab/cypress network because it is signed in the EN node, which means that the EN must have the key that you want to sign with.
         Steps to test `klay_sign`.
           - Step 1: Setup a local EN node
-          - Step 2: Create an account into the EN node
-          - Step 3: Unlock the account for using in signing
+          - Step 2: <a href="#tag/personal/operation/newAccount" target="_blank">Create an account</a> into the EN node
+          - Step 3: <a href="#tag/personal/operation/unlockAccount" target="_blank">Unlock the account</a> for using in signing
 
         **JSONRPC:** `klay_sign`
 

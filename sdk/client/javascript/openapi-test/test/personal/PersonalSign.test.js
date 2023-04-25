@@ -5,8 +5,8 @@ const { unlockAccount } = require("../../helpers/eth");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
-describe('klay_sign API', () => {
-    test('should return klay_sign', (done) => {
+describe('personal_sign API', () => {
+    test('should return personal_sign', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();

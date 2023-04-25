@@ -74,6 +74,17 @@ components:
       properties:
         result:
           type: object
+          required:
+            - activate_tx_pool_size
+            - target_fail_ratio
+            - throttle_tps
+            - max_candidates
+            - increase_weight
+            - decrease_weight
+            - initial_threshold
+            - minimum_threshold
+            - threshold_adjustment
+            - throttle_seconds
           properties:
             activate_tx_pool_size:
               type: number
