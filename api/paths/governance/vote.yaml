@@ -95,14 +95,7 @@ paths:
 components:
   schemas:
     Value:
-      oneOf:
-        - type: string
-          title: string
-          format: hex
-        - type: number
-          title: number
-        - type: boolean
-          title: boolean
+      type: string
       description: |
         | Key | Description |
         |-----|-----|
