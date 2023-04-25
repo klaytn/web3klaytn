@@ -96,14 +96,14 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
                 u.addExtension("x-extend-response", newKey)
                 openAPI.components?.schemas?.put(newKey, u)
             }
-            if (t.contains("Resp_result")) {
-                val newKey = t.replace("Resp_result", "")
-                oldKeys.add(t)
-                openAPI.components?.schemas?.put(newKey, u)
-            }
-            if (t.contains("_oneOf") || t.contains("_request") || t.contains("Req")) {
-                oldKeys.add(t)
-            }
+//            if (t.contains("Resp_result")) {
+//                val newKey = t.replace("Resp_result", "")
+//                oldKeys.add(t)
+//                openAPI.components?.schemas?.put(newKey, u)
+//            }
+//            if (t.contains("_oneOf") || t.contains("_request") || t.contains("Req")) {
+//                oldKeys.add(t)
+//            }
         }
         openAPI.components?.schemas?.keys?.removeAll(oldKeys.toSet())
 
@@ -235,20 +235,23 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
             val newDatatypeWithEnum = property.datatypeWithEnum!!.replace("200", "")
             property.datatypeWithEnum = newDatatypeWithEnum.replaceBefore("", namespace.capitalize())
         }
-        if (property?.ref?.contains("Resp_result") == true) {
-            val newRef = property.ref!!.replace("Resp_result", "")
-            property.ref = newRef.
-            replaceAfterLast("/", newRef.substringAfterLast("/"), "")
-        }
-        if (property?.dataType?.contains("RespResult") == true) {
+//        if (property?.ref?.contains("Resp_result") == true) {
+//            val newRef = property.ref!!.replace("Resp_result", "")
+//            property.ref = newRef.
+//            replaceAfterLast("/", newRef.substringAfterLast("/"), "")
+//        }
+        if (property?.dataType?.contains("KlayGetAccountKeyRespResult") == true) {
             property.dataType = property.dataType!!.replace("RespResult", "")
         }
-        if (property?.datatypeWithEnum?.contains("RespResult") == true) {
+        if (property?.datatypeWithEnum?.contains("KlayGetAccountKeyRespResult") == true) {
             property.datatypeWithEnum = property.datatypeWithEnum!!.replace("RespResult", "")
         }
         
         model?.imports?.forEach {
             if (it?.contains("200") == true) {
+                model.imports?.remove(it)
+            }
+            if (it?.contains("KlayGetAccountKeyRespResult") == true) {
                 model.imports?.remove(it)
             }
         }

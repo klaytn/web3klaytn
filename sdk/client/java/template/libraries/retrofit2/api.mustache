@@ -77,7 +77,7 @@ public class {{classname}} {
         {{/queryParams}}
         {{^queryParams}}
     public Request<?,{{{returnType}}}> {{operationId}}() {
-        return new Request<>(namespace+"_{{operationId}}", Collections.<String>emptystring(), web3jService, {{{returnType}}}.class);
+        return new Request<>(namespace+"_{{operationId}}", Arrays.asList(), web3jService, {{{returnType}}}.class);
     }
         {{/queryParams}}
     {{/operation}}
