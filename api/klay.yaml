@@ -548,6 +548,8 @@ paths:
     $ref: ./paths/klaytnDebug/others/storageRangeAt.yaml#/paths/~1debug~1storageRangeAt
   /debug/seedHash:
     $ref: ./paths/klaytnDebug/others/seedHash.yaml#/paths/~1debug~1seedHash
+  /debug/setMutexProfileFraction:
+    $ref: ./paths/klaytnDebug/others/setMutexProfileFraction.yaml#/paths/~1debug~1setMutexProfileFraction
 
   # debug/profiling:
   /debug/profiling/blockProfile:
