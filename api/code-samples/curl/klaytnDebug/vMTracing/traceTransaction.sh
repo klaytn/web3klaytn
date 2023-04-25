@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "debug_traceTransaction",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": ["0x07f6057bc93aca52e53cdbfac9b9830f6a9cae2b3f48f0b47e4cb54959143d09"]
+  "params": ["0x344fc43b5b87984d5a50fe2c54e121f94945ba9ff9da20f9de0f1b4914f47055"]
 }'
