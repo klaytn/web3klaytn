@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "debug_getModifiedAccountsByHash",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": ["0x583a02df4222c82d4ffe5d3658d0f7ac233f4dc5de83f6430d74199038b606b6", "0x69833f0fc012dc36be910aa6909f5395cd35136dbeae29ed2170a7d4162a009c"]
+  "params": ["0xf07cd36ec44fc4b540dd9423317fd49171f03cc6063e8b517dfc9fe14d08ab7a", "0xef15330537698b6cdfe31966cd0e0264af191c828a03a1a40e23ad465917b215"]
 }'

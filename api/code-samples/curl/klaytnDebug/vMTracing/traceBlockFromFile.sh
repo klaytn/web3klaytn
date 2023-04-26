@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "debug_traceBlockFromFile",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": ["block.rlp"]
+  "params": ["/home/sotatek/block.rlp"]
 }'
