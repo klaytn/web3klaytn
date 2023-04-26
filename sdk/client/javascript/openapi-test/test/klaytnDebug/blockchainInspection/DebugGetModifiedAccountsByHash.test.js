@@ -14,8 +14,8 @@ describe('debug_getModifiedAccountsByHash API', () => {
             done();
         };
 
-        const startBlockHash = "0xf07cd36ec44fc4b540dd9423317fd49171f03cc6063e8b517dfc9fe14d08ab7a"
-        const endBlockHash = "0xef15330537698b6cdfe31966cd0e0264af191c828a03a1a40e23ad465917b215"
+        const startBlockHash = "0x165c29e453dff6e1d9838d9e975a438b6f11a2c0a281b0d5b97c8d3110a79ac5"
+        const endBlockHash = "0x2a8acdc3e9bb735918dc6a0141b9939976f446fde0b39336d74278da93b8d41d"
 
         sdk.debug.getModifiedAccountsByHash(startBlockHash, {endBlockHash}, callbackOne);
     });

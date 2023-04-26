@@ -1,11 +1,11 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
-const { RPC } = require("../../constant");
+const { RPC } = require("../constant");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
-describe('debug_setMutexProfileFraction API', () => {
-    test('should return debug_setMutexProfileFraction', (done) => {
+describe('governance_vote API', () => {
+    test('should return governance_vote', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
@@ -14,9 +14,10 @@ describe('debug_setMutexProfileFraction API', () => {
             done();
         };
 
-        const rate = 2;
+        const key = "governance.governancemode";
+        const value = "ballot";
 
-        sdk.debug.setMutexProfileFraction(rate, {}, callbackOne);
+        sdk.governance.vote(key, value, {}, callbackOne);
     });
 });
 
