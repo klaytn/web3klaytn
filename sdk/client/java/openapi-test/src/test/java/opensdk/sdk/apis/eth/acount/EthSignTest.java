@@ -1,7 +1,7 @@
-package opensdk.sdk.apis.klay.transaction;
+package opensdk.sdk.apis.eth.acount;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.*;
+import opensdk.sdk.models.EthSignResponse;
 import opensdk.sdk.utils.PersonalUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,21 +12,17 @@ import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@DisplayName("Klay RPC Test")
-public class KlaySendTransactionTest {
+
+@DisplayName("Eth RPC Test")
+public class EthSignTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
     @Test
-    @DisplayName("RPC klay_sendTransaction")
+    @DisplayName("RPC eth_sign")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {
         String address = "0x413ba0e5f6f00664598b5c80042b1308f4ff1408";
         PersonalUtils.unlockAccount();
-        KlaytnTransactionTypes type = new KlaytnTransactionTypes();
-        type.setFrom(address);
-        type.setTo("0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee");
-        type.setValue("0x0");
-        type.setGas("0x9999");
-        KlaySendTransactionResponse transactionResponse = sdk.klay.sendTransaction(type).send();
-        assertNotNull(transactionResponse.getResult());
+        EthSignResponse response = sdk.eth.sign(address, "0xdeadbeaf").send();
+        assertNotNull(response.getResult());
 
     }
 }
