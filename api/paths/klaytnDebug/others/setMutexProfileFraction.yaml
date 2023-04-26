@@ -15,16 +15,18 @@ paths:
       operationId: setMutexProfileFraction
       summary: "[setMutexProfileFraction]"
       description: |
+        SetMutexProfileFraction sets the rate of mutex profiling.
+
         **JSONRPC:** `debug_setMutexProfileFraction`
       tags:
         - debug
 
       parameters:
-        - name: number
+        - name: rate
           required: true
           schema:
-            type: number
-          description: number
+            type: integer
+          description: rate
           in: query
 
       requestBody:
@@ -47,7 +49,6 @@ paths:
                     properties:
                       result:
                         type: string
-                        nullable: true
                         example: null
 
 
@@ -83,6 +84,7 @@ components:
         params:
           type: array
           items:
-            type: number
-          description: number
+            title: rate
+            type: integer
+          description: rate
           example: [2]
