@@ -15,7 +15,7 @@ paths:
       operationId: vote
       summary: "[vote]"
       description: |
-        The vote returns the vote from all nodes in the epoch. These vote are gathered from the header of each block.
+        The vote method submits a new vote. If the node has the right to vote based on governance mode, the vote can be placed. If not, an error message will be returned and the vote will be ignored.
 
         **JSONRPC:** `governance_vote`
 
@@ -58,6 +58,7 @@ paths:
                           - type: string
                             title: Key
                           - $ref: "#/components/schemas/Value"
+                      example: ["governance.governancemode", "ballot"]
 
       responses:
         200:
