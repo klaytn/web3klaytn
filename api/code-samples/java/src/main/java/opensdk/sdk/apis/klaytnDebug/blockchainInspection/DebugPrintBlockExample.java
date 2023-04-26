@@ -10,7 +10,9 @@ public class DebugPrintBlockExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void debugPrintBlockExample() throws IOException {
-        DebugPrintBlockResponse response = sdk.debug.printBlock(65120).send();
+        String blockNumber = "0x80";
+
+        DebugPrintBlockResponse response = sdk.debug.printBlock(blockNumber).send();
         response.getResult();
     }
 }
