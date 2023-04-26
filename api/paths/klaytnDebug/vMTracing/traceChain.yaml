@@ -89,7 +89,7 @@ components:
           default: debug_traceChain
         params:
           type: array
-          example: []
+          example: [21, 30, {}]
           items:
             anyOf:
               - title: StartBlockNumber

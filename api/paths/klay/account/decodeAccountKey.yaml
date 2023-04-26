@@ -90,6 +90,9 @@ components:
       properties:
         result:
           type: object
+          required: 
+            - keytype
+            - key
           properties:
             keytype:
               type: number
