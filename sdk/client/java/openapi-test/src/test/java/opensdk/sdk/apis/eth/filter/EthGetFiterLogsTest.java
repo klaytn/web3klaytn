@@ -1,8 +1,9 @@
 package opensdk.sdk.apis.eth.filter;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.apis.helper.Helper;
+import opensdk.sdk.utils.CommonUtils;
 import opensdk.sdk.models.EthGetFilterLogsResponse;
+import opensdk.sdk.utils.EthUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
@@ -15,15 +16,8 @@ public class EthGetFiterLogsTest {
     @Test
     @DisplayName("RPC eth_getFilterLogs")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {
-        EthGetFilterLogsResponse res = Helper.getEthFilterId().thenApply(ethNewFilterResponse -> {
-            String id = ethNewFilterResponse.getResult();
-            try {
-                EthGetFilterLogsResponse response = sdk.eth.getFilterLogs(id).send();
-                return response;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }).get();
-        res.getResult();
+        String id = EthUtils.getEthFilterId().getResult();
+        EthGetFilterLogsResponse response = sdk.eth.getFilterLogs(id).send();
+        response.getResult();
     }
 }

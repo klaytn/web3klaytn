@@ -1,8 +1,9 @@
 package opensdk.sdk.apis.eth.filter;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.apis.helper.Helper;
+import opensdk.sdk.utils.CommonUtils;
 import opensdk.sdk.models.EthGetFilterChangesResponse;
+import opensdk.sdk.utils.EthUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
@@ -19,15 +20,8 @@ public class EthGetFilterChangesTest {
     @Test
     @DisplayName("RPC eth_getFilterChange")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {
-        EthGetFilterChangesResponse res = Helper.getEthFilterId().thenApply(ethNewFilterResponse -> {
-            String quantity = ethNewFilterResponse.getResult();
-            try {
-                EthGetFilterChangesResponse response = sdk.eth.getFilterChanges(quantity).send();
-                return response;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }).get();
-        assertNotNull(res.getResult());
+        String quantity =  EthUtils.getEthFilterId().getResult();
+        EthGetFilterChangesResponse response = sdk.eth.getFilterChanges(quantity).send();
+        assertNotNull(response.getResult());
     }
 }

@@ -19,8 +19,10 @@ public class KlayNewFilterTest {
     @Test
     @DisplayName("RPC klay_newFilter")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        Filter<EthFilter> filterOption = new EthFilter(DefaultBlockParameter.valueOf("latest"),DefaultBlockParameter.valueOf("latest")
+        Filter<EthFilter> filterOption = new EthFilter(DefaultBlockParameter.valueOf("latest")
+                ,DefaultBlockParameter.valueOf("latest")
                 ,"0x87ac99835e67168d4f9a40580f8f5c33550ba88b");
+        filterOption.addOptionalTopics("0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8");
         KlayNewFilterResponse response = sdk.klay.newFilter(filterOption).send();
         assertNotNull(response.getResult());
     }
