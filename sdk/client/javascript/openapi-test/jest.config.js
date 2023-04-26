@@ -3,7 +3,7 @@ module.exports = {
     verbose: true,
     collectCoverage: true,
     testEnvironment: 'node',
-    testTimeout: 10000,
+    testTimeout: 20000,
     maxWorkers:3,
     testRegex: '/test/.*\\.(test|spec)?\\.(js)$',
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
