@@ -65,10 +65,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klaytnDebug/others/chaindbProperty.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klaytnDebug/others/chaindbProperty.py"
 
 components:
   schemas:
