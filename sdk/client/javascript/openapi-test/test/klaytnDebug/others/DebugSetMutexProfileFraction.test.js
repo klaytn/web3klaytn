@@ -4,8 +4,8 @@ const { RPC } = require("../../constant");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
-describe('debug_setMutexProfileFractionoperty API', () => {
-    test('should return debug_setMutexProfileFractionoperty', (done) => {
+describe('debug_setMutexProfileFraction API', () => {
+    test('should return debug_setMutexProfileFraction', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
@@ -16,7 +16,7 @@ describe('debug_setMutexProfileFractionoperty API', () => {
 
         const number = 2;
 
-        sdk.debug.setMutexProfileFractionoperty(number, {}, callbackOne);
+        sdk.debug.setMutexProfileFraction(number, {}, callbackOne);
     });
 });
 

@@ -5,7 +5,7 @@ const OpenSdk = require("opensdk-javascript");
     
     const number = 2;
 
-    sdk.debug.setMutexProfileFractionoperty(number, {}, (err, data, response) => {
+    sdk.debug.setMutexProfileFraction(number, {}, (err, data, response) => {
         console.log(data);
     });
 }
