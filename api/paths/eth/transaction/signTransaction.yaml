@@ -97,10 +97,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/eth/transaction/signTransaction.sh"
-#        - lang: "java"
-#          label: "Java"
-#          source:
-#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/transaction/EthCallExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/transaction/EthSignTransactionExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
