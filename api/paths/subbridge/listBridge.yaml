@@ -75,11 +75,21 @@ components:
           type: array
           items:
             type: object
+            required: 
+              - localAddress
+              - remoteAddress
+              - subscribed
             properties:
               localAddress:
-                $ref:  "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+                type: string
+                format: 20-byte DATA
+                title: account
+                description: account
               remoteAddress:
-                $ref:  "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+                type: string
+                format: 20-byte DATA
+                title: account
+                description: account
               subscribed:
                 type: boolean
                 description: true if the pair of bridge contracts is subscribed, false otherwise.

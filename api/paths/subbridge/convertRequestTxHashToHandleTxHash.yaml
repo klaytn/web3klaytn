@@ -49,10 +49,10 @@ paths:
                   - $ref: "#/components/schemas/ConvertRequestTxHashToHandleTxHashResp"
 
       x-codeSamples:
-        # - lang: "curl"
-        #   label: "Curl"
-        #   source:
-        #     $ref: "../../code-samples/curl/subbridge/convertRequestTxHashToHandleTxHash.sh"
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/subbridge/convertRequestTxHashToHandleTxHash.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:

@@ -31,7 +31,7 @@ paths:
 
       responses:
         200:
-          description: The subbridge_txPending subscribes to the registered bridge contracts in the parent and child chains.
+          description: List of pending transactions in the bridge transaction pool.
           content:
             application/json:
               schema:
@@ -75,7 +75,7 @@ components:
           type: object
           description: List of pending transactions in the bridge transaction pool.
           example: {
-              0xa057995175b93ee0d1bdfa54f078ad0f0116130b: [{
+              "0xa057995175b93ee0d1bdfa54f078ad0f0116130b": [{
                   from: "0xa057995175b93ee0d1bdfa54f078ad0f0116130b",
                   gas: "0x186a0",
                   gasPrice: "0x5d21dba00",
