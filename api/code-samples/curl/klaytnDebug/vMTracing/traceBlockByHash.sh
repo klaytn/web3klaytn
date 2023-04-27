@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "debug_traceBlockByHash",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": ["0xd925ee89e4755ef25b4958b2f6bc29e67197d263bac0a758689fa8cc67a204ca"]
+  "params": ["0xed110b330152df2022d40fa3c38987643034aa56fc96079fb6c67b66a6ed4f19"]
 }'

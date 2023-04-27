@@ -7,6 +7,6 @@ curl -X 'POST' \
   "id": 1,
   "jsonrpc": "2.0",
   "params": [
-    "latest"
+    "0x80"
   ]
 }'

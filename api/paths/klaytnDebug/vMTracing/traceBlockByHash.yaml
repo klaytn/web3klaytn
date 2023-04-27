@@ -85,7 +85,7 @@ components:
             anyOf:
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracingOptions"
-          example: ["0x244acf3f11f0999b93616cb156dc1b43ee87e27c9625a7170cf6de447189d890"]
+          example: ["0xed110b330152df2022d40fa3c38987643034aa56fc96079fb6c67b66a6ed4f19"]
     DebugTraceBlockByHashResp:
       type: object
       properties:

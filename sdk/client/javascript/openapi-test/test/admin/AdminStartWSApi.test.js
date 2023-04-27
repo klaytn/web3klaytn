@@ -20,4 +20,4 @@ describe('admin_startWS API', () => {
         const apis = 'klay'
         sdk.admin.startWS({ host, port, cors, apis }, callbackOne);
     });
-});s
+});
