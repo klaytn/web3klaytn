@@ -1,7 +1,7 @@
 package opensdk.sdk.apis.personal;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.PersonalSendTransactionResponse;
+import opensdk.sdk.models.PersonalSendValueTransferResponse;
 import opensdk.sdk.models.TransactionObject;
 import org.klaytn.OpenSDK;
 
@@ -19,7 +19,7 @@ public class PersonalSendValueTransferExample {
 
         String passphrase = "helloWorld";
 
-        PersonalSendTransactionResponse response = sdk.personal.sendTransaction(transactionObject, passphrase).send();
+        PersonalSendValueTransferResponse response = sdk.personal.sendValueTransfer(transactionObject, passphrase).send();
         response.getResult();
     }
 

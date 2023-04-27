@@ -80,10 +80,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/governance/vote.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/governance/GovernanceVoteExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/governance/GovernanceVoteExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

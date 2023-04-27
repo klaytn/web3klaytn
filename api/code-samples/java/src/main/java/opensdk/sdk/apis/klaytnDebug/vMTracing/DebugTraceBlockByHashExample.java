@@ -10,7 +10,7 @@ public class DebugTraceBlockByHashExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void debugTraceBlockByHashExample() throws IOException {
-        String blockHash = "0xda9b1f9e8f14ab909a23309fc5c0bf1691eb51efc8cd61074f0d0f2e007373e0";
+        String blockHash = "0xed110b330152df2022d40fa3c38987643034aa56fc96079fb6c67b66a6ed4f19";
 
         DebugTraceBlockByHashResponse response = sdk.debug.traceBlockByHash(blockHash).send();
         response.getResult();

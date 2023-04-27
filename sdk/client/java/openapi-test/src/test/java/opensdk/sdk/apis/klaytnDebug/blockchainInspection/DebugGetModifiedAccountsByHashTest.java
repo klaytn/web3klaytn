@@ -15,9 +15,8 @@ public class DebugGetModifiedAccountsByHashTest {
     @Test
     @DisplayName("RPC debug_getModifiedAccountsByHash")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        String startBlockHash = "0x33f1e749af67b62ddad87f23b63a861160fddc88f44c62efacb49b8fc0b5ec75";
-        String endBlockHash = "0x11b53050f768e7ad1e367fdc7414c80544915dff0e758bde099e2df85064243a";
-
+        String startBlockHash = "0xcc1ac1e244f9f83b812b5d77ada1c399f02ea7b61e72ff31789d9ef6dad45442";
+        String endBlockHash = "0x437e92b2d30a0a828dfdd23b837a8ddf8c8b79c222e191d16c47afbf5a6aaed7";
         DebugGetModifiedAccountsByHashResponse response = sdk.debug.getModifiedAccountsByHash(startBlockHash, endBlockHash).send();
         response.getResult();
     }
