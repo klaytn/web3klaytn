@@ -1,10 +1,7 @@
 package opensdk.sdk.apis.personal;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthGetTransactionCountResponse;
-import opensdk.sdk.models.PersonalSendTransactionResponse;
-import opensdk.sdk.models.Signature;
-import opensdk.sdk.models.TransactionObject;
+import opensdk.sdk.models.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
@@ -44,7 +41,7 @@ public class PersonalSendValueTransferTest {
             transactionObject.setNonce(transactionCountResponse.getResult());
         }
 
-        PersonalSendTransactionResponse response = sdk.personal.sendTransaction(transactionObject, passphrase).send();
+        PersonalSendValueTransferResponse response = sdk.personal.sendValueTransfer(transactionObject, passphrase).send();
         response.getResult();
     }
 
