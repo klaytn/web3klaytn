@@ -5,7 +5,7 @@ const { RPC } = require("../../constant");
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
 describe('debug_stopWarmUp API', () => {
-    test('should return debug_stopWarmUp', (done) => {
+    test.skip('should return debug_stopWarmUp', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();

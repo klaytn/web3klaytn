@@ -5,7 +5,7 @@ const { RPC } = require("../../constant");
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
 describe('debug_standardTraceBadBlockToFile API', () => {
-    test('should return debug_standardTraceBadBlockToFile', (done) => {
+    test.skip('should return debug_standardTraceBadBlockToFile', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();

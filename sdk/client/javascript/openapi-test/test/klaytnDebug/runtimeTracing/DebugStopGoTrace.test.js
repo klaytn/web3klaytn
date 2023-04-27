@@ -14,6 +14,7 @@ describe('debug_stopGoTrace API', () => {
             done();
         };
 
+        // TODO: Turn on debug_startGoTrace
         sdk.debug.stopGoTrace({}, callbackOne);
     });
 });
