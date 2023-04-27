@@ -1,27 +1,28 @@
 from base.testing import KlaytnBaseTesting
 
 
-class TestDebugSetMutexProfileFraction(KlaytnBaseTesting):
+class TestGovernanceVote(KlaytnBaseTesting):
 
     def setUp(self) -> None:
         super().setUp()
-        self.rate = 2
+        self.key = "governance.governancemode"
+        self.value = "ballot"
 
     def test_post(self):
-        debug_response = self.sdk.debug.set_mutex_profile_fraction(
-            self.rate
+        governance_response = self.sdk.governance.vote(
+            self.key, self.value
         )
 
-        self.covert_response(debug_response.response)
+        self.covert_response(governance_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)
         self.assertIn("id", self.response)
         self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        debug_response = self.sdk.debug.set_mutex_profile_fraction()
+        governance_response = self.sdk.governance.vote(self.value)
 
-        self.covert_response(debug_response.response)
+        self.covert_response(governance_response.response)
         self.assertResponseSuccess()
         self.assertIn("jsonrpc", self.response)
         self.assertIn("id", self.response)
