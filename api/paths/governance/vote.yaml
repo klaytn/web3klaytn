@@ -88,10 +88,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../code-samples/javascript/governance/vote.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../code-samples/python/governance/vote.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/governance/vote.py"
 
 components:
   schemas:
