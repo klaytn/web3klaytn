@@ -81,8 +81,9 @@ components:
           type: array
           items:
             type: string
+            title: account
             format: 20-byte DATA
-            description: Address of a bridge contract
+          description: Address of a bridge contract
           example: ["0x27caeba831d98b5fbb1d81ce0ed20801702f443a"]
 
     GetBridgeInformationResp:
