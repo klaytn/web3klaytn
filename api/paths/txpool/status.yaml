@@ -52,12 +52,14 @@ paths:
                           - queued
                         properties:
                           pending:
+                            title: "pending"
                             description: The number of pending transactions.
                             oneOf:
                               - type: string
                                 format: hex
                               - type: integer
                           queued:
+                            title: "queued"
                             description: The number of queued transactions.
                             oneOf:
                               - type: string
@@ -70,10 +72,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/txpool/status.sh"
-#        - lang: "java"
-#          label: "Java"
-#          source:
-#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/block/KlayBlockNumberExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/txpool/TxpoolStatusExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

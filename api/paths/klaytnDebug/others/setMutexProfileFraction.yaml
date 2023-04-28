@@ -48,6 +48,7 @@ paths:
                   - type: object
                     properties:
                       result:
+                        title: SetMutexProfileFractionResult
                         type: string
                         example: null
 
