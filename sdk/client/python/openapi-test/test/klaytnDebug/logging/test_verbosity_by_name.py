@@ -1,15 +1,16 @@
 from base.testing import KlaytnBaseTesting
 
 
-class TestStartCollectingTrieStats(KlaytnBaseTesting):
+class TestDebugVerbosityByName(KlaytnBaseTesting):
 
     def setUp(self) -> None:
         super().setUp()
-        self.address = "0x0000000000000000000000000000000000000000"
+        self.name = "API"
+        self.level = 3
 
     def test_post(self):
-        debug_response = self.sdk.debug.start_collecting_trie_stats(
-            self.address
+        debug_response = self.sdk.debug.verbosity_by_name(
+            self.name, self.level
         )
 
         self.covert_response(debug_response.response)
@@ -19,7 +20,7 @@ class TestStartCollectingTrieStats(KlaytnBaseTesting):
         self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        debug_response = self.sdk.debug.start_collecting_trie_stats()
+        debug_response = self.sdk.debug.verbosity_by_name(self.name)
 
         self.covert_response(debug_response.response)
         self.assertResponseSuccess()

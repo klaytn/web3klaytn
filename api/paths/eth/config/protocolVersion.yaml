@@ -62,7 +62,7 @@ paths:
         #   label: "Javascript"
         #   source:
         #     $ref: "../../../code-samples/javascript/eth/configuration/protocolVersion.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../../code-samples/python/eth/configuration/protocolVersion.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/config/protocolVersion.py"
