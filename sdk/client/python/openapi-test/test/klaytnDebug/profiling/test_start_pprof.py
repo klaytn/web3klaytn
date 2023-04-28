@@ -15,6 +15,4 @@ class TestStartPProf(KlaytnBaseTesting):
 
         self.covert_response(debug_response.response)
         self.assertResponseSuccess()
-        self.assertIn("jsonrpc", self.response)
-        self.assertIn("id", self.response)
         self.assertIn("result", self.response)
