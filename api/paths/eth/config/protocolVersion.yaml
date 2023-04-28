@@ -58,10 +58,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/configuration/KlayProtocolVersionExample.java"
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #     $ref: "../../../code-samples/javascript/eth/configuration/protocolVersion.js"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/config/protocolVersion.js"
         - lang: "python"
           label: "Python"
           source:

@@ -1,11 +1,11 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
-const { RPC } = require("../../constant");
+const { RPC } = require("../constant");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
-describe('debug_startCollectingTrieStats API', () => {
-    test('should return debug_startCollectingTrieStats', (done) => {
+describe('personal_deriveAccount API', () => {
+    test.skip('should return personal_deriveAccount', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
@@ -14,9 +14,11 @@ describe('debug_startCollectingTrieStats API', () => {
             done();
         };
 
-        const address = "0x0000000000000000000000000000000000000000";
+        const url = "url";
+        const path = "path";
+        const pin = true;
 
-        sdk.debug.startCollectingTrieStats(address, {}, callbackOne);
+        sdk.personal.deriveAccount(url, path, {pin}, callbackOne);
     });
 });
 

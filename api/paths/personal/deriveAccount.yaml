@@ -73,10 +73,10 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #    $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/personal/deriveAccount.js"
         # - lang: "python"
         #   label: "Python"
         #   source:
@@ -106,5 +106,5 @@ components:
               - type: boolean
                 title: Pin
                 description: optionally pinning
-          example: [ "0x4abd4157a85bbd6ffb853d1f411147eec0d36458c275a3f4527fa171a0f0b6c4", "m/44'/0'/0'", false]
+          example: [ "url", "path", true]
 
