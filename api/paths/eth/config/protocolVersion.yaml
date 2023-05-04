@@ -54,10 +54,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/eth/config/protocolVersion.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/configuration/KlayProtocolVersionExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/configuration/EthProtocolVersionExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
