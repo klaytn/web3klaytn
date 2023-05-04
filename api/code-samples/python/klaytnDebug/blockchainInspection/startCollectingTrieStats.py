@@ -3,7 +3,7 @@ from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
 
-address = "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"
+address = "0x0000000000000000000000000000000000000000"
 
 sdk = OpenSDK(host)
 debug_response = sdk.debug.start_collecting_trie_stats(address)

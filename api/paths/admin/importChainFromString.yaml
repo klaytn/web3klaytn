@@ -61,10 +61,10 @@ paths:
         #   label: "Javascript"
         #   source:
         #    $ref: ""
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/admin/importChainFromString.py"
 
 components:
   schemas:
