@@ -8,6 +8,7 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+@DisplayName("Debug RPC Test")
 public class DebugStopWarmUpTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
