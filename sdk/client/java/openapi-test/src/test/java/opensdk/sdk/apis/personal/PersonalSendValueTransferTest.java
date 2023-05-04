@@ -2,6 +2,8 @@ package opensdk.sdk.apis.personal;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.*;
+import opensdk.sdk.utils.CommonUtils;
+import opensdk.sdk.utils.PersonalUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
@@ -17,12 +19,10 @@ public class PersonalSendValueTransferTest {
     @Test
     @DisplayName("RPC personal_sendValueTransfer")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {
-        String from = "0x413ba0e5f6f00664598b5c80042b1308f4ff1408";
-
-        sdk.personal.unlockAccount(from).send();
+        PersonalUtils.unlockAccount();
 
         TransactionObject transactionObject = new TransactionObject();
-        transactionObject.setFrom(from);
+        transactionObject.setFrom(CommonUtils.address);
         transactionObject.setTo("0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee");
         transactionObject.setValue("0x1");
         transactionObject.setGas("0x9999");
@@ -36,7 +36,7 @@ public class PersonalSendValueTransferTest {
 
         String passphrase = "helloWorld";
 
-        EthGetTransactionCountResponse transactionCountResponse = sdk.eth.getTransactionCount(from, "latest").send();
+        EthGetTransactionCountResponse transactionCountResponse = sdk.eth.getTransactionCount(CommonUtils.address, "latest").send();
         if (transactionCountResponse.getResult() != null) {
             transactionObject.setNonce(transactionCountResponse.getResult());
         }

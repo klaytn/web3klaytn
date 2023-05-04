@@ -17,10 +17,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class CommonUtils {
-     static final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
-     static final String address = "0x413ba0e5f6f00664598b5c80042b1308f4ff1408";
-     static final String passphrase = "helloWorld";
-     static final Web3j web3j = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+     public static final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+     public static final String address = "0x413ba0e5f6f00664598b5c80042b1308f4ff1408";
+     public static final String passphrase = "helloWorld";
+     public static final Web3j web3j = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
 
 
     public static String getRawTransaction() throws IOException {

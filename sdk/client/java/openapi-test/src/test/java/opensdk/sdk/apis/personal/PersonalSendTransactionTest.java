@@ -3,6 +3,7 @@ package opensdk.sdk.apis.personal;
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.PersonalSendTransactionResponse;
 import opensdk.sdk.models.TransactionObject;
+import opensdk.sdk.utils.PersonalUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
@@ -17,7 +18,7 @@ public class PersonalSendTransactionTest {
     @Test
     @DisplayName("RPC personal_sendTransaction")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {
-        sdk.personal.unlockAccount("0x413ba0e5f6f00664598b5c80042b1308f4ff1408").send();
+        PersonalUtils.unlockAccount();
         TransactionObject transactionObject = new TransactionObject();
         transactionObject.setFrom("0x413ba0e5f6f00664598b5c80042b1308f4ff1408");
         transactionObject.setTo("0x8cd4b6b24f2cd0b83d49876f932254823e875547");
