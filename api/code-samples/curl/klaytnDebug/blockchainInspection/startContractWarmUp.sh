@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "debug_startContractWarmUp",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": ["0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"]
+  "params": ["0x4Cd39B49064a31E966cA0ddF4111aCe2eD7E9502"]
 }'
