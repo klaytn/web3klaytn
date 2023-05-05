@@ -28,6 +28,7 @@ dependencies {
 //    api(files("../openapi/eth/build/libs/opensdk-eth-java-v1.10.0.jar"))
 //    api(files("../openapi/klay/build/libs/opensdk-klay-java-v1.10.0.jar"))
     implementation "org.web3j:core:4.9.7"
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.6'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
