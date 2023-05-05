@@ -14,6 +14,8 @@ describe('admin_stopHTTP API', () => {
             done();
         };
 
+        // Must perform start before stop and opposite 
+        // Call AdminStartHTTP()
         sdk.admin.stopHTTP({}, callbackOne);
     });
 });

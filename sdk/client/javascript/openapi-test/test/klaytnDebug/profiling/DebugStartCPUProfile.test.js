@@ -14,8 +14,10 @@ describe('debug_startCPUProfile API', () => {
             done();
         };
 
+        // Must perform start before stop and opposite 
+        // Call stopCPUProfile()
         const file = "cpu.profile";
         sdk.debug.startCPUProfile(file, {}, callbackOne);
-    });
+    }); 
 });
 

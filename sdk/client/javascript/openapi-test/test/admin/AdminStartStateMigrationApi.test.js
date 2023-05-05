@@ -15,7 +15,9 @@ describe('admin_startStateMigration API', () => {
 
             done();
         };
-
+        
+        // Must perform start before stop and opposite 
+        // Call StopStateMigration()
         sdk.admin.startStateMigration({}, callbackOne);
     });
 });
