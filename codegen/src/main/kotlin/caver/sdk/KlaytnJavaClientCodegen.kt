@@ -35,6 +35,7 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
         supportingFiles.find { it -> it.templateFile.equals("build.gradle.mustache") }
         val modelFolder = (sourceFolder + File.separator + modelPackage).replace(".", "/")
         supportingFiles.add(SupportingFile("KlayGetAccountKey.java.mustache", modelFolder, "KlayGetAccountKey.java"))
+        supportingFiles.add(SupportingFile("FilterOptions.java.mustache", modelFolder, "FilterOptions.java"))
     }
 
     override fun getUseInlineModelResolver(): Boolean {
@@ -96,14 +97,17 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
                 u.addExtension("x-extend-response", newKey)
                 openAPI.components?.schemas?.put(newKey, u)
             }
+            if (t.contains("KlaySyncingResp")) {
+                openAPI.components?.schemas?.remove(t)
+            }
 //            if (t.contains("Resp_result")) {
 //                val newKey = t.replace("Resp_result", "")
 //                oldKeys.add(t)
 //                openAPI.components?.schemas?.put(newKey, u)
 //            }
-//            if (t.contains("_oneOf") || t.contains("_request") || t.contains("Req")) {
-//                oldKeys.add(t)
-//            }
+            if (t.contains("_oneOf") || t.contains("_request") || t.contains("Req")) {
+                oldKeys.add(t)
+            }
         }
         openAPI.components?.schemas?.keys?.removeAll(oldKeys.toSet())
 
@@ -240,18 +244,9 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
 //            property.ref = newRef.
 //            replaceAfterLast("/", newRef.substringAfterLast("/"), "")
 //        }
-        if (property?.dataType?.contains("KlayGetAccountKeyRespResult") == true) {
-            property.dataType = property.dataType!!.replace("RespResult", "")
-        }
-        if (property?.datatypeWithEnum?.contains("KlayGetAccountKeyRespResult") == true) {
-            property.datatypeWithEnum = property.datatypeWithEnum!!.replace("RespResult", "")
-        }
         
         model?.imports?.forEach {
             if (it?.contains("200") == true) {
-                model.imports?.remove(it)
-            }
-            if (it?.contains("KlayGetAccountKeyRespResult") == true) {
                 model.imports?.remove(it)
             }
         }
