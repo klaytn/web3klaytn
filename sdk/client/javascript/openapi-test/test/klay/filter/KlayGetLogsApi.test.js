@@ -1,8 +1,8 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
-const { RPC } = require("../../constant");
+const { BAOBAB_RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk(new OpenSdk.ApiClient(BAOBAB_RPC));
 
 describe('klay_getLogs API', () => {
     test('should return klay_getLogs', (done) => {

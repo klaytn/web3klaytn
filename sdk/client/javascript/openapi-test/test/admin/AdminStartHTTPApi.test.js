@@ -17,6 +17,9 @@ describe('admin_startHTTP API', () => {
         const port = 8555
         const cors = ''
         const apis = 'klay'
+        
+        // Must perform start before stop and opposite 
+        // Call AdminStopHTTP()
         sdk.admin.startHTTP({ host, port, cors, apis }, callbackOne);
     });
 });

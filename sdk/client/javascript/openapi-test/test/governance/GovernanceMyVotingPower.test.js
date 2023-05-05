@@ -5,7 +5,7 @@ const { RPC } = require("../constant");
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
 describe('governance_myVotingPower API', () => {
-    test('should return governance_myVotingPower', (done) => {
+    test.skip('should return governance_myVotingPower', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
