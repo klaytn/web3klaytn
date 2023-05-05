@@ -91,7 +91,7 @@ components:
           items:
             anyOf:
               - type: string
-                title: account
+                title: Account
                 format: 20-byte DATA
                 description: Address
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
