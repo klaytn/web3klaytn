@@ -103,11 +103,11 @@ components:
           items:
             anyOf:
               - type: string
-                title: storageAddress
+                title: StorageAddress
                 format: 20-byte DATA
                 description: Address of the storage.
               - type: string
-                title: position
+                title: Position
                 format: hex
                 description: Integer of the position in the storage.
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"

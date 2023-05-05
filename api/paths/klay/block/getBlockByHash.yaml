@@ -89,7 +89,7 @@ components:
           items:
             anyOf:
               - type: string
-                title: hashOfBlock
+                title: HashOfBlock
                 format: 32-byte DATA
                 description: Hash of a block.
               - type: boolean

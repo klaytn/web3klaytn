@@ -92,7 +92,7 @@ components:
           items:
             anyOf:
               - allOf:
-                  - title: callObject
+                  - title: CallObject
                   - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/EthCallObject"
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
               - $ref: "#/components/schemas/StateOverrideSet"

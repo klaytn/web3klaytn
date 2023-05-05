@@ -51,7 +51,7 @@ paths:
 
       responses:
         200:
-          description: Return null if a warm-up is started, or an error if not.
+          description: null if collecting trie statistics task is started, or an error if not.
           content:
             application/json:
               schema:

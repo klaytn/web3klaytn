@@ -95,7 +95,7 @@ components:
               description: Hash of a block.
             - type: string
               format: hex
-              title: transactionIndexPosition
+              title: TransactionIndexPosition
               description: Integer of the transaction index position.
           example: ["0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68", "0x0"]
 
