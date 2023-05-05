@@ -10,7 +10,11 @@ public class AdminStartHTTPExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void adminStartHTTPExample() throws IOException {
-        AdminStartHTTPResponse response = sdk.admin.startHTTP().send();
+        String adminHost = "127.0.0.1";
+        int port = 8551;
+        String cors = "";
+        String apis = "klay";
+        AdminStartHTTPResponse response = sdk.admin.startHTTP(adminHost, port, cors, apis).send();
         response.getResult();
     }
 }

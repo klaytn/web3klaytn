@@ -1,7 +1,7 @@
 package opensdk.sdk.apis.admin;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.AdminStartHTTPResponse;
+import opensdk.sdk.models.AdminStopStateMigrationResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
@@ -9,17 +9,13 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 @DisplayName("Admin RPC Test")
-public class AdminStartHTTPTest {
+public class AdminStopStateMigrationTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
     @Test
-    @DisplayName("RPC admin_startHttp")
+    @DisplayName("RPC admin_stopStateMigration")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        String adminHost = "127.0.0.1";
-        int port = 8551;
-        String cors = "";
-        String apis = "klay";
-        AdminStartHTTPResponse response = sdk.admin.startHTTP(adminHost, port, cors, apis).send();
+        AdminStopStateMigrationResponse response = sdk.admin.stopStateMigration().send();
         response.getResult();
     }
 }
