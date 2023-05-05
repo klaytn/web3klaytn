@@ -14,7 +14,7 @@ describe('debug_printBlock API', () => {
             done();
         };
 
-        const blockNumber = 65120
+        const blockNumber = "0x80"
 
         sdk.debug.printBlock(blockNumber, {}, callbackOne);
     });

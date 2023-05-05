@@ -13,13 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("Eth RPC Test")
 public class EthPendingTransactionsTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
     @Test
     @DisplayName("RPC eth_pendingTransactions")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        String transactionHash = "0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67";
-        EthPendingTransactionsResponse response = sdk.eth.pendingTransactions(transactionHash).send();
+        EthPendingTransactionsResponse response = sdk.eth.pendingTransactions().send();
         assertNotNull(response.getResult());
 
     }

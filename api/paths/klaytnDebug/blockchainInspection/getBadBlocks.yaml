@@ -27,6 +27,13 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  required:
+                    - method
+                  properties:
+                    method:
+                      type: string
+                      default: debug_getBadBlocks
 
       responses:
         200:
@@ -58,7 +65,7 @@ paths:
           label: "Javascript"
           source:
            $ref: "../../../code-samples/javascript/klaytnDebug/blockchainInspection/getBadBlocks.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klaytnDebug/blockchainInspection/getBadBlocks.py"

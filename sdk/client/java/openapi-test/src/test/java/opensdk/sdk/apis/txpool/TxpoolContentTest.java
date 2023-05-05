@@ -9,11 +9,12 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 
-@DisplayName("Eth RPC Test")
+@DisplayName("Txpool RPC Test")
 public class TxpoolContentTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+
     @Test
-    @DisplayName("RPC net_listening")
+    @DisplayName("RPC txpool_content")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         TxpoolContentResponse response = sdk.txpool.content().send();
         response.getResult();

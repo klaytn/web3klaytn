@@ -63,7 +63,7 @@ paths:
         - lang: "javascript"
           label: "Javascript"
           source:
-           $ref: "../../../code-samples/javascript/eth/others/createAccessList.js"
+            $ref: "../../../code-samples/javascript/eth/others/createAccessList.js"
         - lang: "python"
           label: "Python"
           source:
@@ -98,6 +98,19 @@ components:
     EthTransactionArgs:
       type: object
       title: TransactionArgs
+      required:
+        - accessList
+        - chainId
+        - data
+        - from
+        - gas
+        - gasPrice
+        - input
+        - maxFeePerGas
+        - maxPriorityFeePerGas
+        - nonce
+        - to
+        - value
       properties:
         accessList:
             type: array

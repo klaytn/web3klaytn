@@ -45,18 +45,18 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/admin/getSpamThrottlerThrottleList.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/admin/AdminGetSpamThrottlerThrottleListExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
-           $ref: "../../code-samples/javascript/admin/getSpamThrottlerThrottleList.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+            $ref: "../../code-samples/javascript/admin/getSpamThrottlerThrottleList.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/admin/getSpamThrottlerThrottleList.py"
 
 components:
   schemas:
@@ -75,5 +75,5 @@ components:
         result:
           type: array
           items:
-            type: string
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
           example: []

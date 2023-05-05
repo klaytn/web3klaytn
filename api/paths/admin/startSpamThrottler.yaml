@@ -22,13 +22,6 @@ paths:
       tags:
         - admin
 
-      parameters:
-        - name: object
-          required: true
-          schema:
-            type: object
-          in: query
-
       requestBody:
         content:
           application/json:
@@ -52,18 +45,18 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/admin/startSpamThrottler.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/admin/AdminStartSpamThrottlerExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
-           $ref: "../../code-samples/javascript/admin/startSpamThrottler.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+            $ref: "../../code-samples/javascript/admin/startSpamThrottler.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/admin/startSpamThrottler.py"
 
 components:
   schemas:
@@ -71,16 +64,10 @@ components:
       type: object
       required:
         - method
-        - params
       properties:
         method:
           type: string
           default: 'admin_startSpamThrottler'
-        params:
-          type: array
-          items:
-            type: object
-          example: [{}]
 
     startSpamThrottlerResp:
       type: object

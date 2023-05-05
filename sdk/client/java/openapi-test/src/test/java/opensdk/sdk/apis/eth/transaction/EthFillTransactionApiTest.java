@@ -13,7 +13,7 @@ import java.io.IOException;
 @DisplayName("Eth RPC Test")
 public class EthFillTransactionApiTest {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
     @Test
     @DisplayName("RPC eth_fillTransaction")

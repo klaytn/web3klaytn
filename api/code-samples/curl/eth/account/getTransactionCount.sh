@@ -7,7 +7,7 @@ curl -X 'POST' \
   "id": 1,
   "jsonrpc": "2.0",
   "params": [
-    "0xc94770007dda54cF92009BFF0dE90c06F603a09f",
+    "0x413ba0e5f6f00664598b5c80042b1308f4ff1408",
     "latest"
   ]
 }'

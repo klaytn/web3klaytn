@@ -11,7 +11,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 @DisplayName("Klay RPC Test")
 public class KlayMaxPriorityFeePerGasTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
     @Test
     @DisplayName("RPC klay_maxPriorityFeePerGas")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {

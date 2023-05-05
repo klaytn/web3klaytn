@@ -75,11 +75,11 @@ components:
           type: array
           items:
             anyOf:
-              - title: Account
+              - title: ChildAccount
                 type: string
                 format: 20-byte DATA
                 description: Address of bridge contract on child chain.
-              - title: Account
+              - title: ParentAccount
                 type: string
                 format: 20-byte DATA
                 description: Address of bridge contract on parent chain.

@@ -67,14 +67,14 @@ paths:
         #   label: "Java"
         #   source:
         #     $ref: ""
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #     $ref: "../../../code-samples/javascript/klaytnDebug/logging/verbosityByName.js"
-        # # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klaytnDebug/logging/verbosityByName.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klaytnDebug/logging/verbosityByName.py"
 
 components:
   schemas:
@@ -96,7 +96,7 @@ components:
               - title: Level
                 description: The logging verbosity level.
                 type: integer
-          example: ["name", 3] 
+          example: ["API", 1] 
 
     VerbosityByNameResp:
       type: object

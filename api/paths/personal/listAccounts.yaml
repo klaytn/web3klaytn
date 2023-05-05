@@ -27,6 +27,13 @@ paths:
             schema:
               allOf:
                 - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  required:
+                    - method
+                  properties:
+                    method:
+                      type: string
+                      default: 'personal_listAccounts'
 
       responses:
         200:

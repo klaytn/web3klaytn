@@ -1,9 +1,12 @@
 import json
 from opensdk.sdk import OpenSDK
 from base.constants import KLAYTN_URL
+from web3 import Web3
+
 
 sdk = OpenSDK(KLAYTN_URL)
-address = "0x487f2dfef230c2120b8cc55c5087b103146536ec"
+address = "0x413ba0e5f6f00664598b5c80042b1308f4ff1408"
+
 
 def create_new_filter():
     filterOptions = {
@@ -38,3 +41,27 @@ def getFeePayerSignatures(tx):
     klay_response = sdk.klay.sign_transaction(tx)
 
     return json.loads(klay_response.response.data)["result"]["tx"]
+
+
+def get_raw_transaction():
+    web3 = Web3(Web3.HTTPProvider(KLAYTN_URL))
+
+    private_key = "6cb442edb31d8a1c753f0c3c675588fceb4d82435a1c03b8bb92a5a9274ebbe0"
+    from_address = "0xA1ee5975cfa2180450AeD555Ba06AB8108a87D4A"
+    to_address = "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+    gas_price = "0xba43b7400"
+    gas_limit = 21000
+    value = Web3.to_wei("0.001", "ether")
+    nonce = web3.eth.get_transaction_count(from_address)
+
+    tx = {
+        "from": from_address,
+        "to": to_address,
+        "nonce": nonce,
+        "gasPrice": gas_price,
+        "gas": gas_limit,
+        "value": value,
+        "data": b""
+    }
+    signed_tx = web3.eth.account.sign_transaction(tx, private_key)
+    return signed_tx.rawTransaction.hex()

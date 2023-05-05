@@ -74,5 +74,5 @@ components:
         result:
           type: integer
           format: uint64
-          description: List of pending transactions in the bridge transaction pool.
+          description: The number of pending transactions in the bridge transaction pool.
           example: 2

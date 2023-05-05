@@ -57,7 +57,7 @@ paths:
 
       responses:
         200:
-          description: The subbridge.deregisterToken deregisters already registered bridge contracts in the parent/child chain.
+          description: null if the deregistration succeeds, Error object otherwise.
           content:
             application/json:
               schema:
@@ -106,14 +106,15 @@ components:
                 type: string
                 format: 20-byte DATA
                 description: Address of bridge contract on parent chain.
-              - title: tokenChildAccount
+              - title: TokenChildAccount
                 type: string
                 format: 20-byte DATA
                 description: Address of token contract on child chain.
-              - title: tokenParentAccount
+              - title: TokenParentAccount
                 type: string
                 format: 20-byte DATA
                 description: Address of token contract on parent chain.
+          example: ["0x87d6b9c567e5b84cd00e03bfbe6d20d88209c33a", "0x23dab942822021bbd6d551ef51003208924877e4","0xA4b0c6e12346426a09FaD70dAE0651E6Dbdd5198","0x865Cca53828C91663BFf0Ca9808827Bac552BAec"]
 
     SubbridgeDeregisterTokenResp:
       type: object
@@ -121,4 +122,5 @@ components:
         result:
           type: string
           example: null
+          description: null if the deregistration succeeds, Error object otherwise.
           # error

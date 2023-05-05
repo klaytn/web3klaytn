@@ -52,11 +52,11 @@ paths:
         - lang: "javascript"
           label: "Javascript"
           source:
-           $ref: "../../code-samples/javascript/admin/stopSpamThrottler.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+            $ref: "../../code-samples/javascript/admin/stopSpamThrottler.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/admin/stopSpamThrottler.py"
 
 components:
   schemas:
@@ -64,16 +64,10 @@ components:
       type: object
       required:
         - method
-        - params
       properties:
         method:
           type: string
           default: 'admin_stopSpamThrottler'
-        params:
-          type: array
-          items:
-            type: object
-          example: [{}]
 
     stopSpamThrottlerResp:
       type: object

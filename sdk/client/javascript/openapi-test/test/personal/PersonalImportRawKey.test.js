@@ -14,8 +14,8 @@ describe('personal_importRawKey API', () => {
             done();
         };
 
-        const privateKey = "cd87934ee007b7a458fa00dc0314fff8b2bd43b3071f46c820c379e483b4fd8e";
-        const passphrase = "gr8=B!0@uc$b"
+        const privateKey = "ce4ab585ec68f7023d64211a47b52d6c05e456164373ea86f87214d92ce04725";
+        const passphrase = "hello@1234"
 
         sdk.personal.importRawKey(privateKey, passphrase, {}, callbackOne);
     });

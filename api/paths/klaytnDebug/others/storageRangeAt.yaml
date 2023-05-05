@@ -115,18 +115,18 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klaytnDebug/others/storageRangeAt.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/others/DebugStorageRangeAtExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klaytnDebug/others/storageRangeAt.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klaytnDebug/others/storageRangeAt.py"
 
 components:
   schemas:
@@ -142,13 +142,14 @@ components:
         params:
           type: array
           items:
-            - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
-            - title: TxIndex
-              type: integer
-            - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
-            - title: KeyStart
-              type: string
-              format: hex
-            - title: MaxResult
-              type: integer
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
+              - title: TxIndex
+                type: integer
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+              - title: KeyStart
+                type: string
+                format: hex
+              - title: MaxResult
+                type: integer
           example: ["0x90c81195698bc9f282bbdec386b0afb4dcc28e43aae834894281c3ecb3c88d21", 1, "0x73a7d19d14f7dfac5b799e405e22133b2adc57a6", "0x12", 1]

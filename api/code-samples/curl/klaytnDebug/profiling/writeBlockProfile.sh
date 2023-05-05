@@ -1,5 +1,5 @@
 curl -X 'POST' \
-  'https://public-en-cypress.klaytn.net/debug/writeBlockProfile' \
+  'https://api.baobab.klaytn.net:8651/debug/writeBlockProfile' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{

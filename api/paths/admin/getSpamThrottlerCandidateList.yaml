@@ -53,10 +53,10 @@ paths:
           label: "Javascript"
           source:
            $ref: "../../code-samples/javascript/admin/getSpamThrottlerCandidateList.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/admin/getSpamThrottlerCandidateList.py"
 
 components:
   schemas:
@@ -73,5 +73,7 @@ components:
       type: object
       properties:
         result:
-          type: object
-          example: {}
+          type: array
+          items:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+          example: []

@@ -40,7 +40,7 @@ paths:
 
       responses:
         200:
-          description: returns the list of all bridge contract pairs that are registered (stored) in the sub-bridge.
+          description: returns the information of the given bridge contract.
           content:
             application/json:
               schema:
@@ -81,8 +81,9 @@ components:
           type: array
           items:
             type: string
+            title: account
             format: 20-byte DATA
-            description: Address of a bridge contract
+          description: Address of a bridge contract
           example: ["0x27caeba831d98b5fbb1d81ce0ed20801702f443a"]
 
     GetBridgeInformationResp:
@@ -90,6 +91,7 @@ components:
       properties:
         result:
           type: object
+          description: the information of the given bridge contract.
           required:
             - counterPart
             - isRunning

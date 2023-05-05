@@ -151,3 +151,5 @@ paths:
     $ref: ./others/getRawTransactionByHash.yaml#/paths/~1eth~1getRawTransactionByHash
   /eth/getProof:
     $ref: ./others/getProof.yaml#/paths/~1eth~1getProof
+  /eth/resend:
+    $ref: ./others/resend.yaml#/paths/~1eth~1resend

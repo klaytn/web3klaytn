@@ -11,11 +11,11 @@ describe('debug_traceBlockByNumber API', () => {
             console.log("error:", error);
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
-            // expect(data.result).toBeDefined()
+            expect(data.result).toBeDefined()
             done();
         };
 
-        const block = 1449;
+        const block = 2459;
 
         sdk.debug.traceBlockByNumber(block, {}, callbackOne);
     });

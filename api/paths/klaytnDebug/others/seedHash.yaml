@@ -22,7 +22,7 @@ paths:
         - debug
 
       parameters:
-        - name: startBlockNumber
+        - name: blockNumber
           required: true
           schema:
             type: integer
@@ -52,7 +52,7 @@ paths:
                         title: SeedHash
                         type: string
                         description: The block seed hash.
-                        example: string
+                        example: "0x0000000000000000000000000000000000000000000000000000000000000000"
 
 
       x-codeSamples:
@@ -89,5 +89,5 @@ components:
           items:
             type: integer
             format: uint64
-            description: The block number.
+          description: The block number.
           example: [100]

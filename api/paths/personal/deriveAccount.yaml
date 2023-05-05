@@ -69,18 +69,18 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/personal/deriveAccount.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #    $ref: ""
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/personal/PersonalDeriveAccountExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/personal/deriveAccount.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/personal/deriveAccount.py"
 
 components:
   schemas:
@@ -106,5 +106,5 @@ components:
               - type: boolean
                 title: Pin
                 description: optionally pinning
-          example: [ "0x4abd4157a85bbd6ffb853d1f411147eec0d36458c275a3f4527fa171a0f0b6c4", "m/44'/0'/0'", false]
+          example: [ "url", "path", true]
 

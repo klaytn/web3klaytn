@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "debug_verbosityByName",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": ["name", 3]
+  "params": ["API", 1]
 }'

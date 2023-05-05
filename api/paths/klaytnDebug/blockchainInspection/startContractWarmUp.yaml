@@ -47,7 +47,7 @@ paths:
                       items:
                         type: string
                       description: Contract address
-                      example: ["0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"]
+                      example: ["0x4Cd39B49064a31E966cA0ddF4111aCe2eD7E9502"]
 
       responses:
         200:
@@ -77,7 +77,7 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klaytnDebug/blockchainInspection/startContractWarmUp.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klaytnDebug/blockchainInspection/startContractWarmUp.py"

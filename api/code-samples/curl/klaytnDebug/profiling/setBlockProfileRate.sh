@@ -1,5 +1,5 @@
 curl -X 'POST' \
-  'https://public-en-cypress.klaytn.net/debug/setBlockProfileRate' \
+  'https://api.baobab.klaytn.net:8651/debug/setBlockProfileRate' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{

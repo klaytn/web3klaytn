@@ -56,6 +56,7 @@ paths:
                   - type: object
                     properties:
                       result:
+                        title: Addresses
                         type: array
                         items:
                           $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
@@ -67,10 +68,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klaytnDebug/blockchainInspection/getModifiedAccountsByHash.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/blockchainInspection/DebugGetModifiedAccountsByHashExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
@@ -103,4 +104,4 @@ components:
                 format: 32-byte DATA
                 title: EndBlockHash
                 description: (optional) The last block number of the range.
-          example: ["0x583a02df4222c82d4ffe5d3658d0f7ac233f4dc5de83f6430d74199038b606b6", "0x69833f0fc012dc36be910aa6909f5395cd35136dbeae29ed2170a7d4162a009c"]
+          example: ["0xcc1ac1e244f9f83b812b5d77ada1c399f02ea7b61e72ff31789d9ef6dad45442", "0x437e92b2d30a0a828dfdd23b837a8ddf8c8b79c222e191d16c47afbf5a6aaed7"]

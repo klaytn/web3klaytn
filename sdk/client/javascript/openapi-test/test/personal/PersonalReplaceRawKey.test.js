@@ -14,9 +14,9 @@ describe('personal_newAccount API', () => {
             done();
         };
         
-        const keyData = "24c34f686a5848edb19180fb723b5db21c626f253e8b63bf8a0054ea67852c0a";
-        const oldPassphrase = "hello@123";
-        const newPassphrase = "hello@123";
+        const keyData = "ba4a5bbc0dc57d6348047be71773686d1739bf0a5ac6ca4c390f0e4d596a09a6";
+        const oldPassphrase = "hello@1234";
+        const newPassphrase = "hello@1234";
 
         sdk.personal.replaceRawKey(keyData, oldPassphrase, newPassphrase, {}, callbackOne);
     });

@@ -364,6 +364,8 @@ paths:
     $ref: ./paths/eth/others/getRawTransactionByHash.yaml#/paths/~1eth~1getRawTransactionByHash
   /eth/getProof:
     $ref: ./paths/eth/others/getProof.yaml#/paths/~1eth~1getProof
+  /eth/resend:
+    $ref: ./paths/eth/others/resend.yaml#/paths/~1eth~1resend
 
   # net
   /net/listening:
@@ -474,6 +476,8 @@ paths:
     $ref: ./paths/klaytnDebug/vMTracing/traceBadBlock.yaml#/paths/~1debug~1traceBadBlock
   /debug/vMTracing/traceBlock:
     $ref: ./paths/klaytnDebug/vMTracing/traceBlock.yaml#/paths/~1debug~1traceBlock
+  /debug/vMTracing/traceChain:
+    $ref: ./paths/klaytnDebug/vMTracing/traceChain.yaml#/paths/~1debug~1traceChain
 
   # debug/vMStandardTracing:
   /debug/vMStandardTracing/standardTraceBlockToFile:
@@ -506,6 +510,8 @@ paths:
   # governance
   /governance/votes:
     $ref: ./paths/governance/votes.yaml#/paths/~1governance~1votes
+  /governance/vote:
+    $ref: ./paths/governance/vote.yaml#/paths/~1governance~1vote
   /governance/idxCache:
     $ref: ./paths/governance/idxCache.yaml#/paths/~1governance~1idxCache
   /governance/idxCacheFromDb:
@@ -542,6 +548,8 @@ paths:
     $ref: ./paths/klaytnDebug/others/storageRangeAt.yaml#/paths/~1debug~1storageRangeAt
   /debug/seedHash:
     $ref: ./paths/klaytnDebug/others/seedHash.yaml#/paths/~1debug~1seedHash
+  /debug/setMutexProfileFraction:
+    $ref: ./paths/klaytnDebug/others/setMutexProfileFraction.yaml#/paths/~1debug~1setMutexProfileFraction
 
   # debug/profiling:
   /debug/profiling/blockProfile:

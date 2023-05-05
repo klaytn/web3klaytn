@@ -11,7 +11,7 @@ describe('debug_traceBlockByNumberRange API', () => {
             console.log("error:", error);
             expect(error).toBeNull();
             expect(data.jsonrpc).toBe("2.0");
-            // expect(data.result).toBeDefined()
+            expect(data.result).toBeDefined()
             done();
         };
 

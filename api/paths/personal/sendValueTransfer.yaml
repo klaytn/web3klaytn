@@ -54,28 +54,29 @@ paths:
                   - type: object
                     properties:
                       result:
+                        title: SendValueTransferResponse
                         type: string
                         format: 32-byte DATA
                         description: a transaction hash if succeeded. Otherwise, an error is raised.
                         example: "0x8474441674cdd47b35b875fd1a530b800b51a5264b9975fb21129eeb8c18582f"
-      
+
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/personal/sendValueTransfer.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/personal/PersonalSendValueTransferExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
            $ref: "../../code-samples/javascript/personal/sendValueTransfer.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/personal/sendValueTransfer.py"
 
 components:
   schemas:

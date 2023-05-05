@@ -61,18 +61,18 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/personal/signTransaction.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/personal/PersonalSignTransactionExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
             $ref: "../../code-samples/javascript/personal/signTransaction.js"
-        #- lang: "python"
-        #  label: "Python"
-        #  source:
-        #    $ref: ""
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/personal/signTransaction.py"
 
 components:
   schemas:

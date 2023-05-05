@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @DisplayName("Klay RPC Test")
 public class KlayIsParallelDBWriteTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
     @Test
     @DisplayName("RPC klay_isParallelDbWrite")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {

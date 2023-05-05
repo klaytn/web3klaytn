@@ -54,6 +54,7 @@ paths:
                   - type: object
                     properties:
                       result:
+                        title: SendTransactionResponse
                         type: string
                         format: 32-byte DATA
                         description: a transaction hash if succeeded. Otherwise, an error is raised.
@@ -64,18 +65,18 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/personal/sendTransaction.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: ""
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/personal/PersonalSendTransactionExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
-           $ref: "../../code-samples/javascript/personal/sendTransaction.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: ""
+            $ref: "../../code-samples/javascript/personal/sendTransaction.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/personal/sendTransaction.py"
 
 components:
   schemas:

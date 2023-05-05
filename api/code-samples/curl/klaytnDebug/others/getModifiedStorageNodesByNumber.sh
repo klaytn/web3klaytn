@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "debug_getModifiedStorageNodesByNumber",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": ["0x77982323172e5b6182539d3522d5a33a944206d4", 100, 200]
+  "params": ["0x413ba0e5f6f00664598b5c80042b1308f4ff1408", 100, 200]
 }'

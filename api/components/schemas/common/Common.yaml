@@ -1230,6 +1230,26 @@ components:
 
     KlayBlock:
       type: object
+      required: 
+        - number
+        - hash
+        - parentHash
+        - logsBloom
+        - transactionsRoot
+        - stateRoot
+        - receiptsRoot
+        - reward
+        - blockScore
+        - totalBlockScore
+        - extraData
+        - size
+        - gasUsed
+        - timestamp
+        - timestampFoS
+        - transactions
+        - governanceData
+        - voteData
+        - baseFeePerGas
       description: A block object, or error when no block was found
       properties:
         number:

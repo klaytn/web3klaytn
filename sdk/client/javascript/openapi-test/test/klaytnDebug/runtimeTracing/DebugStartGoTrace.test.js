@@ -15,7 +15,8 @@ describe('debug_startGoTrace API', () => {
         };
 
         const file = "go.trace";
-
+        
+        // TODO: Turn on debug_goTrace
         sdk.debug.startGoTrace(file, {}, callbackOne);
     });
 });

@@ -70,8 +70,14 @@ paths:
     $ref: ./others/getModifiedStorageNodesByNumber.yaml#/paths/~1debug~1getModifiedStorageNodesByNumber
   /debug/chaindbCompact:
     $ref: ./others/chaindbCompact.yaml#/paths/~1debug~1chaindbCompact
+  /debug/chaindbProperty:
+    $ref: ./others/chaindbProperty.yaml#/paths/~1debug~1chaindbProperty
+  /debug/storageRangeAt:
+    $ref: ./others/storageRangeAt.yaml#/paths/~1debug~1storageRangeAt
   /debug/seedHash:
     $ref: ./others/seedHash.yaml#/paths/~1debug~1seedHash
+  /debug/setMutexProfileFraction:
+    $ref: ./others/setMutexProfileFraction.yaml#/paths/~1debug~1setMutexProfileFraction
 
   # debug/vMTracing:
   /debug/vMTracing/traceTransaction:
@@ -88,6 +94,8 @@ paths:
     $ref: ./vMTracing/traceBadBlock.yaml#/paths/~1debug~1traceBadBlock
   /debug/vMTracing/traceBlock:
     $ref: ./vMTracing/traceBlock.yaml#/paths/~1debug~1traceBlock
+  /debug/vMTracing/traceChain:
+    $ref: ./vMTracing/traceChain.yaml#/paths/~1debug~1traceChain
 
   # debug/vMStandardTracing:
   /debug/vMStandardTracing/standardTraceBlockToFile:
