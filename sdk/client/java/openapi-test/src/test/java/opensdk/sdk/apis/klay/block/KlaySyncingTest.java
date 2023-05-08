@@ -1,5 +1,6 @@
 package opensdk.sdk.apis.klay.block;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.KlaySyncingResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -15,6 +16,6 @@ public class KlaySyncingTest {
     @DisplayName("RPC klay_syncing")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         KlaySyncingResponse response = sdk.klay.syncing().send();
-        response.getResult();
+        assertNotNull(response.getResult());
     }
 }
