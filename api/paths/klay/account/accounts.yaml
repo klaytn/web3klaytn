@@ -39,7 +39,7 @@ paths:
 
       responses:
         200:
-          description: Addresses owned by the client
+          description: Returns a list of addresses owned by client.
           content:
             application/json:
               schema:
@@ -72,7 +72,7 @@ components:
       properties:
         result:
           type: array
+          description: Addresses owned by the client
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
           example:  ["0xc94770007dda54cF92009BFF0dE90c06F603a09f"]

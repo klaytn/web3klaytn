@@ -61,6 +61,7 @@ paths:
                   - type: object
                     properties:
                       result:
+                        description: Return the number of changed or modified state trie nodes (int)
                         type: number
 
       x-codeSamples:

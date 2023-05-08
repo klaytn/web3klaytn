@@ -98,6 +98,9 @@ components:
         result:
           type: object
           description: Each account type has different attributes.
+          required: 
+            - accType
+            - account
           properties:
             accType:
               type: number

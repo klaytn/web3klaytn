@@ -57,6 +57,7 @@ paths:
                   - type: object
                     properties:
                       result:
+                        description: The existence of an input address
                         type: boolean
       x-codeSamples:
         - lang: "curl"
