@@ -90,7 +90,7 @@ components:
       properties:
         result:
           type: array
-          description: Array - Array of addresses of all validators in the committee, or null when no committee was found
+          description: Addresses of all validators in the committee.
           items:
             type: string
             format: hex

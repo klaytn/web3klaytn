@@ -73,4 +73,5 @@ components:
       properties:
         result:
           type: boolean
+          description: true if the client is mining, otherwise false.
           example: true

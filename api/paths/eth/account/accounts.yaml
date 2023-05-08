@@ -68,9 +68,9 @@ components:
       properties:
         result:
           type: array
+          description: Addresses owned by the client.
           items:
             type: string
             format: 20-byte DATA
-            description: "Addresses owned by the client."
             readOnly: true
             example: "0xc94770007dda54cF92009BFF0dE90c06F603a09f"

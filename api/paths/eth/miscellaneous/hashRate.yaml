@@ -72,5 +72,6 @@ components:
       properties:
         result:
           type: string
+          description: The number of hashes per second.
           format: hex
           example: "0x0"
