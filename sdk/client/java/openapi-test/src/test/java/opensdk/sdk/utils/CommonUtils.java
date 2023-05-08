@@ -15,6 +15,7 @@ import org.web3j.utils.Numeric;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.security.SecureRandom;
 
 public class CommonUtils {
      public static final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -42,4 +43,16 @@ public class CommonUtils {
         return Numeric.toHexString(signMessage);
     }
 
+    public static String genHexString() {
+        SecureRandom random = new SecureRandom();
+        byte[] bytes = new byte[32];
+        random.nextBytes(bytes);
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes) {
+            sb.append(String.format("%02x", b));
+        }
+
+        return sb.toString();
+    }
 }
