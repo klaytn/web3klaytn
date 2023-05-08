@@ -1,0 +1,98 @@
+package opensdk.sdk.models;
+
+import java.util.Objects;
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+/**
+ * KlayGetAccountKey
+ */
+public class KlayGetAccountKey {
+  public static final String SERIALIZED_NAME_KEY = "key";
+  @SerializedName(SERIALIZED_NAME_KEY)
+  private Object key = new Object();
+
+  public static final String SERIALIZED_NAME_KEY_TYPE = "keyType";
+  @SerializedName(SERIALIZED_NAME_KEY_TYPE)
+  private Integer keyType;
+
+   /**
+   * A list of keys. A key can be any of AccountKeyNil, AccountKeyLegacy, AccountKeyPublic, AccountKeyFail, and AccountKeyWeightedMultiSig
+   * @return key
+  **/
+  @javax.annotation.Nonnull
+  public Object getKey() {
+    return key;
+  }
+
+  public void setKey(Object key) {
+    this.key = key;
+  }
+
+  public KlayGetAccountKey keyType(Integer keyType) {
+    this.keyType = keyType;
+    return this;
+  }
+
+   /**
+   * The type of AccountKeyRoleBased. This must be 0x05.
+   * @return keyType
+  **/
+  @javax.annotation.Nonnull
+  public Integer getKeyType() {
+    return keyType;
+  }
+
+  public void setKeyType(Integer keyType) {
+    this.keyType = keyType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    KlayGetAccountKey klayGetAccountKey = (KlayGetAccountKey) o;
+    return Objects.equals(this.key, klayGetAccountKey.key) &&
+        Objects.equals(this.keyType, klayGetAccountKey.keyType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(key, keyType);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class KlayGetAccountKey {\n");
+    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    keyType: ").append(toIndentedString(keyType)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+}
+

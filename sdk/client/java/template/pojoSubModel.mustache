@@ -1,5 +1,3 @@
-import org.web3j.protocol.core.Response;
-
 /**
  * {{description}}{{^description}}{{classname}}{{/description}}{{#isDeprecated}}
  * @deprecated{{/isDeprecated}}
@@ -26,12 +24,12 @@ import org.web3j.protocol.core.Response;
 {{#vendorExtensions.x-class-extra-annotation}}
 {{{vendorExtensions.x-class-extra-annotation}}}
 {{/vendorExtensions.x-class-extra-annotation}}
-public class {{classname}} {{#vars}}{{#-last}} extends Response<{{{datatypeWithEnum}}}>{{/-last}}{{/vars}} {
+public class {{classname}} {{#parent}}extends {{{.}}} {{/parent}}{{#vendorExtensions.x-implements}}{{#-first}}implements {{{.}}}{{/-first}}{{^-first}}, {{{.}}}{{/-first}}{{#-last}} {{/-last}}{{/vendorExtensions.x-implements}}{
 {{#serializableModel}}
   private static final long serialVersionUID = 1L;
 
 {{/serializableModel}}
-  {{#vars}}{{#-last}}
+  {{#vars}}
     {{#isEnum}}
     {{^isContainer}}
 {{>modelInnerEnum}}
@@ -95,7 +93,7 @@ public class {{classname}} {{#vars}}{{#-last}} extends Response<{{{datatypeWithE
   {{/isContainer}}
   {{/vendorExtensions.x-is-jackson-optional-nullable}}
 
-  {{/-last}}{{/vars}}
+  {{/vars}}
   public {{classname}}() {
     {{#parent}}
     {{#parcelableModel}}
@@ -126,7 +124,7 @@ public class {{classname}} {{#vars}}{{#-last}} extends Response<{{{datatypeWithE
   {{/withXml}}
   {{/vendorExtensions.x-has-readonly-properties}}
   {{#vars}}
-  {{#-last}}
+
   {{^isReadOnly}}
   public {{classname}} {{name}}({{{datatypeWithEnum}}} {{name}}) {
     {{#vendorExtensions.x-is-jackson-optional-nullable}}this.{{name}} = JsonNullable.<{{{datatypeWithEnum}}}>of({{name}});{{/vendorExtensions.x-is-jackson-optional-nullable}}
@@ -251,6 +249,7 @@ public class {{classname}} {{#vars}}{{#-last}} extends Response<{{{datatypeWithE
     return {{name}};
     {{/vendorExtensions.x-is-jackson-optional-nullable}}
   }
+
   {{#vendorExtensions.x-is-jackson-optional-nullable}}
 {{> jackson_annotations}}
   public JsonNullable<{{{datatypeWithEnum}}}> {{getter}}_JsonNullable() {
@@ -263,6 +262,7 @@ public class {{classname}} {{#vars}}{{#-last}} extends Response<{{{datatypeWithE
     this.{{name}} = {{name}};
   }
   {{/vendorExtensions.x-is-jackson-optional-nullable}}
+
   {{^isReadOnly}}
 {{#vendorExtensions.x-setter-extra-annotation}}  {{{vendorExtensions.x-setter-extra-annotation}}}
 {{/vendorExtensions.x-setter-extra-annotation}}{{#jackson}}{{^vendorExtensions.x-is-jackson-optional-nullable}}{{> jackson_annotations}}{{/vendorExtensions.x-is-jackson-optional-nullable}}{{/jackson}}  public void {{setter}}({{{datatypeWithEnum}}} {{name}}) {
@@ -274,9 +274,76 @@ public class {{classname}} {{#vars}}{{#-last}} extends Response<{{{datatypeWithE
     {{/vendorExtensions.x-is-jackson-optional-nullable}}
   }
   {{/isReadOnly}}
-  {{/-last}}
+
   {{/vars}}
+
+  @Override
+  public boolean equals(Object o) {
+  {{#useReflectionEqualsHashCode}}
+    return EqualsBuilder.reflectionEquals(this, o, false, null, true);
+  {{/useReflectionEqualsHashCode}}
+  {{^useReflectionEqualsHashCode}}
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }{{#hasVars}}
+    {{classname}} {{classVarName}} = ({{classname}}) o;
+    return {{#vars}}{{#vendorExtensions.x-is-jackson-optional-nullable}}equalsNullable(this.{{name}}, {{classVarName}}.{{name}}){{/vendorExtensions.x-is-jackson-optional-nullable}}{{^vendorExtensions.x-is-jackson-optional-nullable}}{{#isByteArray}}Arrays{{/isByteArray}}{{^isByteArray}}Objects{{/isByteArray}}.equals(this.{{name}}, {{classVarName}}.{{name}}){{/vendorExtensions.x-is-jackson-optional-nullable}}{{^-last}} &&
+        {{/-last}}{{/vars}}{{#parent}} &&
+        super.equals(o){{/parent}};{{/hasVars}}{{^hasVars}}
+    return {{#parent}}super.equals(o){{/parent}}{{^parent}}true{{/parent}};{{/hasVars}}
+  {{/useReflectionEqualsHashCode}}
+  }{{#vendorExtensions.x-jackson-optional-nullable-helpers}}
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }{{/vendorExtensions.x-jackson-optional-nullable-helpers}}
+
+  @Override
+  public int hashCode() {
+  {{#useReflectionEqualsHashCode}}
+    return HashCodeBuilder.reflectionHashCode(this);
+  {{/useReflectionEqualsHashCode}}
+  {{^useReflectionEqualsHashCode}}
+    return Objects.hash({{#vars}}{{#vendorExtensions.x-is-jackson-optional-nullable}}hashCodeNullable({{name}}){{/vendorExtensions.x-is-jackson-optional-nullable}}{{^vendorExtensions.x-is-jackson-optional-nullable}}{{^isByteArray}}{{name}}{{/isByteArray}}{{#isByteArray}}Arrays.hashCode({{name}}){{/isByteArray}}{{/vendorExtensions.x-is-jackson-optional-nullable}}{{^-last}}, {{/-last}}{{/vars}}{{#parent}}{{#hasVars}}, {{/hasVars}}super.hashCode(){{/parent}});
+  {{/useReflectionEqualsHashCode}}
+  }{{#vendorExtensions.x-jackson-optional-nullable-helpers}}
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }{{/vendorExtensions.x-jackson-optional-nullable-helpers}}
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class {{classname}} {\n");
+    {{#parent}}
+    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
+    {{/parent}}
+    {{#vars}}
+    sb.append("    {{name}}: ").append(toIndentedString({{name}})).append("\n");
+    {{/vars}}
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private{{#jsonb}} static{{/jsonb}} String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 {{#supportUrlQuery}}
+
   /**
    * Convert the instance into URL query string.
    *
@@ -285,6 +352,7 @@ public class {{classname}} {{#vars}}{{#-last}} extends Response<{{{datatypeWithE
   public String toUrlQueryString() {
     return toUrlQueryString(null);
   }
+
   /**
    * Convert the instance into URL query string.
    *
@@ -305,7 +373,9 @@ public class {{classname}} {{#vars}}{{#-last}} extends Response<{{{datatypeWithE
       containerSuffix = "]";
       containerPrefix = "[";
     }
+
     StringJoiner joiner = new StringJoiner("&");
+
     {{#allVars}}
     // add `{{baseName}}` to the URL query string
     {{#isArray}}
@@ -461,11 +531,13 @@ public class {{classname}} {{#vars}}{{#-last}} extends Response<{{{datatypeWithE
     {{/isPrimitiveType}}
     {{/isMap}}
     {{/isArray}}
+
     {{/allVars}}
     return joiner.toString();
   }
 {{/supportUrlQuery}}
 {{#parcelableModel}}
+
   public void writeToParcel(Parcel out, int flags) {
 {{#model}}
 {{#isArray}}
@@ -481,6 +553,7 @@ public class {{classname}} {{#vars}}{{#-last}} extends Response<{{{datatypeWithE
 {{/isArray}}
 {{/model}}
   }
+
   {{classname}}(Parcel in) {
 {{#isArray}}
     in.readTypedList(this, {{arrayModelType}}.CREATOR);
@@ -499,9 +572,11 @@ public class {{classname}} {{#vars}}{{#-last}} extends Response<{{{datatypeWithE
 {{/vars}}
 {{/isArray}}
   }
+
   public int describeContents() {
     return 0;
   }
+
   public static final Parcelable.Creator<{{classname}}> CREATOR = new Parcelable.Creator<{{classname}}>() {
     public {{classname}} createFromParcel(Parcel in) {
 {{#model}}
@@ -520,4 +595,5 @@ public class {{classname}} {{#vars}}{{#-last}} extends Response<{{{datatypeWithE
     }
   };
 {{/parcelableModel}}
+
 }

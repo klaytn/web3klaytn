@@ -1,0 +1,74 @@
+
+package opensdk.sdk.models;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.google.gson.annotations.SerializedName;
+import java.util.List;
+
+@JsonInclude(Include.NON_NULL)
+public class FilterOptions {
+    @SerializedName("fromBlock")
+    private Object fromBlock;
+    @SerializedName("toBlock")
+    private Object toBlock;
+    @SerializedName("address")
+    private Object address;
+    @SerializedName("topics")
+    private List<String> topics = null;
+    @SerializedName("blockHash")
+    private String blockHash;
+
+    public FilterOptions() {
+    }
+
+    @JsonProperty("fromBlock")
+    public Object getFromBlock() {
+    return this.fromBlock;
+    }
+
+    @JsonProperty("fromBlock")
+    public void setFromBlock(Object fromBlock) {
+    this.fromBlock = fromBlock;
+    }
+
+    @JsonProperty("toBlock")
+    public Object getToBlock() {
+    return this.toBlock;
+    }
+
+    @JsonProperty("toBlock")
+    public void setToBlock(Object toBlock) {
+    this.toBlock = toBlock;
+    }
+
+    @JsonProperty("address")
+    public Object getAddress() {
+    return this.address;
+    }
+
+    @JsonProperty("address")
+    public void setAddress(Object address) {
+    this.address = address;
+    }
+
+    @JsonProperty("topics")
+    public List<String> getTopics() {
+        return this.topics;
+    }
+    @JsonProperty("topics")
+    public void setTopics(List<String> topics) {
+        this.topics = topics;
+    }
+
+    @JsonProperty("blockHash")
+    public String getBlockHash() {
+        return this.blockHash;
+    }
+
+    @JsonProperty("blockHash")
+    public void setBlockHash(String blockHash) {
+        this.blockHash = blockHash;
+    }
+}

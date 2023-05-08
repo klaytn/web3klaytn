@@ -37,11 +37,12 @@ public class OpenSDK {
         net = new NetApi(new HttpService(url));
         txpool = new TxpoolApi(new HttpService(url));
         personal = new PersonalApi(new HttpService(url));
-        debug = new DebugApi(new HttpService(url));
         admin = new AdminApi(new HttpService(url));
         mainbridge = new MainbridgeApi(new HttpService(url));
         subbridge = new SubbridgeApi(new HttpService(url));
         governance = new GovernanceApi(new HttpService(url));
+
+        debug = new DebugApi(new CustomHttpService(url));
     }
 
     public String getUrl() {

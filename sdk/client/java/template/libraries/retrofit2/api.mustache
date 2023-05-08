@@ -62,11 +62,24 @@ public class {{classname}} {
 
     String namespace = "{{#lambda.lowercase}}{{{baseName}}}{{/lambda.lowercase}}";
     {{#operations}}
-
-        {{#operation}}
-    public Request<?,{{{returnType}}}> {{operationId}}(Object ... params) {
-        return new Request<>(namespace+"_{{operationId}}", Arrays.asList(params), web3jService, {{{returnType}}}.class);
+    {{#operation}}
+        {{#queryParams}}{{#-last}}
+    public Request<?,{{{returnType}}}> {{operationId}}({{#queryParams}}{{^-first}}, {{/-first}}Object {{{paramName}}}{{/queryParams}}) {
+        return new Request<>(namespace+"_{{operationId}}", Arrays.asList({{#queryParams}}{{^-first}}, {{/-first}}{{{paramName}}}{{/queryParams}}), web3jService, {{{returnType}}}.class);
     }
-        {{/operation}}
+        {{/-last}}{{/queryParams}}
+        {{#queryParams}}
+        {{#vendorExtensions.x-default-latest}}
+    public Request<?,{{{returnType}}}> {{operationId}}({{#queryParams}}{{#-first}}{{#vendorExtensions.x-default-latest}}{{#queryParams}}{{^vendorExtensions.x-default-latest}}Object {{{paramName}}}{{^-last}}, {{/-last}}{{/vendorExtensions.x-default-latest}}{{/queryParams}}{{/vendorExtensions.x-default-latest}}{{^vendorExtensions.x-default-latest}}{{#queryParams}}{{^vendorExtensions.x-default-latest}}{{^-first}}, {{/-first}}Object {{{paramName}}}{{/vendorExtensions.x-default-latest}}{{/queryParams}}{{/vendorExtensions.x-default-latest}}{{/-first}}{{/queryParams}}) {
+        return new Request<>(namespace+"_{{operationId}}", Arrays.asList({{#queryParams}}{{^vendorExtensions.x-default-latest}}{{{paramName}}}{{^-last}}, {{/-last}}{{/vendorExtensions.x-default-latest}}{{#vendorExtensions.x-default-latest}}"latest"{{^-last}}, {{/-last}}{{/vendorExtensions.x-default-latest}}{{/queryParams}}), web3jService, {{{returnType}}}.class);
+    }
+        {{/vendorExtensions.x-default-latest}}
+        {{/queryParams}}
+        {{^queryParams}}
+    public Request<?,{{{returnType}}}> {{operationId}}() {
+        return new Request<>(namespace+"_{{operationId}}", Arrays.asList(), web3jService, {{{returnType}}}.class);
+    }
+        {{/queryParams}}
+    {{/operation}}
     {{/operations}}
 }
