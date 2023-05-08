@@ -51,7 +51,7 @@ paths:
                     properties:
                       result:
                         type: number
-                        description: TThe size of the committee
+                        description: The size of the committee
                         example: 4
       x-codeSamples:
         - lang: "curl"

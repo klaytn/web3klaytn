@@ -92,6 +92,7 @@ components:
       type: object
       properties:
         result:
+          description: Array - Array of validator addresses of the council, or null when no council was found
           type: array
           items:
             type: string

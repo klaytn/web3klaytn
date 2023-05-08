@@ -88,7 +88,7 @@ components:
           items:
             anyOf:
               - allOf:
-                  - title: callObject
+                  - title: CallObject
                     description: A transaction call object. Please see caver.rpc.klay.call parameters.
                   - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/KlayCallObject"
               - title: blockParameter

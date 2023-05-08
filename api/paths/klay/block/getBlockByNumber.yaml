@@ -90,6 +90,7 @@ components:
             anyOf:
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
               - type: boolean
+                title: Boolean
                 description: If true it returns the full transaction objects, if false only the hashes of the transactions.
           example:  ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]
 

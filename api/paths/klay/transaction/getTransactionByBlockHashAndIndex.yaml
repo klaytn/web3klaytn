@@ -91,7 +91,7 @@ components:
             anyOf:
             - type: string
               format: 32-byte DATA
-              title: blockHash
+              title: BlockHash
               description: Hash of a block.
             - type: string
               format: hex
