@@ -73,5 +73,6 @@ components:
       properties:
         result:
           type: string
+          description: Integer of the current gas price in peb.
           format: hex
           example: "0xAE9F7BCC00"

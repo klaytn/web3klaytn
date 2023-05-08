@@ -346,10 +346,10 @@ paths:
     $ref: ./paths/eth/miscellaneous/submitWork.yaml#/paths/~1eth~1submitWork
   /eth/miscellaneous/hashRate:
     $ref: ./paths/eth/miscellaneous/hashRate.yaml#/paths/~1eth~1hashRate
-  /eth/miscellaneous/getHashrate:
-    $ref: ./paths/eth/miscellaneous/getHashrate.yaml#/paths/~1eth~1getHashrate
-  /eth/miscellaneous/getWork:
-    $ref: ./paths/eth/miscellaneous/getWork.yaml#/paths/~1eth~1getWork
+  # /eth/miscellaneous/getHashrate:
+  #   $ref: ./paths/eth/miscellaneous/getHashrate.yaml#/paths/~1eth~1getHashrate
+  # /eth/miscellaneous/getWork:
+  #   $ref: ./paths/eth/miscellaneous/getWork.yaml#/paths/~1eth~1getWork
   /eth/miscellaneous/submitHashrate:
     $ref: ./paths/eth/miscellaneous/submitHashrate.yaml#/paths/~1eth~1submitHashrate
 

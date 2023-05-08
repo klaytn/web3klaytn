@@ -106,11 +106,11 @@ components:
           items:
             anyOf:
               - type: string
-                title: account
+                title: Account
                 format: 20-byte DATA
                 description: Address
               - type: string
-                title: message
+                title: Message
                 format: N-byte DATA
                 description: Message to sign
           example:  ["0x9b2055d370f73ec7d8a03e965129118dc8f5bf83", "0xdeadbeaf"]

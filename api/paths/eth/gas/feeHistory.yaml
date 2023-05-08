@@ -103,6 +103,11 @@ components:
       properties:
         result:
           type: object
+          required: 
+            - oldestBlock
+            - baseFeePerGas
+            - gasUsedRatio
+            - reward
           properties:
               oldestBlock:
                 type: string
