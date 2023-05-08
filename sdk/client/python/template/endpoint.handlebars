@@ -5,6 +5,7 @@
 from dataclasses import dataclass
 import typing_extensions
 import urllib3
+import json
 {{#with operation}}
 {{#or headerParams bodyParam produces}}
 from urllib3._collections import HTTPHeaderDict
@@ -395,8 +396,10 @@ class BaseApi(api_client.Api):
                 reason=response.reason,
                 api_response=api_response
             )
-
-        return api_response
+        response = json.loads(api_response.response.data)
+        if "result" in response.keys():
+            return response.get("result")
+        return response.get("error")
 
 
 class {{operationIdCamelCase}}(BaseApi):
