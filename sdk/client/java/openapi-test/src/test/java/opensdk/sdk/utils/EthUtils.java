@@ -22,8 +22,13 @@ public class EthUtils {
         return response;
     }
 
-    public static KlaySignTransactionRespResultTx getFeePayerSignature(KlaytnTransactionTypes tx) throws IOException {
+    public static KlaySignTransactionTx getFeePayerSignature(KlaytnTransactionTypes tx) throws IOException {
         KlaySignTransactionResponse response = CommonUtils.sdk.klay.signTransaction(tx).send();
+
+        if (response.getResult() == null) {
+            return null;
+        }
+
         return response.getResult().getTx();
     }
 

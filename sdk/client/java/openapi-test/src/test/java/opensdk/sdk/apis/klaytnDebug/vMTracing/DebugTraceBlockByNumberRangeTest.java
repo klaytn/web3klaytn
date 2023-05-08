@@ -18,7 +18,7 @@ public class DebugTraceBlockByNumberRangeTest {
         int startBlockNum = 21;
         int endBlockNum = 30;
 
-        DebugTraceBlockByNumberRangeResponse response = sdk.debug.traceBlockByNumberRange(startBlockNum, endBlockNum).send();
+        DebugTraceBlockByNumberRangeResponse response = sdk.debug.traceBlockByNumberRange(startBlockNum, endBlockNum, null).send();
         response.getResult();
     }
 }

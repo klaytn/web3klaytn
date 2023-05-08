@@ -17,7 +17,7 @@ public class DebugTraceBadBlockTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String blockHash = "0x1d5ba00e313a81ae6d409d459c153327072665d9ea2f47608369722baf0cfbb6";
 
-        DebugTraceBadBlockResponse response = sdk.debug.traceBadBlock(blockHash).send();
+        DebugTraceBadBlockResponse response = sdk.debug.traceBadBlock(blockHash, null).send();
         response.getResult();
     }
 }

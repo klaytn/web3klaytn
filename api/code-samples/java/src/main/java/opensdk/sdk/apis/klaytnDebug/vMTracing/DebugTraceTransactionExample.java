@@ -12,7 +12,7 @@ public class DebugTraceTransactionExample {
     void debugTraceTransactionExample() throws IOException {
         String txHash = "0x21b2919b89278ca786226f10edbaadced7381dbd73df546a4823547aaebffa58";
 
-        DebugTraceTransactionResponse response = sdk.debug.traceTransaction(txHash).send();
+        DebugTraceTransactionResponse response = sdk.debug.traceTransaction(txHash, null).send();
         response.getResult();
     }
 }
