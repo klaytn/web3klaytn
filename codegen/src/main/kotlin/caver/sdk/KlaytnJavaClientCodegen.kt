@@ -9,13 +9,10 @@ import io.swagger.v3.oas.models.servers.Server
 import org.openapitools.codegen.CodegenModel
 import org.openapitools.codegen.CodegenOperation
 import org.openapitools.codegen.CodegenProperty
+import org.openapitools.codegen.SupportingFile
 import org.openapitools.codegen.languages.JavaClientCodegen
 import org.openapitools.codegen.model.ModelsMap
 import org.openapitools.codegen.utils.ModelUtils
-import org.openapitools.codegen.CodegenResponse
-import org.openapitools.codegen.model.OperationsMap;
-import org.openapitools.codegen.model.ModelMap;
-import org.openapitools.codegen.SupportingFile
 import java.io.File
 
 class KlaytnJavaClientCodegen : JavaClientCodegen {
@@ -97,14 +94,14 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
                 u.addExtension("x-extend-response", newKey)
                 openAPI.components?.schemas?.put(newKey, u)
             }
-            if (t.contains("KlaySyncingResp")) {
+            if (t.contains("KlaySyncingResp") || t.contains("schemas-FilterOptions") || t.contains("schemas_FilterOptions")) {
                 openAPI.components?.schemas?.remove(t)
             }
-//            if (t.contains("Resp_result")) {
-//                val newKey = t.replace("Resp_result", "")
-//                oldKeys.add(t)
-//                openAPI.components?.schemas?.put(newKey, u)
-//            }
+            if (t.contains("Resp_result")) {
+                val newKey = t.replace("Resp_result", "")
+                oldKeys.add(t)
+                openAPI.components?.schemas?.put(newKey, u)
+            }
             if (t.contains("_oneOf") || t.contains("_request") || t.contains("Req")) {
                 oldKeys.add(t)
             }
@@ -239,15 +236,30 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
             val newDatatypeWithEnum = property.datatypeWithEnum!!.replace("200", "")
             property.datatypeWithEnum = newDatatypeWithEnum.replaceBefore("", namespace.capitalize())
         }
-//        if (property?.ref?.contains("Resp_result") == true) {
-//            val newRef = property.ref!!.replace("Resp_result", "")
-//            property.ref = newRef.
-//            replaceAfterLast("/", newRef.substringAfterLast("/"), "")
-//        }
-        
-        model?.imports?.forEach {
-            if (it?.contains("200") == true) {
-                model.imports?.remove(it)
+        if (property?.ref?.contains("Resp_result") == true) {
+            val newRef = property.ref!!.replace("Resp_result", "")
+            property.ref = newRef.
+            replaceAfterLast("/", newRef.substringAfterLast("/"), "")
+        }
+
+        if (property?.dataType?.contains("RespResult") == true) {
+            property.dataType = property.dataType!!.replace("RespResult", "")
+        }
+
+        if (property?.datatypeWithEnum?.contains("RespResult") == true) {
+            property.datatypeWithEnum = property.datatypeWithEnum!!.replace("RespResult", "")
+        }
+
+        if (property?.items?.datatypeWithEnum?.contains("RespResult") == true) {
+            property.items.datatypeWithEnum = property.items.datatypeWithEnum!!.replace("RespResult", "")
+        }
+
+        model?.imports?.iterator()?.let { iterator ->
+            while (iterator.hasNext()) {
+                val import = iterator.next()
+                if (import?.contains("200") == true || import?.contains("RespResult") == true) {
+                    iterator.remove()
+                }
             }
         }
         super.postProcessModelProperty(model, property)

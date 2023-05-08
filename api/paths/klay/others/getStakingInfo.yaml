@@ -46,7 +46,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "#/components/schemas/KlayGetStakingInfoRep"
+                - $ref: "#/components/schemas/KlayGetStakingInfoReq"
 
       responses:
         200:
@@ -56,7 +56,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "#/components/schemas/KlayGetStakingInfoResq"
+                  - $ref: "#/components/schemas/KlayGetStakingInfoResp"
 
       x-codeSamples:
         - lang: "curl"
@@ -78,7 +78,7 @@ paths:
 
 components:
   schemas:
-    KlayGetStakingInfoRep:
+    KlayGetStakingInfoReq:
       type: object
       required:
         - method
@@ -94,7 +94,7 @@ components:
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
           example:  ["latest"]
 
-    KlayGetStakingInfoResq:
+    KlayGetStakingInfoResp:
       type: object
       properties:
         result:
