@@ -2,7 +2,6 @@ package opensdk.sdk.apis.eth.filter;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthGetLogsResponse;
-import opensdk.sdk.models.EthGetTransactionByBlockHashAndIndexResp;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
@@ -12,7 +11,6 @@ import org.web3j.protocol.core.methods.request.Filter;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 @DisplayName("Eth RPC Test")
 public class EthGetLogTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
