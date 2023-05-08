@@ -17,7 +17,7 @@ public class DebugTraceBlockByHashTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String blockHash = "0x31c582be88975640ca619a0361a55018de384dc0eea2426edff55551d6eb1708";
 
-        DebugTraceBlockByHashResponse response = sdk.debug.traceBlockByHash(blockHash).send();
+        DebugTraceBlockByHashResponse response = sdk.debug.traceBlockByHash(blockHash, null).send();
         response.getResult();
     }
 }

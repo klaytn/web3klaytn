@@ -29,7 +29,7 @@ public class DebugTraceBlockTest {
                 "e43ba72f6b708a82eed1cbb1be8734ba46386311b5da8e717918ae017aa9b54fc7a499d024fb739fec5eb3569841158b6e60ad2a" +
                 "e8b768e95e229a70180808505d21dba00c0";
 
-        DebugTraceBlockResponse response = sdk.debug.traceBlock(blockRlp).send();
+        DebugTraceBlockResponse response = sdk.debug.traceBlock(blockRlp, null).send();
         response.getResult();
     }
 }

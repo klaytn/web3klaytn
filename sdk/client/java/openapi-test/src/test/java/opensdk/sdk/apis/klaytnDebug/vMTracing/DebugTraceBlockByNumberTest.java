@@ -17,7 +17,7 @@ public class DebugTraceBlockByNumberTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         int blockNum = 21;
 
-        DebugTraceBlockByNumberResponse response = sdk.debug.traceBlockByNumber(blockNum).send();
+        DebugTraceBlockByNumberResponse response = sdk.debug.traceBlockByNumber(blockNum, null).send();
         response.getResult();
     }
 }

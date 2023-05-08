@@ -17,7 +17,7 @@ public class DebugTraceBlockFromFileTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String fileName = "/home/sotatek/block.rlp";
 
-        DebugTraceBlockFromFileResponse response = sdk.debug.traceBlockFromFile(fileName).send();
+        DebugTraceBlockFromFileResponse response = sdk.debug.traceBlockFromFile(fileName, null).send();
         response.getResult();
     }
 }

@@ -17,7 +17,7 @@ public class DebugStandardTraceBlockToFileTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String blockHash = "0xf1b4df5d4457d4771740887eeb46de3fc26ae4cddf93d69b1b237c2366ff12eb";
 
-        DebugStandardTraceBlockToFileResponse response = sdk.debug.standardTraceBlockToFile(blockHash).send();
+        DebugStandardTraceBlockToFileResponse response = sdk.debug.standardTraceBlockToFile(blockHash, null).send();
         response.getResult();
     }
 }

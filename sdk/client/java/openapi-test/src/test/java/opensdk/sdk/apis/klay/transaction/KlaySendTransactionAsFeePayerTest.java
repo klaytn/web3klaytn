@@ -2,7 +2,7 @@ package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.KlaySendTransactionResponse;
-import opensdk.sdk.models.KlaySignTransactionRespResultTx;
+import opensdk.sdk.models.KlaySignTransactionTx;
 import opensdk.sdk.models.KlaytnTransactionTypes;
 import opensdk.sdk.utils.EthUtils;
 import opensdk.sdk.utils.PersonalUtils;
@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @DisplayName("Klay RPC Test")
 public class KlaySendTransactionAsFeePayerTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+
     @Test
     @DisplayName("RPC klay_sendTransactionAsFeePayer")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {
@@ -35,7 +36,8 @@ public class KlaySendTransactionAsFeePayerTest {
         tx.setInput("0xb3f98adc0000000000000000000000000000000000000000000000000000000000000001");
         tx.setFeePayer(address);
         tx.setNonce(nonce);
-        KlaySignTransactionRespResultTx signedTx = EthUtils.getFeePayerSignature(tx);
+
+        KlaySignTransactionTx signedTx = EthUtils.getFeePayerSignature(tx);
         KlaySendTransactionResponse transactionResponse = sdk.klay.sendTransactionAsFeePayer(signedTx).send();
         assertNotNull(transactionResponse.getResult());
     }
