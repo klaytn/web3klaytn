@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Admin RPC Test")
 public class AdminStartHTTPTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -19,7 +22,10 @@ public class AdminStartHTTPTest {
         int port = 8551;
         String cors = "";
         String apis = "klay";
+
         AdminStartHTTPResponse response = sdk.admin.startHTTP(adminHost, port, cors, apis).send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

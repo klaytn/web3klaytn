@@ -9,6 +9,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Klay RPC Test")
 public class KlayEstimateGasApiTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
@@ -24,9 +27,11 @@ public class KlayEstimateGasApiTest {
         callObject.setValue("0x0");
         callObject.setInput("0x8ada066e");
 
-        KlayEstimateGasResponse er = sdk.klay.estimateGas(
+        KlayEstimateGasResponse response = sdk.klay.estimateGas(
                         callObject)
         .send();
-        er.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

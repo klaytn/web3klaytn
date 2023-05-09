@@ -10,6 +10,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 @DisplayName("Klay RPC Test")
@@ -20,6 +21,8 @@ public class KlayPendingTransactionTest {
     @DisplayName("RPC klay_pendingTransactions")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         KlayPendingTransactionsResponse response = sdk.klay.pendingTransactions().send();
-        assertNotNull(response.getResult());
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

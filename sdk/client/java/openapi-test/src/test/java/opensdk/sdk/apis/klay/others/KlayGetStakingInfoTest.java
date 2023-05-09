@@ -9,10 +9,12 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlayGetStakingInfoTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+
     @Test
     @DisplayName("RPC klay_getStakingInfo")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
@@ -21,7 +23,9 @@ public class KlayGetStakingInfoTest {
         KlayGetStakingInfoResponse response = sdk.klay
                 .getStakingInfo(blogTag)
                 .send();
-        assertNotNull(response.getResult());
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 
 }

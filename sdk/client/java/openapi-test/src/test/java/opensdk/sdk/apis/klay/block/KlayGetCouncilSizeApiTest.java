@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Klay RPC Test")
 public class KlayGetCouncilSizeApiTest {
 
@@ -16,9 +19,11 @@ public class KlayGetCouncilSizeApiTest {
     @Test
     @DisplayName("RPC klay_getCouncilSize")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayGetCouncilSizeResponse gr = sdk.klay.getCouncilSize(
+        KlayGetCouncilSizeResponse response = sdk.klay.getCouncilSize(
             "0x1b4")
         .send();
-        gr.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

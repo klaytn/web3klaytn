@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Klay RPC Test")
 public class KlayChainIdApiTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
@@ -15,7 +18,9 @@ public class KlayChainIdApiTest {
     @Test
     @DisplayName("RPC klay_chainID")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayChainIDResponse cr = sdk.klay.chainID().send();
-        cr.getResult();
+        KlayChainIDResponse response = sdk.klay.chainID().send();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

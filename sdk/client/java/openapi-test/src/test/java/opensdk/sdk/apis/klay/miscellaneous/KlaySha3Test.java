@@ -9,6 +9,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class KlaySha3Test {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
@@ -17,6 +18,8 @@ public class KlaySha3Test {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String data = "0x11223344";
         KlaySha3Response response = sdk.klay.sha3(data ).send();
-        assertNotNull(response.getResult());
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

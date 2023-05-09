@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Admin RPC Test")
 public class AdminDataDirTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -16,6 +19,8 @@ public class AdminDataDirTest {
     @DisplayName("RPC admin_dataDir")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         AdminDatadirResponse response = sdk.admin.datadir().send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

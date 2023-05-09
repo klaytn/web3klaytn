@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Klay RPC Test")
 public class KlayGetBlockWithConsensusInfoByNumberApiTest {
 
@@ -16,9 +19,11 @@ public class KlayGetBlockWithConsensusInfoByNumberApiTest {
     @Test
     @DisplayName("RPC klay_getBlockWithConsensusInfoByNumber")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayGetBlockWithConsensusInfoByNumberResponse gr = sdk.klay.getBlockWithConsensusInfoByNumber(
+        KlayGetBlockWithConsensusInfoByNumberResponse response = sdk.klay.getBlockWithConsensusInfoByNumber(
             "0xe8")
         .send();
-        gr.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

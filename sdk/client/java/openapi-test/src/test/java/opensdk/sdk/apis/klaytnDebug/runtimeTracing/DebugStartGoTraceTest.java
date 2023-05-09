@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Debug RPC Test")
 public class DebugStartGoTraceTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -18,6 +21,8 @@ public class DebugStartGoTraceTest {
         String file = "go.trace";
 
         DebugStartGoTraceResponse response = sdk.debug.startGoTrace(file).send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

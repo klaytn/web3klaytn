@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Debug RPC Test")
 
 public class DebugDumpBlockTest {
@@ -17,6 +20,7 @@ public class DebugDumpBlockTest {
     @DisplayName("RPC debug_dumpBlock")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         DebugDumpBlockResponse response = sdk.debug.dumpBlock("0x80").send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

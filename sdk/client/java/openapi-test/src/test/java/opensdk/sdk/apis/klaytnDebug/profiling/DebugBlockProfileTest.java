@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Debug RPC Test")
 public class DebugBlockProfileTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -19,6 +22,8 @@ public class DebugBlockProfileTest {
         int seconds = 4;
 
         DebugBlockProfileResponse response = sdk.debug.blockProfile(file, seconds).send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

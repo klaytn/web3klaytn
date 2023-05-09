@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Debug RPC Test")
 public class DebugWriteMutexProfileTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -18,6 +21,8 @@ public class DebugWriteMutexProfileTest {
         String file = "mutex.profile";
 
         DebugWriteMutexProfileResponse response = sdk.debug.writeMutexProfile(file).send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

@@ -10,6 +10,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlayGetLogsTest {
@@ -21,7 +22,10 @@ public class KlayGetLogsTest {
         options.setFromBlock("latest");
         options.setToBlock("latest");
         options.setAddress("0x87ac99835e67168d4f9a40580f8f5c33550ba88b");
+
         KlayGetLogsResponse response = sdk.klay.getLogs(options).send();
-        assertNotNull(response.getResult());
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

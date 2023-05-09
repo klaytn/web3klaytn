@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Debug RPC Test")
 public class DebugGetModifiedAccountsByHashTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
@@ -18,6 +21,7 @@ public class DebugGetModifiedAccountsByHashTest {
         String startBlockHash = "0xcc1ac1e244f9f83b812b5d77ada1c399f02ea7b61e72ff31789d9ef6dad45442";
         String endBlockHash = "0x437e92b2d30a0a828dfdd23b837a8ddf8c8b79c222e191d16c47afbf5a6aaed7";
         DebugGetModifiedAccountsByHashResponse response = sdk.debug.getModifiedAccountsByHash(startBlockHash, endBlockHash).send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

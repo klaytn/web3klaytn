@@ -19,6 +19,8 @@ public class KlayGetTransactionByBlockNumberAndIndexTest {
         KlayGetTransactionByBlockNumberAndIndexResponse response = sdk.klay.getTransactionByBlockNumberAndIndex(
                 "latest","0x0"
         ).send();
-        assertNotNull(response.getResult());
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

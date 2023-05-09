@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Debug RPC Test")
 public class DebugGetModifiedAccountsByNumberTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
@@ -18,6 +21,7 @@ public class DebugGetModifiedAccountsByNumberTest {
         int startBlockNum = 171904;
         int endBlockNum = 172160;
         DebugGetModifiedAccountsByNumberResponse response = sdk.debug.getModifiedAccountsByNumber(startBlockNum, endBlockNum).send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

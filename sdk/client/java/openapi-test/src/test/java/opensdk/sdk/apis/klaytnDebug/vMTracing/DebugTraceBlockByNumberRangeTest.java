@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Debug RPC Test")
 public class DebugTraceBlockByNumberRangeTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
@@ -19,6 +22,8 @@ public class DebugTraceBlockByNumberRangeTest {
         int endBlockNum = 30;
 
         DebugTraceBlockByNumberRangeResponse response = sdk.debug.traceBlockByNumberRange(startBlockNum, endBlockNum, null).send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

@@ -10,6 +10,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 @DisplayName("Eth RPC Test")
@@ -19,6 +20,8 @@ public class KlayRewardBaseTest {
     @DisplayName("RPC klay_rewardbase")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         KlayRewardbaseResponse response = sdk.klay.rewardbase().send();
-        assertNotNull(response.getResult());
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

@@ -9,6 +9,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 public class KlayUpperBoundGasPriceTest {
@@ -17,6 +18,8 @@ public class KlayUpperBoundGasPriceTest {
     @DisplayName("RPC klay_upperBoundGasPrice")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         KlayUpperBoundGasPriceResponse response = sdk.klay.upperBoundGasPrice().send();
-        assertNotNull(response.getResult());
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

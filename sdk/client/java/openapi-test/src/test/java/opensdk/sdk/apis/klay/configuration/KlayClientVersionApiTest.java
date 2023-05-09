@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Klay RPC Test")
 public class KlayClientVersionApiTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
@@ -15,7 +18,9 @@ public class KlayClientVersionApiTest {
     @Test
     @DisplayName("RPC klay_clientVersion")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayClientVersionResponse cr = sdk.klay.clientVersion().send();
-        cr.getResult();
+        KlayClientVersionResponse response = sdk.klay.clientVersion().send();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

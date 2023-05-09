@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Admin RPC Test")
 public class AdminStartWSTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -21,6 +24,8 @@ public class AdminStartWSTest {
         String apis = "klay";
 
         AdminStartWSResponse response = sdk.admin.startWS(host, port, cors, apis).send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

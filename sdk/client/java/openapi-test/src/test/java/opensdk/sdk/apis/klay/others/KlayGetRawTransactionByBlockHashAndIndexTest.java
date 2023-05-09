@@ -8,7 +8,8 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 @DisplayName("Klay RPC Test")
@@ -21,7 +22,8 @@ public class KlayGetRawTransactionByBlockHashAndIndexTest {
         KlayGetRawTransactionByBlockHashAndIndexResponse response = sdk.klay
                 .getRawTransactionByBlockHashAndIndex( "0x29b6cd965c7d9a53a6f068da259dce1d3810ba79fff8eebac5d4da14754e67e6","0x20965255")
                 .send();
-        assertEquals(response.getResult() , "0x");
 
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

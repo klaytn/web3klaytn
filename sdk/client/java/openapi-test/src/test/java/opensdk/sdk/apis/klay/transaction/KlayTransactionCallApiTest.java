@@ -9,6 +9,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 
 @DisplayName("Klay RPC Test")
 public class KlayTransactionCallApiTest {
@@ -25,10 +28,12 @@ public class KlayTransactionCallApiTest {
         callObject.setValue("0x0");
         callObject.setInput("0x8ada066e");
 
-        KlayCallResponse cr = sdk.klay.call(
+        KlayCallResponse response = sdk.klay.call(
             callObject,
             "latest")
         .send();
-        cr.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

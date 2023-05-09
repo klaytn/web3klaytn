@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Admin RPC Test")
 public class AdminStartSpamThrottlerTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -15,8 +18,9 @@ public class AdminStartSpamThrottlerTest {
     @Test
     @DisplayName("RPC admin_startSpamThrottler")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-//        AdminStartSpamThrottlerResponse response = sdk.admin.startSpamThrottler().send();
-//        response.getResult();AdminStartSpamThrottlerResponse response = sdk.admin.startSpamThrottler().send();
-//        response.getResult();
+        AdminStartSpamThrottlerResponse response = sdk.admin.startSpamThrottler().send();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

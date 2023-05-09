@@ -9,6 +9,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Klay RPC Test")
 public class KlayEstimateComputationCostApiTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
@@ -23,10 +26,12 @@ public class KlayEstimateComputationCostApiTest {
         callObject.setInput("0x2a31efc7000000000000000000000000000000000000000000000000000000000000271000000000000000000000000000000000000000000000000000000000000000420000000000000000000000000000000000000000000000000000000000003039");
         callObject.setGas("0x9999");
 
-        KlayEstimateComputationCostResponse er = sdk.klay.estimateComputationCost(
+        KlayEstimateComputationCostResponse response = sdk.klay.estimateComputationCost(
             callObject,
             "latest")
         .send();
-        er.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

@@ -9,6 +9,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Klay RPC Test")
 
 public class KlayGetFilterLogsTest {
@@ -17,7 +20,10 @@ public class KlayGetFilterLogsTest {
     @DisplayName("RPC klay_getFilterLogs")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String quantity = EthUtils.getEthFilterId().getResult();
+
         KlayGetFilterLogsResponse response = sdk.klay.getFilterLogs(quantity).send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }
