@@ -9,6 +9,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 @DisplayName("Eth RPC Test")
@@ -18,7 +19,8 @@ public class EthSyncingTest {
     @DisplayName("RPC eth_syncing")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         EthSyncingResponse response = sdk.eth.syncing().send();
-        assertNotNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 
 }

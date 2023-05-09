@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.governance;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.GovernanceItemsAtResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +21,7 @@ public class GovernanceItemsAtTest {
         int blockTag = 0;
 
         GovernanceItemsAtResponse response = sdk.governance.itemsAt(blockTag).send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

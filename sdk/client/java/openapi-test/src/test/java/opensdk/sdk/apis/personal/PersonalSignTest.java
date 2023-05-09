@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.personal;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.PersonalSignResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +24,7 @@ public class PersonalSignTest {
 
         PersonalSignResponse response = sdk.personal.sign(message, address, passphrase)
                 .send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

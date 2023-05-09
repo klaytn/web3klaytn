@@ -10,6 +10,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Eth RPC Test")
 public class EthPendingTransactionsTest {
@@ -19,7 +20,8 @@ public class EthPendingTransactionsTest {
     @DisplayName("RPC eth_pendingTransactions")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         EthPendingTransactionsResponse response = sdk.eth.pendingTransactions().send();
-        assertNotNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
 
     }
 

@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.filter;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthGetLogsResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +24,8 @@ public class EthGetLogTest {
         Filter<EthFilter> filterOption = new EthFilter(DefaultBlockParameter.valueOf("latest"),DefaultBlockParameter.valueOf("latest")
                 ,"0x87ac99835e67168d4f9a40580f8f5c33550ba88b");
         EthGetLogsResponse response = sdk.eth.getLogs(filterOption).send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 
 }

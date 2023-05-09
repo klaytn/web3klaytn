@@ -8,6 +8,7 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class EthGetTransactionReceiptTest {
@@ -17,6 +18,7 @@ public class EthGetTransactionReceiptTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String transactionHash = "0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67";
         EthGetTransactionReceiptResponse response = sdk.eth.getTransactionReceipt(transactionHash).send();
-        assertNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

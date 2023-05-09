@@ -1,5 +1,7 @@
 package opensdk.sdk.apis.eth.block;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthGetBlockByNumberResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +22,7 @@ public class EthGetBlockByNumberApiTest {
             "0x8f668",
             false)
         .send();
-        er.getResult();
+        assertNotNull(er);
+        assertNull(er.getError());
     }
 }

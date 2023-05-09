@@ -20,7 +20,7 @@ public class KlaySendTransactionTest {
     @Test
     @DisplayName("RPC klay_sendTransaction")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {
-        String address = "0x413ba0e5f6f00664598b5c80042b1308f4ff1408";
+        String address = CommonUtils.address;
         PersonalUtils.unlockAccount();
         KlaytnTransactionTypes type = new KlaytnTransactionTypes();
         type.setFrom(address);

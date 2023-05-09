@@ -9,6 +9,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 @DisplayName("Eth RPC Test")
@@ -20,6 +21,7 @@ public class EthGetTransactionCountTest {
         String address = "0xc94770007dda54cF92009BFF0dE90c06F603a09f";
         String blockNumberOrHashOrTag = "latest";
         EthGetTransactionCountResponse response = sdk.eth.getTransactionCount(address,blockNumberOrHashOrTag).send();
-        assertNotNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

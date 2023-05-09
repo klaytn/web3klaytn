@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.governance;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.GovernanceChainConfigResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +19,7 @@ public class GovernanceChainConfigTest {
     @DisplayName("RPC governance_chainConfig")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         GovernanceChainConfigResponse response = sdk.governance.chainConfig().send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

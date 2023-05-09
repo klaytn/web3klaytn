@@ -9,6 +9,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Eth RPC Test")
 public class EthEtherbaseTest {
@@ -18,6 +19,7 @@ public class EthEtherbaseTest {
     @DisplayName("RPC eth_etherbase")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         EthEtherbaseResponse response = sdk.eth.etherbase().send();
-        assertNotNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

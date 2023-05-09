@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.block;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthGetUncleCountByBlockHashResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +20,8 @@ public class EthGetUncleCountByBlockHashTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String blockHash ="0xc9dbfbab67e9a0508bcb3f95ae408023668cef431b805592781a821926715b8a";
         EthGetUncleCountByBlockHashResponse response = sdk.eth.getUncleCountByBlockHash(blockHash).send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 
 }

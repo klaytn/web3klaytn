@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.block;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthBlockNumberResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +20,7 @@ class EthBlockNumberApiApiTest {
     @DisplayName("RPC eth_blockNumber")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         EthBlockNumberResponse br = sdk.eth.blockNumber().send();
-        br.getResult();
+        assertNotNull(br);
+        assertNull(br.getError());
     }
 }

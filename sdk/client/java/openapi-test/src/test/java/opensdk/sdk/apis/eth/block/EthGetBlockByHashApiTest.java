@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.block;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthGetBlockByHashResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +23,7 @@ public class EthGetBlockByHashApiTest {
             "0x21509a5aa2c03e9c99e3320cc7805c601b370c6a4529b29000fd8e2360d8c659",
             true)
         .send();
-        br.getResult();
+        assertNotNull(br);
+        assertNull(br.getError());
     }
 }

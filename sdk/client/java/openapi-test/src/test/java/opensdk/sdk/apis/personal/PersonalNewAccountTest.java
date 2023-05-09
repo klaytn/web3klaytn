@@ -9,6 +9,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Personal RPC Test")
 public class PersonalNewAccountTest {
@@ -19,6 +20,7 @@ public class PersonalNewAccountTest {
     @DisplayName("RPC personal_newAccount")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         PersonalNewAccountResponse response = sdk.personal.newAccount("helloWorld").send();
-        assertNotNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.governance;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.GovernanceVotesResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +19,7 @@ public class GovernanceVotesTest {
     @DisplayName("RPC governance_votes")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         GovernanceVotesResponse response = sdk.governance.votes().send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

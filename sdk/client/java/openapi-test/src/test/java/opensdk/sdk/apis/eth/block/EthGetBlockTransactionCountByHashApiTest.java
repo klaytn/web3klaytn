@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.block;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthGetBlockTransactionCountByHashResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +22,7 @@ public class EthGetBlockTransactionCountByHashApiTest {
         EthGetBlockTransactionCountByHashResponse br = sdk.eth.getBlockTransactionCountByHash(
             "0x0c11803ab36110db993e7520908b9ba9336cca2f2dcc9b6130c481a3ccdc2621")
         .send();
-        br.getResult();
+        assertNotNull(br);
+        assertNull(br.getError());
     }
 }

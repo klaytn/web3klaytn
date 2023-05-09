@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.personal;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.PersonalSignTransactionResponse;
 import opensdk.sdk.models.TransactionObject;
@@ -27,6 +30,7 @@ public class PersonalSignTransactionTest {
         String password = "helloWorld";
 
         PersonalSignTransactionResponse response = sdk.personal.signTransaction(transactionObject, password).send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.governance;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.GovernanceVoteResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +22,7 @@ public class GovernanceVoteTest {
         String value = "ballot";
 
         GovernanceVoteResponse response = sdk.governance.vote(key, value).send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

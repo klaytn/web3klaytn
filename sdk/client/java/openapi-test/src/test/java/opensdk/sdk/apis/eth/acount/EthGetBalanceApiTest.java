@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.acount;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthGetBalanceResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +23,7 @@ public class EthGetBalanceApiTest {
             "0xc94770007dda54cF92009BFF0dE90c06F603a09f",
             "latest")
         .send();
-        br.getResult();
+        assertNotNull(br);
+        assertNull(br.getError());
     }
 }

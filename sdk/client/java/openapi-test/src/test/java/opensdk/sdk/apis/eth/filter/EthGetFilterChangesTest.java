@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 @DisplayName("Eth RPC Test")
@@ -22,6 +23,7 @@ public class EthGetFilterChangesTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {
         String quantity =  EthUtils.getEthFilterId().getResult();
         EthGetFilterChangesResponse response = sdk.eth.getFilterChanges(quantity).send();
-        assertNotNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

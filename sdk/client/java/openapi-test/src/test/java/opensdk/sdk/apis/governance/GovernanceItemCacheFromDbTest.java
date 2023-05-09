@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.governance;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.GovernanceItemCacheFromDbResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +21,7 @@ public class GovernanceItemCacheFromDbTest {
         int blockNum = 0;
 
         GovernanceItemCacheFromDbResponse response = sdk.governance.itemCacheFromDb(blockNum).send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

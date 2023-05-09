@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.others;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthGetRawTransactionByHashResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +22,7 @@ public class EthGetRawTransactionByHashApiTest {
         EthGetRawTransactionByHashResponse er = sdk.eth.getRawTransactionByHash(
             "0x5bbcde52084defa9d1c7068a811363cc27a25c80d7e495180964673aa5f47687")
         .send();
-        er.getResult();
+        assertNotNull(er);
+        assertNull(er.getError());
     }
 }

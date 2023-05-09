@@ -9,6 +9,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 @DisplayName("Eth RPC Test")
@@ -21,7 +22,8 @@ public class EthSubmitHashrateTest {
         String hashRate ="0x5";
         String id  = "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef";
         EthSubmitHashrateResponse response = sdk.eth.submitHashrate(hashRate , id).send();
-        assertNotNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 
 }

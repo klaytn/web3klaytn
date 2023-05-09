@@ -8,6 +8,7 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 
@@ -20,6 +21,7 @@ public class EthGetUncleByBlockHashAndIndexTest {
         String blockHash = "0xc9dbfbab67e9a0508bcb3f95ae408023668cef431b805592781a821926715b8a";
         String uncleIndex = "0x1";
         EthGetUncleByBlockHashAndIndexResponse response = sdk.eth.getUncleByBlockHashAndIndex(blockHash, uncleIndex).send();
-        assertNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

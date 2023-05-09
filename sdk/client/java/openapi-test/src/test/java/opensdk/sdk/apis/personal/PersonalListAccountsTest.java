@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.personal;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.PersonalListAccountsResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +21,7 @@ public class PersonalListAccountsTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         PersonalListAccountsResponse response = sdk.personal.listAccounts()
                 .send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }
