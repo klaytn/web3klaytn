@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.personal;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.PersonalSendTransactionResponse;
 import opensdk.sdk.models.TransactionObject;
@@ -27,7 +30,8 @@ public class PersonalSendTransactionTest {
         String password = "helloWorld";
 
         PersonalSendTransactionResponse response = sdk.personal.sendTransaction(transactionObject, password).send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 
 }

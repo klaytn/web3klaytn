@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.personal;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.PersonalReplaceRawKeyResponse;
 import opensdk.sdk.utils.CommonUtils;
@@ -23,7 +26,8 @@ public class PersonalReplaceRawKeyTest {
 
         sdk.personal.importRawKey(key, passphrase).send();
         PersonalReplaceRawKeyResponse response = sdk.personal.replaceRawKey(key, passphrase, newPassphrase).send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 
 }

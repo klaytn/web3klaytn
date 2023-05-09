@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.personal;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.PersonalImportRawKeyResponse;
 import opensdk.sdk.utils.CommonUtils;
@@ -20,6 +23,7 @@ public class PersonalImportRawKeyTest {
         String rawKey = CommonUtils.genHexString();
 
         PersonalImportRawKeyResponse response = sdk.personal.importRawKey(rawKey, "mypassword").send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

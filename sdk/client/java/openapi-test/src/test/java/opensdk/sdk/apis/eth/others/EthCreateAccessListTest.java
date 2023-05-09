@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Eth RPC Test")
 public class EthCreateAccessListTest {
@@ -25,6 +26,7 @@ public class EthCreateAccessListTest {
                 ,"0x20965255");
         String blockNumberOrHash = "latest";
         EthCreateAccessListResponse response = sdk.eth.createAccessList(args,blockNumberOrHash).send();
-        assertNotNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

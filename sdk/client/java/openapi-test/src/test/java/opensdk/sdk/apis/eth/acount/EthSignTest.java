@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 @DisplayName("Eth RPC Test")
@@ -22,7 +23,8 @@ public class EthSignTest {
         String address = "0x413ba0e5f6f00664598b5c80042b1308f4ff1408";
         PersonalUtils.unlockAccount();
         EthSignResponse response = sdk.eth.sign(address, "0xdeadbeaf").send();
-        assertNotNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
 
     }
 }

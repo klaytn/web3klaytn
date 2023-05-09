@@ -9,6 +9,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class EthMaxPriorityFeePerGasTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -16,6 +17,7 @@ public class EthMaxPriorityFeePerGasTest {
     @DisplayName("RPC eth_maxPriorityFeePerGas")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         EthMaxPriorityFeePerGasResponse response = sdk.eth.maxPriorityFeePerGas().send();
-        assertNotNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

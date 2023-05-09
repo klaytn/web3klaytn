@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.txpool;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.TxpoolStatusResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +19,7 @@ public class TxpoolStatusTest {
     @DisplayName("RPC txpool_status")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         TxpoolStatusResponse response = sdk.txpool.status().send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

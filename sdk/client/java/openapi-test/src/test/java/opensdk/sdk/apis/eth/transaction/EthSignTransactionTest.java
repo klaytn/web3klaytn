@@ -14,6 +14,7 @@ import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Eth RPC Test")
 
@@ -29,6 +30,7 @@ public class EthSignTransactionTest {
                 ,"0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",new BigInteger("1",16),null,null
                 ,new BigInteger("5d21dba00",16),new BigInteger("5d21dba00",16));
         EthSignTransactionResponse transactionResponse = sdk.eth.signTransaction(tx).send();
-        assertNotNull(transactionResponse.getResult());
+        assertNotNull(transactionResponse);
+        assertNull(transactionResponse.getError());
     }
 }

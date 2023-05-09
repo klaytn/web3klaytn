@@ -3,6 +3,7 @@ package opensdk.sdk.apis.klay.transaction;
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.KlaySignTransactionResponse;
 import opensdk.sdk.models.KlaytnTransactionTypes;
+import opensdk.sdk.utils.CommonUtils;
 import opensdk.sdk.utils.EthUtils;
 import opensdk.sdk.utils.PersonalUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +25,7 @@ public class KlaySignTransactionTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {
         PersonalUtils.unlockAccount();
         String nonce = EthUtils.getNonce().getResult();
-        String address = "0x487f2dfef230c2120b8cc55c5087b103146536ec";
+        String address = CommonUtils.address;
         KlaytnTransactionTypes type = new KlaytnTransactionTypes();
         type.setFrom(address);
         type.setTo("0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee");

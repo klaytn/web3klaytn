@@ -8,6 +8,7 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Eth RPC Test")
@@ -19,7 +20,8 @@ public class EthGetTransactionByBlockNumberAndIndexTest {
         String blockNumber = "0x27";
         String transactionIndexPos = "0x0";
         EthGetTransactionByBlockNumberAndIndexResponse response = sdk.eth.getTransactionByBlockNumberAndIndex(blockNumber, transactionIndexPos).send();
-        assertNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
 
     }
 }

@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.governance;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.GovernancePendingChangesResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -15,6 +18,7 @@ public class GovernancePendingChangesTest {
     @DisplayName("RPC governance_pendingChanges")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         GovernancePendingChangesResponse response = sdk.governance.pendingChanges().send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

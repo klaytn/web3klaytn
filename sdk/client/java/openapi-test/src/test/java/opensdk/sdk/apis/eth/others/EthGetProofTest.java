@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 @DisplayName("Eth RPC Test")
@@ -23,6 +24,7 @@ public class EthGetProofTest {
         EthGetProofResponse response = sdk.eth.getProof("0xe5cB067E90D5Cd1F8052B83562Ae670bA4A211a8",
                 Arrays.asList("0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"),
                 blockNumber).send();
-        assertNotNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

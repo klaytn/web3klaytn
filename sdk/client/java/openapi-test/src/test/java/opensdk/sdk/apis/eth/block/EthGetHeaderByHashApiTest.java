@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.block;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthGetHeaderByHashResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +22,7 @@ public class EthGetHeaderByHashApiTest {
         EthGetHeaderByHashResponse br = sdk.eth.getHeaderByHash(
             "0x21509a5aa2c03e9c99e3320cc7805c601b370c6a4529b29000fd8e2360d8c659")
         .send();
-        br.getResult();
+        assertNotNull(br);
+        assertNull(br.getError());
     }
 }

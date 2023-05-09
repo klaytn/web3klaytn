@@ -3,6 +3,7 @@ package opensdk.sdk.apis.klay.transaction;
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.KlaySignTransactionAsFeePayerResponse;
 import opensdk.sdk.models.KlaytnTransactionTypes;
+import opensdk.sdk.utils.CommonUtils;
 import opensdk.sdk.utils.EthUtils;
 import opensdk.sdk.utils.PersonalUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +24,7 @@ public class KlaySignTransactionAsFeePayerTest {
     @DisplayName("RPC klay_signTransactionAsFeePayer")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {
 
-        String address = "0x487f2dfef230c2120b8cc55c5087b103146536ec";
+        String address = CommonUtils.address;
         PersonalUtils.unlockAccount();
         String nonce = EthUtils.getNonce().getResult();
         KlaytnTransactionTypes type = new KlaytnTransactionTypes();
@@ -36,11 +37,10 @@ public class KlaySignTransactionAsFeePayerTest {
         type.setInput("0xb3f98adc0000000000000000000000000000000000000000000000000000000000000001");
         type.setFeePayer(address);
         type.setNonce(nonce);
+        KlaySignTransactionAsFeePayerResponse tr = sdk.klay.signTransactionAsFeePayer(type).send();
+        assertNotNull(tr);
+        assertNull(tr.getError());
 
-        KlaySignTransactionAsFeePayerResponse response = sdk.klay.signTransactionAsFeePayer(type).send();
-
-        assertNotNull(response);
-        assertNull(response.getError());
     }
 
 }

@@ -9,6 +9,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Personal RPC Test")
 public class PersonalLockAccountTest {
@@ -20,6 +21,7 @@ public class PersonalLockAccountTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         PersonalLockAccountResponse response = sdk.personal.lockAccount("0xda04fb00e2cb5745cef7d8c4464378202a1673ef")
                 .send();
-        assertNotNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

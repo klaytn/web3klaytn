@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.acount;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthGetCodeResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +23,7 @@ public class EthGetCodeApiTest {
             "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
             "0x2")
         .send();
-        br.getResult();
+        assertNotNull(br);
+        assertNull(br.getError());
     }
 }
