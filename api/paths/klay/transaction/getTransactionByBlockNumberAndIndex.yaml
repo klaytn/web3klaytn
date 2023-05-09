@@ -94,7 +94,7 @@ components:
                 format: hex
                 title: TransactionIndex
                 description: The transaction index position.
-          example:  ["0x27", "0x0"]
+          example:  [118593751, "0x0"]
 
     KlayGetTransactionByBlockNumberAndIndexResp:
       type: object

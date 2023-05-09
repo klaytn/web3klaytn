@@ -87,6 +87,9 @@ components:
       properties:
         result:
           type: object
+          required: 
+            - root
+            - tries
           description: The dump state Trie result
           properties:
             root:

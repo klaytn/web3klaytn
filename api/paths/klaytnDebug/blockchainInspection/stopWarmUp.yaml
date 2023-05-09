@@ -31,7 +31,7 @@ paths:
 
       responses:
         200:
-          description: Return null if a warm-up is started, or an error if not.
+          description: null if a warm-up is stopped, or an error if not.
           content:
             application/json:
               schema:
@@ -42,7 +42,7 @@ paths:
                       result:
                         title: StopWarmUpResult
                         type: string
-                        description: null if a warm-up is started, or an error if not.
+                        description: null if a warm-up is stopped, or an error if not.
                         example: null
 
       x-codeSamples:

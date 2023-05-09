@@ -89,6 +89,9 @@ components:
       properties:
         result:
           type: object
+          required: 
+            - account
+            - root
           description: The block information.
           properties:
             account:

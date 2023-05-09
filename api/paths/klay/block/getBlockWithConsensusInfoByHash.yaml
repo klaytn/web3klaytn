@@ -82,7 +82,7 @@ components:
           description: Hash of a block.
           items:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
-          example:  ["0x7d68d09a7a571cdf8a3b6a5ef6e037265b3e3093cf145b0954d22bde5c1d4f61"]
+          example:  ["0xba647d41423faeebe8a7c64737d284fc2eba6f0388a3e1ebf6243db509ec1577"]
 
     KlayGetBlockWithConsensusInfoByHashResp:
       type: object
