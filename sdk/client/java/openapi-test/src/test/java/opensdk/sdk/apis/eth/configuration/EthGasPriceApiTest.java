@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.configuration;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthGasPriceResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +20,7 @@ public class EthGasPriceApiTest {
     @DisplayName("RPC eth_gasPrice")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         EthGasPriceResponse br = sdk.eth.gasPrice().send();
-        br.getResult();
+        assertNotNull(br);
+        assertNull(br.getError());
     }
 }

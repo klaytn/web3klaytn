@@ -9,6 +9,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Eth RPC Test")
 
@@ -19,6 +20,7 @@ public class NetNetworkIDTest {
     @DisplayName("RPC net_networkID")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         NetNetworkIDResponse response = sdk.net.networkID().send();
-        assertNotNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

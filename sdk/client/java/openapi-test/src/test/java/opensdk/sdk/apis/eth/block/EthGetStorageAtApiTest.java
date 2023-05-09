@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.block;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthGetStorageAtResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +24,7 @@ public class EthGetStorageAtApiTest {
             "0x0",
             "latest")
         .send();
-        br.getResult();
+        assertNotNull(br);
+        assertNull(br.getError());
     }
 }

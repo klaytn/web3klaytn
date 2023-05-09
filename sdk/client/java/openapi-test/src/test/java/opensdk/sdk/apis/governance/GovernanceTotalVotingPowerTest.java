@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.governance;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.io.IOException;
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.GovernanceTotalVotingPowerResponse;
@@ -15,7 +18,8 @@ public class GovernanceTotalVotingPowerTest {
   @DisplayName("RPC governance_totalVotingPower")
   void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
     GovernanceTotalVotingPowerResponse resp = sdk.governance.totalVotingPower().send();
-    resp.getResult();
+    assertNotNull(resp);
+    assertNull(resp.getError());
   }
 
 }

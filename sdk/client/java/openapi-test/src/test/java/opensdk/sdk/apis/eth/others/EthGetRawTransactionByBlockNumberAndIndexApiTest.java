@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.others;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthGetRawTransactionByBlockNumberAndIndexResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +23,7 @@ public class EthGetRawTransactionByBlockNumberAndIndexApiTest {
             118593751,
             "0x0")
         .send();
-        er.getResult();
+        assertNotNull(er);
+        assertNull(er.getError());
     }
 }

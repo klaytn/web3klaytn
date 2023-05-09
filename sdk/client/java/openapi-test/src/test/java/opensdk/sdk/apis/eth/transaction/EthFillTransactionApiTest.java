@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.transaction;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthFillTransactionResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -31,6 +34,7 @@ public class EthFillTransactionApiTest {
                 null,
                 Numeric.decodeQuantity("0xba43b7400")))
         .send();
-        cr.getResult();
+        assertNotNull(cr);
+        assertNull(cr.getError());
     }
 }

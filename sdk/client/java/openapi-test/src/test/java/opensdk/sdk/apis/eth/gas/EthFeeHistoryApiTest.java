@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.gas;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthFeeHistoryResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +25,7 @@ public class EthFeeHistoryApiTest {
             "latest",
             List.of(0.1, 0.2, 0.3))
         .send();
-        br.getResult();
+        assertNotNull(br);
+        assertNull(br.getError());
     }
 }

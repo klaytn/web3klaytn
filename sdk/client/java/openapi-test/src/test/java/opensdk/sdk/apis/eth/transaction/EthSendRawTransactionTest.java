@@ -1,6 +1,9 @@
 package opensdk.sdk.apis.eth.transaction;
 
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import opensdk.sdk.apis.constant.UrlConstants;
@@ -47,6 +50,7 @@ public class EthSendRawTransactionTest {
         byte[] signMessage = TransactionEncoder.signMessage(txObject, credentials);
         String message = Numeric.toHexString(signMessage);
         EthSendRawTransactionResponse response = sdk.eth.sendRawTransaction(message).send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

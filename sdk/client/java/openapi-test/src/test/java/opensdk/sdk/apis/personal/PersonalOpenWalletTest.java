@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.personal;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.PersonalOpenWalletResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +25,7 @@ public class PersonalOpenWalletTest {
         PersonalOpenWalletResponse response = sdk.personal
                 .openWallet(url, passphrase)
                 .send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

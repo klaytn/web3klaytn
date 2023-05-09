@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.block;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthGetHeaderByNumberResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +22,7 @@ public class EthGetHeaderByNumberApiTest {
         EthGetHeaderByNumberResponse br = sdk.eth.getHeaderByNumber(
             "0x1b4")
         .send();
-        br.getResult();
+        assertNotNull(br);
+        assertNull(br.getError());
     }
 }

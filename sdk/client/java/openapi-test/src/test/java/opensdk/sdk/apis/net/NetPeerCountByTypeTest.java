@@ -9,6 +9,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Eth RPC Test")
 
@@ -19,7 +20,8 @@ public class NetPeerCountByTypeTest {
     @DisplayName("RPC net_peerCountByType")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         NetPeerCountByTypeResponse response = sdk.net.peerCountByType().send();
-        assertNotNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 
 }

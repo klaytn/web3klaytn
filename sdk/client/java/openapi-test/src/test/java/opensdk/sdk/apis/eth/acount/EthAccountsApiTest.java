@@ -1,5 +1,8 @@
 package opensdk.sdk.apis.eth.acount;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.EthAccountsResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +19,8 @@ class EthAccountsApiTest {
     @DisplayName("RPC eth_accounts")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         EthAccountsResponse ar = sdk.eth.accounts().send();
-        ar.getResult();
+        assertNotNull(ar);
+        assertNull(ar.getError());
     }
 
 }
