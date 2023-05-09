@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -9,4 +8,4 @@ passphrase = "mypassword"
 sdk = OpenSDK(host)
 personal_response = sdk.personal.import_raw_key(privateKey, passphrase)
 
-print(json.loads(personal_response.response.data))
+print(personal_response)

@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -14,4 +13,4 @@ blockNumberOrHash = "latest"
 sdk = OpenSDK(host)
 klay_response = sdk.klay.estimate_computation_cost(callObject, blockNumberOrHash)
 
-print(json.loads(klay_response.response.data))
+print(klay_response)

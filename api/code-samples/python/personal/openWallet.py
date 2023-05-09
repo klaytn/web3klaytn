@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -9,4 +8,4 @@ passphrase = "helloWorld"
 sdk = OpenSDK(host)
 personal_response = sdk.personal.open_wallet(url, passphrase)
 
-print(json.loads(personal_response.response.data))
+print(personal_response)

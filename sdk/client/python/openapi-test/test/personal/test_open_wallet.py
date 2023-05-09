@@ -9,18 +9,11 @@ class TestOpenWallet(KlaytnBaseTesting):
         self.passphrase = "passphrase"
 
     def test_post(self):
-        personal_response = self.sdk.personal.open_wallet(
+        self.response = self.sdk.personal.open_wallet(
             self.url, self.passphrase
         )
-
-        self.covert_response(personal_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        personal_response = self.sdk.personal.open_wallet()
-
-        self.covert_response(personal_response.response)
-        self.assertResponseSuccess()
-        self.assertIn("error", self.response)
+        self.response = self.sdk.personal.open_wallet()
         self.assertErrorCodeMissingRequiredArgument()

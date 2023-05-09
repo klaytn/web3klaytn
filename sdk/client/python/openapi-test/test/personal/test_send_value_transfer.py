@@ -24,18 +24,11 @@ class TestSendTransaction(KlaytnBaseTesting):
         self.password = "helloWorld"
 
     def test_post(self):
-        personal_response = self.sdk.personal.send_value_transfer(
+        self.response = self.sdk.personal.send_value_transfer(
             self.transactionObject, self.password
         )
-
-        self.covert_response(personal_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        personal_response = self.sdk.personal.send_value_transfer()
-
-        self.covert_response(personal_response.response)
-        self.assertResponseSuccess()
-        self.assertIn("error", self.response)
+        self.response = self.sdk.personal.send_value_transfer()
         self.assertErrorCodeMissingRequiredArgument()

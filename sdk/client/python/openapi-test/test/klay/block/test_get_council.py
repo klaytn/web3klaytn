@@ -8,10 +8,8 @@ class TestKlayGetCouncil(KlaytnBaseTesting):
         self.blockTag = "0x1b4"
 
     def test_post(self):
-        klay_response = self.sdk.klay.get_council(
+        self.response = self.sdk.klay.get_council(
             self.blockTag
         )
 
-        self.covert_response(klay_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)

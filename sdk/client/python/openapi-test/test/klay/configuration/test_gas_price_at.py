@@ -8,10 +8,7 @@ class TestKlayGasPriceAt(KlaytnBaseTesting):
         self.baseFee = "0x64"
 
     def test_post(self):
-        klay_response = self.sdk.klay.gas_price_at(
+        self.response = self.sdk.klay.gas_price_at(
             self.baseFee,
         )
-
-        self.covert_response(klay_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)

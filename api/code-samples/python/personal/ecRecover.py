@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -9,4 +8,4 @@ signature = "0xccb8cce176b01fdc8f7ac3c101b8eb3b9005e938a60800e517624419dd8b7fba0
 sdk = OpenSDK(host)
 personal_response = sdk.personal.ec_recover(message, signature)
 
-print(json.loads(personal_response.response.data))
+print(personal_response)

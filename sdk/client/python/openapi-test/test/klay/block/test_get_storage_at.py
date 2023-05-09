@@ -10,18 +10,11 @@ class TestKlayGetStorageAt(KlaytnBaseTesting):
         self.blockHash = "latest"
 
     def test_post(self):
-        klay_response = self.sdk.klay.get_storage_at(
+        self.response = self.sdk.klay.get_storage_at(
             self.address, self.position, self.blockHash
         )
-
-        self.covert_response(klay_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        klay_response = self.sdk.klay.get_storage_at(self.blockHash)
-
-        self.covert_response(klay_response.response)
-        self.assertResponseSuccess()
-        self.assertIn("error", self.response)
+        self.response = self.sdk.klay.get_storage_at(self.blockHash)
         self.assertErrorCodeMissingRequiredArgument()

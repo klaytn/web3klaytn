@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -14,4 +13,4 @@ transactionObject = {
 sdk = OpenSDK(host)
 klay_response = sdk.klay.sign_transaction(transactionObject)
 
-print(json.loads(klay_response.response.data))
+print(klay_response)

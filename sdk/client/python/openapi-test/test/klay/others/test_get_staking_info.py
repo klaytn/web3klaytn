@@ -8,8 +8,5 @@ class TestGetStakingInfo(KlaytnBaseTesting):
         self.blockTag = "latest"
 
     def test_post(self):
-        klay_response = self.sdk.klay.get_staking_info(self.blockTag)
-
-        self.covert_response(klay_response.response)
+        self.response = self.sdk.klay.get_staking_info(self.blockTag)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)

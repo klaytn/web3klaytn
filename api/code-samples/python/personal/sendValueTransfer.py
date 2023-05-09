@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -13,4 +12,4 @@ passphrase = "helloWorld"
 sdk = OpenSDK(host)
 personal_response = sdk.personal.send_value_transfer(tx, passphrase)
 
-print(json.loads(personal_response.response.data))
+print(personal_response)

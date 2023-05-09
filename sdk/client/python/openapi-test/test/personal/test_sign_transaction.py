@@ -16,18 +16,11 @@ class TestSignTransaction(KlaytnBaseTesting):
         self.password = "helloWorld"
 
     def test_post(self):
-        personal_response = self.sdk.personal.sign_transaction(
+        self.response = self.sdk.personal.sign_transaction(
             self.transactionObject, self.password
         )
-
-        self.covert_response(personal_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        personal_response = self.sdk.personal.sign_transaction()
-
-        self.covert_response(personal_response.response)
-        self.assertResponseSuccess()
-        self.assertIn("error", self.response)
+        self.response = self.sdk.personal.sign_transaction()
         self.assertErrorCodeMissingRequiredArgument()

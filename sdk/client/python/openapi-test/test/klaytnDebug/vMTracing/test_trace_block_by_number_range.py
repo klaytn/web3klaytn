@@ -9,18 +9,11 @@ class TestTraceBlockByNumberRange(KlaytnBaseTesting):
         self.endBlock = 22
 
     def test_post(self):
-        debug_response = self.sdk.debug.trace_block_by_number_range(
+        self.response = self.sdk.debug.trace_block_by_number_range(
             self.startBlock, self.endBlock
         )
-
-        self.covert_response(debug_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        debug_response = self.sdk.debug.trace_block_by_number_range(self.startBlock)
-
-        self.covert_response(debug_response.response)
-        self.assertResponseSuccess()
-        self.assertIn("error", self.response)
+        self.response = self.sdk.debug.trace_block_by_number_range(self.startBlock)
         self.assertErrorCodeMissingRequiredArgument()

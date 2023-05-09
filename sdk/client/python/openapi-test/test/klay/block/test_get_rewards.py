@@ -8,10 +8,7 @@ class TestKlayGetRewards(KlaytnBaseTesting):
         self.blockTag = "latest"
 
     def test_post(self):
-        klay_response = self.sdk.klay.get_rewards(
+        self.response = self.sdk.klay.get_rewards(
             self.blockTag
         )
-
-        self.covert_response(klay_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)

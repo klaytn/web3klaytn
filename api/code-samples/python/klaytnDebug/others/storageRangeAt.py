@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -12,4 +11,4 @@ maxResult = 1
 sdk = OpenSDK(host)
 debug_response = sdk.debug.storage_range_at(blockHash, txIndex, address, keyStart, maxResult)
 
-print(json.loads(debug_response.response.data))
+print(debug_response)
