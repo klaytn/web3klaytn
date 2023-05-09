@@ -8,12 +8,12 @@ curl -X 'POST' \
   "jsonrpc": "2.0",
   "params": [
     {
-      "from":"0x77982323172e5b6182539d3522d5a33a944206d4",
-      "to":"0xcd6bfdb523a4d030890d28bf1eb6ef36307c9aaa",
-      "value":"0x10000",
-      "gas":"0x1000000",
-      "nonce":"0x2",
-      "gasprice":"0x25000000000"
+      "from":"0x413ba0e5f6f00664598b5c80042b1308f4ff1408",
+      "nonce": "0x0",
+      "gasPrice": "0xba43b7400",
+      "gas": "0x9999",
+      "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",
+      "value": "0x1"
     }
   ]
 }'

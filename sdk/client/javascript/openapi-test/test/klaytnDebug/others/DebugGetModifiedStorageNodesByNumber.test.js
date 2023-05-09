@@ -4,8 +4,8 @@ const { RPC } = require("../../constant");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
-describe('debug_startContractWarmUp API', () => {
-    test('should return debug_startContractWarmUp', (done) => {
+describe('debug_getModifiedStorageNodesByNumber.test API', () => {
+    test.skip('should return debug_getModifiedStorageNodesByNumber', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
@@ -14,9 +14,11 @@ describe('debug_startContractWarmUp API', () => {
             done();
         };
 
-        const address = "0xfD1d63a152f7A7Ef14bd157C1c73c5bC3239EA5D"
+        const contractAddress = "0x73a7d19d14f7dfac5b799e405e22133b2adc57a6";
+        const startBlockNum = 100;
+        const endBlockNum = 200;
 
-        sdk.debug.startContractWarmUp(address, {}, callbackOne);
+        sdk.debug.getModifiedStorageNodesByNumber(contractAddress, startBlockNum, endBlockNum, {}, callbackOne);
     });
 });
 

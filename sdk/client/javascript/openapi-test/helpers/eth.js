@@ -1,15 +1,18 @@
 const OpenSdk = require("opensdk-javascript");
 const Web3 = require('web3');
 
-const { RPC } = require("../test/constant");
+const { RPC, PN_RPC } = require("../test/constant");
 
+const sdk_PN = new OpenSdk(new OpenSdk.ApiClient(PN_RPC));
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 const web3 = new Web3(RPC);
 
-// const address = '0x487f2dfef230c2120b8cc55c5087b103146536ec' #Sub address
 const address = '0x413ba0e5f6f00664598b5c80042b1308f4ff1408'
 
 const passphrase = 'helloWorld'
+
+const addressPN = '0x65b47be3457ff26f2911cf89fd079cef0475a2e6' // address in PN server
+const passphrasePN = 'helloWorld'
 
 export const getEthFilterId = () => {
     return new Promise((res, ej) => {
@@ -27,35 +30,33 @@ export const getEthFilterId = () => {
         });
     })
 }
-export const getRawTransaction = async () => {
-    const privateKey = '6cb442edb31d8a1c753f0c3c675588fceb4d82435a1c03b8bb92a5a9274ebbe0';
-
-    const fromAddress = '0xA1ee5975cfa2180450AeD555Ba06AB8108a87D4A';
-
-    const toAddress = '0x0123456789abcdef0123456789abcdef01234568';
-
-    const gasPrice = "0xba43b7400"
-
-    const gasLimit = 21000;
-
-    const value = web3.utils.toWei('0.001', 'ether');
-
-    const data = '';
-
+export const getRawTransaction = async (nonce) => {
     return new Promise((res, ej) => {
-        web3.eth.getTransactionCount(fromAddress, 'pending', async (error, nonce) => {
-            const txObject = {
-                'from': fromAddress,
-                'nonce': nonce,
-                'gasPrice': gasPrice,
-                'gasLimit': gasLimit,
-                'to': toAddress,
-                'value': value,
-                'data': data,
-                "maxPriorityPerGas": "0x5d21dba00",
-            };
-            const signedTx = await web3.eth.accounts.signTransaction(txObject, privateKey);
-            return res(signedTx)
+        sdk.klay.signTransaction({
+            "from": address,
+            "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",
+            "value": "0x1",
+            "gas": "0x9999",
+            nonce
+        }, {}, (err, data) => {
+            if (err) return reject(err)
+            return res(data.result.raw)
+        });
+    })
+}
+export const signTxEth = (nonce) => {
+    return new Promise((res, ej) => {
+        sdk.eth.signTransaction({
+            "from": address,
+            "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",
+            "value": "0x1",
+            "gas": "0x9999",
+            "maxFeePerGas": "0x5d21dba00",
+            "maxPriorityFeePerGas": "0x5d21dba00",
+            nonce
+        }, {}, (err, data) => {
+            if (err) return reject(err)
+            return res(data.result.raw)
         });
     })
 }
@@ -82,5 +83,37 @@ export const getFeePayerSignatures = async (tx) => {
             if (err) return reject(err)
             return resolve(data.result.tx)
         });
+    })
+}
+export const unlockAccountPN = () => {
+    return new Promise((res, ej) => {
+        sdk_PN.personal.unlockAccount(addressPN, passphrasePN, { duration: 300 }, (err, data, resp) => {
+            if (err) return ej(err)
+            return res(addressPN)
+        })
+    })
+}
+export const sendTransactionPN = (address) => {
+    return new Promise((res, ej) => {
+        sdk_PN.klay.sendTransaction({
+            "from": address,
+            "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",
+            "value": "0x1",
+            "gas": "0x9999",
+            "maxFeePerGas": "0x5d21dba00",
+            "maxPriorityFeePerGas": "0x5d21dba00"
+        }, {}, (err, data, resp) => {
+            if (err) return ej(err)
+            console.log("data in send:", data);
+            return res(data);
+        });
+    })
+}
+export const getNoncePending = () => {
+    return new Promise((res, ej) => {
+        sdk_PN.eth.pendingTransactions({}, (err, data, resp) => {
+            if (err) return ej(err)
+            return res(data.result.reverse()[0].nonce)
+        })
     })
 }

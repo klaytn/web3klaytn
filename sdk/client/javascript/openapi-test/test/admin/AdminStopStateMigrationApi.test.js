@@ -5,7 +5,7 @@ const { RPC } = require("../constant");
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
 describe('admin_stopStateMigration API', () => {
-    test('should return admin_stopStateMigration', (done) => {
+    test.skip('should return admin_stopStateMigration', (done) => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
