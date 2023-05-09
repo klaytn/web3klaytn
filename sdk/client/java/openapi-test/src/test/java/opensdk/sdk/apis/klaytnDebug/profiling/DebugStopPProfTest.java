@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Debug RPC Test")
 public class DebugStopPProfTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -16,6 +19,8 @@ public class DebugStopPProfTest {
     @DisplayName("RPC debug_stopPProf")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         DebugStopPProfResponse response = sdk.debug.stopPProf().send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

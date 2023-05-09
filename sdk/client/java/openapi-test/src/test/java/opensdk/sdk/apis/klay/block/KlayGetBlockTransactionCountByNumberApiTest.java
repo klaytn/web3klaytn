@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Klay RPC Test")
 public class KlayGetBlockTransactionCountByNumberApiTest {
 
@@ -16,9 +19,11 @@ public class KlayGetBlockTransactionCountByNumberApiTest {
     @Test
     @DisplayName("RPC klay_getBlockTransactionCountByNumber")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayGetBlockTransactionCountByNumberResponse gr = sdk.klay.getBlockTransactionCountByNumber(
+        KlayGetBlockTransactionCountByNumberResponse response = sdk.klay.getBlockTransactionCountByNumber(
             "0xe8")
         .send();
-        gr.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

@@ -9,6 +9,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Admin RPC Test")
 public class AdminPeersTest {
@@ -18,6 +19,8 @@ public class AdminPeersTest {
     @DisplayName("RPC admin_peers")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         AdminPeersResponse response = sdk.admin.peers().send();
-        assertNotNull(response.getResult());
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

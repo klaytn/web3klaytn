@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Klay RPC Test")
 public class KlayGetHeaderByNumberApiTest {
 
@@ -16,9 +19,11 @@ public class KlayGetHeaderByNumberApiTest {
     @Test
     @DisplayName("RPC klay_getHeaderByNumber")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayGetHeaderByNumberResponse gr = sdk.klay.getHeaderByNumber(
+        KlayGetHeaderByNumberResponse response = sdk.klay.getHeaderByNumber(
             "0x1b4")
         .send();
-        gr.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

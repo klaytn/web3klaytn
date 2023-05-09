@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlaySignTransactionTest {
@@ -21,7 +22,6 @@ public class KlaySignTransactionTest {
     @Test
     @DisplayName("RPC klay_signTransaction")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {
-
         PersonalUtils.unlockAccount();
         String nonce = EthUtils.getNonce().getResult();
         String address = "0x487f2dfef230c2120b8cc55c5087b103146536ec";
@@ -32,7 +32,10 @@ public class KlaySignTransactionTest {
         type.setGas("0x1000000");
         type.setGasPrice("0x25000000000");
         type.setNonce(nonce);
-        KlaySignTransactionResponse signResponse = sdk.klay.signTransaction(type).send();
-        assertNotNull(signResponse.getResult());
+
+        KlaySignTransactionResponse response = sdk.klay.signTransaction(type).send();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

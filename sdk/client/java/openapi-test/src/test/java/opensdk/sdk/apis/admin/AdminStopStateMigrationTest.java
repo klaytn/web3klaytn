@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Admin RPC Test")
 public class AdminStopStateMigrationTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -16,6 +19,8 @@ public class AdminStopStateMigrationTest {
     @DisplayName("RPC admin_stopStateMigration")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         AdminStopStateMigrationResponse response = sdk.admin.stopStateMigration().send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

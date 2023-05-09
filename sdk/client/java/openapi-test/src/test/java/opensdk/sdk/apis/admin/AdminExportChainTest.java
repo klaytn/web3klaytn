@@ -9,6 +9,9 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 import java.util.Random;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Admin RPC Test")
 public class AdminExportChainTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -17,10 +20,12 @@ public class AdminExportChainTest {
     @DisplayName("RPC admin_exportChain")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String randomFileName = generateRandomFileName();
-
         String file = "/tmp/" + randomFileName  + ".txt";
+
         AdminExportChainResponse response = sdk.admin.exportChain(file).send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 
     private static String generateRandomFileName() {

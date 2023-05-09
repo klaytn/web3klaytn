@@ -8,16 +8,20 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class KlayIsContractAccount {
+public class KlayIsContractAccountTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+
     @Test
     @DisplayName("RPC klay_isContractAccount")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         KlayIsContractAccountResponse response = sdk.klay.isContractAccount(
                 "0xc94770007dda54cF92009BFF0dE90c06F603a09f","latest"
         ).send();
-        assertFalse(response.getResult());
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

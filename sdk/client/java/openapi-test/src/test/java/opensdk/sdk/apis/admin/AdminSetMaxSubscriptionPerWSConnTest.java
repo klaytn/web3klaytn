@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Admin RPC Test")
 public class AdminSetMaxSubscriptionPerWSConnTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -17,6 +20,8 @@ public class AdminSetMaxSubscriptionPerWSConnTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         int limit = 5;
         AdminSetMaxSubscriptionPerWSConnResponse response = sdk.admin.setMaxSubscriptionPerWSConn(limit).send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

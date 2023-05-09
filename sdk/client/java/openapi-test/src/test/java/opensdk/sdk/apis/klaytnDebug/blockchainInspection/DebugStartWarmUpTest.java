@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Debug RPC Test")
 public class DebugStartWarmUpTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -16,6 +19,8 @@ public class DebugStartWarmUpTest {
     @DisplayName("RPC debug_startWarmUp")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         DebugStartWarmUpResponse response = sdk.debug.startWarmUp().send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

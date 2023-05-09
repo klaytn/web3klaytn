@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Admin RPC Test")
 public class AdminSaveTrieNodeCacheToDiskTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -16,6 +19,8 @@ public class AdminSaveTrieNodeCacheToDiskTest {
     @DisplayName("RPC admin_saveTrieNodeCacheToDisk")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         AdminSaveTrieNodeCacheToDiskResponse response = sdk.admin.saveTrieNodeCacheToDisk().send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

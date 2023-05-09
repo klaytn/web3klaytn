@@ -24,6 +24,5 @@ public class KlaySignTest {
         PersonalUtils.unlockAccount();
         KlaySignResponse signResponse = sdk.klay.sign(address, message).send();
         assertNotNull(signResponse.getResult());
-
     }
 }

@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Klay RPC Test")
 public class KlayGetCommitteeApiTest {
 
@@ -16,9 +19,11 @@ public class KlayGetCommitteeApiTest {
     @Test
     @DisplayName("RPC klay_getCommittee")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayGetCommitteeResponse gr = sdk.klay.getCommittee(
+        KlayGetCommitteeResponse response = sdk.klay.getCommittee(
             "0x1b4")
         .send();
-        gr.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

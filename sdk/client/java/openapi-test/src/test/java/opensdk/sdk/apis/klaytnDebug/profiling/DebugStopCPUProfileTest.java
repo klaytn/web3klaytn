@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Debug RPC Test")
 public class DebugStopCPUProfileTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -16,6 +19,8 @@ public class DebugStopCPUProfileTest {
     @DisplayName("RPC debug_stopCPUProfile")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         DebugStopCPUProfileResponse response = sdk.debug.stopCPUProfile().send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

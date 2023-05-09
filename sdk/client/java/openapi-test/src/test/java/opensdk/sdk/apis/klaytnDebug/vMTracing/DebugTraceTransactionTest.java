@@ -9,6 +9,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Debug RPC Test")
 public class DebugTraceTransactionTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
@@ -21,6 +24,8 @@ public class DebugTraceTransactionTest {
         options.setTrace(TracingOptions.TraceEnum.FASTCALLTRACER);
 
         DebugTraceTransactionResponse response = sdk.debug.traceTransaction(txHash, options).send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

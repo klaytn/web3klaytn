@@ -8,14 +8,18 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Debug RPC Test")
 public class DebugGetBadBlocksTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
     @Test
     @DisplayName("RPC debug_getBadBlocks")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         DebugGetBadBlocksResponse response = sdk.debug.getBadBlocks().send();
-        response.getResult();
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

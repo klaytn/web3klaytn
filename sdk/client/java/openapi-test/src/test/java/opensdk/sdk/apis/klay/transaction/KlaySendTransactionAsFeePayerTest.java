@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlaySendTransactionAsFeePayerTest {
@@ -39,6 +40,8 @@ public class KlaySendTransactionAsFeePayerTest {
 
         KlaySignTransactionTx signedTx = EthUtils.getFeePayerSignature(tx);
         KlaySendTransactionResponse transactionResponse = sdk.klay.sendTransactionAsFeePayer(signedTx).send();
-        assertNotNull(transactionResponse.getResult());
+
+        assertNotNull(transactionResponse);
+        assertNull(transactionResponse.getError());
     }
 }

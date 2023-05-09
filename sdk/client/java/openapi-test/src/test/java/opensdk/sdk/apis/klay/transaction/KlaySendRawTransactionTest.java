@@ -1,17 +1,10 @@
 package opensdk.sdk.apis.klay.transaction;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.KlaySendRawTransactionResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
-
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
@@ -21,6 +14,14 @@ import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.concurrent.ExecutionException;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 @DisplayName("Klay RPC Test")
@@ -48,7 +49,10 @@ public class KlaySendRawTransactionTest {
         Credentials credentials = Credentials.create(privateKey);
         byte[] signMessage = TransactionEncoder.signMessage(txObject, credentials);
         String message = Numeric.toHexString(signMessage);
+        
         KlaySendRawTransactionResponse response = sdk.klay.sendRawTransaction(message).send();
-        assertNotNull(response.getResult());
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

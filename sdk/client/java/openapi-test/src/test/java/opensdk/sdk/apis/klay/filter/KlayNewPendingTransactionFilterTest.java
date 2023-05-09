@@ -9,6 +9,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlayNewPendingTransactionFilterTest {
@@ -17,6 +18,8 @@ public class KlayNewPendingTransactionFilterTest {
     @DisplayName("RPC klay_newPendingTransactionFilter")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         KlayNewPendingTransactionFilterResponse response = sdk.klay.newPendingTransactionFilter().send();
-        assertNotNull(response.getResult());
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

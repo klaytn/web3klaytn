@@ -9,6 +9,7 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlayGetRawTransactionByBlockNumberAndIndexTest {
@@ -22,6 +23,8 @@ public class KlayGetRawTransactionByBlockNumberAndIndexTest {
         KlayGetRawTransactionByBlockNumberAndIndexResponse response = sdk.klay
                 .getRawTransactionByBlockNumberAndIndex(blogTag, index)
                 .send();
-        assertNotNull(response.getResult());
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

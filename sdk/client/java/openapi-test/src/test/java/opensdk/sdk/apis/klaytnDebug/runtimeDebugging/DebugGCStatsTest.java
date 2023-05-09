@@ -1,7 +1,7 @@
-package opensdk.sdk.apis.klay.filter;
+package opensdk.sdk.apis.klaytnDebug.runtimeDebugging;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayGetFilterChangesResponse;
+import opensdk.sdk.models.DebugGcStatsResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
@@ -11,14 +11,14 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@DisplayName("Klay RPC Test")
-public class KlayGetFilterChangesTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+@DisplayName("Debug RPC Test")
+public class DebugGCStatsTest {
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
     @Test
-    @DisplayName("RPC klay_getFilterChange")
+    @DisplayName("RPC debug_gcStats")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayGetFilterChangesResponse response = sdk.klay.getFilterChanges("0x1aa7b9746d4192e90fb0acd89c514375").send();
+        DebugGcStatsResponse response = sdk.debug.gcStats().send();
 
         assertNotNull(response);
         assertNull(response.getError());

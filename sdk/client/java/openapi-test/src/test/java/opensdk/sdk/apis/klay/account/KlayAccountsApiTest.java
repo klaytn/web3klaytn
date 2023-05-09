@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Klay RPC Test")
 public class KlayAccountsApiTest {
 
@@ -16,7 +19,9 @@ public class KlayAccountsApiTest {
     @Test
     @DisplayName("RPC klay_accounts")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayAccountsResponse ar = sdk.klay.accounts().send();
-        ar.getResult();
+        KlayAccountsResponse response = sdk.klay.accounts().send();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

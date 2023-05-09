@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 
 @DisplayName("Klay RPC Test")
 public class KlayIsParallelDBWriteTest {
@@ -16,6 +19,8 @@ public class KlayIsParallelDBWriteTest {
     @DisplayName("RPC klay_isParallelDbWrite")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         KlayIsParallelDBWriteResponse response = sdk.klay.isParallelDBWrite().send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

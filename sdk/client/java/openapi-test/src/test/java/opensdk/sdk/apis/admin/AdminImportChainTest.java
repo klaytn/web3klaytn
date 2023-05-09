@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Admin RPC Test")
 public class AdminImportChainTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
@@ -16,7 +19,10 @@ public class AdminImportChainTest {
     @DisplayName("RPC admin_importChain")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String fileName = "/tmp/chain.txt";
+
         AdminImportChainResponse response = sdk.admin.importChain(fileName).send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

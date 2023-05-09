@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Klay RPC Test")
 public class KlayGasPriceAtApiTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
@@ -15,9 +18,11 @@ public class KlayGasPriceAtApiTest {
     @Test
     @DisplayName("RPC klay_gasPriceAt")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayGasPriceAtResponse gr = sdk.klay.gasPriceAt(
+        KlayGasPriceAtResponse response = sdk.klay.gasPriceAt(
             "0x64")
         .send();
-        gr.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

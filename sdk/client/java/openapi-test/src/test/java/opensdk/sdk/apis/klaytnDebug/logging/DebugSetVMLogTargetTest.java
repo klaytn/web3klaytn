@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 public class DebugSetVMLogTargetTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
 
@@ -17,6 +20,8 @@ public class DebugSetVMLogTargetTest {
         int target = 3;
 
         DebugSetVMLogTargetResponse response = sdk.debug.setVMLogTarget(target).send();
-        response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

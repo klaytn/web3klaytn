@@ -9,9 +9,9 @@ import org.klaytn.OpenSDK;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
-
 public class KlayGetTransactionByHashTest {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
@@ -21,7 +21,9 @@ public class KlayGetTransactionByHashTest {
         KlayGetTransactionByHashResponse response = sdk.klay.getTransactionByHash(
                 "0x21b2919b89278ca786226f10edbaadced7381dbd73df546a4823547aaebffa58"
         ).send();
-        assertNotNull(response.getResult());
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 
 }

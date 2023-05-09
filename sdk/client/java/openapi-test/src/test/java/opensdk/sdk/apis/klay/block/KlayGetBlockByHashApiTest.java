@@ -8,6 +8,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Klay RPC Test")
 public class KlayGetBlockByHashApiTest {
 
@@ -16,10 +19,12 @@ public class KlayGetBlockByHashApiTest {
     @Test
     @DisplayName("RPC klay_getBlockByHash")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayGetBlockByHashResponse gr = sdk.klay.getBlockByHash(
+        KlayGetBlockByHashResponse response = sdk.klay.getBlockByHash(
             "0xba647d41423faeebe8a7c64737d284fc2eba6f0388a3e1ebf6243db509ec1577",
             true)
         .send();
-        gr.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }
