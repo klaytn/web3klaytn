@@ -1,7 +1,7 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
-const { getRawTransaction } = require("../../../helpers/eth");
+const { unlockAccount, signTxEth, getNonce } = require("../../../helpers/eth");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
@@ -15,9 +15,10 @@ describe('eth_sendRawTransaction API', () => {
             expect(data.result).toBeDefined()
             done();
         };
-        getRawTransaction().then(res => {
-            sdk.eth.sendRawTransaction(res.rawTransaction, {}, callbackOne);
+        unlockAccount().then(async address => {
+            const nonce = await getNonce(address)
+            const rawTx = await signTxEth(nonce)
+            sdk.eth.sendRawTransaction(rawTx, {}, callbackOne);
         })
-
     });
 });

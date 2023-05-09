@@ -76,10 +76,10 @@ paths:
 #          label: "Java"
 #          source:
 #            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/account/ethAccountCreatedExample.java"
-#        - lang: "javascript"
-#          label: "Javascript"
-#          source:
-#            $ref: "../../../code-samples/javascript/eth/account/accountCreated.js"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/others/resend.js"
 #        - lang: "python"
 #          label: "Python"
 #          source:
