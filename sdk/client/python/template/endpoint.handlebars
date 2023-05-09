@@ -397,9 +397,9 @@ class BaseApi(api_client.Api):
                 api_response=api_response
             )
         response = json.loads(api_response.response.data)
-        if "result" in response.keys():
-            return response.get("result")
-        return response.get("error")
+        if "error" in response.keys():
+            return response.get("error")
+        return response.get("result")
 
 
 class {{operationIdCamelCase}}(BaseApi):

@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -8,4 +7,4 @@ accountKey = "0x05f898a302a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff7
 sdk = OpenSDK(host)
 klay_response = sdk.klay.decode_account_key(accountKey)
 
-print(json.loads(klay_response.response.data))
+print(klay_response)
