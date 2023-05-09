@@ -8,18 +8,11 @@ class TestSetHead(KlaytnBaseTesting):
         self.number = "0x100"
 
     def test_post(self):
-        debug_response = self.sdk.debug.set_head(
+        self.response = self.sdk.debug.set_head(
             self.number
         )
-
-        self.covert_response(debug_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        debug_response = self.sdk.debug.set_head()
-
-        self.covert_response(debug_response.response)
-        self.assertResponseSuccess()
-        self.assertIn("error", self.response)
+        self.response = self.sdk.debug.set_head()
         self.assertErrorCodeMissingRequiredArgument()

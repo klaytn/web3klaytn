@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -9,4 +8,4 @@ transactionIndexPosition = "0x0"
 sdk = OpenSDK(host)
 klay_response = sdk.klay.get_transaction_by_block_hash_and_index(blockHash, transactionIndexPosition)
 
-print(json.loads(klay_response.response.data))
+print(klay_response)

@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -13,4 +12,4 @@ filterOptions = {
 sdk = OpenSDK(host)
 klay_response = sdk.klay.new_filter(filterOptions)
 
-print(json.loads(klay_response.response.data))
+print(klay_response)

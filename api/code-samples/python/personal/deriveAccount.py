@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -10,4 +9,4 @@ pin = True
 sdk = OpenSDK(host)
 personal_response = sdk.personal.derive_account(url, path, pin)
 
-print(json.loads(personal_response.response.data))
+print(personal_response)

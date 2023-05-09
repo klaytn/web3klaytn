@@ -8,8 +8,5 @@ class TestStopGoTrace(KlaytnBaseTesting):
         self.file = "go.trace"
 
     def test_post(self):
-        debug_response = self.sdk.debug.stop_go_trace()
-
-        self.covert_response(debug_response.response)
+        self.response = self.sdk.debug.stop_go_trace()
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)

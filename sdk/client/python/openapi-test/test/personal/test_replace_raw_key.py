@@ -10,18 +10,11 @@ class TestReplaceRawKey(KlaytnBaseTesting):
         self.newPassphrase = "gr8=B!0@uc$b"
         
     def test_post(self):
-        personal_response = self.sdk.personal.replace_raw_key(
+        self.response = self.sdk.personal.replace_raw_key(
             self.keyData, self.passphrase, self.newPassphrase
         )
-
-        self.covert_response(personal_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        personal_response = self.sdk.personal.replace_raw_key()
-
-        self.covert_response(personal_response.response)
-        self.assertResponseSuccess()
-        self.assertIn("error", self.response)
+        self.response = self.sdk.personal.replace_raw_key()
         self.assertErrorCodeMissingRequiredArgument()

@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 from base.constants import KLAYTN_URL
 
@@ -15,4 +14,4 @@ def create_new_filter():
     sdk = OpenSDK(KLAYTN_URL)
     klay_response = sdk.klay.new_filter(filterOptions)
 
-    return json.loads(klay_response.response.data)['result']
+    return klay_response

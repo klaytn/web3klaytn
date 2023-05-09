@@ -18,7 +18,7 @@ def create_new_filter():
 
     eth_response = sdk.eth.new_filter(filterOptions)
 
-    return json.loads(eth_response.response.data)["result"]
+    return eth_response
 
 
 def unlock_account():
@@ -34,13 +34,13 @@ def unlock_account():
 def getNonce():
     eth_response = sdk.eth.get_transaction_count(address, "latest")
 
-    return json.loads(eth_response.response.data)["result"]
+    return eth_response
 
 
 def getFeePayerSignatures(tx):
     klay_response = sdk.klay.sign_transaction(tx)
 
-    return json.loads(klay_response.response.data)["result"]["tx"]
+    return klay_response["tx"]
 
 
 def get_raw_transaction():

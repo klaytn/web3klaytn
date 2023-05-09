@@ -9,18 +9,11 @@ class TestGetFilterLogs(KlaytnBaseTesting):
         self.quantity = create_new_filter()
 
     def test_post(self):
-        klay_response = self.sdk.klay.get_filter_logs(
+        self.response = self.sdk.klay.get_filter_logs(
             self.quantity
         )
-
-        self.covert_response(klay_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        klay_response = self.sdk.klay.get_filter_logs()
-
-        self.covert_response(klay_response.response)
-        self.assertResponseSuccess()
-        self.assertIn("error", self.response)
+        self.response = self.sdk.klay.get_filter_logs()
         self.assertErrorCodeMissingRequiredArgument()

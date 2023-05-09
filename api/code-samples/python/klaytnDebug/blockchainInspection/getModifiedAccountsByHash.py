@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -9,4 +8,4 @@ endBlockHash = "0x437e92b2d30a0a828dfdd23b837a8ddf8c8b79c222e191d16c47afbf5a6aae
 sdk = OpenSDK(host)
 debug_response = sdk.debug.get_modified_accounts_by_hash(startBlockHash, endBlockHash)
 
-print(json.loads(debug_response.response.data))
+print(debug_response)

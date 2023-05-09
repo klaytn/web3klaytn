@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -10,4 +9,4 @@ rewardPercentiles = [0.1, 0.2, 0.3]
 sdk = OpenSDK(host)
 klay_response = sdk.klay.fee_history(blockCount, lastBlock, rewardPercentiles)
 
-print(json.loads(klay_response.response.data))
+print(klay_response)

@@ -9,18 +9,11 @@ class TestKlayGetBlockByHash(KlaytnBaseTesting):
         self.returnTransactionObject = True
 
     def test_post(self):
-        klay_response = self.sdk.klay.get_block_by_hash(
+        self.response = self.sdk.klay.get_block_by_hash(
             self.blockHash, self.returnTransactionObject
         )
-
-        self.covert_response(klay_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        klay_response = self.sdk.klay.get_block_by_hash(self.blockHash)
-
-        self.covert_response(klay_response.response)
-        self.assertResponseSuccess()
-        self.assertIn("error", self.response)
+        self.response = self.sdk.klay.get_block_by_hash(self.blockHash)
         self.assertErrorCodeMissingRequiredArgument()

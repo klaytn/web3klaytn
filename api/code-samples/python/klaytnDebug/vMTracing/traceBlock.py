@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -8,4 +7,4 @@ blockRlp = "0xf9059ef9033ea0b3fdad1b5407c0e9b05615a7f4187046387cdc2fb25bbb15152e
 sdk = OpenSDK(host)
 debug_response = sdk.debug.trace_block(blockRlp)
 
-print(json.loads(debug_response.response.data))
+print(debug_response)

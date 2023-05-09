@@ -9,18 +9,11 @@ class TestImportRawKey(KlaytnBaseTesting):
         self.passphrase = "gr8=B!0@uc$b"
 
     def test_post(self):
-        personal_response = self.sdk.personal.import_raw_key(
+        self.response = self.sdk.personal.import_raw_key(
             self.privateKey, self.passphrase
         )
-
-        self.covert_response(personal_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        personal_response = self.sdk.personal.import_raw_key(self.privateKey)
-
-        self.covert_response(personal_response.response)
-        self.assertResponseSuccess()
-        self.assertIn("error", self.response)
+        self.response = self.sdk.personal.import_raw_key(self.privateKey)
         self.assertErrorCodeMissingRequiredArgument()

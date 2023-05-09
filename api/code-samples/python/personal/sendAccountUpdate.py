@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -12,4 +11,4 @@ passphrase = "gr8=B!0@uc$b"
 sdk = OpenSDK(host)
 personal_response = sdk.personal.send_account_update(tx, passphrase)
 
-print(json.loads(personal_response.response.data))
+print(personal_response)

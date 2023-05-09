@@ -4,8 +4,5 @@ from base.testing import KlaytnBaseTesting
 class TestStatus(KlaytnBaseTesting):
 
     def test_post(self):
-        txpool_response = self.sdk.txpool.status()
-
-        self.covert_response(txpool_response.response)
+        self.response = self.sdk.txpool.status()
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
