@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "klay_getBlockWithConsensusInfoByHash",
   "id": 73,
   "jsonrpc": "2.0",
-  "params": ["0x7d68d09a7a571cdf8a3b6a5ef6e037265b3e3093cf145b0954d22bde5c1d4f61"]
+  "params": ["0xba647d41423faeebe8a7c64737d284fc2eba6f0388a3e1ebf6243db509ec1577"]
 }'

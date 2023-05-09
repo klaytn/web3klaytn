@@ -91,7 +91,7 @@ components:
                 format: hex
                 title: Index
                 description: Hex representation of a uint.
-          example:  ["0x27", "0x0"]
+          example:  [118593751, "0x0"]
 
     EthGetRawTransactionByBlockNumberAndIndexResp:
       type: object

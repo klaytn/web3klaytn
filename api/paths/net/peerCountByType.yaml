@@ -45,6 +45,10 @@ paths:
                     properties:
                       result:
                         type: object
+                        required: 
+                          - en
+                          - pn
+                          - total
                         description: "The number of connected peers by type as well as the total number of connected peers."
                         properties:
                           en:
