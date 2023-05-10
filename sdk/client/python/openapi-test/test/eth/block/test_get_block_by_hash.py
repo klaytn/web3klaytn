@@ -9,18 +9,11 @@ class TestEthGetBlockByHash(KlaytnBaseTesting):
         self.transactionObject = True
 
     def test_post(self):
-        eth_response = self.sdk.eth.get_block_by_hash(
+        self.response = self.sdk.eth.get_block_by_hash(
             self.blockHash, self.transactionObject
         )
-
-        self.covert_response(eth_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        eth_response = self.sdk.eth.get_block_by_hash(self.blockHash)
-
-        self.covert_response(eth_response.response)
-        self.assertResponseSuccess()
-        self.assertIn("error", self.response)
+        self.response = self.sdk.eth.get_block_by_hash(self.blockHash)
         self.assertErrorCodeMissingRequiredArgument()

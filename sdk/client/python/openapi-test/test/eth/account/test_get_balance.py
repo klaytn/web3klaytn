@@ -9,18 +9,11 @@ class TestGetBalance(KlaytnBaseTesting):
         self.blockNumberOrHash = "latest"
 
     def test_post(self):
-        eth_response = self.sdk.eth.get_balance(
+        self.response = self.sdk.eth.get_balance(
             self.address, self.blockNumberOrHash
         )
-
-        self.covert_response(eth_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        eth_response = self.sdk.eth.get_balance(self.address)
-
-        self.covert_response(eth_response.response)
-        self.assertResponseSuccess()
-        self.assertIn("error", self.response)
+        self.response = self.sdk.eth.get_balance(self.address)
         self.assertErrorCodeMissingRequiredArgument()

@@ -22,6 +22,19 @@ paths:
         - klay
 
       parameters:
+        - name: object
+          in: query
+          description: object
+          required: true
+          schema:
+            type: object
+            properties:
+              keytype:
+                type: integer
+                description: Integer value indicating account key type. For the value of each account key type, see AccountKey.
+              key:
+                type: object
+                description: Account key object
         - name: keytype
           in: query
           description: Integer value indicating account key type. For the value of each account key type, see AccountKey.

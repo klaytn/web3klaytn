@@ -4,8 +4,5 @@ from base.testing import KlaytnBaseTesting
 class TestPendingChanges(KlaytnBaseTesting):
 
     def test_post(self):
-        governance_response = self.sdk.governance.pending_changes()
-
-        self.covert_response(governance_response.response)
+        self.response = self.sdk.governance.pending_changes()
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)

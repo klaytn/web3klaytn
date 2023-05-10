@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -9,4 +8,4 @@ blockTag = "latest"
 sdk = OpenSDK(host)
 eth_response = sdk.eth.get_transaction_count(address, blockTag)
 
-print(json.loads(eth_response.response.data))
+print(eth_response)

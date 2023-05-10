@@ -11,10 +11,7 @@ class TestAdminStartWS(KlaytnBaseTesting):
         self.apis = "klay"
 
     def test_post(self):
-        admin_response = self.sdk.admin.start_ws(
+        self.response = self.sdk.admin.start_ws(
             self.adminHost, self.port, self.cors, self.apis
         )
-
-        self.covert_response(admin_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)

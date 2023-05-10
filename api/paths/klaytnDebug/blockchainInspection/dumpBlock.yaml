@@ -94,21 +94,8 @@ components:
             - root
           description: The block information.
           properties:
-            account:
+            accounts:
               type: object
-              properties:
-                balance:
-                  type: string
-                code:
-                  type: string
-                codeHash:
-                  type: string
-                nonce:
-                  type: number
-                root:
-                  type: string
-                storage:
-                  type: object
             root:
               type: string
           example: {

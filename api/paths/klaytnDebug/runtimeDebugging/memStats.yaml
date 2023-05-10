@@ -16,7 +16,7 @@ paths:
       summary: "[memStats]"
       description: |
         Returns detailed runtime memory statistics.
-        
+
         **JSONRPC:** `debug_memStats`
 
       tags:
@@ -178,10 +178,14 @@ components:
                 type: string
                 description: PauseTotalNs is the cumulative nanoseconds in GC stop-the-world pauses since the program started. During a stop-the-world pause, all goroutines are paused and only the garbage collector can run.
               PauseNs:
-                type: string
+                type: array
+                items:
+                  type: string
                 description: PauseNs is a circular buffer of recent GC stop-the-world pause times in nanoseconds. The most recent pause is at PauseNs[(NumGC+255)%256]. In general, PauseNs[N%256] records the time paused in the most recent N%256th GC cycle. There may be multiple pauses per GC cycle; this is the sum of all pauses during a cycle.
               PauseEnd:
-                type: string
+                type: array
+                items:
+                  type: string
                 description: PauseEnd is a circular buffer of recent GC pause end times, as nanoseconds since 1970 (the UNIX epoch). This buffer is filled the same way as PauseNs. There may be multiple pauses per GC cycle; this records the end of the last pause in a cycle.
               NumGC:
                 type: string

@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -12,4 +11,4 @@ filterOptions = {
 sdk = OpenSDK(host)
 eth_response = sdk.eth.get_logs(filterOptions)
 
-print(json.loads(eth_response.response.data))
+print(eth_response)

@@ -3,6 +3,7 @@ package opensdk.sdk.apis.klay.transaction;
 import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.KlaySendTransactionResponse;
 import opensdk.sdk.models.KlaytnTransactionTypes;
+import opensdk.sdk.utils.CommonUtils;
 import opensdk.sdk.utils.PersonalUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

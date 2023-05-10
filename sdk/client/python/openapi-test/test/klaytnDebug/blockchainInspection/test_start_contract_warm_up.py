@@ -5,7 +5,7 @@ class TestStartContractWarmUp(KlaytnBaseTesting):
 
     def setUp(self) -> None:
         super().setUp()
-        self.address = "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"
+        self.address = "0xfD1d63a152f7A7Ef14bd157C1c73c5bC3239EA5D"
 
     def test_post(self):
         self.response = self.sdk.debug.start_contract_warm_up(
