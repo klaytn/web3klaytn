@@ -3,8 +3,6 @@ from unittest import TestCase
 from base.constants import KLAYTN_URL
 from opensdk.sdk import OpenSDK
 from base.constants import (
-    HTTP_200_OK,
-    ERROR_CODE_INCORRECT_METHOD,
     ERROR_CODE_REQUIRE_ARGUMENT,
 )
 
