@@ -1,5 +1,5 @@
 curl -X 'POST' \
-  'https://api.baobab.klaytn.net:8651/txpool/inspect.sh' \
+  'https://api.baobab.klaytn.net:8651/txpool/inspect' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
