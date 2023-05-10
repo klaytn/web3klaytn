@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -8,4 +7,4 @@ signedTransactionData = "0xf86d03850ba43b7400829999948c9f4468ae04fb3d79c80f6eacf
 sdk = OpenSDK(host)
 eth_response = sdk.eth.send_raw_transaction(signedTransactionData)
 
-print(json.loads(eth_response.response.data))
+print(eth_response)

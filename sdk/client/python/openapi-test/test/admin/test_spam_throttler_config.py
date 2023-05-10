@@ -4,8 +4,5 @@ from base.testing import KlaytnBaseTesting
 class TestAdminSpamThrottlerConfig(KlaytnBaseTesting):
 
     def test_post(self):
-        admin_response = self.sdk.admin.spam_throttler_config()
-
-        self.covert_response(admin_response.response)
+        self.response = self.sdk.admin.spam_throttler_config()
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)

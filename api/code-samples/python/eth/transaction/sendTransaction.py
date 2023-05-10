@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -15,4 +14,4 @@ transactionObject = {
 sdk = OpenSDK(host)
 eth_response = sdk.eth.send_transaction(transactionObject)
 
-print(json.loads(eth_response.response.data))
+print(eth_response)

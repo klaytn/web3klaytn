@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -8,4 +7,4 @@ blockRlp = "0xf90273f9026fa0c36f3961fd16dff60764c63f76f67542ca20dedbff039ee52cd2
 sdk = OpenSDK(host)
 admin_response = sdk.admin.import_chain_from_string(blockRlp)
 
-print(json.loads(admin_response.response.data))
+print(admin_response)

@@ -10,18 +10,11 @@ class TestEthSubmitWork(KlaytnBaseTesting):
         self.mixDigest = "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
 
     def test_post(self):
-        eth_response = self.sdk.eth.submit_work(
+        self.response = self.sdk.eth.submit_work(
             self.nonce, self.powHash, self.mixDigest
         )
-
-        self.covert_response(eth_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        eth_response = self.sdk.eth.submit_work(self.powHash)
-
-        self.covert_response(eth_response.response)
-        self.assertResponseSuccess()
-        self.assertIn("error", self.response)
+        self.response = self.sdk.eth.submit_work(self.powHash)
         self.assertErrorCodeMissingRequiredArgument()

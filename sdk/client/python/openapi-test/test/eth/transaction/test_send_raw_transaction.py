@@ -9,18 +9,11 @@ class TestSendRawTransaction(KlaytnBaseTesting):
         self.signedTransactionData = get_raw_transaction()
 
     def test_post(self):
-        eth_response = self.sdk.eth.send_raw_transaction(
+        self.response = self.sdk.eth.send_raw_transaction(
             self.signedTransactionData
         )
-
-        self.covert_response(eth_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        eth_response = self.sdk.eth.send_raw_transaction()
-
-        self.covert_response(eth_response.response)
-        self.assertResponseSuccess()
-        self.assertIn("error", self.response)
+        self.response = self.sdk.eth.send_raw_transaction()
         self.assertErrorCodeMissingRequiredArgument()
