@@ -1,12 +1,14 @@
 import json
 from opensdk.sdk import OpenSDK
-from base.constants import KLAYTN_URL
+from base.constants import KLAYTN_URL, PN_RPC
 from web3 import Web3
 
 
 sdk = OpenSDK(KLAYTN_URL)
+sdk_PN = OpenSDK(PN_RPC)
 address = "0x413ba0e5f6f00664598b5c80042b1308f4ff1408"
-
+addressPN = "0x65b47be3457ff26f2911cf89fd079cef0475a2e6"
+passphrasePN = "helloWorld"
 
 def create_new_filter():
     filterOptions = {
@@ -65,3 +67,27 @@ def get_raw_transaction():
     }
     signed_tx = web3.eth.account.sign_transaction(tx, private_key)
     return signed_tx.rawTransaction.hex()
+
+
+def unlock_account_pn():
+    duration = 300
+    sdk_PN.personal.unlock_account(addressPN, passphrasePN, duration)
+    return addressPN
+
+
+def send_transaction_pn():
+    klaytnTransactionTypes = {
+        "from": unlock_account_pn(),
+        "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",
+        "value": "0x1",
+        "gas": "0x9999",
+        "maxFeePerGas": "0x5d21dba00",
+        "maxPriorityFeePerGas": "0x5d21dba00"
+}
+    result = sdk_PN.klay.send_transaction(klaytnTransactionTypes)
+    return result
+
+
+def get_nonce_pending():
+    data = sdk_PN.eth.pending_transactions()
+    return data[-1]['nonce']
