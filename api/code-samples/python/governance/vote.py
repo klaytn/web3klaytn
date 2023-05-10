@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -9,4 +8,4 @@ value = "ballot"
 sdk = OpenSDK(host)
 governance_response = sdk.governance.vote(key, value)
 
-print(json.loads(governance_response.response.data))
+print(governance_response)

@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -10,4 +9,4 @@ blockNumber = "latest"
 sdk = OpenSDK(host)
 eth_response = sdk.eth.get_proof(account, keys, blockNumber)
 
-print(json.loads(eth_response.response.data))
+print(eth_response)

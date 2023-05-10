@@ -14,7 +14,4 @@ class TestAdminStartHTTP(KlaytnBaseTesting):
         admin_response = self.sdk.admin.start_http(
             self.adminHost, self.port, self.cors, self.apis
         )
-
-        self.covert_response(admin_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)

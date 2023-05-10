@@ -1,9 +1,8 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
 
 sdk = OpenSDK(host)
-eth_response = sdk.eth.hash_rate()
+eth_response = sdk.eth.hashrate()
 
-print(json.loads(eth_response.response.data))
+print(eth_response)

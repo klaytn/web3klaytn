@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -8,4 +7,4 @@ url = "kni://a979fb575495b8d6db44f750317d0f4622bf4c2aa3365d6af7c284339968eef29b6
 sdk = OpenSDK(host)
 admin_response = sdk.admin.remove_peer(url)
 
-print(json.loads(admin_response.response.data))
+print(admin_response)

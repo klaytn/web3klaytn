@@ -13,18 +13,11 @@ class TestEthNewFilter(KlaytnBaseTesting):
         }
 
     def test_post(self):
-        eth_response = self.sdk.eth.new_filter(
+        self.response = self.sdk.eth.new_filter(
             self.filterOptions
         )
-
-        self.covert_response(eth_response.response)
         self.assertResponseSuccess()
-        self.assertIn("result", self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
-        eth_response = self.sdk.eth.new_filter()
-
-        self.covert_response(eth_response.response)
-        self.assertResponseSuccess()
-        self.assertIn("error", self.response)
+        self.response = self.sdk.eth.new_filter()
         self.assertErrorCodeMissingRequiredArgument()

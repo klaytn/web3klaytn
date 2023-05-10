@@ -1,4 +1,3 @@
-import json
 from opensdk.sdk import OpenSDK
 
 host = "https://api.baobab.klaytn.net:8651"
@@ -9,4 +8,4 @@ message = "0xdeadbeaf"
 sdk = OpenSDK(host)
 eth_response = sdk.eth.sign(address, message)
 
-print(json.loads(eth_response.response.data))
+print(eth_response)
