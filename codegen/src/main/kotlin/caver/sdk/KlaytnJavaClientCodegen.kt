@@ -29,6 +29,15 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
 
     override fun processOpts() {
         super.processOpts()
+
+        // use jackson to serialize
+        forceSerializationLibrary(SERIALIZATION_LIBRARY_JACKSON);
+        additionalProperties[SERIALIZATION_LIBRARY_JACKSON] = "true"
+        additionalProperties.remove(SERIALIZATION_LIBRARY_GSON)
+        additionalProperties.remove(SERIALIZATION_LIBRARY_JSONB)
+        val invokerFolder = "$sourceFolder/$invokerPackage".replace(".", "/")
+        supportingFiles.add(SupportingFile("RFC3339DateFormat.mustache", invokerFolder, "RFC3339DateFormat.java"))
+
         supportingFiles.find { it -> it.templateFile.equals("build.gradle.mustache") }
         val modelFolder = (sourceFolder + File.separator + modelPackage).replace(".", "/")
         supportingFiles.add(SupportingFile("KlayGetAccountKey.java.mustache", modelFolder, "KlayGetAccountKey.java"))

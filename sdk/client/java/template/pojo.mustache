@@ -10,18 +10,6 @@ import org.web3j.protocol.core.Response;
 @ApiModel(description = "{{{.}}}")
 {{/description}}
 {{/swagger1AnnotationLibrary}}
-{{#jackson}}
-@JsonPropertyOrder({
-{{#vars}}
-  {{classname}}.JSON_PROPERTY_{{nameInSnakeCase}}{{^-last}},{{/-last}}
-{{/vars}}
-})
-{{#isClassnameSanitized}}
-{{^hasDiscriminatorWithNonEmptyMapping}}
-@JsonTypeName("{{name}}")
-{{/hasDiscriminatorWithNonEmptyMapping}}
-{{/isClassnameSanitized}}
-{{/jackson}}
 {{>additionalModelTypeAnnotations}}{{>generatedAnnotation}}{{#discriminator}}{{>typeInfoAnnotation}}{{/discriminator}}{{>xmlAnnotation}}
 {{#vendorExtensions.x-class-extra-annotation}}
 {{{vendorExtensions.x-class-extra-annotation}}}
