@@ -9,12 +9,11 @@ describe('debug_traceTransaction API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data.jsonrpc).toBe("2.0");
-            expect(data.result).toBeDefined()
+            expect(data).toBeDefined()
             done();
         };
 
-        const txHash = "0x344fc43b5b87984d5a50fe2c54e121f94945ba9ff9da20f9de0f1b4914f47055";
+        const txHash = "0xa9acfc383bb777cdeaa4e860db28209bb1e3afccd3c623aad0732367566ec015";
 
         sdk.debug.traceTransaction(txHash, {}, callbackOne);
     });

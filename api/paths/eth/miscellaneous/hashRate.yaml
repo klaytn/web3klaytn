@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/hashRate:
+  /eth/hashrate:
     post:
       summary: "[hashrate]"
       tags:
@@ -44,7 +44,7 @@ paths:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/eth/miscellaneous/hashRate.sh"
+            $ref: "../../../code-samples/curl/eth/miscellaneous/hashrate.sh"
         - lang: "java"
           label: "Java"
           source:

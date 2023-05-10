@@ -10,8 +10,7 @@ describe('klay_getStorageAt API', () => {
         let callbackOne = function (error, data, response) {
 
             expect(error).toBeNull();
-            expect(data.jsonrpc).toBe("2.0");
-            expect(data.result).toBeDefined()
+            expect(data).toBeDefined()
             done();
         };
         const storageAddress='0x295a70b2de5e3953354a6a8344e616ed314d7251'

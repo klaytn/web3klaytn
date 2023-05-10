@@ -6,5 +6,5 @@ curl -X 'POST' \
   "method": "eth_getRawTransactionByBlockHashAndIndex",
   "id": 1,
   "jsonrpc": "2.0",
-  "params": ["0x29b6cd965c7d9a53a6f068da259dce1d3810ba79fff8eebac5d4da14754e67e6","0x20965255"]
+  "params": ["0x4c4cbf242a80183d2ea2daf047c578d5fc89c0b14c4262606c8b6bb0b36715be","0x0"]
 }'

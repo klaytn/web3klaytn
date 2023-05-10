@@ -9,8 +9,7 @@ describe('eth_getProof API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data.jsonrpc).toBe("2.0");
-            expect(data.result).toBeDefined()
+            expect(data).toBeDefined()
             done();
         };
         const account = '0x487f2dfef230c2120b8cc55c5087b103146536ec'

@@ -8,8 +8,7 @@ describe('klay_getCode API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data.jsonrpc).toBe("2.0");
-            expect(data.result).toBeDefined()
+            expect(data).toBeDefined()
             done();
         };
         const account = '0x623fa116b9cac1709b490dc24d6408b14220214f'

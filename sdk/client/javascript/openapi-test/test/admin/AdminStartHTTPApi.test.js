@@ -9,8 +9,7 @@ describe('admin_startHTTP API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data.jsonrpc).toBe("2.0");
-            expect(data.result).toBeDefined()
+            expect(data).toBeDefined()
             done();
         };
         const host = '127.0.0.1'

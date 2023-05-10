@@ -7,8 +7,7 @@ describe('Klay feeHistory API', () => {
     test('should return fee information', (done) => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data.jsonrpc).toBe("2.0");
-            expect(data.result).toBeDefined()  
+            expect(data).toBeDefined()  
             done();
         };
         const blockCount = '0x10'

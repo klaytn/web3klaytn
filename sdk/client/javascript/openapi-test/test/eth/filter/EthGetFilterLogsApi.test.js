@@ -10,12 +10,10 @@ describe('eth_getFilterLogs API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data.jsonrpc).toBe("2.0");
-            expect(data.result).toBeDefined()
+            expect(data).toBeDefined()
             done();
         };
         getEthFilterId().then(id => {
-            console.log(id);
             sdk.eth.getFilterLogs(id, {}, callbackOne);
         })
     });

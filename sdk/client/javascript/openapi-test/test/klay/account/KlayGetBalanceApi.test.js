@@ -8,8 +8,7 @@ describe('Klay getBalance API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data.jsonrpc).toBe("2.0");
-            expect(data.result).toBeDefined()
+            expect(data).toBeDefined()
             done();
         };
         const address = '0x1cbd3b2770909d4e10f157cabc84c7264073c9ec'

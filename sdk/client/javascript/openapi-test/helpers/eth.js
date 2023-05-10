@@ -26,7 +26,7 @@ export const getEthFilterId = () => {
         }
         sdk.eth.newFilter(opts, {}, (error, data, response) => {
             if (error) ej(error)
-            return res(data.result)
+            return res(data)
         });
     })
 }
@@ -40,7 +40,7 @@ export const getRawTransaction = async (nonce) => {
             nonce
         }, {}, (err, data) => {
             if (err) return reject(err)
-            return res(data.result.raw)
+            return res(data.raw)
         });
     })
 }
@@ -56,7 +56,7 @@ export const signTxEth = (nonce) => {
             nonce
         }, {}, (err, data) => {
             if (err) return reject(err)
-            return res(data.result.raw)
+            return res(data.raw)
         });
     })
 }
@@ -73,7 +73,7 @@ export const getNonce = (address) => {
     return new Promise((res, ej) => {
         sdk.eth.getTransactionCount(address, 'latest', {}, (err, data, resp) => {
             if (err) return ej(err)
-            return res(data.result)
+            return res(data)
         })
     })
 }
@@ -81,7 +81,7 @@ export const getFeePayerSignatures = async (tx) => {
     return new Promise((resolve, reject) => {
         sdk.klay.signTransaction(tx, {}, (err, data) => {
             if (err) return reject(err)
-            return resolve(data.result.tx)
+            return resolve(data.tx)
         });
     })
 }
@@ -104,7 +104,6 @@ export const sendTransactionPN = (address) => {
             "maxPriorityFeePerGas": "0x5d21dba00"
         }, {}, (err, data, resp) => {
             if (err) return ej(err)
-            console.log("data in send:", data);
             return res(data);
         });
     })
@@ -113,7 +112,7 @@ export const getNoncePending = () => {
     return new Promise((res, ej) => {
         sdk_PN.eth.pendingTransactions({}, (err, data, resp) => {
             if (err) return ej(err)
-            return res(data.result.reverse()[0].nonce)
+            return res(data.reverse()[0].nonce)
         })
     })
 }
