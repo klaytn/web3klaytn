@@ -1,7 +1,7 @@
 const OpenSdk = require("opensdk-javascript");
-const { RPC } = require("../test/constant");
+const { BAOBAB_RPC } = require("../test/constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk(new OpenSdk.ApiClient(BAOBAB_RPC));
 
 export const getKlayFilterId = () => {
     return new Promise((res, ej) => {
@@ -15,7 +15,7 @@ export const getKlayFilterId = () => {
         }
         sdk.klay.newFilter(opts, {}, (error, data, response) => {
             if (error) ej(error)
-            return res(data.result)
+            return res(data)
         });
     })
 }

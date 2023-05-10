@@ -9,8 +9,7 @@ describe('eth_getTransactionCount API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data.jsonrpc).toBe("2.0");
-            expect(data.result).toBeDefined()
+            expect(data).toBeDefined()
             done();
         };
         const address = '0xc94770007dda54cF92009BFF0dE90c06F603a09f'

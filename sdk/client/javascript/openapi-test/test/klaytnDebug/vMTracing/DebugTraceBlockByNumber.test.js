@@ -8,10 +8,8 @@ describe('debug_traceBlockByNumber API', () => {
     test('should return debug_traceBlockByNumber', (done) => {
 
         let callbackOne = function (error, data, response) {
-            console.log("error:", error);
             expect(error).toBeNull();
-            expect(data.jsonrpc).toBe("2.0");
-            expect(data.result).toBeDefined()
+            expect(data).toBeDefined()
             done();
         };
 

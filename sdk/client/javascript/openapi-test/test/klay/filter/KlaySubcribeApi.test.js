@@ -8,10 +8,8 @@ describe('klay_subscribe API', () => {
     test('should return klay_subscribe', (done) => {
 
         let callbackOne =  function (error, data, response) {
-            console.log(error,data);
-            // expect(error).toBeNull();
-            // expect(data.jsonrpc).toBe("2.0");
-            // expect(data.result).toBeDefined()
+            expect(error).toBeNull();
+            expect(data).toBeDefined()
 
              done();
         };

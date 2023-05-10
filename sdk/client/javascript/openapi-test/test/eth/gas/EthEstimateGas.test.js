@@ -1,17 +1,15 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
-const { RPC } = require("../../constant");
+const { BAOBAB_RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk(new OpenSdk.ApiClient(BAOBAB_RPC));
 
 describe('eth_estimateGas API', () => {
     test('should return eth_estimateGas', (done) => {
 
         let callbackOne = function (error, data, response) {
-
             expect(error).toBeNull();
-            expect(data.jsonrpc).toBe("2.0");
-            expect(data.result).toBeDefined()
+            expect(data).toBeDefined()
             done();
         };
         const callObject = {

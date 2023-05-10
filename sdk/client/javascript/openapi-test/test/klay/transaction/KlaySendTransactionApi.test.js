@@ -9,10 +9,8 @@ describe('klay_sendTransaction API', () => {
     test('should return klay_sendTransaction', (done) => {
 
         let callbackOne = function (error, data, response) {
-            console.log(data);
             expect(error).toBeNull();
-            expect(data.jsonrpc).toBe("2.0");
-            expect(data.result).toBeDefined()
+            expect(data).toBeDefined()
             done();
         };
         unlockAccount().then(address => {

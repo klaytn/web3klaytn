@@ -8,6 +8,6 @@ curl -X 'POST' \
   "jsonrpc": "2.0",
   "params": [
     "keystore://",
-    "gr8=B!0@uc$b"
+    "hello@1234"
   ]
 }'

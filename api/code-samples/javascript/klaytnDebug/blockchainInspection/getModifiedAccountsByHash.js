@@ -3,8 +3,8 @@ const OpenSdk = require("opensdk-javascript");
 (() => {
     const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
-    const startBlockHash = "0xcc1ac1e244f9f83b812b5d77ada1c399f02ea7b61e72ff31789d9ef6dad45442"
-    const endBlockHash = "0x437e92b2d30a0a828dfdd23b837a8ddf8c8b79c222e191d16c47afbf5a6aaed7"
+    const startBlockHash = "0x165c29e453dff6e1d9838d9e975a438b6f11a2c0a281b0d5b97c8d3110a79ac5"
+    const endBlockHash = "0x2a8acdc3e9bb735918dc6a0141b9939976f446fde0b39336d74278da93b8d41d"
 
     sdk.debug.getModifiedAccountsByHash(startBlockHash, {endBlockHash}, (err, data, response) => {
         console.log(data);

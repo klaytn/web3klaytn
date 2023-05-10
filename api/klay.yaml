@@ -344,8 +344,8 @@ paths:
   # eth/miscellaneous:
   /eth/miscellaneous/submitWork:
     $ref: ./paths/eth/miscellaneous/submitWork.yaml#/paths/~1eth~1submitWork
-  /eth/miscellaneous/hashRate:
-    $ref: ./paths/eth/miscellaneous/hashRate.yaml#/paths/~1eth~1hashRate
+  /eth/miscellaneous/hashrate:
+    $ref: ./paths/eth/miscellaneous/hashrate.yaml#/paths/~1eth~1hashrate
   # /eth/miscellaneous/getHashrate:
   #   $ref: ./paths/eth/miscellaneous/getHashrate.yaml#/paths/~1eth~1getHashrate
   # /eth/miscellaneous/getWork:

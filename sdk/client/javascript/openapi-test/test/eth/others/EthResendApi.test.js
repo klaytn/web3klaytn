@@ -11,7 +11,6 @@ describe('eth_resend API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data.jsonrpc).toBe("2.0");
             expect(data.result).toBeDefined()
             done();
         };
@@ -19,7 +18,6 @@ describe('eth_resend API', () => {
         unlockAccountPN().then(async address => {
             sendTransactionPN(address)
             const noncePending = await getNoncePending();
-            console.log('nonce: ', noncePending);
             const oldTrx = {
                 "from": address,
                 "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",

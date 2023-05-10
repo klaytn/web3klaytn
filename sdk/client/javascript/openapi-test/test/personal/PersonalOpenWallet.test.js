@@ -9,13 +9,12 @@ describe('personal_openWallet API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data.jsonrpc).toBe("2.0");
-            expect(data.result).toBeDefined()
+            expect(data).toBeDefined()
             done();
         };
-        
-        const url = "keystore://"
-        const passphrase = "gr8=B!0@uc$b"
+
+        const url = "keystore:///home/sotatek/klay-node/kcn-v1.10.2-0-linux-amd64/kcn-linux-amd64/data/keystore/UTC--2023-04-13T03-23-36.992476555Z--8cd4b6b24f2cd0b83d49876f932254823e875547"
+        const passphrase = "hello@1234"
 
         sdk.personal.openWallet(url, passphrase, {}, callbackOne);
     });
