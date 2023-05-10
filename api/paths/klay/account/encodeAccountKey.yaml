@@ -35,18 +35,6 @@ paths:
               key:
                 type: object
                 description: Account key object
-        - name: keytype
-          in: query
-          description: Integer value indicating account key type. For the value of each account key type, see AccountKey.
-          required: true
-          schema:
-            type: integer
-        - name: key
-          in: query
-          description: Account key object
-          required: true
-          schema:
-            type: object
 
       requestBody:
         content:
