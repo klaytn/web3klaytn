@@ -9,4 +9,10 @@ public class PersonalUtils {
         Integer duration = 30;
         return CommonUtils.sdk.personal.unlockAccount(CommonUtils.address, CommonUtils.passphrase, duration).send();
     }
+
+    public static PersonalUnlockAccountResponse unlockAccountPn() throws IOException {
+        Integer duration = 30;
+        return CommonUtils.sdk_PN.personal.unlockAccount(
+            CommonUtils.addressPN, CommonUtils.passphrasePN, duration).send();
+    }
 }

@@ -19,9 +19,14 @@ import java.security.SecureRandom;
 
 public class CommonUtils {
      public static final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+     public static final OpenSDK sdk_PN = new OpenSDK(UrlConstants.PN_RPC);
+
      public static final String address = "0x413ba0e5f6f00664598b5c80042b1308f4ff1408";
      public static final String passphrase = "helloWorld";
      public static final Web3j web3j = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    public static final String addressPN = "0x65b47be3457ff26f2911cf89fd079cef0475a2e6";
+    public static final String passphrasePN = "helloWorld";
+
 
 
     public static String getRawTransaction() throws IOException {

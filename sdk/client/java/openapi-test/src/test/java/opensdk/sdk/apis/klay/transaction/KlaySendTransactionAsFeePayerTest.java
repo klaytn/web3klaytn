@@ -4,6 +4,7 @@ import opensdk.sdk.apis.constant.UrlConstants;
 import opensdk.sdk.models.KlaySendTransactionResponse;
 import opensdk.sdk.models.KlaySignTransactionTx;
 import opensdk.sdk.models.KlaytnTransactionTypes;
+import opensdk.sdk.utils.CommonUtils;
 import opensdk.sdk.utils.EthUtils;
 import opensdk.sdk.utils.PersonalUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +25,7 @@ public class KlaySendTransactionAsFeePayerTest {
     @Test
     @DisplayName("RPC klay_sendTransactionAsFeePayer")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {
-        String address = "0x413ba0e5f6f00664598b5c80042b1308f4ff1408";
+        String address = CommonUtils.address;
         PersonalUtils.unlockAccount();
         String nonce = EthUtils.getNonce().getResult();
         KlaytnTransactionTypes tx = new KlaytnTransactionTypes();

@@ -56,10 +56,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/governance/myVotingPower.sh"
-#        - lang: "java"
-#          label: "Java"
-#          source:
-#            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/account/KlayAccountCreatedExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/governance/GovernanceMyVotingPowerExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
