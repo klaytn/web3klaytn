@@ -3,7 +3,6 @@ package opensdk.sdk.apis.klay.account;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayEncodeAccountKeyReqParamsInner;
 import opensdk.sdk.models.KlayEncodeAccountKeyResponse;
 import org.klaytn.OpenSDK;
 
@@ -14,15 +13,13 @@ public class KlayEncodeAccountKeyExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
 
     void klayEncodeAccountKeyExample() throws IOException {
-        KlayEncodeAccountKeyReqParamsInner paramsInner = new KlayEncodeAccountKeyReqParamsInner();
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode obj = mapper.createObjectNode();
-        paramsInner.setKeytype(0);
-        paramsInner.setKey(obj);
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode node = objectMapper.createObjectNode();
+        node.put("keyType", 0);
+        node.putNull("key");
 
-        KlayEncodeAccountKeyResponse ar = sdk.klay.encodeAccountKey(
-            paramsInner)
-        .send();
-        ar.getResult();
+        KlayEncodeAccountKeyResponse response = sdk.klay.encodeAccountKey(node).send();
+
+        response.getResult();
     }
 }
