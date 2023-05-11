@@ -1,23 +1,22 @@
 
 package opensdk.sdk.models;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-@JsonInclude(Include.NON_NULL)
+@JsonPropertyOrder({"fromBlock", "toBlock", "address", "topics", "blockHash"})
 public class FilterOptions {
-    @SerializedName("fromBlock")
     private Object fromBlock;
-    @SerializedName("toBlock")
+
     private Object toBlock;
-    @SerializedName("address")
+
     private Object address;
-    @SerializedName("topics")
+
     private List<String> topics = null;
-    @SerializedName("blockHash")
+
     private String blockHash;
 
     public FilterOptions() {
