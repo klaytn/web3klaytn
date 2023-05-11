@@ -80,10 +80,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/eth/others/resend.js"
-#        - lang: "python"
-#          label: "Python"
-#          source:
-#            $ref: "../../../code-samples/python/eth/account/accountCreated.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/others/resend.py"
 components:
   schemas:
     EthResendReq:
