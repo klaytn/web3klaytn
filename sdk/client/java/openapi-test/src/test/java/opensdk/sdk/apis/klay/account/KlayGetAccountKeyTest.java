@@ -9,6 +9,7 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class KlayGetAccountKeyTest {
@@ -22,6 +23,7 @@ public class KlayGetAccountKeyTest {
 
         KlayGetAccountKeyResponse response = sdk.klay.getAccountKey(address, blockNumberOrHashOrTag).send();
 
-        assertNull(response.getResult());
+        assertNotNull(response);
+        assertNull(response.getError());
     }
 }

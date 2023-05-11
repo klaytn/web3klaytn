@@ -40,8 +40,14 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
 
         supportingFiles.find { it -> it.templateFile.equals("build.gradle.mustache") }
         val modelFolder = (sourceFolder + File.separator + modelPackage).replace(".", "/")
-        supportingFiles.add(SupportingFile("KlayGetAccountKey.java.mustache", modelFolder, "KlayGetAccountKey.java"))
-        supportingFiles.add(SupportingFile("FilterOptions.java.mustache", modelFolder, "FilterOptions.java"))
+
+        if (artifactId.equals("opensdk-klay-java")) {
+            supportingFiles.add(SupportingFile("KlayGetAccountKey.java.mustache", modelFolder, "KlayGetAccountKey.java"))
+            supportingFiles.add(SupportingFile("FilterOptions.java.mustache", modelFolder, "FilterOptions.java"))
+            supportingFiles.add(SupportingFile("KlaytnTransactionTypes.java.mustache", modelFolder, "KlaytnTransactionTypes.java"))
+        } else if (artifactId.equals("opensdk-eth-java")) {
+            supportingFiles.add(SupportingFile("FilterOptions.java.mustache", modelFolder, "FilterOptions.java"))
+        }
     }
 
     override fun getUseInlineModelResolver(): Boolean {
