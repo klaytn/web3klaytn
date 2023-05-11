@@ -5,13 +5,16 @@
   "license": "MIT",
   "dependencies": {
     "@redocly/cli": "^1.0.0-beta.124",
+    "fs": "0.0.1-security",
     "global": "^4.4.0"
   },
   "scripts": {
-    "start": "redocly preview-docs",
+    "dev": "redocly preview-docs",
+    "start": "redocly preview-docs ../../site/klaytn-openapi.yaml",
     "build_old": "redocly bundle klay@v1.10.0 -o ../../site/klaytn-openapi.yaml",
     "build": "redocly bundle",
     "split": "redocly split klaytn-openapi.yaml --outDir bundled",
-    "test": "redocly lint klaytn-openapi.yaml"
+    "test": "redocly lint klaytn-openapi.yaml",
+    "remove_query_param": "node scripts.js"
   }
 }
