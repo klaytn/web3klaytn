@@ -32,4 +32,9 @@ public class EthUtils {
         return response.getResult().getTx();
     }
 
+    public static String getNoncePending() throws IOException {
+        EthPendingTransactionsResponse res = CommonUtils.sdk_PN.eth.pendingTransactions().send();
+        return res.getResult().get(res.getResult().size() - 1 ).getNonce();
+    }
+
 }

@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @DisplayName("Klay RPC Test")
 
 public class KlayGetFilterLogsTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
     @Test
     @DisplayName("RPC klay_getFilterLogs")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {

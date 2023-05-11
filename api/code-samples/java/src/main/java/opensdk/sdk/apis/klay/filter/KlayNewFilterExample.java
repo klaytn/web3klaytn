@@ -11,12 +11,12 @@ import java.io.IOException;
 public class KlayNewFilterExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
     void klayNewFilterExample() throws IOException {
-        FilterOptions opt = new FilterOptions();
-        opt.setFromBlock("latest");
-        opt.setToBlock("latest");
-        opt.setAddress("0x87ac99835e67168d4f9a40580f8f5c33550ba88b");
-        opt.setTopics(List.of("0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8"));
-        KlayNewFilterResponse response = sdk.klay.newFilter(opt).send();
+        FilterOptions filterOptions = new FilterOptions();
+        filterOptions.setFromBlock("latest");
+        filterOptions.setToBlock("latest");
+        filterOptions.setAddress("0x87ac99835e67168d4f9a40580f8f5c33550ba88b");
+        filterOptions.setTopics(List.of("0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8"));
+        KlayNewFilterResponse response = sdk.klay.newFilter(filterOptions).send();
         response.getResult();
     }
 
