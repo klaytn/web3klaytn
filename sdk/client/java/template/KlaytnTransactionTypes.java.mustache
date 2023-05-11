@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,7 +27,7 @@ public class KlaytnTransactionTypes {
     public static final String JSON_PROPERTY_NONCE = "nonce";
     private String nonce;
     public static final String JSON_PROPERTY_TYPE_INT = "typeInt";
-    private BigDecimal typeInt;
+    private Integer typeInt;
     public static final String JSON_PROPERTY_FEE_PAYER = "feePayer";
     private String feePayer;
     public static final String JSON_PROPERTY_SIGNATURES = "signatures";
@@ -173,7 +172,7 @@ public class KlaytnTransactionTypes {
         this.nonce = nonce;
     }
 
-    public KlaytnTransactionTypes typeInt(BigDecimal typeInt) {
+    public KlaytnTransactionTypes typeInt(Integer typeInt) {
     this.typeInt = typeInt;
         return this;
     }
@@ -181,13 +180,13 @@ public class KlaytnTransactionTypes {
     @Nonnull
     @JsonProperty("typeInt")
     @JsonInclude(Include.ALWAYS)
-    public BigDecimal getTypeInt() {
+    public Integer getTypeInt() {
         return this.typeInt;
     }
 
     @JsonProperty("typeInt")
     @JsonInclude(Include.ALWAYS)
-    public void setTypeInt(BigDecimal typeInt) {
+    public void setTypeInt(Integer typeInt) {
         this.typeInt = typeInt;
     }
 

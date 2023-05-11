@@ -22,19 +22,9 @@ public class EthUtils {
         return response;
     }
 
-    public static KlaySignTransactionTx getFeePayerSignature(KlaytnTransactionTypes tx) throws IOException {
-        KlaySignTransactionResponse response = CommonUtils.sdk.klay.signTransaction(tx).send();
-
-        if (response.getResult() == null) {
-            return null;
-        }
-
-        return response.getResult().getTx();
-    }
-
     public static String getNoncePending() throws IOException {
         EthPendingTransactionsResponse res = CommonUtils.sdk_PN.eth.pendingTransactions().send();
-        return res.getResult().get(res.getResult().size() - 1 ).getNonce();
+        return res.getResult().get(res.getResult().size() - 1).getNonce();
     }
 
 }
