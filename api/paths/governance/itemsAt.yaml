@@ -17,7 +17,11 @@ paths:
       description: |
         The itemsAt returns governance items at specific block. It is the result of previous voting of the block and used as configuration for chain at the given block number.
 
+        **WARNING:** governance_itemsAt API will be deprecated since Klaytn v1.11 (see klaytn#1783). Use governance_getParams instead.
+
         **NOTE:** In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.
+
+        **NOTE:** The block number can be larger than the latest block number, in which case the API returns the tentative value based on the current chain state. The future governance parameters are subject to change via additional governance votes or GovParam contract state changes.
 
         **JSONRPC:** `governance_itemsAt`
 

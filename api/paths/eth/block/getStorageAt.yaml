@@ -15,7 +15,7 @@ paths:
       operationId: getStorageAt
       summary: "[getStorageAt]"
       description: |
-        Returns information about a header by hash.
+        Returns the value from a storage position at a given address
 
         **JSONRPC:** `eth_getStorageAt`
       tags:
