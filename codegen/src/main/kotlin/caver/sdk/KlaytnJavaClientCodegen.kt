@@ -42,7 +42,6 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
         val modelFolder = (sourceFolder + File.separator + modelPackage).replace(".", "/")
         supportingFiles.add(SupportingFile("KlayGetAccountKey.java.mustache", modelFolder, "KlayGetAccountKey.java"))
         supportingFiles.add(SupportingFile("FilterOptions.java.mustache", modelFolder, "FilterOptions.java"))
-        supportingFiles.add(SupportingFile("KlaytnTransactionTypes.java.mustache", modelFolder, "KlaytnTransactionTypes.java"))
     }
 
     override fun getUseInlineModelResolver(): Boolean {
