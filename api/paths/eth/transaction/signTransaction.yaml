@@ -80,8 +80,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "#/components/schemas/EthSignTransactionReq
-"
+                - $ref: "#/components/schemas/EthSignTransactionReq"
 
       responses:
         200:
