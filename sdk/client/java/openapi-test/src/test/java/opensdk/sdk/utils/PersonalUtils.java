@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class PersonalUtils {
     public static PersonalUnlockAccountResponse unlockAccount() throws IOException {
-        Integer duration = 30;
+        Integer duration = 300;
         return CommonUtils.sdk.personal.unlockAccount(CommonUtils.address, CommonUtils.passphrase, duration).send();
     }
 
