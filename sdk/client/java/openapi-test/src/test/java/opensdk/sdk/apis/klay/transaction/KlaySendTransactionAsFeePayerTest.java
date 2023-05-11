@@ -1,6 +1,7 @@
 package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
+import opensdk.sdk.models.KlaySendTransactionAsFeePayerResponse;
 import opensdk.sdk.models.KlaySendTransactionResponse;
 import opensdk.sdk.models.KlaytnTransactionTypes;
 import opensdk.sdk.utils.CommonUtils;
@@ -39,7 +40,7 @@ public class KlaySendTransactionAsFeePayerTest {
         tx.setNonce(nonce);
 
         Object signedTx = KlayUtils.getFeePayerSignature(tx);
-        KlaySendTransactionResponse transactionResponse = sdk.klay.sendTransactionAsFeePayer(signedTx).send();
+        KlaySendTransactionAsFeePayerResponse transactionResponse = sdk.klay.sendTransactionAsFeePayer(signedTx).send();
 
         assertNotNull(transactionResponse);
         assertNull(transactionResponse.getError());
