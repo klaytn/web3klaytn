@@ -6,7 +6,6 @@ import opensdk.sdk.models.KlaytnTransactionTypes;
 import org.klaytn.OpenSDK;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 
 public class KlaySignTransactionAsFeePayerExample   {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
@@ -15,7 +14,7 @@ public class KlaySignTransactionAsFeePayerExample   {
         KlaytnTransactionTypes type = new KlaytnTransactionTypes();
         String address = "0x487f2dfef230c2120b8cc55c5087b103146536ec";
         String nonce = "0x1";
-        type.setTypeInt(BigDecimal.valueOf(17));
+        type.setTypeInt(17);
         type.setFrom(address);
         type.setTo("0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075");
         type.setValue("0xf4");

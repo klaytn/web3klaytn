@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.klaytn.OpenSDK;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -28,7 +27,7 @@ public class KlaySignTransactionAsFeePayerTest {
         PersonalUtils.unlockAccount();
         String nonce = EthUtils.getNonce().getResult();
         KlaytnTransactionTypes type = new KlaytnTransactionTypes();
-        type.setTypeInt(BigDecimal.valueOf(17));
+        type.setTypeInt(17);
         type.setFrom(address);
         type.setTo("0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075");
         type.setValue("0xf4");
