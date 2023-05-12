@@ -17,7 +17,7 @@ paths:
         - eth
       operationId: getTransactionByHash
       description: |
-        Returns information about a transaction by block hash and transaction index position.
+        Returns the information about a transaction requested by transaction hash.
 
         Please check the Caution-Transaction before using this API.
 

@@ -17,7 +17,7 @@ paths:
         - eth
       operationId: submitHashrate
       description: |
-        Used for submitting a proof-of-work solution.
+        Used for submitting mining hashrate.
         
         Please note that it always return false because there is no PoW mechanism in Klaytn.
         
