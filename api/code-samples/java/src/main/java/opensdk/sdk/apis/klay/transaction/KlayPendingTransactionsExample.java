@@ -6,9 +6,9 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
-public class KlayPendingTransactionExample {
+public class KlayPendingTransactionsExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
-    void klayPendingTransactionExample() throws IOException {
+    void klayPendingTransactionsExample() throws IOException {
         KlayPendingTransactionsResponse response = sdk.klay.pendingTransactions().send();
         response.getResult();
     }

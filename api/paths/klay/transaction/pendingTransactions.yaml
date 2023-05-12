@@ -47,7 +47,7 @@ paths:
         - lang: "java"
           label: "Java"
           source:
-            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/transaction/KlayPendingTransactionExample.java"
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/transaction/KlayPendingTransactionsExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
