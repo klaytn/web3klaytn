@@ -15,7 +15,7 @@ paths:
       operationId: itemsAt
       summary: "[itemsAt]"
       description: |
-        The itemsAt returns governance items at specific block. It is the result of previous voting of the block and used as configuration for chain at the given block number.
+        The itemsAt returns governance items at specific block.
 
         **WARNING:** governance_itemsAt API will be deprecated since Klaytn v1.11 (see klaytn#1783). Use governance_getParams instead.
 
