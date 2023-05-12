@@ -10,7 +10,7 @@ public class PersonalListAccountsExample {
 
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
-    void personalListAccountExample() throws IOException {
+    void personalListAccountsExample() throws IOException {
         PersonalListAccountsResponse response = sdk.personal.listAccounts()
                 .send();
         response.getResult();

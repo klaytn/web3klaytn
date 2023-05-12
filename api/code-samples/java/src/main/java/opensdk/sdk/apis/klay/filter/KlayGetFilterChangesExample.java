@@ -9,7 +9,7 @@ import java.io.IOException;
 public class KlayGetFilterChangesExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
-    void klayGetFilterChangeExample() throws IOException {
+    void klayGetFilterChangesExample() throws IOException {
         KlayGetFilterChangesResponse response = sdk.klay.getFilterChanges("0x1aa7b9746d4192e90fb0acd89c514375").send();
         response.getResult();
     }
