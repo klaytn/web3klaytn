@@ -7,7 +7,7 @@ import org.klaytn.OpenSDK;
 
 import java.io.IOException;
 
-public class KlayGetBlockReceiptExample {
+public class KlayGetBlockReceiptsExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
     void klayGetBlockReceiptsExample() throws IOException {

@@ -57,7 +57,7 @@ paths:
         - lang: "java"
           label: "Java"
           source:
-            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/block/KlayGetBlockReceiptExample.java"
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/block/KlayGetBlockReceiptsExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
