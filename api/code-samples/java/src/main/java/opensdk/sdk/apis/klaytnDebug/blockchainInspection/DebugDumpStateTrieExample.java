@@ -9,7 +9,7 @@ import java.io.IOException;
 public class DebugDumpStateTrieExample {
     private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
 
-    void debugDumpStateTriesExample() throws IOException {
+    void debugDumpStateTrieExample() throws IOException {
         DebugDumpStateTrieResponse response = sdk.debug.dumpStateTrie("0x80").send();
         response.getResult();
     }
