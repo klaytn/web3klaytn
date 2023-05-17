@@ -8,7 +8,8 @@ describe('Klay getBlockByNumber API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()        
+            expect(data).toBeDefined();
+            expect(data.hash).toMatch(new RegExp(`^0x?`));
             done();
         };
         const blockNumber = 1
