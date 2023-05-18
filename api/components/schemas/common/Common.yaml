@@ -107,6 +107,7 @@ components:
       description: The block header object.
       required:
         - parentHash
+        - hash
         - transactionsRoot
         - stateRoot
         - receiptsRoot
@@ -125,6 +126,11 @@ components:
           format: hex
           nullable: true
           description: The block number. null when its pending block.
+        hash:
+          type: string
+          format: 32-byte DATA
+          nullable: true
+          description: Hash of the block. null when it is pending block.
         parentHash:
           type: string
           format: 32-byte DATA
