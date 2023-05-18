@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Klay RPC Test")
 public class KlayGetHeaderByHashApiTest {
@@ -25,5 +26,7 @@ public class KlayGetHeaderByHashApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
+        assertTrue(response.getResult().getHash().matches("^0x[a-fA-F0-9]+"));
     }
 }
