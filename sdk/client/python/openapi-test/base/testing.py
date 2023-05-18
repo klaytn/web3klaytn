@@ -15,6 +15,7 @@ class KlaytnBaseTesting(TestCase):
 
     def assertResponseSuccess(self):
         self.assertIsNotNone(self.response)
+        self.assertNotIn("code", self.response)
 
     def assertErrorCodeMissingRequiredArgument(self):
         self.assertEqual(self.response["code"], ERROR_CODE_REQUIRE_ARGUMENT)
