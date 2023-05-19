@@ -1,4 +1,5 @@
 from base.testing import KlaytnBaseTesting
+import re
 
 
 class TestKlayGetBlockByHash(KlaytnBaseTesting):
@@ -13,6 +14,7 @@ class TestKlayGetBlockByHash(KlaytnBaseTesting):
             self.blockHash, self.returnTransactionObject
         )
         self.assertResponseSuccess()
+        self.assertTrue(re.match(r"^0x?", self.response["hash"]))
 
     def test_post_wrong_with_lack_paramaters(self):
         self.response = self.sdk.klay.get_block_by_hash(self.blockHash)

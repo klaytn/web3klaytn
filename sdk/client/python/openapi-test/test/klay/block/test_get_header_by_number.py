@@ -1,4 +1,5 @@
 from base.testing import KlaytnBaseTesting
+import re
 
 
 class TestKlayGetHeaderByNumber(KlaytnBaseTesting):
@@ -12,6 +13,7 @@ class TestKlayGetHeaderByNumber(KlaytnBaseTesting):
             self.blockTag
         )
         self.assertResponseSuccess()
+        self.assertTrue(re.match(r"^0x?", self.response["hash"]))
 
     def test_post_wrong_with_lack_paramaters(self):
         self.response = self.sdk.klay.get_header_by_number()
