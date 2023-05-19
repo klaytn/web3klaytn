@@ -30,6 +30,3 @@
 - choose directory like api/paths/klay, it's up to you which making a new file or using an existed file
   - api/paths/klay/rewards.yaml
 - add REST API paths like /klay/getRewards, it's not a real path in json rpc. It's for a syntactic path, this uri path is not used in json rpc call.
-
-### Remove query param
-    yarn remove_query_param

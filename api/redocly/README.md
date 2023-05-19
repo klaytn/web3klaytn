@@ -14,6 +14,11 @@ $ nvm use v16.13.1
 $ yarn
 ```
 
+## Generate documentation for SDK namespace
+```shell
+$ sh generate-namespace.sh
+```
+
 ## Usage
 #### `yarn start`
 Starts the reference docs preview server.
@@ -24,3 +29,11 @@ Bundles the definition to the `site/klaytn-openapi.yaml`.
 ## Config setting
 #### `redocly.yaml`
 See [redocly configuration](https://redocly.com/docs/cli/configuration/)
+
+### Remove query param for Redocly Site
+ - After generate SDK for all languages (Javascript, Python, Java)
+
+```shell
+$ yarn remove_query_param
+```
+    
