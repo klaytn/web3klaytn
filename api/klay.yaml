@@ -8,64 +8,64 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-tags:
-  - name: klay
-    description: klaytn node API
-  - name: account
-    description: klaytn account API
-  - name: governance
-    description: klaytn governance API
-  - name: eth
-    description: API for ethereum namespace
-  - name: txpool
-    description: API for txpool namespace
-  - name: net
-    description: API for net namespace
-  - name: personal
-    description: API for personal namespace
-  - name: debug
-    description: API for debug namespace
-  - name: governance
-    description: API for governance namespace
-  - name: admin
-    description: API for admin namespace
+# tags:
+#   - name: klay
+#     description: klaytn node API
+#   - name: account
+#     description: klaytn account API
+#   - name: governance
+#     description: klaytn governance API
+#   - name: eth
+#     description: API for ethereum namespace
+#   - name: txpool
+#     description: API for txpool namespace
+#   - name: net
+#     description: API for net namespace
+#   - name: personal
+#     description: API for personal namespace
+#   - name: debug
+#     description: API for debug namespace
+#   - name: governance
+#     description: API for governance namespace
+#   - name: admin
+#     description: API for admin namespace
 #  - name: RewardSpec
 #    description: |
 #      <SchemaDefinition schemaRef="#/components/schemas/RewardSpec" />
-x-tagGroups:
-  - name: Eth
-    tags:
-      - eth
-  - name: Klay
-    tags:
-      - klay
-  - name: Txpool
-    tags:
-      - txpool
-  - name: Net
-    tags:
-      - net
-  - name: Personal
-    tags:
-      - personal
-  - name: Debug
-    tags:
-      - debug
-  - name: Governance
-    tags:
-      - governance
-  - name: Mainbridge
-    tags:
-      - mainbridge
-  - name: Subbridge
-    tags:
-      - subbridge
-  - name: Models
-    tags:
-      - RewardSpec
-  - name: Admin
-    tags: 
-      - admin
+# x-tagGroups:
+#   - name: Eth
+#     tags:
+#       - eth
+#   - name: Klay
+#     tags:
+#       - klay
+#   - name: Txpool
+#     tags:
+#       - txpool
+#   - name: Net
+#     tags:
+#       - net
+#   - name: Personal
+#     tags:
+#       - personal
+#   - name: Debug
+#     tags:
+#       - debug
+#   - name: Governance
+#     tags:
+#       - governance
+#   - name: Mainbridge
+#     tags:
+#       - mainbridge
+#   - name: Subbridge
+#     tags:
+#       - subbridge
+#   - name: Models
+#     tags:
+#       - RewardSpec
+#   - name: Admin
+#     tags:
+#       - admin
 servers:
   - url: http://localhost:7151
   - url: https://api.baobab.klaytn.net:8651
