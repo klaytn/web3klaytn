@@ -47,7 +47,7 @@ paths:
                   - type: object
                     properties:
                       result:
-                        type: float
+                        type: number
                         description: Node's Voting Power or error message
                         example: 1.323
 
