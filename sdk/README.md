@@ -6,44 +6,7 @@
 - Separate SDK into client and server
 - Describes how to develop an SDK based on kotlin
 
-### kotlin-generate.sh
-
-Create a file with the name of `sdk/client/[language]/[language]-generate.sh` format, this file is a script file to run `bin/caver-openapi-generator-cli`
-
-As a result of the execution, an `sdk/client/[language]/openapi` directory is created, and APIs and models for kotlin are automatically created in the `sdk/client/[language]/openapi/src/api` folder and `sdk/client/[language]/openapi/src/model` folder in accordance with the OpenAPI specification.
-
-If necessary, add a script that can create a jar file for the installation/distribution version of openapi.
-
-Make the jar file created through openapi installation or distribution for using in openapi-test
-
-### kotlin-config.yaml
-
-Create a name of the form `sdk/client/[language]/[language]-config.yaml`
-
-Check the options needed to set up the generator config file
-
-```shell
-bin/caver-openapi-generator-cli config-help -g kotlin
-```
-
-Check [Kotlin Generator](https://openapi-generator.tech/docs/generators/kotlin)
-
-OpenAPI Generators List
-
-[OpenAPI Generator · Generate clients, servers, and documentation from OpenAPI 2.0/3.x documents](https://openapi-generator.tech/docs/generators)
-
--generatorName
-     - kotlin : default generator provided by OpenAPI generator for kotlin client
-     - caver-kotlin: the generator of KlaytnKotlinClientCodegen customized in codegen
--outputDir
-     - directories where APIs and models are automatically created through the generator
--inputSpec
-     - File defining OpenApi specification
-     - Use `site/klaytn-openapi.yaml` file
--templateDir
-     - mustache template file for customizing
-
-### template
+### Template
 
 Use [mustache](https://mustache.github.io/mustache.5.html) template. It may change to [Handlebars](https://handlebarsjs.com/) someday.
 
@@ -76,12 +39,6 @@ You need the jvm-retorfit2 template files to use the retrofit2 library.
 
 - Use the package built in openapi. Assuming that `openapi package` is distributed in the `maven repository`, configure the jar file.
 - build.gradle.kts
-
-```kotlin
-dependencies {
-    implementation(files("../openapi/build/libs/caver-kotlin-v1.10.0.jar"))
-}
-```
 
 - It is recommended to test javascript or typescript in an environment distributed with npm
 - Create separate test files for each API. It is used in samples when defining OpenAPI spec.
