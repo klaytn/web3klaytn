@@ -56,7 +56,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/profiling/stopPProf.py"
+            $ref: "../../../code-samples/python/debug/profiling/stopPProf.py"
 
 components:
   schemas:

@@ -55,7 +55,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/runtimeTracing/stopGoTrace.py"
+            $ref: "../../../code-samples/python/debug/runtimeTracing/stopGoTrace.py"
 
 components:
   schemas:

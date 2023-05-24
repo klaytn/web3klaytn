@@ -65,7 +65,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/blockchainInspection/dumpBlock.py"
+            $ref: "../../../code-samples/python/debug/blockchainInspection/dumpBlock.py"
 
 components:
   schemas:

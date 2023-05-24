@@ -79,7 +79,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/blockchainInspection/getModifiedAccountsByHash.py"
+            $ref: "../../../code-samples/python/debug/blockchainInspection/getModifiedAccountsByHash.py"
 
 components:
   schemas:

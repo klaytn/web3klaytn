@@ -69,7 +69,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/profiling/blockProfile.py"
+            $ref: "../../../code-samples/python/debug/profiling/blockProfile.py"
 
 components:
   schemas:
