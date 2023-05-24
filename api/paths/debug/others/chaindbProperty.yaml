@@ -60,7 +60,7 @@ paths:
         - lang: "java"
           label: "Java"
           source:
-            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/others/DebugChaindbPropertyExample.java"
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/others/DebugChaindbPropertyExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

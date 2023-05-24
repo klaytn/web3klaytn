@@ -61,7 +61,7 @@ paths:
         - lang: "java"
           label: "Java"
           source:
-            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/others/DebugSetMutexProfileFractionExample.java"
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/others/DebugSetMutexProfileFractionExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

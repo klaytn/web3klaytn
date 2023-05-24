@@ -53,7 +53,7 @@ paths:
         - lang: "java"
           label: "Java"
           source:
-            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/others/DebugChaindbCompactExample.java"
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/others/DebugChaindbCompactExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
