@@ -22,7 +22,7 @@ apis:
     labels:
       - v1.10.4
   klay@v1.10.5:
-    root: ../paths/klaytnDebug/index.yaml
+    root: ../paths/debug/index.yaml
     labels:
       - v1.10.5
   klay@v1.10.6:

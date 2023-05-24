@@ -1,0 +1,155 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/storageRangeAt:
+    post:
+      operationId: storageRangeAt
+      summary: "[storageRangeAt]"
+      description: |
+        StorageRangeAt returns the storage at the given block height and transaction index.
+
+        **JSONRPC:** `debug_storageRangeAt`
+      tags:
+        - debug
+
+      parameters:
+        - name: blockHash
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
+          in: query
+        - name: txIndex
+          required: true
+          schema:
+            type: integer
+          in: query
+        - name: address
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+          in: query
+        - name: keyStart
+          required: true
+          schema:
+            type: string
+            format: hex
+          in: query
+        - name: maxResult
+          required: true
+          schema:
+            type: integer
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/DebugStorageRangeAtReq"
+
+      responses:
+        200:
+          description: StorageRangeResult
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: object
+                        required:
+                          - nextKey
+                          - storage
+                        properties:
+                          nextKey:
+                            type: string
+                            format: hex
+                          storage:
+                            type: object
+                        example:
+                          {
+                            "id":"377ef808aff73a397d133b3bf160df586054c98c0e6a65c8fce9560e6a0632bc975419f461803d27f28ee270287113cc2359225814debc1bfb2f811061e14c5d",
+                            "name":"Klaytn/vvX.X.X/XXXX-XXXX/goX.X.X",
+                            "kni":"kni://377ef808aff73a397d133b3bf160df586054c98c0e6a65c8fce9560e6a0632bc975419f461803d27f28ee270287113cc2359225814debc1bfb2f811061e14c5d@[::]:32323?discport=0",
+                            "ip":"::",
+                            "ports":{
+                              "discovery":0,
+                              "listener":32323
+                            },
+                            "listenAddr":"[::]:32323",
+                            "protocols":{
+                              "istanbul":{
+                                "network":1000,
+                                "difficulty":1,
+                                "genesis":"0x06806bd8b1e086dfb7098a289da07037a3af58e793d205d20f61c88eeea9351d",
+                                "config":{
+                                  "chainId":1000,
+                                  "istanbul":{
+                                    "epoch":30000,
+                                    "policy":0,
+                                    "sub":7
+                                  },
+                                  "isBFT":true,
+                                  "unitPrice":25000000000,
+                                  "deriveShaImpl":0
+                                },
+                                "head":"0x06806bd8b1e086dfb7098a289da07037a3af58e793d205d20f61c88eeea9351d"
+                              }
+                            }
+                          }
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/others/storageRangeAt.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/others/DebugStorageRangeAtExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/debug/others/storageRangeAt.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klaytnDebug/others/storageRangeAt.py"
+
+components:
+  schemas:
+    DebugStorageRangeAtReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'debug_storageRangeAt'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
+              - title: TxIndex
+                type: integer
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+              - title: KeyStart
+                type: string
+                format: hex
+              - title: MaxResult
+                type: integer
+          example: ["0x90c81195698bc9f282bbdec386b0afb4dcc28e43aae834894281c3ecb3c88d21", 1, "0x73a7d19d14f7dfac5b799e405e22133b2adc57a6", "0x12", 1]

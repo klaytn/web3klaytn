@@ -419,91 +419,91 @@ paths:
 
   # debug/logging:
   /debug/logging/setVMLogTarget:
-    $ref: ./paths/klaytnDebug/logging/setVMLogTarget.yaml#/paths/~1debug~1setVMLogTarget
+    $ref: ./paths/debug/logging/setVMLogTarget.yaml#/paths/~1debug~1setVMLogTarget
   /debug/logging/verbosity:
-    $ref: ./paths/klaytnDebug/logging/verbosity.yaml#/paths/~1debug~1verbosity
+    $ref: ./paths/debug/logging/verbosity.yaml#/paths/~1debug~1verbosity
   /debug/logging/verbosityByName:
-    $ref: ./paths/klaytnDebug/logging/verbosityByName.yaml#/paths/~1debug~1verbosityByName
+    $ref: ./paths/debug/logging/verbosityByName.yaml#/paths/~1debug~1verbosityByName
   /debug/logging/verbosityByID:
-    $ref: ./paths/klaytnDebug/logging/verbosityByID.yaml#/paths/~1debug~1verbosityByID
+    $ref: ./paths/debug/logging/verbosityByID.yaml#/paths/~1debug~1verbosityByID
   /debug/logging/vmodule:
-    $ref: ./paths/klaytnDebug/logging/vmodule.yaml#/paths/~1debug~1vmodule
+    $ref: ./paths/debug/logging/vmodule.yaml#/paths/~1debug~1vmodule
   /debug/logging/backtraceAt:
-    $ref: ./paths/klaytnDebug/logging/backtraceAt.yaml#/paths/~1debug~1backtraceAt
+    $ref: ./paths/debug/logging/backtraceAt.yaml#/paths/~1debug~1backtraceAt
 
   # debug/blockchainInspection:
   /debug/blockchainInspection/preimage:
-    $ref: ./paths/klaytnDebug/blockchainInspection/preimage.yaml#/paths/~1debug~1preimage
+    $ref: ./paths/debug/blockchainInspection/preimage.yaml#/paths/~1debug~1preimage
   /debug/blockchainInspection/dumpBlock:
-    $ref: ./paths/klaytnDebug/blockchainInspection/dumpBlock.yaml#/paths/~1debug~1dumpBlock
+    $ref: ./paths/debug/blockchainInspection/dumpBlock.yaml#/paths/~1debug~1dumpBlock
   /debug/blockchainInspection/dumpStateTrie:
-    $ref: ./paths/klaytnDebug/blockchainInspection/dumpStateTrie.yaml#/paths/~1debug~1dumpStateTrie
+    $ref: ./paths/debug/blockchainInspection/dumpStateTrie.yaml#/paths/~1debug~1dumpStateTrie
   /debug/blockchainInspection/getBlockRlp:
-    $ref: ./paths/klaytnDebug/blockchainInspection/getBlockRlp.yaml#/paths/~1debug~1getBlockRlp
+    $ref: ./paths/debug/blockchainInspection/getBlockRlp.yaml#/paths/~1debug~1getBlockRlp
   /debug/blockchainInspection/getModifiedAccountsByNumber:
-    $ref: ./paths/klaytnDebug/blockchainInspection/getModifiedAccountsByNumber.yaml#/paths/~1debug~1getModifiedAccountsByNumber
+    $ref: ./paths/debug/blockchainInspection/getModifiedAccountsByNumber.yaml#/paths/~1debug~1getModifiedAccountsByNumber
   /debug/blockchainInspection/getModifiedAccountsByHash:
-    $ref: ./paths/klaytnDebug/blockchainInspection/getModifiedAccountsByHash.yaml#/paths/~1debug~1getModifiedAccountsByHash
+    $ref: ./paths/debug/blockchainInspection/getModifiedAccountsByHash.yaml#/paths/~1debug~1getModifiedAccountsByHash
   /debug/blockchainInspection/getBadBlocks:
-    $ref: ./paths/klaytnDebug/blockchainInspection/getBadBlocks.yaml#/paths/~1debug~1getBadBlocks
+    $ref: ./paths/debug/blockchainInspection/getBadBlocks.yaml#/paths/~1debug~1getBadBlocks
   /debug/blockchainInspection/printBlock:
-    $ref: ./paths/klaytnDebug/blockchainInspection/printBlock.yaml#/paths/~1debug~1printBlock
+    $ref: ./paths/debug/blockchainInspection/printBlock.yaml#/paths/~1debug~1printBlock
   /debug/blockchainInspection/setHead:
-    $ref: ./paths/klaytnDebug/blockchainInspection/setHead.yaml#/paths/~1debug~1setHead
+    $ref: ./paths/debug/blockchainInspection/setHead.yaml#/paths/~1debug~1setHead
   /debug/blockchainInspection/startWarmUp:
-    $ref: ./paths/klaytnDebug/blockchainInspection/startWarmUp.yaml#/paths/~1debug~1startWarmUp
+    $ref: ./paths/debug/blockchainInspection/startWarmUp.yaml#/paths/~1debug~1startWarmUp
   /debug/blockchainInspection/startContractWarmUp:
-    $ref: ./paths/klaytnDebug/blockchainInspection/startContractWarmUp.yaml#/paths/~1debug~1startContractWarmUp
+    $ref: ./paths/debug/blockchainInspection/startContractWarmUp.yaml#/paths/~1debug~1startContractWarmUp
   /debug/blockchainInspection/stopWarmUp:
-    $ref: ./paths/klaytnDebug/blockchainInspection/stopWarmUp.yaml#/paths/~1debug~1stopWarmUp
+    $ref: ./paths/debug/blockchainInspection/stopWarmUp.yaml#/paths/~1debug~1stopWarmUp
   /debug/blockchainInspection/startCollectingTrieStats:
-    $ref: ./paths/klaytnDebug/blockchainInspection/startCollectingTrieStats.yaml#/paths/~1debug~1startCollectingTrieStats
+    $ref: ./paths/debug/blockchainInspection/startCollectingTrieStats.yaml#/paths/~1debug~1startCollectingTrieStats
 
   # debug/vMTracing:
   /debug/vMTracing/traceTransaction:
-    $ref: ./paths/klaytnDebug/vMTracing/traceTransaction.yaml#/paths/~1debug~1traceTransaction
+    $ref: ./paths/debug/vMTracing/traceTransaction.yaml#/paths/~1debug~1traceTransaction
   /debug/vMTracing/traceBlockByHash:
-    $ref: ./paths/klaytnDebug/vMTracing/traceBlockByHash.yaml#/paths/~1debug~1traceBlockByHash
+    $ref: ./paths/debug/vMTracing/traceBlockByHash.yaml#/paths/~1debug~1traceBlockByHash
   /debug/vMTracing/traceBlockByNumberRange:
-    $ref: ./paths/klaytnDebug/vMTracing/traceBlockByNumberRange.yaml#/paths/~1debug~1traceBlockByNumberRange
+    $ref: ./paths/debug/vMTracing/traceBlockByNumberRange.yaml#/paths/~1debug~1traceBlockByNumberRange
   /debug/vMTracing/traceBlockByNumber:
-    $ref: ./paths/klaytnDebug/vMTracing/traceBlockByNumber.yaml#/paths/~1debug~1traceBlockByNumber
+    $ref: ./paths/debug/vMTracing/traceBlockByNumber.yaml#/paths/~1debug~1traceBlockByNumber
   /debug/vMTracing/traceBlockFromFile:
-    $ref: ./paths/klaytnDebug/vMTracing/traceBlockFromFile.yaml#/paths/~1debug~1traceBlockFromFile
+    $ref: ./paths/debug/vMTracing/traceBlockFromFile.yaml#/paths/~1debug~1traceBlockFromFile
   /debug/vMTracing/traceBadBlock:
-    $ref: ./paths/klaytnDebug/vMTracing/traceBadBlock.yaml#/paths/~1debug~1traceBadBlock
+    $ref: ./paths/debug/vMTracing/traceBadBlock.yaml#/paths/~1debug~1traceBadBlock
   /debug/vMTracing/traceBlock:
-    $ref: ./paths/klaytnDebug/vMTracing/traceBlock.yaml#/paths/~1debug~1traceBlock
+    $ref: ./paths/debug/vMTracing/traceBlock.yaml#/paths/~1debug~1traceBlock
   /debug/vMTracing/traceChain:
-    $ref: ./paths/klaytnDebug/vMTracing/traceChain.yaml#/paths/~1debug~1traceChain
+    $ref: ./paths/debug/vMTracing/traceChain.yaml#/paths/~1debug~1traceChain
 
   # debug/vMStandardTracing:
   /debug/vMStandardTracing/standardTraceBlockToFile:
-    $ref: ./paths/klaytnDebug/vMStandardTracing/standardTraceBlockToFile.yaml#/paths/~1debug~1standardTraceBlockToFile
+    $ref: ./paths/debug/vMStandardTracing/standardTraceBlockToFile.yaml#/paths/~1debug~1standardTraceBlockToFile
   /debug/vMStandardTracing/standardTraceBadBlockToFile:
-    $ref: ./paths/klaytnDebug/vMStandardTracing/standardTraceBadBlockToFile.yaml#/paths/~1debug~1standardTraceBadBlockToFile
+    $ref: ./paths/debug/vMStandardTracing/standardTraceBadBlockToFile.yaml#/paths/~1debug~1standardTraceBadBlockToFile
 
 # debug/profiling:
   /debug/profiling/startPProf:
-    $ref: ./paths/klaytnDebug/profiling/startPProf.yaml#/paths/~1debug~1startPProf
+    $ref: ./paths/debug/profiling/startPProf.yaml#/paths/~1debug~1startPProf
   /debug/profiling/stopPProf:
-    $ref: ./paths/klaytnDebug/profiling/stopPProf.yaml#/paths/~1debug~1stopPProf
+    $ref: ./paths/debug/profiling/stopPProf.yaml#/paths/~1debug~1stopPProf
   /debug/profiling/isPProfRunning:
-    $ref: ./paths/klaytnDebug/profiling/isPProfRunning.yaml#/paths/~1debug~1isPProfRunning
+    $ref: ./paths/debug/profiling/isPProfRunning.yaml#/paths/~1debug~1isPProfRunning
 
   # debug/runtimeDebugging:
   /debug/runtimeDebugging/gcStats:
-    $ref: ./paths/klaytnDebug/runtimeDebugging/gcStats.yaml#/paths/~1debug~1gcStats
+    $ref: ./paths/debug/runtimeDebugging/gcStats.yaml#/paths/~1debug~1gcStats
   /debug/runtimeDebugging/metrics:
-    $ref: ./paths/klaytnDebug/runtimeDebugging/metrics.yaml#/paths/~1debug~1metrics
+    $ref: ./paths/debug/runtimeDebugging/metrics.yaml#/paths/~1debug~1metrics
   /debug/runtimeDebugging/stacks:
-    $ref: ./paths/klaytnDebug/runtimeDebugging/stacks.yaml#/paths/~1debug~1stacks
+    $ref: ./paths/debug/runtimeDebugging/stacks.yaml#/paths/~1debug~1stacks
   /debug/runtimeDebugging/freeOSMemory:
-    $ref: ./paths/klaytnDebug/runtimeDebugging/freeOSMemory.yaml#/paths/~1debug~1freeOSMemory
+    $ref: ./paths/debug/runtimeDebugging/freeOSMemory.yaml#/paths/~1debug~1freeOSMemory
   /debug/runtimeDebugging/setGCPercent:
-    $ref: ./paths/klaytnDebug/runtimeDebugging/setGCPercent.yaml#/paths/~1debug~1setGCPercent
+    $ref: ./paths/debug/runtimeDebugging/setGCPercent.yaml#/paths/~1debug~1setGCPercent
   /debug/runtimeDebugging/memStats:
-    $ref: ./paths/klaytnDebug/runtimeDebugging/memStats.yaml#/paths/~1debug~1memStats
+    $ref: ./paths/debug/runtimeDebugging/memStats.yaml#/paths/~1debug~1memStats
 
   # governance
   /governance/votes:
@@ -537,45 +537,45 @@ paths:
 
   # debug/others:
   /debug/getModifiedStorageNodesByNumber:
-    $ref: ./paths/klaytnDebug/others/getModifiedStorageNodesByNumber.yaml#/paths/~1debug~1getModifiedStorageNodesByNumber
+    $ref: ./paths/debug/others/getModifiedStorageNodesByNumber.yaml#/paths/~1debug~1getModifiedStorageNodesByNumber
   /debug/chaindbCompact:
-    $ref: ./paths/klaytnDebug/others/chaindbCompact.yaml#/paths/~1debug~1chaindbCompact
+    $ref: ./paths/debug/others/chaindbCompact.yaml#/paths/~1debug~1chaindbCompact
   /debug/chaindbProperty:
-    $ref: ./paths/klaytnDebug/others/chaindbProperty.yaml#/paths/~1debug~1chaindbProperty
+    $ref: ./paths/debug/others/chaindbProperty.yaml#/paths/~1debug~1chaindbProperty
   /debug/storageRangeAt:
-    $ref: ./paths/klaytnDebug/others/storageRangeAt.yaml#/paths/~1debug~1storageRangeAt
+    $ref: ./paths/debug/others/storageRangeAt.yaml#/paths/~1debug~1storageRangeAt
   /debug/seedHash:
-    $ref: ./paths/klaytnDebug/others/seedHash.yaml#/paths/~1debug~1seedHash
+    $ref: ./paths/debug/others/seedHash.yaml#/paths/~1debug~1seedHash
   /debug/setMutexProfileFraction:
-    $ref: ./paths/klaytnDebug/others/setMutexProfileFraction.yaml#/paths/~1debug~1setMutexProfileFraction
+    $ref: ./paths/debug/others/setMutexProfileFraction.yaml#/paths/~1debug~1setMutexProfileFraction
 
   # debug/profiling:
   /debug/profiling/blockProfile:
-    $ref: ./paths/klaytnDebug/profiling/blockProfile.yaml#/paths/~1debug~1blockProfile
+    $ref: ./paths/debug/profiling/blockProfile.yaml#/paths/~1debug~1blockProfile
   /debug/profiling/cpuProfile:
-    $ref: ./paths/klaytnDebug/profiling/cpuProfile.yaml#/paths/~1debug~1cpuProfile
+    $ref: ./paths/debug/profiling/cpuProfile.yaml#/paths/~1debug~1cpuProfile
   /debug/profiling/mutexProfile:
-    $ref: ./paths/klaytnDebug/profiling/mutexProfile.yaml#/paths/~1debug~1mutexProfile
+    $ref: ./paths/debug/profiling/mutexProfile.yaml#/paths/~1debug~1mutexProfile
   /debug/profiling/setBlockProfileRate:
-    $ref: ./paths/klaytnDebug/profiling/setBlockProfileRate.yaml#/paths/~1debug~1setBlockProfileRate
+    $ref: ./paths/debug/profiling/setBlockProfileRate.yaml#/paths/~1debug~1setBlockProfileRate
   /debug/profiling/startCPUProfile:
-    $ref: ./paths/klaytnDebug/profiling/startCPUProfile.yaml#/paths/~1debug~1startCPUProfile
+    $ref: ./paths/debug/profiling/startCPUProfile.yaml#/paths/~1debug~1startCPUProfile
   /debug/profiling/stopCPUProfile:
-    $ref: ./paths/klaytnDebug/profiling/stopCPUProfile.yaml#/paths/~1debug~1stopCPUProfile
+    $ref: ./paths/debug/profiling/stopCPUProfile.yaml#/paths/~1debug~1stopCPUProfile
   /debug/profiling/writeBlockProfile:
-    $ref: ./paths/klaytnDebug/profiling/writeBlockProfile.yaml#/paths/~1debug~1writeBlockProfile
+    $ref: ./paths/debug/profiling/writeBlockProfile.yaml#/paths/~1debug~1writeBlockProfile
   /debug/profiling/writeMemProfile:
-    $ref: ./paths/klaytnDebug/profiling/writeMemProfile.yaml#/paths/~1debug~1writeMemProfile
+    $ref: ./paths/debug/profiling/writeMemProfile.yaml#/paths/~1debug~1writeMemProfile
   /debug/profiling/writeMutexProfile:
-    $ref: ./paths/klaytnDebug/profiling/writeMutexProfile.yaml#/paths/~1debug~1writeMutexProfile
+    $ref: ./paths/debug/profiling/writeMutexProfile.yaml#/paths/~1debug~1writeMutexProfile
 
   # debug/runtimeTracing:
   /debug/runtimeTracing/goTrace:
-    $ref: ./paths/klaytnDebug/runtimeTracing/goTrace.yaml#/paths/~1debug~1goTrace
+    $ref: ./paths/debug/runtimeTracing/goTrace.yaml#/paths/~1debug~1goTrace
   /debug/runtimeTracing/startGoTrace:
-    $ref: ./paths/klaytnDebug/runtimeTracing/startGoTrace.yaml#/paths/~1debug~1startGoTrace
+    $ref: ./paths/debug/runtimeTracing/startGoTrace.yaml#/paths/~1debug~1startGoTrace
   /debug/runtimeTracing/stopGoTrace:
-    $ref: ./paths/klaytnDebug/runtimeTracing/stopGoTrace.yaml#/paths/~1debug~1stopGoTrace
+    $ref: ./paths/debug/runtimeTracing/stopGoTrace.yaml#/paths/~1debug~1stopGoTrace
 
   # admin
   /admin/addPeer:
