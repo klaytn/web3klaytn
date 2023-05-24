@@ -118,7 +118,7 @@ paths:
         - lang: "java"
           label: "Java"
           source:
-            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/others/DebugStorageRangeAtExample.java"
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/others/DebugStorageRangeAtExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

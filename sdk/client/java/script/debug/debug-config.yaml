@@ -1,0 +1,29 @@
+generatorName: caver-java
+outputDir: ./openapi/debug
+inputSpec: ../../../site/namespace/debug-openapi.yaml
+groupId: klaytn.foundation
+artifactId: opensdk-debug-java
+artifactVersion: v1.10.0
+library: retrofit2
+templateDir: ./template
+globalProperties:
+  apiDocs: false
+  modelDocs: false
+  apiTests: false
+  modelTests: false
+additionalProperties:
+  # This open is related json nullable, so it should be off.
+  openApiNullable: false
+  apiPackage: opensdk.sdk.apis
+  modelPackage: opensdk.sdk.models
+typeMappings:
+  double: java.math.BigInteger
+  Long: long
+  ErrorMember: Error
+importMappings:
+  GetRewardsDefaultResponse: opensdk.sdk.models.GetRewardsResponse
+  AnyOfstring: java.util.Objects
+  Error: java.util.Objects
+inlineSchemaNameMappings:
+  accountCreated_default_response: AccountCreatedResponse
+  getRewards_default_response: GetRewardsResponse

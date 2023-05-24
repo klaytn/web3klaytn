@@ -15,7 +15,7 @@ sh ./script/klay/klay-generate.sh ${CURRENT_FILE_DIR}
 sh ./script/net/net-generate.sh ${CURRENT_FILE_DIR}
 sh ./script/txpool/txpool-generate.sh ${CURRENT_FILE_DIR}
 sh ./script/personal/personal-generate.sh ${CURRENT_FILE_DIR}
-sh ./script/klaytnDebug/debug-generate.sh ${CURRENT_FILE_DIR}
+sh ./script/debug/debug-generate.sh ${CURRENT_FILE_DIR}
 sh ./script/governance/governance-generate.sh ${CURRENT_FILE_DIR}
 sh ./script/admin/admin-generate.sh ${CURRENT_FILE_DIR}
 sh ./script/mainbridge/mainbridge-generate.sh ${CURRENT_FILE_DIR}

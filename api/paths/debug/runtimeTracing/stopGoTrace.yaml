@@ -47,7 +47,7 @@ paths:
         - lang: "java"
           label: "Java"
           source:
-            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/runtimeTracing/DebugStopGoTraceExample.java"
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/runtimeTracing/DebugStopGoTraceExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

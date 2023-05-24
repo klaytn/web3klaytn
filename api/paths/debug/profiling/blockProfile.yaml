@@ -61,7 +61,7 @@ paths:
         - lang: "java"
           label: "Java"
           source:
-            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/profiling/DebugBlockProfileExample.java"
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/profiling/DebugBlockProfileExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

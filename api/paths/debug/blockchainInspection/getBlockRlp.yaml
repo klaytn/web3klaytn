@@ -63,7 +63,7 @@ paths:
         - lang: "java"
           label: "Java"
           source:
-            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/blockchainInspection/DebugGetBlockRlpExample.java"
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/blockchainInspection/DebugGetBlockRlpExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

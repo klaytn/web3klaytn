@@ -63,7 +63,7 @@ paths:
         - lang: "java"
           label: "Java"
           source:
-            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/vMTracing/DebugTraceBlockFromFileExample.java"
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/vMTracing/DebugTraceBlockFromFileExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
