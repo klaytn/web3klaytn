@@ -1,0 +1,100 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/cpuProfile:
+    post:
+      summary: "[cpuProfile]"
+      tags:
+        - debug
+      operationId: cpuProfile
+      description: |
+        Turns on CPU profiling for the given duration and writes profile data to disk.
+
+        **JSONRPC:** `debug_cpuProfile`
+
+      parameters:
+        - name: file
+          in: query
+          description: The filename for the profiling result.
+          required: true
+          schema:
+            type: string
+        - name: seconds
+          in: query
+          description: The profiling duration in seconds.
+          required: true
+          schema:
+            type: integer
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/DebugCpuProfileReq"
+
+      responses:
+        200:
+          description: Turns on CPU profiling for the given duration and writes profile data to disk.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/DebugCpuProfileResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/profiling/cpuProfile.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/profiling/DebugCPUProfileExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/debug/profilling/cpuProfile.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klaytnDebug/profiling/cpuProfile.py"
+
+components:
+  schemas:
+    DebugCpuProfileReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: debug_cpuProfile
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: File
+                type: string
+                description: The filename for the profiling result.
+              - title: Seconds
+                type: integer
+                description: The profiling duration in seconds.
+          example: ["block.profile", 10]
+
+    DebugCpuProfileResp:
+      type: object
+      properties:
+        result:
+          type: string
+          nullable: true
+          default: null

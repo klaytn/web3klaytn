@@ -1,0 +1,127 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/traceBlockByNumberRange:
+    post:
+      summary: "[traceBlockByNumberRange]"
+      tags:
+        - debug
+      operationId: traceBlockByNumberRange
+      description: |
+        Returns the structured logs created during the execution of EVM between two blocks (including start) as a JSON object. That is, the result of tracing for a total of end-start+1 blocks is returned.
+
+        **NOTE:** Don't trace too many blocks at the same time as it can overuse machine resources.
+
+        **JSONRPC:** `debug_traceBlockByNumberRange`
+
+      parameters:
+        - name: startBlock
+          in: query
+          description: Tracing start block number.
+          required: true
+          schema:
+            type: number
+        - name: endBlock
+          in: query
+          description: Tracing end block number.
+          required: true
+          schema:
+            type: number
+        - name: options
+          in: query
+          description: Tracing options.
+          required: false
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracingOptions"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/DebugTraceBlockByNumberRangeReq"
+
+      responses:
+        200:
+          description: Value contains the structured logs created during the execution of KLVM.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/DebugTraceBlockByNumberRangeResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/vMTracing/traceBlockByNumberRange.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klaytnDebug/vMTracing/DebugTraceBlockByNumberRangeExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+           $ref: "../../../code-samples/javascript/debug/vMTracing/traceBlockByNumberRange.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klaytnDebug/vMTracing/traceBlockByNumberRange.py"
+
+components:
+  schemas:
+    DebugTraceBlockByNumberRangeReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: debug_traceBlockByNumberRange
+        params:
+          type: array
+          example: [21, 30]
+          items:
+            anyOf:
+              - title: StartBlock
+                type: number
+                description: Tracing start block number.
+                example: 21
+              - title: EndBlock
+                type: number
+                description: Tracing end block number.
+                example: 30
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracingOptions"
+
+    DebugTraceBlockByNumberRangeResp:
+      type: object
+      properties:
+        result:
+          type: object
+          description: Value contains the structured logs created during the execution of KLVM.
+          example: {
+            21: {
+                block: "0x15",
+                    hash: "0x24b0a90822e63295623e6d8f5a8e5d47cead5c8d5854e44db00dc42d28e0850e",
+                    traces: [{
+                        result: {...},
+                        txHash: "0x43ed7e441db8e90f377d74b5d61c6d7d8b85ffd277b965c9f275ce7e93fb1090"
+                    }, {
+                        result: {...},
+                        txHash: "0x1a448049b21d39cd4320ab95f18b8e91d687bfc7136268f50e041e439181fa0d"
+                    }]
+                },
+            22: {
+                ...
+                },
+            ...
+          }
