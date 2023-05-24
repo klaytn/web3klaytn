@@ -4,10 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthFeeHistoryResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.core.DefaultBlockParameter;
+import org.web3j.protocol.core.methods.response.EthFeeHistory;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,14 +17,14 @@ import java.util.List;
 @DisplayName("Eth RPC Test")
 public class EthFeeHistoryApiTest {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
 
     @Test
     @DisplayName("RPC eth_feeHistory")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        EthFeeHistoryResponse br = sdk.eth.feeHistory(
-            "0x10",
-            "latest",
+        EthFeeHistory br = w3.ethFeeHistory(
+            16,
+            DefaultBlockParameter.valueOf("latest"),
             List.of(0.1, 0.2, 0.3))
         .send();
         assertNotNull(br);

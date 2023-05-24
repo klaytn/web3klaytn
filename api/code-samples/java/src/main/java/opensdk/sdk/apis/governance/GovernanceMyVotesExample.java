@@ -1,8 +1,9 @@
-package opensdk.sdk.apis.governance;
+package org.web3j.protocol.klaytn.core.governance;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.GovernanceMyVotesResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.GovernanceMyVotesResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 

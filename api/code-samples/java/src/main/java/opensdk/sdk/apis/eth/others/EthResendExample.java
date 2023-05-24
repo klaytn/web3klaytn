@@ -1,10 +1,11 @@
-package opensdk.sdk.apis.eth.others;
+package org.web3j.protocol.klaytn.core.eth.others;
 
 import java.io.IOException;
 import java.math.BigInteger;
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthResendResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.EthResendResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.core.methods.request.Transaction;
 
 public class EthResendExample {

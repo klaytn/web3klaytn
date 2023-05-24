@@ -1,8 +1,9 @@
-package opensdk.sdk.apis.eth.transaction;
+package org.web3j.protocol.klaytn.core.eth.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthEstimateGasResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.EthEstimateGasResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.core.methods.request.Transaction;
 
 import java.io.IOException;

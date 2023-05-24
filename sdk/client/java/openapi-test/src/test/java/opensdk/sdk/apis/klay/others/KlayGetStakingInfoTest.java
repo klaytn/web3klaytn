@@ -1,10 +1,11 @@
 package opensdk.sdk.apis.klay.others;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayGetStakingInfoResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlayGetStakingInfoResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
@@ -13,16 +14,14 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlayGetStakingInfoTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     @Test
     @DisplayName("RPC klay_getStakingInfo")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String blogTag = "latest";
 
-        KlayGetStakingInfoResponse response = sdk.klay
-                .getStakingInfo(blogTag)
-                .send();
+        KlayGetStakingInfoResponse response = w3.klayGetStakingInfo(blogTag).send();
 
         assertNotNull(response);
         assertNull(response.getError());

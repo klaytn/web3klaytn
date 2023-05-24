@@ -1,9 +1,10 @@
-package opensdk.sdk.apis.governance;
+package org.web3j.protocol.klaytn.core.governance;
 
 import java.io.IOException;
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.GovernanceMyVotingPowerResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.GovernanceMyVotingPowerResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 public class GovernanceMyVotingPowerExample {
   private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);

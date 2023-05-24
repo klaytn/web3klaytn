@@ -1,8 +1,9 @@
-package opensdk.sdk.apis.eth.block;
+package org.web3j.protocol.klaytn.core.eth.block;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthGetUncleByBlockHashAndIndexResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.EthGetUncleByBlockHashAndIndexResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 

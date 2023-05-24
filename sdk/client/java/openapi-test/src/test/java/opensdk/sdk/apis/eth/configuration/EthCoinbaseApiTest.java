@@ -4,22 +4,23 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthCoinbaseResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.core.methods.response.EthCoinbase;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
 @DisplayName("Eth RPC Test")
 public class EthCoinbaseApiTest {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
 
     @Test
     @DisplayName("RPC eth_coinbase")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        EthCoinbaseResponse br = sdk.eth.coinbase().send();
+        EthCoinbase br = w3.ethCoinbase().send();
         assertNotNull(br);
         assertNull(br.getError());
     }

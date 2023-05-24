@@ -1,8 +1,9 @@
-package opensdk.sdk.apis.txpool;
+package org.web3j.protocol.klaytn.core.txpool;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.TxpoolStatusResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.TxpoolStatusResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 

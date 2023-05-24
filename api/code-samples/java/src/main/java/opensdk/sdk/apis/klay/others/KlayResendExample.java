@@ -1,10 +1,11 @@
-package opensdk.sdk.apis.klay.others;
+package org.web3j.protocol.klaytn.core.klay.others;
 
 import java.io.IOException;
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayResendResponse;
-import opensdk.sdk.models.TransactionArgs;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.KlayResendResponse;
+import org.web3j.protocol.klaytn.core.method.response.TransactionArgs;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 public class KlayResendExample {
   private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);

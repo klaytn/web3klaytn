@@ -1,8 +1,9 @@
-package opensdk.sdk.apis.eth.transaction;
+package org.web3j.protocol.klaytn.core.eth.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthFillTransactionResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.EthFillTransactionResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.utils.Numeric;
 

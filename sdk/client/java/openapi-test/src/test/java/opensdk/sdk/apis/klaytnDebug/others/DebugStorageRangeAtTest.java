@@ -5,14 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.DebugStorageRangeAtResponse;
+import org.web3j.protocol.klaytn.core.method.response.DebugStorageRangeAtResponse;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.Web3j;
+import org.web3j.protocol.http.HttpService;
 @DisplayName("Debug RPC Test")
 public class DebugStorageRangeAtTest {
-  private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+  private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
   @Disabled
   @Test
   @DisplayName("RPC debug_storageRangeAt")
@@ -23,7 +24,7 @@ public class DebugStorageRangeAtTest {
     String keyStart = "0x12";
     int maxResult = 1;
 
-    DebugStorageRangeAtResponse response = sdk.debug.storageRangeAt(blockHash, txIndex, contractAddress, keyStart, maxResult).send();
+    DebugStorageRangeAtResponse response = w3.debugStorageRangeAt(blockHash, txIndex, contractAddress, keyStart, maxResult).send();
     assertNotNull(response);
     assertNull(response.getError());
   }

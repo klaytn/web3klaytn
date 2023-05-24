@@ -1,10 +1,11 @@
 package opensdk.sdk.apis.klay.block;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayGetHeaderByHashResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlayGetHeaderByHashResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
@@ -15,12 +16,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @DisplayName("Klay RPC Test")
 public class KlayGetHeaderByHashApiTest {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     @Test
     @DisplayName("RPC klay_getHeaderByHash")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayGetHeaderByHashResponse response = sdk.klay.getHeaderByHash(
+        KlayGetHeaderByHashResponse response = w3.klayGetHeaderByHash(
             "0xba647d41423faeebe8a7c64737d284fc2eba6f0388a3e1ebf6243db509ec1577")
         .send();
 

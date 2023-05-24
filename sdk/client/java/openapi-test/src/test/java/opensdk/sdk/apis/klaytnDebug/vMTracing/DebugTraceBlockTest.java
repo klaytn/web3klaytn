@@ -1,19 +1,20 @@
 package opensdk.sdk.apis.klaytnDebug.vMTracing;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.DebugTraceBlockResponse;
+import org.web3j.protocol.klaytn.core.method.response.DebugTraceBlockResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import org.web3j.protocol.http.HttpService;
 @DisplayName("Debug RPC Test")
 public class DebugTraceBlockTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
 
     @Test
     @DisplayName("RPC debug_traceBlock")
@@ -32,7 +33,7 @@ public class DebugTraceBlockTest {
                 "e43ba72f6b708a82eed1cbb1be8734ba46386311b5da8e717918ae017aa9b54fc7a499d024fb739fec5eb3569841158b6e60ad2a" +
                 "e8b768e95e229a70180808505d21dba00c0";
 
-        DebugTraceBlockResponse response = sdk.debug.traceBlock(blockRlp, null).send();
+        DebugTraceBlockResponse response = w3.debugTraceBlock(blockRlp, null).send();
 
         assertNotNull(response);
         assertNull(response.getError());

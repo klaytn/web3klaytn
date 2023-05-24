@@ -1,8 +1,9 @@
-package opensdk.sdk.apis.net;
+package org.web3j.protocol.klaytn.core.net;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.NetVersionResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.NetVersionResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 

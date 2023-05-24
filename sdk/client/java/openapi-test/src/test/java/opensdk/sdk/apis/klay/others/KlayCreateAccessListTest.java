@@ -1,11 +1,12 @@
 package opensdk.sdk.apis.klay.others;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayCallObject;
-import opensdk.sdk.models.KlayCreateAccessListResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlayCallObject;
+import org.web3j.protocol.klaytn.core.method.response.KlayCreateAccessListResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlayCreateAccessListTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     @Test
     @DisplayName("RPC klay_createAccessList")
@@ -26,7 +27,7 @@ public class KlayCreateAccessListTest {
         object.setGasPrice("0x3b9aca00");
         object.setInput("0x20965255");
 
-        KlayCreateAccessListResponse response = sdk.klay.createAccessList(object , "latest").send();
+        KlayCreateAccessListResponse response = w3.klayCreateAccessList(object , "latest").send();
 
         assertNotNull(response);
         assertNull(response.getError());

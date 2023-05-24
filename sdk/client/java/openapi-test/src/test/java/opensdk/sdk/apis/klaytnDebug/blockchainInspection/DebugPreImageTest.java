@@ -5,22 +5,23 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.DebugPreimageResponse;
+import org.web3j.protocol.klaytn.core.method.response.DebugPreimageResponse;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.Web3j;
 
+import org.web3j.protocol.http.HttpService;
 @DisplayName("Debug RPC Test")
 public class DebugPreImageTest {
-  private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+  private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
   @Disabled
   @Test
   @DisplayName("RPC debug_preimage")
   void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
     String sha3Hash = "0xaf953a2d01f55cfe080c0c94150a60105e8ac3d51153058a1f03dd239dd08586";
 
-    DebugPreimageResponse response = sdk.debug.preimage(sha3Hash).send();
+    DebugPreimageResponse response = w3.debugPreimage(sha3Hash).send();
     assertNotNull(response);
     assertNull(response.getError());
   }

@@ -1,8 +1,9 @@
-package opensdk.sdk.apis.klay.miscellaneous;
+package org.web3j.protocol.klaytn.core.klay.miscellaneous;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlaySha3Response;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.KlaySha3Response;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 

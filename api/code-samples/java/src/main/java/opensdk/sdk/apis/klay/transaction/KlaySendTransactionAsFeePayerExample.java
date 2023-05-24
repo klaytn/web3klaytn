@@ -1,10 +1,11 @@
-package opensdk.sdk.apis.klay.transaction;
+package org.web3j.protocol.klaytn.core.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlaySendTransactionAsFeePayerResponse;
-import opensdk.sdk.models.KlaytnTransactionTypes;
-import opensdk.sdk.models.Signature;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.KlaySendTransactionAsFeePayerResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlaytnTransactionTypes;
+import org.web3j.protocol.klaytn.core.method.response.Signature;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 import java.util.List;

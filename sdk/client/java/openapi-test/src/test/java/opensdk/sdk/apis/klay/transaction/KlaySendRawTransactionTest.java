@@ -1,17 +1,16 @@
 package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlaySendRawTransactionResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlaySendRawTransactionResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
-import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
-import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
 
@@ -26,9 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlaySendRawTransactionTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
     public static final String address = "0x68c78d152501837f851e6ebc192b69746675c6fa";
-    public static final Web3j web3j = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     @Test
     @DisplayName("RPC klay_sendRawTransaction")
@@ -39,7 +37,7 @@ public class KlaySendRawTransactionTest {
         long gasLimit = 21000;
         String maxPriorityFeePerGas = "5d21dba00";
         BigDecimal value = Convert.toWei(".001", Convert.Unit.ETHER);
-        EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(address, DefaultBlockParameter.valueOf("pending")).send();
+        EthGetTransactionCount ethGetTransactionCount = w3.ethGetTransactionCount(address, DefaultBlockParameter.valueOf("pending")).send();
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
         RawTransaction txObject = RawTransaction.createEtherTransaction(nonce.add(BigInteger.ONE)
             , new BigInteger(gasPrice, 16).add(new BigInteger(maxPriorityFeePerGas, 16))
@@ -50,7 +48,7 @@ public class KlaySendRawTransactionTest {
         byte[] signMessage = TransactionEncoder.signMessage(txObject, credentials);
         String message = Numeric.toHexString(signMessage);
         
-        KlaySendRawTransactionResponse response = sdk.klay.sendRawTransaction(message).send();
+        KlaySendRawTransactionResponse response = w3.klaySendRawTransaction(message).send();
 
         assertNotNull(response);
         assertNull(response.getError());
