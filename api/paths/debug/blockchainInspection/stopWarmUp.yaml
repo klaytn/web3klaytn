@@ -61,4 +61,4 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/blockchainInspection/stopWarmUp.py"
+            $ref: "../../../code-samples/python/debug/blockchainInspection/stopWarmUp.py"

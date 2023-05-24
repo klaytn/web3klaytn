@@ -63,7 +63,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/profiling/writeMutexProfile.py"
+            $ref: "../../../code-samples/python/debug/profiling/writeMutexProfile.py"
 
 components:
   schemas:

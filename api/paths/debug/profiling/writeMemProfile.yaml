@@ -63,7 +63,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/profiling/writeMemProfile.py"
+            $ref: "../../../code-samples/python/debug/profiling/writeMemProfile.py"
 
 components:
   schemas:

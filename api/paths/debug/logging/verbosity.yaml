@@ -68,7 +68,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/logging/verbosity.py"
+            $ref: "../../../code-samples/python/debug/logging/verbosity.py"
 
 components:
   schemas:

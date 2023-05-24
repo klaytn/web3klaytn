@@ -69,7 +69,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/profiling/cpuProfile.py"
+            $ref: "../../../code-samples/python/debug/profiling/cpuProfile.py"
 
 components:
   schemas:

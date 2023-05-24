@@ -61,7 +61,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/others/chaindbCompact.py"
+            $ref: "../../../code-samples/python/debug/others/chaindbCompact.py"
 
 components:
   schemas:

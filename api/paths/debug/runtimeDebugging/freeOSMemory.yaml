@@ -56,7 +56,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/runtimeDebugging/freeOSMemory.py"
+            $ref: "../../../code-samples/python/debug/runtimeDebugging/freeOSMemory.py"
 
 components:
   schemas:

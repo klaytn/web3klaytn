@@ -68,4 +68,4 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/blockchainInspection/getBadBlocks.py"
+            $ref: "../../../code-samples/python/debug/blockchainInspection/getBadBlocks.py"

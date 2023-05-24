@@ -15,7 +15,7 @@ sh ./scripts/klay/python-klay-generate.sh ${CURRENT_FILE_DIR}
 sh ./scripts/net/python-net-generate.sh ${CURRENT_FILE_DIR}
 sh ./scripts/txpool/python-txpool-generate.sh ${CURRENT_FILE_DIR}
 sh ./scripts/personal/python-personal-generate.sh ${CURRENT_FILE_DIR}
-sh ./scripts/klaytnDebug/python-debug-generate.sh ${CURRENT_FILE_DIR}
+sh ./scripts/debug/python-debug-generate.sh ${CURRENT_FILE_DIR}
 sh ./scripts/governance/python-governance-generate.sh ${CURRENT_FILE_DIR}
 sh ./scripts/admin/python-admin-generate.sh ${CURRENT_FILE_DIR}
 

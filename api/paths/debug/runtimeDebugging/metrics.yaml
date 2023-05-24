@@ -64,7 +64,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/runtimeDebugging/metrics.py"
+            $ref: "../../../code-samples/python/debug/runtimeDebugging/metrics.py"
 
 components:
   schemas:

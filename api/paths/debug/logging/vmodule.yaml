@@ -64,7 +64,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/logging/vmodule.py"
+            $ref: "../../../code-samples/python/debug/logging/vmodule.py"
 
 components:
   schemas:

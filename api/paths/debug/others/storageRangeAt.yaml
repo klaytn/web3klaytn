@@ -126,7 +126,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/others/storageRangeAt.py"
+            $ref: "../../../code-samples/python/debug/others/storageRangeAt.py"
 
 components:
   schemas:

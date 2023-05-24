@@ -77,7 +77,7 @@ paths:
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klaytnDebug/vMTracing/traceBlockByNumberRange.py"
+            $ref: "../../../code-samples/python/debug/vMTracing/traceBlockByNumberRange.py"
 
 components:
   schemas:
