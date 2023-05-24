@@ -21,7 +21,6 @@ paths:
 
       tags:
         - admin
-
       requestBody:
         content:
           application/json:
