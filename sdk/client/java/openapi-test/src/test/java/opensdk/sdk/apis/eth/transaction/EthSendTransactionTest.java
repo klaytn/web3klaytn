@@ -1,12 +1,13 @@
 package opensdk.sdk.apis.eth.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthSendTransactionResponse;
 import opensdk.sdk.utils.PersonalUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.protocol.core.methods.response.EthSendTransaction;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Eth RPC Test")
 public class EthSendTransactionTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
 
     @Test
     @DisplayName("RPC eth_sendTransaction")
@@ -27,7 +28,7 @@ public class EthSendTransactionTest {
         Transaction tx = new Transaction(address,null,null,new BigInteger("9999",16)
                 ,"0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",new BigInteger("1",16),null,null
                 ,new BigInteger("5d21dba00",16),new BigInteger("5d21dba00",16));
-        EthSendTransactionResponse transactionResponse = sdk.eth.sendTransaction(tx).send();
+        EthSendTransaction transactionResponse = w3.ethSendTransaction(tx).send();
         assertNotNull(transactionResponse);
         assertNull(transactionResponse.getError());
     }

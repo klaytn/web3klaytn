@@ -1,26 +1,27 @@
 package opensdk.sdk.apis.klaytnDebug.runtimeDebugging;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.DebugMetricsResponse;
+import org.web3j.protocol.klaytn.core.method.response.DebugMetricsResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import org.web3j.protocol.http.HttpService;
 @DisplayName("Debug RPC Test")
 public class DebugMetricsTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
 
     @Test
     @DisplayName("RPC debug_metrics")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         boolean raw = true;
 
-        DebugMetricsResponse response = sdk.debug.metrics(raw).send();
+        DebugMetricsResponse response = w3.debugMetrics(raw).send();
 
         assertNotNull(response);
         assertNull(response.getError());

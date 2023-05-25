@@ -1,8 +1,9 @@
-package opensdk.sdk.apis.klay.configuration;
+package org.web3j.protocol.klaytn.core.klay.configuration;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayRewardbaseResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.KlayRewardbaseResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 

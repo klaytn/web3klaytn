@@ -1,11 +1,12 @@
 package opensdk.sdk.apis.klay.filter;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayGetFilterLogsResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlayGetFilterLogsResponse;
 import opensdk.sdk.utils.EthUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
@@ -15,13 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @DisplayName("Klay RPC Test")
 
 public class KlayGetFilterLogsTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
     @Test
     @DisplayName("RPC klay_getFilterLogs")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String quantity = EthUtils.getEthFilterId().getResult();
 
-        KlayGetFilterLogsResponse response = sdk.klay.getFilterLogs(quantity).send();
+        KlayGetFilterLogsResponse response = w3.klayGetFilterLogs(quantity).send();
 
         assertNotNull(response);
         assertNull(response.getError());

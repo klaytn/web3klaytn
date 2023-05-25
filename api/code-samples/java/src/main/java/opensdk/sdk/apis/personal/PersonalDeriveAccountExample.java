@@ -1,12 +1,13 @@
-package opensdk.sdk.apis.personal;
+package org.web3j.protocol.klaytn.core.personal;
 
 import java.io.IOException;
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.PersonalDeriveAccountResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.PersonalDeriveAccountResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 public class PersonalDeriveAccountExample {
-  private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+  private Web3j sdk = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
   void personalDeriveAccountExample() throws IOException {
     String url = "url";
     String path = "path";

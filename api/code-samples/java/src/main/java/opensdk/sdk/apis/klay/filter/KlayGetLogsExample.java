@@ -1,9 +1,10 @@
-package opensdk.sdk.apis.klay.filter;
+package org.web3j.protocol.klaytn.core.klay.filter;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.FilterOptions;
-import opensdk.sdk.models.KlayGetLogsResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.FilterOptions;
+import org.web3j.protocol.klaytn.core.method.response.KlayGetLogsResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 

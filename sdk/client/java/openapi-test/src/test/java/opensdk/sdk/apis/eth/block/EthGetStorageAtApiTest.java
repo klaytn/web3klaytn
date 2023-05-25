@@ -4,25 +4,28 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthGetStorageAtResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.core.DefaultBlockParameter;
+import org.web3j.protocol.core.methods.response.EthGetStorageAt;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+import java.math.BigInteger;
 
 @DisplayName("Eth RPC Test")
 public class EthGetStorageAtApiTest {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
 
     @Test
     @DisplayName("RPC eth_getStorageAt")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        EthGetStorageAtResponse br = sdk.eth.getStorageAt(
+        EthGetStorageAt br = w3.ethGetStorageAt(
             "0x295a70b2de5e3953354a6a8344e616ed314d7251",
-            "0x0",
-            "latest")
+            new BigInteger("0x0", 16),
+            DefaultBlockParameter.valueOf("latest"))
         .send();
         assertNotNull(br);
         assertNull(br.getError());

@@ -6,19 +6,19 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayResendResponse;
-import opensdk.sdk.models.KlaytnTransactionTypes;
-import opensdk.sdk.models.TransactionArgs;
+import org.web3j.protocol.klaytn.core.method.response.KlayResendResponse;
+import org.web3j.protocol.klaytn.core.method.response.TransactionArgs;
 import opensdk.sdk.utils.CommonUtils;
 import opensdk.sdk.utils.EthUtils;
 import opensdk.sdk.utils.PersonalUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 @DisplayName("Klay RPC Test")
 public class KlayResendTest {
-  private final OpenSDK sdk = new OpenSDK(UrlConstants.PN_RPC);
+  private Web3j w3 = Web3j.build(new HttpService(UrlConstants.PN_RPC));
   @Test
   @DisplayName("RPC klay_resend")
   void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
@@ -35,7 +35,7 @@ public class KlayResendTest {
     oldTrx.setMaxFeePerGas("0x5d21dba00");
     String gasPrice = "0xba43b7500";
     String gasLimit = "0xe8d4a50fff";
-    KlayResendResponse response = sdk.klay.resend(oldTrx, gasPrice, gasLimit).send();
+    KlayResendResponse response = w3.klayResend(oldTrx, gasPrice, gasLimit).send();
     assertNotNull(response);
     assertNull(response.getError());
 

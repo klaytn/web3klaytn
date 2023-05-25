@@ -1,8 +1,9 @@
-package opensdk.sdk.apis.eth.miscellaneous;
+package org.web3j.protocol.klaytn.core.eth.miscellaneous;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthHashrateResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.EthHashrateResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 

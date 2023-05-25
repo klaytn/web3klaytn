@@ -1,14 +1,15 @@
 package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlaySignTransactionResponse;
-import opensdk.sdk.models.KlaytnTransactionTypes;
+import org.web3j.protocol.klaytn.core.method.response.KlaySignTransactionResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlaytnTransactionTypes;
 import opensdk.sdk.utils.CommonUtils;
 import opensdk.sdk.utils.EthUtils;
 import opensdk.sdk.utils.PersonalUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -18,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlaySignTransactionTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
 
     @Test
     @DisplayName("RPC klay_signTransaction")
@@ -34,7 +35,7 @@ public class KlaySignTransactionTest {
         type.setGasPrice("0x25000000000");
         type.setNonce(nonce);
 
-        KlaySignTransactionResponse response = sdk.klay.signTransaction(type).send();
+        KlaySignTransactionResponse response = w3.klaySignTransaction(type).send();
 
         assertNotNull(response);
         assertNull(response.getError());

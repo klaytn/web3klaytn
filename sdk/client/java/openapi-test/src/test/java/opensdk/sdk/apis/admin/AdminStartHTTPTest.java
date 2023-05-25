@@ -1,10 +1,11 @@
 package opensdk.sdk.apis.admin;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.AdminStartHTTPResponse;
+import org.web3j.protocol.klaytn.core.method.response.AdminStartHTTPResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Admin RPC Test")
 public class AdminStartHTTPTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
 
     @Test
     @DisplayName("RPC admin_startHttp")
@@ -23,7 +24,7 @@ public class AdminStartHTTPTest {
         String cors = "";
         String apis = "klay";
 
-        AdminStartHTTPResponse response = sdk.admin.startHTTP(adminHost, port, cors, apis).send();
+        AdminStartHTTPResponse response = w3.adminStartHTTP(adminHost, port, cors, apis).send();
 
         assertNotNull(response);
         assertNull(response.getError());

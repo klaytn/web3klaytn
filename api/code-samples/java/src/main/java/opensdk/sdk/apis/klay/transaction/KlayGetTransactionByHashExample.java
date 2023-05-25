@@ -1,8 +1,9 @@
-package opensdk.sdk.apis.klay.transaction;
+package org.web3j.protocol.klaytn.core.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayGetTransactionByHashResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.KlayGetTransactionByHashResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
