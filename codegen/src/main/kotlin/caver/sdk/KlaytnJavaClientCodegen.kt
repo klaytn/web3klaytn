@@ -18,6 +18,18 @@ import java.io.File
 class KlaytnJavaClientCodegen : JavaClientCodegen {
     companion object {
         val caverName = "caver-java"
+        // need this information not to delete duplicated operationId in other namespace
+        val disableScopeNamespace = arrayOf("net", "admin", "eth")
+        val disableOperation = arrayOf(
+            // admin namespace
+            "peers", "nodeInfo",
+            // net namespace
+            "listening", "peerCount", "version",
+            // eth namespace
+            "protocolVersion", "chainId", "coinbase", "syncing", "mining",
+            "hashrate", "blockNumber", "maxPriorityFeePerGas", "accounts",
+            "newBlockFilter", "newPendingTransactionFilter", "gasPrice"
+        )
     }
 
     constructor() : super() {
@@ -73,6 +85,14 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
         for (queryParam in op.queryParams) {
             if(queryParam.paramName.contains("OrTag")) {
                 queryParam.vendorExtensions.put("x-default-latest", true)
+            }
+        }
+        
+        for (namespace in disableScopeNamespace) {
+            if(path.contains("/" + namespace + "/")) {
+                if(op.operationId in disableOperation) {
+                    op.vendorExtensions.put("x-delegate-to", true)
+                }
             }
         }
         return op

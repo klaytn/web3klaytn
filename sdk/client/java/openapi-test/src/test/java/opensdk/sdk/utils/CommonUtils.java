@@ -1,14 +1,13 @@
 package opensdk.sdk.utils;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
-import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
-import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
 
@@ -18,15 +17,13 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 
 public class CommonUtils {
-    public static final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
-    public static final OpenSDK sdk_PN = new OpenSDK(UrlConstants.PN_RPC);
+    static final Web3j w3ForServer = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    static final Web3j w3ForPN = Web3j.build(new HttpService(UrlConstants.PN_RPC));
 
     public static final String address = "0x413ba0e5f6f00664598b5c80042b1308f4ff1408";
     public static final String passphrase = "helloWorld";
-    public static final Web3j web3j = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
     public static final String addressPN = "0x65b47be3457ff26f2911cf89fd079cef0475a2e6";
     public static final String passphrasePN = "helloWorld";
-
 
     public static String getRawTransaction() throws IOException {
         String privateKey = "6cb442edb31d8a1c753f0c3c675588fceb4d82435a1c03b8bb92a5a9274ebbe0";
@@ -35,7 +32,7 @@ public class CommonUtils {
         long gasLimit = 21000;
         String maxPriorityFeePerGas = "5d21dba00";
         BigDecimal value = Convert.toWei(".001", Convert.Unit.ETHER);
-        EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(address, DefaultBlockParameter.valueOf("pending")).send();
+        EthGetTransactionCount ethGetTransactionCount = w3ForServer.ethGetTransactionCount(address, DefaultBlockParameter.valueOf("pending")).send();
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
         RawTransaction txObject = RawTransaction.createEtherTransaction(nonce
                 , new BigInteger(gasPrice, 16).add(new BigInteger(maxPriorityFeePerGas, 16))

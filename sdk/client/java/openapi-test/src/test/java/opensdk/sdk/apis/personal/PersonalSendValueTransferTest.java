@@ -4,12 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.*;
+import org.web3j.protocol.klaytn.core.method.response.*;
 import opensdk.sdk.utils.CommonUtils;
 import opensdk.sdk.utils.PersonalUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 
 @DisplayName("Personal RPC Test")
 public class PersonalSendValueTransferTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
 
     @Test
     @DisplayName("RPC personal_sendValueTransfer")
@@ -39,12 +40,12 @@ public class PersonalSendValueTransferTest {
 
         String passphrase = "helloWorld";
 
-        EthGetTransactionCountResponse transactionCountResponse = sdk.eth.getTransactionCount(CommonUtils.address, "latest").send();
+        KlayGetTransactionCountResponse transactionCountResponse = w3.klayGetTransactionCount(CommonUtils.address, "latest").send();
         if (transactionCountResponse.getResult() != null) {
             transactionObject.setNonce(transactionCountResponse.getResult());
         }
 
-        PersonalSendValueTransferResponse response = sdk.personal.sendValueTransfer(transactionObject, passphrase).send();
+        PersonalSendValueTransferResponse response = w3.personalSendValueTransfer(transactionObject, passphrase).send();
         assertNotNull(response);
         assertNull(response.getError());
     }

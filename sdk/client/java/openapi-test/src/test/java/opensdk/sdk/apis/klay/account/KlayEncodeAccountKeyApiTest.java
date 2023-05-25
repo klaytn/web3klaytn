@@ -3,10 +3,11 @@ package opensdk.sdk.apis.klay.account;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayEncodeAccountKeyResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlayEncodeAccountKeyResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @DisplayName("Klay RPC Test")
 public class KlayEncodeAccountKeyApiTest {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     @Test
     @DisplayName("RPC klay_encodeAccountKey")
@@ -26,7 +27,7 @@ public class KlayEncodeAccountKeyApiTest {
         node.put("keyType", 0);
         node.putNull("key");
 
-        KlayEncodeAccountKeyResponse response = sdk.klay.encodeAccountKey(node).send();
+        KlayEncodeAccountKeyResponse response = w3.klayEncodeAccountKey(node).send();
 
         assertNotNull(response);
         assertNull(response.getError());

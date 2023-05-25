@@ -4,17 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.PersonalSignTransactionResponse;
-import opensdk.sdk.models.TransactionObject;
+import org.web3j.protocol.klaytn.core.method.response.PersonalSignTransactionResponse;
+import org.web3j.protocol.klaytn.core.method.response.TransactionObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
 @DisplayName("Personal RPC Test")
 public class PersonalSignTransactionTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
 
     @Test
     @DisplayName("RPC personal_signTransaction")
@@ -29,7 +30,7 @@ public class PersonalSignTransactionTest {
 
         String password = "helloWorld";
 
-        PersonalSignTransactionResponse response = sdk.personal.signTransaction(transactionObject, password).send();
+        PersonalSignTransactionResponse response = w3.personalSignTransaction(transactionObject, password).send();
         assertNotNull(response);
         assertNull(response.getError());
     }

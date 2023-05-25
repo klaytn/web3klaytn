@@ -1,8 +1,9 @@
-package opensdk.sdk.apis.debug.vMStandardTracing;
+package org.web3j.protocol.klaytn.core.klaytnDebug.vMStandardTracing;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.DebugStandardTraceBadBlockToFileResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.DebugStandardTraceBadBlockToFileResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 

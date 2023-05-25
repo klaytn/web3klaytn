@@ -1,11 +1,12 @@
 package opensdk.sdk.apis.klay.filter;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.FilterOptions;
-import opensdk.sdk.models.KlayGetLogsResponse;
+import org.web3j.protocol.klaytn.core.method.response.FilterOptions;
+import org.web3j.protocol.klaytn.core.method.response.KlayGetLogsResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlayGetLogsTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
     @Test
     @DisplayName("RPC klay_getLogs")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
@@ -23,7 +24,7 @@ public class KlayGetLogsTest {
         options.setToBlock("latest");
         options.setAddress("0x87ac99835e67168d4f9a40580f8f5c33550ba88b");
 
-        KlayGetLogsResponse response = sdk.klay.getLogs(options).send();
+        KlayGetLogsResponse response = w3.klayGetLogs(options).send();
 
         assertNotNull(response);
         assertNull(response.getError());

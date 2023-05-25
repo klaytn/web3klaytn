@@ -1,11 +1,12 @@
 package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayCallResponse;
-import opensdk.sdk.models.KlayCallObject;
+import org.web3j.protocol.klaytn.core.method.response.KlayCallResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlayCallObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
@@ -15,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlayCallApiTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     @Test
     @DisplayName("RPC klay_call")
@@ -28,7 +29,7 @@ public class KlayCallApiTest {
         callObject.setValue("0x0");
         callObject.setInput("0x8ada066e");
 
-        KlayCallResponse response = sdk.klay.call(
+        KlayCallResponse response = w3.klayCall(
             callObject,
             "latest")
         .send();

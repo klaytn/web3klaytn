@@ -4,22 +4,23 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthGasPriceResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.core.methods.response.EthGasPrice;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
 @DisplayName("Eth RPC Test")
 public class EthGasPriceApiTest {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
 
     @Test
     @DisplayName("RPC eth_gasPrice")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        EthGasPriceResponse br = sdk.eth.gasPrice().send();
+        EthGasPrice br = w3.ethGasPrice().send();
         assertNotNull(br);
         assertNull(br.getError());
     }

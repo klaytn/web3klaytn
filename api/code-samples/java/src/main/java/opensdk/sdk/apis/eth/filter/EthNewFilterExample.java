@@ -1,8 +1,9 @@
-package opensdk.sdk.apis.eth.filter;
+package org.web3j.protocol.klaytn.core.eth.filter;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthNewFilterResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.EthNewFilterResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.request.Filter;

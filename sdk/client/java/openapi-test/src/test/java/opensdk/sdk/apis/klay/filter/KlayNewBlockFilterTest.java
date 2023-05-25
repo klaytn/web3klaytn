@@ -1,10 +1,11 @@
 package opensdk.sdk.apis.klay.filter;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayNewBlockFilterResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlayNewBlockFilterResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
@@ -13,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlayNewBlockFilterTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
     @Test
     @DisplayName("RPC klay_newBlockFilter")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayNewBlockFilterResponse response = sdk.klay.newBlockFilter().send();
+        KlayNewBlockFilterResponse response = w3.klayNewBlockFilter().send();
 
         assertNotNull(response);
         assertNull(response.getError());

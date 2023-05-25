@@ -1,10 +1,11 @@
 package opensdk.sdk.apis.klay.filter;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayUninstallFilterResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlayUninstallFilterResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
@@ -12,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class KlayUninstallFilterTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
     @Test
     @DisplayName("RPC klay_uninstallFilter")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String filter = "0xd32fd16b6906e67f6e2b65dcf48fc272";
 
-        KlayUninstallFilterResponse response = sdk.klay.uninstallFilter(filter).send();
+        KlayUninstallFilterResponse response = w3.klayUninstallFilter(filter).send();
 
         assertNotNull(response);
         assertNull(response.getError());

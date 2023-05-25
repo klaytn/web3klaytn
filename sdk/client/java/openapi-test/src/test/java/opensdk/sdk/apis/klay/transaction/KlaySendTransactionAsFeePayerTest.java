@@ -1,18 +1,19 @@
 package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlaySendTransactionAsFeePayerResponse;
-import opensdk.sdk.models.KlaySendTransactionResponse;
-import opensdk.sdk.models.KlaytnTransactionTypes;
+import org.web3j.protocol.klaytn.core.method.response.KlaySendTransactionAsFeePayerResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlaytnTransactionTypes;
 import opensdk.sdk.utils.CommonUtils;
 import opensdk.sdk.utils.EthUtils;
 import opensdk.sdk.utils.KlayUtils;
 import opensdk.sdk.utils.PersonalUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -20,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlaySendTransactionAsFeePayerTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
 
     @Test
     @DisplayName("RPC klay_sendTransactionAsFeePayer")
@@ -29,7 +30,7 @@ public class KlaySendTransactionAsFeePayerTest {
         PersonalUtils.unlockAccount();
         String nonce = EthUtils.getNonce().getResult();
         KlaytnTransactionTypes tx = new KlaytnTransactionTypes();
-        tx.setTypeInt(17);
+        tx.setTypeInt(new BigDecimal(17));
         tx.setFrom(address);
         tx.setTo("0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075");
         tx.setValue("0x1");
@@ -40,7 +41,7 @@ public class KlaySendTransactionAsFeePayerTest {
         tx.setNonce(nonce);
 
         Object signedTx = KlayUtils.getFeePayerSignature(tx);
-        KlaySendTransactionAsFeePayerResponse transactionResponse = sdk.klay.sendTransactionAsFeePayer(signedTx).send();
+        KlaySendTransactionAsFeePayerResponse transactionResponse = w3.klaySendTransactionAsFeePayer(signedTx).send();
 
         assertNotNull(transactionResponse);
         assertNull(transactionResponse.getError());

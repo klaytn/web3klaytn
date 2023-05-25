@@ -1,13 +1,14 @@
-package opensdk.sdk.apis.governance;
+package org.web3j.protocol.klaytn.core.governance;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.GovernanceVoteResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.GovernanceVoteResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
 public class GovernanceVoteExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j sdk = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
 
     void governanceVoteExample() throws IOException {
         String key = "governance.governancemode";
