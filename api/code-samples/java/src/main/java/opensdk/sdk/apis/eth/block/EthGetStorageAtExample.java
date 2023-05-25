@@ -1,22 +1,20 @@
-package org.web3j.protocol.klaytn.core.eth.block;
+package opensdk.sdk.apis.eth.block;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.EthGetStorageAtResponse;
+import org.web3j.protocol.core.DefaultBlockParameter;
+import org.web3j.protocol.core.methods.response.EthGetStorageAt;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
-
 import java.io.IOException;
+import java.math.BigInteger;
 
 public class EthGetStorageAtExample {
-
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
-
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.LOCAL_URL));
     void ethGetStorageAtExample() throws IOException {
-        EthGetStorageAtResponse br = sdk.eth.getStorageAt(
-            "0x295a70b2de5e3953354a6a8344e616ed314d7251",
-            "0x0",
-            "latest")
-        .send();
+        String address = "0x295a70b2de5e3953354a6a8344e616ed314d7251";
+        BigInteger position = BigInteger.valueOf(0);
+        DefaultBlockParameter block = DefaultBlockParameter.valueOf("latest");
+        EthGetStorageAt br = w3.ethGetStorageAt(address,position,block).send();
         br.getResult();
     }
 }

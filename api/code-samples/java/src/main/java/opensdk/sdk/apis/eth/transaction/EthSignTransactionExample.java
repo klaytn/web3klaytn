@@ -1,15 +1,14 @@
-package org.web3j.protocol.klaytn.core.eth.transaction;
+package opensdk.sdk.apis.eth.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.EthSignTransactionResponse;
 import org.web3j.protocol.klaytn.core.method.response.TransactionArgs;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
-
 import java.io.IOException;
 
 public class EthSignTransactionExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void ethSignTransactionExample() throws IOException {
         TransactionArgs tx = new TransactionArgs();
@@ -20,8 +19,7 @@ public class EthSignTransactionExample {
         tx.setMaxFeePerGas("0x5d21dba00");
         tx.setMaxPriorityFeePerGas("0x5d21dba00");
         tx.setNonce("0x1");
-
-        EthSignTransactionResponse transactionResponse = sdk.eth.signTransaction(tx).send();
+        EthSignTransactionResponse transactionResponse = w3.ethSignTransaction(tx).send();
         transactionResponse.getResult();
     }
 }

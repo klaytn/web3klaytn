@@ -1,16 +1,15 @@
-package org.web3j.protocol.klaytn.core.eth.filter;
+package opensdk.sdk.apis.eth.filter;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.EthNewPendingTransactionFilterResponse;
+import org.web3j.protocol.core.methods.response.EthFilter;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
-
 import java.io.IOException;
 
 public class EthNewPendingTransactionFilterExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.LOCAL_URL));
     void ethNewPendingTransactionFilterExample() throws IOException {
-        EthNewPendingTransactionFilterResponse response = sdk.eth.newPendingTransactionFilter().send();
+        EthFilter response = w3.ethNewPendingTransactionFilter().send();
         response.getResult();
     }
 }

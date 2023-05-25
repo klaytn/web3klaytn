@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.governance;
+package opensdk.sdk.apis.governance;
 
 
 import opensdk.sdk.apis.constant.UrlConstants;
@@ -9,10 +9,10 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class GovernanceIdxCacheExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void governanceIdxCacheExample() throws IOException {
-        GovernanceIdxCacheResponse response = sdk.governance.idxCache().send();
+        GovernanceIdxCacheResponse response = w3.governanceIdxCache().send();
         response.getResult();
     }
 }

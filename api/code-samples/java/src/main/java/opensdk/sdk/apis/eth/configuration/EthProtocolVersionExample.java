@@ -1,15 +1,15 @@
-package org.web3j.protocol.klaytn.core.eth.configuration;
+package opensdk.sdk.apis.eth.configuration;
 
 import java.io.IOException;
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.EthProtocolVersionResponse;
+import org.web3j.protocol.core.methods.response.EthProtocolVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 public class EthProtocolVersionExample {
-  private Web3j sdk = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+  private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
   void ethProtocolVersionExample() throws IOException {
-    EthProtocolVersionResponse response = sdk.eth.protocolVersion().send();
+    EthProtocolVersion response = w3.ethProtocolVersion().send();
     response.getResult();
   }
 }

@@ -1,18 +1,17 @@
-package org.web3j.protocol.klaytn.core.klay.transaction;
+package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.KlayCallObject;
 import org.web3j.protocol.klaytn.core.method.response.KlayCallResponse;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
-
 import java.io.IOException;
 
 public class KlayCallExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
-    void KlayCallExample() throws IOException {
+    void klayCallExample() throws IOException {
         KlayCallObject callObject = new KlayCallObject();
         callObject.setFrom("0x3f71029af4e252b25b9ab999f77182f0cd3bc085");
         callObject.setTo("0x87ac99835e67168d4f9a40580f8f5c33550ba88b");
@@ -21,7 +20,7 @@ public class KlayCallExample {
         callObject.setValue("0x0");
         callObject.setInput("0x8ada066e");
 
-        KlayCallResponse cr = sdk.klay.call(
+        KlayCallResponse cr = w3.klayCall(
             callObject,
             "latest")
         .send();

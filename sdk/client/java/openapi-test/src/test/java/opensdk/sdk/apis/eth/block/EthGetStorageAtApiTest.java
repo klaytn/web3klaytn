@@ -24,7 +24,7 @@ public class EthGetStorageAtApiTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         EthGetStorageAt br = w3.ethGetStorageAt(
             "0x295a70b2de5e3953354a6a8344e616ed314d7251",
-            new BigInteger("0x0", 16),
+            BigInteger.valueOf(0),
             DefaultBlockParameter.valueOf("latest"))
         .send();
         assertNotNull(br);

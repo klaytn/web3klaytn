@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.eth.transaction;
+package opensdk.sdk.apis.eth.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.EthPendingTransactionsResponse;
@@ -8,9 +8,9 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class EthPendingTransactionsExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.LOCAL_URL));
     void ethPendingTransactionsExample() throws IOException {
-        EthPendingTransactionsResponse response = sdk.eth.pendingTransactions().send();
+        EthPendingTransactionsResponse response = w3.ethPendingTransactions().send();
         response.getResult();
     }
 }

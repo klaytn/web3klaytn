@@ -21,8 +21,8 @@ public class EthGetTransactionByBlockNumberAndIndexTest {
     @DisplayName("RPC eth_getTransactionByBlockNumberAndIndex")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         EthTransaction response = w3.ethGetTransactionByBlockNumberAndIndex(
-            DefaultBlockParameter.valueOf(new BigInteger("0x27", 16)), 
-            new BigInteger("0x0", 16))
+            DefaultBlockParameter.valueOf(new BigInteger("27", 16)), 
+            BigInteger.valueOf(0))
         .send();
         assertNotNull(response);
         assertNull(response.getError());

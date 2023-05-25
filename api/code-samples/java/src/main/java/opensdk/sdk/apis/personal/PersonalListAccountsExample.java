@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.personal;
+package opensdk.sdk.apis.personal;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.PersonalListAccountsResponse;
@@ -9,10 +9,10 @@ import java.io.IOException;
 
 public class PersonalListAccountsExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void personalListAccountsExample() throws IOException {
-        PersonalListAccountsResponse response = sdk.personal.listAccounts()
+        PersonalListAccountsResponse response = w3.personalListAccounts()
                 .send();
         response.getResult();
     }

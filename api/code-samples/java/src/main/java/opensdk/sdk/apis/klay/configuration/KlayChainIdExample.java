@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klay.configuration;
+package opensdk.sdk.apis.klay.configuration;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.KlayChainIDResponse;
@@ -9,10 +9,10 @@ import java.io.IOException;
 
 public class KlayChainIdExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void klayChainIdExample() throws IOException {
-        KlayChainIDResponse cr = sdk.klay.chainID().send();
+        KlayChainIDResponse cr = w3.klayChainID().send();
         cr.getResult();
     }
 }

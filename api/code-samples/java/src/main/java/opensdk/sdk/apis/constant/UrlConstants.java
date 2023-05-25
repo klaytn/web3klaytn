@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.constant;
+package opensdk.sdk.apis.constant;
 
 /**
  * @author Tungnd

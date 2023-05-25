@@ -21,7 +21,7 @@ public class EthGetTransactionByBlockHashAndIndexTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         EthTransaction response = w3.ethGetTransactionByBlockHashAndIndex(
             "0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68", 
-            new BigInteger("0x0", 16))
+            BigInteger.valueOf(0))
         .send();
         assertNotNull(response);
         assertNull(response.getError());

@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klaytnDebug.profiling;
+package opensdk.sdk.apis.debug.profiling;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.DebugStopPProfResponse;
@@ -8,10 +8,10 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class DebugStopPProfExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void debugStopPProfExample() throws IOException {
-        DebugStopPProfResponse response = sdk.debug.stopPProf().send();
+        DebugStopPProfResponse response = w3.debugStopPProf().send();
         response.getResult();
     }
 }

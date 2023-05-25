@@ -21,8 +21,10 @@ public class EthGetLogTest {
     @Test
     @DisplayName("RPC eth_getLogs")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        EthFilter filterOption = new EthFilter(DefaultBlockParameter.valueOf("latest"),DefaultBlockParameter.valueOf("latest")
-                ,"0x87ac99835e67168d4f9a40580f8f5c33550ba88b");
+        EthFilter filterOption = new EthFilter(
+            DefaultBlockParameter.valueOf("latest"),
+            DefaultBlockParameter.valueOf("latest"),
+            "0x87ac99835e67168d4f9a40580f8f5c33550ba88b");
         EthLog response = w3.ethGetLogs(filterOption).send();
         assertNotNull(response);
         assertNull(response.getError());

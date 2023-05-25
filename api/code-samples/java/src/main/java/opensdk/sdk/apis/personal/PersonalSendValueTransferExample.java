@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.personal;
+package opensdk.sdk.apis.personal;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.PersonalSendValueTransferResponse;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public class PersonalSendValueTransferExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void personalSendValueTransferExample() throws IOException, ExecutionException, InterruptedException {
         TransactionObject transactionObject = new TransactionObject();
@@ -20,7 +20,7 @@ public class PersonalSendValueTransferExample {
 
         String passphrase = "helloWorld";
 
-        PersonalSendValueTransferResponse response = sdk.personal.sendValueTransfer(transactionObject, passphrase).send();
+        PersonalSendValueTransferResponse response = w3.personalSendValueTransfer(transactionObject, passphrase).send();
         response.getResult();
     }
 

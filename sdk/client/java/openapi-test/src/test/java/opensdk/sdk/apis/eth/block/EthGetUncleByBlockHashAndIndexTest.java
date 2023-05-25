@@ -22,7 +22,7 @@ public class EthGetUncleByBlockHashAndIndexTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         EthBlock response = w3.ethGetUncleByBlockHashAndIndex(
             "0xc9dbfbab67e9a0508bcb3f95ae408023668cef431b805592781a821926715b8a", 
-            new BigInteger("0x1", 16))
+            BigInteger.valueOf(1))
         .send();
         assertNotNull(response);
         assertNull(response.getError());

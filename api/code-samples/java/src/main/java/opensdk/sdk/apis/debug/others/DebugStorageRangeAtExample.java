@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klaytnDebug.others;
+package opensdk.sdk.apis.debug.others;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.DebugStorageRangeAtResponse;
@@ -8,7 +8,7 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class DebugStorageRangeAtExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void debugStorageRangeAtExample() throws IOException {
         String blockHash = "0x90c81195698bc9f282bbdec386b0afb4dcc28e43aae834894281c3ecb3c88d21";
@@ -17,7 +17,7 @@ public class DebugStorageRangeAtExample {
         String keyStart = "0x12";
         int maxResult = 1;
 
-        DebugStorageRangeAtResponse response = sdk.debug.storageRangeAt(blockHash, txIndex, contractAddress, keyStart, maxResult).send();
+        DebugStorageRangeAtResponse response = w3.debugStorageRangeAt(blockHash, txIndex, contractAddress, keyStart, maxResult).send();
         response.getResult();
     }
 }

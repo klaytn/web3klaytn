@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klaytnDebug.blockchainInspection;
+package opensdk.sdk.apis.debug.blockchainInspection;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.DebugGetModifiedAccountsByNumberResponse;
@@ -8,12 +8,12 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class DebugGetModifiedAccountsByNumberExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void debugGetModifiedAccountsByNumberExample() throws IOException {
         int startBlockNum = 171904;
         int endBlockNum = 172160;
-        DebugGetModifiedAccountsByNumberResponse response = sdk.debug.getModifiedAccountsByNumber(startBlockNum, endBlockNum).send();
+        DebugGetModifiedAccountsByNumberResponse response = w3.debugGetModifiedAccountsByNumber(startBlockNum, endBlockNum).send();
         response.getResult();
     }
 }

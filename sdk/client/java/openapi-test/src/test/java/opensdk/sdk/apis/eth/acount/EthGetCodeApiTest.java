@@ -24,7 +24,7 @@ public class EthGetCodeApiTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         EthGetCode br = w3.ethGetCode(
             "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
-            DefaultBlockParameter.valueOf(new BigInteger("0x2", 16)))
+            DefaultBlockParameter.valueOf(BigInteger.valueOf(2)))
         .send();
         assertNotNull(br);
         assertNull(br.getError());

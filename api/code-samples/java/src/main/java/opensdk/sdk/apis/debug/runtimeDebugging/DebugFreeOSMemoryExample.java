@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klaytnDebug.runtimeDebugging;
+package opensdk.sdk.apis.debug.runtimeDebugging;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.DebugFreeOSMemoryResponse;
@@ -8,10 +8,10 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class DebugFreeOSMemoryExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void debugFreeOSMemoryExample() throws IOException {
-        DebugFreeOSMemoryResponse response = sdk.debug.freeOSMemory().send();
+        DebugFreeOSMemoryResponse response = w3.debugFreeOSMemory().send();
         response.getResult();
     }
 }

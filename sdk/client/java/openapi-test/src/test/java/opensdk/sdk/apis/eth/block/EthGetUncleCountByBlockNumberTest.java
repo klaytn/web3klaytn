@@ -22,7 +22,7 @@ public class EthGetUncleCountByBlockNumberTest {
     @DisplayName("RPC eth_getUncleCountByBlockNumber")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         EthGetUncleCountByBlockNumber response = w3.ethGetUncleCountByBlockNumber(
-            DefaultBlockParameter.valueOf(new BigInteger("0xe8", 16)))
+            DefaultBlockParameter.valueOf(new BigInteger("e8", 16)))
         .send();
         assertNotNull(response);
         assertNull(response.getError());

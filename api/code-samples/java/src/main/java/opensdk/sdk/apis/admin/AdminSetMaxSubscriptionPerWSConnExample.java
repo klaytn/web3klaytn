@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.admin;
+package opensdk.sdk.apis.admin;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.AdminSetMaxSubscriptionPerWSConnResponse;
@@ -8,12 +8,12 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class AdminSetMaxSubscriptionPerWSConnExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void adminSetMaxSubscriptionPerWSConnExample() throws IOException {
         int limit = 5;
 
-        AdminSetMaxSubscriptionPerWSConnResponse response = sdk.admin.setMaxSubscriptionPerWSConn(limit).send();
+        AdminSetMaxSubscriptionPerWSConnResponse response = w3.adminSetMaxSubscriptionPerWSConn(limit).send();
         response.getResult();
     }
 }

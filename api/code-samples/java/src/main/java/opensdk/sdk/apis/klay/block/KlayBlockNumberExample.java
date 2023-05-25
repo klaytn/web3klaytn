@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klay.block;
+package opensdk.sdk.apis.klay.block;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.KlayBlockNumberResponse;
@@ -9,10 +9,10 @@ import java.io.IOException;
 
 public class KlayBlockNumberExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void klayBlockNumberExample() throws IOException {
-        KlayBlockNumberResponse br = sdk.klay.blockNumber().send();
+        KlayBlockNumberResponse br = w3.klayBlockNumber().send();
         br.getResult();
     }
 }

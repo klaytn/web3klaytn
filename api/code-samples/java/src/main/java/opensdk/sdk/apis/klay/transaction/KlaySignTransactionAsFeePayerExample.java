@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klay.transaction;
+package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.KlaySignTransactionAsFeePayerResponse;
@@ -9,7 +9,7 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class KlaySignTransactionAsFeePayerExample   {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void klaySignTransactionAsFeePayerExample() throws IOException {
         KlaytnTransactionTypes type = new KlaytnTransactionTypes();
@@ -24,7 +24,7 @@ public class KlaySignTransactionAsFeePayerExample   {
         type.setInput("0xb3f98adc0000000000000000000000000000000000000000000000000000000000000001");
         type.setFeePayer(address);
         type.setNonce(nonce);
-        KlaySignTransactionAsFeePayerResponse response = sdk.klay.signTransactionAsFeePayer(type).send();
+        KlaySignTransactionAsFeePayerResponse response = w3.klaySignTransactionAsFeePayer(type).send();
         response.getResult();
     }
 }

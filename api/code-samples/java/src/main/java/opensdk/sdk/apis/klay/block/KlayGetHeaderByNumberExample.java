@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klay.block;
+package opensdk.sdk.apis.klay.block;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.KlayGetHeaderByNumberResponse;
@@ -9,10 +9,10 @@ import java.io.IOException;
 
 public class KlayGetHeaderByNumberExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void klayGetHeaderByNumberExample() throws IOException {
-        KlayGetHeaderByNumberResponse gr = sdk.klay.getHeaderByNumber(
+        KlayGetHeaderByNumberResponse gr = w3.klayGetHeaderByNumber(
             "0x1b4")
         .send();
         gr.getResult();

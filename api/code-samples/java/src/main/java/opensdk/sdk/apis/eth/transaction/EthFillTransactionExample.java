@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.eth.transaction;
+package opensdk.sdk.apis.eth.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.EthFillTransactionResponse;
@@ -11,10 +11,10 @@ import java.io.IOException;
 
 public class EthFillTransactionExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.LOCAL_URL));
 
     void ethFillTransactionExample() throws IOException {
-        EthFillTransactionResponse cr = sdk.eth.fillTransaction(
+        EthFillTransactionResponse cr = w3.ethFillTransaction(
             new Transaction(
                 "0xca7a99380131e6c76cfa622396347107aeedca2d",
                 null,
