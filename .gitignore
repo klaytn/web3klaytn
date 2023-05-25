@@ -379,3 +379,7 @@ bin/**.jar
 /site/namespace
 /sdk/client/javascript/**/*.bat
 /api/redocly/**/*.bat
+
+**/gradlew
+**/gradlew.bat
+**/deploy.sh
