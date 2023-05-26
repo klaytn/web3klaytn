@@ -1,8 +1,9 @@
-package opensdk.sdk.apis.debug.logging;
+package org.web3j.protocol.klaytn.core.klaytnDebug.logging;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.DebugVerbosityByNameResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.DebugVerbosityByNameResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 

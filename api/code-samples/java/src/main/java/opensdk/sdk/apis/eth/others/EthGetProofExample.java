@@ -1,14 +1,15 @@
-package opensdk.sdk.apis.eth.others;
+package org.web3j.protocol.klaytn.core.eth.others;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthGetProofResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.EthGetProofResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 import java.util.Arrays;
 
 public class EthGetProofExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j sdk = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
 
     void ethGetProofExample() throws IOException {
         String blockNumber = "latest";

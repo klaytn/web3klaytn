@@ -1,10 +1,11 @@
 package opensdk.sdk.apis.klay.configuration;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayChainIDResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlayChainIDResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
@@ -13,12 +14,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlayChainIdApiTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     @Test
     @DisplayName("RPC klay_chainID")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayChainIDResponse response = sdk.klay.chainID().send();
+        KlayChainIDResponse response = w3.klayChainID().send();
 
         assertNotNull(response);
         assertNull(response.getError());

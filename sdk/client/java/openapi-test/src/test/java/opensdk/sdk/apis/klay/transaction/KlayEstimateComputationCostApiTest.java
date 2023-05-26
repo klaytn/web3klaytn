@@ -1,11 +1,12 @@
 package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayCallObject;
-import opensdk.sdk.models.KlayEstimateComputationCostResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlayCallObject;
+import org.web3j.protocol.klaytn.core.method.response.KlayEstimateComputationCostResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlayEstimateComputationCostApiTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     @Test
     @DisplayName("RPC klay_estimateComputationCost")
@@ -26,7 +27,7 @@ public class KlayEstimateComputationCostApiTest {
         callObject.setInput("0x2a31efc7000000000000000000000000000000000000000000000000000000000000271000000000000000000000000000000000000000000000000000000000000000420000000000000000000000000000000000000000000000000000000000003039");
         callObject.setGas("0x9999");
 
-        KlayEstimateComputationCostResponse response = sdk.klay.estimateComputationCost(
+        KlayEstimateComputationCostResponse response = w3.klayEstimateComputationCost(
             callObject,
             "latest")
         .send();

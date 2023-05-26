@@ -1,8 +1,9 @@
-package opensdk.sdk.apis.admin;
+package org.web3j.protocol.klaytn.core.admin;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.AdminStartStateMigrationResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.AdminStartStateMigrationResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 

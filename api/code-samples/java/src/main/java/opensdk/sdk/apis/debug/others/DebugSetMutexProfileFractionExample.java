@@ -1,8 +1,9 @@
-package opensdk.sdk.apis.debug.others;
+package org.web3j.protocol.klaytn.core.klaytnDebug.others;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.DebugSetMutexProfileFractionResponse;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.DebugSetMutexProfileFractionResponse;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 

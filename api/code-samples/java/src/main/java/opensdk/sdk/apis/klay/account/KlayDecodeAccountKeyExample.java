@@ -1,8 +1,8 @@
-package opensdk.sdk.apis.klay.account;
+package org.web3j.protocol.klaytn.core.klay.account;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayDecodeAccountKeyResponse;
 import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.KlayDecodeAccountKeyResponse;
 
 import java.io.IOException;
 

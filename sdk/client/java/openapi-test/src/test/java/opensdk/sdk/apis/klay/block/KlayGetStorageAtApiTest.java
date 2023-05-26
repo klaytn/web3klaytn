@@ -1,10 +1,11 @@
 package opensdk.sdk.apis.klay.block;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.KlayGetStorageAtResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlayGetStorageAtResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
@@ -14,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @DisplayName("Klay RPC Test")
 public class KlayGetStorageAtApiTest {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     @Test
     @DisplayName("RPC klay_getStorageAt")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayGetStorageAtResponse response = sdk.klay.getStorageAt(
+        KlayGetStorageAtResponse response = w3.klayGetStorageAt(
             "0x295a70b2de5e3953354a6a8344e616ed314d7251",
             "0x0",
             "latest")

@@ -1,10 +1,12 @@
 package opensdk.sdk.apis.eth.block;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthSyncingResponse;
+
+import org.web3j.protocol.klaytn.Web3j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.core.methods.response.EthSyncing;
+import org.web3j.protocol.http.HttpService;
 
 import java.io.IOException;
 
@@ -14,11 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Eth RPC Test")
 public class EthSyncingTest {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.SERVER_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
     @Test
     @DisplayName("RPC eth_syncing")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        EthSyncingResponse response = sdk.eth.syncing().send();
+        EthSyncing response = w3.ethSyncing().send();
         assertNotNull(response);
         assertNull(response.getError());
     }

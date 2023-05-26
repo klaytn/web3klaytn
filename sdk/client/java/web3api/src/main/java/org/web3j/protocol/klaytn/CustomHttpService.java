@@ -1,4 +1,4 @@
-package org.klaytn;
+package org.web3j.protocol.klaytn;
 
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.web3j.protocol.http.HttpService;

@@ -1,9 +1,10 @@
-package opensdk.sdk.apis.eth.transaction;
+package org.web3j.protocol.klaytn.core.eth.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import opensdk.sdk.models.EthSendTransactionResponse;
-import opensdk.sdk.models.TransactionArgs;
-import org.klaytn.OpenSDK;
+import org.web3j.protocol.klaytn.core.method.response.EthSendTransactionResponse;
+import org.web3j.protocol.klaytn.core.method.response.TransactionArgs;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 

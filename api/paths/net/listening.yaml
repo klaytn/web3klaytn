@@ -20,7 +20,6 @@ paths:
         **JSONRPC:** `net_listening`
       tags:
         - net
-
       requestBody:
         content:
           application/json:
