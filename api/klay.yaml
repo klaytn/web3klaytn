@@ -8,28 +8,6 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-# tags:
-#   - name: web3rpc
-#     description: web3rpc
-#     - klay:
-#       - name: klay
-#         description: klaytn node API
-    # - name: governance
-    #   description: klaytn governance API
-    # - name: eth
-    #   description: API for ethereum namespace
-    # - name: txpool
-    #   description: API for txpool namespace
-    # - name: net
-    #   description: API for net namespace
-    # - name: personal
-    #   description: API for personal namespace
-    # - name: debug
-    #   description: API for debug namespace
-    # - name: governance
-    #   description: API for governance namespace
-    # - name: admin
-    #   description: API for admin namespace
 x-tagGroups:
   - name: Quickstart
   - name: Web3rpc
