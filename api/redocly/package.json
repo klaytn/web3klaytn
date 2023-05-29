@@ -10,11 +10,11 @@
   },
   "scripts": {
     "dev": "redocly preview-docs",
-    "start": "redocly preview-docs ../../site/klaytn-openapi.yaml",
-    "build_old": "redocly bundle klay@v1.10.0 -o ../../site/klaytn-openapi.yaml",
+    "start": "redocly preview-docs ../../site/web3klaytn.yaml",
+    "build_old": "redocly bundle klay@v1.10.0 -o ../../site/web3klaytn.yaml",
     "build": "redocly bundle",
-    "split": "redocly split klaytn-openapi.yaml --outDir bundled",
-    "test": "redocly lint klaytn-openapi.yaml",
+    "split": "redocly split web3klaytn.yaml --outDir bundled",
+    "test": "redocly lint web3klaytn.yaml",
     "remove_query_param": "node scripts.js"
   }
 }

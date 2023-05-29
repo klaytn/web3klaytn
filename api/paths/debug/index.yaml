@@ -8,16 +8,6 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-tags:
-  - name: debug
-    description: API for debug namespace
-x-tagGroups:
-  - name: Debug
-    tags:
-      - debug
-  - name: Models
-    tags:
-      - RewardSpec
 servers:
   - url: http://localhost:7151
   - url: https://api.baobab.klaytn.net:8651

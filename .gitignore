@@ -371,8 +371,7 @@ bin/**.jar
 **/coverage
 
 # OpenAPI generated
-**/klaytn-openapi.yaml
-#/sdk/client/java/openapi-test/
+**/web3klaytn.yaml
 
 .DS_Store
 
@@ -382,4 +381,3 @@ bin/**.jar
 
 **/gradlew
 **/gradlew.bat
-**/deploy.sh
