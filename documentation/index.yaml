@@ -10,24 +10,38 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 x-tagGroups:
   - name: Quickstart
+    tags: 
+      - ethers-ext
+      - web3js-ext
+      - web3j-ext
+      - web3py-ext
   - name: Web3rpc
     tags:
       - eth
       - klay
       - txpool
+      - governance
       - net
+      - admin
       - personal
       - debug
-      - governance
       - mainbridge
       - subbridge
-      - RewardSpec
-      - admin
   - name: Accounts
+    tags: 
+      - account
   - name: Transactions
+    tags:
+      - legacy
   - name: Smart Contracts
+    tags:
+      - deploy
   - name: Advanced
+    tags:
+      - web3py middleware
   - name: Usecases
+    tags:
+      - role-based
 servers:
   - url: http://localhost:7151
   - url: https://api.baobab.klaytn.net:8651
