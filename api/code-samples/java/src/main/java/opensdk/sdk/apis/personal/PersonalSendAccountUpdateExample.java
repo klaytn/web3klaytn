@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.personal;
+package opensdk.sdk.apis.personal;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.PersonalSendAccountUpdateResponse;
@@ -9,7 +9,7 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class PersonalSendAccountUpdateExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void personalSendAccountUpdateExample() throws IOException {
         TransactionObject transactionObject = new TransactionObject();
@@ -18,7 +18,7 @@ public class PersonalSendAccountUpdateExample {
 
         String passphrase = "gr8=B!0@uc$b";
 
-        PersonalSendAccountUpdateResponse response = sdk.personal.sendAccountUpdate(transactionObject, passphrase).send();
+        PersonalSendAccountUpdateResponse response = w3.personalSendAccountUpdate(transactionObject, passphrase).send();
         response.getResult();
     }
 }

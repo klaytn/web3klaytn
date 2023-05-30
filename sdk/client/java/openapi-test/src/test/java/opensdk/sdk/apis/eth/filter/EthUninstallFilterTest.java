@@ -20,7 +20,8 @@ public class EthUninstallFilterTest {
     @Test
     @DisplayName("RPC eth_uninstallFilter")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        EthUninstallFilter response = w3.ethUninstallFilter(new BigInteger("0xb", 16)).send();
+        BigInteger filterId = new BigInteger("b", 16);
+        EthUninstallFilter response = w3.ethUninstallFilter(filterId).send();
         assertNotNull(response);
         assertNull(response.getError());
     }

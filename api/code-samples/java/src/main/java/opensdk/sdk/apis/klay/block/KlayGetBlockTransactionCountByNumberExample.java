@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klay.block;
+package opensdk.sdk.apis.klay.block;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.KlayGetBlockTransactionCountByNumberResponse;
@@ -9,10 +9,10 @@ import java.io.IOException;
 
 public class KlayGetBlockTransactionCountByNumberExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void klayGetBlockTransactionCountByNumberExample() throws IOException {
-        KlayGetBlockTransactionCountByNumberResponse gr = sdk.klay.getBlockTransactionCountByNumber(
+        KlayGetBlockTransactionCountByNumberResponse gr = w3.klayGetBlockTransactionCountByNumber(
             "0xe8")
         .send();
         gr.getResult();

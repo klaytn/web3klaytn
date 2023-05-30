@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klay.block;
+package opensdk.sdk.apis.klay.block;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.KlayGetBlockWithConsensusInfoByNumberResponse;
@@ -9,10 +9,10 @@ import java.io.IOException;
 
 public class KlayGetBlockWithConsensusInfoByNumberExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void klayGetBlockWithConsensusInfoByNumberExample() throws IOException {
-        KlayGetBlockWithConsensusInfoByNumberResponse gr = sdk.klay.getBlockWithConsensusInfoByNumber(
+        KlayGetBlockWithConsensusInfoByNumberResponse gr = w3.klayGetBlockWithConsensusInfoByNumber(
             "0xe8")
         .send();
         gr.getResult();

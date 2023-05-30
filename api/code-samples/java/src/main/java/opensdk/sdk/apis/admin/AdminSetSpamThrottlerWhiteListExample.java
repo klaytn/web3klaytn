@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.admin;
+package opensdk.sdk.apis.admin;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.AdminSetSpamThrottlerWhiteListResponse;
@@ -9,11 +9,11 @@ import java.io.IOException;
 import java.util.List;
 
 public class AdminSetSpamThrottlerWhiteListExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void adminSetSpamThrottlerWhiteListExample() throws IOException {
         List<String> addresses = List.of("0xfdeedbb2fe5b48d5b49e435ba00e0358740d0cf5");
-        AdminSetSpamThrottlerWhiteListResponse response = sdk.admin.setSpamThrottlerWhiteList(addresses).send();
+        AdminSetSpamThrottlerWhiteListResponse response = w3.adminSetSpamThrottlerWhiteList(addresses).send();
         response.getResult();
     }
 }

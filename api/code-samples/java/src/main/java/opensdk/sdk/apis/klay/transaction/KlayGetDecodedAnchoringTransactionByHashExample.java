@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klay.transaction;
+package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.KlayGetDecodedAnchoringTransactionByHashResponse;
@@ -9,10 +9,10 @@ import java.io.IOException;
 
 public class KlayGetDecodedAnchoringTransactionByHashExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void klayGetDecodedAnchoringTransactionByHashExample() throws IOException {
-        KlayGetDecodedAnchoringTransactionByHashResponse gr = sdk.klay.getDecodedAnchoringTransactionByHash(
+        KlayGetDecodedAnchoringTransactionByHashResponse gr = w3.klayGetDecodedAnchoringTransactionByHash(
             "0x026b64e16b86633c0199f78f37a64840d3601d83e5c799f115b63024764524ca")
         .send();
         gr.getResult();

@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klay.transaction;
+package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.KlayCallObject;
@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class KlayEstimateComputationCostExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void klayEstimateComputationCostExample() throws IOException {
         KlayCallObject callObject = new KlayCallObject();
@@ -20,7 +20,7 @@ public class KlayEstimateComputationCostExample {
         callObject.setInput("0x2a31efc7000000000000000000000000000000000000000000000000000000000000271000000000000000000000000000000000000000000000000000000000000000420000000000000000000000000000000000000000000000000000000000003039");
         callObject.setGas("0x9999");
 
-        KlayEstimateComputationCostResponse er = sdk.klay.estimateComputationCost(
+        KlayEstimateComputationCostResponse er = w3.klayEstimateComputationCost(
                         callObject,
                         "latest")
                 .send();

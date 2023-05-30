@@ -1,16 +1,15 @@
-package org.web3j.protocol.klaytn.core.klay.transaction;
+package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.KlaySignTransactionResponse;
 import org.web3j.protocol.klaytn.core.method.response.KlaytnTransactionTypes;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
-
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public class KlaySignTransactionExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
     void klaySignTransactionExample() throws IOException, ExecutionException, InterruptedException {
         KlaytnTransactionTypes type = new KlaytnTransactionTypes();
         String address = "0x487f2dfef230c2120b8cc55c5087b103146536ec";
@@ -21,8 +20,7 @@ public class KlaySignTransactionExample {
         type.setGas("0x1000000");
         type.setGasPrice("0x25000000000");
         type.setNonce(nonce);
-        KlaySignTransactionResponse response = sdk.klay.signTransaction(type).send();
-
+        KlaySignTransactionResponse response = w3.klaySignTransaction(type).send();
+        response.getResult();
     }
-    
 }

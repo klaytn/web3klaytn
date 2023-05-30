@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.personal;
+package opensdk.sdk.apis.personal;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.PersonalSignTransactionResponse;
@@ -9,7 +9,7 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class PersonalSignTransactionExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void personalSignTransactionExample() throws IOException {
         TransactionObject transactionObject = new TransactionObject();
@@ -22,7 +22,7 @@ public class PersonalSignTransactionExample {
 
         String password = "helloWorld";
 
-        PersonalSignTransactionResponse response = sdk.personal.signTransaction(transactionObject, password).send();
+        PersonalSignTransactionResponse response = w3.personalSignTransaction(transactionObject, password).send();
         response.getResult();
     }
 }

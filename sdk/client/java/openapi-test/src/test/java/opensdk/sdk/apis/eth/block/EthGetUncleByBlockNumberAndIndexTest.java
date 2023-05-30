@@ -23,8 +23,8 @@ public class EthGetUncleByBlockNumberAndIndexTest {
   @DisplayName("RPC eth_getUncleByBlockNumberAndIndex")
   void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
     EthBlock response = w3.ethGetUncleByBlockNumberAndIndex(
-        DefaultBlockParameter.valueOf(new BigInteger("0xe8", 16)), 
-        new BigInteger("0x1", 16))
+        DefaultBlockParameter.valueOf(new BigInteger("e8", 16)), 
+        BigInteger.valueOf(1))
     .send();
     assertNotNull(response);
     assertNull(response.getError());

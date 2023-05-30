@@ -1,17 +1,17 @@
-package org.web3j.protocol.klaytn.core.admin;
+package opensdk.sdk.apis.admin;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.AdminNodeInfoResponse;
+import org.web3j.protocol.core.methods.response.admin.AdminNodeInfo;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
 public class AdminNodeInfoExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void adminNodeInfoExample() throws IOException {
-        AdminNodeInfoResponse response = sdk.admin.nodeInfo().send();
+        AdminNodeInfo response = w3.adminNodeInfo().send();
         response.getResult();
     }
 }

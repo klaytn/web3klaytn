@@ -1,17 +1,19 @@
-package org.web3j.protocol.klaytn.core.eth.filter;
+package opensdk.sdk.apis.eth.filter;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.EthUninstallFilterResponse;
+import org.web3j.protocol.core.methods.response.EthUninstallFilter;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+import java.math.BigInteger;
 
 public class EthUninstallFilterExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.LOCAL_URL));
     void ethUninstallFilterExample() throws IOException {
-        String  filterId = "0xb";
-        EthUninstallFilterResponse response = sdk.eth.uninstallFilter(filterId).send();
+        EthUninstallFilter response = w3.ethUninstallFilter(
+            BigInteger.valueOf(11))
+        .send();
         response.getResult();
     }
 }

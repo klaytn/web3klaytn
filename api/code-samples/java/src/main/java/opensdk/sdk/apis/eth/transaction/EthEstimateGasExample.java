@@ -1,19 +1,18 @@
-package org.web3j.protocol.klaytn.core.eth.transaction;
+package opensdk.sdk.apis.eth.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.EthEstimateGasResponse;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.core.methods.request.Transaction;
-
+import org.web3j.protocol.core.methods.response.EthEstimateGas;
 import java.io.IOException;
 
 public class EthEstimateGasExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.LOCAL_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.LOCAL_URL));
 
     void ethEstimateGasExample() throws IOException {
-        EthEstimateGasResponse cr = sdk.eth.estimateGas(
+        EthEstimateGas cr = w3.ethEstimateGas(
             Transaction.createEthCallTransaction(
                 "0xd9c9cd5f6779558b6e0ed4e6acf6b1947e7fa1f3",
                 "0xebe8efa441b9302a0d7eaecc277c09d20d684540",

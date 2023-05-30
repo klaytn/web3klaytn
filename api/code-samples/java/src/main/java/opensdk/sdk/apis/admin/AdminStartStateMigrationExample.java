@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.admin;
+package opensdk.sdk.apis.admin;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.AdminStartStateMigrationResponse;
@@ -8,10 +8,10 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class AdminStartStateMigrationExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void adminStartStateMigrationExample() throws IOException {
-        AdminStartStateMigrationResponse response = sdk.admin.startStateMigration().send();
+        AdminStartStateMigrationResponse response = w3.adminStartStateMigration().send();
         response.getResult();
     }
 }

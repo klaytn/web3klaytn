@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.eth.others;
+package opensdk.sdk.apis.eth.others;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.EthCreateAccessListResponse;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 
 public class EthCreateAccessListExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
     void ethCreateAccessListExample() throws IOException {
         Transaction args = Transaction.createFunctionCallTransaction("0x3bc5885c2941c5cda454bdb4a8c88aa7f248e312",null
                 ,new BigInteger("3b9aca00",16)
@@ -18,7 +18,7 @@ public class EthCreateAccessListExample {
                 ,"0x00f5f5f3a25f142fafd0af24a754fafa340f32c7"
                 ,"0x20965255");
         String blockNumberOrHash = "latest";
-        EthCreateAccessListResponse response = sdk.eth.createAccessList(args,blockNumberOrHash).send();
+        EthCreateAccessListResponse response = w3.ethCreateAccessList(args,blockNumberOrHash).send();
         response.getResult();
     }
     

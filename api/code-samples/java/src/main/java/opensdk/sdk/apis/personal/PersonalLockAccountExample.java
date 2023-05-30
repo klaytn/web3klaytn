@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.personal;
+package opensdk.sdk.apis.personal;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.PersonalLockAccountResponse;
@@ -9,10 +9,10 @@ import java.io.IOException;
 
 public class PersonalLockAccountExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void personalLockAccountExample() throws IOException {
-        PersonalLockAccountResponse response = sdk.personal.lockAccount("0xda04fb00e2cb5745cef7d8c4464378202a1673ef")
+        PersonalLockAccountResponse response = w3.personalLockAccount("0xda04fb00e2cb5745cef7d8c4464378202a1673ef")
                 .send();
         response.getResult();
     }

@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klay.transaction;
+package opensdk.sdk.apis.klay.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.KlayCallObject;
@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class KlayEstimateGasExample {
 
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void klayEstimateGasExample() throws IOException {
         KlayCallObject callObject = new KlayCallObject();
@@ -21,7 +21,7 @@ public class KlayEstimateGasExample {
         callObject.setValue("0x0");
         callObject.setInput("0x8ada066e");
 
-        KlayEstimateGasResponse er = sdk.klay.estimateGas(
+        KlayEstimateGasResponse er = w3.klayEstimateGas(
                         callObject)
                 .send();
         er.getResult();

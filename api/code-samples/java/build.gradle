@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation ("klaytn.foundation:web3api:v1.10.0")
+    implementation "klaytn.foundation:web3api:v1.10.0"
     implementation "org.web3j:core:4.9.7"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'

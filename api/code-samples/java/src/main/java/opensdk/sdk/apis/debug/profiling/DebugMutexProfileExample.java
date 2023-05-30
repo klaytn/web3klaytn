@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klaytnDebug.profiling;
+package opensdk.sdk.apis.debug.profiling;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.DebugMutexProfileResponse;
@@ -8,13 +8,13 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class DebugMutexProfileExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void debugMutexProfileExample() throws IOException {
         String file = "mutex.profile";
         int seconds = 5;
 
-        DebugMutexProfileResponse response = sdk.debug.mutexProfile(file, seconds).send();
+        DebugMutexProfileResponse response = w3.debugMutexProfile(file, seconds).send();
         response.getResult();
     }
 }

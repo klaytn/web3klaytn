@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klaytnDebug.vMTracing;
+package opensdk.sdk.apis.debug.vMTracing;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.DebugTraceBlockFromFileResponse;
@@ -8,12 +8,12 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class DebugTraceBlockFromFileExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String fileName = "/home/sotatek/block.rlp";
 
-        DebugTraceBlockFromFileResponse response = sdk.debug.traceBlockFromFile(fileName, null).send();
+        DebugTraceBlockFromFileResponse response = w3.debugTraceBlockFromFile(fileName, null).send();
         response.getResult();
     }
 }

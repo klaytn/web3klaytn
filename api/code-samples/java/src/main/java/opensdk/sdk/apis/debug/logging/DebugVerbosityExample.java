@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn.core.klaytnDebug.logging;
+package opensdk.sdk.apis.debug.logging;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.DebugVerbosityResponse;
@@ -8,12 +8,12 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class DebugVerbosityExample {
-    private final OpenSDK sdk = new OpenSDK(UrlConstants.TEST_URL);
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     void debugVerbosityExample() throws IOException {
         int level = 3;
 
-        DebugVerbosityResponse response = sdk.debug.verbosity(level).send();
+        DebugVerbosityResponse response = w3.debugVerbosity(level).send();
         response.getResult();
     }
 }
