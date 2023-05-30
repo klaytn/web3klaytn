@@ -26,7 +26,9 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
-[Bb]in/
+# [Bb]in/
+**/codegen/bin/
+**/openapi-test/bin/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
@@ -377,7 +379,7 @@ bin/**.jar
 
 **/namespaces/*.yaml
 /sdk/client/javascript/**/*.bat
-/api/redocly/**/*.bat
+/web3rpc/*.bat
 
 **/gradlew
 **/gradlew.bat
