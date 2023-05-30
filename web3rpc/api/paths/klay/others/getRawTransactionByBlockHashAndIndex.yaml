@@ -1,0 +1,109 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/getRawTransactionByBlockHashAndIndex:
+    post:
+      operationId: getRawTransactionByBlockHashAndIndex
+      summary: "[getRawTransactionByBlockHashAndIndex]"
+      description: |
+        GetRawTransactionByBlockHashAndIndex returns the bytes of the transaction for the given block hash and index.
+        
+        **JSONRPC:** `klay_getRawTransactionByBlockHashAndIndex`
+
+      tags:
+        - klay
+
+      parameters:
+        - name: blockHash
+          required: true
+          schema:
+            type: string
+            format: hex
+          description: Hex representation of a Keccak 256 hash
+          in: query
+        - name: index
+          in: query
+          description: Hex representation of a uint
+          required: true
+          schema:
+            type: string
+            format: hex
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/KlayGetRawTransactionByBlockHashAndIndexReq"
+
+      responses:
+        200:
+          description: Returns the bytes of the transaction for the given block hash and index.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/KlayGetRawTransactionByBlockHashAndIndexResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/others/getRawTransactionByBlockHashAndIndex.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/others/KlayGetRawTransactionByBlockHashAndIndexExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/transaction/getRawTransactionByBlockHashAndIndex.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/others/getRawTransactionByBlockHashAndIndex.py"
+components:
+  schemas:
+    KlayGetRawTransactionByBlockHashAndIndexReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getRawTransactionByBlockHashAndIndex'
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: BlockHash
+                type: string
+                format: hex
+                description: Hex representation of a Keccak 256 hash
+              - title: Index
+                description: Hex representation of a uint
+                type: string
+                format: hex
+          example:  ["0x29b6cd965c7d9a53a6f068da259dce1d3810ba79fff8eebac5d4da14754e67e6","0x20965255"]
+
+    KlayGetRawTransactionByBlockHashAndIndexResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: hex
+          description: Hex representation of some bytes
+          title: dataWord
+          example: "0x"

@@ -1,0 +1,73 @@
+
+package org.web3j.protocol.klaytn.core.method.response;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+@JsonPropertyOrder({"fromBlock", "toBlock", "address", "topics", "blockHash"})
+public class FilterOptions {
+    private Object fromBlock;
+
+    private Object toBlock;
+
+    private Object address;
+
+    private List<String> topics = null;
+
+    private String blockHash;
+
+    public FilterOptions() {
+    }
+
+    @JsonProperty("fromBlock")
+    public Object getFromBlock() {
+    return this.fromBlock;
+    }
+
+    @JsonProperty("fromBlock")
+    public void setFromBlock(Object fromBlock) {
+    this.fromBlock = fromBlock;
+    }
+
+    @JsonProperty("toBlock")
+    public Object getToBlock() {
+    return this.toBlock;
+    }
+
+    @JsonProperty("toBlock")
+    public void setToBlock(Object toBlock) {
+    this.toBlock = toBlock;
+    }
+
+    @JsonProperty("address")
+    public Object getAddress() {
+    return this.address;
+    }
+
+    @JsonProperty("address")
+    public void setAddress(Object address) {
+    this.address = address;
+    }
+
+    @JsonProperty("topics")
+    public List<String> getTopics() {
+        return this.topics;
+    }
+    @JsonProperty("topics")
+    public void setTopics(List<String> topics) {
+        this.topics = topics;
+    }
+
+    @JsonProperty("blockHash")
+    public String getBlockHash() {
+        return this.blockHash;
+    }
+
+    @JsonProperty("blockHash")
+    public void setBlockHash(String blockHash) {
+        this.blockHash = blockHash;
+    }
+}

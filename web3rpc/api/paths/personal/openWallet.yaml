@@ -1,0 +1,105 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /personal/openWallet:
+    post:
+      operationId: openWallet
+      summary: "[openWallet]"
+      description: |
+        Initiates a hardware wallet opening procedure, establishing a USB connection and attempting to authenticate via the provided passphrase.
+
+        **NOTE:** The method may return an extra challenge requiring a second open (e.g., the Trezor PIN matrix challenge).
+
+        **JSONRPC:** `personal_openWallet`
+
+      tags:
+        - personal
+
+      parameters:
+        - name: URL
+          required: true
+          schema:
+            type: string
+          description: Wallet url
+          in: query
+        - name: Passphrase
+          required: true
+          schema:
+            type: string
+          description: passphrase for wallet
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/PersonalOpenWalletReq"
+
+      responses:
+        200:
+          description: Return initiates a hardware wallet opening procedure
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        title: Error
+                        type: string
+                        description: Error condition
+                        example: null
+      
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/personal/openWallet.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/personal/PersonalOpenWalletExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/personal/openWallet.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/personal/openWallet.py"
+
+components:
+  schemas:
+    PersonalOpenWalletReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'personal_openWallet'
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                title: Url
+                description: Wallet url
+              - type: string
+                title: Passphrase
+                description: passphrase for wallet
+          example: ["keystore://", "gr8=B!0@uc$b"]
+

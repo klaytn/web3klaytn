@@ -1,0 +1,85 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/unsubscribe:
+    post:
+      operationId: unsubscribe
+      summary: "[unsubscribe]"
+      description: |
+        Cancels the subscription with a specific subscription id by using either RPC Pub/Sub over WebSockets or filters over HTTP. Only the connection that created a subscription can unsubscribe from it.
+        
+        **JSONRPC:** `eth_unsubscribe`
+
+      tags:
+        - eth
+
+      parameters:
+        - name: subscriptionId
+          required: true
+          schema:
+            type: string
+            format: hex
+          description: A subscription id.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: "eth_unsubscribe"
+                    params:
+                      type: array
+                      items:
+                        title: SubscriptionId
+                        type: string
+                        format: hex
+                        description: A subscription id.
+                      example: ["0xab8ac7a4045025d0c2807d63060eea6d"]
+
+      responses:
+        200:
+          description: Return true if the subscription was successfully canceled, otherwise false.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: boolean
+                        description: true if the subscription was successfully canceled, otherwise false.
+                        example: true
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/filter/unsubscribe.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        #- lang: "javascript"
+        #  label: "Javascript"
+        #  source:
+        #    $ref: ""
+        #- lang: "python"
+        #  label: "Python"
+        #  source:
+        #    $ref: ""

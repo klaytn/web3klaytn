@@ -1,0 +1,84 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /admin/datadir:
+    post:
+      operationId: datadir
+      summary: "[datadir]"
+      description: |
+        The datadir administrative property can be queried for the absolute path the running Klaytn node currently uses to store all its databases. The default path is different depending on the node types (kcn, kpn, and ken) and the OS type.
+        
+        **JSONRPC:** `admin_datadir`
+
+      tags:
+        - admin
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/DatadirReq"
+
+      responses:
+        200:
+          description: The datadir path.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/DatadirResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/admin/datadir.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/admin/AdminDataDirExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+           $ref: "../../code-samples/javascript/admin/dataDirApi.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/admin/datadir.py"
+
+components:
+  schemas:
+    DatadirReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'admin_datadir'
+            
+    DatadirResp:
+      type: object
+      properties:
+        result: 
+          type: string
+          description: The datadir path.
+          example: /your/dir/ken/data/dd
+         
+             
+                  
+
+
+

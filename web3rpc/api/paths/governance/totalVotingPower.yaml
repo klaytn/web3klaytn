@@ -1,0 +1,70 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /governance/totalVotingPower:
+    post:
+      operationId: totalVotingPower
+      summary: "[totalVotingPower]"
+      description: |
+        The totalVotingPower property provides the sum of all voting power that CNs have. Each CN has 1.0 ~ 2.0 voting power. In "none", "single" governance mode, totalVotingPower don't provide any information.
+
+        **JSONRPC:** `governance_totalVotingPower`
+
+      tags:
+        - governance
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  required:
+                    - method
+                  properties:
+                    method:
+                      type: string
+                      default: 'governance_totalVotingPower'
+
+      responses:
+        200:
+          description: Total Voting Power or error message
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: number
+                        description: Total Voting Power or error message
+                        example: 32.452
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/governance/totalVotingPower.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/governance/GovernanceTotalVotingPowerExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/governance/totalVotingPower.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/governance/totalVotingPower.py"

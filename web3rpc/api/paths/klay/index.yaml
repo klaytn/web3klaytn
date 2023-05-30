@@ -1,0 +1,197 @@
+openapi: "3.0.2"
+info:
+  title: KLAYTN OPEN API
+  version: "1.10.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: klay
+    description: klaytn node API
+  - name: account
+    description: klaytn account API
+  - name: governance
+    description: klaytn governance API
+#  - name: RewardSpec
+#    description: |
+#      <SchemaDefinition schemaRef="#/components/schemas/RewardSpec" />
+x-tagGroups:
+  - name: Klay
+    tags:
+      - klay
+  - name: Models
+    tags:
+      - RewardSpec
+servers:
+  - url: http://localhost:7151
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+  # klay/account
+  /klay/account/accountCreated:
+    $ref: ./account/accountCreated.yaml#/paths/~1klay~1accountCreated
+  /klay/account/accounts:
+    $ref: ./account/accounts.yaml#/paths/~1klay~1accounts
+  /klay/account/decodeAccountKey:
+    $ref: ./account/decodeAccountKey.yaml#/paths/~1klay~1decodeAccountKey
+  /klay/account/getAccountKey:
+    $ref: ./account/getAccountKey.yaml#/paths/~1klay~1getAccountKey
+  /klay/account/getCode:
+    $ref: ./account/getCode.yaml#/paths/~1klay~1getCode
+  /klay/account/encodeAccountKey:
+    $ref: ./account/encodeAccountKey.yaml#/paths/~1klay~1encodeAccountKey
+  /klay/account/getAccount:
+    $ref: ./account/getAccount.yaml#/paths/~1klay~1getAccount
+  /klay/account/getBalance:
+    $ref: ./account/getBalance.yaml#/paths/~1klay~1getBalance
+  /klay/account/sign:
+    $ref: ./account/sign.yaml#/paths/~1klay~1sign
+  /klay/account/getTransactionCount:
+    $ref: ./account/getTransactionCount.yaml#/paths/~1klay~1getTransactionCount
+  /klay/account/isContractAccount:
+    $ref: ./account/isContractAccount.yaml#/paths/~1klay~1isContractAccount
+
+  # klay/block
+  /klay/block/blockNumber:
+    $ref: ./block/blockNumber.yaml#/paths/~1klay~1blockNumber
+  /klay/block/getBlockByHash:
+    $ref: ./block/getBlockByHash.yaml#/paths/~1klay~1getBlockByHash
+  /klay/block/getBlockReceipts:
+    $ref: ./block/getBlockReceipts.yaml#/paths/~1klay~1getBlockReceipts
+  /klay/block/getBlockTransactionCountByNumber:
+    $ref: ./block/getBlockTransactionCountByNumber.yaml#/paths/~1klay~1getBlockTransactionCountByNumber
+  /klay/block/getBlockWithConsensusInfoByNumber:
+    $ref: ./block/getBlockWithConsensusInfoByNumber.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumber
+  /klay/block/getCommittee:
+    $ref: ./block/getCommittee.yaml#/paths/~1klay~1getCommittee
+  /klay/block/getCommitteeSize:
+    $ref: ./block/getCommitteeSize.yaml#/paths/~1klay~1getCommitteeSize
+  /klay/block/getCouncil:
+    $ref: ./block/getCouncil.yaml#/paths/~1klay~1getCouncil
+  /klay/block/getCouncilSize:
+    $ref: ./block/getCouncilSize.yaml#/paths/~1klay~1getCouncilSize
+  /klay/block/getBlockByNumber:
+    $ref: ./block/getBlockByNumber.yaml#/paths/~1klay~1getBlockByNumber
+  /klay/block/getBlockTransactionCountByHash:
+    $ref: ./block/getBlockTransactionCountByHash.yaml#/paths/~1klay~1getBlockTransactionCountByHash
+  /klay/block/getHeaderByNumber:
+    $ref: ./block/getHeaderByNumber.yaml#/paths/~1klay~1getHeaderByNumber
+  /klay/block/getHeaderByHash:
+    $ref: ./block/getHeaderByHash.yaml#/paths/~1klay~1getHeaderByHash
+  /klay/getRewards:
+    $ref: ./block/getRewards.yaml#/paths/~1klay~1getRewards
+  /klay/getStorageAt:
+    $ref: ./block/getStorageAt.yaml#/paths/~1klay~1getStorageAt
+  /klay/block/syncing:
+    $ref: ./block/syncing.yaml#/paths/~1klay~1syncing
+  /klay/block/getBlockWithConsensusInfoByNumberRange:
+    $ref: ./block/getBlockWithConsensusInfoByNumberRange.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumberRange
+  /klay/block/getBlockWithConsensusInfoByHash:
+    $ref: ./block/getBlockWithConsensusInfoByHash.yaml#/paths/~1klay~1getBlockWithConsensusInfoByHash
+
+  # klay/transaction
+  /klay/transaction/call:
+    $ref: ./transaction/call.yaml#/paths/~1klay~1call
+  /klay/transaction/getDecodedAnchoringTransactionByHash:
+    $ref: ./transaction/getDecodedAnchoringTransactionByHash.yaml#/paths/~1klay~1getDecodedAnchoringTransactionByHash
+  /klay/transaction/estimateGas:
+    $ref: ./transaction/estimateGas.yaml#/paths/~1klay~1estimateGas
+  /klay/transaction/getTransactionByBlockNumberAndIndex:
+    $ref: ./transaction/getTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getTransactionByBlockNumberAndIndex
+  /klay/transaction/getTransactionBySenderTxHash:
+    $ref: ./transaction/getTransactionBySenderTxHash.yaml#/paths/~1klay~1getTransactionBySenderTxHash
+  /klay/transaction/getTransactionByBlockHashAndIndex:
+    $ref: ./transaction/getTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getTransactionByBlockHashAndIndex
+  /klay/transaction/getTransactionByHash:
+    $ref: ./transaction/getTransactionByHash.yaml#/paths/~1klay~1getTransactionByHash
+  /klay/transaction/getTransactionReceipt:
+    $ref: ./transaction/getTransactionReceipt.yaml#/paths/~1klay~1getTransactionReceipt
+  /klay/transaction/sendRawTransaction:
+    $ref: ./transaction/sendRawTransaction.yaml#/paths/~1klay~1sendRawTransaction
+  /klay/transaction/estimateComputationCost:
+    $ref: ./transaction/estimateComputationCost.yaml#/paths/~1klay~1estimateComputationCost
+  /klay/transaction/sendTransaction:
+    $ref: ./transaction/sendTransaction.yaml#/paths/~1klay~1sendTransaction
+  /klay/transaction/sendTransactionAsFeePayer:
+    $ref: ./transaction/sendTransactionAsFeePayer.yaml#/paths/~1klay~1sendTransactionAsFeePayer
+  /klay/transaction/signTransaction:
+    $ref: ./transaction/signTransaction.yaml#/paths/~1klay~1signTransaction
+  /klay/transaction/signTransactionAsFeePayer:
+    $ref: ./transaction/signTransactionAsFeePayer.yaml#/paths/~1klay~1signTransactionAsFeePayer
+  /klay/transaction/pendingTransactions:
+    $ref: ./transaction/pendingTransactions.yaml#/paths/~1klay~1pendingTransactions
+  /klay/transaction/getTransactionReceiptBySenderTxHash:
+    $ref: ./transaction/getTransactionReceiptBySenderTxHash.yaml#/paths/~1klay~1getTransactionReceiptBySenderTxHash
+
+  # klay/configuration
+  /klay/configuration/chainID:
+    $ref: ./configuration/chainID.yaml#/paths/~1klay~1chainID
+  /klay/configuration/clientVersion:
+    $ref: ./configuration/clientVersion.yaml#/paths/~1klay~1clientVersion
+  /klay/configuration/gasPriceAt:
+    $ref: ./configuration/gasPriceAt.yaml#/paths/~1klay~1gasPriceAt
+  /klay/configuration/gasPrice:
+    $ref: ./configuration/gasPrice.yaml#/paths/~1klay~1gasPrice
+  /klay/configuration/isParallelDBWrite:
+    $ref: ./configuration/isParallelDBWrite.yaml#/paths/~1klay~1isParallelDBWrite
+  /klay/configuration/isSenderTxHashIndexingEnabled:
+    $ref: ./configuration/isSenderTxHashIndexingEnabled.yaml#/paths/~1klay~1isSenderTxHashIndexingEnabled
+  /klay/configuration/protocolVersion:
+    $ref: ./configuration/protocolVersion.yaml#/paths/~1klay~1protocolVersion
+  /klay/configuration/rewardbase:
+    $ref: ./configuration/rewardBase.yaml#/paths/~1klay~1rewardbase
+  /klay/configuration/getChainConfig:
+    $ref: ./configuration/getChainConfig.yaml#/paths/~1klay~1getChainConfig
+
+  # klay/filter
+  /klay/filter/getFilterChanges:
+    $ref: ./filter/getFilterChanges.yaml#/paths/~1klay~1getFilterChanges
+  /klay/filter/getFilterLogs:
+    $ref: ./filter/getFilterLogs.yaml#/paths/~1klay~1getFilterLogs
+  /klay/filter/newBlockFilter:
+    $ref: ./filter/newBlockFilter.yaml#/paths/~1klay~1newBlockFilter
+  /klay/filter/newPendingTransactionFilter:
+    $ref: ./filter/newPendingTransactionFilter.yaml#/paths/~1klay~1newPendingTransactionFilter
+  /klay/filter/uninstallFilter:
+    $ref: ./filter/uninstallFilter.yaml#/paths/~1klay~1uninstallFilter
+  /klay/filter/unsubscribe:
+    $ref: ./filter/unsubscribe.yaml#/paths/~1klay~1unsubscribe
+  /klay/filter/getLogs:
+    $ref: ./filter/getLogs.yaml#/paths/~1klay~1getLogs
+  /klay/filter/subscribe:
+    $ref: ./filter/subscribe.yaml#/paths/~1klay~1subscribe
+  /klay/filter/newFilter:
+    $ref: ./filter/newFilter.yaml#/paths/~1klay~1newFilter
+
+  # klay/gas
+  /klay/gas/feeHistory:
+    $ref: ./gas/feeHistory.yaml#/paths/~1klay~1feeHistory
+  /klay/gas/lowerBoundGasPrice:
+    $ref: ./gas/lowerBoundGasPrice.yaml#/paths/~1klay~1lowerBoundGasPrice
+  /klay/gas/upperBoundGasPrice:
+    $ref: ./gas/upperBoundGasPrice.yaml#/paths/~1klay~1upperBoundGasPrice
+  /klay/gas/maxPriorityFeePerGas:
+    $ref: ./gas/maxPriorityFeePerGas.yaml#/paths/~1klay~1maxPriorityFeePerGas
+
+  # klay/miscellaneous
+  /klay/miscellaneous/sha3:
+    $ref: ./miscellaneous/sha3.yaml#/paths/~1klay~1sha3
+
+  # klay/others
+  /klay/createAccessList:
+    $ref: ./others/createAccessList.yaml#/paths/~1klay~1createAccessList
+  /klay/getRawTransactionByBlockHashAndIndex:
+    $ref: ./others/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockHashAndIndex
+  /klay/nodeAddress:
+    $ref: ./others/nodeAddress.yaml#/paths/~1klay~1nodeAddress
+  /klay/getRawTransactionByHash:
+    $ref: ./others/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
+  /klay/resend:
+    $ref: ./others/resend.yaml#/paths/~1klay~1resend
+  /klay/getRawTransactionByBlockNumberAndIndex:
+    $ref: ./others/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockNumberAndIndex
+  /klay/getStakingInfo:
+    $ref: ./others/getStakingInfo.yaml#/paths/~1klay~1getStakingInfo

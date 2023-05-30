@@ -1,0 +1,139 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/sendTransaction:
+    post:
+      summary: "[sendTransaction]"
+      tags:
+        - eth
+      operationId: sendTransaction
+      description: |
+        Constructs a transaction with given parameters, signs the transaction with a sender's private key and propagates the transaction to Klaytn network.
+
+        `eth_sendTransaction` will be failed to baobab/cypress network because it is signed in the EN node, which means that the EN must have the key that you want to sign with.
+        Steps to test `eth_sendTransaction`.
+          - Step 1: Setup a local EN node
+          - Step 2: <a href="#tag/personal/operation/newAccount" target="_blank">Create an account</a> into the EN node
+          - Step 3: <a href="#tag/personal/operation/unlockAccount" target="_blank">Unlock the account</a> for using in signing
+
+        **JSONRPC:** `eth_sendTransaction`
+
+      parameters:
+        - name: transactionArgs
+          in: query
+          description: An object of transaction arguments. See the table below for the object's properties.
+          required: true
+          schema:
+            $ref: "#/components/schemas/TransactionArgsInEthSendTransaction"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/KlaySendTransactionReq"
+
+      responses:
+        200:
+          description: Return the transaction hash or the zero hash if the transaction is not yet available.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/KlaySendTransactionResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/transaction/sendTransaction.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/transaction/EthSendTransactionExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/transaction/sendTransaction.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/transaction/sendTransaction.py"
+
+components:
+  schemas:
+    KlaySendTransactionReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'eth_sendTransaction'
+        params:
+          type: array
+          items:
+              $ref: "#/components/schemas/TransactionArgsInEthSendTransaction"
+          example:
+            [{"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee", "value": "0x1", "gas": "0x9999", "maxFeePerGas": "0x5d21dba00", "maxPriorityFeePerGas": "0x5d21dba00"}]
+
+    KlaySendTransactionResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: 32-byte DATA
+          description: The transaction hash or the zero hash if the transaction is not yet available.
+          example: "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331"
+
+
+    TransactionArgsInEthSendTransaction:
+      title: TransactionArgs
+      type: object
+      required:
+        - from
+      properties:
+        from:
+          type: string
+          format: 20-byte DATA
+          description: "The address from which the transaction is sent."
+        to:
+          type: string
+          format: 20-byte DATA
+          description: "(not required when creating a new contract) The address to which the transaction is directed."
+        gas:
+          type: string
+          format: hex
+          description: "(optional) The integer of the gas provided for the transaction's execution. It will return unused gas."
+        maxFeePerGas:
+          type: string
+          format: hex
+          description: "(optional, default: 250 ston) The maximum amount to pay for the transaction's execution. Since Klaytn uses a fixed gas price, it must be set to 250 ston (Gpeb in Ethereum)."
+        maxPriorityFeePerGas:
+          type: string
+          format: hex
+          description: "(optional, default: 250 ston) Gas tip cap for dynamic fee transaction in peb. Since Klaytn uses a fixed gas price, it must be set to 250 ston (Gpeb in Ethereum)."
+        input:
+          type: string
+          format: DATA
+          description: "(optional) The hash of the method signature and the encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility."
+        value:
+          type: string
+          format: hex
+          description: "(optional) The integer of values sent with this transaction."
+        nonce:
+          type: string
+          format: hex
+          description: "(optional) The integer of a nonce."
+

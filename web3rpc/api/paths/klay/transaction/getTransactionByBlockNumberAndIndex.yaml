@@ -1,0 +1,103 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/getTransactionByBlockNumberAndIndex:
+    post:
+      operationId: getTransactionByBlockNumberAndIndex
+      summary: "[getTransactionByBlockNumberAndIndex]"
+      description: |
+        Returns information about a transaction by block number and transaction index position. This API works only on RPC call, not on JavaScript console.
+
+        **NOTE:** *In versions earlier than Klaytn v1.7.0, only integer block number, the string "earliest" and "latest" are available.*
+
+        **JSONRPC:** `klay_getTransactionByBlockNumberAndIndex`
+      tags:
+        - klay
+
+      parameters:
+        - name: blockNumberOrTag
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in default block parameter.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+        - name: transactionIndex
+          required: true
+          schema:
+            type: string
+            format: hex
+          description: The transaction index position.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/KlayGetTransactionByBlockNumberAndIndexReq"
+
+      responses:
+        200:
+          description: Returns information about a transaction by block number and transaction index position.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/KlayGetTransactionByBlockNumberAndIndexResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/transaction/getTransactionByBlockNumberAndIndex.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/transaction/KlayGetTransactionByBlockNumberAndIndexExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/transaction/getTransactionByBlockNumberAndIndex.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref:  "../../../code-samples/python/klay/transaction/getTransactionByBlockNumberAndIndex.py"
+
+components:
+  schemas:
+    KlayGetTransactionByBlockNumberAndIndexReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getTransactionByBlockNumberAndIndex'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              - type: string
+                format: hex
+                title: TransactionIndex
+                description: The transaction index position.
+          example:  [118593751, "0x0"]
+
+    KlayGetTransactionByBlockNumberAndIndexResp:
+      type: object
+      properties:
+        result:
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionObject"

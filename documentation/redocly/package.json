@@ -1,0 +1,20 @@
+{
+  "name": "redocly",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@redocly/cli": "^1.0.0-beta.124",
+    "fs": "0.0.1-security",
+    "global": "^4.4.0"
+  },
+  "scripts": {
+    "dev": "redocly preview-docs",
+    "start": "redocly preview-docs ../../site/web3klaytn.yaml",
+    "build_old": "redocly bundle klay@v1.10.0 -o ../../site/web3klaytn.yaml",
+    "build": "redocly bundle",
+    "split": "redocly split web3klaytn.yaml --outDir bundled",
+    "test": "redocly lint web3klaytn.yaml",
+    "remove_query_param": "node scripts.js"
+  }
+}

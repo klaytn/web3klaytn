@@ -1,0 +1,77 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /admin/startSpamThrottler:
+    post:
+      operationId: startSpamThrottler
+      summary: "[startSpamThrottler]"
+      description: |
+        Start spam throttler
+
+        **JSONRPC:** `admin_startSpamThrottler`
+
+      tags:
+        - admin
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/startSpamThrottlerReq"
+
+      responses:
+        200:
+          description: Start spam throttler
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/startSpamThrottlerResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/admin/startSpamThrottler.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/admin/AdminStartSpamThrottlerExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/admin/startSpamThrottler.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/admin/startSpamThrottler.py"
+
+components:
+  schemas:
+    startSpamThrottlerReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'admin_startSpamThrottler'
+
+    startSpamThrottlerResp:
+      type: object
+      properties:
+        result:
+          type: string
+          example: null

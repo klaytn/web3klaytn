@@ -1,0 +1,53 @@
+openapi: "3.0.2"
+info:
+  title: KLAYTN OPEN API
+  version: "1.10.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: personal
+    description: API for personal namespace
+x-tagGroups:
+  - name: Personal
+    tags:
+      - personal
+servers:
+  - url: http://localhost:7151
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+  # personal
+  /personal/deriveAccount:
+    $ref: ./deriveAccount.yaml#/paths/~1personal~1deriveAccount
+  /personal/ecRecover:
+    $ref: ./ecRecover.yaml#/paths/~1personal~1ecRecover
+  /personal/importRawKey:
+    $ref: ./importRawKey.yaml#/paths/~1personal~1importRawKey
+  /personal/listAccounts:
+    $ref: ./listAccounts.yaml#/paths/~1personal~1listAccounts
+  /personal/listWallets:
+    $ref: ./listWallets.yaml#/paths/~1personal~1listWallets
+  /personal/lockAccount:
+    $ref: ./lockAccount.yaml#/paths/~1personal~1lockAccount
+  /personal/newAccount:
+    $ref: ./newAccount.yaml#/paths/~1personal~1newAccount
+  /personal/openWallet:
+    $ref: ./openWallet.yaml#/paths/~1personal~1openWallet
+  /personal/replaceRawKey:
+    $ref: ./replaceRawKey.yaml#/paths/~1personal~1replaceRawKey
+  /personal/sendAccountUpdate:
+    $ref: ./sendAccountUpdate.yaml#/paths/~1personal~1sendAccountUpdate
+  /personal/sendTransaction:
+    $ref: ./sendTransaction.yaml#/paths/~1personal~1sendTransaction
+  /personal/sendValueTransfer:
+    $ref: ./sendValueTransfer.yaml#/paths/~1personal~1sendValueTransfer
+  /personal/sign:
+    $ref: ./sign.yaml#/paths/~1personal~1sign
+  /personal/signTransaction:
+    $ref: ./signTransaction.yaml#/paths/~1personal~1signTransaction
+  /personal/unlockAccount:
+    $ref: ./unlockAccount.yaml#/paths/~1personal~1unlockAccount

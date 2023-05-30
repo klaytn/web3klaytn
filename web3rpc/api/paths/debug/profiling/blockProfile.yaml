@@ -1,0 +1,100 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/blockProfile:
+    post:
+      summary: "[blockProfile]"
+      tags:
+        - debug
+      operationId: blockProfile
+      description: |
+        Turns on block profiling for the given duration and writes profile data to disk. It uses a profile rate of 1 for most accurate information. If a different rate is desired, set the rate and write the profile manually using debug_writeBlockProfile.
+
+        **JSONRPC:** `debug_blockProfile`
+
+      parameters:
+        - name: file
+          in: query
+          description: The filename for the profiling result.
+          required: true
+          schema:
+            type: string
+        - name: seconds
+          in: query
+          description: The profiling duration in seconds.
+          required: true
+          schema:
+            type: integer
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/DebugBlockProfileReq"
+
+      responses:
+        200:
+          description: Turns on block profiling for the given duration and writes profile data to disk.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/DebugBlockProfileResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/profiling/blockProfile.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/profiling/DebugBlockProfileExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/debug/profilling/blockProfile.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/debug/profiling/blockProfile.py"
+
+components:
+  schemas:
+    DebugBlockProfileReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: debug_blockProfile
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: File
+                type: string
+                description: The filename for the profiling output.
+              - title: Seconds
+                type: integer
+                description: The profiling duration in seconds.
+          example: ["block.profile", 10]
+
+    DebugBlockProfileResp:
+      type: object
+      properties:
+        result:
+          type: string
+          nullable: true
+          default: null

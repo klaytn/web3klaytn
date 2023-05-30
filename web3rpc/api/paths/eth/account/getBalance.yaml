@@ -1,0 +1,105 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/getBalance:
+    post:
+      operationId: getBalance
+      summary: "[getBalance]"
+      description: |
+        Returns the balance of the account of given address.
+
+        **JSONRPC:** `eth_getBalance`
+
+      tags:
+        - eth
+
+      parameters:
+        - name: address
+          in: query
+          description: Address to check for balance.
+          required: true
+          schema:
+            type: string
+            format: 20-byte DATA
+        - name: blockNumberOrHash
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter, or block hash.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthGetBalanceReq"
+
+      responses:
+        200:
+          description: Returns the balance of the account of given address.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthGetBalanceResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/account/getBalance.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/account/EthGetBalanceExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/account/getBalance.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/account/getBalance.py"
+
+components:
+  schemas:
+    EthGetBalanceReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'eth_getBalance'
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: Address
+                type: string
+                format: 20-byte DATA
+                description: Address to check for balance.
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+          example:  ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]
+
+    EthGetBalanceResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: hex
+          description: Integer of the current balance in peb.
+          example: 0x0234c8a3397aab58

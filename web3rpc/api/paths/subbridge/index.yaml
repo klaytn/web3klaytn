@@ -1,0 +1,54 @@
+openapi: "3.0.2"
+info:
+  title: KLAYTN OPEN API
+  version: "1.10.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: subbridge
+    description: API for debug namespace
+x-tagGroups:
+  - name: subbridge
+    tags:
+      - subbridge
+servers:
+  - url: http://localhost:7151
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+  # subbridge:
+  /subbridge/getReceiptFromParentChain:
+    $ref: ./getReceiptFromParentChain.yaml#/paths/~1subbridge~1getReceiptFromParentChain
+  /subbridge/deployBridge:
+    $ref: ./deployBridge.yaml#/paths/~1subbridge~1deployBridge
+  /subbridge/subscribeBridge:
+    $ref: ./subscribeBridge.yaml#/paths/~1subbridge~1subscribeBridge
+  /subbridge/unsubscribeBridge:
+    $ref: ./unsubscribeBridge.yaml#/paths/~1subbridge~1unsubscribeBridge
+  /subbridge/registerBridge:
+    $ref: ./registerBridge.yaml#/paths/~1subbridge~1registerBridge
+  /subbridge/deregisterBridge:
+    $ref: ./deregisterBridge.yaml#/paths/~1subbridge~1deregisterBridge
+  /subbridge/registerToken:
+    $ref: ./registerToken.yaml#/paths/~1subbridge~1registerToken
+  /subbridge/deregisterToken:
+    $ref: ./deregisterToken.yaml#/paths/~1subbridge~1deregisterToken
+  /subbridge/listBridge:
+    $ref: ./listBridge.yaml#/paths/~1subbridge~1listBridge
+  /subbridge/nodeInfo:
+    $ref: ./nodeInfo.yaml#/paths/~1subbridge~1nodeInfo
+  /subbridge/addPeer:
+    $ref: ./addPeer.yaml#/paths/~1subbridge~1addPeer
+  /subbridge/anchoring:
+    $ref: ./anchoring.yaml#/paths/~1subbridge~1anchoring
+  /subbridge/convertRequestTxHashToHandleTxHash:
+    $ref: ./convertRequestTxHashToHandleTxHash.yaml#/paths/~1subbridge~1convertRequestTxHashToHandleTxHash  
+  /subbridge/getBridgeInformation:
+    $ref: ./getBridgeInformation.yaml#/paths/~1subbridge~1getBridgeInformation
+  /subbridge/removePeer:
+    $ref: ./removePeer.yaml#/paths/~1subbridge~1removePeer
+

@@ -1,0 +1,100 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/syncing:
+    post:
+      operationId: syncing
+      summary: "[syncing]"
+      description: |
+        Returns an object with data about the sync status or false.
+
+        **JSONRPC:** `eth_syncing`
+      tags:
+        - eth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: eth_syncing
+
+      responses:
+        200:
+          description: Returns an object with data about the sync status or false.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        oneOf:
+                          - type: boolean
+                            description: Returns false when not syncing.
+                            example: false
+                          - type: object
+                            required:
+                              - startingBlock
+                              - currentBlock
+                              - highestBlock
+                              - pulledStates
+                              - knownStates
+                            properties:
+                              startingBlock:
+                                type: string
+                                format: hex
+                                description: The block at which the import started (will only be reset, after the sync reached his head).
+                                example: "0x0"
+                              currentBlock:
+                                type: string
+                                description: The current block, same as eth_blockNumber.
+                                format: hex
+                                example: "0x3e31e"
+                              highestBlock:
+                                type: string
+                                format: hex
+                                description: The estimated highest block.
+                                example: "0x827eef"
+                              pulledStates:
+                                type: string
+                                format: hex
+                                description: The number of state entries processed until now. If the sync mode is not "fast", zero is returned.
+                                example: "0x0"
+                              knownStates:
+                                type: string
+                                format: hex
+                                description: The number of known state entries that still need to be pulled. If the sync mode is not "fast", zero is returned.
+                                example: "0x0"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/block/syncing.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/block/EthSycingExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/block/syncing.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/block/syncing.py"

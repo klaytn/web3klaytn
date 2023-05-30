@@ -1,0 +1,97 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/getTransactionReceipt:
+    post:
+      operationId: getTransactionReceipt
+      summary: "[getTransactionReceipt]"
+      description: |
+        Returns the receipt of a transaction by transaction hash.
+        
+        **NOTE:** The receipt is not available for pending transactions.
+        
+        **JSONRPC:** `klay_getTransactionReceipt`
+
+      tags:
+        - klay
+
+      parameters:
+        - name: transactionHash
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+          description: Hash of a transaction.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/KlayGetTransactionReceiptReq"
+
+      responses:
+        200:
+          description: Returns a transaction receipt object, or null when no receipt was found.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/KlayGetTransactionReceiptResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/transaction/getTransactionReceipt.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/transaction/KlayGetTransactionReceiptExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/transaction/getTransactionReceipt.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/transaction/getTransactionReceipt.py"
+
+components:
+  schemas:
+    KlayGetTransactionReceiptReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getTransactionReceipt'
+        params:
+          type: array
+          description: Hash of a transaction.
+          items:
+              type: string
+              format: 32-byte DATA
+              title: TransactionHash
+              description: Hash of a transaction.
+          example:  ["0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67"]
+
+    KlayGetTransactionReceiptResp:
+      type: object
+      properties:
+        result:
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionReceipt"
