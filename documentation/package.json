@@ -10,8 +10,7 @@
   },
   "scripts": {
     "dev": "redocly preview-docs",
-    "start": "redocly preview-docs ../../site/web3klaytn.yaml",
-    "build_old": "redocly bundle klay@v1.10.0 -o ../../site/web3klaytn.yaml",
+    "start": "redocly preview-docs ./web3klaytn.yaml",
     "build": "redocly bundle",
     "split": "redocly split web3klaytn.yaml --outDir bundled",
     "test": "redocly lint web3klaytn.yaml",
