@@ -42,4 +42,4 @@ You need the jvm-retorfit2 template files to use the retrofit2 library.
 - It is recommended to test javascript or typescript in an environment distributed with npm
 - Create separate test files for each API. It is used in samples when defining OpenAPI spec.
 
-![UserGuide.png](../kotlin-test-sample.png)
+![UserGuide.png](./kotlin-test-sample.png)
