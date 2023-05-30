@@ -1,4 +1,4 @@
-generatorName: caver-javascript
+generatorName: web3rpc-javascript
 outputDir: ./openapi
 inputSpec: ../../../site/klaytn-openapi.yaml
 projectName: opensdk-javascript-eth

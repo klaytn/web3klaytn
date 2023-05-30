@@ -1,6 +1,6 @@
-generatorName: caver-javascript
+generatorName: web3rpc-javascript
 outputDir: ./openapi/subbridge
-inputSpec: ../../../site/namespace/subbridge-openapi.yaml
+inputSpec: ../../../rpc-specs/namespaces/subbridge-openapi.yaml
 projectName: opensdk-javascript-subbridge
 templateDir: ./template
 sortParamsByRequiredFlag: false

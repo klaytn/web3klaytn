@@ -12,7 +12,7 @@ cd "${CURRENT_FILE_DIR}"
 rm -rf "${CURRENT_FILE_DIR}/openapi/txpool"
 mkdir "${CURRENT_FILE_DIR}/openapi/txpool"
 cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/txpool"
-"${PROJECT_DIR}"/bin/caver-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/script/txpool/txpool-config.yaml"
+"${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/script/txpool/txpool-config.yaml"
 
 # generate openapi jar library
 cd "${CURRENT_FILE_DIR}/openapi/txpool"

@@ -1,10 +1,10 @@
-# caver-javascript sdk
+# web3rpc-javascript sdk
 
 ## Requirements
 - download openapi-generator
 - check codegen/src/main/kotlin/caver/sdk/KlaytnJavascriptClientCodegen.kt
-- build caver-openapi-generator-cli jar
-- check and run caver-openapi-generator-cli
+- build web3rpc-openapi-generator-cli jar
+- check and run web3rpc-openapi-generator-cli
 
 ## Setting Node
 - Use node version more than v12

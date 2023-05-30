@@ -1,6 +1,6 @@
-generatorName: caver-javascript
+generatorName: web3rpc-javascript
 outputDir: ./openapi/klay
-inputSpec: ../../../site/namespace/klay-openapi.yaml
+inputSpec: ../../../rpc-specs/namespaces/klay-openapi.yaml
 projectName: opensdk-javascript-klay
 templateDir: ./template
 sortParamsByRequiredFlag: false

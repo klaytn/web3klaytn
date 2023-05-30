@@ -8,7 +8,7 @@ rm -rf "${CURRENT_FILE_DIR}/openapi/personal"
 mkdir "${CURRENT_FILE_DIR}/openapi/personal"
 cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/personal"
 
-"${PROJECT_DIR}"/bin/caver-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/personal/personal-config.yaml"
+"${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/personal/personal-config.yaml"
 
 cd "${CURRENT_FILE_DIR}/openapi/personal"
 

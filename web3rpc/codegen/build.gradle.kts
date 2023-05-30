@@ -89,7 +89,7 @@ tasks.withType<Jar>() {
 tasks.register<Copy>("deployJar") {
     dependsOn("clean")
     dependsOn("jar")
-    from("$buildDir/libs/caver-openapi-generator-cli.jar")
+    from("$buildDir/libs/web3rpc-openapi-generator-cli.jar")
     into("$buildDir/../../bin/libs/")
 //    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }

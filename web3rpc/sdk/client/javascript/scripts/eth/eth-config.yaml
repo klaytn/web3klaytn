@@ -1,6 +1,6 @@
-generatorName: caver-javascript
+generatorName: web3rpc-javascript
 outputDir: ./openapi/eth
-inputSpec: ../../../site/namespace/eth-openapi.yaml
+inputSpec: ../../../rpc-specs/namespaces/eth-openapi.yaml
 projectName: opensdk-javascript-eth
 templateDir: ./template
 sortParamsByRequiredFlag: false

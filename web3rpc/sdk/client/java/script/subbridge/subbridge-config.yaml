@@ -1,6 +1,6 @@
-generatorName: caver-java
+generatorName: web3rpc-java
 outputDir: ./openapi/subbridge
-inputSpec: ../../../site/namespace/subbridge-openapi.yaml
+inputSpec: ../../../rpc-specs/namespaces/subbridge-openapi.yaml
 groupId: klaytn.foundation
 artifactId: web3api-subbridge
 artifactVersion: v1.10.0

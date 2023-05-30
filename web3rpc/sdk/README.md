@@ -1,7 +1,6 @@
 ## SDK
 
 - Create SDK for each development language
-- Attach caver prefix
 - Currently implemented languages include typescript, kotlin, java, and javascript for clients.
 - Separate SDK into client and server
 - Describes how to develop an SDK based on kotlin

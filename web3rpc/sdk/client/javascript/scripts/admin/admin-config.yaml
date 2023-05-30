@@ -1,6 +1,6 @@
-generatorName: caver-javascript
+generatorName: web3rpc-javascript
 outputDir: ./openapi/admin
-inputSpec: ../../../site/namespace/admin-openapi.yaml
+inputSpec: ../../../rpc-specs/namespaces/admin-openapi.yaml
 projectName: opensdk-javascript-admin
 templateDir: ./template
 sortParamsByRequiredFlag: false

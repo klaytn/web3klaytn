@@ -11,7 +11,7 @@ mkdir "${CURRENT_FILE_DIR}/openapi/txpool"
 
 cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/txpool"
 
-"${PROJECT_DIR}"/bin/caver-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/txpool/txpool-config.yaml"
+"${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/txpool/txpool-config.yaml"
 
 cd "${CURRENT_FILE_DIR}/openapi/txpool"
 yarn install

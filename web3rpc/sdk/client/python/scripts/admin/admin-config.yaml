@@ -1,6 +1,6 @@
-generatorName: caver-python
+generatorName: web3rpc-python
 outputDir: ./openapi/admin
-inputSpec: ../../../site/namespace/admin-openapi.yaml
+inputSpec: ../../../rpc-specs/namespaces/admin-openapi.yaml
 projectName: opensdk-python-admin
 packageName: opensdk_python_admin
 templateDir: ./template

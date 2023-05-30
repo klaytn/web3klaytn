@@ -1,6 +1,6 @@
-generatorName: caver-python
+generatorName: web3rpc-python
 outputDir: ./openapi/governance
-inputSpec: ../../../site/namespace/governance-openapi.yaml
+inputSpec: ../../../rpc-specs/namespaces/governance-openapi.yaml
 projectName: opensdk-python-governance
 packageName: opensdk_python_governance
 templateDir: ./template

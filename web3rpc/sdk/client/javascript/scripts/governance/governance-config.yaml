@@ -1,6 +1,6 @@
-generatorName: caver-javascript
+generatorName: web3rpc-javascript
 outputDir: ./openapi/governance
-inputSpec: ../../../site/namespace/governance-openapi.yaml
+inputSpec: ../../../rpc-specs/namespaces/governance-openapi.yaml
 projectName: opensdk-javascript-governance
 templateDir: ./template
 sortParamsByRequiredFlag: false

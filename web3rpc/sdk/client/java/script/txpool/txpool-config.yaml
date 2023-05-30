@@ -1,6 +1,6 @@
-generatorName: caver-java
+generatorName: web3rpc-java
 outputDir: ./openapi/txpool
-inputSpec: ../../../site/namespace/txpool-openapi.yaml
+inputSpec: ../../../rpc-specs/namespaces/txpool-openapi.yaml
 groupId: klaytn.foundation
 artifactId: web3api-txpool 
 artifactVersion: v1.10.0

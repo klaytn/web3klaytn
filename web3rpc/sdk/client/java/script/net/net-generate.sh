@@ -12,7 +12,7 @@ cd "${CURRENT_FILE_DIR}"
 rm -rf "${CURRENT_FILE_DIR}/openapi/net"
 mkdir "${CURRENT_FILE_DIR}/openapi/net"
 cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/net"
-"${PROJECT_DIR}"/bin/caver-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/script/net/net-config.yaml"
+"${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/script/net/net-config.yaml"
 
 # generate openapi jar library
 cd "${CURRENT_FILE_DIR}/openapi/net"

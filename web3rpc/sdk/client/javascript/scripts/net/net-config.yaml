@@ -1,6 +1,6 @@
-generatorName: caver-javascript
+generatorName: web3rpc-javascript
 outputDir: ./openapi/net
-inputSpec: ../../../site/namespace/net-openapi.yaml
+inputSpec: ../../../rpc-specs/namespaces/net-openapi.yaml
 projectName: opensdk-javascript-net
 templateDir: ./template
 sortParamsByRequiredFlag: false

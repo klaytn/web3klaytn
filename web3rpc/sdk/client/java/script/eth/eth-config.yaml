@@ -1,6 +1,6 @@
-generatorName: caver-java
+generatorName: web3rpc-java
 outputDir: ./openapi/eth
-inputSpec: ../../../site/namespace/eth-openapi.yaml
+inputSpec: ../../../rpc-specs/namespaces/eth-openapi.yaml
 groupId: klaytn.foundation
 artifactId: web3api-eth
 artifactVersion: v1.10.0

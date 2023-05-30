@@ -20,7 +20,3 @@ sh ./script/governance/governance-generate.sh ${CURRENT_FILE_DIR}
 sh ./script/admin/admin-generate.sh ${CURRENT_FILE_DIR}
 sh ./script/mainbridge/mainbridge-generate.sh ${CURRENT_FILE_DIR}
 sh ./script/subbridge/subbridge-generate.sh ${CURRENT_FILE_DIR}
-
-# cd "${CURRENT_FILE_DIR}/openapi"
-#
-# sh gradlew clean build publishToMavenLocal

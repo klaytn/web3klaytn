@@ -1,6 +1,6 @@
-generatorName: caver-java
+generatorName: web3rpc-java
 outputDir: ./openapi/admin
-inputSpec: ../../../site/namespace/admin-openapi.yaml
+inputSpec: ../../../rpc-specs/namespaces/admin-openapi.yaml
 groupId: klaytn.foundation
 artifactId: web3api-admin
 artifactVersion: v1.10.0

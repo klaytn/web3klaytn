@@ -1,6 +1,6 @@
-generatorName: caver-java
+generatorName: web3rpc-java
 outputDir: ./openapi/net
-inputSpec: ../../../site/namespace/net-openapi.yaml
+inputSpec: ../../../rpc-specs/namespaces/net-openapi.yaml
 groupId: klaytn.foundation
 artifactId: web3api-net
 artifactVersion: v1.10.0

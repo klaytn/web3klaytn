@@ -1,6 +1,6 @@
-generatorName: caver-python
+generatorName: web3rpc-python
 outputDir: ./openapi/debug
-inputSpec: ../../../site/namespace/debug-openapi.yaml
+inputSpec: ../../../rpc-specs/namespaces/debug-openapi.yaml
 projectName: opensdk-python-debug
 packageName: opensdk_python_debug
 templateDir: ./template

@@ -1,6 +1,6 @@
-generatorName: caver-javascript
+generatorName: web3rpc-javascript
 outputDir: ./openapi/txpool
-inputSpec: ../../../site/namespace/txpool-openapi.yaml
+inputSpec: ../../../rpc-specs/namespaces/txpool-openapi.yaml
 projectName: opensdk-javascript-txpool
 templateDir: ./template
 sortParamsByRequiredFlag: false

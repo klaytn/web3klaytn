@@ -12,7 +12,7 @@ cd "${CURRENT_FILE_DIR}"
 rm -rf "${CURRENT_FILE_DIR}/openapi/admin"
 mkdir "${CURRENT_FILE_DIR}/openapi/admin"
 cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/admin"
-"${PROJECT_DIR}"/bin/caver-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/script/admin/admin-config.yaml"
+"${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/script/admin/admin-config.yaml"
 
 # generate openapi jar library
 cd "${CURRENT_FILE_DIR}/openapi/admin"

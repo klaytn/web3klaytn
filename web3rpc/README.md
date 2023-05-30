@@ -1,6 +1,6 @@
-# Klaytn Open SDK
+# web3rpc
 
-The open SDK generates codes by language which you want to support.
+The web3rpc generates codes by language which you want to support.
 - It uses Klaytn JSON-RPC call.
 - It also makes JSON-RPC API documentation.
 - It can call the JSON-RPC post by SwaggerUI.
@@ -13,37 +13,14 @@ $ brew install nvm
 $ nvm use v16.13.1
 ```
 
-## Generate caver-openapi-generator-cli library
+## Generate web3rpc-openspi-generator-cli library
 - Read [README.md](./codegen/README.md)
 
 
-## Check generator config help 
+### Guide for Generate web3rpc 
+#### Generate OAS 3.0 specification for SDK namespace
 ```shell
-bin/caver-openapi-generator-cli config-help -g typescript-axios
-```
-
-## Document
-### Redocly site
-[Redocly style site](https://henry-will.github.io/klaytn-open-sdk/)
-### Swagger UI
-[Swagger ui for api test](https://henry-will.github.io/klaytn-open-sdk/SwaggerUI/)
-### User Guide for Open SDK
-[User Guide](UserGuide.md)
-
-- #### [api](api/README.md) directory
-
-- #### [bin](bin/README.md) directory
-
-- #### [codegen](codegen/README.md) directory
-
-- #### [sdk](sdk/README.md) directory
-
-- #### [site](site/README.md) directory
-
-### Guide for Generate Open SDK
-#### Generate documentation for SDK namespace
-```shell
-$ cd api/redocly
+$ cd rpc-specs
 $ sh generate-namespace.sh
 ```
 #### Generate SDK for each language
@@ -63,11 +40,6 @@ $ cd sdk/client/java
 $ sh java-generate.sh
 ```
 
-#### Remove query parameter for Redocly Site
-```shell
-$ cd api/redocly
-$ yarn remove_query_param
-```
 #### Unittest for each language
  - ##### Javascript:
     ```shell
@@ -117,6 +89,3 @@ $ yarn remove_query_param
      ```shell
     $ gradle test --tests opensdk.sdk.apis.klay.block.KlayBlockNumberApiTest
     ```
-
-#### Preview and build via Redocly Site
-- [Redocly](api/redocly/README.md) Guide

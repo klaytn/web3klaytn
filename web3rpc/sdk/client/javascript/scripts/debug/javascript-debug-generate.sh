@@ -11,7 +11,7 @@ mkdir "${CURRENT_FILE_DIR}/openapi/debug"
 
 cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/debug"
 
-"${PROJECT_DIR}"/bin/caver-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/debug/debug-config.yaml"
+"${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/debug/debug-config.yaml"
 
 cd "${CURRENT_FILE_DIR}/openapi/debug"
 yarn install

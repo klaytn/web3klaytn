@@ -11,7 +11,7 @@ mkdir "${CURRENT_FILE_DIR}/openapi/subbridge"
 
 cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/subbridge"
 
-"${PROJECT_DIR}"/bin/caver-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/subbridge/subbridge-config.yaml"
+"${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/subbridge/subbridge-config.yaml"
 
 cd "${CURRENT_FILE_DIR}/openapi/subbridge"
 yarn install
