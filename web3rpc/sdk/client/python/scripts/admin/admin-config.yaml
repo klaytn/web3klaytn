@@ -1,0 +1,18 @@
+generatorName: web3rpc-python
+outputDir: ./openapi/admin
+inputSpec: ../../../rpc-specs/namespaces/admin-openapi.yaml
+projectName: opensdk-python-admin
+packageName: opensdk_python_admin
+templateDir: ./template
+sortParamsByRequiredFlag: false
+globalProperties:
+  apiDocs: false
+  modelDocs: false
+  modelTests: false
+  apiTests: true
+inlineSchemaNameMappings:
+  accountCreated_default_response: AccountCreatedResponse
+  getRewards_default_response: GetRewardsResponse
+  ethAccounts_default_response: EthAccountsDefaultResponse
+  ethBlockNumber_default_response: EthBlockNumberDefaultResponse
+  ethCall_default_response: EthCallDefaultResponse

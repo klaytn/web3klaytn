@@ -1,0 +1,25 @@
+openapi: "3.0.2"
+info:
+  title: KLAYTN OPEN API
+  version: "1.10.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: txpool
+    description: API for txpool namespace
+servers:
+  - url: http://localhost:7151
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+  # txpool
+  /txpool/status:
+    $ref: ./status.yaml#/paths/~1txpool~1status
+  /txpool/content:
+    $ref: ./content.yaml#/paths/~1txpool~1content
+  /txpool/inspect:
+    $ref: ./inspect.yaml#/paths/~1txpool~1inspect

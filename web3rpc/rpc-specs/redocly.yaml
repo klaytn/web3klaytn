@@ -1,0 +1,61 @@
+# See https://redocly.com/docs/cli/configuration/ for more information.
+organization: klaytn.foundation
+apis:
+  eth@v1.0.0:
+    root: ./api/paths/eth/index.yaml
+    labels:
+      - v1.0.0
+  klay@v1.0.0:
+    root: ./api/paths/klay/index.yaml
+    labels:
+      - v1.0.0
+  net@v1.0.0:
+    root: ./api/paths/net/index.yaml
+    labels:
+      - v1.0.0
+  txpool@v1.0.0:
+    root: ./api/paths/txpool/index.yaml
+    labels:
+      - v1.0.0
+  debug@v1.0.0:
+    root: ./api/paths/debug/index.yaml
+    labels:
+      - v1.0.0
+  personal@v1.0.0:
+    root: ./api/paths/personal/index.yaml
+    labels:
+      - v1.0.0
+  governance@v1.0.0:
+    root: ./api/paths/governance/index.yaml
+    labels:
+      - v1.0.0
+  admin@v1.0.0:
+    root: ./api/paths/admin/index.yaml
+    labels:
+      - v1.0.0
+  mainbridge@v1.0.0:
+    root: ./api/paths/mainbridge/index.yaml
+    labels:
+      - v1.0.0
+  subbridge@v1.0.0:
+    root: ./api/paths/subbridge/index.yaml
+    labels:
+      - v1.0.0
+extends:
+  - recommended
+features.openapi:
+  hideDownloadButton: true
+  schemaExpansionLevel: 2
+  schemaDefinitionsTagName: Schemas
+  sideNavStyle: id-only
+  generateCodeSamples:
+    languages:
+      - lang: curl
+      - lang: Java
+      - lang: Node.js
+      - lang: Python
+  htmlTemplate: ./docs/index.html
+  theme:
+    colors:
+      primary:
+        main: "#32329f"

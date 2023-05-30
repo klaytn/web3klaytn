@@ -1,0 +1,67 @@
+openapi: "3.0.2"
+info:
+  title: KLAYTN OPEN API
+  version: "1.10.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: admin
+    description: API for admin namespace
+servers:
+  - url: http://localhost:7151
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+  # admin
+  /admin/addPeer:
+    $ref: ./addPeer.yaml#/paths/~1admin~1addPeer
+  /admin/exportChain:
+    $ref: ./exportChain.yaml#/paths/~1admin~1exportChain
+  /admin/importChain:
+    $ref: ./importChain.yaml#/paths/~1admin~1importChain
+  /admin/removePeer:
+    $ref: ./removePeer.yaml#/paths/~1admin~1removePeer
+  /admin/importChainFromString:
+    $ref: ./importChainFromString.yaml#/paths/~1admin~1importChainFromString
+  /admin/startHTTP:
+    $ref: ./startHTTP.yaml#/paths/~1admin~1startHTTP
+  /admin/stopHTTP:
+    $ref: ./stopHTTP.yaml#/paths/~1admin~1stopHTTP
+  /admin/startWS:
+    $ref: ./startWS.yaml#/paths/~1admin~1startWS
+  /admin/stopWS:
+    $ref: ./stopWS.yaml#/paths/~1admin~1stopWS
+  /admin/startStateMigration:
+    $ref: ./startStateMigration.yaml#/paths/~1admin~1startStateMigration
+  /admin/stopStateMigration:
+    $ref: ./stopStateMigration.yaml#/paths/~1admin~1stopStateMigration
+  /admin/saveTrieNodeCacheToDisk:
+    $ref: ./saveTrieNodeCacheToDisk.yaml#/paths/~1admin~1saveTrieNodeCacheToDisk
+  /admin/setMaxSubscriptionPerWSConn:
+    $ref: ./setMaxSubscriptionPerWSConn.yaml#/paths/~1admin~1setMaxSubscriptionPerWSConn
+  /admin/nodeInfo:
+    $ref: ./nodeInfo.yaml#/paths/~1admin~1nodeInfo
+  /admin/peers:
+    $ref: ./peers.yaml#/paths/~1admin~1peers
+  /admin/datadir:
+    $ref: ./datadir.yaml#/paths/~1admin~1datadir
+  /admin/stateMigrationStatus:
+    $ref: ./stateMigrationStatus.yaml#/paths/~1admin~1stateMigrationStatus
+  /admin/startSpamThrottler:
+    $ref: ./startSpamThrottler.yaml#/paths/~1admin~1startSpamThrottler
+  /admin/stopSpamThrottler:
+    $ref: ./stopSpamThrottler.yaml#/paths/~1admin~1stopSpamThrottler
+  /admin/setSpamThrottlerWhiteList:
+    $ref: ./setSpamThrottlerWhiteList.yaml#/paths/~1admin~1setSpamThrottlerWhiteList
+  /admin/getSpamThrottlerWhiteList:
+    $ref: ./getSpamThrottlerWhiteList.yaml#/paths/~1admin~1getSpamThrottlerWhiteList
+  /admin/getSpamThrottlerThrottleList:
+    $ref: ./getSpamThrottlerThrottleList.yaml#/paths/~1admin~1getSpamThrottlerThrottleList
+  /admin/getSpamThrottlerCandidateList:
+    $ref: ./getSpamThrottlerCandidateList.yaml#/paths/~1admin~1getSpamThrottlerCandidateList
+  /admin/spamThrottlerConfig:
+    $ref: ./spamThrottlerConfig.yaml#/paths/~1admin~1spamThrottlerConfig
