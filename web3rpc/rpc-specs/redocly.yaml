@@ -2,43 +2,43 @@
 organization: klaytn.foundation
 apis:
   eth@v1.0.0:
-    root: ./api/paths/eth/index.yaml
+    root: ./paths/eth/index.yaml
     labels:
       - v1.0.0
   klay@v1.0.0:
-    root: ./api/paths/klay/index.yaml
+    root: ./paths/klay/index.yaml
     labels:
       - v1.0.0
   net@v1.0.0:
-    root: ./api/paths/net/index.yaml
+    root: ./paths/net/index.yaml
     labels:
       - v1.0.0
   txpool@v1.0.0:
-    root: ./api/paths/txpool/index.yaml
+    root: ./paths/txpool/index.yaml
     labels:
       - v1.0.0
   debug@v1.0.0:
-    root: ./api/paths/debug/index.yaml
+    root: ./paths/debug/index.yaml
     labels:
       - v1.0.0
   personal@v1.0.0:
-    root: ./api/paths/personal/index.yaml
+    root: ./paths/personal/index.yaml
     labels:
       - v1.0.0
   governance@v1.0.0:
-    root: ./api/paths/governance/index.yaml
+    root: ./paths/governance/index.yaml
     labels:
       - v1.0.0
   admin@v1.0.0:
-    root: ./api/paths/admin/index.yaml
+    root: ./paths/admin/index.yaml
     labels:
       - v1.0.0
   mainbridge@v1.0.0:
-    root: ./api/paths/mainbridge/index.yaml
+    root: ./paths/mainbridge/index.yaml
     labels:
       - v1.0.0
   subbridge@v1.0.0:
-    root: ./api/paths/subbridge/index.yaml
+    root: ./paths/subbridge/index.yaml
     labels:
       - v1.0.0
 extends:
