@@ -11,7 +11,7 @@ mkdir "${CURRENT_FILE_DIR}/openapi/admin"
 
 cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/admin"
 
-"${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/admin/admin-config.yaml"
+sh "${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/admin/admin-config.yaml"
 
 cd "${CURRENT_FILE_DIR}/openapi/admin"
 yarn install

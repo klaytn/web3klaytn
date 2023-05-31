@@ -11,7 +11,7 @@ mkdir "${CURRENT_FILE_DIR}/openapi/governance"
 
 cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/governance"
 
-"${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/governance/governance-config.yaml"
+sh "${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/governance/governance-config.yaml"
 
 cd "${CURRENT_FILE_DIR}/openapi/governance"
 yarn install

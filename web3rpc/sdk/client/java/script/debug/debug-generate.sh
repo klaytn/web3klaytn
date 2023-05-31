@@ -12,7 +12,7 @@ cd "${CURRENT_FILE_DIR}"
 rm -rf "${CURRENT_FILE_DIR}/openapi/debug"
 mkdir "${CURRENT_FILE_DIR}/openapi/debug"
 cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/debug"
-"${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/script/debug/debug-config.yaml"
+sh "${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/script/debug/debug-config.yaml"
 
 # generate openapi jar library
 cd "${CURRENT_FILE_DIR}/openapi/debug"

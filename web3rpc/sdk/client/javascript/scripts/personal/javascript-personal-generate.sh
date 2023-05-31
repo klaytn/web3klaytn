@@ -11,7 +11,7 @@ mkdir "${CURRENT_FILE_DIR}/openapi/personal"
 
 cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/personal"
 
-"${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/personal/personal-config.yaml"
+sh "${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/scripts/personal/personal-config.yaml"
 
 cd "${CURRENT_FILE_DIR}/openapi/personal"
 yarn install
