@@ -1,0 +1,79 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /admin/getSpamThrottlerThrottleList:
+    post:
+      operationId: getSpamThrottlerThrottleList
+      summary: "[getSpamThrottlerThrottleList]"
+      description: |
+        Get spam throttler throttle list
+
+        **JSONRPC:** `admin_getSpamThrottlerThrottleList`
+
+      tags:
+        - admin
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/GetSpamThrottlerThrottleListReq"
+
+      responses:
+        200:
+          description: Get spam throttler throttle list
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/GetSpamThrottlerThrottleListResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/admin/getSpamThrottlerThrottleList.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/admin/AdminGetSpamThrottlerThrottleListExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/admin/getSpamThrottlerThrottleList.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/admin/getSpamThrottlerThrottleList.py"
+
+components:
+  schemas:
+    GetSpamThrottlerThrottleListReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'admin_getSpamThrottlerThrottleList'
+
+    GetSpamThrottlerThrottleListResp:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+          example: []

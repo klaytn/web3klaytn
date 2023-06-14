@@ -1,0 +1,68 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /net/networkID:
+    post:
+      operationId: networkID
+      summary: "[networkID]"
+      description: |
+        Returns the network identifier (network ID).
+        
+        **JSONRPC:** `net_networkID`
+      tags:
+        - net
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: net_networkID
+
+      responses:
+        200:
+          description: Returns the network identifier (network ID).
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: hex
+                        description: The integer of the network identifier. "1001" Klaytn Baobab testnet."8217" Klaytn Cypress mainnet.
+                        example: "1001"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/net/networkID.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/net/NetNetworkIDExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/net/networkID.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/net/networkID.py"

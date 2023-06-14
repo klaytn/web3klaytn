@@ -1,0 +1,122 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /governance/vote:
+    post:
+      operationId: vote
+      summary: "[vote]"
+      description: |
+        The vote method submits a new vote. If the node has the right to vote based on governance mode, the vote can be placed. If not, an error message will be returned and the vote will be ignored.
+
+        **JSONRPC:** `governance_vote`
+
+      tags:
+        - governance
+
+      parameters:
+        - name: key
+          required: true
+          schema:
+            type: string
+          description: Name of the configuration setting to be changed. Key has the form of domain.field
+          in: query
+        - name: value
+          required: true
+          schema:
+            $ref: "#/components/schemas/Value"
+          description: Various types of value for each key.
+          in: query
+
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  required:
+                    - method
+                    - params
+                  properties:
+                    method:
+                      type: string
+                      default: 'governance_vote'
+                    params:
+                      type: array
+                      items:
+                        anyOf:
+                          - type: string
+                            title: Key
+                          - $ref: "#/components/schemas/Value"
+                      example: ["governance.governancemode", "ballot"]
+
+      responses:
+        200:
+          description: Result of vote submission
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        description: Result of vote submission
+                        example: Your vote was successfully placed.
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/governance/vote.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/governance/GovernanceVoteExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/governance/vote.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/governance/vote.py"
+
+components:
+  schemas:
+    Value:
+      type: string
+      description: |
+        | Key | Description |
+        |-----|-----|
+        | "governance.governancemode" | STRING. One of the three governance modes. "none", "single", "ballot" |
+        | "governance.governingnode" | ADDRESS. Designated governing node's address. It only works if the governance mode is "single" e.g.,"0xe733cb4d279da696f30d470f8c04decb54fcb0d2" |
+        | "governance.unitprice" | NUMBER. Price of unit gas. e.g., 25000000000 |
+        | "governance.addvalidator" | ADDRESS. Address of a new validator candidate. e.g., 0xe733cb4d279da696f30d470f8c04decb54fcb0d2 |
+        | "governance.removevalidator" | ADDRESS. Address of a current validator which need to be removed. e.g., 0xe733cb4d279da696f30d470f8c04decb54fcb0d2 |
+        | "governance.deriveshaimpl" | NUMBER. Policy to generate the transaction hash and receipt hash in a block header. See here for available options. e.g., 2 (DeriveShaConcat) |
+        | "governance.govparamcontract" | ADDRESS. Address of the GovParam contract. e.g., 0xe733cb4d279da696f30d470f8c04decb54fcb0d2 |
+        | "istanbul.epoch" | NUMBER. A period in which votes are gathered in blocks. When an epoch end, all votes which haven't been passed will be cleared. e.g., 86400 |
+        | "istanbul.committeesize" | NUMBER. The number of validators in a committee.(sub in chain configuration) e.g., 7 |
+        | "reward.mintingamount" | STRING. Amount of Peb minted when a block is generated. Double quotation marks are needed for a value. e.g., "9600000000000000000" |
+        | "reward.ratio" | STRING. Distribution rate for a CN/KGF/KIR separated by "/". The sum of all values has to be 100. e.g., "50/40/10" meaning CN 50%, KGF 40%, KIR 10% |
+        | "reward.kip82ratio" | STRING. Distribution ratio of the block proposer to stakers separated by "/". The sum of all values has to be "100". See KIP-82 for further details. e.g., "20/80" means that the proposer takes 20% while stakers take 80%. |
+        | "reward.useginicoeff" | BOOL. Use the Gini coefficient or not. true, false |
+        | "reward.deferredtxfee" | BOOL. The way of giving transaction fee to a proposer. If true, it means the tx fee will be summed up with block reward and distributed to the proposer, KIR and KGF. If not, all tx fee will be given to the proposer. true, false |
+        | "reward.minimumstake" | STRING. Amount of Klay required to be a CN (Consensus Node). Double quotation marks are needed for a value. e.g., "5000000" |
+        | "kip71.lowerboundbasefee" | NUMBER. The lowest possible base fee. See KIP-71 for further details. e.g., 25000000000 |
+        | "kip71.upperboundbasefee" | NUMBER. The highest possible base fee. e.g., 750000000000 |
+        | "kip71.gastarget" | NUMBER. The block gas that base fee wants to achieve. The base fee increases when parent block contains more than gas target, and decreases when parent block contains less than gas target. e.g., 30000000 |
+        | "kip71.basefeedenominator" | NUMBER. Controls how fast base fee changes. e.g., 20 |
+        | "kip71.maxblockgasusedforbasefee" | NUMBER. The maximum block gas perceived in base fee calculation. e.g., 60000000 |

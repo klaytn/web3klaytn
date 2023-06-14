@@ -1,0 +1,118 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /personal/unlockAccount:
+    post:
+      operationId: unlockAccount
+      summary: "[unlockAccount]"
+      description: |
+        Decrypts the key with the given address from the key store.
+        
+        Both passphrase and unlock duration are optional when using the JavaScript console. If the passphrase is not supplied as an argument, the console will prompt for the passphrase interactively.
+        
+        The unencrypted key will be held in memory until the unlock duration expires. If the unlock duration defaults to 300 seconds. An explicit duration of zero seconds unlocks the key until the Klaytn local node exits.
+        
+        The account can be used with klay_sign and klay_sendTransaction while it is unlocked.
+
+        **JSONRPC:** `personal_unlockAccount`
+      tags:
+        - personal
+
+      parameters:
+        - name: address
+          required: true
+          schema:
+            type: string
+          description: The account address to unlock.
+          in: query
+        - name: passphrase
+          required: true
+          schema:
+            type: string
+          description: the passphrase used for the encryption.
+          in: query
+        - name: duration
+          required: false
+          schema:
+            type: integer
+            default: 300
+          description: (optional) the unlock duration (default to 300 seconds).
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/PersonalUnlockAccountReq"
+
+
+      responses:
+        200:
+          description: Return true if unlocked, false otherwise
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: boolean
+                        description: true if unlocked, false otherwise
+                        example: true
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/personal/unlockAccount.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/personal/PersonalUnlockAccountExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/personal/unlockAccount.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/personal/unlockAccount.py"
+
+components:
+  schemas:
+    PersonalUnlockAccountReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'personal_unlockAccount'
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                title: Address
+                description: The account address to unlock.
+              - type: string
+                title: Passphrase
+                description: the passphrase used for the encryption.
+              - type: integer
+                title: Duration
+                default: 300
+                description: (optional) the unlock duration (default to 300 seconds).
+          example: ["0x5e97870f263700f46aa00d967821199b9bc5a120", "foo", 30]

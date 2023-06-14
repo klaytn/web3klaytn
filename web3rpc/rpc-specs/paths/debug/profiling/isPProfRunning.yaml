@@ -1,0 +1,77 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/isPProfRunning:
+    post:
+      summary: "[isPProfRunning]"
+      tags:
+        - debug
+      operationId: isPProfRunning
+      description: |
+        Returns true if the pprof HTTP server is running and false otherwise.
+
+        **JSONRPC:** `debug_isPProfRunning`
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/IsPProfRunningReq"
+
+      responses:
+        200:
+          description: true if the pprof HTTP server is running and false otherwise.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/IsPProfRunningResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/profiling/isPProfRunning.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/profiling/DebugIsPProfRunningExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/debug/profilling/isPProfRunning.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/debug/profiling/isPProfRunning.py"
+
+components:
+  schemas:
+    IsPProfRunningReq:
+      type: object
+      required: 
+        - method
+      properties:
+        method:
+          type: string
+          default: debug_isPProfRunning
+
+    IsPProfRunningResp:
+      type: object
+      properties:
+        result:
+          type: boolean
+          description: true if the pprof HTTP server is running and false otherwise.
+          example: true

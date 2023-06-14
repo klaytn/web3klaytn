@@ -1,0 +1,99 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/getTransactionCount:
+    post:
+      summary: "[getTransactionCount]"
+      tags:
+        - eth
+      operationId: getTransactionCount
+      description: |
+        Returns the number of transactions sent from an address.
+
+        **JSONRPC:** `eth_getTransactionCount`
+
+      parameters:
+        - name: address
+          in: query
+          description: Address
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+        - name: blockNumberOrHashOrTag
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter, or block hash.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthGetTransactionCountReq"
+
+      responses:
+        200:
+          description: Integer of the number of transactions send from this address.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthGetTransactionCountResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/account/getTransactionCount.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/account/EthGetTransactionCountExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/transaction/getTransactionCount.js"
+        - lang: "python"
+          label: "Python"
+          source:
+           $ref: "../../../code-samples/python/eth/transaction/getTransactionCount.py"
+
+components:
+  schemas:
+    EthGetTransactionCountReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'eth_getTransactionCount'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+          example: ["0xc94770007dda54cF92009BFF0dE90c06F603a09f","latest"]
+
+    EthGetTransactionCountResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: hex
+          description: Integer of the number of transactions send from this address.
+          example: "0x1"

@@ -1,0 +1,90 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/startGoTrace:
+    post:
+      summary: "[startGoTrace]"
+      tags:
+        - debug
+      operationId: startGoTrace
+      description: |
+        Starts writing a Go runtime trace to the given file.
+
+        **JSONRPC:** `debug_startGoTrace`
+
+      parameters:
+        - name: file
+          in: query
+          description: The filename for the tracing output.
+          required: true
+          schema:
+            type: string
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/DebugStartGoTraceReq"
+
+      responses:
+        200:
+          description: Starts writing a Go runtime trace to the given file.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/DebugStartGoTraceResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/runtimeTracing/startGoTrace.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/runtimeTracing/DebugStartGoTraceExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/debug/runtimeTracing/startGoTrace.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/debug/runtimeTracing/startGoTrace.py"
+
+components:
+  schemas:
+    DebugStartGoTraceReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: debug_startGoTrace
+        params:
+          type: array
+          description: The filename for the tracing output.
+          items:
+            title: File
+            type: string
+          example: ["go.trace"]
+
+    DebugStartGoTraceResp:
+      type: object
+      properties:
+        result:
+          type: string
+          nullable: true
+          default: null

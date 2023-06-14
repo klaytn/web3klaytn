@@ -1,0 +1,103 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /personal/importRawKey:
+    post:
+      operationId: importRawKey
+      summary: "[importRawKey]"
+      description: |
+        Imports the given unencrypted private key (hex string without leading '0x') or a Klaytn wallet key into the key store, encrypting it with the passphrase.
+        
+        Returns the address of the imported account.
+
+        **JSONRPC:** `personal_importRawKey`
+      tags:
+        - personal
+
+      parameters:
+        - name: keydata
+          required: true
+          schema:
+            type: string
+          description: The unencrypted private key (hex string without leading '0x') or a Klaytn wallet key.
+          in: query
+        - name: passphrase
+          required: true
+          schema:
+            type: string
+          description: The pass phrase for encryption.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/PersonalImportRawKeyReq"
+
+      responses:
+        200:
+          description: Returns the address of the imported account.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        description: The address of the imported account.
+                        example: "0xfa415bb3e6231f488ff39eb2897db0ef3636dd32"
+      
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/personal/importRawKey.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/personal/PersonalImportRawKeyExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/personal/importRawKey.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/personal/importRawKey.py"
+
+components:
+  schemas:
+    PersonalImportRawKeyReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'personal_importRawKey'
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                title: Keydata
+                description: The unencrypted private key (hex string without leading '0x') or a Klaytn wallet key.
+              - type: string
+                title: Passphrase
+                description: The pass phrase for encryption.
+          example: ["cd87934ee007b7a458fa00dc0314fff8b2bd43b3071f46c820c379e483b4fd8e", "gr8=B!0@uc$b"]
+

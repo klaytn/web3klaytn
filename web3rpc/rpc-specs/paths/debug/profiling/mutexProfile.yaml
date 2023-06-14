@@ -1,0 +1,100 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/mutexProfile:
+    post:
+      summary: "[mutexProfile]"
+      tags:
+        - debug
+      operationId: mutexProfile
+      description: |
+        Turns on mutex profiling for nsec (nanosecond) and writes profile data to file. It uses a profile rate of 1 for most accurate information. If a different rate is desired, set the rate and write the profile manually.
+
+        **JSONRPC:** `debug_mutexProfile`
+
+      parameters:
+        - name: file
+          in: query
+          description: The filename for the profiling result.
+          required: true
+          schema:
+            type: string
+        - name: seconds
+          in: query
+          description: The profiling duration in seconds.
+          required: true
+          schema:
+            type: integer
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/DebugMutexProfileReq"
+
+      responses:
+        200:
+          description: Turns on mutex profiling for nsec (nanosecond) and writes profile data to file.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/DebugMutexProfileResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/profiling/mutexProfile.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/profiling/DebugMutexProfileExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/debug/profilling/mutexProfile.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/debug/profiling/mutexProfile.py"
+
+components:
+  schemas:
+    DebugMutexProfileReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: debug_mutexProfile
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: File
+                type: string
+                description: The filename for the profiling result.
+              - title: Seconds
+                type: integer
+                description: The profiling duration in seconds.
+          example: ["mutex.profile", 10]
+
+    DebugMutexProfileResp:
+      type: object
+      properties:
+        result:
+          type: string
+          nullable: true
+          default: null

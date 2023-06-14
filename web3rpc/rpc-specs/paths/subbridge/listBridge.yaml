@@ -1,0 +1,110 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /subbridge/listBridge:
+    post:
+      summary: "[listBridge]"
+      tags:
+        - subbridge
+      operationId: listBridge
+      description: |
+        The subbridge_listBridge returns the list of all bridge contract pairs that are registered (stored) in the sub-bridge.
+
+        **JSONRPC:** `subbridge_listBridge`
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/ListBridgeReq"
+
+      responses:
+        200:
+          description: returns the list of all bridge contract pairs that are registered (stored) in the sub-bridge.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/ListBridgeResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/subbridge/listBridge.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../../code-samples/javascript/eth/miscellaneous/listBridge.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../../code-samples/python/eth/miscellaneous/listBridge.py"
+
+components:
+  schemas:
+    ListBridgeReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'subbridge_unsubscribeBridge'
+
+    ListBridgeResp:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            type: object
+            required: 
+              - localAddress
+              - remoteAddress
+              - subscribed
+            properties:
+              localAddress:
+                type: string
+                format: 20-byte DATA
+                title: account
+                description: account
+              remoteAddress:
+                type: string
+                format: 20-byte DATA
+                title: account
+                description: account
+              subscribed:
+                type: boolean
+                description: true if the pair of bridge contracts is subscribed, false otherwise.
+          example: [
+            {
+              localAddress: "0x27caeba831d98b5fbb1d81ce0ed20801702f443a",
+              remoteAddress: "0x22c41ae528627b790233d2e59ea520be12350eb5",
+              subscribed: true
+            }, {
+              localAddress: "0x376b72abe1b29cace831bd3f5acdfa967814c9cd",
+              remoteAddress: "0x53160735f7cc6ff75e48619f368bb94daff66a1b",
+              subscribed: false
+            }, {
+              localAddress: "0x87d6b9c567e5b84cd00e03bfbe6d20d88209c33a",
+              remoteAddress: "0x23dab942822021bbd6d551ef51003208924877e4",
+              subscribed: false
+            }
+          ]

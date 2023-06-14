@@ -1,0 +1,105 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /subbridge/unsubscribeBridge:
+    post:
+      summary: "[unsubscribeBridge]"
+      tags:
+        - subbridge
+      operationId: unsubscribeBridge
+      description: |
+        The subbridge_ununsubscribeBridge unsubscribes the sub-bridge from the bridge contracts in the parent and child chains. If the sub-bridge is unsubscribed from the bridge contracts, cross-chain value transfer requests can not be handled by the sub-bridge.
+
+        **JSONRPC:** `subbridge_unsubscribeBridge`
+
+      parameters:
+        - name: childAccount
+          in: query
+          required: true
+          description: Address of bridge contract on child chain.
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+        - name: parentAccount
+          in: query
+          required: true
+          description: Address of bridge contract on parent chain.
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/Address"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/SubbridgeUnsubscribeBridgeReq"
+
+      responses:
+        200:
+          description: The subbridge_unsubscribeBridge unsubscribes the sub-bridge from the bridge contracts in the parent and child chains.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/SubbridgeUnsubscribeBridgeResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/subbridge/unsubscribeBridge.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../code-samples/javascript/eth/miscellaneous/unsubscribeBridge.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../code-samples/python/eth/miscellaneous/unsubscribeBridge.py"
+
+components:
+  schemas:
+    SubbridgeUnsubscribeBridgeReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'subbridge_unsubscribeBridge'
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: ChildAccount
+                type: string
+                format: 20-byte DATA
+                description: Address of bridge contract on child chain.
+              - title: ParentAccount
+                type: string
+                format: 20-byte DATA
+                description: Address of bridge contract on parent chain.
+          example: ["0x87d6b9c567e5b84cd00e03bfbe6d20d88209c33a", "0x23dab942822021bbd6d551ef51003208924877e4"]
+
+    SubbridgeUnsubscribeBridgeResp:
+      type: object
+      properties:
+        result:
+          type: string
+          example: null
+          # error
