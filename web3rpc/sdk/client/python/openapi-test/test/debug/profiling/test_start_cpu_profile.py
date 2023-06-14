@@ -8,11 +8,12 @@ class TestStartCPUProfile(KlaytnBaseTesting):
         self.file = "block.profile1"
 
     def test_post(self):
-        self.response = self.sdk.debug.start_cpu_profile(
+        self.response = self.w3.debug.start_cpu_profile(
             self.file
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.debug.start_cpu_profile()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.debug.start_cpu_profile()
+

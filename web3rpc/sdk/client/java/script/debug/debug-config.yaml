@@ -2,7 +2,7 @@ generatorName: web3rpc-java
 outputDir: ./openapi/debug
 inputSpec: ../../../rpc-specs/namespaces/debug-openapi.yaml
 groupId: klaytn.foundation
-artifactId: web3api-debug
+artifactId: web3rpc-debug
 artifactVersion: v1.10.0
 library: retrofit2
 templateDir: ./template

@@ -10,12 +10,13 @@ class TestKlayGetBlockByNumber(KlaytnBaseTesting):
         self.boolean = True
 
     def test_post(self):
-        self.response = self.sdk.klay.get_block_by_number(
+        self.response = self.w3.klay.get_block_by_number(
             self.blockTag, self.boolean
         )
         self.assertResponseSuccess()
         self.assertTrue(re.match(r"^0x?", self.response["hash"]))
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.klay.get_block_by_number(self.blockTag)
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.klay.get_block_by_number(self.blockTag)
+

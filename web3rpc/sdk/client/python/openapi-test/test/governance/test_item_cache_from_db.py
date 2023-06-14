@@ -8,7 +8,7 @@ class TestItemCacheFromDb(KlaytnBaseTesting):
         self.blockNumber = 0
 
     def test_post(self):
-        self.response = self.sdk.governance.item_cache_from_db(
+        self.response = self.w3.governance.item_cache_from_db(
             self.blockNumber
         )
         self.assertResponseSuccess()

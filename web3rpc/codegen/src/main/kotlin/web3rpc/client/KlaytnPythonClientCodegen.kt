@@ -8,12 +8,29 @@ import org.openapitools.codegen.CodegenComposedSchemas
 import org.openapitools.codegen.CodegenModel
 import org.openapitools.codegen.CodegenOperation
 import org.openapitools.codegen.CodegenParameter
-import org.openapitools.codegen.languages.PythonClientCodegen
+//import org.openapitools.codegen.languages.PythonClientCodegen
+import org.openapitools.codegen.languages.PythonLegacyClientCodegen
 import org.openapitools.codegen.model.ModelsMap
+import org.openapitools.codegen.SupportingFile
 
-class KlaytnPythonClientCodegen : PythonClientCodegen {
+class KlaytnPythonClientCodegen : PythonLegacyClientCodegen {
     companion object {
         val clientName = "web3rpc-python"
+        val disableScopeNamespace = arrayOf("net", "admin", "personal")
+        val disableOperation = arrayOf(
+            // personal namespace
+            "importRawKey", "listAccounts", "listWallets", "ecRecover", 
+            "sendTransaction", "Sign", "newAccount", "lockAccount", "unlockAccount",
+            // admin namespace
+            "peers", "nodeInfo", "addPeer", "datadir",
+            "startWs", "stopWs",
+            // net namespace
+            "listening", "peerCount", "version",
+            // eth namespace
+            // "protocolVersion", "chainId", "coinbase", "syncing", "mining",
+            // "hashrate", "blockNumber", "maxPriorityFeePerGas", "accounts",
+            // "newBlockFilter", "newPendingTransactionFilter", "gasPrice"
+        )
     }
 
     constructor() : super() {
@@ -47,6 +64,13 @@ class KlaytnPythonClientCodegen : PythonClientCodegen {
         }
         for (name in removedImports) {
             op.imports.remove(name)
+        }
+        for (namespace in disableScopeNamespace) {
+            if(path.contains("/" + namespace + "/")) {
+                if(op.operationId in disableOperation) {
+                    op.vendorExtensions.put("x-delegate-to", true)
+                }
+            }
         }
         return op
     }
@@ -82,11 +106,24 @@ class KlaytnPythonClientCodegen : PythonClientCodegen {
         super.updateModelForComposedSchema(m, schema, allDefinitions)
     }
 
-
     override fun fromParameter(parameter: Parameter, imports: Set<String?>?): CodegenParameter? {
         val cp = super.fromParameter(parameter, imports)
         val titles = listOf("fromBlock", "toBlock")
         cp?.schema?.composedSchemas?.allOf?.removeAll { titles.contains(it.title) }
         return cp
+    }
+
+    override fun processOpts() {
+        super.processOpts()
+        if (projectName.equals("web3rpc-python-personal")) {
+            apiTemplateFiles.remove("api.mustache")
+            apiTemplateFiles.put("api_template/personal/api.mustache", ".py")
+        } else if (projectName.equals("web3rpc-python-admin")) {
+            apiTemplateFiles.remove("api.mustache")
+            apiTemplateFiles.put("api_template/admin/api.mustache", ".py")
+        } else if (projectName.equals("web3rpc-python-net")) {
+            apiTemplateFiles.remove("api.mustache")
+            apiTemplateFiles.put("api_template/net/api.mustache", ".py")
+        }
     }
 }

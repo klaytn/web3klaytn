@@ -15,16 +15,16 @@ repositories {
 }
 
 dependencies {
-    api "klaytn.foundation:web3api-eth:v1.10.0"
-    api "klaytn.foundation:web3api-klay:v1.10.0"
-    api "klaytn.foundation:web3api-net:v1.10.0"
-    api "klaytn.foundation:web3api-personal:v1.10.0"
-    api "klaytn.foundation:web3api-txpool:v1.10.0"
-    api "klaytn.foundation:web3api-admin:v1.10.0"
-    api "klaytn.foundation:web3api-debug:v1.10.0"
-    api "klaytn.foundation:web3api-mainbridge:v1.10.0"
-    api "klaytn.foundation:web3api-subbridge:v1.10.0"
-    api "klaytn.foundation:web3api-governance:v1.10.0"
+    api "klaytn.foundation:web3rpc-eth:v1.10.0"
+    api "klaytn.foundation:web3rpc-klay:v1.10.0"
+    api "klaytn.foundation:web3rpc-net:v1.10.0"
+    api "klaytn.foundation:web3rpc-personal:v1.10.0"
+    api "klaytn.foundation:web3rpc-txpool:v1.10.0"
+    api "klaytn.foundation:web3rpc-admin:v1.10.0"
+    api "klaytn.foundation:web3rpc-debug:v1.10.0"
+    api "klaytn.foundation:web3rpc-mainbridge:v1.10.0"
+    api "klaytn.foundation:web3rpc-subbridge:v1.10.0"
+    api "klaytn.foundation:web3rpc-governance:v1.10.0"
 //    api(files("../openapi/eth/build/libs/opensdk-eth-java-v1.10.0.jar"))
 //    api(files("../openapi/klay/build/libs/opensdk-klay-java-v1.10.0.jar"))
     implementation "org.web3j:core:4.9.7"
@@ -36,7 +36,7 @@ dependencies {
 publishing {
     publications {
         maven(MavenPublication) {
-            artifactId = 'web3api'
+            artifactId = 'web3rpc'
             from components.java
         }
     }

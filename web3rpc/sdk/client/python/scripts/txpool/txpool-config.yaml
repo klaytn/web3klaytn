@@ -1,8 +1,8 @@
 generatorName: web3rpc-python
 outputDir: ./openapi/txpool
 inputSpec: ../../../rpc-specs/namespaces/txpool-openapi.yaml
-projectName: opensdk-python-txpool
-packageName: opensdk_python_txpool
+projectName: web3rpc-python-txpool
+packageName: web3rpc_python_txpool
 templateDir: ./template
 sortParamsByRequiredFlag: false
 globalProperties:

@@ -8,11 +8,12 @@ class TestDebugBacktraceAt(KlaytnBaseTesting):
         self.location = "server.go:443"
 
     def test_post(self):
-        self.response = self.sdk.debug.backtrace_at(
+        self.response = self.w3.debug.backtrace_at(
             self.location
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.debug.backtrace_at()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.debug.backtrace_at()
+

@@ -9,7 +9,7 @@ class TestKlayGetBlockWithConsensusInfoByNumberRange(KlaytnBaseTesting):
         self.numberRange = 10
 
     def test_post(self):
-        self.response = self.sdk.klay.get_block_with_consensus_info_by_number_range(
+        self.response = self.w3.klay.get_block_with_consensus_info_by_number_range(
             self.blockHash, self.numberRange
         )
         self.assertResponseSuccess()

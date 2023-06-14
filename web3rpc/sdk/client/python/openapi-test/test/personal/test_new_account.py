@@ -8,11 +8,12 @@ class TestNewAccount(KlaytnBaseTesting):
         self.passphrase = "helloWorld"
 
     def test_post(self):
-        self.response = self.sdk.personal.new_account(
+        self.response = self.w3.geth.personal.new_account(
             self.passphrase
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.personal.new_account()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.geth.personal.new_account()
+

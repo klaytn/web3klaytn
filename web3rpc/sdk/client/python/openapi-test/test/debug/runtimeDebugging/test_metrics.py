@@ -8,11 +8,12 @@ class TestDebugMetrics(KlaytnBaseTesting):
         self.raw = True
 
     def test_post(self):
-        self.response = self.sdk.debug.metrics(
+        self.response = self.w3.debug.metrics(
             self.raw
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.debug.metrics()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.debug.metrics()
+

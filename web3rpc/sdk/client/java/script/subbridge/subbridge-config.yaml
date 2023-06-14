@@ -2,7 +2,7 @@ generatorName: web3rpc-java
 outputDir: ./openapi/subbridge
 inputSpec: ../../../rpc-specs/namespaces/subbridge-openapi.yaml
 groupId: klaytn.foundation
-artifactId: web3api-subbridge
+artifactId: web3rpc-subbridge
 artifactVersion: v1.10.0
 library: retrofit2
 templateDir: ./template

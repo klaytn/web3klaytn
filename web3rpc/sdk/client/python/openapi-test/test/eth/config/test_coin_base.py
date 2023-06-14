@@ -4,5 +4,5 @@ from base.testing import KlaytnBaseTesting
 class TestCoinBase(KlaytnBaseTesting):
 
     def test_post(self):
-        self.response = self.sdk.eth.coinbase()
-        self.assertResponseSuccess()
+        self.response = self.w3.eth.coinbase
+        self.assertIsInstance(self.response, str)

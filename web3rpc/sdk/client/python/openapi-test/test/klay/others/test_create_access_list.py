@@ -14,11 +14,12 @@ class TestCreateAccessList(KlaytnBaseTesting):
         self.blockTag = "latest"
 
     def test_post(self):
-        self.response = self.sdk.klay.create_access_list(
+        self.response = self.w3.klay.create_access_list(
             self.callObject, self.blockTag
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.klay.create_access_list()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.klay.create_access_list()
+

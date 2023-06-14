@@ -8,7 +8,7 @@ class TestKlayGetCouncilSize(KlaytnBaseTesting):
         self.blockTag = "0x1b4"
 
     def test_post(self):
-        self.response = self.sdk.klay.get_council_size(
+        self.response = self.w3.klay.get_council_size(
             self.blockTag
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, int)

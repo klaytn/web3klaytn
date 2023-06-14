@@ -13,15 +13,15 @@ class TestSignTransaction(KlaytnBaseTesting):
             "gas": "0x9999",
             "maxFeePerGas": "0x5d21dba00",
             "maxPriorityFeePerGas": "0x5d21dba00",
-            "nonce": getNonce()
+            # "nonce": getNonce()
         }
 
     def test_post(self):
-        self.response = self.sdk.klay.sign_transaction(
+        self.response = self.w3.klay.sign_transaction(
             self.transactionObject
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.klay.sign_transaction()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.klay.sign_transaction()

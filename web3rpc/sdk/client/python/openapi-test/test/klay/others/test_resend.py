@@ -20,11 +20,12 @@ class TestResend(KlaytnBaseTesting):
         self.gasLimit = "0xe8d4a50fff"
 
     def test_post(self):
-        self.response = self.sdk.klay.resend(
+        self.response = self.w3.klay.resend(
             self.oldTrx, self.gasPrice, self.gasLimit
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.klay.resend(self.gasPrice)
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.klay.resend(self.gasPrice)
+

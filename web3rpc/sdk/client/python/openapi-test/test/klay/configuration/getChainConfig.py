@@ -8,7 +8,7 @@ class TestGetChainConfig(KlaytnBaseTesting):
         self.blockTag = 100
 
     def test_post(self):
-        self.response = self.sdk.klay.get_chain_config(
+        self.response = self.w3.klay.get_chain_config(
             self.blockTag
         )
         self.assertResponseSuccess()

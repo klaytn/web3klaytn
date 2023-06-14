@@ -8,7 +8,7 @@ class TestItemsAt(KlaytnBaseTesting):
         self.blockTag = 0
 
     def test_post(self):
-        self.response = self.sdk.governance.items_at(
+        self.response = self.w3.governance.items_at(
             self.blockTag
         )
         self.assertResponseSuccess()

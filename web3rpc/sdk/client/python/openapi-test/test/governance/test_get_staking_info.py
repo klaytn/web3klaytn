@@ -1,6 +1,5 @@
 from base.testing import KlaytnBaseTesting
 
-
 class TestGetStakingInfo(KlaytnBaseTesting):
 
     def setUp(self) -> None:
@@ -8,7 +7,7 @@ class TestGetStakingInfo(KlaytnBaseTesting):
         self.blockNumber = "latest"
 
     def test_post(self):
-        self.response = self.sdk.governance.get_staking_info(
+        self.response = self.w3.governance.get_staking_info(
             self.blockNumber
         )
         self.assertResponseSuccess()

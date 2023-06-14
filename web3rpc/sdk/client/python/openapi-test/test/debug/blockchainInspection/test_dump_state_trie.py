@@ -8,11 +8,12 @@ class TestDebugDumpStateTrie(KlaytnBaseTesting):
         self.blockNumber = "0x80"
 
     def test_post(self):
-        self.response = self.sdk.debug.dump_state_trie(
+        self.response = self.w3.debug.dump_state_trie(
             self.blockNumber
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.debug.dump_state_trie()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.debug.dump_state_trie()
+

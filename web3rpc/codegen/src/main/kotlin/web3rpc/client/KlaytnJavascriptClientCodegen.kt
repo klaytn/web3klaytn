@@ -18,12 +18,6 @@ class KlaytnJavascriptClientCodegen : JavascriptClientCodegen {
         return clientName
     }
 
-    override fun processOpts() {
-        super.processOpts()
-
-        var supportingFile = supportingFiles.find { it -> it.templateFile.equals("build.gradle.mustache") }
-    }
-
     override fun getUseInlineModelResolver(): Boolean {
         return true
     }

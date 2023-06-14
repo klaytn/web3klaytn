@@ -16,11 +16,12 @@ class TestKlayCall(KlaytnBaseTesting):
         self.blockTag = 'latest'
 
     def test_post(self):
-        self.response = self.sdk.klay.call(
+        self.response = self.w3.klay.call(
             self.callObject, self.blockTag
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.klay.call(self.callObject)
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.klay.call(self.callObject)
+

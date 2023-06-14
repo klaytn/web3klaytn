@@ -9,11 +9,12 @@ class TestGetRawTransactionByBlockHashAndIndex(KlaytnBaseTesting):
         self.index = "0x20965255"
 
     def test_post(self):
-        self.response = self.sdk.klay.get_raw_transaction_by_block_hash_and_index(
+        self.response = self.w3.klay.get_raw_transaction_by_block_hash_and_index(
             self.blockHash, self.index
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.klay.get_raw_transaction_by_block_hash_and_index(self.blockHash)
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.klay.get_raw_transaction_by_block_hash_and_index(self.blockHash)
+

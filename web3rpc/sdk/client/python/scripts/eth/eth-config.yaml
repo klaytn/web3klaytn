@@ -1,8 +1,8 @@
 generatorName: web3rpc-python
 outputDir: ./openapi/eth
 inputSpec: ../../../rpc-specs/namespaces/eth-openapi.yaml
-projectName: opensdk-python-eth
-packageName: opensdk_python_eth
+projectName: web3rpc-python-eth
+packageName: web3rpc_python_eth
 templateDir: ./template
 sortParamsByRequiredFlag: false
 globalProperties:

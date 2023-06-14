@@ -2,7 +2,7 @@ generatorName: web3rpc-java
 outputDir: ./openapi/eth
 inputSpec: ../../../rpc-specs/namespaces/eth-openapi.yaml
 groupId: klaytn.foundation
-artifactId: web3api-eth
+artifactId: web3rpc-eth
 artifactVersion: v1.10.0
 library: retrofit2
 templateDir: ./template

@@ -1,8 +1,8 @@
 generatorName: web3rpc-python
 outputDir: ./openapi/personal
 inputSpec: ../../../rpc-specs/namespaces/personal-openapi.yaml
-projectName: opensdk-python-personal
-packageName: opensdk_python_personal
+projectName: web3rpc-python-personal
+packageName: web3rpc_python_personal
 templateDir: ./template
 sortParamsByRequiredFlag: false
 globalProperties:

@@ -8,11 +8,12 @@ class TestDebugVerbosity(KlaytnBaseTesting):
         self.level = 3
 
     def test_post(self):
-        self.response = self.sdk.debug.verbosity(
+        self.response = self.w3.debug.verbosity(
             self.level
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.debug.verbosity()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.debug.verbosity()
+

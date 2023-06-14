@@ -2,7 +2,7 @@ generatorName: web3rpc-java
 outputDir: ./openapi/admin
 inputSpec: ../../../rpc-specs/namespaces/admin-openapi.yaml
 groupId: klaytn.foundation
-artifactId: web3api-admin
+artifactId: web3rpc-admin
 artifactVersion: v1.10.0
 library: retrofit2
 templateDir: ./template

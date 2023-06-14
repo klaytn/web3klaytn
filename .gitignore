@@ -85,6 +85,7 @@ node_modules/
 __pycache__/
 *.pyc
 .venv/
+*.egg-info
 
 # Local History for Visual Studio
 .localhistory/

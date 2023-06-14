@@ -53,11 +53,11 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
         supportingFiles.find { it -> it.templateFile.equals("build.gradle.mustache") }
         val modelFolder = (sourceFolder + File.separator + modelPackage).replace(".", "/")
 
-        if (artifactId.equals("web3api-klay")) {
+        if (artifactId.equals("web3rpc-klay")) {
             supportingFiles.add(SupportingFile("KlayGetAccountKey.java.mustache", modelFolder, "KlayGetAccountKey.java"))
             supportingFiles.add(SupportingFile("FilterOptions.java.mustache", modelFolder, "FilterOptions.java"))
             supportingFiles.add(SupportingFile("KlaytnTransactionTypes.java.mustache", modelFolder, "KlaytnTransactionTypes.java"))
-        } else if (artifactId.equals("web3api-eth")) {
+        } else if (artifactId.equals("web3rpc-eth")) {
             supportingFiles.add(SupportingFile("FilterOptions.java.mustache", modelFolder, "FilterOptions.java"))
         }
     }

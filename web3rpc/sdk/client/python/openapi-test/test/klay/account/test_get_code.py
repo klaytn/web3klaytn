@@ -9,11 +9,12 @@ class TestKlayGetCode(KlaytnBaseTesting):
         self.blockTag = "0x2"
 
     def test_post(self):
-        self.response = self.sdk.klay.get_code(
+        self.response = self.w3.klay.get_code(
             self.address, self.blockTag
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.klay.get_code(self.blockTag)
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.klay.get_code(self.blockTag)
+

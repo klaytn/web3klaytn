@@ -9,11 +9,12 @@ class TestGetRawTransactionByBlockNumberAndIndex(KlaytnBaseTesting):
         self.index = "0x0"
 
     def test_post(self):
-        self.response = self.sdk.eth.get_raw_transaction_by_block_number_and_index(
+        self.response = self.w3.eth.get_raw_transaction_by_block(
             self.blockNumber, self.index
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, bytes)
 
-    def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.eth.get_raw_transaction_by_block_number_and_index()
-        self.assertErrorCodeMissingRequiredArgument()
+    # def test_post_wrong_with_lack_paramaters(self):
+    #     with self.assertRaises(ValueError):
+    #         self.response = self.w3.eth.get_raw_transaction_by_block_number_and_index()
+

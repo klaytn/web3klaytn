@@ -6,5 +6,5 @@ class TestAdminStopHTTP(KlaytnBaseTesting):
 
     @unittest.skip
     def test_post(self):
-        self.response = self.sdk.admin.stop_http()
+        self.response = self.w3.geth.admin.stop_http()
         self.assertResponseSuccess()
