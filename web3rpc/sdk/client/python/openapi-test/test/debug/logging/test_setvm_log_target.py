@@ -8,11 +8,12 @@ class TestDebugSetVMLogTarget(KlaytnBaseTesting):
         self.target = 3
 
     def test_post(self):
-        self.response = self.sdk.debug.set_vm_log_target(
+        self.response = self.w3.debug.set_vm_log_target(
             self.target
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.debug.set_vm_log_target()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.debug.set_vm_log_target()
+

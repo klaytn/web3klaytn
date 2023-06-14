@@ -9,11 +9,12 @@ class TestGetFilterChanges(KlaytnBaseTesting):
         self.quantity = create_new_filter()
 
     def test_post(self):
-        self.response = self.sdk.klay.get_filter_changes(
+        self.response = self.w3.klay.get_filter_changes(
             self.quantity
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.klay.get_filter_changes()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.klay.get_filter_changes()
+

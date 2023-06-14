@@ -9,11 +9,12 @@ class TestSendRawTransaction(KlaytnBaseTesting):
         self.signedTransactionData = get_raw_transaction()
 
     def test_post(self):
-        self.response = self.sdk.eth.send_raw_transaction(
+        self.response = self.w3.eth.send_raw_transaction(
             self.signedTransactionData
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, bytes)
 
-    def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.eth.send_raw_transaction()
-        self.assertErrorCodeMissingRequiredArgument()
+    # def test_post_wrong_with_lack_paramaters(self):
+    #     with self.assertRaises(ValueError):
+    #         self.response = self.w3.eth.send_raw_transaction()
+

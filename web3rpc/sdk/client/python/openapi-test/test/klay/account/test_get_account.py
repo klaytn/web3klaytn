@@ -9,11 +9,12 @@ class TestGetAccount(KlaytnBaseTesting):
         self.blockNumberOrHash = "latest"
 
     def test_post(self):
-        self.response = self.sdk.klay.get_account(
+        self.response = self.w3.klay.get_account(
             self.address, self.blockNumberOrHash
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.klay.get_account(self.blockNumberOrHash)
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.klay.get_account(self.blockNumberOrHash)
+

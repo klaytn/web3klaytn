@@ -9,11 +9,12 @@ class TestDebugMutexProfile(KlaytnBaseTesting):
         self.seconds = 10
 
     def test_post(self):
-        self.response = self.sdk.debug.mutex_profile(
+        self.response = self.w3.debug.mutex_profile(
             self.file, self.seconds
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.debug.mutex_profile(self.file)
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.debug.mutex_profile(self.file)
+

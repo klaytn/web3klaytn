@@ -9,11 +9,12 @@ class TestTraceBlockByNumberRange(KlaytnBaseTesting):
         self.endBlock = 22
 
     def test_post(self):
-        self.response = self.sdk.debug.trace_block_by_number_range(
+        self.response = self.w3.debug.trace_block_by_number_range(
             self.startBlock, self.endBlock
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.debug.trace_block_by_number_range(self.startBlock)
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.debug.trace_block_by_number_range(self.startBlock)
+

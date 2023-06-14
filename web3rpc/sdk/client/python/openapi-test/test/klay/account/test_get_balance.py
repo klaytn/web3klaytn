@@ -9,11 +9,12 @@ class TestKlayGetBalance(KlaytnBaseTesting):
         self.blockTag = "latest"
 
     def test_post(self):
-        self.response = self.sdk.klay.get_balance(
+        self.response = self.w3.klay.get_balance(
             self.address, self.blockTag
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.klay.get_balance(self.blockTag)
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.klay.get_balance(self.blockTag)
+

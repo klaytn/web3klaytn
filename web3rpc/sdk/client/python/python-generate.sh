@@ -10,7 +10,8 @@ rm -rf "${CURRENT_FILE_DIR}/openapi"
 mkdir "${CURRENT_FILE_DIR}/openapi"
 
 
-sh ./scripts/eth/python-eth-generate.sh ${CURRENT_FILE_DIR}
+# web3py covers all the eth namespace so disabled
+# sh ./scripts/eth/python-eth-generate.sh ${CURRENT_FILE_DIR}
 sh ./scripts/klay/python-klay-generate.sh ${CURRENT_FILE_DIR}
 sh ./scripts/net/python-net-generate.sh ${CURRENT_FILE_DIR}
 sh ./scripts/txpool/python-txpool-generate.sh ${CURRENT_FILE_DIR}
@@ -21,7 +22,7 @@ sh ./scripts/admin/python-admin-generate.sh ${CURRENT_FILE_DIR}
 
 #cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi"
 
-cd "${CURRENT_FILE_DIR}/opensdk"
+cd "${CURRENT_FILE_DIR}/web3py-ext-test-wrapper"
 
-pip uninstall opensdk -y
+pip uninstall web3py_ext -y
 pip install .

@@ -8,11 +8,12 @@ class TestDebugGetBlockRlp(KlaytnBaseTesting):
         self.blockHash = "latest"
 
     def test_post(self):
-        self.response = self.sdk.debug.get_block_rlp(
+        self.response = self.w3.debug.get_block_rlp(
             self.blockHash
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.debug.get_block_rlp()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.debug.get_block_rlp()
+

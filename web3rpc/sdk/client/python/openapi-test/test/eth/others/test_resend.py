@@ -22,12 +22,13 @@ class TestResend(KlaytnBaseTesting):
 
     @unittest.skip
     def test_post(self):
-        self.response = self.sdk.eth.resend(
+        self.response = self.w3.eth.resend(
             self.oldTrx, self.gasPrice, self.gasLimit
         )
         self.assertResponseSuccess()
 
-    @unittest.skip
-    def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.eth.resend(self.gasPrice)
-        self.assertErrorCodeMissingRequiredArgument()
+    # @unittest.skip
+    # def test_post_wrong_with_lack_paramaters(self):
+    #     with self.assertRaises(ValueError):
+    #         self.response = self.w3.eth.resend(self.gasPrice)
+

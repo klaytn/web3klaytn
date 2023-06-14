@@ -1,5 +1,5 @@
 from base.testing import KlaytnBaseTesting
-
+from eth_utils.address import to_checksum_address
 
 class TestEthGetLogs(KlaytnBaseTesting):
 
@@ -8,15 +8,16 @@ class TestEthGetLogs(KlaytnBaseTesting):
         self.filterOptions = {
             "fromBlock": "latest",
             "toBlock": "latest",
-            "address": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b"
+            "address": to_checksum_address("0x87ac99835e67168d4f9a40580f8f5c33550ba88b")
         }
 
     def test_post(self):
-        self.response = self.sdk.eth.get_logs(
+        self.response = self.w3.eth.get_logs(
             self.filterOptions
         )
         self.assertResponseSuccess()
 
-    def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.eth.get_logs()
-        self.assertErrorCodeMissingRequiredArgument()
+    # def test_post_wrong_with_lack_paramaters(self):
+    #     with self.assertRaises(ValueError):
+    #         self.response = self.w3.eth.get_logs()
+

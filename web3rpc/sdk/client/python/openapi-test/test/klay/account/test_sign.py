@@ -10,12 +10,13 @@ class TestKlaySign(KlaytnBaseTesting):
         self.message = "0xdeadbeaf"
 
     def test_post(self):
-        self.response = self.sdk.klay.sign(
+        self.response = self.w3.klay.sign(
             self.address, self.message
         )
 
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.klay.sign(self.address)
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.klay.sign(self.address)
+

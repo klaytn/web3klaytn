@@ -8,7 +8,7 @@ class TestKlayGetCouncil(KlaytnBaseTesting):
         self.blockTag = "0x1b4"
 
     def test_post(self):
-        self.response = self.sdk.klay.get_council(
+        self.response = self.w3.klay.get_council(
             self.blockTag
         )
 

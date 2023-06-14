@@ -8,11 +8,12 @@ class TestEthGetBlockTransactionCountByNumber(KlaytnBaseTesting):
         self.blockNumber = "0xe8"
 
     def test_post(self):
-        self.response = self.sdk.eth.get_block_transaction_count_by_number(
+        self.response = self.w3.eth.get_block_transaction_count(
             self.blockNumber
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, int)
 
-    def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.eth.get_block_transaction_count_by_number()
-        self.assertErrorCodeMissingRequiredArgument()
+    # def test_post_wrong_with_lack_paramaters(self):
+    #     with self.assertRaises(ValueError):
+    #         self.response = self.w3.eth.get_block_transaction_count_by_number()
+

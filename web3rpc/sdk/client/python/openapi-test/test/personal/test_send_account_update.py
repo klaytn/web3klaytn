@@ -12,11 +12,12 @@ class TestSendAccountUpdate(KlaytnBaseTesting):
         self.passphrase = "gr8=B!0@uc$b"
 
     def test_post(self):
-        self.response = self.sdk.personal.send_account_update(
+        self.response = self.w3.geth.personal.send_account_update(
             self.tx, self.passphrase
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.personal.send_account_update()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.geth.personal.send_account_update()
+

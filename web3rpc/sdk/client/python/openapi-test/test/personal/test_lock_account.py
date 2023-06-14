@@ -1,5 +1,5 @@
 from base.testing import KlaytnBaseTesting
-
+from eth_utils.address import to_checksum_address
 
 class TestLockAccount(KlaytnBaseTesting):
 
@@ -8,11 +8,12 @@ class TestLockAccount(KlaytnBaseTesting):
         self.address = "0xfa415bb3e6231f488ff39eb2897db0ef3636dd32"
 
     def test_post(self):
-        self.response = self.sdk.personal.lock_account(
-            self.address
+        self.response = self.w3.geth.personal.lock_account(
+            to_checksum_address(self.address)
         )
-        self.assertResponseSuccess()
+        self.assertEqual(self.response, True)
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.personal.lock_account()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.geth.personal.lock_account()
+

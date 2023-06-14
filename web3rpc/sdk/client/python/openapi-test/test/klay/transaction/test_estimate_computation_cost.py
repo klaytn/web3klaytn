@@ -14,11 +14,12 @@ class TestKlayEstimateComputationCost(KlaytnBaseTesting):
         self.blockNumberOrHash = "latest"
 
     def test_post(self):
-        self.response = self.sdk.klay.estimate_computation_cost(
+        self.response = self.w3.klay.estimate_computation_cost(
             self.callObject, self.blockNumberOrHash
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.klay.estimate_computation_cost(self.callObject)
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.klay.estimate_computation_cost(self.callObject)
+

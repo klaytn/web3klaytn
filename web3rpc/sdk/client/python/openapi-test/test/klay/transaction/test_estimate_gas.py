@@ -15,9 +15,10 @@ class TestKlayEstimateGas(KlaytnBaseTesting):
         }
 
     def test_post(self):
-        self.response = self.sdk.klay.estimate_gas(self.callObject)
+        self.response = self.w3.klay.estimate_gas(self.callObject)
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.klay.estimate_gas()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.klay.estimate_gas()
+

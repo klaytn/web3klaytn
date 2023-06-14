@@ -8,11 +8,12 @@ class TestDebugVmodule(KlaytnBaseTesting):
         self.module = "p2p=4"
 
     def test_post(self):
-        self.response = self.sdk.debug.vmodule(
+        self.response = self.w3.debug.vmodule(
             self.module
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.debug.vmodule()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.debug.vmodule()
+

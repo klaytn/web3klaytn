@@ -18,17 +18,18 @@ class TestSendTransaction(KlaytnBaseTesting):
                     "s": "0x17306171c0251a16c3e469a00b23c27f3a8fa70c8d3db5b520f076b186d74037"
                 }
             ],
-            "nonce": getNonce(),
+            # "nonce": getNonce(),
         }
 
         self.password = "helloWorld"
 
     def test_post(self):
-        self.response = self.sdk.personal.send_value_transfer(
+        self.response = self.w3.geth.personal.send_value_transfer(
             self.transactionObject, self.password
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.personal.send_value_transfer()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.geth.personal.send_value_transfer()
+

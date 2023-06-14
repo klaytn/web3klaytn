@@ -13,11 +13,12 @@ class TestKlayNewFilter(KlaytnBaseTesting):
         }
 
     def test_post(self):
-        self.response = self.sdk.klay.new_filter(
+        self.response = self.w3.klay.new_filter(
             self.filterOptions,
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.klay.new_filter()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.klay.new_filter()
+

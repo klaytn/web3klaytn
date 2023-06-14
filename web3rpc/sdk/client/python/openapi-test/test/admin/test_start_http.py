@@ -11,7 +11,7 @@ class TestAdminStartHTTP(KlaytnBaseTesting):
         self.apis = "klay"
 
     def test_post(self):
-        self.response = self.sdk.admin.start_http(
+        self.response = self.w3.geth.admin.start_http(
             self.adminHost, self.port, self.cors, self.apis
         )
         self.assertResponseSuccess()

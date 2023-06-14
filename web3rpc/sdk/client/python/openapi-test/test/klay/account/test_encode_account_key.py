@@ -11,11 +11,12 @@ class TestEncodeAccountKey(KlaytnBaseTesting):
         }
 
     def test_post(self):
-        self.response = self.sdk.klay.encode_account_key(
+        self.response = self.w3.klay.encode_account_key(
             self.accountKey
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.klay.encode_account_key()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.klay.encode_account_key()
+

@@ -12,11 +12,12 @@ class TestDebugStorageRangeAt(KlaytnBaseTesting):
         self.maxResult = 1
 
     def test_post(self):
-        self.response = self.sdk.debug.storage_range_at(
+        self.response = self.w3.debug.storage_range_at(
             self.blockHash, self.txIndex, self.address, self.keyStart, self.maxResult
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.debug.storage_range_at(self.blockHash)
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.debug.storage_range_at(self.blockHash)
+

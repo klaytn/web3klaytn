@@ -9,7 +9,7 @@ class TestGovernanceVote(KlaytnBaseTesting):
         self.value = "ballot"
 
     def test_post(self):
-        self.response = self.sdk.governance.vote(
+        self.response = self.w3.governance.vote(
             self.key, self.value
         )
         self.assertResponseSuccess()

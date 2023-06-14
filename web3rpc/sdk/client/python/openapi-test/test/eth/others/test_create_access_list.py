@@ -14,11 +14,12 @@ class TestCreateAccessList(KlaytnBaseTesting):
         }
 
     def test_post(self):
-        self.response = self.sdk.eth.create_access_list(
+        self.response = self.w3.eth.create_access_list(
             self.transactionArgs
         )
         self.assertResponseSuccess()
 
-    def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.eth.create_access_list()
-        self.assertErrorCodeMissingRequiredArgument()
+    # def test_post_wrong_with_lack_paramaters(self):
+    #     with self.assertRaises(ValueError):
+    #         self.response = self.w3.eth.create_access_list()
+

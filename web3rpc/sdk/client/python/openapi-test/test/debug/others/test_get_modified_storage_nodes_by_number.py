@@ -10,11 +10,12 @@ class TestDebugGetModifiedStorageNodesByNumber(KlaytnBaseTesting):
         self.endBlockNum = 200
 
     def test_post(self):
-        self.response = self.sdk.debug.get_modified_storage_nodes_by_number(
+        self.response = self.w3.debug.get_modified_storage_nodes_by_number(
             self.address, self.startBlockNum, self.endBlockNum
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.debug.get_modified_storage_nodes_by_number(self.address)
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.debug.get_modified_storage_nodes_by_number(self.address)
+

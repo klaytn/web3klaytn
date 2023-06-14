@@ -8,11 +8,12 @@ class TestDebugSetMutexProfileFraction(KlaytnBaseTesting):
         self.rate = 2
 
     def test_post(self):
-        self.response = self.sdk.debug.set_mutex_profile_fraction(
+        self.response = self.w3.debug.set_mutex_profile_fraction(
             self.rate
         )
         self.assertResponseSuccess()
 
     def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.debug.set_mutex_profile_fraction()
-        self.assertErrorCodeMissingRequiredArgument()
+        with self.assertRaises(ValueError):
+            self.response = self.w3.debug.set_mutex_profile_fraction()
+

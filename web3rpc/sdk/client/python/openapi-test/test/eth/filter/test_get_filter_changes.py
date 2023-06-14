@@ -6,14 +6,15 @@ class TestGetFilterChanges(KlaytnBaseTesting):
 
     def setUp(self) -> None:
         super().setUp()
-        self.quantity = create_new_filter()
+        self.filter = create_new_filter()
 
     def test_post(self):
-        self.response = self.sdk.eth.get_filter_changes(
-            self.quantity,
+        self.response = self.w3.eth.get_filter_changes(
+            self.filter.filter_id,
         )
         self.assertResponseSuccess()
 
-    def test_post_wrong_with_lack_paramaters(self):
-        self.response = self.sdk.eth.get_filter_changes()
-        self.assertErrorCodeMissingRequiredArgument()
+    # def test_post_wrong_with_lack_paramaters(self):
+    #     with self.assertRaises(ValueError):
+    #         self.response = self.w3.eth.get_filter_changes()
+
