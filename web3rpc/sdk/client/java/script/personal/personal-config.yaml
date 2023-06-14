@@ -2,7 +2,7 @@ generatorName: web3rpc-java
 outputDir: ./openapi/personal
 inputSpec: ../../../rpc-specs/namespaces/personal-openapi.yaml
 groupId: klaytn.foundation
-artifactId: web3api-personal
+artifactId: web3rpc-personal
 artifactVersion: v1.10.0
 library: retrofit2
 templateDir: ./template
