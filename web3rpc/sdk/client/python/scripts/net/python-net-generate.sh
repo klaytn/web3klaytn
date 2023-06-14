@@ -12,5 +12,5 @@ sh "${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FIL
 
 cd "${CURRENT_FILE_DIR}/openapi/net"
 
-pip uninstall opensdk-python-net -y
+pip uninstall web3rpc-python-net -y
 pip install .

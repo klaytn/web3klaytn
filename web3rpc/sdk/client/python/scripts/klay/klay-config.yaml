@@ -1,8 +1,8 @@
 generatorName: web3rpc-python
 outputDir: ./openapi/klay
 inputSpec: ../../../rpc-specs/namespaces/klay-openapi.yaml
-projectName: opensdk-python-klay
-packageName: opensdk_python_klay
+projectName: web3rpc-python-klay
+packageName: web3rpc_python_klay
 templateDir: ./template
 sortParamsByRequiredFlag: false
 globalProperties:

@@ -12,5 +12,5 @@ sh "${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FIL
 
 cd "${CURRENT_FILE_DIR}/openapi/admin"
 
-pip uninstall opensdk-python-admin -y
+pip uninstall web3rpc-python-admin -y
 pip install .

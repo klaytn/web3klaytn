@@ -1,8 +1,8 @@
 generatorName: web3rpc-python
 outputDir: ./openapi/admin
 inputSpec: ../../../rpc-specs/namespaces/admin-openapi.yaml
-projectName: opensdk-python-admin
-packageName: opensdk_python_admin
+projectName: web3rpc-python-admin
+packageName: web3rpc_python_admin
 templateDir: ./template
 sortParamsByRequiredFlag: false
 globalProperties:

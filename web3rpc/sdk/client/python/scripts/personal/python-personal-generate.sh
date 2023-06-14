@@ -12,5 +12,5 @@ sh "${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FIL
 
 cd "${CURRENT_FILE_DIR}/openapi/personal"
 
-pip uninstall opensdk-python-personal -y
+pip uninstall web3rpc-python-personal -y
 pip install .
