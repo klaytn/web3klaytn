@@ -21,6 +21,17 @@
     CodegenConfig::class.java.classLoader
   )
   ```
+### install
+- Ubuntu
+  ```shell
+  sudo apt-get install gradle
+  gradle wrapper
+  ```
+- Mac
+  ```shell
+  brew install gradle
+  gradle wrapper
+  ```
 ### deploy
 ```shell
 ./gradlew clean :deployJar

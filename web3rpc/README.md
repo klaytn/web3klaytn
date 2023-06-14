@@ -21,6 +21,7 @@ $ nvm use v16.13.1
 #### Generate OAS 3.0 specification for SDK namespace
 ```shell
 $ cd rpc-specs
+$ npm install
 $ sh generate-namespace.sh
 ```
 #### Generate SDK for each language
