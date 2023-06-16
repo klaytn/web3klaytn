@@ -12,12 +12,29 @@ The web3rpc generates codes by language which you want to support.
 $ brew install nvm
 $ nvm use v16.13.1
 ```
-
-## Generate web3rpc-openspi-generator-cli library
-- Read [README.md](./codegen/README.md)
-
-
 ### Guide for Generate web3rpc 
+#### Generate web3rpc-openspi-generator-cli library
+##### install
+- Ubuntu
+  ```shell
+  sudo apt-get install gradle
+  gradle wrapper
+  ```
+- Mac
+  ```shell
+  brew install gradle
+  gradle wrapper
+  ```
+##### deploy
+```shell
+./gradlew clean :deployJar
+```
+
+##### Jar file
+- Generate jar include a customized code generator class
+- This jar file include openapi-generator-cli.jar
+- Generate a web3rpc-openapi-generator-cli.jar and locate in bin/libs directory
+
 #### Generate OAS 3.0 specification for SDK namespace
 ```shell
 $ cd rpc-specs
