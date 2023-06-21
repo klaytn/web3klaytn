@@ -97,6 +97,22 @@ components:
         result:
           type: object
           description: The structured logs created during the execution of KLVM.
+          required:
+            - failed
+            - gas
+            - returnValue
+            - structLogs
+          properties:
+            failed:
+              type: boolean
+            gas:
+              type: integer
+            returnValue:
+              type: string
+            structLogs:
+              type: array
+              items:
+                type: object
           example:
              {
               failed: false,
