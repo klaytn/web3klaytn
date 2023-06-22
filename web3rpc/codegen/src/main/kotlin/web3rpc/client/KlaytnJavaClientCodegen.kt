@@ -57,6 +57,7 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
             supportingFiles.add(SupportingFile("KlayGetAccountKey.java.mustache", modelFolder, "KlayGetAccountKey.java"))
             supportingFiles.add(SupportingFile("FilterOptions.java.mustache", modelFolder, "FilterOptions.java"))
             supportingFiles.add(SupportingFile("KlaytnTransactionTypes.java.mustache", modelFolder, "KlaytnTransactionTypes.java"))
+            supportingFiles.add(SupportingFile("KlayGetAccountAccountKey.java.mustache", modelFolder, "KlayGetAccountAccountKey.java"))
         } else if (artifactId.equals("web3rpc-eth")) {
             supportingFiles.add(SupportingFile("FilterOptions.java.mustache", modelFolder, "FilterOptions.java"))
         }
