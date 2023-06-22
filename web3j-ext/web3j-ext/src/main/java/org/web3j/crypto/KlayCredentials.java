@@ -91,13 +91,13 @@ public class KlayCredentials {
     
     public boolean isDeCoupled() {
         String address = Numeric.prependHexPrefix(Keys.getAddress(ecKeyPair));
-        return !(address == this.address);
+        return !(address.equals(this.address));
     }
     
 
     public static boolean isDeCoupled(String privKey, String address) {
         ECKeyPair ecKeyPair = ECKeyPair.create(Numeric.toBigInt(privKey));
-        return !(address == Numeric.prependHexPrefix(Keys.getAddress(ecKeyPair)));
+        return !(address.equals(Numeric.prependHexPrefix(Keys.getAddress(ecKeyPair))));
     }
 
 

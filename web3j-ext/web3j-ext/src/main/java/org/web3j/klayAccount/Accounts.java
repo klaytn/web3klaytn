@@ -1,21 +1,11 @@
 package org.web3j.klayAccount;
 
-import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.web3j.crypto.ECKeyPair;
-import org.web3j.crypto.Keys;
 import org.web3j.crypto.KlayCredentials;
-import org.web3j.protocol.klaytn.Web3j;
-import org.web3j.protocol.klaytn.core.method.response.KlayGetAccount;
-import org.web3j.protocol.klaytn.core.method.response.KlayGetAccountAccount;
-import org.web3j.protocol.klaytn.core.method.response.KlayGetAccountKey;
-import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.utils.Numeric;
 
 public class Accounts {
     private final List<KlayCredentials> CredentialLists = new ArrayList<>();
@@ -60,9 +50,9 @@ public class Accounts {
     }
 
     public List<KlayCredentials> credentialsByAddress(String address) {
-        List<KlayCredentials> returnKlayCredentials = Collections.<KlayCredentials>emptyList();
+        List<KlayCredentials> returnKlayCredentials = new ArrayList<>();
         for (KlayCredentials element : CredentialLists) {
-            if (element.getAddress() == address) {
+            if (address.equals(element.getAddress())) {
                 returnKlayCredentials.add(element);
             }
         }

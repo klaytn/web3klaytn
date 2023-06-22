@@ -41,7 +41,17 @@ public class AccountStore {
             KlayGetAccountKey acc = web3j.klayGetAccountKey(element, DefaultBlockParameterName.LATEST).send()
                     .getResult();
             if (acc == null) {
-                return false;
+        		KlayCredentials credentials = list.credentialsByAddress(element).get(0);
+        		if (!credentials.isDeCoupled() ) {
+                    JSONObject jsonKey = new JSONObject();
+                    jsonKey.put("keyType", 1);
+                    jsonKey.put("key", new JSONObject());
+                    JSONObject jsonAccount = new JSONObject();
+                    jsonAccount.put("key", jsonKey);
+                    AccountInfo accountInfo = new AccountInfo(element, jsonAccount);
+                    this.AccountLists.put(element, accountInfo);
+        		}
+        		continue;
             }
             JSONObject jsonAccount = new JSONObject(acc);
             JSONObject jsonKey = AccountInfo.getKeyJSON(jsonAccount, list);
