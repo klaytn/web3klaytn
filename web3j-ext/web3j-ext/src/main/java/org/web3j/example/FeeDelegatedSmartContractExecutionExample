@@ -20,12 +20,12 @@ import org.web3j.utils.Numeric;
 /**
  * 
  */
-public class SmartContractExecutionExample {
+public class FeeDelegatedSmartContractExecutionExample {
 	/**
 	 * @param args
 	 */
     
-    void SmartContractExecutionExample(Web3j web3j, KlayCredentials credentials) throws IOException {
+    void FeeDelegatedSmartContractExecutionExample(Web3j web3j, KlayCredentials credentials) throws IOException {
 
         BigInteger GAS_PRICE = BigInteger.valueOf(50000000000L);
         BigInteger GAS_LIMIT = BigInteger.valueOf(6721950);
@@ -40,7 +40,7 @@ public class SmartContractExecutionExample {
                 
         BigInteger value = BigInteger.ZERO;
 
-        TxType.Type type = Type.SMART_CONTRACT_EXECUTION;
+        TxType.Type type = Type.FEE_DELEGATED_SMART_CONTRACT_EXECUTION;
 
 
         KlayRawTransaction raw = KlayRawTransaction.createTransaction(
@@ -58,7 +58,7 @@ public class SmartContractExecutionExample {
          EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
          System.out.println(transactionResponse.getResult());
             
-         TxTypeSmartContractExecution rawTransaction = TxTypeSmartContractExecution.decodeFromRawTransaction(signedMessage);
+         TxTypeFeeDelegatedSmartContractExecution rawTransaction = TxTypeFeeDelegatedSmartContractExecution.decodeFromRawTransaction(signedMessage);
 
 
     }
