@@ -62,7 +62,6 @@ public class Accounts {
     public List<KlayCredentials> credentialsByAddress(String address) {
         List<KlayCredentials> returnKlayCredentials = Collections.<KlayCredentials>emptyList();
         for (KlayCredentials element : CredentialLists) {
-        	System.out.println("-"+element.getAddress());
             if (element.getAddress() == address) {
                 returnKlayCredentials.add(element);
             }

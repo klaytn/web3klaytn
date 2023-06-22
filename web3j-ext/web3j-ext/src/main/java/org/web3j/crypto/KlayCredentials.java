@@ -118,33 +118,5 @@ public class KlayCredentials {
         String address = klaytnWalletKey.substring(68);
         return create(privateKey, address);
     }
-    
-    public static boolean validate(Web3j web3j, KlayCredentials credentials) throws IOException {
-    	KlayGetAccountKey key = web3j.klayGetAccountKey(credentials.getAddress(), DefaultBlockParameterName.LATEST).send().getResult();
-  
-    	if ( key.getKeyType() == 1 ) {
-    		return !credentials.isDeCoupled();
-    	}
-    	
-    	if ( key.getKeyType() == 2) {
-    		System.out.println(key.getKey());
-    	}
-    	
-    	
-    	KlayGetAccount acc = web3j.klayGetAccount(credentials.getAddress(), DefaultBlockParameterName.LATEST).send().getResult();
-    	KlayGetAccountAccount aaa = acc.getAccount();
-    	
-    	System.out.println(aaa.getKey());
-    	
-    	
-//    	LinkedHashMap<String, ArrayList<LinkedHashMap<String, LinkedHashMap<String, String>>>> mm = (LinkedHashMap) key.getKey();
-//    	
-//    	ArrayList nn = (ArrayList) mm.get("keys");
-//    	LinkedHashMap oo = (LinkedHashMap) nn.get(1);
-//    	
-//    	System.out.println(mm.get("keys").get(1).get("key"));
-    	System.out.println(web3j.klayGetAccount(credentials.getAddress(), DefaultBlockParameterName.LATEST).send().getResult().getAccType());
-        return true;
-    }
 
 }

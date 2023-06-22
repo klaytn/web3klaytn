@@ -47,7 +47,6 @@ public class AccountStore {
             JSONObject jsonKey = AccountInfo.getKeyJSON(jsonAccount, list);
             if (jsonKey != null) {
                 AccountInfo accountInfo = new AccountInfo(element, jsonKey);
-                System.out.println(jsonKey);
                 this.AccountLists.put(element, accountInfo);
             }
 
