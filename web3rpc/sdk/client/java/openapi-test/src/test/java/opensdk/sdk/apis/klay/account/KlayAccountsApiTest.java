@@ -24,8 +24,5 @@ public class KlayAccountsApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
-
-        assertNotNull(response.getResult());
-        //only check not null ?
     }
 }

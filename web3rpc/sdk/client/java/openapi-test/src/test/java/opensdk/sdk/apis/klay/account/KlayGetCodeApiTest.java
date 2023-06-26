@@ -9,7 +9,8 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlayGetCodeApiTest {
@@ -21,7 +22,7 @@ public class KlayGetCodeApiTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         KlayGetCodeResponse response = w3.klayGetCode(
             "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
-            "latest")
+            "0x2")
         .send();
 
         assertNotNull(response);

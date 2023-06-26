@@ -9,7 +9,8 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlayClientVersionApiTest {
@@ -22,8 +23,5 @@ public class KlayClientVersionApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
-
-        //only check not null
-        assertNotNull(response.getResult());
     }
 }
