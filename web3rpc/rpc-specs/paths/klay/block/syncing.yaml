@@ -13,7 +13,7 @@ paths:
   /klay/syncing:
     post:
       operationId: syncing
-      summary: "[syncing]"
+      summary: "[Block-syncing]"
       description: |
         Returns an object with data about the sync status or false.
 

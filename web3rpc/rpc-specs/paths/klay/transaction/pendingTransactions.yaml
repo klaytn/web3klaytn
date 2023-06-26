@@ -13,7 +13,7 @@ paths:
   /klay/pendingTransactions:
     post:
       operationId: pendingTransactions
-      summary: "[pendingTransactions]"
+      summary: "[Transaction-pendingTransactions]"
       tags:
         - klay
       description: |

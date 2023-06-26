@@ -13,7 +13,7 @@ paths:
   /klay/getBalance:
     post:
       operationId: getBalance
-      summary: "[getBalance]"
+      summary: "[Account-getBalance]"
       description: |
         Returns the balance of the account of given address.
 

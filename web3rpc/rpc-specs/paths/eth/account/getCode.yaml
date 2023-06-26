@@ -13,7 +13,7 @@ paths:
   /eth/getCode:
     post:
       operationId: getCode
-      summary: "[getCode]"
+      summary: "[Account-getCode]"
       description: |
         Returns code at a given address.
 

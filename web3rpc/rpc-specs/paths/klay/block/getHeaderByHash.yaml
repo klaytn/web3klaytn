@@ -13,7 +13,7 @@ paths:
   /klay/getHeaderByHash:
     post:
       operationId: getHeaderByHash
-      summary: "[getHeaderByHash]"
+      summary: "[Block-getHeaderByHash]"
       description: |
         Returns information about a header by hash. This API works only on RPC call, not on JavaScript console.
 

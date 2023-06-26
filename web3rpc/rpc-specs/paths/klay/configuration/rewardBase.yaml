@@ -13,7 +13,7 @@ paths:
   /klay/rewardbase:
     post:
       operationId: rewardbase
-      summary: "[rewardbase]"
+      summary: "[Configuration-rewardbase]"
       description: |
         Returns the rewardbase of the current node. Rewardbase is the address of the account where the block rewards goes to. It is only required for CNs.
 

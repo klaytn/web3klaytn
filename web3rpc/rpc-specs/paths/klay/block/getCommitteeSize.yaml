@@ -13,7 +13,7 @@ paths:
   /klay/getCommitteeSize:
     post:
       operationId: getCommitteeSize
-      summary: "[getCommitteeSize]"
+      summary: "[Block-getCommitteeSize]"
       description: |
         Returns the size of the committee at the specified block. If the parameter is not set, returns the size of the committee at the latest block.
 

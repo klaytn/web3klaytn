@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getProof:
     post:
-      summary: "[getProof]"
+      summary: "[Others-getProof]"
       tags:
         - eth
       operationId: getProof

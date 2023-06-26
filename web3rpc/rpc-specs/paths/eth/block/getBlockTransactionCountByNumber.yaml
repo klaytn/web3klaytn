@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getBlockTransactionCountByNumber:
     post:
-      summary: "[getBlockTransactionCountByNumber]"
+      summary: "[Block-getBlockTransactionCountByNumber]"
       tags:
         - eth
       operationId: getBlockTransactionCountByNumber

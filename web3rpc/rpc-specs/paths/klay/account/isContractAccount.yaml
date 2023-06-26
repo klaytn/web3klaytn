@@ -13,7 +13,7 @@ paths:
   /klay/isContractAccount:
     post:
       operationId: isContractAccount
-      summary: "[isContractAccount]"
+      summary: "[Account-isContractAccount]"
       description: |
         Returns true if an input account has a non-empty codeHash at the time of a specific block number. It returns false if the account is an EOA or a smart contract account which doesn't have codeHash.
 

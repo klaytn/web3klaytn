@@ -13,7 +13,7 @@ paths:
   /klay/lowerBoundGasPrice:
     post:
       operationId: lowerBoundGasPrice
-      summary: "[lowerBoundGasPrice]"
+      summary: "[Gas-lowerBoundGasPrice]"
       description: |
         Returns lower bound gas price.
 

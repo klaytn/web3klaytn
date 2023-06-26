@@ -13,7 +13,7 @@ paths:
   /eth/getStorageAt:
     post:
       operationId: getStorageAt
-      summary: "[getStorageAt]"
+      summary: "[Block-getStorageAt]"
       description: |
         Returns the value from a storage position at a given address
 

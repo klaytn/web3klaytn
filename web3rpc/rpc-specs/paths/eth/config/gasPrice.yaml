@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/gasPrice:
     post:
-      summary: "[gasPrice]"
+      summary: "[Configuration-gasPrice]"
       tags:
         - eth
       operationId: gasPrice

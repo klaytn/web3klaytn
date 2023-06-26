@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/estimateGas:
     post:
-      summary: "[estimateGas]"
+      summary: "[Transaction-estimateGas]"
       tags:
         - eth
       operationId: estimateGas

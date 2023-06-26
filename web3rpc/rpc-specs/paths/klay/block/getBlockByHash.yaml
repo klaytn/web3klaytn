@@ -13,7 +13,7 @@ paths:
   /klay/getBlockByHash:
     post:
       operationId: getBlockByHash
-      summary: "[getBlockByHash]"
+      summary: "[Block-getBlockByHash]"
       description: |
         Returns information about a block by hash. This API works only on RPC call, not on JavaScript console.
         

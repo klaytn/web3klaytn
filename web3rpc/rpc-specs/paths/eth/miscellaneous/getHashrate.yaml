@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getHashrate:
     post:
-      summary: "[getHashrate]"
+      summary: "[Miscellaneous-getHashrate]"
       tags:
         - eth
       operationId: getHashrate

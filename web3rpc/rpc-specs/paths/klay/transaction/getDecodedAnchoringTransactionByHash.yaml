@@ -13,7 +13,7 @@ paths:
   /klay/getDecodedAnchoringTransactionByHash:
     post:
       operationId: getDecodedAnchoringTransactionByHash
-      summary: "[getDecodedAnchoringTransactionByHash]"
+      summary: "[Transaction-getDecodedAnchoringTransactionByHash]"
       description: |
         Returns the decoded anchored data in the transaction for the given transaction hash.
 

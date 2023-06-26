@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getBlockByHash:
     post:
-      summary: "[getBlockByHash]"
+      summary: "[Block-getBlockByHash]"
       tags:
         - eth
       operationId: getBlockByHash

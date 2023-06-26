@@ -13,7 +13,7 @@ paths:
   /klay/estimateComputationCost:
     post:
       operationId: estimateComputationCost
-      summary: "[estimateComputationCost]"
+      summary: "[Transaction-estimateComputationCost]"
       tags:
         - klay
       description: |

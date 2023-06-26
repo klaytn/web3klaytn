@@ -13,7 +13,7 @@ paths:
   /klay/uninstallFilter:
     post:
       operationId: uninstallFilter
-      summary: "[uninstallFilter]"
+      summary: "[Filter-uninstallFilter]"
       description: |
         Uninstalls a filter with given id. Should always be called when watch is no longer needed. Additionally, filters timeout when they are not requested with klay_getFilterChanges for a period of time.
 

@@ -13,7 +13,7 @@ paths:
   /klay/clientVersion:
     post:
       operationId: clientVersion
-      summary: "[clientVersion]"
+      summary: "[Configuration-clientVersion]"
       description: |
         Returns the current client version of a Klaytn node.
 

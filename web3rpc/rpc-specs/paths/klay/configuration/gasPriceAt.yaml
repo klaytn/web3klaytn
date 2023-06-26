@@ -13,7 +13,7 @@ paths:
   /klay/gasPriceAt:
     post:
       operationId: gasPriceAt
-      summary: "[gasPriceAt]"
+      summary: "[Configuration-gasPriceAt]"
       description: |
         Returns different values based on the condition described below. The unit of the return value is peb.
         

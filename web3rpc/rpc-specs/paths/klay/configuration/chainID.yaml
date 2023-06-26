@@ -13,7 +13,7 @@ paths:
   /klay/chainID:
     post:
       operationId: chainID
-      summary: "[chainID]"
+      summary: "[Configuration-chainID]"
       description: |
         Returns the chain ID of the chain.
 

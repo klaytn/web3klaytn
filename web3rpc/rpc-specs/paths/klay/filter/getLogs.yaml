@@ -13,7 +13,7 @@ paths:
   /klay/getLogs:
     post:
       operationId: getLogs
-      summary: "[getLogs]"
+      summary: "[Filter-getLogs]"
       description: |
         Returns an array of all logs matching a given filter object.
 
