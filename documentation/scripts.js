@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const regex = /parameters:[\n\s.\-\w:,"$'#\/()\\<>`’]*requestBody:/g;
-const filePath = './web3klaytn.yaml';
+const filePath = './web3rpc.yaml';
 
 // Read the file contents
 let fileContents = fs.readFileSync(filePath, 'utf8');

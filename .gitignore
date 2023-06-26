@@ -111,7 +111,7 @@ bin/**.jar
 **/coverage
 
 # OpenAPI generated
-**/web3klaytn.yaml
+**/web3rpc.yaml
 
 .DS_Store
 
