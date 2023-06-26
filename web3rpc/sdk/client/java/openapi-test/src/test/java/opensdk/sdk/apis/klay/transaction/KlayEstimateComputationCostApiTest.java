@@ -34,5 +34,6 @@ public class KlayEstimateComputationCostApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
     }
 }

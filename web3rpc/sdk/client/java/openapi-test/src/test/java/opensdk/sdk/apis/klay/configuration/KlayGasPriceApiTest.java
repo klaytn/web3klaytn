@@ -23,5 +23,6 @@ public class KlayGasPriceApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 }

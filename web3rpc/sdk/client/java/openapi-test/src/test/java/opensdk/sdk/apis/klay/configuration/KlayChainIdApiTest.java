@@ -23,5 +23,6 @@ public class KlayChainIdApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 }

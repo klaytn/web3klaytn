@@ -26,5 +26,6 @@ public class KlayGetBlockTransactionCountByHashApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 }
