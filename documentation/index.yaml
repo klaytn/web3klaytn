@@ -27,9 +27,6 @@ servers:
   - url: https://public-en-cypress.klaytn.net
 paths:
 
-
-
-
   # klay/account
   /klay/account/accountCreated:
     $ref: ../web3rpc/rpc-specs/paths/klay/account/accountCreated.yaml#/paths/~1klay~1accountCreated
