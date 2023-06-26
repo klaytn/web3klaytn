@@ -25,5 +25,8 @@ public class KlayGasPriceAtApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNotNull(response.getResult());
+        // only check response result not null?
     }
 }
