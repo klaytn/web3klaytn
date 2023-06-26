@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getTransactionCount:
     post:
-      summary: "[getTransactionCount]"
+      summary: "[Account-getTransactionCount]"
       tags:
         - eth
       operationId: getTransactionCount

@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/hashrate:
     post:
-      summary: "[hashrate]"
+      summary: "[Miscellaneous-hashrate]"
       tags:
         - eth
       operationId: hashrate

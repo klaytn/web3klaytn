@@ -13,7 +13,7 @@ paths:
   /klay/sendTransaction:
     post:
       operationId: sendTransaction
-      summary: "[sendTransaction]"
+      summary: "[Transaction-sendTransaction]"
       description: |
         Constructs a transaction with given parameters, signs the transaction with a sender's private key and propagates the transaction to Klaytn network.
 

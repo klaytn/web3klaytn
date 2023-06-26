@@ -13,7 +13,7 @@ paths:
   /klay/subscribe:
     post:
       operationId: subscribe
-      summary: "[subscribe]"
+      summary: "[Filter-subscribe]"
       description: |
         Creates a new subscription to specific events by using either RPC Pub/Sub over WebSockets or filters over HTTP. It allows clients to wait for events instead of polling for them.
         

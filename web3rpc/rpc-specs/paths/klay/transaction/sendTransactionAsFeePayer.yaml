@@ -13,7 +13,7 @@ paths:
   /klay/sendTransactionAsFeePayer:
     post:
       operationId: sendTransactionAsFeePayer
-      summary: "[sendTransactionAsFeePayer]"
+      summary: "[Transaction-sendTransactionAsFeePayer]"
       description: |
         Constructs a transaction with given parameters, signs the transaction with a fee payer's private key and propagates the transaction to Klaytn network. This API supports only fee delegated type (including partial fee delegated type) transactions.
 

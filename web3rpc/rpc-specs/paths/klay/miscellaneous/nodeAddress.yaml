@@ -13,7 +13,7 @@ paths:
   /klay/nodeAddress:
     post:
       operationId: nodeAddress
-      summary: "[nodeAddress]"
+      summary: "[Miscellaneous-nodeAddress]"
       description: |
         The nodeAddress property provides the address of the node that a user is using. It is derived from the nodekey and used to sign consensus messages.
         

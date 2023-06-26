@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/uninstallFilter:
     post:
-      summary: "[uninstallFilter]"
+      summary: "[Filter-uninstallFilter]"
       tags:
         - eth
       operationId: uninstallFilter

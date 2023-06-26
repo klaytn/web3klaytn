@@ -13,7 +13,7 @@ paths:
   /klay/getStakingInfo:
     post:
       operationId: getStakingInfo
-      summary: "[getStakingInfo]"
+      summary: "[Miscellaneous-getStakingInfo]"
       tags:
         - klay
       description: |

@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/accounts:
     post:
-      summary: "[accounts]"
+      summary: "[Account-accounts]"
       tags:
         - eth
       operationId: accounts

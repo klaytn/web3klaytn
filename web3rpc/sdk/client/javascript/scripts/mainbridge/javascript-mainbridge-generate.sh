@@ -18,7 +18,7 @@ yarn install
 yarn link
 echo "${CURRENT_FILE_DIR}/openapi/mainbridge"
 
-cd "${CURRENT_FILE_DIR}"/opensdk
+cd "${CURRENT_FILE_DIR}/opensdk"
 yarn link opensdk-javascript-mainbridge
 
 

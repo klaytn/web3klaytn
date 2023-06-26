@@ -13,7 +13,7 @@ paths:
   /klay/getCouncilSize:
     post:
       operationId: getCouncilSize
-      summary: "[getCouncilSize]"
+      summary: "[Block-getCouncilSize]"
       description: |
         Returns the size of the council at the specified block. If the parameter is not set, returns the size of the council at the latest block.
 

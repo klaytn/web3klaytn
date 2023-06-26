@@ -13,7 +13,7 @@ paths:
   /klay/sha3:
     post:
       operationId: sha3
-      summary: "[sha3]"
+      summary: "[Miscellaneous-sha3]"
       description: |
         Returns Keccak-256 (not the standardized SHA3-256) of the given data.
 

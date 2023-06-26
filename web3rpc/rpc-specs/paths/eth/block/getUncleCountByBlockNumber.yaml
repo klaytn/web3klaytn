@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getUncleCountByBlockNumber:
     post:
-      summary: "[getUncleCountByBlockNumber]"
+      summary: "[Block-getUncleCountByBlockNumber]"
       tags:
         - eth
       operationId: getUncleCountByBlockNumber

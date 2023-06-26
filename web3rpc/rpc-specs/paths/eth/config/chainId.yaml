@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/chainId:
     post:
-      summary: "[chainId]"
+      summary: "[Configuration-chainId]"
       tags:
         - eth
       operationId: chainId

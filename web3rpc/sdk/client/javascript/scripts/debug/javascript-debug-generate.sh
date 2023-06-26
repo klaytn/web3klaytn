@@ -18,6 +18,6 @@ yarn install
 yarn link 
 echo "${CURRENT_FILE_DIR}/openapi/debug"
 
-cd "${CURRENT_FILE_DIR}"/opensdk
+cd "${CURRENT_FILE_DIR}/opensdk"
 yarn link opensdk-javascript-debug
 

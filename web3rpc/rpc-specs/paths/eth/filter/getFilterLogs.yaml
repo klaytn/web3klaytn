@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getFilterLogs:
     post:
-      summary: "[getFilterLogs]"
+      summary: "[Filter-getFilterLogs]"
       tags:
         - eth
       operationId: getFilterLogs

@@ -10,17 +10,17 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/getRawTransactionByHash:
+  /klay/getRawTransactionByHash:
     post:
       operationId: getRawTransactionByHash
-      summary: "[getRawTransactionByHash]"
+      summary: "[Transaction-getRawTransactionByHash]"
       description: |
         GetRawTransactionByHash returns the bytes of the transaction for the given hash.
 
-        **JSONRPC:** `eth_getRawTransactionByHash`
+        **JSONRPC:** `klay_getRawTransactionByHash`
 
       tags:
-        - eth
+        - klay
 
       parameters:
         - name: hash
@@ -37,7 +37,7 @@ paths:
             schema:
               allOf:
                 - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
-                - $ref: "#/components/schemas/EthGetRawTransactionByHashReq"
+                - $ref: "#/components/schemas/KlayGetRawTransactionByHashReq"
 
       responses:
         200:
@@ -47,28 +47,28 @@ paths:
               schema:
                 allOf:
                   - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
-                  - $ref: "#/components/schemas/EthGetRawTransactionByHashResp"
+                  - $ref: "#/components/schemas/KlayGetRawTransactionByHashResp"
 
       x-codeSamples:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/eth/others/getRawTransactionByHash.sh"
+            $ref: "../../../code-samples/curl/klay/others/getRawTransactionByHash.sh"
         - lang: "java"
           label: "Java"
           source:
-            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/others/EthGetRawTransactionByHashExample.java"
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/others/KlayGetRawTransactionByHashExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
-            $ref: "../../../code-samples/javascript/eth/transaction/getRawTransactionByHash.js"
+            $ref: "../../../code-samples/javascript/klay/transaction/getRawTransactionByHash.js"
         - lang: "python"
           label: "Python"
           source:
             $ref: "../../../code-samples/python/klay/others/getRawTransactionByHash.py"
 components:
   schemas:
-    EthGetRawTransactionByHashReq:
+    KlayGetRawTransactionByHashReq:
       type: object
       required:
         - method
@@ -76,20 +76,17 @@ components:
       properties:
         method:
           type: string
-          default: "eth_getRawTransactionByHash"
+          default: 'klay_getRawTransactionByHash'
         params:
           type: array
-          description: Hex representation of a Keccak 256 hash
           items:
-            title: Hash
+            title: hash
             type: string
             format: hex
-          example:
-            [
-              "0x5bbcde52084defa9d1c7068a811363cc27a25c80d7e495180964673aa5f47687",
-            ]
+          description: Hex representation of a Keccak 256 hash
+          example:  ["0x29b6cd965c7d9a53a6f068da259dce1d3810ba79fff8eebac5d4da14754e67e6"]
 
-    EthGetRawTransactionByHashResp:
+    KlayGetRawTransactionByHashResp:
       type: object
       properties:
         result:

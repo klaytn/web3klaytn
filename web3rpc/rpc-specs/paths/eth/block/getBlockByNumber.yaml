@@ -13,7 +13,7 @@ paths:
   /eth/getBlockByNumber:
     post:
       operationId: getBlockByNumber
-      summary: "[getBlockByNumber]"
+      summary: "[Block-getBlockByNumber]"
       description: |
         Returns information about a block by block number.
 

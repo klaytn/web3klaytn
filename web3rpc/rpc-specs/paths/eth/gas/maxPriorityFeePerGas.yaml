@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/maxPriorityFeePerGas:
     post:
-      summary: "[maxPriorityFeePerGas]"
+      summary: "[Gas-maxPriorityFeePerGas]"
       tags:
         - eth
       operationId: maxPriorityFeePerGas

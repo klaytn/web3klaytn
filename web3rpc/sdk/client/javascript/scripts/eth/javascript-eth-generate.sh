@@ -18,7 +18,7 @@ yarn install
 yarn link 
 echo "${CURRENT_FILE_DIR}/openapi/eth"
 
-cd "${CURRENT_FILE_DIR}"/opensdk
+cd "${CURRENT_FILE_DIR}/opensdk"
 yarn link opensdk-javascript-eth
 
 

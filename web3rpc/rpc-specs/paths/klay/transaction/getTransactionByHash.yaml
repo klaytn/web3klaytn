@@ -13,7 +13,7 @@ paths:
   /klay/getTransactionByHash:
     post:
       operationId: getTransactionByHash
-      summary: "[getTransactionByHash]"
+      summary: "[Transaction-getTransactionByHash]"
       tags:
         - klay
       description: |

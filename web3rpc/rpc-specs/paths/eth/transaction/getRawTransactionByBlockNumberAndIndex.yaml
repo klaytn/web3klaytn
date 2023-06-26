@@ -13,7 +13,7 @@ paths:
   /eth/getRawTransactionByBlockNumberAndIndex:
     post:
       operationId: getRawTransactionByBlockNumberAndIndex
-      summary: "[getRawTransactionByBlockNumberAndIndex]"
+      summary: "[Transaction-getRawTransactionByBlockNumberAndIndex]"
       tags:
         - eth
       description: |

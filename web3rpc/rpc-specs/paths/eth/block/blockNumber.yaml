@@ -13,7 +13,7 @@ paths:
   /eth/blockNumber:
     post:
       operationId: blockNumber
-      summary: "[blockNumber]"
+      summary: "[Block-blockNumber]"
       description: |
         Returns the number of the most recent block.
 

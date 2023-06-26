@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/etherbase:
     post:
-      summary: "[etherbase]"
+      summary: "[Configuration-etherbase]"
       tags:
         - eth
       operationId: etherbase

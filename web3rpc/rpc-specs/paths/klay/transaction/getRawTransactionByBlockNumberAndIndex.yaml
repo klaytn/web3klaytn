@@ -13,7 +13,7 @@ paths:
   /klay/getRawTransactionByBlockNumberAndIndex:
     post:
       operationId: getRawTransactionByBlockNumberAndIndex
-      summary: "[getRawTransactionByBlockNumberAndIndex]"
+      summary: "[Transaction-getRawTransactionByBlockNumberAndIndex]"
       tags:
         - klay
       description: |
