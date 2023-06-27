@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class KlaySha3Test {
     private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
@@ -22,5 +23,7 @@ public class KlaySha3Test {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
+        assertTrue(response.getResult().matches("^0x[a-fA-F0-9]+"));
     }
 }
