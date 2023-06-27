@@ -17,6 +17,7 @@ import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Klay RPC Test")
 public class KlaySignTransactionAsFeePayerTest {
@@ -29,7 +30,7 @@ public class KlaySignTransactionAsFeePayerTest {
         PersonalUtils.unlockAccount();
         String nonce = EthUtils.getNonce().getResult();
         KlaytnTransactionTypes type = new KlaytnTransactionTypes();
-        type.setTypeInt(new BigDecimal(17));
+        type.setTypeInt(17);
         type.setFrom(address);
         type.setTo("0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075");
         type.setValue("0xf4");
@@ -41,7 +42,9 @@ public class KlaySignTransactionAsFeePayerTest {
         KlaySignTransactionAsFeePayerResponse tr = w3.klaySignTransactionAsFeePayer(type).send();
         assertNotNull(tr);
         assertNull(tr.getError());
-
+        assertNotNull(tr.getResult());
+        assertNotNull(tr.getResult().getRaw());
+        assertTrue(tr.getResult().getRaw().matches("^0x[a-fA-F0-9]+"));
     }
 
 }
