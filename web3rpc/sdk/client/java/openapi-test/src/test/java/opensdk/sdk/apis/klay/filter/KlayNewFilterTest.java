@@ -11,8 +11,7 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Klay RPC Test")
 public class KlayNewFilterTest {
@@ -30,5 +29,8 @@ public class KlayNewFilterTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertTrue(response.getResult() instanceof String);
+        assertTrue(response.getResult().matches("^0x[a-f0-9]+"));
     }
 }

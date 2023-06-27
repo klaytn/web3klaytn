@@ -23,5 +23,7 @@ public class KlayGetTransactionByBlockNumberAndIndexTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertTrue(response.getResult().getBlockHash().matches("^0x[a-f0-9]+"));
     }
 }
