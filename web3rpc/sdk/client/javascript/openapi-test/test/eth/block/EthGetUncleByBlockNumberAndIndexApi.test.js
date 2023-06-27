@@ -8,9 +8,8 @@ describe('eth_getUncleByBlockNumberAndIndex API', () => {
     test('should return eth_getUncleByBlockNumberAndIndex', (done) => {
 
         let callbackOne = function (error, data, response) {
-
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
             done();
         };
         const blockNumber = 119189116

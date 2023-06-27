@@ -11,6 +11,9 @@ describe('eth_getBlockByHash API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            if (data !== null) {
+                expect(data.number).toMatch(/^0x.*$/gm)
+            }
             done();
         };
         const blockHash = '0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c'

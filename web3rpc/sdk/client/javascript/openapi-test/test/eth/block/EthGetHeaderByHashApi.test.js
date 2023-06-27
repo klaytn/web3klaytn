@@ -10,7 +10,10 @@ describe('eth_getHeaderByHash API', () => {
         let callbackOne = function (error, data, response) {
 
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            if (data !== null) {
+                expect(data.number).toMatch(/^0x.*$/gm)
+            };
 
             done();
         };

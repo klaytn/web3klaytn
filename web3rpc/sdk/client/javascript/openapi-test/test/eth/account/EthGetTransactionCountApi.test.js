@@ -10,6 +10,7 @@ describe('eth_getTransactionCount API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(typeof data === 'number' || /^0x[0-9a-fA-F]+$/.test(data)).toBe(true);
             done();
         };
         const address = '0xc94770007dda54cF92009BFF0dE90c06F603a09f'

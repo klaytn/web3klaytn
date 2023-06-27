@@ -8,9 +8,9 @@ describe('eth_mining API', () => {
     test('should return eth_mining ', (done) => {
 
         let callbackOne = function (error, data, response) {
-
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(typeof data === 'boolean').toBeTruthy()
             done();
         };
 

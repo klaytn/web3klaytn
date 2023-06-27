@@ -11,6 +11,9 @@ describe('eth_getBlockByNumber API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            if (data !== null) {
+                expect(data.number).toMatch(/^0x.*$/gm)
+            }
             done();
         };
         const blockNumber = 1
