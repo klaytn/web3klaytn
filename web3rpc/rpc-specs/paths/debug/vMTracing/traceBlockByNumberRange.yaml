@@ -73,7 +73,7 @@ paths:
         - lang: "javascript"
           label: "Javascript"
           source:
-           $ref: "../../../code-samples/javascript/debug/vMTracing/traceBlockByNumberRange.js"
+            $ref: "../../../code-samples/javascript/debug/vMTracing/traceBlockByNumberRange.js"
         - lang: "python"
           label: "Python"
           source:
@@ -108,37 +108,41 @@ components:
         result:
           type: object
           description: Value contains the structured logs created during the execution of KLVM.
-          patternProperties:
-            "^[0-9]+$":
-              type: object
-              properties:
-                block:
-                  type: string
-                hash:
-                  type: string
-                traces:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      result:
-                        type: object
-                      txHash:
-                        type: string
-          example: {
-            21: {
-                block: "0x15",
-                hash: "0x24b0a90822e63295623e6d8f5a8e5d47cead5c8d5854e44db00dc42d28e0850e",
-                traces: [{
-                    result: {...},
-                    txHash: "0x43ed7e441db8e90f377d74b5d61c6d7d8b85ffd277b965c9f275ce7e93fb1090"
-                }, {
-                    result: {...},
-                    txHash: "0x1a448049b21d39cd4320ab95f18b8e91d687bfc7136268f50e041e439181fa0d"
-                }]
+          additionalProperties:
+            x-additionalPropertiesName: StructuredLogs
+            type: object
+            properties:
+              block:
+                type: string
+              hash:
+                type: string
+              traces:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    result:
+                      type: object
+                    txHash:
+                      type: string
+          example:
+            {
+              21:
+                {
+                  block: "0x15",
+                  hash: "0x24b0a90822e63295623e6d8f5a8e5d47cead5c8d5854e44db00dc42d28e0850e",
+                  traces:
+                    [
+                      {
+                        result: { ... },
+                        txHash: "0x43ed7e441db8e90f377d74b5d61c6d7d8b85ffd277b965c9f275ce7e93fb1090",
+                      },
+                      {
+                        result: { ... },
+                        txHash: "0x1a448049b21d39cd4320ab95f18b8e91d687bfc7136268f50e041e439181fa0d",
+                      },
+                    ],
                 },
-            22: {
-                ...
-                },
-            ...
-          }
+              22: { ... },
+              ...,
+            }
