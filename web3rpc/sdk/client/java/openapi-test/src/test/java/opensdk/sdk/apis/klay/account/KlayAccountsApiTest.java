@@ -8,9 +8,9 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Klay RPC Test")
 public class KlayAccountsApiTest {
@@ -24,5 +24,11 @@ public class KlayAccountsApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
-    }
+
+        assertNotNull(response.getResult());
+        //only check not null ?
+        if(!response.getResult().isEmpty())
+            assertTrue(response.getResult().get(0).matches("^0x[a-fA-F0-9]+"));
+        }
 }
+
