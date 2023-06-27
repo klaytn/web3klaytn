@@ -11,6 +11,7 @@ describe('eth_uninstallFilter API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(typeof data === 'boolean').toBeTruthy()
             done();
         };
         const filterId = '0xb'

@@ -10,7 +10,8 @@ describe('eth_getFilterChanges API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(Array.isArray(data)).toBe(true);
             done();
         };
         getEthFilterId().then(id => {

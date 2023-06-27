@@ -11,6 +11,7 @@ describe('eth_getCode API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(data).toMatch(/^0x.*$/gm)
             done();
         };
 

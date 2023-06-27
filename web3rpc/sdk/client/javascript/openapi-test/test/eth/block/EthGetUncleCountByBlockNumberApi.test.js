@@ -11,6 +11,9 @@ describe('eth_getUncleCountByBlockNumber API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            if (data !== null) {
+                expect(typeof data === 'number' || /^0x[0-9a-fA-F]+$/.test(data)).toBe(true);
+            }
             done();
         };
         const blockNumber = 119189116
