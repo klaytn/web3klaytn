@@ -1,7 +1,7 @@
 generatorName: web3rpc-javascript
 outputDir: ./openapi
-inputSpec: ../../../site/klaytn-openapi.yaml
-projectName: opensdk-javascript-eth
+inputSpec: ../../../rpc-specs/namespaces/all-except-eth.yaml 
+projectName: web3rpc-javascript
 templateDir: ./template
 sortParamsByRequiredFlag: false
 globalProperties:

@@ -8,3 +8,4 @@ yarn build governance@v1.0.0 -o ./namespaces/governance-openapi.yaml
 yarn build admin@v1.0.0 -o ./namespaces/admin-openapi.yaml
 yarn build mainbridge@v1.0.0 -o ./namespaces/mainbridge-openapi.yaml
 yarn build subbridge@v1.0.0 -o ./namespaces/subbridge-openapi.yaml
+yarn build all-except-eth@v1.0.0 -o ./namespaces/all-except-eth.yaml

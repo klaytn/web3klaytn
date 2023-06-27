@@ -165,19 +165,17 @@ paths:
   # klay/miscellaneous
   /klay/miscellaneous/sha3:
     $ref: ./miscellaneous/sha3.yaml#/paths/~1klay~1sha3
-
-  # klay/others
   /klay/createAccessList:
-    $ref: ./others/createAccessList.yaml#/paths/~1klay~1createAccessList
+    $ref: ./transaction/createAccessList.yaml#/paths/~1klay~1createAccessList
   /klay/getRawTransactionByBlockHashAndIndex:
-    $ref: ./others/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockHashAndIndex
+    $ref: ./transaction/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockHashAndIndex
   /klay/nodeAddress:
-    $ref: ./others/nodeAddress.yaml#/paths/~1klay~1nodeAddress
+    $ref: ./miscellaneous/nodeAddress.yaml#/paths/~1klay~1nodeAddress
   /klay/getRawTransactionByHash:
-    $ref: ./others/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
+    $ref: ./transaction/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
   /klay/resend:
-    $ref: ./others/resend.yaml#/paths/~1klay~1resend
+    $ref: ./transaction/resend.yaml#/paths/~1klay~1resend
   /klay/getRawTransactionByBlockNumberAndIndex:
-    $ref: ./others/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockNumberAndIndex
+    $ref: ./transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockNumberAndIndex
   /klay/getStakingInfo:
-    $ref: ./others/getStakingInfo.yaml#/paths/~1klay~1getStakingInfo
+    $ref: ./miscellaneous/getStakingInfo.yaml#/paths/~1klay~1getStakingInfo

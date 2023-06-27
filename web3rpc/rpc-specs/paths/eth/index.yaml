@@ -132,17 +132,15 @@ paths:
   #   $ref: ./miscellaneous/getWork.yaml#/paths/~1eth~1getWork
   /eth/miscellaneous/submitHashrate:
     $ref: ./miscellaneous/submitHashrate.yaml#/paths/~1eth~1submitHashrate
-
-  # eth/others
   /eth/createAccessList:
-    $ref: ./others/createAccessList.yaml#/paths/~1eth~1createAccessList
+    $ref: ./transaction/createAccessList.yaml#/paths/~1eth~1createAccessList
   /eth/getRawTransactionByBlockHashAndIndex:
-    $ref: ./others/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockHashAndIndex
+    $ref: ./transaction/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockHashAndIndex
   /eth/getRawTransactionByBlockNumberAndIndex:
-    $ref: ./others/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockNumberAndIndex
+    $ref: ./transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockNumberAndIndex
   /eth/getRawTransactionByHash:
-    $ref: ./others/getRawTransactionByHash.yaml#/paths/~1eth~1getRawTransactionByHash
+    $ref: ./transaction/getRawTransactionByHash.yaml#/paths/~1eth~1getRawTransactionByHash
   /eth/getProof:
-    $ref: ./others/getProof.yaml#/paths/~1eth~1getProof
+    $ref: ./miscellaneous/getProof.yaml#/paths/~1eth~1getProof
   /eth/resend:
-    $ref: ./others/resend.yaml#/paths/~1eth~1resend
+    $ref: ./transaction/resend.yaml#/paths/~1eth~1resend
