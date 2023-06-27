@@ -26,7 +26,7 @@ public class KlayAccountsApiTest {
         assertNull(response.getError());
 
         assertNotNull(response.getResult());
-        //only check not null ?
+
         if(!response.getResult().isEmpty())
             assertTrue(response.getResult().get(0).matches("^0x[a-fA-F0-9]+"));
         }
