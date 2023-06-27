@@ -21,7 +21,7 @@ public class KlayGetAccountApiTest {
     @DisplayName("RPC klay_getAccount")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         KlayGetAccountResponse response = w3.klayGetAccount(
-            "0x1cbd3b2770909d4e10f157cabc84c7264073c9ec",
+            "0xd5e9ab70cca10f443491939dd896b580f7c72ea3",
             "latest").send();
 
         assertNotNull(response);

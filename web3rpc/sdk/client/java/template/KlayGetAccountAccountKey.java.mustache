@@ -1,0 +1,67 @@
+package org.web3j.protocol.klaytn.core.method.response;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import java.math.BigDecimal;
+import java.util.Objects;
+import javax.annotation.Nullable;
+
+@JsonPropertyOrder({"key", "keyType"})
+@JsonTypeName("KlayGetAccount_account_key")
+public class KlayGetAccountAccountKey {
+    public static final String JSON_PROPERTY_KEY = "key";
+    private Object key = null;
+    public static final String JSON_PROPERTY_KEY_TYPE = "keyType";
+    private BigDecimal keyType;
+
+    public KlayGetAccountAccountKey() {
+    }
+
+    public Object getKey() {
+        return this.key;
+    }
+
+    public void setKey(Object key) {
+        this.key = key;
+    }
+
+    public BigDecimal getKeyType() {
+        return this.keyType;
+    }
+
+    public void setKeyType(BigDecimal keyType) {
+        this.keyType = keyType;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (o != null && this.getClass() == o.getClass()) {
+            KlayGetAccountAccountKey klayGetAccountAccountKey = (KlayGetAccountAccountKey) o;
+            return Objects.equals(this.key, klayGetAccountAccountKey.key) && Objects.equals(this.keyType, klayGetAccountAccountKey.keyType);
+        } else {
+            return false;
+        }
+    }
+
+    public int hashCode() {
+        return Objects.hash(new Object[]{this.key, this.keyType});
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class KlayGetAccountAccountKey {\n");
+        sb.append("    key: ").append(this.toIndentedString(this.key)).append("\n");
+        sb.append("    keyType: ").append(this.toIndentedString(this.keyType)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return o == null ? "null" : o.toString().replace("\n", "\n    ");
+    }
+}
