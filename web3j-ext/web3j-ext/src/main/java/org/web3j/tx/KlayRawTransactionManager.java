@@ -19,6 +19,30 @@ import org.web3j.crypto.Credentials;
 import org.web3j.crypto.Hash;
 import org.web3j.crypto.KlayCredentials;
 import org.web3j.crypto.KlayRawTransaction;
+import org.web3j.crypto.RawTransaction;
+import org.web3j.crypto.transaction.account.AccountKey;
+import org.web3j.crypto.transaction.type.TxType;
+import org.web3j.crypto.transaction.type.TxTypeAccountUpdate;
+import org.web3j.crypto.transaction.type.TxTypeCancel;
+import org.web3j.crypto.transaction.type.TxTypeChainDataAnchoring;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedAccountUpdate;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedAccountUpdateWithRatio;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedCancel;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedCancelWithRatio;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedChainDataAnchoring;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedChainDataAnchoringWithRatio;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedSmartContractDeploy;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedSmartContractDeployWithRatio;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedSmartContractExecution;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedSmartContractExecutionWithRatio;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedValueTransfer;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedValueTransferMemo;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedValueTransferMemoWithRatio;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedValueTransferWithRatio;
+import org.web3j.crypto.transaction.type.TxTypeSmartContractDeploy;
+import org.web3j.crypto.transaction.type.TxTypeSmartContractExecution;
+import org.web3j.crypto.transaction.type.TxTypeValueTransfer;
+import org.web3j.crypto.transaction.type.TxTypeValueTransferMemo;
 import org.web3j.crypto.transaction.type.TxType.Type;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
@@ -127,32 +151,6 @@ public class KlayRawTransactionManager extends TransactionManager {
     }
 
 
-
-    public EthSendTransaction sendValueTransferTransaction(
-            long chainId,
-            BigInteger gasPrice,
-            BigInteger gas,
-            String to,
-            BigInteger value,
-            String from)
-            throws IOException {
-
-        BigInteger nonce = getNonce();
-        KlayRawTransaction rawTransaction =
-                KlayRawTransaction.createTransaction(
-                        Type.VALUE_TRANSFER,
-                        nonce,
-                        gasPrice,
-                        gas,
-                        to,
-                        value,
-                        from);
-
-        return signAndSend(rawTransaction);
-    }
-
-
-
     @Override
     public String sendCall(String to, String data, DefaultBlockParameter defaultBlockParameter)
             throws IOException {
@@ -200,19 +198,318 @@ public class KlayRawTransactionManager extends TransactionManager {
 
         return ethSendTransaction;
     }
+    
+    /*
+     * @param rawTransaction a RawTransaction istance to be signed
+     * @return The transaction signed and encoded without ever broadcasting it
+     */
+    public String sign(RawTransaction rawTransaction) {
+
+        byte[] signedMessage = txSignService.sign((KlayRawTransaction) rawTransaction, chainId);
+
+        return Numeric.toHexString(signedMessage);
+    }
+
+    public EthSendTransaction signAndSend(RawTransaction rawTransaction) throws IOException {
+        String hexValue = sign(rawTransaction);
+        EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(hexValue).send();
+
+        if (ethSendTransaction != null && !ethSendTransaction.hasError()) {
+            String txHashLocal = Hash.sha3(hexValue);
+            String txHashRemote = ethSendTransaction.getTransactionHash();
+            if (!txHashVerifier.verify(txHashLocal, txHashRemote)) {
+                throw new TxHashMismatchException(txHashLocal, txHashRemote);
+            }
+        }
+
+        return ethSendTransaction;
+    }
 
     @Override
     public EthSendTransaction sendTransaction(BigInteger gasPrice, BigInteger gasLimit, String to, String data,
             BigInteger value, boolean constructor) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sendTransaction'");
+        BigInteger nonce = getNonce();
+
+        RawTransaction rawTransaction =
+                RawTransaction.createTransaction(nonce, gasPrice, gasLimit, to, value, data);
+
+        return signAndSend(rawTransaction);
     }
 
     @Override
     public EthSendTransaction sendEIP1559Transaction(long chainId, BigInteger maxPriorityFeePerGas,
             BigInteger maxFeePerGas, BigInteger gasLimit, String to, String data, BigInteger value, boolean constructor)
             throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sendEIP1559Transaction'");
+        BigInteger nonce = getNonce();
+
+        RawTransaction rawTransaction =
+                RawTransaction.createTransaction(
+                        chainId,
+                        nonce,
+                        gasLimit,
+                        to,
+                        value,
+                        data,
+                        maxPriorityFeePerGas,
+                        maxFeePerGas);
+
+        return signAndSend(rawTransaction);
     }
+    
+    
+    
+    public EthSendTransaction sendKlayTransaction(
+            TxType.Type type,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String from,
+            AccountKey accountKey) throws IOException {
+    	
+        BigInteger nonce = getNonce();
+        KlayRawTransaction rawTransaction = KlayRawTransaction.createTransaction(
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            from,
+                            accountKey);
+        return signAndSend(rawTransaction);
+    }
+
+    public EthSendTransaction sendKlayTransaction(
+            TxType.Type type,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String from) throws IOException {
+
+        BigInteger nonce = getNonce();
+        KlayRawTransaction rawTransaction = KlayRawTransaction.createTransaction(
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            from);
+                            
+        return signAndSend(rawTransaction);
+        
+
+    }
+
+    public EthSendTransaction sendKlayTransaction(
+            TxType.Type type,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String to,
+            BigInteger value,
+            String from) throws IOException {
+
+        BigInteger nonce = getNonce();
+        KlayRawTransaction rawTransaction = KlayRawTransaction.createTransaction(
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            to,
+                            value,
+                            from);
+        return signAndSend(rawTransaction);
+        
+
+    }
+
+    public EthSendTransaction sendKlayTransaction(
+            TxType.Type type,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String to,
+            BigInteger value,
+            String from,
+            byte[] payload) throws IOException {
+    	
+        BigInteger nonce = getNonce();
+        KlayRawTransaction rawTransaction = KlayRawTransaction.createTransaction(
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            to,
+                            value,
+                            from,
+                            payload);
+        return signAndSend(rawTransaction);
+        
+        }
+
+
+    public EthSendTransaction sendKlayTransaction(
+            TxType.Type type,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String to,
+            BigInteger value,
+            String from,
+            byte[] payload,
+            BigInteger option) throws IOException {
+    	
+
+        BigInteger nonce = getNonce();
+        KlayRawTransaction rawTransaction = KlayRawTransaction.createTransaction(
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            to,
+                            value,
+                            from,
+                            payload,
+                            option);
+        return signAndSend(rawTransaction);
+        
+    }
+
+
+    
+
+    public EthSendTransaction sendKlayTransaction(
+            TxType.Type type,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String from,
+            AccountKey accountKey,
+            BigInteger feeRatio) throws IOException {
+    	
+
+        BigInteger nonce = getNonce();
+        KlayRawTransaction rawTransaction = KlayRawTransaction.createTransaction(
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            from,
+                            accountKey,
+                            feeRatio);
+        
+        return signAndSend(rawTransaction);    
+    }
+    
+
+
+    public EthSendTransaction sendKlayTransaction(
+            TxType.Type type,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String from,
+            BigInteger feeRatio) throws IOException {
+    	
+        BigInteger nonce = getNonce();
+        KlayRawTransaction rawTransaction = KlayRawTransaction.createTransaction(
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            from,
+                            feeRatio);
+        return signAndSend(rawTransaction);
+        
+    }
+
+        
+    public EthSendTransaction sendKlayTransaction(
+            TxType.Type type,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String to,
+            BigInteger value,
+            String from,
+            BigInteger feeRatio) throws IOException {
+    	
+        BigInteger nonce = getNonce();
+
+        KlayRawTransaction rawTransaction = KlayRawTransaction.createTransaction(
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            to,
+                            value,
+                            from,
+                            feeRatio);
+        return signAndSend(rawTransaction);
+        
+    }
+
+    public EthSendTransaction sendKlayTransaction(
+            TxType.Type type,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String to,
+            BigInteger value,
+            String from,
+            byte[] payload,
+            BigInteger codeFormat,
+            BigInteger feeRatio) throws IOException {
+    	
+        BigInteger nonce = getNonce();
+
+        KlayRawTransaction rawTransaction = KlayRawTransaction.createTransaction(
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            to,
+                            value,
+                            from,
+                            payload,
+                            codeFormat,
+                            feeRatio);
+        
+
+        return signAndSend(rawTransaction);
+
+    }
+    
+    public EthSendTransaction sendKlayTransaction(
+            TxType.Type type,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String from,
+            byte[] payload) throws IOException {
+    	
+        BigInteger nonce = getNonce();
+
+        KlayRawTransaction rawTransaction = KlayRawTransaction.createTransaction(
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            from,
+                            payload);
+        
+    	return signAndSend(rawTransaction);
+    	
+
+
+    }
+    
+    public EthSendTransaction sendKlayTransaction(
+            TxType.Type type,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String from,
+            byte[] payload,
+            BigInteger feeRatio) throws IOException {
+    	
+        BigInteger nonce = getNonce();
+
+        KlayRawTransaction rawTransaction = KlayRawTransaction.createTransaction(
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            from,
+                            payload,
+                            feeRatio);
+        return signAndSend(rawTransaction);
+    }
+
 }
