@@ -11,6 +11,7 @@ describe('eth_etherbase API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(data).toMatch(/^0x.*$/gm)
             done();
         };
 

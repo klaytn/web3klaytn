@@ -11,6 +11,9 @@ describe('eth_getUncleCountByBlockHash API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            if (data !== null) {
+                expect(typeof data === 'number' || /^0x[0-9a-fA-F]+$/.test(data)).toBe(true);
+            }
             done();
         };
         const blockHash = '0xc9dbfbab67e9a0508bcb3f95ae408023668cef431b805592781a821926715b8a'

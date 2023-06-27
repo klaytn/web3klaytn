@@ -11,6 +11,7 @@ describe('eth_chainId API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(typeof data === 'number' || /^0x[0-9a-fA-F]+$/.test(data)).toBe(true);
             done();
         };
 
