@@ -26,7 +26,7 @@ public class KlayGasPriceAtApiTest {
         assertNull(response.getError());
 
         assertNotNull(response.getResult());
-        // only check response result not null?
+
         assertTrue(response.getResult() instanceof String);
         assertTrue(response.getResult().toString().matches("^0x[0-9A-Fa-f]+$"));
     }
