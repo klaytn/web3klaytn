@@ -26,5 +26,7 @@ public class KlayGetRewardsApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
+
     }
 }
