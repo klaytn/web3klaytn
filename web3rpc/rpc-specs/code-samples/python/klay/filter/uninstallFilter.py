@@ -1,10 +1,11 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
 quantity = "0xd32fd16b6906e67f6e2b65dcf48fc272"
 
-sdk = OpenSDK(host)
-klay_response = sdk.klay.uninstall_filter(quantity)
+w3 = Web3(Web3.HTTPProvider(host))
+klay_response = w3.klay.uninstall_filter(quantity)
 
 print(klay_response)

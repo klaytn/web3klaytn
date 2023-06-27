@@ -1,8 +1,9 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
-sdk = OpenSDK(host)
+w3 = Web3(Web3.HTTPProvider(host))
 
 sendArgs = {
     "from": "0x65b47be3457ff26f2911cf89fd079cef0475a2e6",
@@ -16,6 +17,6 @@ sendArgs = {
 gasPrice = "0xba43b7500"
 gasLimit = "0xe8d4a50fff"
 
-klay_response = sdk.klay.resend(sendArgs, gasPrice, gasLimit)
+klay_response = w3.klay.resend(sendArgs, gasPrice, gasLimit)
 
 print(klay_response)

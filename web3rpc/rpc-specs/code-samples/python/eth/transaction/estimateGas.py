@@ -1,4 +1,5 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
@@ -11,7 +12,7 @@ callObject = {
     "input": "0x8ada066e"
 }
 
-sdk = OpenSDK(host)
-eth_response = sdk.eth.estimate_gas(callObject)
+w3 = Web3(Web3.HTTPProvider(host))
+eth_response = w3.eth.estimate_gas(callObject)
 
 print(eth_response)

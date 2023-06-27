@@ -1,9 +1,10 @@
 import json
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
-sdk = OpenSDK(host)
-debug_response = sdk.debug.is_p_prof_running()
+w3 = Web3(Web3.HTTPProvider(host))
+debug_response = w3.debug.is_p_prof_running()
 
 print(json.loads(debug_response.response.data))

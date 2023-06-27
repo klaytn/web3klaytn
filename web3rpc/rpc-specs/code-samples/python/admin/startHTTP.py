@@ -1,4 +1,5 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
@@ -7,7 +8,7 @@ port = 8551
 cors = ""
 apis = "klay"
 
-sdk = OpenSDK(host)
-admin_response = sdk.admin.start_http(adminHost, port, cors, apis)
+w3 = Web3(Web3.HTTPProvider(host))
+admin_response = w3.admin.start_http(adminHost, port, cors, apis)
 
 print(admin_response)
