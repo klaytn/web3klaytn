@@ -90,7 +90,7 @@ components:
         result:
           type: object
           required: 
-            - account
+            - accounts
             - root
           description: The block information.
           properties:
