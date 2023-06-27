@@ -1,8 +1,9 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
-sdk = OpenSDK(host)
-net_response = sdk.net.peer_count()
+w3 = Web3(Web3.HTTPProvider(host))
+net_response = w3.net.peer_count()
 
 print(net_response)

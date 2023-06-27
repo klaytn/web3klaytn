@@ -1,8 +1,9 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
-sdk = OpenSDK(host)
-eth_response = sdk.eth.chain_id()
+w3 = Web3(Web3.HTTPProvider(host))
+eth_response = w3.eth.chain_id()
 
 print(eth_response)

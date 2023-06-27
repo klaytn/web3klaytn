@@ -1,4 +1,5 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
@@ -9,7 +10,7 @@ filterOptions = {
     "topics": ["0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8"]
 }
 
-sdk = OpenSDK(host)
-eth_response = sdk.eth.new_filter(filterOptions)
+w3 = Web3(Web3.HTTPProvider(host))
+eth_response = w3.eth.new_filter(filterOptions)
 
 print(eth_response)
