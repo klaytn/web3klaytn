@@ -8,9 +8,9 @@ describe('eth_submitHashrate API', () => {
     test('should return eth_submitHashrate', (done) => {
 
         let callbackOne = function (error, data, response) {
-
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(typeof data === 'boolean').toBeTruthy()
             done();
         };
         const hashrate = '0x5'
