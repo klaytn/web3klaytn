@@ -3,7 +3,7 @@ const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-eth
 const { verifyMessageAsKlaytnAccountKey } = require("../../dist/src/ethers/signer");
 
 //
-// AccountKeyRoleBased  Step 04 - sign verification  
+// AccountKeyRoleBased  Step 03 - sign verification  
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeyrolebased 
 //
 //   gasLimit: Must be large enough 
@@ -21,7 +21,7 @@ async function main() {
   const wallet = new Wallet( sender_role_transaction_priv, provider );
   const signature = await wallet.signMessage(message);
   const signatures = [ signature ];
-  
+
   const result = await verifyMessageAsKlaytnAccountKey( provider, sender_addr, message, signatures );
   console.log( "verification result:", result);
 }

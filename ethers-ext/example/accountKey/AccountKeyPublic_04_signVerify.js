@@ -3,7 +3,7 @@ const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-eth
 const { verifyMessageAsKlaytnAccountKey } = require("../../dist/src/ethers/signer");
 
 //
-// AccountKeyPublic Step 03 - sign verification
+// AccountKeyPublic Step 04 - sign verification
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeypublic
 // 
 
@@ -20,14 +20,7 @@ async function main() {
   const message = "Hello World"; 
   const signature = await wallet.signMessage(message);
 
-  const obj = {
-    message: message,
-    address: sender_addr,
-    signature: signature,
-  };
-  console.log( obj );
-  
-  const result = await verifyMessageAsKlaytnAccountKey( provider, obj.address, obj.message, obj.signature); 
+  const result = await verifyMessageAsKlaytnAccountKey( provider, sender_addr, message, signature); 
   console.log( "verification result:", result);
 }
 

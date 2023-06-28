@@ -327,6 +327,12 @@ export async function verifyMessageAsKlaytnAccountKey(provider: Provider, addres
 }
 
 function verifyMessageAsKlaytnAccountKeyPublic( provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
+  if ( Array.isArray(signature) && !signature[0] ) {
+    throw new Error(`This account needs a signature as input like sig or [ sig ]`);
+  } else if ( Array.isArray(signature) && !!signature[0]) {
+    signature = signature[0]; 
+  }
+
   const actual_signer_addr = recoverAddress(hashMessage(message), signature);
 
   const x = String(klaytn_accountKey.key.x).substring(2);
@@ -340,8 +346,9 @@ function verifyMessageAsKlaytnAccountKeyPublic( provider: Provider, klaytn_accou
 }
 
 function verifyMessageAsKlaytnAccountKeyWeightedMultiSig( provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
-  if ( !Array.isArray(signature) )
-  throw new Error(`This account needs multi-signature [ sig1, sig2 ... sigN ]`);
+  if ( !Array.isArray(signature) ) {
+    throw new Error(`This account needs multi-signature [ sig1, sig2 ... sigN ]`);
+  }
 
   const threshold = klaytn_accountKey.key.threshold;
   let current_threshold = 0; 

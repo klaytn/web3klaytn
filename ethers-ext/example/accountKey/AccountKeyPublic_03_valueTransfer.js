@@ -2,7 +2,7 @@ const ethers = require("ethers");
 const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
 
 //
-// AccountKeyPublic Step 02 - value transfer
+// AccountKeyPublic Step 03 - value transfer
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeypublic
 // 
 
@@ -10,11 +10,11 @@ const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-eth
 const reciever_addr = '0xc40b6909eb7085590e1c26cb3becc25368e249e9';
 const sender_addr = '0xe15cd70a41dfb05e7214004d7d054801b2a2f06b' 
 // newly updated private key of sender
-const updated_priv = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8' 
+const sender_new_priv = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8' 
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net');
-  const wallet = new Wallet( sender_addr, updated_priv, provider );
+  const wallet = new Wallet( sender_addr, sender_new_priv, provider );
 
   let tx = {
     type: 8,        // TxTypeValueTransfer
