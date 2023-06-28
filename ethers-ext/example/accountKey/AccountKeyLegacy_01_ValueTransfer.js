@@ -17,17 +17,10 @@ async function main() {
       from: sender_addr,
     }; 
   
-  const ptx = await wallet.populateTransaction(tx);
-  const signTx = await wallet.signTransaction(ptx);
-  console.log('signTx', signTx);
-  
-  const objTx = wallet.decodeTxFromRLP(signTx);
-  console.log( objTx );
+  let sentTx = await wallet.sendTransaction(tx);
+  console.log('sentTx', sentTx);
 
-  const txhash = await provider.send("klay_sendRawTransaction", [signTx]);
-  console.log('txhash', txhash);
-
-  const rc = await provider.waitForTransaction(txhash);
+  let rc = await sentTx.wait();
   console.log('receipt', rc);
 }
 
