@@ -1,2 +1,3 @@
 export { Wallet } from "./signer";
-export { Accounts, AccountStore } from "./accountStore"
+export { JsonRpcProvider } from "./provider";
+export { Accounts, AccountStore } from "./accountStore";
