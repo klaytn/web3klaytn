@@ -1,8 +1,5 @@
 package opensdk.sdk.apis.eth.transaction;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.EthFillTransactionResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +10,8 @@ import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.utils.Numeric;
 
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Eth RPC Test")
 public class EthFillTransactionApiTest {
@@ -37,5 +36,7 @@ public class EthFillTransactionApiTest {
         .send();
         assertNotNull(cr);
         assertNull(cr.getError());
+        assertNotNull(cr.getResult());
+        assertTrue(cr.getResult().getRaw().matches("^0x[0-9a-fA-F]*$"));
     }
 }

@@ -11,8 +11,8 @@ import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Eth RPC Test")
 public class EthSendTransactionTest {
@@ -36,5 +36,6 @@ public class EthSendTransactionTest {
         EthSendTransaction transactionResponse = w3.ethSendTransaction(tx).send();
         assertNotNull(transactionResponse);
         assertNull(transactionResponse.getError());
+        assertTrue(transactionResponse.getResult().matches("^0x[0-9a-fA-F]+$"));
     }
 }
