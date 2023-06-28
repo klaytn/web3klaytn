@@ -13,47 +13,32 @@ const fs = require('fs');
 //
 
 const sender_priv = '0x1dad451aeb1198930d8ca2d3d6c6d8892f364dd0a321cbacc6dcdcd3c5250333' 
-const sender = '0x218e49acd85a1eb3e840eac0c9668e188c452e0c' 
-
-
-// returns multiple public keys for updating sender's accountKey 
-function getPubkey() {
-  const new_priv = fs.readFileSync('./example/key.priv', 'utf8'); 
-  return new ethers.utils.SigningKey( new_priv ).compressedPublicKey;   
-}
-function getPubkey2(){
-  const new_priv2 = fs.readFileSync('./example/key2.priv', 'utf8');
-  return new ethers.utils.SigningKey( new_priv2 ).compressedPublicKey;  
-}
-function getPubkey3(){
-  const new_priv3 = fs.readFileSync('./example/key3.priv', 'utf8');
-  return new ethers.utils.SigningKey( new_priv3 ).compressedPublicKey;  
-}
-
+const sender_addr = '0x218e49acd85a1eb3e840eac0c9668e188c452e0c' 
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net');
   const wallet = new Wallet( sender_priv, provider );
 
-  let new_key = getPubkey(); 
-  console.log('1', new_key);
-  let new_key2 = getPubkey2(); 
-  console.log('2', new_key2);
-  let new_key3 = getPubkey3(); 
-  console.log('3', new_key3);
+  let pub1 = new ethers.utils.SigningKey( fs.readFileSync('./example/key.priv', 'utf8') ).compressedPublicKey; 
+  let pub2 = new ethers.utils.SigningKey( fs.readFileSync('./example/key2.priv', 'utf8') ).compressedPublicKey; 
+  let pub3 = new ethers.utils.SigningKey( fs.readFileSync('./example/key3.priv', 'utf8') ).compressedPublicKey;
+
+  console.log('1', pub1);
+  console.log('2', pub2);
+  console.log('3', pub3);
 
   let tx = {
         type: 0x20,   // TxTypeAccountUpdate
-        from: sender,
+        from: sender_addr,
         gasLimit: 100000, 
         key: {
             type: 0x04,   // AccountKeyWeightedMultiSig
             keys: [
               2,   // threshold
               [
-                [ 1, new_key, ],
-                [ 1, new_key2 ],
-                [ 1, new_key3 ]
+                [ 1, pub1 ],
+                [ 1, pub2 ],
+                [ 1, pub3 ]
               ]
             ]
         }
