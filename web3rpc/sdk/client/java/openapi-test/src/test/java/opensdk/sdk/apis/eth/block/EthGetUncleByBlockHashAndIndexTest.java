@@ -26,5 +26,7 @@ public class EthGetUncleByBlockHashAndIndexTest {
         .send();
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNull(response.getResult());
     }
 }

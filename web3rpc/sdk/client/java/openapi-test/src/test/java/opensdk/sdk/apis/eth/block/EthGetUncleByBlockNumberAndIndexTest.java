@@ -28,5 +28,7 @@ public class EthGetUncleByBlockNumberAndIndexTest {
     .send();
     assertNotNull(response);
     assertNull(response.getError());
+
+    assertNull(response.getResult());
   }
 }
