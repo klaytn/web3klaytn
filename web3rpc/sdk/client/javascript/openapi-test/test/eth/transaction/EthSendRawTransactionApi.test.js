@@ -9,9 +9,10 @@ describe('eth_sendRawTransaction API', () => {
     test('should return eth_sendRawTransaction', (done) => {
 
         let callbackOne = function (error, data, response) {
-
+            
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(data).toMatch(/^0x[0-9a-fA-F]+$/)
             done();
         };
         unlockAccount().then(async address => {
