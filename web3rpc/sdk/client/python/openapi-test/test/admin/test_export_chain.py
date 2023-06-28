@@ -11,7 +11,7 @@ class TestAdminExportChain(KlaytnBaseTesting):
         self.response = self.w3.geth.admin.export_chain(
             self.fileName
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, bool)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
