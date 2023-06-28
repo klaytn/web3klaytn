@@ -19,7 +19,7 @@ const reciever = '0xc40b6909eb7085590e1c26cb3becc25368e249e9';
 
 // do sign with the each updated sender's accountKey 
 async function doSign( tx ) {
-  const new_priv = fs.readFileSync('./example/privateKey', 'utf8'); 
+  const new_priv = fs.readFileSync('./example/key.priv', 'utf8'); 
   const wallet = new Wallet(sender, new_priv, provider);
 
   let ttx = await wallet.populateTransaction(tx);
@@ -56,7 +56,7 @@ async function main() {
   }; 
 
   const txHashRLP  = await doSign( tx ); 
-  const txHashRLP2 = await addSign( txHashRLP, './example/privateKey2' ); 
+  const txHashRLP2 = await addSign( txHashRLP, './example/key2.priv' ); 
   
   let ttx = objectFromRLP( txHashRLP2 );
   console.log(ttx);
