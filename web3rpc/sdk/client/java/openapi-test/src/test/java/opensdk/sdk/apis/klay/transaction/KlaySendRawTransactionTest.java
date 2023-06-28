@@ -21,6 +21,7 @@ import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @DisplayName("Klay RPC Test")
@@ -52,5 +53,7 @@ public class KlaySendRawTransactionTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertTrue(response.getResult() instanceof String);
+        assertTrue(((String) response.getResult()).matches("^0x[a-fA-F0-9]+"));
     }
 }
