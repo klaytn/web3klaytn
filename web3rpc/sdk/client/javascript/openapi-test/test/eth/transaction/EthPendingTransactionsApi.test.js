@@ -11,6 +11,7 @@ describe('eth_pendingTransactions API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(Array.isArray(data)).toBe(true);
             done();
         };
 

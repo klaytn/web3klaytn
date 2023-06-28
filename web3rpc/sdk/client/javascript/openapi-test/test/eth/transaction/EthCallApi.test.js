@@ -12,7 +12,8 @@ describe('Eth transaction call API', () => {
                 done(false)
             }
             expect(error).toBeNull();
-            expect(data).toBeDefined()       
+            expect(data).toBeDefined()
+            expect(data).toMatch(/^0x.*$/gm)
             done();
         };
         const callObject = {"from": "0xca7a99380131e6c76cfa622396347107aeedca2d", "to": "0xbE3892d33620bE5aca8c75D39e7401871194d290", "input": "0x2e64cec1"}

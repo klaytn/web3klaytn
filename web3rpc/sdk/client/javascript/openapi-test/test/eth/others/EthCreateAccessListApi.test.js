@@ -10,6 +10,7 @@ describe('eth_createAccessList API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(Array.isArray(data.accessList)).toBe(true);
             done();
         };
         const transactionArgs = {
