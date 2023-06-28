@@ -17,7 +17,7 @@ export class JsonRpcProvider extends EthersJsonRpcProvider {
   }
 
   get klay(): any {
-    return new KlayApi(this.openApiClient);
+    return new AsyncKlayApi(this.openApiClient);
   }
 }
 
@@ -53,4 +53,42 @@ function makeApiClient(url?: ConnectionInfo | string): any {
   }
 
   return client;
+}
+
+class AsyncKlayApi {
+  openApiClient: any;
+  openApi: any;
+
+  constructor(openApiClient: any) {
+    this.openApiClient = openApiClient;
+    this.openApi = new KlayApi(openApiClient);
+
+    let proto = Reflect.getPrototypeOf(this.openApi);
+    if (proto) {
+      let methods = Reflect.ownKeys(proto);
+      // Promisify each methods
+      _.forEach(methods, (method) => {
+        if (method == 'constructor') {
+          return;
+        }
+        _.set(this, method, async (...args: any[]): Promise<any> => {
+          return this._asyncCall(method, ...args)
+        });
+      });
+    }
+  }
+
+  async _asyncCall(name: string | symbol, ...args: any[]) {
+    let opts = {};
+    return new Promise((resolve, reject) => {
+      this.openApi[name](...args, opts, (err: any, data: any) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    });
+  }
+
 }
