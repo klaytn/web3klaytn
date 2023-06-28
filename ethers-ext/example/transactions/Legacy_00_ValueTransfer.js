@@ -12,7 +12,6 @@ async function main() {
   const wallet = new Wallet(sender_priv, provider);
 
   let tx = {
-      type: 8,
       to: reciever_addr,
       value: 100000000000,
       from: sender_addr,
@@ -21,7 +20,9 @@ async function main() {
   const ptx = await wallet.populateTransaction(tx);
   const signTx = await wallet.signTransaction(ptx);
   console.log('signTx', signTx);
-  console.log( objectFromRLP(signTx));
+  
+  const objTx = wallet.decodeTxFromRLP(signTx);
+  console.log( objTx );
 
   const txhash = await provider.send("klay_sendRawTransaction", [signTx]);
   console.log('txhash', txhash);

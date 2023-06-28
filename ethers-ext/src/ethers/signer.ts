@@ -8,6 +8,7 @@ import { KlaytnTxFactory } from "../core";
 import { encodeTxForRPC } from "../core/klaytn_tx";
 import { HexStr } from "../core/util";
 import { SignatureLike } from "../core/sig";
+import { objectFromRLP } from "../core/klaytn_tx";
 
 // @ethersproject/abstract-signer/src.ts/index.ts:allowedTransactionKeys
 const ethersAllowedTransactionKeys: Array<string> = [
@@ -178,7 +179,6 @@ export class Wallet extends EthersWallet {
         //   In Metamask, multiply 1.5 to Gas for ensuring that the estimated gas is sufficient
         //   https://github.com/MetaMask/metamask-extension/blob/9d38e537fca4a61643743f6bf3409f20189eb8bb/ui/ducks/send/helpers.js#L115
         tx.gasLimit = result*1.5;  
-        console.log('gasLimit', result)
       } else {
         throw new Error(`Klaytn transaction can only be populated from a Klaytn JSON-RPC server`);
       }
@@ -207,6 +207,10 @@ export class Wallet extends EthersWallet {
   //   }
   //   return 0;
   // }
+
+  decodeTxFromRLP( str :string ): any {
+    return objectFromRLP( str );
+  }
 
   async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
     let tx: TransactionRequest = await resolveProperties(transaction);

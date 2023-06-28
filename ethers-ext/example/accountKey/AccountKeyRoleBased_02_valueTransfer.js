@@ -13,54 +13,43 @@ const fs = require('fs');
 const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net')
 
 // the same address of sender in AccountKeyRoleBased_01_accountUpdate.js 
-const sender = '0x9b4284806060423079e612203c22e8cb48b9870e';
-const reciever = '0xc40b6909eb7085590e1c26cb3becc25368e249e9';
-
-
-// do sign with the each updated sender's accountKey 
-async function doSign( tx ) {
-  const new_priv = fs.readFileSync('./example/key.priv', 'utf8'); 
-  const wallet = new Wallet(sender, new_priv, provider);
-
-  let ttx = await wallet.populateTransaction(tx);
-  console.log(ttx);
-
-  const txHashRLP = await wallet.signTransaction(ttx);
-  console.log('TxHashRLP', txHashRLP);
-
-  return txHashRLP;   
-}
-
-async function addSign( txHashRLP, privateKey_path ) {
-  const new_priv = fs.readFileSync( privateKey_path, 'utf8'); 
-  const wallet = new Wallet(sender, new_priv, provider);
-
-  let tx = objectFromRLP( txHashRLP );
-  ttx = await wallet.populateTransaction(tx);
-  console.log(ttx);
-  
-  const new_txHashRLP = await wallet.signTransaction(ttx);
-  console.log('new TxHashRLP', new_txHashRLP);
-
-  return new_txHashRLP;   
-}
+const sender_addr = '0x9b4284806060423079e612203c22e8cb48b9870e';
+const reciever_addr = '0xc40b6909eb7085590e1c26cb3becc25368e249e9';
 
 async function main() {
 
   let tx = {
     type: 8,
     gasLimit: 100000, 
-    to: reciever,
+    to: reciever_addr,
     value: 100000000000,
-    from: sender,
+    from: sender_addr,
   }; 
 
-  const txHashRLP  = await doSign( tx ); 
-  const txHashRLP2 = await addSign( txHashRLP, './example/key2.priv' ); 
-  
-  let ttx = objectFromRLP( txHashRLP2 );
-  console.log(ttx);
+  // sign 1
+  const wallet = new Wallet(sender_addr, fs.readFileSync('./example/key.priv', 'utf8'), provider);
+  let ptx = await wallet.populateTransaction(tx);
+  console.log(ptx);
 
+  const txHashRLP = await wallet.signTransaction(ptx);
+  console.log('TxHashRLP', txHashRLP);
+  
+  // sign 2 
+  const wallet2 = new Wallet(sender_addr, fs.readFileSync( './example/key2.priv', 'utf8'), provider);
+  
+  let txObj = wallet2.decodeTxFromRLP( txHashRLP );
+  console.log( txObj );
+
+  let ptx2 = await wallet2.populateTransaction(txObj);
+  console.log(ptx2);
+
+  const txHashRLP2 = await wallet2.signTransaction( ptx2 );
+  console.log('TxHashRLP2', txHashRLP2);
+
+  let txObj2 = wallet2.decodeTxFromRLP( txHashRLP2 );
+  console.log( txObj2 );
+
+  // send 
   const txhash = await provider.send("klay_sendRawTransaction", [txHashRLP2]);
   console.log('txhash', txhash);
 
