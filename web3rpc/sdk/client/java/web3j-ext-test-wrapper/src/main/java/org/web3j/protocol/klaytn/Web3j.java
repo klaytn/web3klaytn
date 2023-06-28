@@ -67,10 +67,10 @@ public class Web3j extends JsonRpc2_0Web3j implements EthApi, KlayApi, Governanc
             txType = Long.parseUnsignedLong(signedTransactionData.substring(2, 4), 16);
         } catch (NumberFormatException e) {
         }
-
+        
         // Klaytn transaction type
         if(8 <= txType && txType <= 74) {
-            new Request<>(
+            return new Request<>(
                 "klay_sendRawTransaction",
                 Arrays.asList(signedTransactionData),
                 web3jService,
