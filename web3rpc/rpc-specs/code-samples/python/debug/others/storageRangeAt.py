@@ -1,4 +1,5 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
@@ -8,7 +9,7 @@ address = "0x73a7d19d14f7dfac5b799e405e22133b2adc57a6"
 keyStart = "0x12"
 maxResult = 1
 
-sdk = OpenSDK(host)
-debug_response = sdk.debug.storage_range_at(blockHash, txIndex, address, keyStart, maxResult)
+w3 = Web3(Web3.HTTPProvider(host))
+debug_response = w3.debug.storage_range_at(blockHash, txIndex, address, keyStart, maxResult)
 
 print(debug_response)

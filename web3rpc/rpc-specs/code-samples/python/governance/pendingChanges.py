@@ -1,8 +1,9 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
-sdk = OpenSDK(host)
-governance_response = sdk.governance.pending_changes()
+w3 = Web3(Web3.HTTPProvider(host))
+governance_response = w3.governance.pending_changes()
 
 print(governance_response)

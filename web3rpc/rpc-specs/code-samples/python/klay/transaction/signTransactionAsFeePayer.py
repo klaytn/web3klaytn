@@ -1,4 +1,5 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
@@ -13,7 +14,7 @@ txObject = {
     "nonce": "0x1"
 }
 
-sdk = OpenSDK(host)
-klay_response = sdk.klay.sign_transaction_as_fee_payer(txObject)
+w3 = Web3(Web3.HTTPProvider(host))
+klay_response = w3.klay.sign_transaction_as_fee_payer(txObject)
 
 print(klay_response)

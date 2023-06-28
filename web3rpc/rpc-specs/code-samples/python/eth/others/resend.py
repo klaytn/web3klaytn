@@ -1,4 +1,5 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
@@ -14,7 +15,7 @@ sendArgs = {
 gasPrice = "0xba43b7500"
 gasLimit = "0xe8d4a50fff"
 
-sdk = OpenSDK(host)
-eth_response = sdk.eth.resend(sendArgs, gasPrice, gasLimit)
+w3 = Web3(Web3.HTTPProvider(host))
+eth_response = w3.eth.resend(sendArgs, gasPrice, gasLimit)
 
 print(eth_response)

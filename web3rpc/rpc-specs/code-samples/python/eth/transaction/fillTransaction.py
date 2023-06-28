@@ -1,4 +1,5 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
@@ -10,7 +11,7 @@ transactionArgs = {
     "maxFeePerGas": "0xbb43b7400"
 }
 
-sdk = OpenSDK(host)
-eth_response = sdk.eth.fill_transaction(transactionArgs)
+w3 = Web3(Web3.HTTPProvider(host))
+eth_response = w3.eth.fill_transaction(transactionArgs)
 
 print(eth_response)

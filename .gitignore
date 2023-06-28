@@ -118,6 +118,9 @@ bin/**.jar
 **/namespaces/*.yaml
 /sdk/client/javascript/**/*.bat
 /web3rpc/*.bat
+/ethers-ext/example/*.priv
+/ethers-ext/example/*.pub
+/ethers-ext/dist
 
 **/gradlew
 **/gradlew.bat

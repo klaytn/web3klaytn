@@ -1,4 +1,5 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
@@ -8,7 +9,7 @@ filterOptions = {
     "address": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b"
 }
 
-sdk = OpenSDK(host)
-klay_response = sdk.klay.get_logs(filterOptions)
+w3 = Web3(Web3.HTTPProvider(host))
+klay_response = w3.klay.get_logs(filterOptions)
 
 print(klay_response)
