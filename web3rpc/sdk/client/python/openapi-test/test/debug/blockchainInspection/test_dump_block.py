@@ -11,7 +11,7 @@ class TestDebugDumpBlock(KlaytnBaseTesting):
         self.response = self.w3.debug.dump_block(
             self.blockNumber
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response["root"], str)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
