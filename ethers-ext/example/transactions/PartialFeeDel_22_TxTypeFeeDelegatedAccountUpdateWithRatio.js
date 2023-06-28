@@ -3,7 +3,7 @@ const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-eth
 const { objectFromRLP } = require("../../dist/src/core/klaytn_tx");
 
 const fs = require('fs');
-const feePayer_priv = fs.readFileSync('./example/feePayerPrivateKey', 'utf8') // private key of feeDelegator
+const feePayer_priv = fs.readFileSync('./example/feePayerKey.priv', 'utf8') // private key of feeDelegator
 const feePayer = '0x24e8efd18d65bcb6b3ba15a4698c0b0d69d13ff7'
 
 // create new account for testing 

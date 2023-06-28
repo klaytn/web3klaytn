@@ -2,7 +2,7 @@ const ethers = require("ethers");
 const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
 
 const fs = require('fs')
-const sender_priv = fs.readFileSync('./example/privateKey', 'utf8') // private key of sender 
+const sender_priv = fs.readFileSync('./example/key.priv', 'utf8') // private key of sender 
 
 const sender = '0x3208ca99480f82bfe240ca6bc06110cd12bb6366'  
 const contract_addr = '0xD7fA6634bDDe0B2A9d491388e2fdeD0fa25D2067' 

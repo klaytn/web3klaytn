@@ -18,15 +18,15 @@ const sender = '0x218e49acd85a1eb3e840eac0c9668e188c452e0c'
 
 // returns multiple public keys for updating sender's accountKey 
 function getPubkey() {
-  const new_priv = fs.readFileSync('./example/privateKey', 'utf8'); 
+  const new_priv = fs.readFileSync('./example/key.priv', 'utf8'); 
   return new ethers.utils.SigningKey( new_priv ).compressedPublicKey;   
 }
 function getPubkey2(){
-  const new_priv2 = fs.readFileSync('./example/privateKey2', 'utf8');
+  const new_priv2 = fs.readFileSync('./example/key2.priv', 'utf8');
   return new ethers.utils.SigningKey( new_priv2 ).compressedPublicKey;  
 }
 function getPubkey3(){
-  const new_priv3 = fs.readFileSync('./example/privateKey3', 'utf8');
+  const new_priv3 = fs.readFileSync('./example/key3.priv', 'utf8');
   return new ethers.utils.SigningKey( new_priv3 ).compressedPublicKey;  
 }
 

@@ -3,8 +3,8 @@ const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-eth
 const { objectFromRLP } = require("../../dist/src/core/klaytn_tx");
 
 const fs = require('fs');
-const sender_priv = fs.readFileSync('./example/privateKey', 'utf8') 
-const feePayer_priv = fs.readFileSync('./example/feePayerPrivateKey', 'utf8') 
+const sender_priv = fs.readFileSync('./example/key.priv', 'utf8') 
+const feePayer_priv = fs.readFileSync('./example/feePayerKey.priv', 'utf8') 
 
 const sender = '0x3208ca99480f82bfe240ca6bc06110cd12bb6366' 
 const feePayer = '0x24e8efd18d65bcb6b3ba15a4698c0b0d69d13ff7'

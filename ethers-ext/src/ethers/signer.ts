@@ -2,6 +2,7 @@ import { Wallet as EthersWallet } from "@ethersproject/wallet";
 import { Provider, TransactionRequest, TransactionResponse } from "@ethersproject/abstract-provider";
 import { Bytes, Deferrable, computeAddress, hashMessage, keccak256, recoverAddress, resolveProperties } from "ethers/lib/utils";
 import { JsonRpcProvider } from "@ethersproject/providers";
+import { ethers } from "ethers";
 import _ from "lodash";
 import { KlaytnTxFactory } from "../core";
 import { encodeTxForRPC } from "../core/klaytn_tx";
@@ -68,12 +69,9 @@ export class Wallet extends EthersWallet {
   constructor(address: any, privateKey?: any, provider?: Provider, dynamicUpdateWalletAPI: boolean=true ) {
     let str_addr = String(address); 
 
-    if ( HexStr.isHex(address) && str_addr.length == 42 && str_addr.startsWith("0x")) {
+    if ( HexStr.isHex(address) && (str_addr.length == 40 || str_addr.length == 42)) {
       super( privateKey, provider); 
-      this.klaytn_address = address; 
-    } else if ( HexStr.isHex(address) && str_addr.length == 40 && !str_addr.startsWith("0x")) {
-      super( privateKey, provider); 
-      this.klaytn_address = "0x" + address; 
+      this.klaytn_address = ethers.utils.getAddress(address); 
     } else {
       provider = privateKey; 
       privateKey = address;
@@ -118,9 +116,9 @@ export class Wallet extends EthersWallet {
     if ( this.klaytn_address == undefined )
       return false;
 
-    let A = String( await this.getAddress() ).toLocaleUpperCase();
-    let B = String( await this.getEtherAddress() ).toLocaleUpperCase();
-    return A.localeCompare( B.toString() ) != 0;
+    let addr = await this.getAddress();
+    let Eaddr = await this.getEtherAddress();
+    return addr != Eaddr;
   }
 
   checkTransaction(transaction: Deferrable<TransactionRequest>): Deferrable<TransactionRequest> {

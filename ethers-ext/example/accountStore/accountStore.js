@@ -6,9 +6,9 @@ const fs = require('fs');
 // AccountStore example
 // 
 
-const priv = fs.readFileSync('./example/privateKey', 'utf8') 
-const priv2 = fs.readFileSync('./example/privateKey2', 'utf8') 
-const priv3 = fs.readFileSync('./example/privateKey3', 'utf8') 
+const priv = fs.readFileSync('./example/key.priv', 'utf8') 
+const priv2 = fs.readFileSync('./example/key2.priv', 'utf8') 
+const priv3 = fs.readFileSync('./example/key3.priv', 'utf8') 
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net');

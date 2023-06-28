@@ -12,7 +12,7 @@ const sender = '0x1173d5dc7b5e1e07d857d74e962b6ed7d4234a92';
 const reciever = '0xc40b6909eb7085590e1c26cb3becc25368e249e9';
 
 // newly updated private key of sender
-const updated_priv = fs.readFileSync('./example/privateKey', 'utf8');
+const updated_priv = fs.readFileSync('./example/key.priv', 'utf8');
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net');

@@ -2,6 +2,7 @@ import _ from "lodash";
 import * as rlp from "@ethersproject/rlp";
 import * as bytes from "@ethersproject/bytes";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
+import { ethers } from "ethers";
 
 export const RLP = {
   encode: rlp.encode,
@@ -25,27 +26,14 @@ export const HexStr = {
     return bytes.isHexString(value, length);
   },
   isSameHex( a:string, b:string ): boolean {
-    if ( this.isHex(a) && this.isHex(b) ) {
-      let A = String(a).toLocaleUpperCase();
-      let B = String(b).toLocaleUpperCase();
-      return A.localeCompare( B.toString() ) == 0; 
-    } else {
-      return false; 
-    }
+    let A = ethers.utils.getAddress(a);
+    let B = ethers.utils.getAddress(b);
+    return A == B; 
   },
   stripZeros(value: any): string {
     return bytes.hexlify(bytes.stripZeros(value));
   },
   zeroPad(value:string, length:number): string {
-    let ret = value; 
-    let n=value.length;
-    let i=0 ; 
-    
-    while ( n + i < length ) {
-      ret = '0' + ret; 
-      i++; 
-    }
-    
-    return ret;
+    return ethers.utils.hexZeroPad( value, length);
   }
 };
