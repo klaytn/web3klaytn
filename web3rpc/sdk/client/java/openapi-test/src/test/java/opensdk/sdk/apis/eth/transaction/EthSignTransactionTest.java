@@ -14,8 +14,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Eth RPC Test")
 
@@ -33,5 +32,8 @@ public class EthSignTransactionTest {
         EthSignTransactionResponse transactionResponse = w3.ethSignTransaction(tx).send();
         assertNotNull(transactionResponse);
         assertNull(transactionResponse.getError());
+
+        assertInstanceOf(String.class, transactionResponse.getResult().getRaw());
+        assertTrue(transactionResponse.getResult().getRaw().matches("^0x[0-9a-fA-F]+$"));
     }
 }

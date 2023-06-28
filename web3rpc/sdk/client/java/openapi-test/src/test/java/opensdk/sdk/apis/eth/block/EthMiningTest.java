@@ -9,8 +9,7 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EthMiningTest {
     private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
@@ -20,5 +19,7 @@ public class EthMiningTest {
         EthMining response = w3.ethMining().send();
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertInstanceOf(Boolean.class, response.getResult());
     }
 }
