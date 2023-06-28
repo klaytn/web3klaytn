@@ -323,7 +323,7 @@ export class FieldSetFactory<T extends FieldSet> {
     const type = cls.type;
     const fieldTypes = cls.fieldTypes;
 
-    if (type == undefined || type == null) {
+    if (!type) {
       throw new Error(`Cannot register TypedFields: Missing type`);
     }
     if (this.registry[type]) {
