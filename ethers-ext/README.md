@@ -1,13 +1,49 @@
-# Ethers.js Extension for Klaytn 
+# Ethers.js Extension for Klaytn
 
-Ethers.js Extension for Klaytn which supports AccountKey, TxTypes, and AccountStore. 
+Ethers.js Extension for Klaytn offers:
 
-## Run example
+- Drop-in replacement to `ethers.Wallet` that handles both Ethereum and Klaytn transactions
+  involving AccountKey and TxTypes.
+- Drop-in replacement to `ethers.JsonRpcProvider` that provides Ethereum RPC as well as
+  Klaytn-specific RPCs.
+- AccountStore to manage Klaytn account keys.
+
+## Install
 
 ```
-npm run build
-node example/klaytn_tx_ethers.js
+npm install --save @klaytn/ethers-ext
 ```
+
+## Usage
+
+See examples.
+
+## Build
+
+- Install dependencies
+
+    ```
+    npm install
+    ```
+
+- (optional) Import @klaytn/web3rpc from local file.
+  Use this method to use the latest version of the web3rpc.
+
+    ```
+    npm link ../web3rpc/sdk/client/javascript/openapi
+    ```
+
+- Build the library
+
+    ```
+    npm run build
+    ```
+
+- Run examples
+
+    ```
+    node example/rpc/rpc.js
+    ```
 
 ## Core classes
 
@@ -18,7 +54,7 @@ classDiagram
   FieldType ..|> FieldTypeAccountKey
   FieldType ..|> etc
   class FieldType {
-    <<interface>> 
+    <<interface>>
     canonicalize(any): any
     emptyValue(): any
   }
@@ -36,7 +72,7 @@ classDiagram
   }
 ```
 
-```mermaid  
+```mermaid
 classDiagram
   FieldSet <|-- KlaytnTx
   KlaytnTx <|-- TxTypeValueTransfer
@@ -70,7 +106,7 @@ classDiagram
   }
 ```
 
-```mermaid  
+```mermaid
 classDiagram
   FieldSetFactory <|.. KlaytnTxFactory
   FieldSetFactory <|.. AccountKeyFactory
