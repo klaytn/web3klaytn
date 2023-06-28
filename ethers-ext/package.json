@@ -1,5 +1,5 @@
 {
-  "name": "ethers-klaytn",
+  "name": "@klaytn/ethers-ext",
   "version": "0.0.1",
   "main": "index.js",
   "files": [

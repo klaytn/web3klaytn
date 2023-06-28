@@ -8,6 +8,16 @@ Ethers.js Extension for Klaytn offers:
   Klaytn-specific RPCs.
 - AccountStore to manage Klaytn account keys.
 
+## Install
+
+```
+npm install --save @klaytn/ethers-ext
+```
+
+## Usage
+
+See examples.
+
 ## Build
 
 - Install dependencies
@@ -29,12 +39,11 @@ Ethers.js Extension for Klaytn offers:
     npm run build
     ```
 
-## Run example
+- Run examples
 
-```
-npm run build
-node example/klaytn_tx_ethers.js
-```
+    ```
+    node example/rpc/rpc.js
+    ```
 
 ## Core classes
 
