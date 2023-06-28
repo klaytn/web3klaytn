@@ -5,4 +5,4 @@ class TestAdminSpamThrottlerConfig(KlaytnBaseTesting):
 
     def test_post(self):
         self.response = self.w3.geth.admin.spam_throttler_config()
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response["throttle_tps"], int)
