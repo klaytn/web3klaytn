@@ -1,10 +1,13 @@
 const ethers = require("ethers");
 const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
-const { objectFromRLP } = require("../../dist/src/core/klaytn_tx");
-const fs = require('fs')
 
-const sender_priv = fs.readFileSync('./example/key.priv', 'utf8') 
-const sender_addr = '0x3208ca99480f82bfe240ca6bc06110cd12bb6366' 
+//
+// AccountKeyPublic Step 01 - value transfer
+// https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeylegacy
+// 
+
+const sender_addr = '0xa2a8854b1802d8cd5de631e690817c253d6a9153' 
+const sender_priv = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8' 
 const reciever_addr = '0xc40b6909eb7085590e1c26cb3becc25368e249e9' 
 
 async function main() {

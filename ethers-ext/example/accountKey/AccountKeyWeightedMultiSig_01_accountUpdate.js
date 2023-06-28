@@ -1,6 +1,5 @@
 const ethers = require("ethers");
 const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
-const fs = require('fs');
 
 // 
 // AccountKeyWeightedMultiSig Step 01 - account update
@@ -11,21 +10,19 @@ const fs = require('fs');
 //   create a new account for testing 
 //   https://baobab.wallet.klaytn.foundation/ 
 //
-
-const sender_priv = '0x1dad451aeb1198930d8ca2d3d6c6d8892f364dd0a321cbacc6dcdcd3c5250333' 
-const sender_addr = '0x218e49acd85a1eb3e840eac0c9668e188c452e0c' 
+const sender_addr = '0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e' 
+const sender_priv = '0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a' 
+const sender_new_priv1 = '0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a'
+const sender_new_priv2 = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'
+const sender_new_priv3 = '0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac'
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net');
   const wallet = new Wallet( sender_priv, provider );
 
-  let pub1 = new ethers.utils.SigningKey( fs.readFileSync('./example/key.priv', 'utf8') ).compressedPublicKey; 
-  let pub2 = new ethers.utils.SigningKey( fs.readFileSync('./example/key2.priv', 'utf8') ).compressedPublicKey; 
-  let pub3 = new ethers.utils.SigningKey( fs.readFileSync('./example/key3.priv', 'utf8') ).compressedPublicKey;
-
-  console.log('1', pub1);
-  console.log('2', pub2);
-  console.log('3', pub3);
+  let sender_new_pub1 = new ethers.utils.SigningKey( sender_new_priv1 ).compressedPublicKey; 
+  let sender_new_pub2 = new ethers.utils.SigningKey( sender_new_priv2 ).compressedPublicKey; 
+  let sender_new_pub3 = new ethers.utils.SigningKey( sender_new_priv3 ).compressedPublicKey;
 
   let tx = {
         type: 0x20,   // TxTypeAccountUpdate
@@ -36,9 +33,9 @@ async function main() {
             keys: [
               2,   // threshold
               [
-                [ 1, pub1 ],
-                [ 1, pub2 ],
-                [ 1, pub3 ]
+                [ 1, sender_new_pub1 ],
+                [ 1, sender_new_pub2 ],
+                [ 1, sender_new_pub3 ]
               ]
             ]
         }
