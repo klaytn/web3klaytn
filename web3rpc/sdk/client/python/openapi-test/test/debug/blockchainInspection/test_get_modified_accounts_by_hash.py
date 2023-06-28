@@ -12,7 +12,7 @@ class TestDebugGetModifiedAccountsByHash(KlaytnBaseTesting):
         self.response = self.w3.debug.get_modified_accounts_by_hash(
             self.startBlockHash, self.endBlockHash
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, list)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
