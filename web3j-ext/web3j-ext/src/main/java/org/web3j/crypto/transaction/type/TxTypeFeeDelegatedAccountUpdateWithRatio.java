@@ -2,7 +2,6 @@ package org.web3j.crypto.transaction.type;
 
 import java.math.BigInteger;
 import java.util.List;
-import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Sign.SignatureData;
 import org.web3j.crypto.transaction.account.AccountKey;
 import org.web3j.crypto.transaction.account.AccountKeyDecoder;

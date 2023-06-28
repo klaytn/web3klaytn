@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.util.List;
 
 import org.web3j.crypto.Sign.SignatureData;
-import org.web3j.crypto.transaction.type.TxType.Type;
 import org.web3j.rlp.RlpDecoder;
 import org.web3j.rlp.RlpList;
 import org.web3j.rlp.RlpString;
