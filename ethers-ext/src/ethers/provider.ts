@@ -83,20 +83,30 @@ class AsyncOpenApi {
     if (proto) {
       let methods = Reflect.ownKeys(proto);
       // Promisify each methods
-      _.forEach(methods, (method) => {
+      _.forEach(methods, (methodName) => {
         // Assume that the prototype only has a constructor and API methods.
-        if (method == 'constructor') {
+        if (methodName == 'constructor') {
           return;
         }
-        this[method] = async (...args: any[]): Promise<any> => {
-          return this._asyncCall(method, ...args)
+
+        let method: Function = this.openApi[methodName]
+        // Function.length is the number of function arguments.
+        // RPC args = method args - opts - callback
+        let numArgs = method.length - 2;
+
+        this[methodName] = async (...args: any[]): Promise<any> => {
+          return this._asyncCall(methodName, numArgs, ...args)
         };
       });
     }
   }
 
-  async _asyncCall(name: string | symbol, ...args: any[]) {
+  async _asyncCall(name: string | symbol, numArgs: number, ...args: any[]) {
     let opts = {};
+    if (args.length != numArgs) {
+      throw new Error(`RPC ${String(name)} requires ${numArgs} parameters, ${args.length} given`);
+    }
+
     return new Promise((resolve, reject) => {
       this.openApi[name](...args, opts, (err: any, data: any) => {
         if (err) {
