@@ -15,12 +15,7 @@ def eth_access_list_sign_recover():
         'from': user1.address,
         'to': '0xF0109fC8DF283027b6285cc889F5aA624EaC1F55',
         'value': 1000000000,
-        'gas': 2000000,
-        'maxFeePerGas': 2000000000,
-        'maxPriorityFeePerGas': 1000000000,
-        'nonce': None,
-        'chainId': None,
-        'type': '0x2',  # the type is optional and, if omitted, will be interpreted based on the provided transaction parameters
+        'type': '0x2',
         'accessList': (  # accessList is optional for dynamic fee transactions
             {
                 'address': '0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae',
@@ -36,6 +31,7 @@ def eth_access_list_sign_recover():
         )
     }
     tx = fill_transaction(tx, w3)
+    print(to_pretty(tx))
     signed_tx = Account.sign_transaction(tx, user1.key)
     print(signed_tx.rawTransaction.hex())
     recovered_tx = Account.recover_transaction(signed_tx.rawTransaction)
