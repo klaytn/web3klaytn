@@ -42,7 +42,7 @@ import org.web3j.utils.KlayTransactionUtils;
  * Create RLP encoded transaction, implementation as per p4 of the <a
  * href="http://gavwood.com/paper.pdf">yellow paper</a>.
  */
-public class KlaytnTransactionEncoder extends TransactionEncoder{
+public class KlayTransactionEncoder extends TransactionEncoder{
 
     public static byte[] signMessage(KlayRawTransaction rawTransaction, long chainId, KlayCredentials credentials) {
         AbstractTxType tx = (AbstractTxType) rawTransaction.getTransaction();

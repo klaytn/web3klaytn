@@ -22,7 +22,7 @@ import org.web3j.rlp.RlpType;
 import org.web3j.utils.Bytes;
 import org.web3j.utils.Numeric;
 
-import static org.web3j.crypto.transaction.type.KlaytnTransactionType.LEGACY;
+import static org.web3j.crypto.transaction.type.KlayTransactionType.LEGACY;
 
 /**
  * Transaction class used for signing transactions locally.<br>
@@ -31,7 +31,7 @@ import static org.web3j.crypto.transaction.type.KlaytnTransactionType.LEGACY;
  */
 public class KlaytnLegacyTransaction implements ITransaction {
 
-    private KlaytnTransactionType type;
+    private KlayTransactionType type;
     private BigInteger nonce;
     private BigInteger gasPrice;
     private BigInteger gas;
@@ -52,7 +52,7 @@ public class KlaytnLegacyTransaction implements ITransaction {
     // LegacyTransaction can have only one tx type. Use another constructor.
     @Deprecated
     public KlaytnLegacyTransaction(
-            KlaytnTransactionType legacy,
+            KlayTransactionType legacy,
             BigInteger nonce,
             BigInteger gasPrice,
             BigInteger gas,
@@ -176,7 +176,7 @@ public class KlaytnLegacyTransaction implements ITransaction {
         return TransactionType.EIP1559;
     }
 
-    public KlaytnTransactionType getKlaytnType() {
+    public KlayTransactionType getKlaytnType() {
         return type;
     }
 }
