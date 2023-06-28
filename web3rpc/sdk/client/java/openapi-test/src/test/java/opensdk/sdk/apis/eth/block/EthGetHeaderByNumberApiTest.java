@@ -1,8 +1,5 @@
 package opensdk.sdk.apis.eth.block;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.EthGetHeaderByNumberResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +8,8 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Eth RPC Test")
 public class EthGetHeaderByNumberApiTest {
@@ -25,5 +24,8 @@ public class EthGetHeaderByNumberApiTest {
         .send();
         assertNotNull(br);
         assertNull(br.getError());
+        if(br.getResult() != null) {
+            assertTrue(br.getResult().getHash().matches("^0x.*$"));
+        }
     }
 }
