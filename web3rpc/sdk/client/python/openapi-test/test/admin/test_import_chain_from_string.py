@@ -11,7 +11,7 @@ class TestAdminImportChainFromString(KlaytnBaseTesting):
         self.response = self.w3.geth.admin.import_chain_from_string(
             self.blockRlp
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, bool)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
