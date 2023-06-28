@@ -22,28 +22,6 @@ import org.web3j.crypto.KlayRawTransaction;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.transaction.account.AccountKey;
 import org.web3j.crypto.transaction.type.TxType;
-import org.web3j.crypto.transaction.type.TxTypeAccountUpdate;
-import org.web3j.crypto.transaction.type.TxTypeCancel;
-import org.web3j.crypto.transaction.type.TxTypeChainDataAnchoring;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedAccountUpdate;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedAccountUpdateWithRatio;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedCancel;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedCancelWithRatio;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedChainDataAnchoring;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedChainDataAnchoringWithRatio;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedSmartContractDeploy;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedSmartContractDeployWithRatio;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedSmartContractExecution;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedSmartContractExecutionWithRatio;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedValueTransfer;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedValueTransferMemo;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedValueTransferMemoWithRatio;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedValueTransferWithRatio;
-import org.web3j.crypto.transaction.type.TxTypeSmartContractDeploy;
-import org.web3j.crypto.transaction.type.TxTypeSmartContractExecution;
-import org.web3j.crypto.transaction.type.TxTypeValueTransfer;
-import org.web3j.crypto.transaction.type.TxTypeValueTransferMemo;
-import org.web3j.crypto.transaction.type.TxType.Type;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.DefaultBlockParameterName;
@@ -205,7 +183,7 @@ public class KlayRawTransactionManager extends TransactionManager {
      */
     public String sign(RawTransaction rawTransaction) {
 
-        byte[] signedMessage = txSignService.sign((KlayRawTransaction) rawTransaction, chainId);
+        byte[] signedMessage = txSignService.sign(rawTransaction, chainId);
 
         return Numeric.toHexString(signedMessage);
     }

@@ -44,6 +44,17 @@ public class TxKlaySignServiceImpl{
         return signedMessage;
     }
 
+    public byte[] sign(RawTransaction rawTransaction, long chainId) {
+        final byte[] signedMessage;
+
+        if (chainId > ChainId.NONE) {
+            signedMessage = TransactionEncoder.signMessage(rawTransaction, chainId, credentials.convertToCredentials());
+        } else {
+            signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials.convertToCredentials());
+        }
+        return signedMessage;
+    }
+
 
     
     public String getAddress() {
