@@ -26,5 +26,7 @@ public class DebugStartPProfTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNull(response.getResult());
     }
 }

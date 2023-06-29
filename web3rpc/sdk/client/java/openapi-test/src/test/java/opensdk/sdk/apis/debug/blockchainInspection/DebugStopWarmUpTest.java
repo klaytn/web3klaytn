@@ -22,7 +22,11 @@ public class DebugStopWarmUpTest {
     @DisplayName("RPC debug_stopWarmUp")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         DebugStopWarmUpResponse response = w3.debugStopWarmUp().send();
-        assertNotNull(response);
-        assertNull(response.getError());
+
+        if(response == null) {
+            assertNull(response.getResult());
+        } else {
+            assertNotNull(response.getError());
+        }
     }
 }

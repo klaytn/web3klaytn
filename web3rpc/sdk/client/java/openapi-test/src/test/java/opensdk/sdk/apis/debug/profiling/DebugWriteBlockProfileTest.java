@@ -25,5 +25,7 @@ public class DebugWriteBlockProfileTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNull(response.getResult());
     }
 }
