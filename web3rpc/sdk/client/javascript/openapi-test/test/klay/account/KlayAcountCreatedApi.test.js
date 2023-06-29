@@ -10,10 +10,11 @@ describe('Klay account created API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined();
+            expect(typeof data === 'boolean').toBe(true);
             done();
         };
-        const address='0xa4f42d4d2a3a13874406435500950c9bf2d783db'
-        const blockTag='latest'
-        sdk.klay.accountCreated(address,blockTag,{}, callbackOne);
+        const address = '0xa4f42d4d2a3a13874406435500950c9bf2d783db'
+        const blockTag = 'latest'
+        sdk.klay.accountCreated(address, blockTag, {}, callbackOne);
     });
 });

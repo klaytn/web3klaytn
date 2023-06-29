@@ -9,10 +9,11 @@ describe('klay_getCommitteeSize API', () => {
         let callbackOne = function (error, data, response) {
 
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(typeof data === 'number').toBe(true);
             done();
         };
         const blockNumberOrTag = '0x1b4'
-        sdk.klay.getCommitteeSize({blockNumberOrTag}, callbackOne);
+        sdk.klay.getCommitteeSize({ blockNumberOrTag }, callbackOne);
     });
 });
