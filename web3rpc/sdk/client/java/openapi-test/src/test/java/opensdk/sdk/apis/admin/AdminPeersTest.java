@@ -23,6 +23,6 @@ public class AdminPeersTest {
 
         assertNotNull(response);
         assertNull(response.getError());
-        assertTrue(response.getResult() instanceof ArrayList<AdminPeers.Peer>);
+        assertTrue(response.getResult() instanceof ArrayList<?>);
     }
 }

@@ -24,7 +24,7 @@ public class NetPeerCountByTypeTest {
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());
-        if(response.getResult() instanceof LinkedHashMap<?,?>)
+        if (response.getResult() instanceof LinkedHashMap<?,?>)
             assertTrue(((LinkedHashMap<?,?>)response.getResult()).get("total") instanceof Integer);
     }
 
