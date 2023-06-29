@@ -13,9 +13,7 @@ import org.json.JSONObject;
 import org.web3j.crypto.KlayCredentials;
 
 import org.web3j.protocol.klaytn.Web3j;
-import org.web3j.protocol.klaytn.core.method.response.KlayGetAccount;
 import org.web3j.protocol.klaytn.core.method.response.KlayGetAccountKey;
-import org.web3j.protocol.klaytn.core.method.response.KlayGetAccountResponse;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
