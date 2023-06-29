@@ -33,4 +33,4 @@ jobs:
       - name: Namespace gen
         run: cd web3rpc/rpc-specs && npm install && sh -x generate-namespace.sh && cd -
       - name: Build & deploy python sdk
-        run: cd web3rpc/sdk/client/java && sh -x python-generate.sh
+        run: cd web3rpc/sdk/client/python && sh -x python-generate.sh
