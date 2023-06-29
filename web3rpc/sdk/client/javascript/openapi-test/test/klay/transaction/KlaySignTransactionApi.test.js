@@ -8,9 +8,10 @@ const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 describe('klay_signTransaction API', () => {
     test('should return klay_signTransaction', (done) => {
 
-        let callbackOne = function (error, data, response) {
+        let callbackOne = function (error, data, response) {klay_signTransactionAsFeePayer
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(/^0x[a-fA-F0-9]+/.test(data.raw)).toBe(true);
             done();
         };
         unlockAccount().then(async address => {
