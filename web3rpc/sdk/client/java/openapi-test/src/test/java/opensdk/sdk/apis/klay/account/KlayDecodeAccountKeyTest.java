@@ -24,5 +24,12 @@ public class KlayDecodeAccountKeyTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNotNull(response.getResult());
+        if(response.getResult().getKeytype() == null) {
+            assertNull(response.getResult().getKeytype());
+        } else {
+            assertInstanceOf(Integer.class, response.getResult().getKeytype().intValue());
+        }
     }
 }
