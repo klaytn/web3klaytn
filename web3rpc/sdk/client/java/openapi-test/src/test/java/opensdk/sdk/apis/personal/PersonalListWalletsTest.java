@@ -24,9 +24,9 @@ public class PersonalListWalletsTest {
                 .send();
         assertNotNull(response);
         assertNull(response.getError());
-        assertTrue(response.getResult() instanceof ArrayList<ListWallets>);
-        if(response.getResult() instanceof ArrayList<ListWallets>) {
-            assertTrue(((ArrayList<ListWallets>) response.getResult()).size() > 0);
+        assertTrue(response.getResult() instanceof ArrayList<?>);
+        if (response.getResult() instanceof ArrayList<?>) {
+            assertTrue((response.getResult()).size() > 0);
         }
     }
 }

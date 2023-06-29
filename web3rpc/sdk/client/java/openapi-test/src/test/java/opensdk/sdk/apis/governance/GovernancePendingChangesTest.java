@@ -22,8 +22,8 @@ public class GovernancePendingChangesTest {
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());
-        if(response.getResult() instanceof LinkedHashMap<?,?>) {
-            if(!((LinkedHashMap<?, ?>) response.getResult()).isEmpty()) {
+        if (response.getResult() instanceof LinkedHashMap<?,?>) {
+            if (!((LinkedHashMap<?, ?>) response.getResult()).isEmpty()) {
                 LinkedHashMap<?, ?> result = (LinkedHashMap<?, ?>) response.getResult();
                 assertTrue(result.containsKey("reward.minimumstake"));
             }

@@ -23,7 +23,7 @@ public class GovernanceChainConfigTest {
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());
-        if(response.getResult() instanceof LinkedHashMap<?,?>) {
+        if (response.getResult() instanceof LinkedHashMap<?,?>) {
             LinkedHashMap<?,?> result = (LinkedHashMap<?,?>)response.getResult();
             assertTrue(result.containsKey("chainId"));
         }
