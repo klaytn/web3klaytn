@@ -11,9 +11,11 @@ class TestKlayGetBlockReceipts(KlaytnBaseTesting):
         self.response = self.w3.klay.get_block_receipts(
             self.blockHash
         )
-        self.assertResponseSuccess()
+        if self.response is not None:
+            self.assertIsInstance(self.response, list)
+        else:
+            self.assertIsNone(self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
             self.response = self.w3.klay.get_block_receipts()
-

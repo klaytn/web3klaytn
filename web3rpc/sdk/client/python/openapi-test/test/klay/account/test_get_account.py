@@ -17,4 +17,3 @@ class TestGetAccount(KlaytnBaseTesting):
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
             self.response = self.w3.klay.get_account(self.blockNumberOrHash)
-

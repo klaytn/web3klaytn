@@ -2,6 +2,7 @@ from base.testing import KlaytnBaseTesting
 from base.eth import unlock_account, getNonce
 from web3.exceptions import InvalidAddress
 
+
 class TestSignTransactionAsFeePayer(KlaytnBaseTesting):
 
     def setUp(self) -> None:
@@ -22,7 +23,7 @@ class TestSignTransactionAsFeePayer(KlaytnBaseTesting):
         self.response = self.w3.klay.sign_transaction_as_fee_payer(
             self.txObject
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response["raw"], str)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

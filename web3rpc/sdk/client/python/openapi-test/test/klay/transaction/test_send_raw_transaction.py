@@ -12,9 +12,8 @@ class TestSendRawTransaction(KlaytnBaseTesting):
         self.response = self.w3.klay.send_raw_transaction(
             self.singedTransactionData
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, str)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
             self.response = self.w3.klay.send_raw_transaction()
-

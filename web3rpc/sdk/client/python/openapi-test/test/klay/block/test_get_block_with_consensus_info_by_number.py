@@ -11,4 +11,4 @@ class TestKlayGetBlockWithConsensusInfoByNumber(KlaytnBaseTesting):
         self.response = self.w3.klay.get_block_with_consensus_info_by_number(
             self.blockTag
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response["hash"], str)

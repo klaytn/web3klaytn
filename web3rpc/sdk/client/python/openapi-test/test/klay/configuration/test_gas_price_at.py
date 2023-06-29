@@ -11,4 +11,4 @@ class TestKlayGasPriceAt(KlaytnBaseTesting):
         self.response = self.w3.klay.gas_price_at(
             self.baseFee,
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, str)
