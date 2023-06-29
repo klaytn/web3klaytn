@@ -7,12 +7,12 @@ describe('Klay feeHistory API', () => {
     test('should return fee information', (done) => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()  
+            expect(data).toBeDefined();
             done();
         };
         const blockCount = '0x10'
         const lastBlock = 'latest'
         const rewardPercentiles = [0.1, 0.2, 0.3]
-        sdk.klay.feeHistory(blockCount,lastBlock,rewardPercentiles,{}, callbackOne);
+        sdk.klay.feeHistory(blockCount, lastBlock, rewardPercentiles, {}, callbackOne);
     });
 });

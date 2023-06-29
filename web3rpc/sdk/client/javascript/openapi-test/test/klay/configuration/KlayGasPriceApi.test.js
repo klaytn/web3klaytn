@@ -9,7 +9,8 @@ describe('Klay gasPrice  API', () => {
         let callbackOne = function (error, data, response) {
 
             expect(error).toBeNull();
-            expect(data).toBeDefined()      
+            expect(data).toBeDefined();
+            expect(typeof data === 'string' && /^0x[a-fA-F0-9]+/.test(data)).toBe(true);
             done();
         };
         sdk.klay.gasPrice({}, callbackOne);

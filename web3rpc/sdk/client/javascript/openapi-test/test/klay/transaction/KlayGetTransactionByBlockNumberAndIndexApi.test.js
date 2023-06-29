@@ -8,8 +8,11 @@ describe('klay_getTransactionByBlockNumberAndIndex API', () => {
     test('should return klay_getTransactionByBlockNumberAndIndex', (done) => {
 
         let callbackOne = function (error, data, response) {
+            console.log(data);
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(data.blockHash).toBeDefined();
+            expect(/^0x[a-fA-F0-9]+/.test(data.blockHash)).toBe(true);
             done();
         };
         const blockNumber = 118593751

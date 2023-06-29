@@ -8,9 +8,12 @@ describe('klay_createAccessList API', () => {
     test('should return klay_createAccessList', (done) => {
 
         let callbackOne = function (error, data, response) {
-
+            console.log(data);
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(typeof data === 'object').toBe(true)
+            expect(data?.gasUsed).toBeDefined()
+            expect(data?.accessList).toBeDefined()
             done();
         };
         const callObject = {

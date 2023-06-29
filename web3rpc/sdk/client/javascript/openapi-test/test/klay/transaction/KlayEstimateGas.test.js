@@ -10,6 +10,7 @@ describe('Klay estimate gas  API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(/^0x[a-fA-F0-9]+/.test(data)).toBe(true);
             done();
         };
         const callObject = {
