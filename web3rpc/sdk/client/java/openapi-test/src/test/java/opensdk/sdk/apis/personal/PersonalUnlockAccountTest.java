@@ -1,8 +1,5 @@
 package opensdk.sdk.apis.personal;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.PersonalUnlockAccountResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +8,8 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Personal RPC Test")
 public class PersonalUnlockAccountTest {
@@ -27,5 +26,6 @@ public class PersonalUnlockAccountTest {
                 .send();
         assertNotNull(response);
         assertNull(response.getError());;
+        assertTrue(response.getResult() instanceof Boolean);
     }
 }

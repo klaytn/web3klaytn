@@ -9,8 +9,7 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Personal RPC Test")
 public class PersonalLockAccountTest {
@@ -24,5 +23,6 @@ public class PersonalLockAccountTest {
                 .send();
         assertNotNull(response);
         assertNull(response.getError());
+        assertTrue(response.getResult() instanceof Boolean);
     }
 }
