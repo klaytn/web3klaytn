@@ -16,9 +16,8 @@ class TestKlayNewFilter(KlaytnBaseTesting):
         self.response = self.w3.klay.new_filter(
             self.filterOptions,
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, str)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
             self.response = self.w3.klay.new_filter()
-

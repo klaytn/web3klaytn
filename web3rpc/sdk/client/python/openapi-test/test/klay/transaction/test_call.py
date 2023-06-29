@@ -19,9 +19,8 @@ class TestKlayCall(KlaytnBaseTesting):
         self.response = self.w3.klay.call(
             self.callObject, self.blockTag
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, str)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
             self.response = self.w3.klay.call(self.callObject)
-

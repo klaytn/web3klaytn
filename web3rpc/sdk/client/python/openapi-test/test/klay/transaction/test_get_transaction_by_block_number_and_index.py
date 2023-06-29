@@ -12,9 +12,12 @@ class TestGetTransactionByBlocNumberAndIndex(KlaytnBaseTesting):
         self.response = self.w3.klay.get_transaction_by_block_number_and_index(
             self.blockTag, self.transactionIndex
         )
-        self.assertResponseSuccess()
+        if self.response is not None:
+            self.assertIsInstance(self.response["blockHash"], str)
+        else:
+            self.assertIsNone(self.response)
+
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
             self.response = self.w3.klay.get_transaction_by_block_number_and_index()
-

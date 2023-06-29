@@ -13,10 +13,8 @@ class TestKlaySign(KlaytnBaseTesting):
         self.response = self.w3.klay.sign(
             self.address, self.message
         )
-
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, str)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
             self.response = self.w3.klay.sign(self.address)
-

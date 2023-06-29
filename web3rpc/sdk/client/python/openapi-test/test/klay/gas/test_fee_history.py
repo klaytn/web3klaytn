@@ -13,9 +13,8 @@ class TestKlayFeeHistory(KlaytnBaseTesting):
         self.response = self.w3.klay.fee_history(
             self.blockCount, self.lastBlock, self.rewardPercentiles
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response["oldestBlock"], str)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
             self.response = self.w3.klay.fee_history(self.lastBlock)
-

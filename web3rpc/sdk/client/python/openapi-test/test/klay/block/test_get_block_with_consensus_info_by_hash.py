@@ -11,9 +11,8 @@ class TestKlayGetBlockWithConsensusInfoByHash(KlaytnBaseTesting):
         self.response = self.w3.klay.get_block_with_consensus_info_by_hash(
             self.blockHash
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response["hash"], str)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
             self.response = self.w3.klay.get_block_with_consensus_info_by_hash()
-
