@@ -9,7 +9,8 @@ describe('Klay gasPriceAt  API', () => {
         let callbackOne = function (error, data, response) {
 
             expect(error).toBeNull();
-            expect(data).toBeDefined()   
+            expect(data).toBeDefined();
+            expect(typeof data === 'string' && /^0x[0-9A-Fa-f]+$/.test(data)).toBe(true);
             done();
         };
         const blockNumber=1
