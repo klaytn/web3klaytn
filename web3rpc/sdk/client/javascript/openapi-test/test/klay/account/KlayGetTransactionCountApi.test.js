@@ -8,9 +8,9 @@ describe('klay_getTransactionCount API', () => {
     test('should return klay_getTransactionCount', (done) => {
 
         let callbackOne = function (error, data, response) {
-
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(/^0x[a-f0-9]+/.test(data)).toBe(true);
             done();
         };
 

@@ -10,6 +10,9 @@ describe('klay_getTransactionByHash API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            if (data !== null) {
+                expect(/^0x[a-f0-9]+/.test(data.blockHash)).toBe(true);
+            }
             done();
         };
         const transactionHash = '0xa40911eedd636d62f09d5f670856e8f168a4372ca69119796c95df547fd6010c'
