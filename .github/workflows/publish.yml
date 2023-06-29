@@ -28,7 +28,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-        run: sudo apt-get install gradle
       - name: Codegen
         run: cd web3rpc/codegen && gradle wrapper && sh -x ./deploy.sh && cd -
       - name: Namespace gen
