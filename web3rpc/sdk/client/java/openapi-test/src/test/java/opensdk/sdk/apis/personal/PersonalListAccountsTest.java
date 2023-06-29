@@ -1,8 +1,5 @@
 package opensdk.sdk.apis.personal;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.PersonalListAccountsResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +8,9 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Personal RPC Test")
 public class PersonalListAccountsTest {
@@ -24,5 +24,12 @@ public class PersonalListAccountsTest {
                 .send();
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
+        if(response.getResult() instanceof ArrayList) {
+            if(!((ArrayList) response.getResult()).isEmpty()) {
+                assertTrue(((ArrayList) response.getResult()).get(0) instanceof String);
+                assertTrue(((String) ((ArrayList) response.getResult()).get(0)).matches("^0x[0-9a-fA-F]+$"));
+            }
+        }
     }
 }

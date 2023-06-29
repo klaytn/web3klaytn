@@ -9,8 +9,7 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Personal RPC Test")
 public class PersonalNewAccountTest {
@@ -23,5 +22,7 @@ public class PersonalNewAccountTest {
         PersonalNewAccountResponse response = w3.personalNewAccount("helloWorld").send();
         assertNotNull(response);
         assertNull(response.getError());
+        assertTrue(response.getResult() instanceof String);
+        assertTrue(((String) response.getResult()).matches("^0x.*$"));
     }
 }

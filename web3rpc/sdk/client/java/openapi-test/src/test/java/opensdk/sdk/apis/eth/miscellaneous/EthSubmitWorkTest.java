@@ -9,8 +9,7 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @DisplayName("Eth RPC Test")
@@ -25,6 +24,7 @@ public class EthSubmitWorkTest {
         EthSubmitWork response = w3.ethSubmitWork(nonce, powHash, mixDigest).send();
         assertNotNull(response);
         assertNull(response.getError());
+        assertTrue(response.getResult() instanceof Boolean);
     }
 
 }
