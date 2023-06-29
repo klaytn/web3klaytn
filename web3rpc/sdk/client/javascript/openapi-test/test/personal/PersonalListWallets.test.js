@@ -8,8 +8,9 @@ describe('personal_listWallets API', () => {
     test('should return personal_listWallets', (done) => {
 
         let callbackOne = function (error, data, response) {
-            expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(error).toBeNull();
+            expect(Array.isArray(data) && data.length > 0).toBe(true);
             done();
         };
 

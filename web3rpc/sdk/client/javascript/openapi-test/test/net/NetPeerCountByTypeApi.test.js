@@ -11,6 +11,8 @@ describe('net_peerCountByType API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(typeof data.total === 'number' || /^0x[0-9a-fA-F]+$/.test(data.total)).toBe(true);
+
             done();
         };
 

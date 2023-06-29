@@ -10,6 +10,8 @@ describe('personal_ecRecover API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(data).toMatch(/^0x.*$/gm)
+
             done();
         };
 

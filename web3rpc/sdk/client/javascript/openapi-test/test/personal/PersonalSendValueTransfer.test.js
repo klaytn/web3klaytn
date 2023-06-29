@@ -11,6 +11,7 @@ describe('personal_sendValueTransfer API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(data).toMatch(/^0x.*$/gm)
             done();
         };
         unlockAccount().then(async address => {
