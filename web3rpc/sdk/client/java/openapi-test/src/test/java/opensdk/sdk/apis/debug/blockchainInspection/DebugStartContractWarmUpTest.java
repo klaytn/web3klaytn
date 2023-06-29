@@ -24,10 +24,6 @@ public class DebugStartContractWarmUpTest {
 
         DebugStartContractWarmUpResponse response = w3.debugStartContractWarmUp(address).send();
 
-        if(response == null) {
-            assertNull(response.getResult());
-        } else {
-            assertNotNull(response.getError());
-        }
+        assertNull(response.getResult());
     }
 }
