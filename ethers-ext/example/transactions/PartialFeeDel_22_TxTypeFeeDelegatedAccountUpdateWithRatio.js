@@ -8,7 +8,7 @@ const feePayer = '0x24e8efd18d65bcb6b3ba15a4698c0b0d69d13ff7'
 
 // create new account for testing 
 // https://baobab.wallet.klaytn.foundation/ 
-const sender_priv = '0x78197af8e2293de5357a91d5d7b6e4224168668180704cc1c7150669d7190fbc' 
+const senderPriv = '0x78197af8e2293de5357a91d5d7b6e4224168668180704cc1c7150669d7190fbc' 
 const sender = '0x0adc9d67eef6d0f02e17543386be40ed451f7667' 
 
 const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net')
@@ -31,7 +31,7 @@ const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.
 // 
 
 async function doSender() {
-  const sender_wallet = new Wallet(sender_priv, provider);
+  const senderWallet = new Wallet(senderPriv, provider);
   
   let tx = {
       type: 0x22,
@@ -49,10 +49,10 @@ async function doSender() {
       feeRatio: 40, 
   };
 
-  tx = await sender_wallet.populateTransaction(tx);
+  tx = await senderWallet.populateTransaction(tx);
   console.log(tx);
 
-  const senderTxHashRLP = await sender_wallet.signTransaction(tx);
+  const senderTxHashRLP = await senderWallet.signTransaction(tx);
   console.log('senderTxHashRLP', senderTxHashRLP);
 
   return senderTxHashRLP; 

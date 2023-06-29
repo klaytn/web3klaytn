@@ -3,7 +3,7 @@ const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-eth
 const { objectFromRLP } = require("../../dist/src/core/klaytn_tx");
 
 const fs = require('fs');
-const sender_priv = fs.readFileSync('./example/key.priv', 'utf8') // private key of sender 
+const senderPriv = fs.readFileSync('./example/key.priv', 'utf8') // private key of sender 
 const feePayer_priv = fs.readFileSync('./example/feePayerKey.priv', 'utf8') // private key of feeDelegator
 
 const sender = '0x3208ca99480f82bfe240ca6bc06110cd12bb6366' 
@@ -21,7 +21,7 @@ const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.
 // 
 
 async function doSender() {
-  const sender_wallet = new Wallet(sender_priv, provider);
+  const senderWallet = new Wallet(senderPriv, provider);
   
   let tx = {
     type: 9,    
@@ -30,10 +30,10 @@ async function doSender() {
     from: sender,
   }; 
 
-  tx = await sender_wallet.populateTransaction(tx);
+  tx = await senderWallet.populateTransaction(tx);
   console.log(tx);
 
-  const senderTxHashRLP = await sender_wallet.signTransaction(tx);
+  const senderTxHashRLP = await senderWallet.signTransaction(tx);
   console.log('senderTxHashRLP', senderTxHashRLP);
 
   return senderTxHashRLP; 

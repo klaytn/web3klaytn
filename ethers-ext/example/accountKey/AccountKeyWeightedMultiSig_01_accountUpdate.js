@@ -10,32 +10,32 @@ const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-eth
 //   create a new account for testing 
 //   https://baobab.wallet.klaytn.foundation/ 
 //
-const sender_addr = '0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e' 
-const sender_priv = '0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a' 
-const sender_new_priv1 = '0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a'
-const sender_new_priv2 = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'
-const sender_new_priv3 = '0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac'
+const senderAddr = '0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e' 
+const senderPriv = '0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a' 
+const senderNewPriv1 = '0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a'
+const senderNewPriv2 = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'
+const senderNewPriv3 = '0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac'
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net');
-  const wallet = new Wallet( sender_priv, provider );
+  const wallet = new Wallet( senderPriv, provider );
 
-  let sender_new_pub1 = new ethers.utils.SigningKey( sender_new_priv1 ).compressedPublicKey; 
-  let sender_new_pub2 = new ethers.utils.SigningKey( sender_new_priv2 ).compressedPublicKey; 
-  let sender_new_pub3 = new ethers.utils.SigningKey( sender_new_priv3 ).compressedPublicKey;
+  let senderNewPub1 = new ethers.utils.SigningKey( senderNewPriv1 ).compressedPublicKey; 
+  let senderNewPub2 = new ethers.utils.SigningKey( senderNewPriv2 ).compressedPublicKey; 
+  let senderNewPub3 = new ethers.utils.SigningKey( senderNewPriv3 ).compressedPublicKey;
 
   let tx = {
         type: 0x20,   // TxTypeAccountUpdate
-        from: sender_addr,
+        from: senderAddr,
         gasLimit: 100000, 
         key: {
             type: 0x04,   // AccountKeyWeightedMultiSig
             keys: [
               2,   // threshold
               [
-                [ 1, sender_new_pub1 ],
-                [ 1, sender_new_pub2 ],
-                [ 1, sender_new_pub3 ]
+                [ 1, senderNewPub1 ],
+                [ 1, senderNewPub2 ],
+                [ 1, senderNewPub3 ]
               ]
             ]
         }
