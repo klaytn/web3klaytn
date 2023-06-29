@@ -31,6 +31,6 @@ jobs:
           java-version: '17'
       - name: Build & deploy python sdk
         run: |
-          cd web3rpc/rpc-specs && npm install && sh -x generate-namespace.sh && cd -
-          cd web3rpc/codegen && gradle wrapper && sh -x ./deploy.sh && cd -
-          cd web3rpc/sdk/client/python && sh -x python-generate.sh && cd -
+          cd web3rpc/rpc-specs && npm install && sudo sh -x generate-namespace.sh && cd -
+          cd web3rpc/codegen && gradle wrapper && sudo sh -x ./deploy.sh && cd -
+          cd web3rpc/sdk/client/python && sudo sh -x python-generate.sh && cd -
