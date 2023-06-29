@@ -28,9 +28,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Codegen
-        run: cd web3rpc/codegen && gradle wrapper && sh -x ./deploy.sh && cd -
       - name: Namespace gen
         run: cd web3rpc/rpc-specs && npm install && sh -x generate-namespace.sh && cd -
+      - name: Codegen
+        run: cd web3rpc/codegen && gradle wrapper && sh -x ./deploy.sh && cd -
       - name: Build & deploy python sdk
         run: cd web3rpc/sdk/client/python && sh -x python-generate.sh
