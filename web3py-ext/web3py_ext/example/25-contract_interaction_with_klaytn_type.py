@@ -5,19 +5,12 @@ from web3py_ext.transaction.transaction import (
     fill_transaction,
     TX_TYPE_SMART_CONTRACT_EXECUTION
 )
-from web3.middleware import construct_sign_and_send_raw_middleware
 from contract_deploy_with_legacy import contract_deploy_with_legacy
 
-acc_list = [
-    Account.from_key('0x8b0164c3a59d2b1a00a9934f85ae77c14e21094132c34cc3daacd9e632c90807'),
-    Account.from_key('0x2380a434b66b5b3ff095632b098055e52fa85ca34517ff8ec504b428f4a81f76'),
-]
-w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8551'))
-# w3 = Web3(Web3.HTTPProvider('https://public-en-baobab.klaytn.net'))
-w3.middleware_onion.add(construct_sign_and_send_raw_middleware(acc_list))
+w3 = Web3(Web3.HTTPProvider('https://public-en-baobab.klaytn.net'))
 
 def contract_interaction_with_klaytn_type():
-    user = Account.from_key('0x8b0164c3a59d2b1a00a9934f85ae77c14e21094132c34cc3daacd9e632c90807')
+    user = Account.from_key('0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8')
     addr, abi = contract_deploy_with_legacy()
     c = w3.eth.contract(address=addr, abi=abi)
 
