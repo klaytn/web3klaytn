@@ -8,7 +8,8 @@ describe('klay_getCode API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(/^0x[a-fA-F0-9]+/.test(data)).toBe(true);
             done();
         };
         const account = '0x623fa116b9cac1709b490dc24d6408b14220214f'
