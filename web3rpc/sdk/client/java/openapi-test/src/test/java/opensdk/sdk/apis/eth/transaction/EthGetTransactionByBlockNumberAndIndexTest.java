@@ -11,8 +11,7 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Eth RPC Test")
 public class EthGetTransactionByBlockNumberAndIndexTest {
@@ -27,5 +26,10 @@ public class EthGetTransactionByBlockNumberAndIndexTest {
         assertNotNull(response);
         assertNull(response.getError());
 
+        if(response.getResult() != null) {
+            assertInstanceOf(BigInteger.class, response.getResult().getBlockNumber());
+        } else {
+            assertNull(response.getResult());
+        }
     }
 }

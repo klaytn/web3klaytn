@@ -26,5 +26,7 @@ public class DebugVerbosityByIDTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNull(response.getResult());
     }
 }

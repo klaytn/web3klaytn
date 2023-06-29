@@ -25,5 +25,7 @@ public class DebugWriteMemProfileTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNull(response.getResult());
     }
 }

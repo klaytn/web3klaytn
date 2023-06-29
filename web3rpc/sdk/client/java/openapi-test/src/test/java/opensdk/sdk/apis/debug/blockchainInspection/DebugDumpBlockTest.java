@@ -8,10 +8,10 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import org.web3j.protocol.http.HttpService;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 @DisplayName("Debug RPC Test")
 
 public class DebugDumpBlockTest {
@@ -23,5 +23,8 @@ public class DebugDumpBlockTest {
         DebugDumpBlockResponse response = w3.debugDumpBlock("0x80").send();
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNotNull(response.getResult());
+        assertInstanceOf(String.class, response.getResult().getRoot());
     }
 }

@@ -26,5 +26,7 @@ public class DebugMutexProfileTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNull(response.getResult());
     }
 }
