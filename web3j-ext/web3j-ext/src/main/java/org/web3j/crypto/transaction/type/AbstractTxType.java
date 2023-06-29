@@ -20,7 +20,6 @@ import org.web3j.crypto.KlayCredentials;
 import org.web3j.crypto.KlaySignatureData;
 import org.web3j.crypto.KlayRawTransaction;
 import org.web3j.utils.BytesUtils;
-import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Sign;
 import org.web3j.rlp.RlpEncoder;
 import org.web3j.rlp.RlpList;

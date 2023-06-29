@@ -1,11 +1,8 @@
 package org.web3j.klayAccount;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.json.JSONArray;
@@ -14,12 +11,9 @@ import org.web3j.crypto.KlayCredentials;
 
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.klaytn.core.method.response.KlayGetAccount;
-import org.web3j.protocol.klaytn.core.method.response.KlayGetAccountKey;
-import org.web3j.protocol.klaytn.core.method.response.KlayGetAccountResponse;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AccountStore {
     private final HashMap<String, AccountInfo> AccountLists;
@@ -38,11 +32,10 @@ public class AccountStore {
         }
 
         for (String element : set) {
-            KlayGetAccountKey acc = web3j.klayGetAccountKey(element, DefaultBlockParameterName.LATEST).send()
-                    .getResult();
+            KlayGetAccount acc = web3j.klayGetAccount(element, DefaultBlockParameterName.LATEST).send().getResult();
             if (acc == null) {
-        		KlayCredentials credentials = list.credentialsByAddress(element).get(0);
-        		if (!credentials.isDeCoupled() ) {
+                KlayCredentials credentials = list.credentialsByAddress(element).get(0);
+                if (!credentials.isDeCoupled()) {
                     JSONObject jsonKey = new JSONObject();
                     jsonKey.put("keyType", 1);
                     jsonKey.put("key", new JSONObject());
@@ -50,16 +43,17 @@ public class AccountStore {
                     jsonAccount.put("key", jsonKey);
                     AccountInfo accountInfo = new AccountInfo(element, jsonAccount);
                     this.AccountLists.put(element, accountInfo);
-        		}
-        		continue;
-            }
-            JSONObject jsonAccount = new JSONObject(acc);
-            JSONObject jsonKey = AccountInfo.getKeyJSON(jsonAccount, list);
-            if (jsonKey != null) {
-                AccountInfo accountInfo = new AccountInfo(element, jsonKey);
-                this.AccountLists.put(element, accountInfo);
+                }
+                continue;
             }
 
+            JSONObject jsonAccount = new JSONObject(acc.getAccount());
+            JSONObject jsonKey = AccountInfo.getKeyJSON(jsonAccount.getJSONObject("key"), list);
+
+            if (jsonKey != null) {
+                AccountInfo accountInfo = new AccountInfo(element, acc.getAccount().getBalance(), acc.getAccount().getNonce(), jsonKey);
+                this.AccountLists.put(element, accountInfo);
+            }
         }
 
         return true;
@@ -73,6 +67,9 @@ public class AccountStore {
 
     public JSONObject getAccountInfo(String address) throws JsonProcessingException {
         AccountInfo account = this.AccountLists.get(address);
+        if (account == null) {
+            return new JSONObject();
+        }
         return account.getByJSON();
     }
 

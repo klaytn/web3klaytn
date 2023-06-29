@@ -5,7 +5,7 @@ import java.math.BigInteger;
 
 import org.web3j.crypto.KlayCredentials;
 import org.web3j.crypto.KlayRawTransaction;
-import org.web3j.crypto.KlaytnTransactionEncoder;
+import org.web3j.crypto.KlayTransactionEncoder;
 import org.web3j.crypto.transaction.type.TxType;
 import org.web3j.crypto.transaction.type.TxTypeValueTransfer;
 import org.web3j.crypto.transaction.type.TxType.Type;
@@ -40,10 +40,10 @@ public class FeeDelegatedValueTransferExample {
                         from);
 
          // Sign as sender
-         byte[] signedMessage = KlaytnTransactionEncoder.signMessage(raw, chainId, credentials);
+         byte[] signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, credentials);
          
          // Sign same message as Fee payer
-         signedMessage = KlaytnTransactionEncoder.signMessageAsFeePayer(raw, chainId, credentials);
+         signedMessage = KlayTransactionEncoder.signMessageAsFeePayer(raw, chainId, credentials);
          
          String hexValue = Numeric.toHexString(signedMessage);
          EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
