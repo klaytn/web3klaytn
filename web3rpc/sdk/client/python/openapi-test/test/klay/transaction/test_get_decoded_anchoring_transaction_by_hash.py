@@ -11,9 +11,8 @@ class TestGetDecodedAnchoringTransactionByHash(KlaytnBaseTesting):
         self.response = self.w3.klay.get_decoded_anchoring_transaction_by_hash(
             self.hashOfTransaction
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response["blockHash"], str)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
             self.response = self.w3.klay.get_decoded_anchoring_transaction_by_hash()
-

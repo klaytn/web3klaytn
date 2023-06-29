@@ -5,4 +5,4 @@ class TestProtocolVersion(KlaytnBaseTesting):
 
     def test_post(self):
         self.response = self.w3.klay.protocol_version()
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, str)

@@ -11,4 +11,4 @@ class TestKlayGetRewards(KlaytnBaseTesting):
         self.response = self.w3.klay.get_rewards(
             self.blockTag
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response["burntFee"], int)
