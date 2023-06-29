@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import org.web3j.crypto.KlayCredentials;
 import org.web3j.crypto.KlayRawTransaction;
-import org.web3j.crypto.KlaytnTransactionEncoder;
+import org.web3j.crypto.KlayTransactionEncoder;
 import org.web3j.crypto.transaction.type.TxType;
 import org.web3j.crypto.transaction.type.TxTypeSmartContractExecution;
 import org.web3j.crypto.transaction.type.TxType.Type;
@@ -53,7 +53,7 @@ public class SmartContractExecutionExample {
                         from,
                         payload);
 
-         byte[] signedMessage = KlaytnTransactionEncoder.signMessage(raw, chainId, credentials);
+         byte[] signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, credentials);
          String hexValue = Numeric.toHexString(signedMessage);
          EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
          System.out.println(transactionResponse.getResult());

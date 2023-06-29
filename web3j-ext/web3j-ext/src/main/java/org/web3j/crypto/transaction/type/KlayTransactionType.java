@@ -12,7 +12,7 @@
  */
 package org.web3j.crypto.transaction.type;
 
-public enum KlaytnTransactionType {
+public enum KlayTransactionType {
     LEGACY(null),
     EIP2930(((byte) 0x01)),
     EIP1559(((byte) 0x02)),
@@ -20,7 +20,7 @@ public enum KlaytnTransactionType {
 
     Byte type;
 
-    KlaytnTransactionType(final Byte type) {
+    KlayTransactionType(final Byte type) {
         this.type = type;
     }
 
@@ -29,15 +29,15 @@ public enum KlaytnTransactionType {
     }
 
     public boolean isLegacy() {
-        return this.equals(KlaytnTransactionType.LEGACY);
+        return this.equals(KlayTransactionType.LEGACY);
     }
 
     public boolean isEip1559() {
-        return this.equals(KlaytnTransactionType.EIP1559);
+        return this.equals(KlayTransactionType.EIP1559);
     }
 
     public boolean isEip2930() {
-        return this.equals(KlaytnTransactionType.EIP2930);
+        return this.equals(KlayTransactionType.EIP2930);
     }
 }
 

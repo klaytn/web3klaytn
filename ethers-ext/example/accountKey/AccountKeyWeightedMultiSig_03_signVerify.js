@@ -1,7 +1,6 @@
 const ethers = require("ethers");
 const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
 const { verifyMessageAsKlaytnAccountKey } = require("../../dist/src/ethers/signer");
-const fs = require('fs');
 
 //
 // AccountKeyWeightedMultiSig Step 03 - sign verification  
@@ -13,32 +12,25 @@ const fs = require('fs');
 const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net');
 
 // the same address of sender in AccountKeyWeightedMultiSig_01_accountUpdate.js 
-const sender_addr = '0x218e49acd85a1eb3e840eac0c9668e188c452e0c';
+const sender_addr = '0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e' 
+const sender_new_priv1 = '0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a'
+const sender_new_priv2 = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'
+
 
 async function main() {
   const message = "Hello World"; 
 
-  const updated_priv = fs.readFileSync( './example/key.priv', 'utf8'); 
-  const wallet = new Wallet( updated_priv, provider );
+  const wallet = new Wallet( sender_new_priv1, provider);
   const signature = await wallet.signMessage(message);
-  const obj =  {
-    message: message,
-    signature: signature,
-  };
-  console.log( obj );
+  console.log( signature );
 
-  const updated_priv2 = fs.readFileSync( './example/key2.priv', 'utf8'); 
-  const wallet2 = new Wallet( updated_priv2, provider );
+  const wallet2 = new Wallet( sender_new_priv2, provider );
   const signature2 = await wallet2.signMessage(message);
-  const obj2 =  {
-    message: message,
-    signature: signature2,
-  };
-  console.log( obj2 );
+  console.log( signature2 );
 
   const signatures = [
-    obj.signature,
-    obj2.signature, 
+    signature,
+    signature2, 
   ];
   const result = await verifyMessageAsKlaytnAccountKey( provider, sender_addr, message, signatures);
   console.log( "verification result:", result);

@@ -7,7 +7,9 @@ import _ from "lodash";
 import { KlaytnTxFactory } from "../core";
 import { encodeTxForRPC } from "../core/klaytn_tx";
 import { HexStr } from "../core/util";
+
 import { SignatureLike } from "../core/sig";
+import { objectFromRLP } from "../core/klaytn_tx";
 
 // @ethersproject/abstract-signer/src.ts/index.ts:allowedTransactionKeys
 const ethersAllowedTransactionKeys: Array<string> = [
@@ -178,7 +180,6 @@ export class Wallet extends EthersWallet {
         //   In Metamask, multiply 1.5 to Gas for ensuring that the estimated gas is sufficient
         //   https://github.com/MetaMask/metamask-extension/blob/9d38e537fca4a61643743f6bf3409f20189eb8bb/ui/ducks/send/helpers.js#L115
         tx.gasLimit = result*1.5;  
-        console.log('gasLimit', result)
       } else {
         throw new Error(`Klaytn transaction can only be populated from a Klaytn JSON-RPC server`);
       }
@@ -207,6 +208,10 @@ export class Wallet extends EthersWallet {
   //   }
   //   return 0;
   // }
+
+  decodeTxFromRLP( str :string ): any {
+    return objectFromRLP( str );
+  }
 
   async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
     let tx: TransactionRequest = await resolveProperties(transaction);
@@ -322,6 +327,12 @@ export async function verifyMessageAsKlaytnAccountKey(provider: Provider, addres
 }
 
 function verifyMessageAsKlaytnAccountKeyPublic( provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
+  if ( Array.isArray(signature) && !signature[0] ) {
+    throw new Error(`This account needs a signature as input like sig or [ sig ]`);
+  } else if ( Array.isArray(signature) && !!signature[0]) {
+    signature = signature[0]; 
+  }
+
   const actual_signer_addr = recoverAddress(hashMessage(message), signature);
 
   const x = String(klaytn_accountKey.key.x).substring(2);
@@ -335,8 +346,9 @@ function verifyMessageAsKlaytnAccountKeyPublic( provider: Provider, klaytn_accou
 }
 
 function verifyMessageAsKlaytnAccountKeyWeightedMultiSig( provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
-  if ( !Array.isArray(signature) )
-  throw new Error(`This account needs multi-signature [ sig1, sig2 ... sigN ]`);
+  if ( !Array.isArray(signature) ) {
+    throw new Error(`This account needs multi-signature [ sig1, sig2 ... sigN ]`);
+  }
 
   const threshold = klaytn_accountKey.key.threshold;
   let current_threshold = 0; 

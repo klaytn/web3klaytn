@@ -23,10 +23,13 @@ import org.web3j.crypto.transaction.type.TxType;
 import org.web3j.crypto.transaction.type.TxType.Type;
 import org.web3j.crypto.transaction.type.TxTypeAccountUpdate;
 import org.web3j.crypto.transaction.type.TxTypeCancel;
+import org.web3j.crypto.transaction.type.TxTypeChainDataAnchoring;
 import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedAccountUpdate;
 import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedAccountUpdateWithRatio;
 import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedCancel;
 import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedCancelWithRatio;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedChainDataAnchoring;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedChainDataAnchoringWithRatio;
 import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedSmartContractDeploy;
 import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedSmartContractDeployWithRatio;
 import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedSmartContractExecution;
@@ -432,6 +435,73 @@ public class KlayRawTransaction extends RawTransaction {
         }
 
     }
+    
+    public static KlayRawTransaction createTransaction(
+            TxType.Type type,
+            BigInteger nonce,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String from,
+            byte[] payload) {
+
+    	if (type == Type.CHAIN_DATA_ANCHORING) {
+            return new KlayRawTransaction(
+                    TxTypeChainDataAnchoring.createTransaction(
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            from,
+                            payload));
+        }
+    	
+    	else if (type == Type.FEE_DELEGATED_CHAIN_DATA_ANCHORING) {
+            return new KlayRawTransaction(
+                    TxTypeFeeDelegatedChainDataAnchoring.createTransaction(
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            from,
+                            payload));
+        }
+    	
+        else {
+            throw new UnsupportedOperationException("Unsupported type transaction");
+        }
+
+    }
+    
+    public static KlayRawTransaction createTransaction(
+            TxType.Type type,
+            BigInteger nonce,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String from,
+            byte[] payload,
+            BigInteger feeRatio) {
+
+    	if (type == Type.FEE_DELEGATED_CHAIN_DATA_ANCHORING_WITH_RATIO) {
+            return new KlayRawTransaction(
+                    TxTypeFeeDelegatedChainDataAnchoringWithRatio.createTransaction(
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            from,
+                            payload,
+                            feeRatio));
+        }
+   
+    	
+        else {
+            throw new UnsupportedOperationException("Unsupported type transaction");
+        }
+
+    }
+    
+    
+  
 
     public byte[] getRaw() {
         return value;

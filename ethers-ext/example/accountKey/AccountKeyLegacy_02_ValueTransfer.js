@@ -1,10 +1,13 @@
 const ethers = require("ethers");
 const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
-const { objectFromRLP } = require("../../dist/src/core/klaytn_tx");
-const fs = require('fs')
 
-const sender_priv = fs.readFileSync('./example/key.priv', 'utf8') 
-const sender_addr = '0x3208ca99480f82bfe240ca6bc06110cd12bb6366' 
+//
+// AccountKeyPublic Step 02 - value transfer
+// https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeylegacy
+// 
+
+const sender_addr = '0xa2a8854b1802d8cd5de631e690817c253d6a9153' 
+const sender_priv = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8' 
 const reciever_addr = '0xc40b6909eb7085590e1c26cb3becc25368e249e9' 
 
 async function main() {
@@ -12,7 +15,6 @@ async function main() {
   const wallet = new Wallet(sender_priv, provider);
 
   let tx = {
-      type: 8,
       to: reciever_addr,
       value: 100000000000,
       from: sender_addr,
@@ -21,9 +23,12 @@ async function main() {
   const ptx = await wallet.populateTransaction(tx);
   const signTx = await wallet.signTransaction(ptx);
   console.log('signTx', signTx);
-  console.log( objectFromRLP(signTx));
+  
+  const inner_rlp = "0x" + String(signTx).substring(4);
+  const tx_decoded = ethers.utils.RLP.decode(inner_rlp);
+  console.log(tx_decoded);
 
-  const txhash = await provider.send("klay_sendRawTransaction", [signTx]);
+  const txhash = await provider.send("eth_sendRawTransaction", [signTx]);
   console.log('txhash', txhash);
 
   const rc = await provider.waitForTransaction(txhash);
