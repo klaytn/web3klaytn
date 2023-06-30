@@ -1,27 +1,26 @@
 const ethers = require("ethers");
 const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
 
-const fs = require('fs')
-const sender_priv = fs.readFileSync('./example/key.priv', 'utf8') 
-
-const sender = '0x3208ca99480f82bfe240ca6bc06110cd12bb6366' 
-const reciever = '0xc40b6909eb7085590e1c26cb3becc25368e249e9' 
-
 //
 // TxTypeValueTransferMemo
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/basic#txtypevaluetransfermemo
 // 
 //   type: Must be 0x10,
 // 
+
+const recieverAddr = '0xc40b6909eb7085590e1c26cb3becc25368e249e9' 
+const senderAddr = '0xa2a8854b1802d8cd5de631e690817c253d6a9153' 
+const senderPriv = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8' 
+
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net')
-  const wallet = new Wallet(sender_priv, provider);
+  const wallet = new Wallet(senderPriv, provider);
 
   tx = {
       type: 0x10,         
-      to: reciever,
+      to: recieverAddr,
       value: 1e12,
-      from: sender,
+      from: senderAddr,
       input: "0x1234567890",
     }; 
   

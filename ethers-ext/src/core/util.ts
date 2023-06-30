@@ -3,6 +3,7 @@ import * as rlp from "@ethersproject/rlp";
 import * as bytes from "@ethersproject/bytes";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import { ethers } from "ethers";
+import { computeAddress } from "ethers/lib/utils";
 
 export const RLP = {
   encode: rlp.encode,
@@ -25,10 +26,15 @@ export const HexStr = {
   isHex(value: any, length?: number): boolean {
     return bytes.isHexString(value, length);
   },
-  isSameHex( a:string, b:string ): boolean {
+  isSameAddress( a:string, b:string ): boolean {
     let A = ethers.utils.getAddress(a);
     let B = ethers.utils.getAddress(b);
     return A == B; 
+  },
+  isSamePrivKey( a:string, b:string ): boolean {
+    let A = computeAddress(a);
+    let B = computeAddress(b);
+    return this.isSameAddress(A, B); 
   },
   stripZeros(value: any): string {
     return bytes.hexlify(bytes.stripZeros(value));

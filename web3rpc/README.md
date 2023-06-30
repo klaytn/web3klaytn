@@ -18,11 +18,13 @@ $ nvm use v16.13.1
 - Ubuntu
   ```shell
   sudo apt-get install gradle
+  cd codegen
   gradle wrapper
   ```
 - Mac
   ```shell
   brew install gradle
+  cd codegen
   gradle wrapper
   ```
 ##### deploy
