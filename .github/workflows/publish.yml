@@ -36,8 +36,9 @@ jobs:
         shell: bash
         run: |
           cd web3py-ext &&\
-          python -m pip install build wheel twine &&\     
-          python setup.py bdist_wheel
+          python -m pip install build wheel twine &&\
+          ls -ls &&\
+          python setup.py bdist_wheel &&\
           cd -
 #      - name: generate java sdk
 #        shell: bash
