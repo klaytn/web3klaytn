@@ -6,32 +6,26 @@ from web3py_ext.transaction.transaction import (
     fill_transaction,
     TX_TYPE_LEGACY_TRANSACTION
 )
-from web3py_ext.utils.klaytn_utils import to_pretty
 from cytoolz import merge
 
 # w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8551'))
 w3 = Web3(Web3.HTTPProvider('https://public-en-baobab.klaytn.net'))
 
 def web3_legacy_value_transfer_sign_recover():
-    user = Account.from_key('0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8')
-    value_transfer_tx = {
-        'from' : user.address,
-        'to' : user.address, # to self
-        'value' : Web3.to_peb(10, "klay"),
-    }
-    value_transfer_tx = fill_transaction(value_transfer_tx, w3)
-    
-    signed_tx = Account.sign_transaction(value_transfer_tx, user.key)
-    print("\nraw transaction of signed tx:", signed_tx.rawTransaction.hex())
-    
-    recovered_tx = Account.recover_transaction(signed_tx.rawTransaction)
-    print("\nrecovered sender address", recovered_tx)
-    
-    decoded_tx = Account.decode_transaction(signed_tx.rawTransaction)
-    print("\ndecoded transaction:", to_pretty(decoded_tx))
+    user = Account.from_key_pair(
+        '0xe15cd70a41dfb05e7214004d7d054801b2a2f06b',
+        '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'
+    )
 
-    tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
-    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-    print('tx hash: ', tx_hash, 'receipt: ', tx_receipt)
+    value_transfer_tx = empty_tx(TX_TYPE_LEGACY_TRANSACTION)
+    value_transfer_tx = merge(value_transfer_tx, {
+        'from' : user.address,
+        'to' : user.address,
+        'value' : Web3.to_peb(10, "klay"),
+    })
+    value_transfer_tx = fill_transaction(value_transfer_tx, w3)
+    signed_tx = Account.sign_transaction(value_transfer_tx, user.key)
+    recovered_tx = Account.recover_transaction(signed_tx.rawTransaction)
+    print("\nsender", user.address, "\nrecovered", recovered_tx)
 
 web3_legacy_value_transfer_sign_recover()

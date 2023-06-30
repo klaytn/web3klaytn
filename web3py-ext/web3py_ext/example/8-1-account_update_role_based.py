@@ -12,41 +12,41 @@ from web3py_ext.utils.klaytn_utils import (
     bytes_to_hex_str
 )
 from cytoolz import merge
+from eth_utils.address import to_checksum_address
 
 w3 = Web3(Web3.HTTPProvider('https://public-en-baobab.klaytn.net'))
 
 def web3_account_update_multisig():
-    user1 = Account.from_key('0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a')
-    user2 = Account.from_key('0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8')
-    user3 = Account.from_key('0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac')
+    transaction_key = Account.from_key('0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac')
+    update_key = Account.from_key('0x9ba8cb8f60044058a9e6f815c5c42d3a216f47044c61a1750b6d29ddc7f34bda')
+    fee_payer_key = Account.from_key('0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8')
 
     account_update_tx = empty_tx(TX_TYPE_ACCOUNT_UPDATE)
     account_update_tx = merge(account_update_tx, {
-        'from' : user1.address,
+        'from' : to_checksum_address("0x5bd2fb3c21564c023a4a735935a2b7a238c4ccea"),
         'key' : {
-            'type': 4,
-            'threshold': 2,
-            'keys': [
-                {
-                    'weight':1,
-                    'key': compressed_key(user2),
+            "type": 5,
+            "keys": {
+                "roleTransactionKey": {
+                    "type":2,
+                    "key": compressed_key(transaction_key)
                 },
-                {
-                    'weight':1,
-                    'key': compressed_key(user1),
+                "roleAccountUpdateKey": {
+                    "type":2,
+                    "key": compressed_key(update_key)
                 },
-                {
-                    'weight':1,
-                    'key': compressed_key(user3),
-                },
-            ] 
+                "roleFeePayerKey": {
+                    "type": 2,
+                    "key": compressed_key(fee_payer_key)
+                }
+            }
         }
     })
     account_update_tx = fill_transaction(account_update_tx, w3)
     print(to_pretty(account_update_tx))
 
     # sign the klaytn specific transaction type with web3py
-    signed_tx = Account.sign_transaction(account_update_tx, user1.key)
+    signed_tx = Account.sign_transaction(account_update_tx, update_key.key)
     print('\nrawTransaction:', bytes_to_hex_str(signed_tx.rawTransaction))
 
     recovered_tx = Account.recover_transaction(signed_tx.rawTransaction)
@@ -55,9 +55,8 @@ def web3_account_update_multisig():
     decoded_tx = Account.decode_transaction(signed_tx.rawTransaction)
     print("\ndecoded transaction:", to_pretty(decoded_tx))
 
-    # temp test
-    # tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
-    # tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-    # print('tx hash: ', tx_hash, 'receipt: ', tx_receipt) 
+    tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+    print('tx hash: ', tx_hash, 'receipt: ', tx_receipt) 
 
 web3_account_update_multisig()
