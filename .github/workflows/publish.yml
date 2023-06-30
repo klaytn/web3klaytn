@@ -29,11 +29,11 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Build & deploy python sdk
+      - name: Build sdk
         shell: bash
         run: |
-          pwd && ls -la &&\
-          chmod -R +x ./ &&\
-          cd web3rpc/rpc-specs && npm install && sudo bash -x generate-namespace.sh && cd - && \
+          cd web3rpc/rpc-specs && npm install && bash -x generate-namespace.sh && cd - && \
           cd web3rpc/codegen && gradle wrapper && gradle wrapper clean :deployJar && cd - &&\
-          cd web3rpc/sdk/client/python && sudo bash -x python-generate.sh && cd -
+          cd web3rpc/sdk/client/python && bash -x python-generate.sh && cd - &&\
+          cd web3rpc/sdk/client/java && bash -x java-generate.sh && cd - &&\
+          cd web3rpc/sdk/client/javascript && bash -x javascript-generate.sh && cd -
