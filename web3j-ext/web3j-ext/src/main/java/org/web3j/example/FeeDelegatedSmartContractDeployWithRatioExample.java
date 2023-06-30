@@ -14,19 +14,23 @@ import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedSmartContractDeployWi
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthChainId;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.utils.Numeric;
 
 /**
  * 
  */
-public class FeeDelegatedSmartContractDeployWithRatioExample {
-	/**
-	 * @param args
-	 */
-    
-    void FeeDelegatedSmartContractDeployWithRatioExample(Web3j web3j, KlayCredentials credentials) throws IOException {
+public class FeeDelegatedSmartContractDeployWithRatioExample implements keySample {
+    /**
+     * @param args
+     */
 
+    public void FeeDelegatedSmartContractDeployWithRatioExample() throws IOException {
+
+        Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
+        KlayCredentials credentials = KlayCredentials.create(keySample.LEGACY_KEY_privkey);
+        KlayCredentials credentials_feepayer = KlayCredentials.create(keySample.LEGACY_KEY_FEEPAYER_privkey);
         BigInteger GAS_PRICE = BigInteger.valueOf(50000000000L);
         BigInteger GAS_LIMIT = BigInteger.valueOf(6721950);
         String from = credentials.getAddress();
@@ -44,34 +48,31 @@ public class FeeDelegatedSmartContractDeployWithRatioExample {
 
         TxType.Type type = Type.FEE_DELEGATED_SMART_CONTRACT_DEPLOY;
 
-
         KlayRawTransaction raw = KlayRawTransaction.createTransaction(
-                        type,
-                        nonce,
-                        GAS_PRICE,
-                        GAS_LIMIT,
-                        to,
-                        value,
-                        from,
-                        payload,
-                        codeFormat,
-                        feeRatio);
-
+                type,
+                nonce,
+                GAS_PRICE,
+                GAS_LIMIT,
+                to,
+                value,
+                from,
+                payload,
+                codeFormat,
+                feeRatio);
 
         // Sign as sender
         byte[] signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, credentials);
-        
-        // Sign same message as Fee payer
-        signedMessage = KlayTransactionEncoder.signMessageAsFeePayer(raw, chainId, credentials);
-        
-         String hexValue = Numeric.toHexString(signedMessage);
-         EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
-         System.out.println(transactionResponse.getResult());
-            
-         TxTypeFeeDelegatedSmartContractDeployWithRatio rawTransaction = TxTypeFeeDelegatedSmartContractDeployWithRatio.decodeFromRawTransaction(signedMessage);
 
+        // Sign same message as Fee payer
+        signedMessage = KlayTransactionEncoder.signMessageAsFeePayer(raw, chainId, credentials_feepayer);
+
+        String hexValue = Numeric.toHexString(signedMessage);
+        EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
+        System.out.println(transactionResponse.getResult());
+
+        TxTypeFeeDelegatedSmartContractDeployWithRatio rawTransaction = TxTypeFeeDelegatedSmartContractDeployWithRatio
+                .decodeFromRawTransaction(signedMessage);
 
     }
-
 
 }

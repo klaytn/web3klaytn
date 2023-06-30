@@ -44,6 +44,15 @@ import org.web3j.utils.KlayTransactionUtils;
  */
 public class KlayTransactionEncoder extends TransactionEncoder{
 
+    public static byte[] signMessage(RawTransaction rawTransaction, long chainId, KlayCredentials credentials) {
+        if(credentials.isDeCoupled()){
+            throw new Error("a legacy transaction must be with a legacy account key");
+        }
+
+        return signMessage(rawTransaction, chainId, credentials.convertToCredentials());
+    }
+
+
     public static byte[] signMessage(KlayRawTransaction rawTransaction, long chainId, KlayCredentials credentials) {
         AbstractTxType tx = (AbstractTxType) rawTransaction.getTransaction();
 

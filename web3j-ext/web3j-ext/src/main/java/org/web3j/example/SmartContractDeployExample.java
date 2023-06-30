@@ -14,18 +14,21 @@ import org.web3j.crypto.transaction.type.TxType.Type;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthChainId;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.utils.Numeric;
 
 /**
  * 
  */
-public class SmartContractDeployExample {
+public class SmartContractDeployExample implements keySample {
     /**
      * @param args
      */
 
-    void SmartContractDeployExample(Web3j web3j, KlayCredentials credentials) throws IOException {
+    public void SmartContractDeployExample() throws IOException {
+        Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
+        KlayCredentials credentials = KlayCredentials.create(keySample.LEGACY_KEY_privkey);
 
         BigInteger GAS_PRICE = BigInteger.valueOf(50000000000L);
         BigInteger GAS_LIMIT = BigInteger.valueOf(6721950);

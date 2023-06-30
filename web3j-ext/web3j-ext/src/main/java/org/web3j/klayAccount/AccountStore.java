@@ -83,7 +83,6 @@ public class AccountStore {
 
     public boolean isInAccountStore(String address) {
         return AccountLists.containsKey(address);
-
     }
 
 }

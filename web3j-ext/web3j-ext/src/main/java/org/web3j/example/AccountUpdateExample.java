@@ -21,12 +21,12 @@ import org.web3j.utils.Numeric;
 /**
  * 
  */
-public class AccountUpdateExample {
+public class AccountUpdateExample implements keySample {
 	/**
 	 * @param args
 	 */
     
-    void AccountUpdateExample(Web3j web3j, KlayCredentials credentials, KlayCredentials new_credentials) throws IOException {
+    public void AccountUpdateExample(Web3j web3j, KlayCredentials credentials, KlayCredentials new_credentials) throws IOException {
 
         BigInteger GAS_PRICE = BigInteger.valueOf(50000000000L);
         BigInteger GAS_LIMIT = BigInteger.valueOf(6721950);

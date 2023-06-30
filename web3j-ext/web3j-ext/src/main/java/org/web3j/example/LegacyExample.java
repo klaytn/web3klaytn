@@ -1,16 +1,13 @@
-/**
- * 
- */
 package org.web3j.example;
-
 import java.io.IOException;
 import java.math.BigInteger;
+import org.web3j.crypto.Credentials;
 import org.web3j.crypto.KlayCredentials;
 import org.web3j.crypto.KlayRawTransaction;
 import org.web3j.crypto.KlayTransactionEncoder;
-import org.web3j.crypto.transaction.account.AccountKeyPublic;
+import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.transaction.type.TxType;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedAccountUpdate;
+import org.web3j.crypto.transaction.type.TxTypeValueTransfer;
 import org.web3j.crypto.transaction.type.TxType.Type;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthChainId;
@@ -19,54 +16,53 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.utils.Numeric;
 
-/**
- * 
- */
-public class FeeDelegatedAccountUpdateWithRatioExample implements keySample {
+public class LegacyExample implements keySample {
     /**
      * @param args
      */
 
-    public void FeeDelegatedAccountUpdateExampleWithRatio(KlayCredentials credentials,
-            KlayCredentials new_credentials) throws IOException {
+    public void LegacyExample() throws IOException {
         Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
+        KlayCredentials klaycredentials = KlayCredentials.create(keySample.LEGACY_KEY_privkey);
+        Credentials credentials = Credentials.create(LEGACY_KEY_privkey);
 
         BigInteger GAS_PRICE = BigInteger.valueOf(50000000000L);
         BigInteger GAS_LIMIT = BigInteger.valueOf(6721950);
         String from = credentials.getAddress();
         EthChainId EthchainId = web3j.ethChainId().send();
         long chainId = EthchainId.getChainId().longValue();
+        String to = "0x000000000000000000000000000000000000dead";
         BigInteger nonce = web3j.ethGetTransactionCount(from, DefaultBlockParameterName.LATEST).send()
                 .getTransactionCount();
         BigInteger value = BigInteger.valueOf(100);
-        BigInteger feeRatio = BigInteger.valueOf(30);
-        BigInteger newPubkey = new_credentials.getEcKeyPair().getPublicKey();
 
-        AccountKeyPublic accountkey = AccountKeyPublic.create(newPubkey);
+        TxType.Type type = Type.VALUE_TRANSFER;
 
-        TxType.Type type = Type.FEE_DELEGATED_ACCOUNT_UPDATE_WITH_RATIO;
-
-        KlayRawTransaction raw = KlayRawTransaction.createTransaction(
-                type,
+        // send legacy transaction with web3j-credentials
+        RawTransaction raw = KlayRawTransaction.createEtherTransaction(
                 nonce,
                 GAS_PRICE,
                 GAS_LIMIT,
-                from,
-                accountkey,
-                feeRatio);
+                to,
+                value);
 
-        // Sign as sender
         byte[] signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, credentials);
-
-        // Sign same message as Fee payer
-        signedMessage = KlayTransactionEncoder.signMessageAsFeePayer(raw, chainId, credentials);
-
         String hexValue = Numeric.toHexString(signedMessage);
         EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
         System.out.println(transactionResponse.getResult());
 
-        TxTypeFeeDelegatedAccountUpdate rawTransaction = TxTypeFeeDelegatedAccountUpdate
-                .decodeFromRawTransaction(signedMessage);
+        // send legacy transaction with web3j-ext klaycredentials
+        raw = KlayRawTransaction.createEtherTransaction(
+                nonce,
+                GAS_PRICE,
+                GAS_LIMIT,
+                to,
+                value);
+
+        signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, klaycredentials);
+        hexValue = Numeric.toHexString(signedMessage);
+        transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
+        System.out.println(transactionResponse.getResult());
 
     }
 
