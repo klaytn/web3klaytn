@@ -13,7 +13,7 @@ class TestReplaceRawKey(KlaytnBaseTesting):
         self.response = self.w3.geth.personal.replace_raw_key(
             self.keyData, self.passphrase, self.newPassphrase
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response, r'^0x.*$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

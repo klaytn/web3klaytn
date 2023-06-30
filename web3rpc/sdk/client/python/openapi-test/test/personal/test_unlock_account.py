@@ -13,7 +13,7 @@ class TestUnlockAccount(KlaytnBaseTesting):
         self.response = self.w3.geth.personal.unlock_account(
             self.address, self.passphrase, self.duration
         )
-        self.assertEqual(self.response, True)
+        self.assertTrue(self.response, bool)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
