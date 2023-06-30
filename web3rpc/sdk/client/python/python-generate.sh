@@ -26,4 +26,3 @@ cd "${CURRENT_FILE_DIR}/web3py-ext-test-wrapper"
 
 pip uninstall web3py_ext -y
 pip install .
-python setup.py bdist_wheel

@@ -37,11 +37,10 @@ jobs:
       - name: generate python sdk
         shell: bash
         run: |
-          cd web3rpc/sdk/client/python &&\
-          python -m pip install build wheel twine &&\
-          bash -x python-generate.sh &&\
+          cd web3py-ext &&\
+          python -m pip install build wheel twine &&\     
+          python setup.py bdist_wheel
           cd -
-          pip show web3py-ext
 #      - name: generate java sdk
 #        shell: bash
 #        run: |
@@ -54,4 +53,4 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
-          packages-dir: web3rpc/sdk/client/python/web3py-ext-test-wrapper/dist
+          packages-dir: web3py-ext/dist
