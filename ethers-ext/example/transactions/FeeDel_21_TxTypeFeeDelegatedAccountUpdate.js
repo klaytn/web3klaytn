@@ -9,7 +9,6 @@ const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-eth
 //   nonce: In signTransactionAsFeePayer, must not be omitted, because feePayer's nonce is filled when populating
 // 
 
-
 // create new account for testing 
 // https://baobab.wallet.klaytn.foundation/ 
 const senderAddr = '0x30908464d76604420162a6c880c0e1c7e641bad7' 
