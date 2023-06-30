@@ -31,7 +31,6 @@ jobs:
           java-version: '17'
       - name: Build & deploy python sdk
         run: |
-#          sudo apt install gradle -y && \
           java -version && pip --version &&\
           cd web3rpc/rpc-specs && npm install && sudo sh -x generate-namespace.sh && cd - && \
           cd web3rpc/codegen && gradle wrapper && sudo sh -x ./deploy.sh && cd - &&\
