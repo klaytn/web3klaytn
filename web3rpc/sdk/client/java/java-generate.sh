@@ -9,7 +9,6 @@ rm -rf "${CURRENT_FILE_DIR}/openapi"
 
 mkdir "${CURRENT_FILE_DIR}/openapi"
 
-
 # sh ./script/eth/eth-generate.sh ${CURRENT_FILE_DIR}
 # sh ./script/klay/klay-generate.sh ${CURRENT_FILE_DIR}
 # sh ./script/net/net-generate.sh ${CURRENT_FILE_DIR}
@@ -21,11 +20,12 @@ mkdir "${CURRENT_FILE_DIR}/openapi"
 # sh ./script/mainbridge/mainbridge-generate.sh ${CURRENT_FILE_DIR}
 # sh ./script/subbridge/subbridge-generate.sh ${CURRENT_FILE_DIR}
 
-rm -rf "${CURRENT_FILE_DIR}/openapi/admin"
-mkdir "${CURRENT_FILE_DIR}/openapi/admin"
-cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/admin"
-sh "${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/script/admin/admin-config.yaml"
+# generate openapi codes
+cd "${CURRENT_FILE_DIR}"
+cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/"
+sh "${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FILE_DIR}/java-config.yaml"
 
 # generate openapi jar library
-cd "${CURRENT_FILE_DIR}/openapi/admin"
+cd "${CURRENT_FILE_DIR}/openapi"
+
 sh gradlew clean build publishToMavenLocal

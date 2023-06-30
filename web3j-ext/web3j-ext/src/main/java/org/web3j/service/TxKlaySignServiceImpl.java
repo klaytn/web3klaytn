@@ -15,7 +15,7 @@ package org.web3j.service;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.KlayCredentials;
 import org.web3j.crypto.KlayRawTransaction;
-import org.web3j.crypto.KlaytnTransactionEncoder;
+import org.web3j.crypto.KlayTransactionEncoder;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
 import org.web3j.tx.ChainId;
@@ -37,9 +37,20 @@ public class TxKlaySignServiceImpl{
         final byte[] signedMessage;
 
         if (chainId > ChainId.NONE) {
-            signedMessage = KlaytnTransactionEncoder.signMessage(rawTransaction, chainId, credentials);
+            signedMessage = KlayTransactionEncoder.signMessage(rawTransaction, chainId, credentials);
         } else {
-            signedMessage = KlaytnTransactionEncoder.signMessage(rawTransaction, credentials.convertToCredentials());
+            signedMessage = KlayTransactionEncoder.signMessage(rawTransaction, credentials.convertToCredentials());
+        }
+        return signedMessage;
+    }
+
+    public byte[] sign(RawTransaction rawTransaction, long chainId) {
+        final byte[] signedMessage;
+
+        if (chainId > ChainId.NONE) {
+            signedMessage = TransactionEncoder.signMessage(rawTransaction, chainId, credentials.convertToCredentials());
+        } else {
+            signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials.convertToCredentials());
         }
         return signedMessage;
     }

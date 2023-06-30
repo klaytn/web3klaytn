@@ -63,8 +63,8 @@ public class Web3j extends JsonRpc2_0Web3j implements KlayApi, GovernanceApi, Ad
         try {
             txType = Long.parseUnsignedLong(signedTransactionData.substring(2, 4), 16);
         } catch (NumberFormatException e) {
+            // something
         }
-        
         // Klaytn transaction type
         if(8 <= txType && txType <= 74) {
             return new Request<>(

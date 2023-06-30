@@ -102,7 +102,6 @@ public class TxTypeFeeDelegatedSmartContractDeployWithRatio extends TxTypeFeeDel
             BigInteger nonce = ((RlpString) values.get(0)).asPositiveBigInteger();
             BigInteger gasPrice = ((RlpString) values.get(1)).asPositiveBigInteger();
             BigInteger gasLimit = ((RlpString) values.get(2)).asPositiveBigInteger();
-            String to = ((RlpString) values.get(3)).asString();
             BigInteger value = ((RlpString) values.get(4)).asPositiveBigInteger();
             String from = ((RlpString) values.get(5)).asString();
             byte[] payload = ((RlpString) values.get(6)).getBytes();

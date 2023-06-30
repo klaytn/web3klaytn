@@ -182,7 +182,9 @@ public interface TxType {
          * generated and submitted by a servicechain.
          * Submitting transactions of this type via RPC is prohibited.
          */
-        CHAIN_DATA_ANCHORING((byte) 0x48);
+        CHAIN_DATA_ANCHORING((byte) 0x48),
+        FEE_DELEGATED_CHAIN_DATA_ANCHORING((byte) 0x49),
+        FEE_DELEGATED_CHAIN_DATA_ANCHORING_WITH_RATIO((byte) 0x4a);
 
         private byte value;
 
@@ -209,7 +211,8 @@ public interface TxType {
                     type == FEE_DELEGATED_SMART_CONTRACT_DEPLOY ||
                     type == FEE_DELEGATED_SMART_CONTRACT_EXECUTION ||
                     type == FEE_DELEGATED_VALUE_TRANSFER ||
-                    type == FEE_DELEGATED_VALUE_TRANSFER_MEMO;
+                    type == FEE_DELEGATED_VALUE_TRANSFER_MEMO ||
+                    type == FEE_DELEGATED_CHAIN_DATA_ANCHORING;
         }
 
         public static boolean isPartialFeeDelegated(Type type) {
@@ -218,7 +221,8 @@ public interface TxType {
                     type == FEE_DELEGATED_SMART_CONTRACT_DEPLOY_WITH_RATIO ||
                     type == FEE_DELEGATED_SMART_CONTRACT_EXECUTION_WITH_RATIO ||
                     type == FEE_DELEGATED_VALUE_TRANSFER_WITH_RATIO ||
-                    type == FEE_DELEGATED_VALUE_TRANSFER_MEMO_WITH_RATIO;
+                    type == FEE_DELEGATED_VALUE_TRANSFER_MEMO_WITH_RATIO ||
+                    type == FEE_DELEGATED_CHAIN_DATA_ANCHORING_WITH_RATIO;
         }
 
     }
