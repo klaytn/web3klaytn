@@ -9,7 +9,8 @@ describe('debug_setBlockProfileRate API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(data).toBe(null);
             done();
         };
 

@@ -9,14 +9,15 @@ describe('debug_startCPUProfile API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(data).toBe(null);
             done();
         };
 
-        // Must perform start before stop and opposite 
+        // Must perform start before stop and opposite
         // Call stopCPUProfile()
         const file = "cpu.profile";
         sdk.debug.startCPUProfile(file, {}, callbackOne);
-    }); 
+    });
 });
 

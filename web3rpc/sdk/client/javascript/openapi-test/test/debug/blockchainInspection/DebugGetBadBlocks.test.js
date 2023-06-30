@@ -9,7 +9,11 @@ describe('debug_getBadBlocks API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(Array.isArray(data)).toBe(true);
+            if (data.length > 0) {
+                expect(/^0x[0-9a-fA-F]+$/.test(data[0].hash)).toBe(true);
+            }
             done();
         };
 
