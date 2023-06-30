@@ -1,7 +1,7 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
 
-name: NPM publish on release
+name: SDK publish on release
 
 on:
   push:
@@ -29,11 +29,20 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Build sdk
+      - name: generate code and namespace
         shell: bash
         run: |
           cd web3rpc/rpc-specs && npm install && bash -x generate-namespace.sh && cd - && \
-          cd web3rpc/codegen && gradle wrapper && gradle wrapper clean :deployJar && cd - &&\
-          cd web3rpc/sdk/client/python && bash -x python-generate.sh && cd - &&\
-          cd web3rpc/sdk/client/java && bash -x java-generate.sh && cd - &&\
+          cd web3rpc/codegen && gradle wrapper && gradle wrapper clean :deployJar && cd -
+      - name: generate python sdk
+        shell: bash
+        run: |
+          cd web3rpc/sdk/client/python && bash -x python-generate.sh && cd -
+      - name: generate java sdk
+        shell: bash
+        run: | 
+          cd web3rpc/sdk/client/java && bash -x java-generate.sh && cd -
+      - name: generate js sdk
+        shell: bash
+        run: |
           cd web3rpc/sdk/client/javascript && bash -x javascript-generate.sh && cd -
