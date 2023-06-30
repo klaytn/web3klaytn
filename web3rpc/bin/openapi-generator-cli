@@ -1,5 +1,6 @@
 #!/bin/bash
 CURRENT_FILE_DIR=$(cd "$( dirname "$_" )" && pwd)
+echo $CURRENT_FILE_DIR
 
 java -ea                          \
   -Xms512M                        \

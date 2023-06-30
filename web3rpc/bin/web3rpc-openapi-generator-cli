@@ -1,6 +1,6 @@
+#!/bin/bash
 
-
-CURRENT_FILE_DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
+CURRENT_FILE_DIR=$(cd "$( dirname "$_" )" && pwd)
 
 java -ea                          \
   -Xms512M                        \
