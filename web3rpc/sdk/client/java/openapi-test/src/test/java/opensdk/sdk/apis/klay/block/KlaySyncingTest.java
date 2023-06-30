@@ -6,11 +6,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
+import org.web3j.protocol.klaytn.core.method.response.SyncingObject;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class KlaySyncingTest {
@@ -22,5 +22,8 @@ public class KlaySyncingTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNotNull(response.getResult());
+        assertInstanceOf(Boolean.class, response.getResult());
     }
 }
