@@ -25,5 +25,6 @@ public class AdminSetSpamThrottlerWhiteListTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNull(response.getResult());
     }
 }
