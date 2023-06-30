@@ -51,4 +51,4 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
-          packages-dir:
+          packages-dir: /opt/hostedtoolcache/Python/3.7.17/x64/lib/python3.7/site-packages
