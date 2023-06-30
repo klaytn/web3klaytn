@@ -12,7 +12,7 @@ class TestEcRecover(KlaytnBaseTesting):
         self.response = self.w3.geth.personal.ec_recover(
             self.message, self.signature
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response, r'^0x.*$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
