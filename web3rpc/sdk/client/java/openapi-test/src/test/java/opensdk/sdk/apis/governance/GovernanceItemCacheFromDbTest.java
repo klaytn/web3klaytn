@@ -1,8 +1,5 @@
 package opensdk.sdk.apis.governance;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.GovernanceItemCacheFromDbResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +8,9 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Governance RPC Test")
 public class GovernanceItemCacheFromDbTest {
@@ -24,5 +24,9 @@ public class GovernanceItemCacheFromDbTest {
         GovernanceItemCacheFromDbResponse response = w3.governanceItemCacheFromDb(blockNum).send();
         assertNotNull(response);
         assertNull(response.getError());
+        if (response.getResult() instanceof LinkedHashMap<?,?>) {
+            LinkedHashMap<?,?> result = (LinkedHashMap<?,?>)response.getResult();
+            assertTrue(result.containsKey("governance.governingnode"));
+        }
     }
 }

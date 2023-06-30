@@ -1,8 +1,5 @@
 package opensdk.sdk.apis.governance;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import java.io.IOException;
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.GovernanceTotalVotingPowerResponse;
@@ -10,6 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Governance RPC Test")
 public class GovernanceTotalVotingPowerTest {
@@ -20,6 +19,7 @@ public class GovernanceTotalVotingPowerTest {
     GovernanceTotalVotingPowerResponse resp = w3.governanceTotalVotingPower().send();
     assertNotNull(resp);
     assertNull(resp.getError());
+    assertTrue(resp.getResult() instanceof Integer);
   }
 
 }

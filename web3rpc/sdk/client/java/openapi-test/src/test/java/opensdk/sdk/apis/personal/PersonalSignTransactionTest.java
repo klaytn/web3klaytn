@@ -1,8 +1,5 @@
 package opensdk.sdk.apis.personal;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.PersonalSignTransactionResponse;
 import org.web3j.protocol.klaytn.core.method.response.TransactionObject;
@@ -12,6 +9,8 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Personal RPC Test")
 public class PersonalSignTransactionTest {
@@ -33,5 +32,7 @@ public class PersonalSignTransactionTest {
         PersonalSignTransactionResponse response = w3.personalSignTransaction(transactionObject, password).send();
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
+        assertTrue(response.getResult().getRaw().matches("^0x[0-9a-fA-F]+$"));
     }
 }

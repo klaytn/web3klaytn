@@ -10,8 +10,7 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Admin RPC Test")
 public class AdminExportChainTest {
@@ -27,6 +26,7 @@ public class AdminExportChainTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertTrue(response.getResult() instanceof Boolean);
     }
 
     private static String generateRandomFileName() {
