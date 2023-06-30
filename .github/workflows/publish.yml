@@ -33,6 +33,6 @@ jobs:
         shell: bash
         run: |
           chmod -R +x ./
-          cd web3rpc/rpc-specs && npm install && sudo sh -x generate-namespace.sh && cd - && \
-          cd web3rpc/codegen && gradle wrapper && sudo sh -x ./deploy.sh && cd - &&\
-          cd web3rpc/sdk/client/python && sudo sh -x python-generate.sh && cd -
+          cd web3rpc/rpc-specs && npm install && sudo bash -x generate-namespace.sh && cd - && \
+          cd web3rpc/codegen && gradle wrapper && sudo bash -x ./deploy.sh && cd - &&\
+          cd web3rpc/sdk/client/python && sudo bash -x python-generate.sh && cd -
