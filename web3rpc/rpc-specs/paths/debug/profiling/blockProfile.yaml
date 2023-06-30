@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/blockProfile:
     post:
-      summary: "[blockProfile]"
+      summary: "[Profiling-blockProfile]"
       tags:
         - debug
       operationId: blockProfile
