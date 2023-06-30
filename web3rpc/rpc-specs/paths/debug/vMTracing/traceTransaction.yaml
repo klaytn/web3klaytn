@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/traceTransaction:
     post:
-      summary: "[traceTransaction]"
+      summary: "[Trace-traceTransaction]"
       tags:
         - debug
       operationId: traceTransaction

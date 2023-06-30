@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/mutexProfile:
     post:
-      summary: "[mutexProfile]"
+      summary: "[Profiling-mutexProfile]"
       tags:
         - debug
       operationId: mutexProfile
