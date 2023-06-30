@@ -50,11 +50,5 @@ public class FeeDelegatedValueTransferExample {
          System.out.println(transactionResponse.getResult());
             
          TxTypeValueTransfer rawTransaction = TxTypeValueTransfer.decodeFromRawTransaction(hexValue);
-
-
     }
-
-
-	
-
 }

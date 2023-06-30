@@ -9,7 +9,7 @@ import org.web3j.crypto.KlayCredentials;
 import org.web3j.crypto.KlayRawTransaction;
 import org.web3j.crypto.KlayTransactionEncoder;
 import org.web3j.crypto.transaction.type.TxType;
-import org.web3j.crypto.transaction.type.TxTypeSmartContractExecution;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedSmartContractExecution;
 import org.web3j.crypto.transaction.type.TxType.Type;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthChainId;
