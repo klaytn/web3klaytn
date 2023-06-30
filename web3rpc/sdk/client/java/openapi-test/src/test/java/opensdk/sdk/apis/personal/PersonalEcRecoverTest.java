@@ -1,8 +1,5 @@
 package opensdk.sdk.apis.personal;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.PersonalEcRecoverResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +8,8 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Personal RPC Test")
 public class PersonalEcRecoverTest {
@@ -25,5 +24,7 @@ public class PersonalEcRecoverTest {
                 .send();
         assertNotNull(response);
         assertNull(response.getError());
+        assertTrue(response.getResult() instanceof String);
+        assertTrue(((String) response.getResult()).matches("^0x[0-9a-fA-F]+$"));
     }
 }

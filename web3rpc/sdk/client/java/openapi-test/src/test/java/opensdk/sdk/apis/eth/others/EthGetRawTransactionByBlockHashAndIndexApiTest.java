@@ -1,8 +1,5 @@
 package opensdk.sdk.apis.eth.others;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.EthGetRawTransactionByBlockHashAndIndexResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +8,8 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Eth RPC Test")
 public class EthGetRawTransactionByBlockHashAndIndexApiTest {
@@ -26,5 +25,7 @@ public class EthGetRawTransactionByBlockHashAndIndexApiTest {
         .send();
         assertNotNull(er);
         assertNull(er.getError());
+        assertNotNull(er.getResult());
+        assertTrue(er.getResult().matches("^0x.*$"));
     }
 }
