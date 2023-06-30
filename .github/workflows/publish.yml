@@ -12,7 +12,6 @@ jobs:
   build:
     permissions: write-all
     runs-on: ubuntu-latest
-    shell: bash
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -31,7 +30,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Build & deploy python sdk
+        shell: bash
         run: |
+          chmod -R +x ./
           cd web3rpc/rpc-specs && npm install && sudo sh -x generate-namespace.sh && cd - && \
           cd web3rpc/codegen && gradle wrapper && sudo sh -x ./deploy.sh && cd - &&\
           cd web3rpc/sdk/client/python && sudo sh -x python-generate.sh && cd -
