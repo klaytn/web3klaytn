@@ -9,7 +9,12 @@ describe('debug_traceBlock API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(Array.isArray(data)).toBeTruthy();
+            if (data.length > 0) {
+                expect(typeof data[0] === 'object').toBeTruthy();
+                expect(typeof data[0].result === 'object').toBeTruthy();
+            }
             done();
         };
 

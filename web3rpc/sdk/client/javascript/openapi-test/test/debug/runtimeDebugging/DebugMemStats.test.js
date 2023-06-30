@@ -9,7 +9,10 @@ describe('debug_memStats API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(typeof data === 'object').toBe(true);
+            expect(data.Alloc).toBeDefined();
+            expect(typeof data.Alloc === 'number').toBe(true);
             done();
         };
 
