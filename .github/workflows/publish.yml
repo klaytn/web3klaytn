@@ -38,10 +38,11 @@ jobs:
         shell: bash
         run: |
           cd web3rpc/sdk/client/python && bash -x python-generate.sh && cd -
-      - name: generate java sdk
-        shell: bash
-        run: | 
-          cd web3rpc/sdk/client/java && bash -x java-generate.sh && cd -
+          pip show web3py-ext
+#      - name: generate java sdk
+#        shell: bash
+#        run: |
+#          cd web3rpc/sdk/client/java && bash -x java-generate.sh && cd -
 #      - name: generate js sdk
 #        shell: bash
 #        run: |
@@ -50,3 +51,4 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
+          packages-dir:
