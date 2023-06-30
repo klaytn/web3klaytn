@@ -11,6 +11,7 @@ describe('net_listening API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(typeof data === 'boolean').toBeTruthy()
 
             done();
         };

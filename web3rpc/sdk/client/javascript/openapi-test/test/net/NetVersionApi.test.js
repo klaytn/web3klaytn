@@ -8,9 +8,9 @@ describe('net_version API', () => {
     test('should return net_version', (done) => {
 
         let callbackOne =  function (error, data, response) {
-        	
              expect(error).toBeNull();
              expect(data).toBeDefined()
+             expect(data).toMatch(/\d/)
              done();
         };
        
