@@ -1,5 +1,5 @@
 #!/bin/bash
-CURRENT_FILE_DIR=$(cd "$( dirname "$_" )" && pwd)
+CURRENT_FILE_DIR=$(cd "$( dirname "$0" )" && pwd)
 echo $CURRENT_FILE_DIR
 
 java -ea                          \
