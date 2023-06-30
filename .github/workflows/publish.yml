@@ -42,7 +42,11 @@ jobs:
         shell: bash
         run: | 
           cd web3rpc/sdk/client/java && bash -x java-generate.sh && cd -
-      - name: generate js sdk
-        shell: bash
-        run: |
-          cd web3rpc/sdk/client/javascript && bash -x javascript-generate.sh && cd -
+#      - name: generate js sdk
+#        shell: bash
+#        run: |
+#          cd web3rpc/sdk/client/javascript && bash -x javascript-generate.sh && cd -
+      - name: Publish distribution 📦 to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
