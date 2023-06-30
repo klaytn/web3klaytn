@@ -35,5 +35,5 @@ jobs:
           pwd && ls -la &&\
           chmod -R +x ./ &&\
           cd web3rpc/rpc-specs && npm install && sudo bash -x generate-namespace.sh && cd - && \
-          cd web3rpc/codegen && gradle wrapper && sudo bash -x ./deploy.sh && cd - &&\
+          cd web3rpc/codegen && gradle wrapper && gradle wrapper clean :deployJar && cd - &&\
           cd web3rpc/sdk/client/python && sudo bash -x python-generate.sh && cd -
