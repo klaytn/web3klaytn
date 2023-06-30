@@ -1,3 +1,5 @@
+
+
 CURRENT_FILE_DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
 PROJECT_DIR=$(cd "$CURRENT_FILE_DIR" && cd ../../.. && pwd )
 
