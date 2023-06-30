@@ -10,7 +10,14 @@ VERSION = "1.0.0"
 # http://pypi.python.org/pypi/setuptools
 
 REQUIRES = [
-    "web3 ~= 6.3.0"
+    # "web3rpc_python_eth ~= 1.0.0",
+    "web3rpc_python_klay ~= 1.0.0",
+    "web3rpc_python_net ~= 1.0.0",
+    "web3rpc_python_txpool ~= 1.0.0",
+    "web3rpc_python_personal ~= 1.0.0",
+    "web3rpc_python_debug ~= 1.0.0",
+    "web3rpc_python_governance ~= 1.0.0",
+    "web3rpc_python_admin ~= 1.0.0",
 ]
 
 setup(
