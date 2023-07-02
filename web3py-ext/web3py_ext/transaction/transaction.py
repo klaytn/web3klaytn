@@ -134,7 +134,6 @@ def empty_tx(tx_type:Union[int, str]):
         'nonce':None,
         'chainId':None,
     }
-    base_tx = copy.deepcopy(base_tx=TX_TYPE_LEGACY_TRANSACTION)
     if tx_type_int == TX_TYPE_LEGACY_TRANSACTION:
         base_tx['value'] = None
     elif tx_type_int == TX_TYPE_VALUE_TRANSFER:
@@ -148,11 +147,11 @@ def empty_tx(tx_type:Union[int, str]):
     elif tx_type_int == TX_TYPE_VALUE_TRANSFER_MEMO:
         base_tx['type'] = TX_TYPE_VALUE_TRANSFER_MEMO
         base_tx['value'] = None
-        base_tx['input'] = None
+        base_tx['data'] = None
     elif tx_type_int == TX_TYPE_FEE_DELEGATED_VALUE_TRANSFER_MEMO:
         base_tx['type'] = TX_TYPE_FEE_DELEGATED_VALUE_TRANSFER_MEMO
         base_tx['value'] = None
-        base_tx['input'] = None
+        base_tx['data'] = None
     elif tx_type_int == TX_TYPE_FEE_DELEGATED_VALUE_TRANSFER_MEMO_WITH_RATIO:
         pass
     elif tx_type_int == TX_TYPE_ACCOUNT_UPDATE:
@@ -167,14 +166,14 @@ def empty_tx(tx_type:Union[int, str]):
         base_tx['type'] = TX_TYPE_SMART_CONTRACT_DEPLOY
         base_tx['to'] = None
         base_tx['value'] = 0
-        base_tx['input'] = None
+        base_tx['data'] = None
         base_tx['humanReadable'] = False
         base_tx['codeFormat'] = 0
     elif tx_type_int == TX_TYPE_FEE_DELEGATED_SMART_CONTRACT_DEPLOY:
         base_tx['type'] = TX_TYPE_FEE_DELEGATED_SMART_CONTRACT_DEPLOY
         base_tx['to'] = None
         base_tx['value'] = 0
-        base_tx['input'] = None
+        base_tx['data'] = None
         base_tx['humanReadable'] = False
         base_tx['codeFormat'] = 0
     elif tx_type_int == TX_TYPE_FEE_DELEGATED_SMART_CONTRACT_DEPLOY_WITH_RATIO:
@@ -183,12 +182,12 @@ def empty_tx(tx_type:Union[int, str]):
         base_tx['type'] = TX_TYPE_SMART_CONTRACT_EXECUTION
         base_tx['to'] = None
         base_tx['value'] = 0
-        base_tx['input'] = None
+        base_tx['data'] = None
     elif tx_type_int == TX_TYPE_FEE_DELEGATED_SMART_CONTRACT_EXECUTION:
         base_tx['type'] = TX_TYPE_FEE_DELEGATED_SMART_CONTRACT_EXECUTION
         base_tx['to'] = None
         base_tx['value'] = 0
-        base_tx['input'] = None
+        base_tx['data'] = None
     elif tx_type_int == TX_TYPE_FEE_DELEGATED_SMART_CONTRACT_EXECUTION_WITH_RATIO:
         pass
     elif tx_type_int == TX_TYPE_CANCEL:
@@ -199,10 +198,10 @@ def empty_tx(tx_type:Union[int, str]):
         pass
     elif tx_type_int == TX_TYPE_CHAIN_DATA_ANCHORING:
         base_tx['type'] = TX_TYPE_CHAIN_DATA_ANCHORING
-        base_tx['input'] = None
+        base_tx['data'] = None
     elif tx_type_int == TX_TYPE_FEE_DELEGATED_CHAIN_DATA_ANCHORING:
         base_tx['type'] = TX_TYPE_FEE_DELEGATED_CHAIN_DATA_ANCHORING
-        base_tx['input'] = None
+        base_tx['data'] = None
     elif tx_type_int == TX_TYPE_FEE_DELEGATED_CHAIN_DATA_ANCHORING_WITH_RATIO:
         pass
     elif tx_type_int == TX_TYPE_ETHEREUM_ACCESS_LIST:
@@ -243,9 +242,9 @@ def fill_transaction(transaction: Dict[str, Any], w3: Web3) -> Dict[str, Any]:
             # Cypress 8217, Baobab 1001
             filled_transaction['chainId'] = w3.eth.chain_id
         # Because estimate_gas API will fail if some fields are None
-        if filled_transaction['gas'] is None or filled_transaction['gas'] < estimated_gas * 2:
-            estimated_gas = get_estimate_gas(filled_transaction, w3)
-            filled_transaction['gas'] = estimated_gas * 2
+        estimated_gas = get_estimate_gas(filled_transaction, w3)
+        if filled_transaction['gas'] is None or filled_transaction['gas'] < estimated_gas * 3:
+            filled_transaction['gas'] = estimated_gas * 3
 
     return filled_transaction
 

@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/preimage:
     post:
-      summary: "[preimage]"
+      summary: "[Inspection-preimage]"
       tags:
         - debug
       operationId: preimage

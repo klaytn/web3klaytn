@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 CURRENT_FILE_DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
 PROJECT_DIR=$(cd "$CURRENT_FILE_DIR" && cd ../../.. && pwd )
@@ -20,7 +21,6 @@ mkdir "${CURRENT_FILE_DIR}/openapi"
 # sh ./script/mainbridge/mainbridge-generate.sh ${CURRENT_FILE_DIR}
 # sh ./script/subbridge/subbridge-generate.sh ${CURRENT_FILE_DIR}
 
-
 # generate openapi codes
 cd "${CURRENT_FILE_DIR}"
 cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi/"
@@ -28,4 +28,5 @@ sh "${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FIL
 
 # generate openapi jar library
 cd "${CURRENT_FILE_DIR}/openapi"
+
 sh gradlew clean build publishToMavenLocal

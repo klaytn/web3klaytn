@@ -84,7 +84,7 @@ KLAYTN_TYPED_TRANSACTION_FORMATTERS = merge(
                 "s": hexstr_if_str(to_int),
             }),
         ),
-        "input": apply_one_of_formatters(
+        "data": apply_one_of_formatters(
             (
                 (is_string, hexstr_if_str(to_bytes)),
                 (is_bytes, identity),

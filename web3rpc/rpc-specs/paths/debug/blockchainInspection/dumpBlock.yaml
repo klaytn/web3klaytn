@@ -13,7 +13,7 @@ paths:
   /debug/dumpBlock:
     post:
       operationId: dumpBlock
-      summary: "[dumpBlock]"
+      summary: "[Inspection-dumpBlock]"
       description: |
         Retrieves the state that corresponds to the block number and returns a list of accounts (including storage and code).
 
