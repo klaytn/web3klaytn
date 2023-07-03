@@ -68,5 +68,5 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          cd web3rpc/sdk/client/javascript/openapi && npx pnpm --filter "@klaytn/*" -r publish --publish-branch main --no-git-check
+          cd web3rpc/sdk/client/javascript/openapi && npx pnpm --filter "@klaytn/*" -r publish --publish-branch main --no-git-check --access=public
 
