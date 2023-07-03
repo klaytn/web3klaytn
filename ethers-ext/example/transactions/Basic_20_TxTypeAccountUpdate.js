@@ -1,5 +1,4 @@
 const ethers = require("ethers");
-import { crypto } from "@ethersproject/crypto";
 const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
 
 //
@@ -27,7 +26,7 @@ async function main() {
         from: senderAddr,
         key: {
             type: 0x02, 
-            key: crypto.computePublicKey(senderNewPriv, true),
+            key: wallet.computePublicKey(senderNewPriv, true),
         }
     };
   
