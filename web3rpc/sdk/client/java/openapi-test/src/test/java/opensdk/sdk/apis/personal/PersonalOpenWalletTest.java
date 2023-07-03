@@ -26,5 +26,6 @@ public class PersonalOpenWalletTest {
         PersonalOpenWalletResponse response = w3.personalOpenWallet(url, passphrase).send();
         assertNotNull(response);
         assertNull(response.getError());
+        assertNull(response.getResult());
     }
 }
