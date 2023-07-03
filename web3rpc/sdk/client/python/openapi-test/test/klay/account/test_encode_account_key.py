@@ -14,7 +14,7 @@ class TestEncodeAccountKey(KlaytnBaseTesting):
         self.response = self.w3.klay.encode_account_key(
             self.accountKey
         )
-        self.assertIsInstance(self.response, str)
+        self.assertRegex(self.response, r'^0x.*$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
