@@ -8,6 +8,8 @@ describe('Klay feeHistory API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data).toBeDefined();
+            expect(data.oldestBlock).toBeDefined()
+            expect(data.oldestBlock).toMatch(/^0x.*$/)
             done();
         };
         const blockCount = '0x10'
