@@ -9,9 +9,9 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Eth RPC Test")
 
@@ -20,10 +20,16 @@ public class EthGetBlockTransactionCountByNumberTest {
     @Test
     @DisplayName("RPC eth_getBlockTransactionCountByNumber")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
+        String blockNumberRaw = "0xe8";
+        BigInteger blockNumber = BigInteger.valueOf(Long.parseLong(blockNumberRaw.substring(2), 16));
+
         EthGetBlockTransactionCountByNumber response = w3.ethGetBlockTransactionCountByNumber(
-            DefaultBlockParameter.valueOf("0xe8"))
+            DefaultBlockParameter.valueOf(blockNumber))
         .send();
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
+        assertTrue(response.getResult().matches("^0x[0-9a-fA-F]+$"));
+
     }
 }
