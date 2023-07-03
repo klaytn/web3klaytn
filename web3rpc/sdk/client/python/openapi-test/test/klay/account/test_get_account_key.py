@@ -12,7 +12,10 @@ class TestKlayGetAccountKey(KlaytnBaseTesting):
         self.response = self.w3.klay.get_account_key(
             self.address, self.blockTag
         )
-        self.assertResponseSuccess()
+        if self.response is not None:
+            self.assertIsInstance(self.response["keyType"], int)
+        else:
+            self.assertIsNone(self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

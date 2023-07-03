@@ -13,7 +13,7 @@ class TestFeeHistory(KlaytnBaseTesting):
         self.response = self.w3.eth.fee_history(
             self.blockCount, self.lastBlock, self.rewardPercentiles
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response["oldestBlock"], int)
 
     # def test_post_wrong_with_lack_paramaters(self):
     #     with self.assertRaises(ValueError):

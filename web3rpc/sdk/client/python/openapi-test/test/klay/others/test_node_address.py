@@ -5,4 +5,4 @@ class TestNodeAddress(KlaytnBaseTesting):
 
     def test_post(self):
         self.response = self.w3.klay.node_address()
-        self.assertResponseSuccess()
+        self.assertRegex(self.response, r'^0x.*$')
