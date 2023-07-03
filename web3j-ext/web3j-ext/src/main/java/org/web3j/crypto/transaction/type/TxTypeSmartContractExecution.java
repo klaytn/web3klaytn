@@ -31,6 +31,18 @@ public class TxTypeSmartContractExecution  extends AbstractTxType   {
         return new TxTypeSmartContractExecution(type,nonce, gasPrice, gasLimit, to, value, from, payload);
     }
 
+    protected TxTypeSmartContractExecution(
+        long chainId, TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to,
+            BigInteger value, String from, byte[] payload) {
+        super(chainId, type,nonce, gasPrice, gasLimit, from, to, value);
+        this.payload = payload;
+    }
+
+    public static TxTypeSmartContractExecution createTransaction(
+        long chainId, TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to,
+            BigInteger value, String from, byte[] payload) {
+        return new TxTypeSmartContractExecution(chainId, type,nonce, gasPrice, gasLimit, to, value, from, payload);
+    }
     public byte[] getPayload() {
         return payload;
     }

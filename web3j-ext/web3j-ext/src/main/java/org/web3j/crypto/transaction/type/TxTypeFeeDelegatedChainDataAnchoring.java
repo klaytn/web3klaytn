@@ -35,6 +35,17 @@ public class TxTypeFeeDelegatedChainDataAnchoring extends TxTypeFeeDelegate   {
         return new TxTypeFeeDelegatedChainDataAnchoring(type, nonce, gasPrice, gasLimit, from, anchoredData);
     }
 
+    protected TxTypeFeeDelegatedChainDataAnchoring(
+        long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from, byte[] anchoredData) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, "", BigInteger.ZERO);
+        this.anchoredData = anchoredData;
+    }
+
+    public static TxTypeFeeDelegatedChainDataAnchoring createTransaction(
+        long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from, byte[] anchoredData) {
+        return new TxTypeFeeDelegatedChainDataAnchoring(chainId, type, nonce, gasPrice, gasLimit, from, anchoredData);
+    }
+
     public byte[] getAnchoredData() {
         return anchoredData;
     }

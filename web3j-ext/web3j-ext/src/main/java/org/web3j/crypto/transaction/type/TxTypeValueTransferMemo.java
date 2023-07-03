@@ -33,6 +33,15 @@ public class TxTypeValueTransferMemo extends AbstractTxType   {
         return new TxTypeValueTransferMemo(type, nonce, gasPrice, gasLimit, to, value, from, payload);
     }
 
+    protected TxTypeValueTransferMemo(long chainId, TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to, BigInteger value, String from, byte[] payload) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, to, value);
+        this.payload = payload;
+    }
+
+    public static TxTypeValueTransferMemo createTransaction(
+        long chainId, TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to, BigInteger value, String from, byte[] payload) {
+        return new TxTypeValueTransferMemo(chainId, type, nonce, gasPrice, gasLimit, to, value, from, payload);
+    }
     /**
      * decode transaction hash from sender to reconstruct transaction with fee payer signature.
      *

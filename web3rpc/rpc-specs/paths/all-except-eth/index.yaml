@@ -8,19 +8,27 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-x-tagGroups:
-  - name: namespaces
-    tags:
-      - eth
-      - klay
-      - txpool
-      - governance
-      - net
-      - admin
-      - personal
-      - debug
-      - mainbridge
-      - subbridge
+tags:
+  - name: eth
+    description: namespace
+  - name: klay
+    description: namespace
+  - name: txpool
+    description: namespace
+  - name: governance
+    description: namespace
+  - name: net
+    description: namespace
+  - name: admin
+    description: namespace
+  - name: personal
+    description: namespace
+  - name: debug
+    description: namespace
+  - name: mainbridge
+    description: namespace
+  - name: subbridge
+    description: namespace
 servers:
   - url: http://localhost:8551
   - url: https://api.baobab.klaytn.net:8651

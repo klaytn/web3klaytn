@@ -20,7 +20,15 @@ public class TxTypeCancel extends AbstractTxType   {
         TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from) {
         return new TxTypeCancel(type, nonce, gasPrice, gasLimit, from);
     }
+    protected TxTypeCancel(
+            long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, "", BigInteger.ZERO);
+    }
 
+    public static TxTypeCancel createTransaction(
+        long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from) {
+        return new TxTypeCancel(type, nonce, gasPrice, gasLimit, from);
+    }
     /**
      * create RlpType List which contains nonce, gas price, gas limit and from.
      * List elements can be different depending on transaction type.
