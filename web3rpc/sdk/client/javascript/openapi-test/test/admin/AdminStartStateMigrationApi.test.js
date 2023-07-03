@@ -8,14 +8,13 @@ describe('admin_startStateMigration API', () => {
     test('should return admin_startStateMigration', (done) => {
 
         let callbackOne = function (error, data, response) {
-
             expect(error).toBeNull();
-            expect(data).toBeDefined()
-
+            expect(data).toBeDefined();
+            expect(data).toBeNull();
             done();
         };
-        
-        // Must perform start before stop and opposite 
+
+        // Must perform start before stop and opposite
         // Call StopStateMigration()
         sdk.admin.startStateMigration({}, callbackOne);
     });

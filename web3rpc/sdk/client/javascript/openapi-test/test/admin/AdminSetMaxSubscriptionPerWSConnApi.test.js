@@ -8,9 +8,9 @@ describe('admin_setMaxSubscriptionPerWSConn API', () => {
     test('should return admin_setMaxSubscriptionPerWSConn', (done) => {
 
         let callbackOne = function (error, data, response) {
-            
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(data).toBeNull();
             done();
         };
 
