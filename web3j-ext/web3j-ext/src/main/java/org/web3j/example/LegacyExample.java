@@ -15,13 +15,13 @@ import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.utils.Numeric;
-
+import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
 public class LegacyExample implements keySample {
     /**
      * @param args
      */
 
-    public void LegacyExample() throws IOException {
+    public static void run() throws IOException {
         Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
         KlayCredentials klaycredentials = KlayCredentials.create(keySample.LEGACY_KEY_privkey);
         Credentials credentials = Credentials.create(LEGACY_KEY_privkey);
@@ -62,7 +62,19 @@ public class LegacyExample implements keySample {
         signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, klaycredentials);
         hexValue = Numeric.toHexString(signedMessage);
         transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
-        System.out.println(transactionResponse.getResult());
+        System.out.println("TxHash : \n " + transactionResponse.getResult());
+        String txHash = transactionResponse.getResult();
+        try
+        {
+             Thread.sleep(2000);
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+         }
+        TransactionReceipt receipt = web3j.klayGetTransactionReceipt(txHash).send().getResult();
+        System.out.print("receipt : \n" + receipt);                
+        web3j.shutdown();
 
     }
 
