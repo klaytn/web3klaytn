@@ -50,11 +50,11 @@ jobs:
         shell: bash
         run: |
           cd web3rpc/sdk/client/java && bash -x java-generate.sh && cd -
-      - name: Publish package
+      - name: Publish web3rpc package
         uses: gradle/gradle-build-action@v2
         with:
           arguments: publish
-          build-root-directory: web3j-ext/web3j-ext
+          build-root-directory: web3rpc/sdk/client/java/web3j-ext-test-wrapper
           gradle-version: release-candidate
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
