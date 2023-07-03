@@ -13,7 +13,7 @@ class TestSign(KlaytnBaseTesting):
         self.response = self.w3.geth.personal.sign(
             self.message, self.address, self.password
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response, r'^0x[0-9a-fA-F]+$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

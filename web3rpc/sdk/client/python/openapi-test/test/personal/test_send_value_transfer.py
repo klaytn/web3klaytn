@@ -27,7 +27,7 @@ class TestSendTransaction(KlaytnBaseTesting):
         self.response = self.w3.geth.personal.send_value_transfer(
             self.transactionObject, self.password
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response, r'^0x.*$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
