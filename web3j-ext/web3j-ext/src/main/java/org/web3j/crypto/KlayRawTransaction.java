@@ -443,33 +443,29 @@ public class KlayRawTransaction extends RawTransaction {
             BigInteger gas,
             String from,
             byte[] payload) {
-
-    	if (type == Type.CHAIN_DATA_ANCHORING) {
-            return new KlayRawTransaction(
-                    TxTypeChainDataAnchoring.createTransaction(
-                            type,
-                            nonce,
-                            gasPrice,
-                            gas,
-                            from,
-                            payload));
-        }
-    	
-    	else if (type == Type.FEE_DELEGATED_CHAIN_DATA_ANCHORING) {
-            return new KlayRawTransaction(
-                    TxTypeFeeDelegatedChainDataAnchoring.createTransaction(
-                            type,
-                            nonce,
-                            gasPrice,
-                            gas,
-                            from,
-                            payload));
-        }
-    	
-        else {
-            throw new UnsupportedOperationException("Unsupported type transaction");
-        }
-
+            if (type == Type.CHAIN_DATA_ANCHORING) {
+                return new KlayRawTransaction(
+                        TxTypeChainDataAnchoring.createTransaction(
+                                type,
+                                nonce,
+                                gasPrice,
+                                gas,
+                                from,
+                                payload));
+            }
+            else if (type == Type.FEE_DELEGATED_CHAIN_DATA_ANCHORING) {
+                return new KlayRawTransaction(
+                        TxTypeFeeDelegatedChainDataAnchoring.createTransaction(
+                                type,
+                                nonce,
+                                gasPrice,
+                                gas,
+                                from,
+                                payload));
+            }
+            else {
+                throw new UnsupportedOperationException("Unsupported type transaction");
+            }
     }
     
     public static KlayRawTransaction createTransaction(
@@ -480,28 +476,465 @@ public class KlayRawTransaction extends RawTransaction {
             String from,
             byte[] payload,
             BigInteger feeRatio) {
+            if (type == Type.FEE_DELEGATED_CHAIN_DATA_ANCHORING_WITH_RATIO) {
+                return new KlayRawTransaction(
+                        TxTypeFeeDelegatedChainDataAnchoringWithRatio.createTransaction(
+                                type,
+                                nonce,
+                                gasPrice,
+                                gas,
+                                from,
+                                payload,
+                                feeRatio));
+            }
+    
+            
+            else {
+                throw new UnsupportedOperationException("Unsupported type transaction");
+            }
+    }
 
-    	if (type == Type.FEE_DELEGATED_CHAIN_DATA_ANCHORING_WITH_RATIO) {
+
+
+
+    // with chainId
+
+    public static KlayRawTransaction createTransaction(
+            long chainId,
+            TxType.Type type,
+            BigInteger nonce,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String from,
+            AccountKey accountKey) {
+
+        if (type == Type.ACCOUNT_UPDATE) {
             return new KlayRawTransaction(
-                    TxTypeFeeDelegatedChainDataAnchoringWithRatio.createTransaction(
+                    TxTypeAccountUpdate.createTransaction(
+                        chainId,
                             type,
                             nonce,
                             gasPrice,
                             gas,
                             from,
+                            accountKey));
+        }
+
+        else if (type == Type.FEE_DELEGATED_ACCOUNT_UPDATE) {
+            return new KlayRawTransaction(
+                    TxTypeFeeDelegatedAccountUpdate.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            from,
+                            accountKey));
+        }
+
+        else {
+            throw new UnsupportedOperationException("Unsupported type transaction");
+        }
+    }
+
+    public static KlayRawTransaction createTransaction(
+            long chainId,
+            TxType.Type type,
+            BigInteger nonce,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String from) {
+
+        if (type == Type.CANCEL) {
+            return new KlayRawTransaction(
+                    TxTypeCancel.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            from));
+        }
+
+        else if (type == Type.FEE_DELEGATED_CANCEL) {
+            return new KlayRawTransaction(
+                    TxTypeFeeDelegatedCancel.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            from));
+        }
+
+        else {
+            throw new UnsupportedOperationException("Unsupported type transaction");
+        }
+    }
+
+    public static KlayRawTransaction createTransaction(
+            long chainId,
+            TxType.Type type,
+            BigInteger nonce,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String to,
+            BigInteger value,
+            String from) {
+
+        if (type == Type.VALUE_TRANSFER) {
+            return new KlayRawTransaction(
+                    TxTypeValueTransfer.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            to,
+                            value,
+                            from));
+        }
+
+        else if (type == Type.FEE_DELEGATED_VALUE_TRANSFER) {
+            return new KlayRawTransaction(
+                    TxTypeFeeDelegatedValueTransfer.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            to,
+                            value,
+                            from));
+        } else {
+            throw new UnsupportedOperationException("Unsupported type transaction");
+        }
+    }
+
+    public static KlayRawTransaction createTransaction(
+        long chainId,    
+            TxType.Type type,
+            BigInteger nonce,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String to,
+            BigInteger value,
+            String from,
+            byte[] payload) {
+
+        if (type == Type.VALUE_TRANSFER_MEMO) {
+            return new KlayRawTransaction(
+                    TxTypeValueTransferMemo.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            to,
+                            value,
+                            from,
+                            payload));
+        }
+
+        else if (type == Type.FEE_DELEGATED_VALUE_TRANSFER_MEMO) {
+            return new KlayRawTransaction(
+                    TxTypeFeeDelegatedValueTransferMemo.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            to,
+                            value,
+                            from,
+                            payload));
+        }
+
+        else if (type == Type.SMART_CONTRACT_EXECUTION) {
+            return new KlayRawTransaction(
+                    TxTypeSmartContractExecution.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            to,
+                            value,
+                            from,
+                            payload));
+        }
+
+        else if (type == Type.FEE_DELEGATED_SMART_CONTRACT_EXECUTION) {
+            return new KlayRawTransaction(
+                    TxTypeFeeDelegatedSmartContractExecution.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            to,
+                            value,
+                            from,
+                            payload));
+        }
+
+        else {
+            throw new UnsupportedOperationException("Unsupported type transaction");
+        }
+    }
+
+    public static KlayRawTransaction createTransaction(
+        long chainId,
+            TxType.Type type,
+            BigInteger nonce,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String to,
+            BigInteger value,
+            String from,
+            byte[] payload,
+            BigInteger option) {
+
+        if (type == Type.SMART_CONTRACT_DEPLOY) {
+            return new KlayRawTransaction(
+                    TxTypeSmartContractDeploy.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            value,
+                            from,
                             payload,
+                            option));
+        }
+
+        else if (type == Type.FEE_DELEGATED_SMART_CONTRACT_DEPLOY) {
+            return new KlayRawTransaction(
+                    TxTypeFeeDelegatedSmartContractDeploy.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            value,
+                            from,
+                            payload,
+                            option));
+        }
+
+        else if (type == Type.FEE_DELEGATED_VALUE_TRANSFER_MEMO_WITH_RATIO) {
+            return new KlayRawTransaction(
+                    TxTypeFeeDelegatedValueTransferMemoWithRatio.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            to,
+                            value,
+                            from,
+                            payload,
+                            option));
+        }
+
+        else if (type == Type.FEE_DELEGATED_SMART_CONTRACT_EXECUTION_WITH_RATIO) {
+            return new KlayRawTransaction(
+                    TxTypeFeeDelegatedSmartContractExecutionWithRatio.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            to,
+                            value,
+                            from,
+                            payload,
+                            option));
+        }
+
+        else {
+            throw new UnsupportedOperationException("Unsupported type transaction");
+        }
+
+    }
+
+    public static KlayRawTransaction createTransaction(
+        long chainId,
+            TxType.Type type,
+            BigInteger nonce,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String from,
+            AccountKey accountKey,
+            BigInteger feeRatio) {
+
+        if (type == Type.FEE_DELEGATED_ACCOUNT_UPDATE_WITH_RATIO) {
+            return new KlayRawTransaction(
+                    TxTypeFeeDelegatedAccountUpdateWithRatio.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            from,
+                            accountKey,
                             feeRatio));
         }
-   
-    	
+
+        else {
+            throw new UnsupportedOperationException("Unsupported type transaction");
+        }
+    }
+
+    public static KlayRawTransaction createTransaction(
+        long chainId,
+            TxType.Type type,
+            BigInteger nonce,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String from,
+            BigInteger feeRatio) {
+
+        if (type == Type.FEE_DELEGATED_CANCEL_WITH_RATIO) {
+            return new KlayRawTransaction(
+                    TxTypeFeeDelegatedCancelWithRatio.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            from,
+                            feeRatio));
+        }
+
+        else {
+            throw new UnsupportedOperationException("Unsupported type transaction");
+        }
+    }
+
+    public static KlayRawTransaction createTransaction(
+        long chainId,
+            TxType.Type type,
+            BigInteger nonce,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String to,
+            BigInteger value,
+            String from,
+            BigInteger feeRatio) {
+
+        if (type == Type.FEE_DELEGATED_VALUE_TRANSFER_WITH_RATIO) {
+            return new KlayRawTransaction(
+                    TxTypeFeeDelegatedValueTransferWithRatio.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            to,
+                            value,
+                            from,
+                            feeRatio));
+        } else {
+            throw new UnsupportedOperationException("Unsupported type transaction");
+        }
+    }
+
+    public static KlayRawTransaction createTransaction(
+        long chainId,
+            TxType.Type type,
+            BigInteger nonce,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String to,
+            BigInteger value,
+            String from,
+            byte[] payload,
+            BigInteger codeFormat,
+            BigInteger feeRatio) {
+
+        if (type == Type.FEE_DELEGATED_SMART_CONTRACT_DEPLOY_WITH_RATIO) {
+            return new KlayRawTransaction(
+                    TxTypeFeeDelegatedSmartContractDeployWithRatio.createTransaction(
+                        chainId,
+                            type,
+                            nonce,
+                            gasPrice,
+                            gas,
+                            value,
+                            from,
+                            payload,
+                            codeFormat,
+                            feeRatio));
+        }
+
         else {
             throw new UnsupportedOperationException("Unsupported type transaction");
         }
 
     }
     
+    public static KlayRawTransaction createTransaction(
+        long chainId,
+            TxType.Type type,
+            BigInteger nonce,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String from,
+            byte[] payload) {
+            if (type == Type.CHAIN_DATA_ANCHORING) {
+                return new KlayRawTransaction(
+                        TxTypeChainDataAnchoring.createTransaction(
+                            chainId,
+                                type,
+                                nonce,
+                                gasPrice,
+                                gas,
+                                from,
+                                payload));
+            }
+            else if (type == Type.FEE_DELEGATED_CHAIN_DATA_ANCHORING) {
+                return new KlayRawTransaction(
+                        TxTypeFeeDelegatedChainDataAnchoring.createTransaction(
+                            chainId,
+                                type,
+                                nonce,
+                                gasPrice,
+                                gas,
+                                from,
+                                payload));
+            }
+            else {
+                throw new UnsupportedOperationException("Unsupported type transaction");
+            }
+    }
     
-  
+    public static KlayRawTransaction createTransaction(
+        long chainId,
+            TxType.Type type,
+            BigInteger nonce,
+            BigInteger gasPrice,
+            BigInteger gas,
+            String from,
+            byte[] payload,
+            BigInteger feeRatio) {
+            if (type == Type.FEE_DELEGATED_CHAIN_DATA_ANCHORING_WITH_RATIO) {
+                return new KlayRawTransaction(
+                        TxTypeFeeDelegatedChainDataAnchoringWithRatio.createTransaction(
+                            chainId,
+                                type,
+                                nonce,
+                                gasPrice,
+                                gas,
+                                from,
+                                payload,
+                                feeRatio));
+            }
+            else {
+                throw new UnsupportedOperationException("Unsupported type transaction");
+            }
+    }
 
     public byte[] getRaw() {
         return value;

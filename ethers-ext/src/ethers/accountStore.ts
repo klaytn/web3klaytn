@@ -40,8 +40,8 @@ export class Accounts {
         }
 
         for ( let i=0 ; i<this.wallets.length ; i++ ) {
-            if ( HexStr.isSameHex( await this.wallets[i].getAddress(), addr) && 
-                    HexStr.isSameHex( this.wallets[i].privateKey, priv) ) {
+            if ( HexStr.isSameAddress( await this.wallets[i].getAddress(), addr) && 
+                    HexStr.isSamePrivKey( this.wallets[i].privateKey, priv) ) {
                 return false; 
             }
         }
@@ -66,9 +66,9 @@ export class Accounts {
         }
 
         for ( let i=0 ; i<this.wallets.length ; i++ ) {
-            if ( HexStr.isSameHex( await this.wallets[i].getAddress(), addr) && 
+            if ( HexStr.isSameAddress( await this.wallets[i].getAddress(), addr) && 
             // @ts-ignore
-                    HexStr.isSameHex( await this.wallets[i].privateKey, priv ) ) {
+                    HexStr.isSamePrivKey( await this.wallets[i].privateKey, priv ) ) {
                 delete this.wallets[i];
                 this.wallets.splice( i, 1 );      
                 return true; 
@@ -90,7 +90,7 @@ export class Accounts {
         let ret: Wallet[] = [];
 
         for ( let i=0 ; i<this.wallets.length ; i++ ) {
-            if ( HexStr.isSameHex( this.wallets[i].privateKey, privateKey) ) {
+            if ( HexStr.isSamePrivKey( this.wallets[i].privateKey, privateKey) ) {
                 ret.push( this.wallets[i] );
             }
         }        
@@ -101,7 +101,7 @@ export class Accounts {
         let ret: Wallet[] = [];
 
         for ( let i=0 ; i<this.wallets.length ; i++ ) {
-            if ( HexStr.isSameHex( await this.wallets[i].getAddress(), address ) ) {
+            if ( HexStr.isSameAddress( await this.wallets[i].getAddress(), address ) ) {
                 ret.push( this.wallets[i] );
             }
         }        
@@ -273,7 +273,7 @@ export class AccountStore {
     hasAccountInfos( address: string ) :boolean {
         let i:number;
         for ( i=0 ; this.accountInfos != undefined && i < this.accountInfos.length ; i++ ){
-            if ( HexStr.isSameHex( this.accountInfos[i].address, address )  )
+            if ( HexStr.isSameAddress( this.accountInfos[i].address, address )  )
                 return true; 
         }
         return false;
@@ -282,7 +282,7 @@ export class AccountStore {
     getType( address:string ) : number | null {
         let i:number;
         for ( i=0 ; this.accountInfos != undefined && i < this.accountInfos.length ; i++) {
-            if ( HexStr.isSameHex( this.accountInfos[i].address, address) ){
+            if ( HexStr.isSameAddress( this.accountInfos[i].address, address) ){
                 return this.accountInfos[i].key.type;
             }
         }
@@ -292,7 +292,7 @@ export class AccountStore {
     getAccountInfo( address: string ) : AccountInfo | null {
         let i:number;
         for ( i=0 ; this.accountInfos != undefined && i < this.accountInfos.length ; i++) {
-            if ( HexStr.isSameHex( this.accountInfos[i].address, address) ){
+            if ( HexStr.isSameAddress( this.accountInfos[i].address, address) ){
                 return this.accountInfos[i];
             }
         }

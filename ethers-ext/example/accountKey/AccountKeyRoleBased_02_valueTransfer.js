@@ -11,29 +11,29 @@ const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-eth
 const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net')
 
 // the same address of sender in AccountKeyRoleBased_01_accountUpdate.js 
-const reciever_addr = '0xc40b6909eb7085590e1c26cb3becc25368e249e9';
-const sender_addr = '0x5bd2fb3c21564c023a4a735935a2b7a238c4ccea' 
-const sender_role_transaction_priv = '0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac'
+const recieverAddr = '0xc40b6909eb7085590e1c26cb3becc25368e249e9';
+const senderAddr = '0x5bd2fb3c21564c023a4a735935a2b7a238c4ccea' 
+const senderRoleTransactionPriv = '0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac'
 
 async function main() {
 
   let tx = {
     type: 8,
     gasLimit: 100000, 
-    to: reciever_addr,
+    to: recieverAddr,
     value: 100000000000,
-    from: sender_addr,
+    from: senderAddr,
   }; 
 
-  const wallet = new Wallet(sender_addr, sender_role_transaction_priv, provider);
+  const wallet = new Wallet(senderAddr, senderRoleTransactionPriv, provider);
   let ptx = await wallet.populateTransaction(tx);
   console.log(ptx);
 
   const txHashRLP = await wallet.signTransaction(ptx);
   console.log('TxHashRLP', txHashRLP);
   
-  let txObj = wallet.decodeTxFromRLP( txHashRLP );
-  console.log( txObj );
+  let decodedTx = wallet.decodeTxFromRLP( txHashRLP );
+  console.log( decodedTx );
 
   // send 
   const txhash = await provider.send("klay_sendRawTransaction", [txHashRLP]);

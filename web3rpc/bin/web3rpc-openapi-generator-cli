@@ -1,6 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -e
 
-CURRENT_FILE_DIR=$(cd "$( dirname "$0" )" && pwd)
+CURRENT_FILE_DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
 
 java -ea                          \
   -Xms512M                        \

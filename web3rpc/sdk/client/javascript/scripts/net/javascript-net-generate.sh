@@ -1,4 +1,5 @@
-
+#!/usr/bin/env bash
+set -e
 
 CURRENT_FILE_DIR=$1
 PROJECT_DIR=$(cd "$CURRENT_FILE_DIR" && cd ../../.. && pwd )

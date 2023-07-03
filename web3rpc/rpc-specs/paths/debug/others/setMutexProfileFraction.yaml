@@ -13,7 +13,7 @@ paths:
   /debug/setMutexProfileFraction:
     post:
       operationId: setMutexProfileFraction
-      summary: "[setMutexProfileFraction]"
+      summary: "[Profiling-setMutexProfileFraction]"
       description: |
         SetMutexProfileFraction sets the rate of mutex profiling.
 

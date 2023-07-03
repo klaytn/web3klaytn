@@ -11,6 +11,8 @@ bld/
 # [Bb]in/
 **/codegen/bin/
 **/openapi-test/bin/
+**/web3j-ext/bin/
+**/code-samples/**/bin/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/

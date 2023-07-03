@@ -34,6 +34,20 @@ public class TxTypeFeeDelegatedSmartContractDeploy extends TxTypeFeeDelegate {
         return new TxTypeFeeDelegatedSmartContractDeploy(type, nonce, gasPrice, gasLimit, value, from, payload, codeFormat);
     }
 
+    public TxTypeFeeDelegatedSmartContractDeploy(
+        long chainId, TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, BigInteger value,
+            String from, byte[] payload, BigInteger codeFormat) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, "", value);
+        this.payload = payload;
+        this.codeFormat = codeFormat;
+    }
+
+    public static TxTypeFeeDelegatedSmartContractDeploy createTransaction(
+        long chainId, TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit,
+            BigInteger value, String from, byte[] payload, BigInteger codeFormat) {
+        return new TxTypeFeeDelegatedSmartContractDeploy(chainId, type, nonce, gasPrice, gasLimit, value, from, payload, codeFormat);
+    }
+
     public byte[] getPayload() {
         return payload;
     }

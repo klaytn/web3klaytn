@@ -1,17 +1,5 @@
 const ethers = require("ethers");
 const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
-const { objectFromRLP } = require("../../dist/src/core/klaytn_tx");
-
-const fs = require('fs');
-const feePayer_priv = fs.readFileSync('./example/feePayerKey.priv', 'utf8') // private key of feeDelegator
-const feePayer = '0x24e8efd18d65bcb6b3ba15a4698c0b0d69d13ff7'
-
-// create new account for testing 
-// https://baobab.wallet.klaytn.foundation/ 
-const sender_priv = '0x136cc0d035c2df0d37a954e2b89dff5d04ba0731fff501c7318c8220d6381a6a' 
-const sender = '0x30908464d76604420162a6c880c0e1c7e641bad7' 
-
-const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net')
 
 //
 // TxTypeFeeDelegatedAccountUpdate
@@ -21,12 +9,24 @@ const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.
 //   nonce: In signTransactionAsFeePayer, must not be omitted, because feePayer's nonce is filled when populating
 // 
 
-async function doSender() {
-  const sender_wallet = new Wallet(sender_priv, provider);
+// create new account for testing 
+// https://baobab.wallet.klaytn.foundation/ 
+const senderAddr = '0x30908464d76604420162a6c880c0e1c7e641bad7' 
+const senderPriv = '0x136cc0d035c2df0d37a954e2b89dff5d04ba0731fff501c7318c8220d6381a6a' 
+
+const feePayerAddr = '0xcb0eb737dfda52756495a5e08a9b37aab3b271da'
+const feePayerPriv = '0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16fc000cff4'
+
+const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net')
+
+async function main() {
+
+  // sender 
+  const senderWallet = new Wallet(senderPriv, provider);
   
   let tx = {
       type: 0x21,
-      from: sender,
+      from: senderAddr,
       key: {
           type: 0x02, 
           // private key 0xf8cc7c3813ad23817466b1802ee805ee417001fcce9376ab8728c92dd8ea0a6b
@@ -36,34 +36,24 @@ async function doSender() {
       }
   };
 
-  tx = await sender_wallet.populateTransaction(tx);
+  tx = await senderWallet.populateTransaction(tx);
   console.log(tx);
 
-  const senderTxHashRLP = await sender_wallet.signTransaction(tx);
+  const senderTxHashRLP = await senderWallet.signTransaction(tx);
   console.log('senderTxHashRLP', senderTxHashRLP);
 
-  return senderTxHashRLP; 
-}
+  // fee payer 
+  const feePayerWallet = new Wallet(feePayerPriv, provider);
 
-async function doFeePayer( senderTxHashRLP ) {
-  const feePayer_wallet = new Wallet(feePayer_priv, provider);
-
-  const tx = objectFromRLP( senderTxHashRLP );
-  tx.feePayer = feePayer;
+  tx = feePayerWallet.decodeTxFromRLP( senderTxHashRLP );
+  tx.feePayer = feePayerAddr;
   console.log(tx);
 
-  const sentTx = await feePayer_wallet.sendTransactionAsFeePayer(tx);
+  const sentTx = await feePayerWallet.sendTransactionAsFeePayer(tx);
   console.log('sentTx', sentTx);
 
   const rc = await sentTx.wait();
   console.log('receipt', rc);
-}
-
-async function main() {
-
-  const senderTxHashRLP = await doSender();
-
-  doFeePayer( senderTxHashRLP ); 
 }
 
 main();

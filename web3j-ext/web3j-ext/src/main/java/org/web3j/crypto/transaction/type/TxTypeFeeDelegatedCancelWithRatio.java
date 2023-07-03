@@ -31,6 +31,17 @@ public class TxTypeFeeDelegatedCancelWithRatio extends TxTypeFeeDelegate  {
         return new TxTypeFeeDelegatedCancelWithRatio(type, nonce, gasPrice, gasLimit, from, feeRatio);
     }
 
+    protected TxTypeFeeDelegatedCancelWithRatio(
+        long chainId, TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from, BigInteger feeRatio) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, "", BigInteger.ZERO);
+        this.feeRatio = feeRatio;
+    }
+
+    public static TxTypeFeeDelegatedCancelWithRatio createTransaction(
+        long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from, BigInteger feeRatio) {
+        return new TxTypeFeeDelegatedCancelWithRatio(chainId, type, nonce, gasPrice, gasLimit, from, feeRatio);
+    }
+
     public BigInteger getFeeRatio() {
         return feeRatio;
     }

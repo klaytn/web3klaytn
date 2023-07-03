@@ -39,6 +39,18 @@ public class TxTypeFeeDelegatedChainDataAnchoringWithRatio extends TxTypeFeeDele
         return new TxTypeFeeDelegatedChainDataAnchoringWithRatio(type, nonce, gasPrice, gasLimit, from, anchoredData, feeRatio);
     }
 
+    protected TxTypeFeeDelegatedChainDataAnchoringWithRatio(
+        long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from, byte[] anchoredData, BigInteger feeRatio) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, "", BigInteger.ZERO);
+        this.anchoredData = anchoredData;
+        this.feeRatio = feeRatio;
+    }
+
+    public static TxTypeFeeDelegatedChainDataAnchoringWithRatio createTransaction(
+        long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from, byte[] anchoredData, BigInteger feeRatio) {
+        return new TxTypeFeeDelegatedChainDataAnchoringWithRatio(chainId, type, nonce, gasPrice, gasLimit, from, anchoredData, feeRatio);
+    }
+
     public byte[] getAnchoredData() {
         return anchoredData;
     }

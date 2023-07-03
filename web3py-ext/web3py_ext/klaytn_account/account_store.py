@@ -1,7 +1,7 @@
 import json
 import copy
 from typing import (
-    Collection, Union, Callable, Any
+    Collection, Dict, Union, Callable, Any
 )
 from web3 import Web3
 from web3.module import Module
@@ -44,14 +44,6 @@ class AccountStore:
     def __init__(self):
         self.account_store = {}
 
-    # Ex)
-    # AbstractAccount = {
-    #   '0x{address}' : {
-    #      'type': ACCOUNT_KEY_WEIGHTED_MULTISIG_TAG,
-    #           'threshold':0,
-    #           'keys' : {} 
-    #   }
-    # }
     def _add(self, address, accountInfo):
         if not Web3.is_address(address):
             return False
@@ -243,6 +235,12 @@ class AccountStore:
                     'pubkey' : {}
                 }
             }
+
+    def verify_transaction(self, provider:Web3, transaction: Dict[str,Any]):
+        pass
+
+    def verify_message(self, provider:Web3, msg: str):
+        pass
 
 class DefaultKlayProvider(Module):
     _get_account: Method[Callable[..., Any]] = Method(

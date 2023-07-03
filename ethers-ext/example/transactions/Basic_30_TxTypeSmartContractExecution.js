@@ -1,11 +1,9 @@
 const ethers = require("ethers");
 const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
 
-const fs = require('fs')
-const sender_priv = fs.readFileSync('./example/key.priv', 'utf8') // private key of sender 
-
-const sender = '0x3208ca99480f82bfe240ca6bc06110cd12bb6366'  
-const contract_addr = '0xD7fA6634bDDe0B2A9d491388e2fdeD0fa25D2067' 
+const senderAddr = '0xa2a8854b1802d8cd5de631e690817c253d6a9153'  
+const senderPriv = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'
+const contractAddr = '0xD7fA6634bDDe0B2A9d491388e2fdeD0fa25D2067' 
 
 //
 // TxTypeSmartContractExecution
@@ -30,18 +28,18 @@ const contract_addr = '0xD7fA6634bDDe0B2A9d491388e2fdeD0fa25D2067'
 //
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net')
-  const wallet = new Wallet(sender_priv, provider);
+  const wallet = new Wallet(senderPriv, provider);
 
-  const CONTRACT_ADDRESS = contract_addr;
+  const CONTRACT_ADDRESS = contractAddr;
   const CONTRACT_ABI = ["function setNumber(uint256 newNumber) public", "function increment() public"];
   const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
   const param = contract.interface.encodeFunctionData("setNumber", ["0x123"]); 
 
   tx = {
       type: 0x30,
-      to: contract_addr,
+      to: contractAddr,
       value: 0,  
-      from: sender,
+      from: senderAddr,
       input: param,
     }; 
   

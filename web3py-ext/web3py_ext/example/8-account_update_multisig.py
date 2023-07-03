@@ -1,7 +1,7 @@
 from web3py_ext import extend
 from web3 import Web3
 from eth_account import Account
-from klaytn_account.utils import compressed_key
+from web3py_ext.klaytn_account.utils import compressed_key
 from web3py_ext.transaction.transaction import (
     empty_tx,
     fill_transaction,
@@ -13,15 +13,12 @@ from web3py_ext.utils.klaytn_utils import (
 )
 from cytoolz import merge
 
-w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8551'))
-# w3 = Web3(Web3.HTTPProvider('https://public-en-baobab.klaytn.net'))
+w3 = Web3(Web3.HTTPProvider('https://public-en-baobab.klaytn.net'))
 
 def web3_account_update_multisig():
-    # user1_updator = Account.from_key('0x8b0164c3a59d2b1a00a9934f85ae77c14e21094132c34cc3daacd9e632c90807')
-    # user1 = Account.from_key('0x8234bdf5e900c9e43401399ae3836340f31dcff52843baf8432f06cca9e3f396')
-    user1 = Account.from_key('0xd3973803956f7f08093097fa2c3712f5700c5c58f6d91d79b279a919bb120cc2')
-    user2 = Account.from_key('0xedb106f1dcd74b7fb55252051359b5b162f93de0fb8b5aa0c46319f864192c29')
-    user3 = Account.from_key('0x797d16ee04c7cec1cf1d4a536fd2dfed81af48d477df1f8409d75f50d91499f6')
+    user1 = Account.from_key('0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a')
+    user2 = Account.from_key('0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8')
+    user3 = Account.from_key('0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac')
 
     account_update_tx = empty_tx(TX_TYPE_ACCOUNT_UPDATE)
     account_update_tx = merge(account_update_tx, {

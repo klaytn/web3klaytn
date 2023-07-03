@@ -301,22 +301,26 @@ export async function verifyMessageAsKlaytnAccountKey(provider: Provider, addres
     
     const klaytn_accountKey = await provider.send("klay_getAccountKey", [address, "latest"]);
 
-    if ( klaytn_accountKey.keyType == 2 ) {
+    if ( klaytn_accountKey.keyType == 1 ) {
+      // AccountKeyLegacy
+      return verifyMessageAsAccountKeyLegacy( provider, address, message, signature ); 
+      
+    } else if ( klaytn_accountKey.keyType == 2 ) {
       // AccountKeyPublic
-      return verifyMessageAsKlaytnAccountKeyPublic( provider, klaytn_accountKey, message, signature ); 
+      return verifyMessageAsAccountKeyPublic( provider, klaytn_accountKey, message, signature ); 
       
     } else if ( klaytn_accountKey.keyType == 4 ) {
       // AccountKeyWeightedMultiSig
-      return verifyMessageAsKlaytnAccountKeyWeightedMultiSig(provider, klaytn_accountKey, message, signature );
+      return verifyMessageAsAccountKeyWeightedMultiSig(provider, klaytn_accountKey, message, signature );
 
     } else if ( klaytn_accountKey.keyType == 5 ) {
       // AccountKeyRoleBased 
       const roleTransactionKey = klaytn_accountKey.key[0]; 
 
       if ( roleTransactionKey.keyType == 2 ) {
-        return verifyMessageAsKlaytnAccountKeyPublic( provider, roleTransactionKey, message, signature ); 
+        return verifyMessageAsAccountKeyPublic( provider, roleTransactionKey, message, signature ); 
       } else if ( roleTransactionKey.keyType == 4 ) {
-        return verifyMessageAsKlaytnAccountKeyWeightedMultiSig(provider, roleTransactionKey, message, signature );        
+        return verifyMessageAsAccountKeyWeightedMultiSig(provider, roleTransactionKey, message, signature );        
       }
     }
   } else {
@@ -326,9 +330,24 @@ export async function verifyMessageAsKlaytnAccountKey(provider: Provider, addres
   return false; 
 }
 
-function verifyMessageAsKlaytnAccountKeyPublic( provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
+function verifyMessageAsAccountKeyLegacy( provider: Provider, address: string, message: Bytes | string, signature: any): boolean {
   if ( Array.isArray(signature) && !signature[0] ) {
-    throw new Error(`This account needs a signature as input like sig or [ sig ]`);
+    throw new Error(`Needs a signature as a parameter like [sig] or sig`);
+  } else if ( Array.isArray(signature) && !!signature[0]) {
+    signature = signature[0]; 
+  }
+
+  const actual_signer_addr = recoverAddress(hashMessage(message), signature);
+
+  if ( actual_signer_addr == ethers.utils.getAddress(address) ) {
+    return true; 
+  }
+  return false; 
+}
+
+function verifyMessageAsAccountKeyPublic( provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
+  if ( Array.isArray(signature) && !signature[0] ) {
+    throw new Error(`Needs a signature as a parameter like [sig] or sig`);
   } else if ( Array.isArray(signature) && !!signature[0]) {
     signature = signature[0]; 
   }
@@ -345,7 +364,7 @@ function verifyMessageAsKlaytnAccountKeyPublic( provider: Provider, klaytn_accou
   return false; 
 }
 
-function verifyMessageAsKlaytnAccountKeyWeightedMultiSig( provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
+function verifyMessageAsAccountKeyWeightedMultiSig( provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
   if ( !Array.isArray(signature) ) {
     throw new Error(`This account needs multi-signature [ sig1, sig2 ... sigN ]`);
   }

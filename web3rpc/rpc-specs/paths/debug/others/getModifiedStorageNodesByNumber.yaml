@@ -13,7 +13,7 @@ paths:
   /debug/getModifiedStorageNodesByNumber:
     post:
       operationId: getModifiedStorageNodesByNumber
-      summary: "[getModifiedStorageNodesByNumber]"
+      summary: "[Inspection-getModifiedStorageNodesByNumber]"
       description: |
         Returns the number of changed or modified state trie nodes.
 

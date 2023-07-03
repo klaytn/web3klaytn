@@ -35,6 +35,17 @@ public class TxTypeChainDataAnchoring extends AbstractTxType   {
         return new TxTypeChainDataAnchoring(type, nonce, gasPrice, gasLimit, from, anchoredData);
     }
 
+    protected TxTypeChainDataAnchoring(
+        long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from, byte[] anchoredData) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, "", BigInteger.ZERO);
+        this.anchoredData = anchoredData;
+    }
+
+    public static TxTypeChainDataAnchoring createTransaction(
+        long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from, byte[] anchoredData) {
+        return new TxTypeChainDataAnchoring(chainId, type, nonce, gasPrice, gasLimit, from, anchoredData);
+    }
+
     public byte[] getAnchoredData() {
         return anchoredData;
     }

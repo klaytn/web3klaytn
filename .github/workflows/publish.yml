@@ -46,22 +46,27 @@ jobs:
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages-dir: web3py-ext/dist
-      - name: generate java sdk
-        shell: bash
-        run: |
-          cd web3rpc/sdk/client/java && bash -x java-generate.sh && cd -
-      - name: Publish web3rpc package
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: publish
-          build-root-directory: web3rpc/sdk/client/java/web3j-ext-test-wrapper
-          gradle-version: release-candidate
-        env:
-          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
-
-#      - name: generate js sdk
+#      - name: generate java sdk
 #        shell: bash
 #        run: |
-#          cd web3rpc/sdk/client/javascript && bash -x javascript-generate.sh && cd -
+#          cd web3rpc/sdk/client/java && bash -x java-generate.sh && cd -
+#      - name: Publish web3rpc package
+#        uses: gradle/gradle-build-action@v2
+#        with:
+#          arguments: publish
+#          build-root-directory: web3rpc/sdk/client/java/web3j-ext-test-wrapper
+#          gradle-version: release-candidate
+#        env:
+#          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+#          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+
+      - name: generate web3rpc javascript sdk
+        shell: bash
+        run: |
+          cd web3rpc/sdk/client/javascript && bash -x javascript-generate.sh && cd -
+      - name: publish web3rpc javascript sdk
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd web3rpc/sdk/client/javascript/openapi && npx pnpm --filter "@klaytn/*" -r publish --publish-branch main --no-git-check
 

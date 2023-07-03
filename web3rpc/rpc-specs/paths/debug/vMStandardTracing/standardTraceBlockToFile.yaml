@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/standardTraceBlockToFile:
     post:
-      summary: "[standardTraceBlockToFile]"
+      summary: "[StandardTrace-standardTraceBlockToFile]"
       tags:
         - debug
       operationId: standardTraceBlockToFile

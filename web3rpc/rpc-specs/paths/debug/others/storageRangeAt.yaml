@@ -13,7 +13,7 @@ paths:
   /debug/storageRangeAt:
     post:
       operationId: storageRangeAt
-      summary: "[storageRangeAt]"
+      summary: "[Inspection-storageRangeAt]"
       description: |
         StorageRangeAt returns the storage at the given block height and transaction index.
 

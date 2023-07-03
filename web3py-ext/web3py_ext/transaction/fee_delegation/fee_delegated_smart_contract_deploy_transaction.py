@@ -85,7 +85,7 @@ KLAYTN_TYPED_TRANSACTION_FORMATTERS = merge(
                 "s": hexstr_if_str(to_int),
             }),
         ),
-        "input": hexstr_if_str(to_bytes),
+        "data": hexstr_if_str(to_bytes),
         "feePayer": apply_one_of_formatters(
             (
                 (is_string, hexstr_if_str(to_bytes)),
@@ -274,9 +274,9 @@ class FeeDelegatedSmartContractDeployTransaction(_TypedTransactionImplementation
         rpc_structured_dict = transaction_rlp_to_rpc_structure(dictionary)
 
         # convert bytes to 0x prefixed hex string
-        input = rpc_structured_dict['input']
-        rpc_structured_dict = dissoc(rpc_structured_dict, 'input')
-        rpc_structured_dict = assoc(rpc_structured_dict, 'input', '0x' + bytes_to_hex_str(input))
+        data = rpc_structured_dict['data']
+        rpc_structured_dict = dissoc(rpc_structured_dict, 'data')
+        rpc_structured_dict = assoc(rpc_structured_dict, 'data', '0x' + bytes_to_hex_str(data))
 
 
         rpc_structured_dict["type"] = cls.transaction_type
