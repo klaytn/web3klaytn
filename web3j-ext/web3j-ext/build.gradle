@@ -52,6 +52,7 @@ publishing {
                 password = System.getenv("MAVEN_PASSWORD")
             }
         }
+    }
 }
 
 test {
