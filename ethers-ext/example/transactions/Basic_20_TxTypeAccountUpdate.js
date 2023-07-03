@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
+const { Wallet } = require("@klaytn/ethers-ext");
 
 //
 // TxTypeAccountUpdate
@@ -26,7 +26,7 @@ async function main() {
         from: senderAddr,
         key: {
             type: 0x02, 
-            key: wallet.computePublicKey(senderNewPriv, true),
+            key: ethers.utils.computePublicKey(senderNewPriv, true),
         }
     };
   

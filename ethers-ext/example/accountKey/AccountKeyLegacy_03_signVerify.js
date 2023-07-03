@@ -1,7 +1,6 @@
 const ethers = require("ethers");
 const { hashMessage, recoverAddress } = require("ethers/lib/utils");
-const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
-const { verifyMessageAsKlaytnAccountKey } = require("../../dist/src/ethers/signer");
+const { Wallet, verifyMessageAsKlaytnAccountKey } = require("@klaytn/ethers-ext");
 
 //
 // AccountKeyLegacy Step 03 - sign verification

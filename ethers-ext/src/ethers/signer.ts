@@ -1,6 +1,6 @@
 import { Wallet as EthersWallet } from "@ethersproject/wallet";
 import { Provider, TransactionRequest, TransactionResponse } from "@ethersproject/abstract-provider";
-import { Bytes, BytesLike, Deferrable, computeAddress, computePublicKey, hashMessage, keccak256, recoverAddress, resolveProperties } from "ethers/lib/utils";
+import { Bytes, Deferrable, computeAddress, hashMessage, keccak256, recoverAddress, resolveProperties } from "ethers/lib/utils";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { ethers } from "ethers";
 import _ from "lodash";
@@ -211,10 +211,6 @@ export class Wallet extends EthersWallet {
 
   decodeTxFromRLP( str :string ): any {
     return objectFromRLP( str );
-  }
-
-  computePublicKey( priv:BytesLike, isCompressed:boolean): string{
-    return computePublicKey( priv, isCompressed);
   }
 
   async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {

@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Accounts } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
+const { Accounts } = require("@klaytn/ethers-ext");
 const fs = require('fs');
 
 //
