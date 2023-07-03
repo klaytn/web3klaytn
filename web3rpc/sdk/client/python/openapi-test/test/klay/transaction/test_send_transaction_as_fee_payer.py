@@ -23,7 +23,7 @@ class TestSendTransactionAsFeePayer(KlaytnBaseTesting):
         self.response = self.w3.klay.send_transaction_as_fee_payer(
             self.signedTX
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response, r'^0x.*$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

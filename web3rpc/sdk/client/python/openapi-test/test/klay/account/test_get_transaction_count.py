@@ -13,7 +13,7 @@ class TestGetTransactionCount(KlaytnBaseTesting):
             self.address, self.blockTag
         )
         if self.response is not None:
-            self.assertIsInstance(self.response, str)
+            self.assertRegex(self.response, r'^0x.*$')
         else:
             self.assertIsNone(self.response)
 
