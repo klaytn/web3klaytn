@@ -9,6 +9,8 @@ describe('klay_getAccountKey API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(data.keyType).toBeDefined()
+            expect(typeof data.keyType === 'number').toBe(true)
             done();
         };
         const address = '0xa36a5fdc679ecaabe057556ccec2f3558068bdc8'
