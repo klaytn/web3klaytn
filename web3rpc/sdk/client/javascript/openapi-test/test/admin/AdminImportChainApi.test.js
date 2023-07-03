@@ -8,9 +8,9 @@ describe('admin_importChain API', () => {
     test('should return admin_importChain', (done) => {
 
         let callbackOne = function (error, data, response) {
-
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(typeof data === 'boolean').toBeTruthy();
             done();
         };
         const fileName = '/tmp/chain.txt'
