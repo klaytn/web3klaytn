@@ -25,6 +25,8 @@ public class DebugMemStatsTest {
         assertNull(response.getError());
 
         assertNotNull(response.getResult());
-        assertInstanceOf(Integer.class, Integer.parseInt(response.getResult().getNumGC()));
+        assertDoesNotThrow(() -> {
+            Integer.parseInt(response.getResult().getNumGC());
+        });
     }
 }
