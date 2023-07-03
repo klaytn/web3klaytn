@@ -30,6 +30,16 @@ public class TxTypeFeeDelegatedValueTransferWithRatio extends TxTypeFeeDelegate 
         return new TxTypeFeeDelegatedValueTransferWithRatio(type, nonce, gasPrice, gasLimit, to, value, from, feeRatio);
     }
 
+    protected TxTypeFeeDelegatedValueTransferWithRatio(
+        long chainId, TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to, BigInteger value, String from, BigInteger feeRatio) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, to, value);
+        this.feeRatio = feeRatio;
+    }
+
+    public static TxTypeFeeDelegatedValueTransferWithRatio createTransaction(
+        long chainId, TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to, BigInteger value, String from, BigInteger feeRatio) {
+        return new TxTypeFeeDelegatedValueTransferWithRatio(chainId, type, nonce, gasPrice, gasLimit, to, value, from, feeRatio);
+    }
     public BigInteger getFeeRatio() {
         return feeRatio;
     }

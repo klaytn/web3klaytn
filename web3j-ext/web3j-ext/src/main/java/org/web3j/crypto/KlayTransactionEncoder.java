@@ -52,6 +52,27 @@ public class KlayTransactionEncoder extends TransactionEncoder{
         return signMessage(rawTransaction, chainId, credentials.convertToCredentials());
     }
 
+    public static byte[] signMessage(RawTransaction rawTransaction, KlayCredentials credentials) {
+        if(credentials.isDeCoupled()){
+            throw new Error("a legacy transaction must be with a legacy account key");
+        }
+
+        return signMessage(rawTransaction, credentials.convertToCredentials());
+    }
+
+
+
+    public static byte[] signMessage(KlayRawTransaction rawTransaction, KlayCredentials credentials) {
+        AbstractTxType tx = (AbstractTxType) rawTransaction.getTransaction();
+        long chainId = tx.getChainId();
+
+        if (Type.isFeeDelegated(tx.getKlayType()) || Type.isPartialFeeDelegated(tx.getKlayType())) {
+            TxTypeFeeDelegate senderTx = (TxTypeFeeDelegate) rawTransaction.getTransaction();
+            return senderTx.sign(credentials, chainId).getRaw();
+        }
+        return tx.sign(credentials, chainId).getRaw();
+    }
+
 
     public static byte[] signMessage(KlayRawTransaction rawTransaction, long chainId, KlayCredentials credentials) {
         AbstractTxType tx = (AbstractTxType) rawTransaction.getTransaction();
@@ -66,6 +87,14 @@ public class KlayTransactionEncoder extends TransactionEncoder{
     public static byte[] signMessageAsFeePayer(KlayRawTransaction rawTransaction, long chainId,
             KlayCredentials credentials) {
         TxTypeFeeDelegate senderTx = (TxTypeFeeDelegate) rawTransaction.getTransaction();
+        senderTx.setFeePayer(credentials.getAddress());
+        KlayRawTransaction payerTx = new FeePayer(credentials, chainId).sign(senderTx);
+        return payerTx.getRaw();
+    }
+
+    public static byte[] signMessageAsFeePayer(KlayRawTransaction rawTransaction, KlayCredentials credentials) {
+        TxTypeFeeDelegate senderTx = (TxTypeFeeDelegate) rawTransaction.getTransaction();
+        long chainId = senderTx.getChainId();
         senderTx.setFeePayer(credentials.getAddress());
         KlayRawTransaction payerTx = new FeePayer(credentials, chainId).sign(senderTx);
         return payerTx.getRaw();
@@ -232,8 +261,10 @@ public class KlayTransactionEncoder extends TransactionEncoder{
                         .decodeFromRawTransaction(encodedSenderTransaction);
                 break;
         }
+
+        System.out.println("chainId : "+ senderTx.getChainId());
         KlayRawTransaction payerTx = new FeePayer(credentials, chainId).sign(senderTx);
-        ;
+        
         return payerTx.getRaw();
     }
 

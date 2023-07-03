@@ -71,8 +71,23 @@ public abstract class AbstractTxType implements TxType, ITransaction {
 
     private TxType.Type type;
 
+    private long chainId = 0;
+
     public AbstractTxType(TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit,
             String from, String to, BigInteger value) {
+        this.type = type;
+        this.nonce = nonce;
+        this.gasPrice = gasPrice;
+        this.gasLimit = gasLimit;
+        this.from = from;
+        this.to = to;
+        this.value = value;
+        this.senderSignatureDataSet = new HashSet<>();
+    }
+
+    public AbstractTxType(long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit,
+    String from, String to, BigInteger value) {
+        this.chainId = chainId;
         this.type = type;
         this.nonce = nonce;
         this.gasPrice = gasPrice;
@@ -287,6 +302,10 @@ public abstract class AbstractTxType implements TxType, ITransaction {
         byte[] rawTx = BytesUtils.concat(type, encodedTransaction);
 
         return new KlayRawTransaction(this, rawTx, getSenderSignatureData());
+    }
+
+    public long getChainId() {
+        return chainId;
     }
 
     public TxType.Type getKlayType() {

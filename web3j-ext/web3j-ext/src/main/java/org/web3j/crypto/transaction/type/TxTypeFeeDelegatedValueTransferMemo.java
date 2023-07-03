@@ -26,7 +26,14 @@ public class TxTypeFeeDelegatedValueTransferMemo extends TxTypeFeeDelegate {
     public static TxTypeFeeDelegatedValueTransferMemo createTransaction(TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to, BigInteger value, String from, byte[] payload) {
         return new TxTypeFeeDelegatedValueTransferMemo(type, nonce, gasPrice, gasLimit, to, value, from, payload);
     }
+    protected TxTypeFeeDelegatedValueTransferMemo(long chainId, TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to, BigInteger value, String from, byte[] payload) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, to, value);
+        this.payload = payload;
+    }
 
+    public static TxTypeFeeDelegatedValueTransferMemo createTransaction(long chainId, TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to, BigInteger value, String from, byte[] payload) {
+        return new TxTypeFeeDelegatedValueTransferMemo(chainId, type, nonce, gasPrice, gasLimit, to, value, from, payload);
+    }
     public byte[] getPayload() {
         return payload;
     }

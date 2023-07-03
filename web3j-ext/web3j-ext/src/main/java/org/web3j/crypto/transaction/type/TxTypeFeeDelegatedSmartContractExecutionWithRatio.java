@@ -37,6 +37,19 @@ public class TxTypeFeeDelegatedSmartContractExecutionWithRatio extends TxTypeFee
         return new TxTypeFeeDelegatedSmartContractExecutionWithRatio(type, nonce, gasPrice, gasLimit, to, value, from, payload, feeRatio);
     }
 
+    protected TxTypeFeeDelegatedSmartContractExecutionWithRatio(
+        long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to,
+            BigInteger value, String from, byte[] payload, BigInteger feeRatio) {
+        super(type, nonce, gasPrice, gasLimit, from, to, value);
+        this.payload = payload;
+        this.feeRatio = feeRatio;
+    }
+
+    public static TxTypeFeeDelegatedSmartContractExecutionWithRatio createTransaction(
+        long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to,
+            BigInteger value, String from, byte[] payload, BigInteger feeRatio) {
+        return new TxTypeFeeDelegatedSmartContractExecutionWithRatio(chainId, type, nonce, gasPrice, gasLimit, to, value, from, payload, feeRatio);
+    }
     public byte[] getPayload() {
         return payload;
     }

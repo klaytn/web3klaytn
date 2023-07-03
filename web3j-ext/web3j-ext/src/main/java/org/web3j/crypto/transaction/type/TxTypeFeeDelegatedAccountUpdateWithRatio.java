@@ -35,6 +35,16 @@ public class TxTypeFeeDelegatedAccountUpdateWithRatio extends TxTypeFeeDelegate 
         return new TxTypeFeeDelegatedAccountUpdateWithRatio(type, nonce, gasPrice, gasLimit, from, accountKey, feeRatio);
     }
 
+    public TxTypeFeeDelegatedAccountUpdateWithRatio(long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from, AccountKey accountKey, BigInteger feeRatio) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, "", BigInteger.ZERO);
+        this.accountKey = accountKey;
+        this.feeRatio = feeRatio;
+    }
+
+    public static TxTypeFeeDelegatedAccountUpdateWithRatio createTransaction(long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from, AccountKey accountKey, BigInteger feeRatio) {
+        return new TxTypeFeeDelegatedAccountUpdateWithRatio(chainId, type, nonce, gasPrice, gasLimit, from, accountKey, feeRatio);
+    }
+
     public AccountKey getAccountKey() {
         return accountKey;
     }

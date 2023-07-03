@@ -24,6 +24,17 @@ public class TxTypeFeeDelegatedValueTransfer extends TxTypeFeeDelegate   {
         return new TxTypeFeeDelegatedValueTransfer(type, nonce, gasPrice, gasLimit, recipient, value, from);
     }
 
+    protected TxTypeFeeDelegatedValueTransfer(long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice,
+            BigInteger gasLimit, String to, BigInteger value, String from) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, to, value);
+    }
+
+    public static TxTypeFeeDelegatedValueTransfer createTransaction(
+        long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit,
+            String recipient, BigInteger value, String from) {
+        return new TxTypeFeeDelegatedValueTransfer(chainId, type, nonce, gasPrice, gasLimit, recipient, value, from);
+    }
+
     /**
      * create RlpType List which contains nonce, gas price, gas limit, to, value,
      * and from.

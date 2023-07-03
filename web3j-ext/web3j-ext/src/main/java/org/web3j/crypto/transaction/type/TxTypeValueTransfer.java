@@ -22,10 +22,20 @@ public class TxTypeValueTransfer extends AbstractTxType   {
         super(type, nonce, gasPrice, gasLimit, from, to, value);
     }
 
+    public TxTypeValueTransfer(long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to, BigInteger value, String from) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, to, value);
+    }
+
     public static TxTypeValueTransfer createTransaction(
         TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to,
             BigInteger value, String from) {
         return new TxTypeValueTransfer(type, nonce, gasPrice, gasLimit, to, value, from);
+    }
+
+    public static TxTypeValueTransfer createTransaction(
+        long chainId, TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to,
+            BigInteger value, String from) {
+        return new TxTypeValueTransfer(chainId, type, nonce, gasPrice, gasLimit, to, value, from);
     }
 
     /**

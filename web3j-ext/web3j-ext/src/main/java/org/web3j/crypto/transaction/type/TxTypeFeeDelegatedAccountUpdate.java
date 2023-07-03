@@ -28,6 +28,15 @@ public class TxTypeFeeDelegatedAccountUpdate extends TxTypeFeeDelegate {
         return new TxTypeFeeDelegatedAccountUpdate(type, nonce, gasPrice, gasLimit, from, accountKey);
     }
 
+    public TxTypeFeeDelegatedAccountUpdate(long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from, AccountKey accountKey) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, "", BigInteger.ZERO);
+        this.accountKey = accountKey;
+    }
+
+    public static TxTypeFeeDelegatedAccountUpdate createTransaction(long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from, AccountKey accountKey) {
+        return new TxTypeFeeDelegatedAccountUpdate(chainId, type, nonce, gasPrice, gasLimit, from, accountKey);
+    }
+
     public AccountKey getAccountKey() {
         return accountKey;
     }
