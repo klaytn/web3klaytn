@@ -55,6 +55,7 @@ jobs:
         with:
           arguments: publish
           build-root-directory: web3j-ext
+          gradle-version: release-candidate
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
