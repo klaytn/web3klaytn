@@ -25,5 +25,7 @@ public class DebugSetMutexProfileFractionTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNull(response.getResult());
     }
 }
