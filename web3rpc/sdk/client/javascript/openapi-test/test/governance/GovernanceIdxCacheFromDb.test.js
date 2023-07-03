@@ -9,7 +9,8 @@ describe('governance_idxCacheFromDb API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(Array.isArray(data) && data.length > 0).toBe(true);
             done();
         };
 
