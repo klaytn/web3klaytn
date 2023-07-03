@@ -40,16 +40,26 @@ jobs:
           ls -ls &&\
           python setup.py bdist_wheel &&\
           cd -
-#      - name: generate java sdk
-#        shell: bash
-#        run: |
-#          cd web3rpc/sdk/client/java && bash -x java-generate.sh && cd -
-#      - name: generate js sdk
-#        shell: bash
-#        run: |
-#          cd web3rpc/sdk/client/javascript && bash -x javascript-generate.sh && cd -
       - name: Publish distribution 📦 to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages-dir: web3py-ext/dist
+      - name: generate java sdk
+        shell: bash
+        run: |
+          cd web3rpc/sdk/client/java && bash -x java-generate.sh && cd -
+      - name: Publish package
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: publish
+          build-root-directory: web3j-ext
+        env:
+          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+
+#      - name: generate js sdk
+#        shell: bash
+#        run: |
+#          cd web3rpc/sdk/client/javascript && bash -x javascript-generate.sh && cd -
+

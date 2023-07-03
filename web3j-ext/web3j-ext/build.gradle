@@ -28,8 +28,30 @@ publishing {
         maven(MavenPublication) {
             artifactId = 'web3j-ext'
             from components.java
+            pom {
+                name = project.name
+                description = project.description
+                version = project.version
+                url = "https://docs.klaytn.com/"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                        distribution = "repo"
+                    }
+                }
+            }
         }
     }
+    repositories {
+        maven {
+            name = "OSSRH"
+            url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+        }
 }
 
 test {
