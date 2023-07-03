@@ -87,7 +87,10 @@ class _KlaytnTxFactory extends FieldSetFactory<KlaytnTx> {
   }
 }
 
-const requiredFields = ['type', 'chainId', 'txSignatures'];
+// Delete 'txSignatures' for supporting TxTypeLegacy
+// const requiredFields = ['type', 'chainId', 'txSignatures'];
+const requiredFields = ['type', 'chainId'];
+// const requiredFields = ['type', 'chainId', 'txSignatures'];
 export const KlaytnTxFactory = new _KlaytnTxFactory(
   requiredFields,
 );

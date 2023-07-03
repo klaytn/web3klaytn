@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
+const { Wallet } = require("@klaytn/ethers-ext");
 
 //
 // AccountKeyPublic Step 02 - value transfer
@@ -21,12 +21,16 @@ async function main() {
     }; 
   
   const ptx = await wallet.populateTransaction(tx);
+  console.log('ptx', ptx);
   const signTx = await wallet.signTransaction(ptx);
   console.log('signTx', signTx);
   
-  const inner_rlp = "0x" + String(signTx).substring(4);
+  const inner_rlp = "0x" + String(signTx).substring(2);
   const decodedTx = ethers.utils.RLP.decode(inner_rlp);
   console.log(decodedTx);
+
+  // const objTx = wallet.decodeTxFromRLP(signTx);
+  // console.log( objTx );
 
   const txhash = await provider.send("eth_sendRawTransaction", [signTx]);
   console.log('txhash', txhash);
