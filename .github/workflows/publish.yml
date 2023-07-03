@@ -60,13 +60,26 @@ jobs:
 #          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
 #          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
 
+      - name: generate ethers-ext sdk
+        shell: bash
+        run: |
+          cd ethers-ext && npm install && npm run build && cd -
+
+      - name: publish ethers-ext sdk
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd ethers-ext && npx pnpm --filter "@klaytn/*" -r publish --publish-branch main --no-git-check --access=public && cd -
+
       - name: generate web3rpc javascript sdk
         shell: bash
         run: |
           cd web3rpc/sdk/client/javascript && bash -x javascript-generate.sh && cd -
+
       - name: publish web3rpc javascript sdk
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          cd web3rpc/sdk/client/javascript/openapi && npx pnpm --filter "@klaytn/*" -r publish --publish-branch main --no-git-check --access=public
+          cd web3rpc/sdk/client/javascript/openapi && npx pnpm --filter "@klaytn/*" -r publish --publish-branch main --no-git-check --access=public && cd -
+
 
