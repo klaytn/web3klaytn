@@ -19,7 +19,7 @@ class TestKlayCall(KlaytnBaseTesting):
         self.response = self.w3.klay.call(
             self.callObject, self.blockTag
         )
-        self.assertIsInstance(self.response, str)
+        self.assertRegex(self.response, r'^0x.*$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

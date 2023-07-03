@@ -22,5 +22,7 @@ public class DebugSetHeadTest {
         DebugSetHeadResponse response = w3.debugSetHead("0x100").send();
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNull(response.getResult());
     }
 }

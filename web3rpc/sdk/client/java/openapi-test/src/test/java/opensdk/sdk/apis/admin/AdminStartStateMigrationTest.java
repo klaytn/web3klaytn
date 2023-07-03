@@ -23,5 +23,6 @@ public class AdminStartStateMigrationTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNull(response.getResult());
     }
 }

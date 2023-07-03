@@ -2,6 +2,7 @@ from base.testing import KlaytnBaseTesting
 from base.eth import unlock_account, getNonce
 from eth_utils.address import to_checksum_address
 
+
 class TestSignTransaction(KlaytnBaseTesting):
 
     def setUp(self) -> None:
@@ -22,7 +23,7 @@ class TestSignTransaction(KlaytnBaseTesting):
         self.response = self.w3.eth.sign_transaction(
             self.transactionObject
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response["raw"], r'^0x.*$')
 
     # def test_post_wrong_with_lack_paramaters(self):
     #     with self.assertRaises(ValueError):

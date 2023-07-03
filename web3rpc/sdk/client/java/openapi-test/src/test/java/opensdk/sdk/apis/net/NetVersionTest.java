@@ -9,8 +9,7 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Eth RPC Test")
 
@@ -23,5 +22,7 @@ public class NetVersionTest {
         NetVersion response = w3.netVersion().send();
         assertNotNull(response);
         assertNull(response.getError());
+        assertTrue(response.getResult()instanceof String);
+        assertTrue(response.getResult().matches("\\d+"));
     }
 }

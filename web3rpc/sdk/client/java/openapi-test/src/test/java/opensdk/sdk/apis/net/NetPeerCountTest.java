@@ -9,8 +9,7 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Eth RPC Test")
 public class NetPeerCountTest {
@@ -21,6 +20,9 @@ public class NetPeerCountTest {
         NetPeerCount response = w3.netPeerCount().send();
         assertNotNull(response);
         assertNull(response.getError());
+        assertTrue(response.getResult() instanceof String);
+        assertTrue(response.getResult().matches("^0x[0-9a-fA-F]+$"));
+
     }
 
 }

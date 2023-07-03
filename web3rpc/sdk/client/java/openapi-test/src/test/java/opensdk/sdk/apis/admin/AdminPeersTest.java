@@ -8,9 +8,9 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Admin RPC Test")
 public class AdminPeersTest {
@@ -23,5 +23,9 @@ public class AdminPeersTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        if (!response.getResult().isEmpty()) {
+            assertTrue(response.getResult().get(0).getName() instanceof String);
+        }
+
     }
 }

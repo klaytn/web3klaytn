@@ -9,7 +9,8 @@ describe('debug_isPProfRunning API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(typeof data).toBe('boolean');
             done();
         };
 

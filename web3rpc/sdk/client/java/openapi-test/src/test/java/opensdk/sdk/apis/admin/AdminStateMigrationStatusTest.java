@@ -9,8 +9,7 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Admin RPC Test")
 public class AdminStateMigrationStatusTest {
@@ -23,5 +22,7 @@ public class AdminStateMigrationStatusTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
+        assertTrue(response.getResult().getCommitted() instanceof Integer);
     }
 }

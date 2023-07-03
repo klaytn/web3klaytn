@@ -13,7 +13,7 @@ class TestKlayFeeHistory(KlaytnBaseTesting):
         self.response = self.w3.klay.fee_history(
             self.blockCount, self.lastBlock, self.rewardPercentiles
         )
-        self.assertIsInstance(self.response["oldestBlock"], str)
+        self.assertRegex(self.response["oldestBlock"], r'^0x.*$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

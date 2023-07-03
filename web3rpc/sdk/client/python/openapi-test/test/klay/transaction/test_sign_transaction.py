@@ -20,7 +20,7 @@ class TestSignTransaction(KlaytnBaseTesting):
         self.response = self.w3.klay.sign_transaction(
             self.transactionObject
         )
-        self.assertIsInstance(self.response["raw"], str)
+        self.assertRegex(self.response["raw"], r'^0x.*$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

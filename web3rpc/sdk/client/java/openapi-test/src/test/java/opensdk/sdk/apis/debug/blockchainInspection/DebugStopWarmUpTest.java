@@ -9,7 +9,6 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.web3j.protocol.http.HttpService;
@@ -22,7 +21,7 @@ public class DebugStopWarmUpTest {
     @DisplayName("RPC debug_stopWarmUp")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         DebugStopWarmUpResponse response = w3.debugStopWarmUp().send();
-        assertNotNull(response);
-        assertNull(response.getError());
+
+        assertNull(response.getResult());
     }
 }

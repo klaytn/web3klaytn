@@ -5,4 +5,5 @@ class TestContent(KlaytnBaseTesting):
 
     def test_post(self):
         self.response = self.w3.geth.txpool.content()
-        self.assertResponseSuccess()
+        self.assertIn("pending", self.response) or self.assertIn("queued", self.response)
+

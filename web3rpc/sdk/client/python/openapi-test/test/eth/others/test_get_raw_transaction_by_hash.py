@@ -12,7 +12,7 @@ class TestGetRawTransactionByHash(KlaytnBaseTesting):
         self.response = self.w3.eth.get_transaction(
             self.transactionHash
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response["blockHash"], bytes)
 
     # def test_post_wrong_with_lack_paramaters(self):
     #     with self.assertRaises(ValueError):

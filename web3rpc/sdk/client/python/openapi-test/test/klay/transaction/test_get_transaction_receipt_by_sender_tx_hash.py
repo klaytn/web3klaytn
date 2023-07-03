@@ -12,7 +12,7 @@ class TestGetTransactionReceiptBySenderTxHash(KlaytnBaseTesting):
             self.transactionHash
         )
         if self.response is not None:
-            self.assertIsInstance(self.response["blockHash"], str)
+            self.assertRegex(self.response["blockHash"], r'^0x.*$')
         else:
             self.assertIsNone(self.response)
 
