@@ -9,7 +9,9 @@ describe('admin_stateMigrationStatus API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(typeof data === 'object').toBeTruthy();
+            expect(typeof data.committed === 'number').toBeTruthy();
             done();
         };
 
