@@ -32,20 +32,20 @@ jobs:
         run: |
           cd web3rpc/rpc-specs && npm install && bash -x generate-namespace.sh && cd - && \
           cd web3rpc/codegen && gradle wrapper && gradle wrapper clean :deployJar && cd -
-      - name: generate python sdk
-        shell: bash
-        run: |
-          cd web3py-ext &&\
-          python -m pip install build wheel twine &&\
-          ls -ls &&\
-          python setup.py bdist_wheel &&\
-          cd -
-      - name: Publish distribution 📦 to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        continue-on-error: true
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          packages-dir: web3py-ext/dist
+#      - name: generate python sdk
+#        shell: bash
+#        run: |
+#          cd web3py-ext &&\
+#          python -m pip install build wheel twine &&\
+#          ls -ls &&\
+#          python setup.py bdist_wheel &&\
+#          cd -
+#      - name: Publish distribution 📦 to PyPI
+#        uses: pypa/gh-action-pypi-publish@release/v1
+#        continue-on-error: true
+#        with:
+#          password: ${{ secrets.PYPI_API_TOKEN }}
+#          packages-dir: web3py-ext/dist
 #      - name: generate java sdk
 #        shell: bash
 #        run: |
