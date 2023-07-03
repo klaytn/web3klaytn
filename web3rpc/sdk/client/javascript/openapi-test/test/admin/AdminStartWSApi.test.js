@@ -10,7 +10,7 @@ describe('admin_startWS API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data).toBeDefined()
-
+            expect(typeof data === 'boolean').toBeTruthy();
             done();
         };
         const host = '127.0.0.1'

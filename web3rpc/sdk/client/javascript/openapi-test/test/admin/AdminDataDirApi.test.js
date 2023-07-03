@@ -8,9 +8,9 @@ describe('admin_datadir API', () => {
     test('should return admin_datadir', (done) => {
 
         let callbackOne = function (error, data, response) {
-
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(typeof data === 'string').toBeTruthy();
             done();
         };
 
