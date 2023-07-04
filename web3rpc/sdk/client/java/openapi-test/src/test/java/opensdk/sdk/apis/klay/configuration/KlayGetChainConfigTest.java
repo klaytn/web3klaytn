@@ -8,14 +8,15 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @DisplayName("Klay RPC Test")
 public class KlayGetChainConfigTest {
     private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+
     @Test
     @DisplayName("RPC klay_getChainConfig")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
@@ -25,5 +26,9 @@ public class KlayGetChainConfigTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
+        if (response.getResult() instanceof LinkedHashMap<?, ?>) {
+            assertTrue(((LinkedHashMap<?, ?>) response.getResult()).containsKey("chainId"));
+        }
     }
 }
