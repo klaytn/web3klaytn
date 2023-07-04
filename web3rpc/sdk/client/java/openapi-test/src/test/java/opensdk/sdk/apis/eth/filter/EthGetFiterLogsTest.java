@@ -19,8 +19,10 @@ public class EthGetFiterLogsTest {
     @Test
     @DisplayName("RPC eth_getFilterLogs")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        String id = EthUtils.getEthFilterId().getResult();
-        EthLog response = w3.ethGetFilterLogs(new BigInteger(id)).send();
+        String idRaw = EthUtils.getEthFilterId().getResult();
+        BigInteger id = new BigInteger(idRaw.substring(2), 16);
+        EthLog response = w3.ethGetFilterLogs(id).send();
+
         assertNotNull(response);
         assertNull(response.getError());
     }

@@ -10,8 +10,7 @@ import org.web3j.protocol.http.HttpService;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @DisplayName("Eth RPC Test")
@@ -23,6 +22,7 @@ public class EthSyncingTest {
         EthSyncing response = w3.ethSyncing().send();
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 
 }

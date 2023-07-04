@@ -28,5 +28,6 @@ public class AdminStartWSTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 }

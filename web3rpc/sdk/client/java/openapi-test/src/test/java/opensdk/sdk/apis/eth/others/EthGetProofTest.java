@@ -10,8 +10,7 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @DisplayName("Eth RPC Test")
@@ -22,10 +21,13 @@ public class EthGetProofTest {
     @DisplayName("RPC eth_getProof")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String blockNumber = "latest";
-        EthGetProofResponse response = w3.ethGetProof("0xe5cB067E90D5Cd1F8052B83562Ae670bA4A211a8",
-                Arrays.asList("0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"),
+        EthGetProofResponse response = w3.ethGetProof("0x487f2dfef230c2120b8cc55c5087b103146536ec",
+                Arrays.asList("0x0000000000000000000000000000000000000000000000000000000000000000"),
                 blockNumber).send();
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
+        assertNotNull(response.getResult().getCodeHash());
+        assertTrue(response.getResult().getCodeHash().matches("^0x.*$"));
     }
 }
