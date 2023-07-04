@@ -1,8 +1,5 @@
 package opensdk.sdk.apis.personal;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.*;
 import opensdk.sdk.utils.CommonUtils;
@@ -15,6 +12,8 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Personal RPC Test")
 public class PersonalSendValueTransferTest {
@@ -48,6 +47,10 @@ public class PersonalSendValueTransferTest {
         PersonalSendValueTransferResponse response = w3.personalSendValueTransfer(transactionObject, passphrase).send();
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNotNull(response.getResult());
+        assertInstanceOf(String.class, response.getResult());
+        assertTrue(((String) response.getResult()).matches("^0x.*$"));
     }
 
 }
