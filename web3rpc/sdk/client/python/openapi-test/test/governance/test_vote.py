@@ -12,4 +12,4 @@ class TestGovernanceVote(KlaytnBaseTesting):
         self.response = self.w3.governance.vote(
             self.key, self.value
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, str)

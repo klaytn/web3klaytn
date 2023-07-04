@@ -12,7 +12,7 @@ class TestGoTrace(KlaytnBaseTesting):
         self.response = self.w3.debug.go_trace(
             self.file, self.seconds
         )
-        self.assertResponseSuccess()
+        self.assertIsNone(self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

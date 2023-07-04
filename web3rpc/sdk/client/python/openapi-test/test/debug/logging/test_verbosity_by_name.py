@@ -12,7 +12,7 @@ class TestDebugVerbosityByName(KlaytnBaseTesting):
         self.response = self.w3.debug.verbosity_by_name(
             self.name, self.level
         )
-        self.assertResponseSuccess()
+        self.assertIsNone(self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
