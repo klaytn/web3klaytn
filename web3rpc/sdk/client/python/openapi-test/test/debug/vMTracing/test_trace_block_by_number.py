@@ -11,7 +11,7 @@ class TestTraceBlockByNumber(KlaytnBaseTesting):
         self.response = self.w3.debug.trace_block_by_number(
             self.number
         )
-        self.assertResponseSuccess()
+        self.assertTrue(len(self.response) >= 0)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

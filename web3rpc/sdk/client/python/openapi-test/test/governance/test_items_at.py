@@ -11,4 +11,4 @@ class TestItemsAt(KlaytnBaseTesting):
         self.response = self.w3.governance.items_at(
             self.blockTag
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response["governance.governingnode"], r'^0x.*$')

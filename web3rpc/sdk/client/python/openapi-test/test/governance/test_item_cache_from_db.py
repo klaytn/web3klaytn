@@ -11,4 +11,4 @@ class TestItemCacheFromDb(KlaytnBaseTesting):
         self.response = self.w3.governance.item_cache_from_db(
             self.blockNumber
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response["governance.governingnode"], r'^0x.*$')
