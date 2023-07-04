@@ -9,7 +9,8 @@ describe('debug_startWarmUp API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(data).toBeNull();
             done();
         };
 
