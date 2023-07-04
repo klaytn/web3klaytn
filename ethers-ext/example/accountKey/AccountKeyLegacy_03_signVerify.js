@@ -1,5 +1,4 @@
 const ethers = require("ethers");
-const { hashMessage, recoverAddress } = require("ethers/lib/utils");
 const { Wallet, verifyMessageAsKlaytnAccountKey } = require("@klaytn/ethers-ext");
 
 //
@@ -19,7 +18,8 @@ async function main() {
   const signature = await wallet.signMessage(message);
 
   // 1. you can use ethers library in case of AccountKeyLegacy 
-  const actualSignerAddr = recoverAddress(hashMessage(message), signature);
+  const digest = ethers.utils.hashMessage(message);
+  const actualSignerAddr = ethers.utils.recoverAddress(digest, signature);
   console.log( 'actual signer addr: ', actualSignerAddr )
   console.log( 'sender addr: ', senderAddr )
   console.log( "verification result:", 
