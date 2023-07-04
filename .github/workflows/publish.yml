@@ -30,8 +30,8 @@ jobs:
       - name: generate code and namespace
         shell: bash
         run: |
-          cd web3rpc/rpc-specs && npm install && bash -x generate-namespace.sh && cd - && \
-          cd web3rpc/codegen && gradle wrapper && gradle wrapper clean :deployJar && cd -
+          cd web3rpc/codegen && gradle wrapper && gradle wrapper clean :deployJar && cd - &&\
+          cd web3rpc/rpc-specs && npm install && bash -x generate-namespace.sh && cd -
 #      - name: generate python sdk
 #        shell: bash
 #        run: |
@@ -55,7 +55,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: publish
-          build-root-directory: web3rpc/sdk/client/java/web3j-ext-test-wrapper
+          build-root-directory: web3rpc/sdk/client/java/openapi
           gradle-version: release-candidate
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
