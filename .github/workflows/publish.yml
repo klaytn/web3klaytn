@@ -55,7 +55,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: publish
-          build-root-directory: web3rpc/sdk/client/java/web3j-ext-wrapper
+          build-root-directory: web3rpc/sdk/client/java/web3j-ext-test-wrapper
           gradle-version: release-candidate
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
