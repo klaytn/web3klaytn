@@ -1,7 +1,7 @@
 generatorName: web3rpc-java
 outputDir: ./openapi/governance
 inputSpec: ../../../rpc-specs/namespaces/governance-openapi.yaml
-groupId: klaytn.foundation
+groupId: foundation.klaytn
 artifactId: web3rpc-governance
 artifactVersion: v1.10.0
 library: retrofit2

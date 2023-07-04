@@ -1,7 +1,7 @@
 generatorName: web3rpc-java
 outputDir: ./openapi/mainbridge
 inputSpec: ../../../rpc-specs/namespaces/mainbridge-openapi.yaml
-groupId: klaytn.foundation
+groupId: foundation.klaytn
 artifactId: web3rpc-mainbridge
 artifactVersion: v1.10.0
 library: retrofit2
