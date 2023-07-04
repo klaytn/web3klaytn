@@ -8,9 +8,9 @@ describe('klay_getBlockWithConsensusInfoByNumberRange API', () => {
     test('should return klay_getBlockWithConsensusInfoByNumberRange', (done) => {
 
         let callbackOne = function (error, data, response) {
-
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(data['0x1'].hash).toMatch(/^0x[a-fA-F0-9]+/)
             done();
         };
         const blockHashOrBlockNumber=1
