@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
+const { Wallet } = require("@klaytn/ethers-ext");
 
 // We refer the example from ethers
 // https://docs.ethers.org/v5/api/contract/example/

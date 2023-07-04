@@ -1,6 +1,5 @@
 const ethers = require("ethers");
-import { crypto } from "@ethersproject/crypto";
-const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
+const { Wallet } = require("@klaytn/ethers-ext");
 
 //
 // TxTypeAccountUpdate
@@ -27,7 +26,7 @@ async function main() {
         from: senderAddr,
         key: {
             type: 0x02, 
-            key: crypto.computePublicKey(senderNewPriv, true),
+            key: ethers.utils.computePublicKey(senderNewPriv, true),
         }
     };
   

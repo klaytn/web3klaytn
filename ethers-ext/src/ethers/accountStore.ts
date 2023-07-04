@@ -1,6 +1,7 @@
 import { BigNumber, ethers } from "ethers";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { computeAddress } from "@ethersproject/transactions";
+import { computePublicKey } from "ethers/lib/utils";
 
 import { Wallet } from "./signer";
 import { HexStr } from "../core/util";
@@ -304,20 +305,14 @@ export class AccountStore {
     }
 
     getPubkeyInfo( x:string, y:string ): any {
-        const stripedX = String(x).substring(2);
-        const stripedY = String(y).substring(2);
+        const zeroPadX = HexStr.zeroPad( x, 32 );
+        const zeroPadY = HexStr.zeroPad( y, 32 );
 
-        const zeroPadX = HexStr.zeroPad( stripedX, 64 );
-        const zeroPadY = HexStr.zeroPad( stripedY, 64 );
+        const stripedX = String(zeroPadX).substring(2);
+        const stripedY = String(zeroPadY).substring(2);
 
-        let compressedKey;
-        if ( ['0','2','4','6','8','a','c','e'].indexOf( String(x).substring(-1) ) != -1 ) {
-            compressedKey = HexStr.concat( "0x02" + zeroPadX );
-        } else {
-            compressedKey = HexStr.concat( "0x03" + zeroPadX );
-        }
-        
-        let hashedKey = computeAddress( HexStr.concat( "0x04" + zeroPadX + zeroPadY )); 
+        let compressedKey = computePublicKey( HexStr.concat( "0x04" + stripedX + stripedY ), true );
+        let hashedKey = computeAddress( compressedKey ); 
         let hasPrivateKey = this.hasInSignableKeyList( hashedKey );
 
         return { 
