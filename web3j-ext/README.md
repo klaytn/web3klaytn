@@ -2,29 +2,20 @@
 
 ## Requirements
 ### Setting Java
-- Use java version more than 11
+- Use java version: 11 <= v <= 18
 - Visit https://adoptopenjdk.net/ site
-- Download OpenJDK 11
+- Download OpenJDK
 ### Web3rpc
- - Build [Web3rpc library](https://github.com/klaytn/web3klaytn/blob/dev/web3rpc/README.md) first 
+ - Install [Web3rpc library](https://github.com/klaytn/web3klaytn/blob/dev/web3rpc/README.md) first 
 
 
 ## Install web3j-extension
-To install the web3j-extension:
-```shell
-$ cd web3j-ext
-$ sh web3jext-generate.sh
-```
 
 To add the Gradle Library to your project:
 ```shell
-repositories {
-    mavenLocal()
-}
 
 dependencies {
-    implementation "klaytn.foundation:web3j-ext:v1.10.0"
-    implementation "klaytn.foundation:web3rpc:v1.10.0"
+    implementation "klaytn.foundation:web3j-ext:v0.9.0"
 }
 ````
 
