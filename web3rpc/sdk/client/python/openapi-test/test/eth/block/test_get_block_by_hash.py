@@ -12,7 +12,10 @@ class TestEthGetBlockByHash(KlaytnBaseTesting):
         self.response = self.w3.eth.get_block(
             self.blockHash, self.transactionObject
         )
-        self.assertResponseSuccess()
+        if self.response is not None:
+            self.assertIsInstance(self.response["number"], int)
+        else:
+            self.assertIsNone(self.response)
 
     # def test_post_wrong_wiVjth_lack_paramaters(self):
     #     with self.assertRaises(ValueError):

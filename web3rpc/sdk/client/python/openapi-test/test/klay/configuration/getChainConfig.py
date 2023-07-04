@@ -11,5 +11,4 @@ class TestGetChainConfig(KlaytnBaseTesting):
         self.response = self.w3.klay.get_chain_config(
             self.blockTag
         )
-        self.assertResponseSuccess()
-
+        self.assertIsInstance(self.response["chainId"], int)

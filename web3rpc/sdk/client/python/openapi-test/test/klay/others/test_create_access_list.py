@@ -17,7 +17,7 @@ class TestCreateAccessList(KlaytnBaseTesting):
         self.response = self.w3.klay.create_access_list(
             self.callObject, self.blockTag
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response["gasUsed"], r'^0x.*$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

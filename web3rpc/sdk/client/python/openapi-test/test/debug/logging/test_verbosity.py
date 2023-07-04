@@ -11,7 +11,7 @@ class TestDebugVerbosity(KlaytnBaseTesting):
         self.response = self.w3.debug.verbosity(
             self.level
         )
-        self.assertResponseSuccess()
+        self.assertIsNone(self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
