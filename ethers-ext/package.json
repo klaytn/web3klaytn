@@ -1,7 +1,7 @@
 {
   "name": "@klaytn/ethers-ext",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "dist/src/index.js",
   "files": [
     "./dist",
     "./src"
