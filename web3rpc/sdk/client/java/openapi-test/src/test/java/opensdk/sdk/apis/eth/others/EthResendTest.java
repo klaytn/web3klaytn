@@ -33,6 +33,6 @@ public class EthResendTest {
     EthResendResponse response = w3.ethResend(tx, gasPrice, gasLimit).send();
     assertNotNull(response);
     assertNull(response.getError());
-
+    assertNotNull(response.getResult());
   }
 }

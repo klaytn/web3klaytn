@@ -23,5 +23,6 @@ public class AdminStopSpamThrottlerTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNull(response.getResult());
     }
 }

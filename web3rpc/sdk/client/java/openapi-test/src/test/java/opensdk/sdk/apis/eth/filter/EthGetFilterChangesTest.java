@@ -19,12 +19,16 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @DisplayName("Eth RPC Test")
 public class EthGetFilterChangesTest {
     private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+
     @Test
     @DisplayName("RPC eth_getFilterChange")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {
-        String id =  EthUtils.getEthFilterId().getResult();
-        EthLog response = w3.ethGetFilterChanges(new BigInteger(id)).send();
+        String idRaw = EthUtils.getEthFilterId().getResult();
+        BigInteger id = new BigInteger(idRaw.substring(2), 16);
+        EthLog response = w3.ethGetFilterChanges(id).send();
+
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 }
