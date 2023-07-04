@@ -11,6 +11,9 @@ describe('klay_getStakingInfo API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            if (data !== null) {
+                expect(Array.isArray(data)).toBeTruthy()
+            }
             done();
         };
         const blockNumberOrTag = 'latest'
