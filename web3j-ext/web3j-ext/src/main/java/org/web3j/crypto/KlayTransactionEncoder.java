@@ -262,7 +262,6 @@ public class KlayTransactionEncoder extends TransactionEncoder{
                 break;
         }
 
-        System.out.println("chainId : "+ senderTx.getChainId());
         KlayRawTransaction payerTx = new FeePayer(credentials, chainId).sign(senderTx);
         
         return payerTx.getRaw();
