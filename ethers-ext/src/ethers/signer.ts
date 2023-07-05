@@ -179,7 +179,7 @@ export class Wallet extends EthersWallet {
         //   In ethers, no special logic to modify Gas
         //   In Metamask, multiply 1.5 to Gas for ensuring that the estimated gas is sufficient
         //   https://github.com/MetaMask/metamask-extension/blob/9d38e537fca4a61643743f6bf3409f20189eb8bb/ui/ducks/send/helpers.js#L115
-        tx.gasLimit = result*1.5;  
+        tx.gasLimit = Math.ceil(result*1.5); 
       } else {
         throw new Error(`Klaytn transaction can only be populated from a Klaytn JSON-RPC server`);
       }
