@@ -3,16 +3,6 @@ export { AccountKey, AccountKeyFactory } from "./accountKey";
 
 import { KlaytnTxFactory } from "./klaytn_tx";
 
-// Legacy TX
-import {
-  TxTypeLegacy0,
-  TxTypeLegacy2,
-} from "./klaytn_tx_legacy";
-
-KlaytnTxFactory.add(TxTypeLegacy0);
-KlaytnTxFactory.add(TxTypeLegacy2);
-
-
 // Basic TX 
 import {
   TxTypeValueTransfer,

@@ -323,7 +323,7 @@ export class FieldSetFactory<T extends FieldSet> {
     const type = cls.type;
     const fieldTypes = cls.fieldTypes;
 
-    if (type == undefined || type == null) {
+    if (!type) {
       throw new Error(`Cannot register TypedFields: Missing type`);
     }
     if (this.registry[type]) {
@@ -343,16 +343,14 @@ export class FieldSetFactory<T extends FieldSet> {
   }
 
   public has(type?: any): boolean {
-    let typeCheck = !(type == undefined || type == null);
-
-    if (typeCheck && HexStr.isHex(type)) 
-      return typeCheck && !!this.registry[HexStr.toNumber(type)];
+    if (!!type && HexStr.isHex(type)) 
+      return !!type && !!this.registry[HexStr.toNumber(type)];
   
-    return typeCheck && !!this.registry[type];
+    return !!type && !!this.registry[type];
   }
 
   public lookup(type?: any): ConcreteFieldSet<T> {
-    if (type == undefined || type == null || !this.has(type))
+    if (!type || !this.has(type))
       throw new Error(`Unsupported type '${type}'`);
     
     if ( HexStr.isHex(type))

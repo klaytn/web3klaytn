@@ -138,7 +138,7 @@ export class Wallet extends EthersWallet {
   async populateTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionRequest> {
     let tx: TransactionRequest = await resolveProperties(transaction);
 
-    if (!KlaytnTxFactory.has(tx.type) || tx.type == 0 || tx.type == 1 || tx.type == 2) {
+    if (!KlaytnTxFactory.has(tx.type)) {
       if ( this.dynamicUpdateWalletAPI == true && this._populateTransaction != undefined ) {
         return this._populateTransaction(tx);
       } else {
@@ -216,7 +216,7 @@ export class Wallet extends EthersWallet {
   async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
     let tx: TransactionRequest = await resolveProperties(transaction);
 
-    if (!KlaytnTxFactory.has(tx.type) || tx.type == 0 || tx.type == 1 || tx.type == 2) {
+    if (!KlaytnTxFactory.has(tx.type)) {
       if ( this.dynamicUpdateWalletAPI == true && this._signTransaction != undefined ) {
         return this._signTransaction(tx);
       } else { 
@@ -263,7 +263,7 @@ export class Wallet extends EthersWallet {
     const tx = await this.populateTransaction(transaction);
     const signedTx = await this.signTransaction(tx);
 
-    if (!KlaytnTxFactory.has(tx.type) || tx.type == 0 || tx.type == 1 || tx.type == 2) {
+    if (!KlaytnTxFactory.has(tx.type)) {
       return await this.provider.sendTransaction(signedTx);
     }
 
@@ -281,8 +281,8 @@ export class Wallet extends EthersWallet {
     const tx = await this.populateTransaction(transaction);
     const signedTx = await this.signTransactionAsFeePayer(tx);
 
-    if (!KlaytnTxFactory.has(tx.type) || tx.type == 0 || tx.type == 1 || tx.type == 2) {
-      return await this.provider.sendTransaction(signedTx);
+    if (!KlaytnTxFactory.has(tx.type)) {
+      throw new Error(`Fee payer can not sign with Legacy transaction`);
     }
 
     if (this.provider instanceof JsonRpcProvider) {

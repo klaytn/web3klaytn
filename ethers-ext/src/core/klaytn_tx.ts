@@ -2,7 +2,7 @@ import _ from "lodash";
 import { FieldSet, FieldSetFactory } from "./field"
 import { SignatureLike, getSignatureTuple } from "./sig";
 import { HexStr } from "./util";
-import { Deferrable } from "ethers/lib/utils";
+import { parseTransaction } from "ethers/lib/utils";
 import { TransactionRequest } from "@ethersproject/abstract-provider";
 
 export abstract class KlaytnTx extends FieldSet {
@@ -69,7 +69,7 @@ export abstract class KlaytnTx extends FieldSet {
 }
 
 class _KlaytnTxFactory extends FieldSetFactory<KlaytnTx> {
-  public fromRLP(value: string): KlaytnTx {
+  public fromRLP(value: string): any {
     if (!HexStr.isHex(value)) {
       throw new Error(`Not an RLP encoded string`);
     }
@@ -80,23 +80,30 @@ class _KlaytnTxFactory extends FieldSetFactory<KlaytnTx> {
     }
 
     const type = HexStr.toNumber(rlp.substr(0,4));
-    const ctor = this.lookup(type);
-    const instance = new ctor();
-    instance.setFieldsFromRLP(rlp);
-    return instance;
+    if ( !this.has(type) ) {
+      return parseTransaction( value );
+    }
+    else { 
+      const ctor = this.lookup(type);
+      const instance = new ctor();
+      instance.setFieldsFromRLP(rlp);
+      return instance;
+    }
   }
 }
 
-// Delete 'txSignatures' for supporting TxTypeLegacy
-// const requiredFields = ['type', 'chainId', 'txSignatures'];
-const requiredFields = ['type', 'chainId'];
-// const requiredFields = ['type', 'chainId', 'txSignatures'];
+const requiredFields = ['type', 'chainId', 'txSignatures'];
 export const KlaytnTxFactory = new _KlaytnTxFactory(
   requiredFields,
 );
 
 export function objectFromRLP(value: string): any {
-  return KlaytnTxFactory.fromRLP( value ).toObject();
+  const tx = KlaytnTxFactory.fromRLP( value ); 
+
+  if ( tx instanceof KlaytnTx )
+    return tx.toObject();
+  
+  return tx;
 }
 
 export function encodeTxForRPC( allowedKeys:string[], tx: TransactionRequest ): any {
