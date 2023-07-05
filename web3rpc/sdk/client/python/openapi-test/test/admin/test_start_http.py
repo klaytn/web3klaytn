@@ -1,7 +1,10 @@
-from base.testing import KlaytnBaseTesting
+from web3 import Web3
+from base.constants import KLAYTN_URL
+from unittest import TestCase
+w3 = Web3(Web3.HTTPProvider(KLAYTN_URL))
 
 
-class TestAdminStartHTTP(KlaytnBaseTesting):
+class TestAdminStartHTTP(TestCase):
 
     def setUp(self) -> None:
         super().setUp()
@@ -11,7 +14,7 @@ class TestAdminStartHTTP(KlaytnBaseTesting):
         self.apis = "klay"
 
     def test_post(self):
-        self.response = self.w3.geth.admin.start_http(
+        self.response = w3.geth.admin.start_http(
             self.adminHost, self.port, self.cors, self.apis
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, bool)
