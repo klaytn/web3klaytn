@@ -25,9 +25,7 @@ public class KlayGasPriceAtApiTest {
         assertNotNull(response);
         assertNull(response.getError());
 
-        assertNotNull(response.getResult());
-
-        assertTrue(response.getResult() instanceof String);
-        assertTrue(response.getResult().toString().matches("^0x[0-9A-Fa-f]+$"));
+        assertInstanceOf(String.class, response.getResult());
+        assertTrue(((String) response.getResult()).matches("^0x[0-9A-Fa-f]+$"));
     }
 }

@@ -22,7 +22,7 @@ public class KlayNewBlockFilterTest {
         assertNotNull(response);
         assertNull(response.getError());
 
-        assertTrue(response.getResult() instanceof String);
-        assertTrue(response.getResult().toString().matches("^0x[a-f0-9]+"));
+        assertInstanceOf(String.class, response.getResult());
+        assertTrue(((String) response.getResult()).matches("^0x[0-9a-f]+"));
     }
 }
