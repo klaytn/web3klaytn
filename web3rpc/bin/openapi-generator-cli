@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+
+CURRENT_FILE_DIR=$(cd "$( dirname "$0" )" && pwd)
+
+java -ea                          \
+  -Xms512M                        \
+  -Xmx1024M                       \
+  -server                         \
+  -jar "${CURRENT_FILE_DIR}"/libs/openapi-generator-cli-6.2.1.jar "$@"

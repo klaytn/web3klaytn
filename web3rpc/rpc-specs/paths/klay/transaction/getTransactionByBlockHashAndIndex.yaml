@@ -1,0 +1,106 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/getTransactionByBlockHashAndIndex:
+    post:
+      operationId: getTransactionByBlockHashAndIndex
+      summary: "[Transaction-getTransactionByBlockHashAndIndex]"
+      tags:
+        - klay
+      description: |
+        Returns information about a transaction by block hash and transaction index position. This API works only on RPC call, not on JavaScript console.
+
+        **JSONRPC:** `klay_getTransactionByBlockHashAndIndex`
+
+      parameters:
+        - name: blockHash
+          in: query
+          description: Hash of a block.
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+        - name: transactionIndexPosition
+          in: query
+          description: Integer of the transaction index position.
+          required: true
+          schema:
+            type: string
+            format: hex
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/KlayGetTransactionByBlockHashAndIndexReq"
+
+      responses:
+        200:
+          description: Returns information about a transaction by block hash and transaction index position.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/KlayGetTransactionByBlockHashAndIndexResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/transaction/getTransactionByBlockHashAndIndex.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/transaction/KlayGetTransactionByBlockHashAndIndexExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/transaction/getTransactionByBlockHashAndIndex.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/transaction/getTransactionByBlockHashAndIndex.py"
+
+
+components:
+  schemas:
+    KlayGetTransactionByBlockHashAndIndexReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getTransactionByBlockHashAndIndex'
+        params:
+          type: array
+          items:
+            anyOf:
+            - type: string
+              format: 32-byte DATA
+              title: BlockHash
+              description: Hash of a block.
+            - type: string
+              format: hex
+              title: TransactionIndexPosition
+              description: Integer of the transaction index position.
+          example: ["0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68", "0x0"]
+
+    KlayGetTransactionByBlockHashAndIndexResp:
+      type: object
+      properties:
+        result:
+          $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TransactionObject"

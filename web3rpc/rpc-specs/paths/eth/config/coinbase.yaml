@@ -1,0 +1,78 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/coinbase:
+    post:
+      summary: "[Configuration-coinbase]"
+      tags:
+        - eth
+      operationId: coinbase
+      description: |
+        Returns the client coinbase address.
+
+        **JSONRPC:** `eth_coinbase`
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/CoinbaseReq"
+
+      responses:
+        200:
+          description: Returns the client coinbase address.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/CoinbaseResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/config/coinbase.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/configuration/EthCoinbaseExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/config/coinbase.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/config/coinbase.py"
+
+components:
+  schemas:
+    CoinbaseReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'eth_coinbase'
+
+    CoinbaseResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: 20-byte DATA
+          description: The current coinbase address.
+          example: "0xc94770007dda54cF92009BFF0dE90c06F603a09f"

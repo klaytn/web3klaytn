@@ -1,0 +1,111 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/getModifiedStorageNodesByNumber:
+    post:
+      operationId: getModifiedStorageNodesByNumber
+      summary: "[Inspection-getModifiedStorageNodesByNumber]"
+      description: |
+        Returns the number of changed or modified state trie nodes.
+
+        **JSONRPC:** `debug_getModifiedStorageNodesByNumber`
+      tags:
+        - debug
+
+      parameters:
+        - name: address
+          required: true
+          schema:
+            type: string
+            format: 20-byte DATA
+          description: Address
+          in: query
+        - name: startBlockNum
+          required: true
+          schema:
+            type: integer
+          description: The first block number of the range to check.
+          in: query
+        - name: endBlockNum
+          required: true
+          schema:
+            type: integer
+          description: The last block number of the range.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/GetModifiedStorageNodesByNumberReq"
+
+      responses:
+        200:
+          description: Return the number of changed or modified state trie nodes (int)
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        description: Return the number of changed or modified state trie nodes (int)
+                        type: number
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/others/getModifiedStorageNodesByNumber.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/others/DebugGetModifiedStorageNodesByNumberExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+           $ref: "../../../code-samples/javascript/debug/others/getModifiedStorageNodesByNumber.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/debug/others/getModifiedStorageNodesByNumber.py"
+
+components:
+  schemas:
+    GetModifiedStorageNodesByNumberReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'debug_getModifiedStorageNodesByNumber'
+        params:
+          type: array
+          items:
+            anyOf:
+              - type: string
+                title: Address
+                description: The contract address.
+              - type: integer
+                title: StartBlockNum
+                description: The first block number of the range to check.
+              - type: integer
+                title: EndBlockNum
+                description: The last block number of the range.
+          example: ["0x77982323172e5b6182539d3522d5a33a944206d4", 100, 200]
+
+

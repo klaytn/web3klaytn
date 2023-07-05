@@ -1,0 +1,73 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/chainId:
+    post:
+      summary: "[Configuration-chainId]"
+      tags:
+        - eth
+      operationId: chainId
+      description: |
+        Return current chainId set on the requested node.
+        
+        **JSONRPC:** `eth_chainId`
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: 'eth_chainId'
+
+      responses:
+        200:
+          description: Return current chainId set on the requested node.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthChainIdResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/config/chainId.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/configuration/EthChainIdExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/config/chainID.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/config/chainId.py"
+
+components:
+  schemas:
+    EthChainIdResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: hex
+          description: Chain id set on the requested node.
+          example: "0x2019"

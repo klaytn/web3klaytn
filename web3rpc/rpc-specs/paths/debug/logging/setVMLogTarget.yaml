@@ -1,0 +1,82 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/setVMLogTarget:
+    post:
+      summary: "[Logging-setVMLogTarget]"
+      tags:
+        - debug
+      operationId: setVMLogTarget
+      description: |
+        Sets the output target of vmlog precompiled contract. When the output target is a file, logs from vmlog calls in smart contracts will be written to DATADIR/log/vm.log. Here DATADIR is the directory specified by --datadir when launching klay. On the other hand, the output target is stdout, logs will be displayed like a debug message on the standard output.
+        
+        **JSONRPC:** `debug_setVMLogTarget`
+
+      parameters:
+        - name: target
+          in: query
+          description: The output target (0 no output, 1 file, 2 stdout, 3 both) (default 0)
+          required: true
+          schema:
+            type: integer
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: debug_setVMLogTarget
+                    params:
+                      type: array
+                      items:
+                         title: target
+                         type: integer
+                         description: The output target (0 no output, 1 file, 2 stdout, 3 both) (default 0)
+                         example: 3
+
+      responses:
+        200:
+          description: Return the output target
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        description: The output target. See the examples below for the actual return values.
+                        example: "both file and stdout"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/logging/setVMLogTarget.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/logging/DebugSetVMLogTargetExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/debug/logging/setVMLogTarget.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/debug/logging/setVMLogTarget.py"

@@ -1,0 +1,11 @@
+yarn build eth@v1.0.0 -o ./namespaces/eth-openapi.yaml
+yarn build klay@v1.0.0 -o ./namespaces/klay-openapi.yaml
+yarn build net@v1.0.0 -o ./namespaces/net-openapi.yaml
+yarn build txpool@v1.0.0 -o ./namespaces/txpool-openapi.yaml
+yarn build debug@v1.0.0 -o ./namespaces/debug-openapi.yaml
+yarn build personal@v1.0.0 -o ./namespaces/personal-openapi.yaml
+yarn build governance@v1.0.0 -o ./namespaces/governance-openapi.yaml
+yarn build admin@v1.0.0 -o ./namespaces/admin-openapi.yaml
+yarn build mainbridge@v1.0.0 -o ./namespaces/mainbridge-openapi.yaml
+yarn build subbridge@v1.0.0 -o ./namespaces/subbridge-openapi.yaml
+yarn build all-except-eth@v1.0.0 -o ./namespaces/all-except-eth.yaml

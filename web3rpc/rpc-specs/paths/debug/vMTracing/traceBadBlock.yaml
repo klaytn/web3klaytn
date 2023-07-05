@@ -1,0 +1,117 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/traceBadBlock:
+    post:
+      summary: "[Trace-traceBadBlock]"
+      tags:
+        - debug
+      operationId: traceBadBlock
+      description: |
+        The traceBadBlock method will return a full stack trace of all invoked opcodes of all transactions that were included in this block.
+
+        **NOTE:** the parent of this block must be present or it will fail.
+
+        **JSONRPC:** `debug_traceBadBlock`
+
+      parameters:
+        - name: hash
+          in: query
+          description: Hash of a block.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
+        - name: options
+          in: query
+          description: Tracing options.
+          required: false
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracingOptions"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/DebugTraceBadBlockReq"
+
+      responses:
+        200:
+          description: The structured logs created during the execution of KLVM.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/DebugTraceBadBlockResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/vMTracing/traceBadBlock.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/vMTracing/DebugTraceBadBlockExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+           $ref: "../../../code-samples/javascript/debug/vMTracing/traceBadBlock.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/debug/vMTracing/traceBadBlock.py"
+
+components:
+  schemas:
+    DebugTraceBadBlockReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: debug_traceBadBlock
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: Hash
+                type: string
+                format: 32-byte DATA
+                description: Hash of a block.
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracingOptions"
+          example: ["0x1d5ba00e313a81ae6d409d459c153327072665d9ea2f47608369722baf0cfbb6"]
+
+    DebugTraceBadBlockResp:
+      type: object
+      properties:
+        result:
+          type: object
+          description: The structured logs created during the execution of KLVM.
+          example: [
+            {
+              result: {
+                failed: false,
+                gas: 67100,
+                returnValue: "",
+                structLogs: []
+              }
+            }, {
+              result: {
+                failed: false,
+                gas: 195179,
+                returnValue: "",
+                structLogs: [{"gas":67100,"failed":false,"returnValue":"","structLogs":[]},{...}]
+              }
+            }
+          ]

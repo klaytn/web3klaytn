@@ -1,0 +1,78 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/maxPriorityFeePerGas:
+    post:
+      summary: "[Gas-maxPriorityFeePerGas]"
+      tags:
+        - eth
+      operationId: maxPriorityFeePerGas
+      description: |
+        Returns a suggestion for a gas tip cap for dynamic fee transaction in peb.
+
+        **NOTE:** This API has different behavior from Ethereum's and returns a gas price of Klaytn instead of suggesting a gas price as in Ethereum.
+
+        **JSONRPC:** `eth_maxPriorityFeePerGas`
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthMaxPriorityFeePerGasReq"
+
+      responses:
+        200:
+          description: Integer of the current gas price in peb.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthMaxPriorityFeePerGasResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/gas/maxPriorityFeePerGas.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/gas/EthMaxPriorityFeePerGasExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/gas/maxPriorityFeePerGas.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/gas/maxPriorityFeePerGas.py"
+
+components:
+  schemas:
+    EthMaxPriorityFeePerGasReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: 'eth_maxPriorityFeePerGas'
+
+    EthMaxPriorityFeePerGasResp:
+      type: object
+      properties:
+        result:
+          type: string
+          description: Integer of the current gas price in peb.
+          format: hex
+          example: "0xAE9F7BCC00"

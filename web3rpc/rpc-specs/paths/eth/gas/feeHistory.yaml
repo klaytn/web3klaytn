@@ -1,0 +1,179 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/feeHistory:
+    post:
+      summary: "[Gas-feeHistory]"
+      tags:
+        - eth
+      operationId: feeHistory
+      description: |
+        Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.
+
+        **JSONRPC:** `eth_feeHistory`
+
+      parameters:
+        - name: blockCount
+          required: true
+          schema:
+            type: string
+            format: Hexadecimal
+          description: Number of blocks in the requested range expressed as a hexidecimal number. Between 1 (0x1) and 1024 (0x400) blocks can be requested in a single query. Less than requested may be returned if not all blocks are available.
+          in: query
+        - name: lastBlock
+          in: query
+          description: Highest number block of the requested range as a block number or block tag.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+        - name: rewardPercentiles
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/RewardPercentiles"
+          description: Array of floating point value between 0 and 100.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthFeeHistoryReq"
+
+      responses:
+        200:
+          description: Returns base fee per gas and transaction effective priority fee per gas history
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthFeeHistoryResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/gas/feeHistory.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/gas/EthFeeHistoryExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/gas/feeHistory.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/gas/feeHistory.py"
+
+components:
+  schemas:
+    EthFeeHistoryReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: 'eth_feeHistory'
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: BlockCount
+                type: string
+                format: Hexadecimal
+                description: Number of blocks in the requested range expressed as a hexidecimal number. Between 1 (0x1) and 1024 (0x400) blocks can be requested in a single query. Less than requested may be returned if not all blocks are available.
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/RewardPercentiles"
+          example: [ "0x10", "latest", [ 0.1, 0.2, 0.3 ] ]
+
+    EthFeeHistoryResp:
+      type: object
+      properties:
+        result:
+          type: object
+          required: 
+            - oldestBlock
+            - baseFeePerGas
+            - gasUsedRatio
+            - reward
+          properties:
+              oldestBlock:
+                type: string
+                format: hex
+                description: Lowest number block of the returned range expressed as a hexidecimal number.
+              baseFeePerGas:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BaseFeePerGas"
+              gasUsedRatio:
+                type: array
+                description: An array of block gas used ratios. These are calculated as the ratio of gasUsed and gasLimit
+                items:
+                    type: number
+                    format: float
+              reward:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Reward"
+          example:
+              {
+                "oldestBlock": "0xa5b",
+                "reward": [
+                  [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ], [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ], [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ], [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ], [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ], [
+                    "0x5d21dba00",
+                    "0x5d21dba00",
+                    "0x5d21dba00"
+                  ], [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ], [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ], [
+                    "0x5d21dba00",
+                    "0x5d21dba00",
+                    "0x5d21dba00"
+                  ], [
+                    "0x0",
+                    "0x0",
+                    "0x0"
+                  ],
+                ],
+                "baseFeePerGas": [
+                  "0x0","0x0","0x0", "0x0", "0x0", "0x0","0x0","0x0", "0x0","0x0","0x0", "0x0","0x0","0x0","0x0","0x0"
+                ],
+                "gasUsedRatio": [
+                  0,0,0,0, 0,0.0002952004000002952,0,0,0.00029504250000029504,0,0,0.0002963777000002964,0,0,0,0
+                ]
+              }
+

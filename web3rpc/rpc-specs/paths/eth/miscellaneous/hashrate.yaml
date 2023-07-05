@@ -1,0 +1,77 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/hashrate:
+    post:
+      summary: "[Miscellaneous-hashrate]"
+      tags:
+        - eth
+      operationId: hashrate
+      description: |
+        Returns the number of hashes per second that the node is mining with.
+        Please note that it always return 0x0 because there is no PoW mechanism in Klaytn.
+
+        **JSONRPC:** `eth_hashrate`
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthHashRateReq"
+
+      responses:
+        200:
+          description: The number of hashes per second.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthHashRateResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/miscellaneous/hashrate.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/miscellaneous/EthHashrateExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/miscellaneous/hashRate.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/miscellaneous/hashRate.py"
+
+components:
+  schemas:
+    EthHashRateReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: 'eth_hashrate'
+
+    EthHashRateResp:
+      type: object
+      properties:
+        result:
+          type: string
+          description: The number of hashes per second.
+          format: hex
+          example: "0x0"

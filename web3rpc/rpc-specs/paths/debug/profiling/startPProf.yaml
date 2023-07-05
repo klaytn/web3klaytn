@@ -1,0 +1,108 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/startPProf:
+    post:
+      operationId: startPProf
+      summary: "[Profiling-startPProf]"
+      description: |
+        Starts the pprof HTTP server. The running pprof server can be accessed by (when the default configuration, i.e., localhost:6060, is used):
+         * http://localhost:6060/debug/pprof (for the pprof results)
+         * http://localhost:6060/memsize/ (for the memory size reports)
+         * http://localhost:6060/debug/vars (for the metrics)
+        
+
+        **JSONRPC:** `debug_startPProf`
+
+      tags:
+        - debug
+
+      parameters:
+        - name: address
+          schema:
+            type: string
+          description: pprof HTTP server listening interface (default "127.0.0.1").
+          in: query
+        
+        - name: port
+          schema: 
+            type: integer
+          description: pprof HTTP server listening port (default 6060).
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/StartPProfReq"
+
+      responses:
+        200:
+          description: Return value null
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/StartPProfResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/profiling/startPProf.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/profiling/DebugStartPProfExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+           $ref: "../../../code-samples/javascript/debug/profilling/startPProf.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/debug/profiling/startPProf.py"
+
+components:
+  schemas:
+    StartPProfReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'debug_startPProf'
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: Address
+                description: pprof HTTP server listening interface
+                type: string
+              - title: Port
+                description: pprof HTTP server listening port
+                type: integer
+          example: ["localhost", 6000]
+
+    StartPProfResp:
+      type: object
+      properties:
+        result:
+          type: string
+          example: null
+
+

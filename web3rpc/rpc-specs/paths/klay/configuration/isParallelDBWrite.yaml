@@ -1,0 +1,67 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/isParallelDBWrite:
+    post:
+      operationId: isParallelDBWrite
+      summary: "[Configuration-isParallelDBWrite]"
+      description: |
+        Returns true if the node is writing blockchain data in parallel manner. It is enabled by default.
+
+        **JSONRPC:** `klay_isParallelDBWrite`
+      tags:
+        - klay
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: "klay_isParallelDBWrite"
+
+      responses:
+        200:
+          description: Returns true if the node is writing blockchain data in parallel manner.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: boolean
+                        description: "true means the node is writing blockchain data in parallel manner. It is false if the node is writing the data in serial manner."
+                        example: true
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/configuration/isParallelDBWrite.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/configuration/KlayIsParallelDBWriteExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/configuration/isParallelDBWrite.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/configuration/isParallelDBWrite.py"

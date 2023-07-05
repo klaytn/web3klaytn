@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+}
+
+group 'foundation.klaytn'
+version 'v1.10.0'
+
+
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    api "foundation.klaytn:web3rpc-java:v1.10.0"
+    implementation "org.web3j:core:4.9.7"
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.6'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = 'web3rpc'
+            from components.java
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

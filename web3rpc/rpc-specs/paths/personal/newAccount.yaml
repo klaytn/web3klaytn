@@ -1,0 +1,84 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /personal/newAccount:
+    post:
+      operationId: newAccount
+      summary: "[newAccount]"
+      description: |
+        Generates a new private key and stores it in the key store directory. The key file is encrypted with the given passphrase. Returns the address of the new account.
+
+        At the Klaytn console, newAccount will prompt for a passphrase when it is not supplied as the argument.
+
+        **JSONRPC:** `personal_newAccount`
+      tags:
+        - personal
+
+      parameters:
+        - name: passphrase
+          required: false
+          schema:
+            type: string
+          description: (optional) the pass phrase used for encryption.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: "personal_newAccount"
+                    params:
+                      type: array
+                      items:
+                        title: passphrase
+                        type: string
+                      description: "(optional) the pass phrase used for encryption."
+                      example: ["helloWorld"]
+
+      responses:
+        200:
+          description: Returns The address of the new account.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        description: The address of the new account
+                        example: "0xed1b12248aee85a32aead06c7789d3fcdcd4dae6"
+      
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/personal/newAccount.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/personal/PersonalNewAccountExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/personal/newAccount.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/personal/newAccount.py"

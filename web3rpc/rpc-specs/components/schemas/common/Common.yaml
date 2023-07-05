@@ -1,0 +1,1618 @@
+components:
+  schemas:
+    BlockNumberOrTag:
+      oneOf:
+        - $ref: "#/components/schemas/IntegerBlockNumber"
+        - $ref: "#/components/schemas/HexadecimalBlockNumber"
+        - $ref: "#/components/schemas/BlockTag"
+
+    BlockNumberOrHashOrTag:
+      oneOf:
+        - $ref: "#/components/schemas/IntegerBlockNumber"
+        - $ref: "#/components/schemas/HexadecimalBlockNumber"
+        - $ref: "#/components/schemas/BlockTag"
+        - $ref: "#/components/schemas/BlockHash"
+
+    IntegerBlockNumber:
+      title: IntegerBlockNumber
+      description: the block number with type integer
+      type: number
+
+    HexadecimalBlockNumber:
+      title: HexadecimalBlockNumber
+      type: string
+      format: hexadecimal
+      description: the block number with type hexadecimal
+
+    BlockTag:
+      title: BlockTag
+      type: string
+      description: the block tag [latest, pending, earliest]
+
+    BlockHash:
+      title: BlockHash
+      type: string
+      format: 32-byte DATA
+      description: the block hash
+
+    Address:
+      title: Address
+      type: string
+      format: 20-byte DATA
+      description: Address
+
+    EthCallObject:
+      title: EthCallObject
+      type: object
+      description: The transaction call object. See the next table for the object's properties.
+      properties:
+        from:
+          type: string
+          format: 20-byte DATA
+          description: (optional) Address the transaction is simulated to have been sent from. The 0x00..0 address is used if no address is specified.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: (optional) Address the transaction is sent to.
+        gas:
+          type: string
+          format: hex
+          description: (optional) Maximum gas allowance for the code execution to avoid infinite loops. Defaults to 2^63 or whatever value the node operator specified via --rpc.gascap.
+        gasPrice:
+          type: string
+          format: hex
+          description: (optional) Number of peb to simulate paying for each unit of gas during execution. Defaults to 0 peb.
+        value:
+          type: string
+          format: hex
+          description: (optional) Amount of peb to simulate sending along with the transaction. Defaults to 0.
+        input:
+          type: string
+          format: DATA
+          description: (optional) Hash of the method signature and encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility.
+
+    KlayCallObject:
+      title: KlayCallObject
+      type: object
+      description: The transaction call object. See the next table for the object's properties.
+      properties:
+        from:
+          type: string
+          format: 20-byte DATA
+          description: (optional) The address the transaction is sent from.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: (optional when testing the deployment of a new contract) The address the transaction is directed to.
+        gas:
+          type: string
+          format: hex
+          description: (optional) Integer of the gas provided for the transaction execution. klay_call consumes zero gas, but this parameter may be needed by some executions.
+        gasPrice:
+          type: string
+          format: hex
+          description: (optional) Integer of the gasPrice used for each paid gas.
+        value:
+          type: string
+          format: hex
+          description: (optional) Integer of the value sent with this transaction.
+        input:
+          type: string
+          format: DATA
+          description: (optional) Hash of the method signature and encoded parameters. It replaces data field, but 'data` field is still supported for backward compatibility.
+
+    KlayHeaderObject:
+      title: KlayHeaderObject
+      type: object
+      description: The block header object.
+      required:
+        - parentHash
+        - hash
+        - transactionsRoot
+        - stateRoot
+        - receiptsRoot
+        - reward
+        - blockScore
+        - extraData
+        - gasUsed
+        - timestamp
+        - timestampFoS
+        - governanceData
+        - voteData
+        - baseFeePerGas
+      properties:
+        number:
+          type: string
+          format: hex
+          nullable: true
+          description: The block number. null when its pending block.
+        hash:
+          type: string
+          format: 32-byte DATA
+          nullable: true
+          description: Hash of the block. null when it is pending block.
+        parentHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the parent block.
+        logsBloom:
+          type: string
+          format: 256-byte DATA
+          nullable: true
+          description: The bloom filter for the logs of the block. null when it is pending block.
+        transactionsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the transaction trie of the block
+        stateRoot:
+            type: string
+            format: 32-byte DATA
+            description: The root of the final state trie of the block.
+        receiptsRoot:
+            type: string
+            format: 32-byte DATA
+            description: The root of the receipts trie of the block.
+        reward:
+            type: string
+            format: 20-byte DATA
+            description: The address of the beneficiary to whom the block rewards were given.
+        blockScore:
+            type: string
+            format: hex
+            description: Former difficulty. Always 1 in the BFT consensus engine
+        extraData:
+            type: string
+            format: DATA
+            description: The "extra data" field of this block.
+        gasUsed:
+            type: string
+            format: hex
+            description: The total used gas by all transactions in this block.
+        timestamp:
+            type: string
+            format: hex
+            description: The Unix timestamp for when the block was collated.
+        timestampFoS:
+            type: string
+            format: hex
+            description: The fraction of a second of the timestamp for when the block was collated.
+        governanceData:
+            type: string
+            format: DATA
+            description: RLP encoded governance configuration
+        voteData:
+            type: string
+            format: DATA
+            description: RLP encoded governance vote of the proposer
+        baseFeePerGas:
+            type: string
+            format: hex
+            description: The base fee per gas. It has a meaningful value when EthTxTypeCompatible and Magma hardforks are activated.
+      example:
+        {
+          "baseFeePerGas": "0x5d21dba00",
+          "blockScore": "0x1",
+          "extraData": "0xda83010800846b6c617989676f312e31362e31338664617277696e0000000000f89ed5949712f943b296758aaae79944ec975884188d3a96b841ddfdf7e2cb0a93538f757f87f23a93ee35df703c781c6f15e31e4978ecdfb3501fc00924372b9a01df2bc452f2a924c242d83580183d131c47e49a25b78f625201f843b841b9b6034d5a8c5f5b057274cda4f427614cd1f448ee781f4c4322861d1361d09d47d6030f2b69a26cb426db984f54e71f8c112fbf882930ccd715d595e8d8307500",
+          "gasUsed": "0x0",
+          "governanceData": "0x",
+          "hash": "0xe882d7a16f38126dc0c507f990b3fe18fa2d3a380002538581327abe96ca6edc",
+          "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "number": "0x1e67",
+          "parentHash": "0x28b1c054346c3bd083741c757a750dcabf94b6d50c7f87158753544e96e73550",
+          "receiptsRoot": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+          "reward": "0x4b2c736fd05c2e2da3ccbd001a395a444f16a861",
+          "stateRoot": "0xdf9885621c9e6e75912ca94d6987bcb1b54fef0e4a99cbec5e68f1ffc7468a78",
+          "timestamp": "0x62130beb",
+          "timestampFoS": "0x0",
+          "transactionsRoot": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+        }
+
+    EthHeaderObject:
+      title: EthHeaderObject
+      type: object
+      description: The block header object.
+      properties:
+        baseFeePerGas:
+          type: string
+          format: hex
+          description: The base fee per gas.
+        difficulty:
+          type: string
+          format: hex
+          description: The integer of the difficulty for this block.
+        extraData:
+          type: string
+          format: DATA
+          description: The "extra data" field of this block.
+        gasLimit:
+          type: string
+          format: hex
+          description: The maximum gas allowed in this block.
+        gasUsed:
+          type: string
+          format: hex
+          description: The total used gas by all transactions in this block.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block. null when it is a pending block.
+        logsBloom:
+          type: string
+          format: 256-byte DATA
+          description: The bloom filter for the logs of the block.
+        miner:
+          type: string
+          format: 20-byte DATA
+          description: The address of the beneficiary to whom the mining rewards were given.
+        mixHash:
+          type: string
+          format: 32-byte DATA
+          description: The hash which proves combined with the nonce that a sufficient amount of computation has been carried out on this block.
+        nonce:
+          type: string
+          format: 8-byte DATA
+          description: The hash of the generated proof-of-work.
+        number:
+          type: string
+          format: hex
+          description: The block number. null when it is a pending block.
+        parentHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the parent block.
+        receiptsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the receipts trie of the block.
+        sha3Uncles:
+          type: string
+          format: 32-byte DATA
+          description: The SHA3 of the uncles data in the block.
+        size:
+          type: string
+          format: hex
+          description: Integer of the size of this block in bytes.
+        stateRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the final state trie of the block.
+        timestamp:
+          type: string
+          format: hex
+          description: The Unix timestamp for when the block was collated.
+        totalDifficulty:
+          type: string
+          format: hex
+          description: The total blockScore of the chain until this block.
+        transactionsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the transaction trie of the block.
+      example:
+        {
+          "baseFeePerGas": "0x5d21dba00",
+          "difficulty": "0x1",
+          "extraData": "0x",
+          "gasLimit": "0xe8d4a50fff",
+          "gasUsed": "0x28b484",
+          "hash": "0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c",
+          "logsBloom": "0x02200022800002050000084080014015001001004b0002440401060a0830000200014041044010180010430018800119120098000800200241c2090a4020011040004400002201081800440a340020a4000820100848081020003000892050105a05000002100000200012c0800408982000085100000c4040a03814000800200812210100200010004018410d80004214800123210400082002214620100021028800120309200802008291c8e000904210080008110900010100081000101000501002010a0080311886000008000000240900400000100200a402005830200010300804020200000002310000008004004080a58000550000508000000000",
+          "miner": "0xea674fdde714fd979de3edf0f56aa9716b898ec8",
+          "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "nonce": "0x0000000000000000",
+          "number": "0xd208de",
+          "parentHash": "0x99fcd33dddd763835ba8bdc842853d973496a7e64ea2f6cf826bc2c338e23b0c",
+          "receiptsRoot": "0xd3d70ed54a9274ba3191bf2d4fd8738c5d782fe17c8bfb45c03a25dc04120c35",
+          "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+          "size": "0x23a",
+          "stateRoot": "0x1076e6726164bd6f74720a717242584109f37c55017d004eefccf9ec3be76c18",
+          "timestamp": "0x61b0a6c6",
+          "totalDifficulty": "0xd208df",
+          "transactionsRoot": "0x6ec8daca98c1005d9bbd7716b5e94180e2bf0e6b77770174563a166337369344"
+        }
+
+    LogObject:
+      title: LogObject
+      type: object
+      required:
+        - removed
+        - logIndex
+        - transactionIndex
+        - transactionHash
+        - blockHash
+        - blockNumber
+        - address
+        - data
+        - topics
+      description: For filters created with klay_newFilter logs are objects with following properties
+      properties:
+        removed:
+          type: boolean
+          description: true when the log was removed, due to a chain reorganization. false if its a valid log.
+        logIndex:
+          type: string
+          format: hex
+          description: Integer of the log index position in the block. null when it is a pending log.
+        transactionIndex:
+          type: string
+          format: hex
+          description: Integer of the transactions index position log was created from. null when pending.
+        transactionHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transactions this log was created from. null when pending.
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block where this log was in. null when pending.
+        blockNumber:
+          type: string
+          format: hex
+          description: The block number where this log was in. null when pending.
+        address:
+          type: string
+          format: 20-byte DATA
+          description: Address from which this log originated.
+        data:
+          type: string
+          format: DATA
+          description: Contains the non-indexed arguments of the log.
+        topics:
+          type: array
+          items:
+            type: string
+            format: 32-byte DATA
+          description: Array of 0 to 4 32-byte DATA of indexed log arguments. (In Solidity The first topic is the hash of the signature of the event (e.g., Deposit(address,bytes32,uint256)), except you declared the event with the anonymous specifier.).
+
+    EthArrayOfLog:
+      title: EthArrayOfLog
+      type: array
+      items:
+        anyOf:
+          - type: string
+            format: 32-byte DATA
+            title: BlockHash
+            description: For filters created with eth_newBlockFilter, the return are block hashes (32-byte DATA), e.g., ["0x3454645634534..."].
+          - type: string
+            title: TransactionHash
+            format: 32-byte DATA
+            description: For filters created with eth_newPendingTransactionFilter, the return are transaction hashes (32-byte DATA), e.g., ["0x6345343454645..."].
+          - $ref: "#/components/schemas/LogObject"
+      description: Array of log objects, or an empty array if nothing has changed since last poll.
+      example: [
+          {
+          "address": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b",
+          "topics": [ "0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8" ],
+          "data": "0x0000000000000000000000000000000000000000000000000000000000000064000000000000000000000000000000000000000000000000000000000000007b",
+          "blockNumber": "0x54",
+          "transactionHash": "0xcd4703cd62bd930d4652999bce8dcb75b7ade49d922fa42dc11e568c52a5fa6f",
+          "transactionIndex": "0x0",
+          "blockHash": "0x9a49f30f1d1876ff3913bd0aa58f328822e7a369cb13e0640b82234f26e781bb",
+          "logIndex": "0x0",
+          "removed": false
+        }
+      ]
+
+    KlayArrayOfLog:
+      title: KlayArrayOfLog
+      type: array
+      items:
+        anyOf:
+          - type: string
+            format: 32-byte DATA
+            title: BlockHash
+            description: For filters created with klay_newBlockFilter, the return are block hashes (32-byte DATA), e.g., ["0x3454645634534..."].
+          - type: string
+            format: 32-byte DATA
+            title: TransactionHash
+            description: For filters created with klay_newPendingTransactionFilter, the return are transaction hashes (32-byte DATA), e.g., ["0x6345343454645..."].
+          - $ref: "#/components/schemas/LogObject"
+      description: Array of log objects, or an empty array if nothing has changed since last poll.
+      example:
+        [
+          {
+            "address": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b",
+            "topics": [ "0xfa9b2165fc71c1d6ffa03291c7f5d223ea363ec063d747eec9ce2d30d24855ef" ],
+            "data": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060000000000000000000000000d3564e57bb5c6f4d983a493a946534f8e1e8b481000000000000000000000000000000000000000000000000000000000000001341646472657373426f6f6b436f6e747261637400000000000000000000000000",
+            "blockNumber": "0xd3b5",
+            "transactionHash": "0x57ca8ff0a0d454d4c5418694c21bc4ef3de26cf7cd18dd404d6a7189a826bfe0",
+            "transactionIndex": "0x0",
+            "blockHash": "0x279251a907c6ab1fb723595511ff401432e7c2437d54189298f53a7d33ce3a60",
+            "logIndex": "0x0",
+            "removed": false
+          },
+          {
+            "address": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b",
+            "topics": [ "0xfa3e1e272694072320aad73a3fadd8876c4bf8f40899c6c7ce2fda9f4e652cfa" ],
+            "data": "0x00000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000000300000000000000000000000041383b6ee0ea5108d6b139165a9c85351aacd39800000000000000000000000057f7439898e652fa9b5654022297588532e5e0370000000000000000000000005b5b7a718a4124eb746ae00b1ce6edcaa5ab55bc",
+            "blockNumber": "0xd3b5",
+            "transactionHash": "0x57ca8ff0a0d454d4c5418694c21bc4ef3de26cf7cd18dd404d6a7189a826bfe0",
+            "transactionIndex": "0x0",
+            "blockHash": "0x279251a907c6ab1fb723595511ff401432e7c2437d54189298f53a7d33ce3a60",
+            "logIndex": "0x1",
+            "removed": false
+          }
+        ]
+
+    TransactionObject:
+      title: TransactionObject
+      type: object
+      description: Transaction object
+      required:
+        - blockHash
+        - blockNumber
+        - from
+        - gas
+        - gasPrice
+        - hash
+        - nonce
+        - senderTxHash
+        - signatures
+        - to
+        - transactionIndex
+        - type
+        - typeInt
+        - value
+
+      properties:
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block where this transaction was in. null when it is pending.
+        blockNumber:
+          type: string
+          format: hex
+          description: Block number where this transaction was in. null when it is pending.
+        codeFormat:
+          type: string
+          description: (optional) The code format of smart contract code.
+        feePayer:
+          type: string
+          format: 20-byte DATA
+          description: (optional) Address of the fee payer.
+        feePayerSignatures:
+          type: array
+          items:
+            $ref: "#/components/schemas/Signature"
+          description: (optional) An array of fee payer's signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
+        feeRatio:
+          type: string
+          format: hex
+          description: (optional) Fee ratio of the fee payer. If it is 30, 30% of the fee will be paid by the fee payer. 70% will be paid by the sender.
+        from:
+          type: string
+          format: 20-byte DATA
+          description: Address of the sender.
+        gas:
+          type: string
+          format: hex
+          description: Gas provided by the sender.
+        gasPrice:
+          type: string
+          format: hex
+          description: Gas price provided by the sender in peb.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transaction.
+        humanReadable:
+          type: boolean
+          description: (optional) true if the address is humanReadable, false if the address is not humanReadable.
+        key:
+          type: string
+          description: (optional) Key of the newly created account.
+        input:
+          type: string
+          format: DATA
+          description: (optional) The data sent along with the transaction.
+        nonce:
+          type: string
+          format: hex
+          description: The number of transactions made by the sender prior to this one.
+        senderTxHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of a transaction that is signed only by the sender. See SenderTxHash. This value is always the same as hash for non fee-delegated transactions.
+        signatures:
+            type: array
+            items:
+              $ref: "#/components/schemas/Signature"
+            description: An array of signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s
+        to:
+          type: string
+          format: 20-byte DATA
+          description: Address of the receiver. null when it is a contract creation transaction.
+        transactionIndex:
+          type: string
+          format: hex
+          description: Integer of the transactions index position in the block. null when it is pending.
+        type:
+          type: string
+          description: A string representing the type of the transaction.
+        typeInt:
+          type: number
+          description: An integer representing the type of the transaction.
+        value:
+          type: string
+          format: hex
+          description: Value transferred in peb.
+
+      example:
+          {
+            "blockHash": "0x4d97cf1f686a925ed4f1ad42c635cedb54974fe23a2941c7825e1ed3163c0e41",
+            "blockNumber": "0x7008",
+            "feePayer": "0xa9d2cc2bb853163b6eadfb6f962d72f7e00bc2e6",
+            "feePayerSignatures": [
+              {
+                "V": "0x4e44",
+                "R": "0xa665e17d92e1c671c8b062cecb19790d49138a21854fc15c460c91035b1884e",
+                "S": "0x17165688acc01736f1221a39399e3aac7e1ece14731fcab31631e3e4a59b7441"
+              }
+            ],
+            "from": "0xab0833d744a8943fe3c783f9cc70c13cbd70fcf4",
+            "gas": "0xdbba0",
+            "gasPrice": "0x5d21dba00",
+            "hash": "0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67",
+            "nonce": "0x26",
+            "senderTxHash": "0x18fe9e1007da7d20aad77778557fb8acc58c80054daba65124c8c843aadd3478",
+            "signatures": [
+              {
+                "V": "0x4e44",
+                "R": "0x1b6bb3d996d903d0528565d13e8d9d122b2220ed09c5baf384114193a6977027",
+                "S": "0x20c506ce9f1bdd42183c40c44f414a3930f339f856e8be3cfcdf5ca0852fd378"
+              }
+            ],
+            "to": "0x15a9119104e1bf0ec6d408b3cc188685e4402a2c",
+            "transactionIndex": "0x0",
+            "type": "TxTypeFeeDelegatedValueTransfer",
+            "typeInt": 9,
+            "value": "0x1"
+          }
+
+    Signature:
+      title: Signature
+      type: object
+      required:
+        - V
+        - R
+        - S
+      properties:
+        V:
+          type: string
+        R:
+          type: string
+        S:
+          type: string
+
+    TransactionReceipt:
+      title: TransactionReceipt
+      type: object
+      required:
+        - blockHash
+        - blockNumber
+        - contractAddress
+        - from
+        - gas
+        - effectiveGasPrice
+        - gasPrice
+        - gasUsed
+        - logs
+        - logsBloom
+        - nonce
+        - senderTxHash
+        - signature
+        - status
+        - to
+        - transactionHash
+        - transactionIndex
+        - type
+        - typeInt
+        - value
+      properties:
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block where this transaction was in.
+        blockNumber:
+          type: string
+          format: hex
+          description: The block number where this transaction was in.
+        codeFormat:
+          type: string
+          description: (optional) The code format of smart contract code.
+        contractAddress:
+          type: string
+          format: DATA
+          description: The contract address created, if the transaction was a contract creation, otherwise null.
+        feePayer:
+          type: string
+          format: 20-byte DATA
+          description: (optional) Address of the fee payer.
+        feePayerSignatures:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/Signature"
+            type: object
+          description: (optional) An array of fee payer's signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
+        feeRatio:
+          type: string
+          format: hex
+          description:  (optional) Fee ratio of the fee payer. If it is 30, 30% of the fee will be paid by the fee payer. 70% will be paid by the sender.
+        from:
+          type: string
+          format: 20-byte DATA
+          description: Address of the sender.
+        gas:
+          type: string
+          format: hex
+          description: Gas provided by the sender.
+        effectiveGasPrice:
+          type: string
+          format: hex
+          description: The actual value per gas deducted from the senders account.
+        gasPrice:
+          type: string
+          format: hex
+          description: Gas price provided by the sender in peb.
+        gasUsed:
+          type: string
+          format: hex
+          description: The amount of gas used by this specific transaction alone.
+        humanReadable:
+          type: boolean
+          description: (optional) true if the address is humanReadable, false if the address is not humanReadable.
+        key:
+          type: string
+          description: (optional) Key of the newly created account.
+        input:
+          type: string
+          format: DATA
+          description: (optional) The data sent along with the transaction.
+        logs:
+          $ref: "#/components/schemas/KlayArrayOfLog"
+          description: Array of log objects, which this transaction generated.
+        logsBloom:
+          type: string
+          format: 256-byte DATA
+          description: Bloom filter for light clients to quickly retrieve related logs.
+        nonce:
+          type: string
+          format: hex
+          description: The number of transactions made by the sender prior to this one.
+        senderTxHash:
+          type: string
+          format: (optional) 32-byte DATA
+          description: Hash of the tx without the fee payer's address and signature. This value is always the same as the value of transactionHash for non fee-delegated transactions.
+        signature:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/Signature"
+            type: object
+          description: (optional) An array of fee payer's signature objects. A signature object contains three fields (V, R, and S). V contains ECDSA recovery id. R contains ECDSA signature r while S contains ECDSA signature s.
+        status:
+          type: string
+          format: hex
+          description: Either 1 (success) or 0 (failure).
+        txError:
+          type: string
+          format: hex
+          description: (optional) detailed error code if status is equal to zero.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: Address of the receiver. null when it is a contract creation transaction.
+        transactionHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transaction.
+        transactionIndex:
+          type: string
+          format: hex
+          description: Integer of the transaction index position in the block.
+        type:
+          type: string
+          description: A string representing the type of the transaction.
+        typeInt:
+          type: string
+          format: hex
+          description: An integer representing the type of the transaction.
+        value:
+          type: string
+          format: hex
+          description: Value transferred in peb.
+      example:
+          {
+            "blockHash": "0x4d97cf1f686a925ed4f1ad42c635cedb54974fe23a2941c7825e1ed3163c0e41",
+            "blockNumber": "0x7008",
+            "contractAddress": null,
+            "feePayer": "0xa9d2cc2bb853163b6eadfb6f962d72f7e00bc2e6",
+            "feePayerSignatures": [
+              {
+                "V": "0x4e44",
+                "R": "0xa665e17d92e1c671c8b062cecb19790d49138a21854fc15c460c91035b1884e",
+                "S": "0x17165688acc01736f1221a39399e3aac7e1ece14731fcab31631e3e4a59b7441"
+              }
+            ],
+            "effectiveGasPrice": "0x5d21dba00",
+            "from": "0xab0833d744a8943fe3c783f9cc70c13cbd70fcf4",
+            "gas": "0xdbba0",
+            "gasPrice": "0x5d21dba00",
+            "gasUsed": "0x7918",
+            "logs": [ ],
+            "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "nonce": "0x26",
+            "senderTxHash": "0x18fe9e1007da7d20aad77778557fb8acc58c80054daba65124c8c843aadd3478",
+            "signatures": [
+              {
+                "V": "0x4e44",
+                "R": "0x1b6bb3d996d903d0528565d13e8d9d122b2220ed09c5baf384114193a6977027",
+                "S": "0x20c506ce9f1bdd42183c40c44f414a3930f339f856e8be3cfcdf5ca0852fd378"
+              }
+            ],
+            "status": "0x1",
+            "to": "0x15a9119104e1bf0ec6d408b3cc188685e4402a2c",
+            "transactionHash": "0xaca5d9a1ed8b86b1ef61431b2bedfc99a66eaefc3a7e1cffdf9ff53653956a67",
+            "transactionIndex": "0x0",
+            "type": "TxTypeFeeDelegatedValueTransfer",
+            "typeInt": 9,
+            "value": "0x1"
+          }
+
+    BlockCount:
+      title: BlockCount
+      type: string
+      format: Hexadecimal
+      description: Number of blocks in the requested range in hexadecimal. Between 1 (0x1) and 1024 (0x400) blocks can be requested in a single query. Less than requested may be returned if not all blocks are available.
+
+    RewardPercentiles:
+      title: RewardPercentiles
+      type: array
+      items:
+        type: number
+        format: float
+      description: An array of floating point values between 0 and 100.
+
+    BaseFeePerGas:
+      title: BaseFeePerGas
+      type: array
+      items:
+        type: string
+        format: Hexadecimal
+      description: An array of block base fees per gas. This includes the next block after the newest of the returned range, because this value can be derived from the newest block.
+
+    Reward:
+      title: Reward
+      type: array
+      description: An array of effective priority fee per gas data points from a single block. All zeroes are returned if the block is empty.
+      items:
+        type: array
+        items:
+          type: string
+          format: hex
+
+    LegacyTransaction:
+      title: LegacyTransaction
+      type: object
+      required:
+        - blockHash
+        - blockNumber
+        - from
+        - gas
+        - gasPrice
+        - hash
+        - input
+        - nonce
+        - to
+        - value
+        - transactionIndex
+        - type
+        - v
+        - r
+        - s
+      properties:
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block where this transaction was in. null when it is pending.
+        blockNumber:
+          type: string
+          format: hex
+          description: Block number where this transaction was in. null when it is pending.
+        from:
+          type: string
+          format: 20-byte DATA
+          description: Address of the sender.
+        gas:
+          type: string
+          format: hex
+          description: Gas provided by the sender.
+        gasPrice:
+          type: string
+          format: hex
+          description: Gas price provided by the sender in peb.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transaction.
+        input:
+          type: string
+          format: DATA
+          description: The data sent along with the transaction.
+        nonce:
+          type: string
+          format: hex
+          description: The number of transactions made by the sender prior to this one.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: Address of the receiver. null when it is a contract creation transaction.
+        value:
+          type: string
+          format: hex
+          description: Integer of values sent with this transaction.
+        transactionIndex:
+          type: string
+          format: hex
+          description: Integer of the transaction index position in the block. null when it is pending.
+        type:
+          type: string
+          format: hex
+          description: An integer representing the type of the transaction.
+        v:
+          type: string
+          format: hex
+          description: ECDSA recovery id.
+        r:
+          type: string
+          format: 32-byte DATA
+          description: ECDSA signature r.
+        s:
+          type: string
+          format: 32-byte DATA
+          description: ECDSA signature s.
+
+    AccessListTransaction:
+      title: AccessListTransaction
+      type: object
+      required:
+        - blockHash
+        - blockNumber
+        - from
+        - gas
+        - gasPrice
+        - hash
+        - input
+        - nonce
+        - to
+        - value
+        - transactionIndex
+        - type
+        - accessList
+        - chainId
+        - v
+        - r
+        - s
+      properties:
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block where this transaction was in. null when it is pending.
+        blockNumber:
+          type: string
+          format: hex
+          description: Block number where this transaction was in. null when it is pending.
+        from:
+          type: string
+          format: 20-byte DATA
+          description: Address of the sender.
+        gas:
+          type: string
+          format: hex
+          description: Gas provided by the sender.
+        gasPrice:
+          type: string
+          format: hex
+          description: Gas price provided by the sender in peb.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transaction.
+        input:
+          type: string
+          format: DATA
+          description: The data sent along with the transaction.
+        nonce:
+          type: string
+          format: hex
+          description: The number of transactions made by the sender prior to this one.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: Address of the receiver. null when it is a contract creation transaction.
+        value:
+          type: string
+          format: hex
+          description: Integer of values sent with this transaction.
+        transactionIndex:
+          type: string
+          format: hex
+          description: Integer of the transaction index position in the block. null when it is pending.
+        type:
+          type: string
+          format: hex
+          description: An integer representing the type of the transaction.
+        accessList:
+          type: array
+          description: An array of accessList.
+          items:
+            type: object
+            properties:
+              address:
+                type: string
+                format: 20-byte DATA
+                description: Address of the contract.
+              storageKeys:
+                type: array
+                description: An array of storage keys.
+                items:
+                  type: string
+                  format: 32-byte DATA
+        chainId:
+          type: string
+          format: hex
+          description: Chain id set on the requested node.
+        v:
+          type: string
+          format: hex
+          description: ECDSA recovery id.
+        r:
+          type: string
+          format: 32-byte DATA
+          description: ECDSA signature r.
+        s:
+          type: string
+          format: 32-byte DATA
+          description: ECDSA signature s.
+
+    DynamicFeeTransaction:
+      title: DynamicFeeTransaction
+      type: object
+      required:
+        - blockHash
+        - blockNumber
+        - from
+        - gas
+        - gasPrice
+        - maxFeePerGas
+        - maxPriorityFeePerGas
+        - hash
+        - input
+        - nonce
+        - to
+        - value
+        - transactionIndex
+        - type
+        - accessList
+        - chainId
+        - v
+        - r
+        - s
+      properties:
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block where this transaction was in. null when it is pending.
+        blockNumber:
+          type: string
+          format: hex
+          description: Block number where this transaction was in. null when it is pending.
+        from:
+          type: string
+          format: 20-byte DATA
+          description: Address of the sender.
+        gas:
+          type: string
+          format: hex
+          description: Gas provided by the sender.
+        gasPrice:
+          type: string
+          format: hex
+          description: Gas price provided by the sender in peb.
+        maxFeePerGas:
+          type: string
+          format: hex
+          description: A maximum amount to pay for the transaction to execute.
+        maxPriorityFeePerGas:
+          type: string
+          format: hex
+          description: Gas tip cap for dynamic fee transaction in peb.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the transaction.
+        input:
+          type: string
+          format: DATA
+          description: The data sent along with the transaction.
+        nonce:
+          type: string
+          format: hex
+          description: The number of transactions made by the sender prior to this one.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: Address of the receiver. null when it is a contract creation transaction.
+        value:
+          type: string
+          format: hex
+          description: Integer of values sent with this transaction.
+        transactionIndex:
+          type: string
+          format: hex
+          description: Integer of the transaction index position in the block. null when it is pending.
+        type:
+          type: string
+          format: hex
+          description: An integer representing the type of the transaction.
+        accessList:
+          type: array
+          description: An array of accessList.
+          items:
+            type: object
+            properties:
+              address:
+                type: string
+                format: 20-byte DATA
+                description: Address of the contract.
+              storageKeys:
+                type: array
+                description: An array of storage keys.
+                items:
+                  type: string
+                  format: 32-byte DATA
+        chainId:
+          type: string
+          format: hex
+          description: Chain id set on the requested node.
+        v:
+          type: string
+          format: hex
+          description: ECDSA recovery id.
+        r:
+          type: string
+          format: 32-byte DATA
+          description: ECDSA signature r.
+        s:
+          type: string
+          format: 32-byte DATA
+          description: ECDSA signature s.
+
+    TransactionArgs:
+      title: TransactionArgs
+      type: object
+      required:
+        - from
+        - gas
+        - maxFeePerGas
+        - maxPriorityFeePerGas
+        - nonce
+      properties:
+        from:
+          type: string
+          format: 20-byte DATA
+          description: The address from which the transaction is sent.
+        to:
+          type: string
+          format: 20-byte DATA
+          description: (not required when creating a new contract) The address to which the transaction is directed.
+        gas:
+          type: string
+          format: hex
+          description: (optional) The integer of the gas provided for the transaction's execution. It will return unused gas.
+        maxFeePerGas:
+          type: string
+          format: hex
+          description: "(optional, default: 250 ston) The maximum amount to pay for the transaction's execution. Since Klaytn uses a fixed gas price, it must be set to 250 ston (Gpeb in Ethereum)."
+        maxPriorityFeePerGas:
+          type: string
+          format: hex
+          description: "(optional, default: 250 ston) Gas tip cap for dynamic fee transaction in peb. Since Klaytn uses a fixed gas price, it must be set to 250 ston (Gpeb in Ethereum)."
+        input:
+          type: string
+          format: DATA
+          description: "(optional) The hash of the method signature and the encoded parameter. It replaces data field, but 'data` field is still supported for backward compatibility."
+        value:
+          type: string
+          format: hex
+          description: "(optional) The integer of values sent with this transaction."
+        nonce:
+          type: string
+          format: hex
+          description: "(optional) The integer of a nonce."
+
+    ListWallets:
+      type: object
+      required:
+        - url
+        - status
+        - accounts
+      properties:
+        url:
+          type: string
+          description: Wallet url
+        status:
+          type: string
+          description: Locking status
+        failure:
+          type: string
+          description: Error condition
+        accounts:
+          type: array
+          items:
+            type: object
+          description: The list of account addresses.
+
+    EthBlockHeader:
+      type: object
+      properties:
+        baseFeePerGas:
+          type: string
+          format: hex
+          description: The base fee per gas.
+        difficulty:
+            type: string
+            format: hex
+            description: The integer of the difficulty for this block.
+        extraData:
+            type: string
+            format: DATA
+            description: The "extra data" field of this block.
+        gasLimit:
+            type: string
+            format: hex
+            description: The maximum gas allowed in this block.
+        gasUsed:
+            type: string
+            format: hex
+            description: The total used gas by all transactions in this block.
+        hash:
+            type: string
+            format: 32-byte DATA
+            description: Hash of the block. null when it is a pending block.
+        logsBloom:
+            type: string
+            format: 256-byte DATA
+            description: The bloom filter for the logs of the block.
+        miner:
+            type: string
+            format: 20-byte DATA
+            description: The address of the beneficiary to whom the mining rewards were given.
+        mixHash:
+            type: string
+            format: 32-byte DATA
+            description: The hash which proves combined with the nonce that a sufficient amount of computation has been carried out on this block.
+        nonce:
+            type: string
+            format: 8-byte DATA
+            description: The hash of the generated proof-of-work.
+        number:
+            type: string
+            format: hex
+            description: The block number. null when it is a pending block.
+        parentHash:
+            type: string
+            format: 32-byte DATA
+            description: Hash of the parent block.
+        receiptsRoot:
+            type: string
+            format: 32-byte DATA
+            description: The root of the receipts trie of the block.
+        sha3Uncles:
+            type: string
+            format: 32-byte DATA
+            description: The SHA3 of the uncles data in the block.
+        size:
+            type: string
+            format: hex
+            description: Integer of the size of this block in bytes.
+        stateRoot:
+            type: string
+            format: 32-byte DATA
+            description: The root of the final state trie of the block.
+        timestamp:
+            type: string
+            format: hex
+            description: The Unix timestamp for when the block was collated.
+        totalDifficulty:
+            type: string
+            format: hex
+            description: The total blockScore of the chain until this block.
+        transactionsRoot:
+            type: string
+            format: 32-byte DATA
+            description: The root of the transaction trie of the block.
+
+    KlayBlock:
+      type: object
+      required: 
+        - number
+        - hash
+        - parentHash
+        - logsBloom
+        - transactionsRoot
+        - stateRoot
+        - receiptsRoot
+        - reward
+        - blockScore
+        - totalBlockScore
+        - extraData
+        - size
+        - gasUsed
+        - timestamp
+        - timestampFoS
+        - transactions
+        - governanceData
+        - voteData
+        - baseFeePerGas
+      description: A block object, or error when no block was found
+      properties:
+        number:
+          type: string
+          format: hex
+          description: The block number. null when it is pending block.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block. null when it is pending block.
+        parentHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the parent block.
+        logsBloom:
+          type: string
+          format: 256-byte DATA
+          description: The bloom filter for the logs of the block. null when it is pending block.
+        transactionsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the transaction trie of the block.
+        stateRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the final state trie of the block.
+        receiptsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the receipts trie of the block.
+        reward:
+          type: string
+          format: 20-byte DATA
+          description: The address of the beneficiary to whom the block rewards were given.
+        blockScore:
+          type: string
+          format: hex
+          description: Former difficulty. Always 1 in the BFT consensus engine
+        totalBlockScore:
+          type: string
+          format: hex
+          description: Integer of the total blockScore of the chain until this block.
+        extraData:
+          type: string
+          format: DATA
+          description: The "extra data" field of this block.
+        size:
+          type: string
+          format: hex
+          description: Integer the size of this block in bytes.
+        gasUsed:
+          type: string
+          format: hex
+          description: The total used gas by all transactions in this block.
+        timestamp:
+          type: string
+          format: hex
+          description: The unix timestamp for when the block was collated.
+        timestampFoS:
+          type: string
+          format: hex
+          description: The fraction of a second of the timestamp for when the block was collated.
+        transactions:
+          type: array
+          items:
+            oneOf:
+              - type: string
+                format: 32-byte DATA
+                description: Hash of a transaction.
+              - type: object
+                required:
+                 - hash
+                properties:
+                  hash:
+                    type: string
+                    format: 32-byte DATA
+                    description: Hash of the transaction.
+                additionalProperties: true
+          description: Array of transaction objects, or 32-byte transaction hashes depending on the last given parameter.
+        governanceData:
+          type: string
+          format: DATA
+          description: RLP encoded governance configuration
+        voteData:
+          type: string
+          format: DATA
+          description: RLP encoded governance vote of the proposer
+        baseFeePerGas:
+          type: string
+          format: hex
+          description: The base fee per gas. It has a meaningful value when EthTxTypeCompatible and Magma hardforks are activated.
+      example:
+        {
+          "baseFeePerGas": "0x0",
+          "blockscore": "0x1",
+          "extraData": "0xda83010800846b6c617989676f312e31362e31338664617277696e0000000000f89ed5949712f943b296758aaae79944ec975884188d3a96b841ddfdf7e2cb0a93538f757f87f23a93ee35df703c781c6f15e31e4978ecdfb3501fc00924372b9a01df2bc452f2a924c242d83580183d131c47e49a25b78f625201f843b841b9b6034d5a8c5f5b057274cda4f427614cd1f448ee781f4c4322861d1361d09d47d6030f2b69a26cb426db984f54e71f8c112fbf882930ccd715d595e8d8307500",
+          "gasUsed": "0x0",
+          "governanceData": "0x",
+          "hash": "0xe882d7a16f38126dc0c507f990b3fe18fa2d3a380002538581327abe96ca6edc",
+          "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "number": "0x1e67",
+          "parentHash": "0x28b1c054346c3bd083741c757a750dcabf94b6d50c7f87158753544e96e73550",
+          "receiptsRoot": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+          "reward": "0x4b2c736fd05c2e2da3ccbd001a395a444f16a861",
+          "size": "0x272",
+          "stateRoot": "0xdf9885621c9e6e75912ca94d6987bcb1b54fef0e4a99cbec5e68f1ffc7468a78",
+          "timestamp": "0x62130beb",
+          "timestampFoS": "0x0",
+          "totalBlockScore": "0x1e68",
+          "transactions": [ ],
+          "transactionsRoot": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+          "voteData": "0x"
+        }
+
+    BlockWithConsensusInfo:
+      type: object
+      required:
+        - blockScore
+        - totalBlockScore
+        - committee
+        - gasUsed
+        - hash
+        - number
+        - parentHash
+        - proposer
+        - receiptsRoot
+        - size
+        - stateRoot
+        - timestamp
+        - timestampFoS
+        - transactions
+        - transactionsRoot
+        - baseFeePerGas
+      properties:
+        blockScore:
+          type: string
+          format: hex
+          description: Former difficulty. Always 1 in the BFT consensus engine
+        totalBlockScore:
+          type: string
+          format: hex
+          description: Integer of the total blockScore of the chain until this block.
+        committee:
+          type: array
+          items:
+            type: string
+          description: Array of addresses of committee members of this block. The committee is a subset of validators participated in the consensus protocol for this block.
+        gasUsed:
+          type: string
+          format: hex
+          description: The total used gas by all transactions in this block.
+        hash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the block. null when it is pending block.
+        number:
+          type: string
+          format: hex
+          description: The block number. null when it is pending block.
+        parentHash:
+          type: string
+          format: 32-byte DATA
+          description: Hash of the parent block.
+        proposer:
+          type: string
+          format: 20-byte DATA
+          description: Address of the proposer.
+        receiptsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the receipts trie of the block.
+        size:
+          type: string
+          format: hex
+          description: Integer the size of this block in bytes.
+        stateRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the final state trie of the block.
+        timestamp:
+          type: string
+          format: hex
+          description: The Unix timestamp for when the block was collated.
+        timestampFoS:
+          type: string
+          format: hex
+          description: The fraction of a second of the timestamp for when the block was collated.
+        transactions:
+          type: array
+          items:
+            type: object
+          description: Array of transaction objects.
+        transactionsRoot:
+          type: string
+          format: 32-byte DATA
+          description: The root of the transaction trie of the block.
+        baseFeePerGas:
+          type: string
+          format: hex
+          description: The base fee per gas. It has a meaningful value when EthTxTypeCompatible and Magma hardforks are activated.
+      example:
+        {
+          "baseFeePerGas": "0x5d21dba00",
+          "blockscore": "0x1",
+          "committee": [ "0xe783fc94fddaeebef7293d6c5864cff280f121e1", "0x8a88a093c05376886754a9b70b0d0a826a5e64be", "0xf113ec8c22765d485309cf1d025d1b975245b9f8", "0xe3d92072d8b9a59a0427485a1b5f459271df457c", "0xa2ba8f7798649a778a1fd66d3035904949fec555", "0x2bdd279522b8a0843831fbb94cfbb24a913597c5", "0x9419fa2e3b9eb1158de31be66c586a52f49c5de7", "0xc032c34cb9fe064fe435199e1078dd8756a166b5", "0x56e8c1463c341abf8b168c3079ea41ce8a387e18", "0x6873352021fe9226884616dc6f189f289aeb0cc5", "0xe93a890fb7ec5e993b1a7fd77b0d13a0763eff3d", "0xbca8ffa45cc8e30bbc0522cdf1a1e0ebf540dfe2", "0x386ca3cb8bb13f48d1a6adc1fb8df09e7bb7f9c8", "0x1782834bf8847e235f21f2c1f13fca4d5dff6621", "0x6f6770f1f67f44fb15b335b49581ad6b935d963a", "0x0b59cae1f03534209fdb9ddf5ea65b310cd7060c", "0xb9456fd65a6810b19df24832c50b2e61a41867f8", "0x16c192585a0ab24b552783b4bf7d8dc9f6855c35", "0xec6c1cede510be308f0fdbbc8dbdf238829bdb34", "0xf8c9c61c5e7f2b6219d1c28b94e5cb3cdc802594", "0x5e59db28cef098d5a2e877f84127aed10d7378f2", "0x52d41ca72af615a1ac3301b0a93efa222ecc7541" ],
+          "extraData": "0xd883010101846b6c617988676f312e31322e35856c696e757800000000000000f90604f901ce9452d41ca72af615a1ac3301b0a93efa222ecc7541948a88a093c05376886754a9b70b0d0a826a5e64be94f113ec8c22765d485309cf1d025d1b975245b9f894e3d92072d8b9a59a0427485a1b5f459271df457c94a2ba8f7798649a778a1fd66d3035904949fec555942bdd279522b8a0843831fbb94cfbb24a913597c594bca8ffa45cc8e30bbc0522cdf1a1e0ebf540dfe294c032c34cb9fe064fe435199e1078dd8756a166b59456e3a565e31f8fb0ba0b12c03355518c64372120946f6770f1f67f44fb15b335b49581ad6b935d963a94e93a890fb7ec5e993b1a7fd77b0d13a0763eff3d94e783fc94fddaeebef7293d6c5864cff280f121e194386ca3cb8bb13f48d1a6adc1fb8df09e7bb7f9c8941782834bf8847e235f21f2c1f13fca4d5dff6621949419fa2e3b9eb1158de31be66c586a52f49c5de7940b59cae1f03534209fdb9ddf5ea65b310cd7060c94b9456fd65a6810b19df24832c50b2e61a41867f89416c192585a0ab24b552783b4bf7d8dc9f6855c3594ec6c1cede510be308f0fdbbc8dbdf238829bdb3494f8c9c61c5e7f2b6219d1c28b94e5cb3cdc802594946873352021fe9226884616dc6f189f289aeb0cc59456e8c1463c341abf8b168c3079ea41ce8a387e18b8418890007a341ee171ba8d5e3cb546d1d927c8202f0df3c3f381c8173eb36db41305227c289fb528a4614b1a2c04a7ec5a1b5d76f62b829496aa36979e88a9610c01f903edb841f0ba93ac8e28a021e582e50abbaa24fa5174674b3b0873dc568f6c9ebaf830bb4d03b857416304f97b4314e310f66f6c8043e716e70751bc9663dd6f9e5d6a9100b84174717204aa9d9f2dcb1269c89141ec2ee9d447e1981e8a704caa5a6ce376b0901f3e0ddf0ebe08542af86b23637df2f962b0f7ced5469cea310cb71c2358357300b841aa3aa8b450a6f4d883dcf2eda0f964ff4d35a250996b34aa91279c9c7f4383a22c879e2f21c9fddf8c3b1a6cbc59b273b4a0daf4b15aaf18f5e33e70c9277e6f00b8414adbeaaf82da005a33f00e7f74a3eeecb989698968b3694ea9e74018a0836184188eca727900280734ead256af02e72679addcddbf5ebd82c04c030c2bd85f4a01b841610b61422badd11afa2a617502f81c0c8aa1f11951d80893976a391026a3859c1f5e6c6d28e8b2ca8c4281c699b7b8ec30625801d4a6637291f9a8d1a2d8244f00b8417590e3d92063d4162f49493848ef0557daba3c2d82b9498eda09d5d08837296937a69e7b852579eeadf1c077d3b80d232ece03a12f4c45896e518cbb0771c52700b8415a2a40f416154793535cfe133040236ecc8b1f276df39e0a3713992fad06e38a42a455a636add93bff218544a4c53b852b8c4e461d3ae0663fdefe8fe7e327cc00b841e0c64cc8a30d84196d57639a42c5da941164b0700476d1b91d18f7c8f58d12f932ad1362270ec968294257f9c5cb60c40a7d4a5932a8f4d537be4db51f7dcf2500b841f61b6f014628ab751d79f095b1e739bc2b31fa8b6b847878e13b000a6dd53fa8467903119a72c7445f8490cf4932a42f4a418b89436b70d100c56c083399579500b841e6fe4f7c4bdcb4a81125bd282d0b9fedf1f51636c69bd4684d3131d685a7aed34face3d943d02b6ad632bb337f89fd6b0fb08e163ef84bb87fe556f4bafa0d3401b8412c6666136414f88327e07a6e8a2b04d105d6cf64daee239cea647a25f93ce0e6542f59f4363e3522bc838841e6db1940e569938b9458fb674fd543646a6b669b00b84134f967c4060d85a7c2f65d00695f3308d2ab78033e895775e0ab6f70cc6e71081c030bd997773191b3d2d7e5425e542c3b98fc127031784a858cf497c0e1532100b841d81aedf218d33e12087fb6c71b1d76e69dde542659c85661909b8c99793c7f1535afdc8addaefc5bcf6a3f99fd34518a1e9ab4a73ec9921e9865c1bd8543fd4c01b84199ec6f0fca02e48db37f0e4ae1b2fdf643abf610a9f1d7c0b490250aa7f1393d3069d1b4cec74ee99b0e18081bbf5e03d7b918d46499d579459cf0114ff76e9301b841d81a55eb96767edc5305dac78b904f70d2f44bd845fcd2bd581778669e5b8446220143680619986b9975ea528aacec0976406424588760f4fe086f16abaaaf4600",
+          "gasUsed": "0x1d065",
+          "governanceData": "0x",
+          "hash": "0x7d68d09a7a571cdf8a3b6a5ef6e037265b3e3093cf145b0954d22bde5c1d4f61",
+          "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "number": "0x6e0431",
+          "parentHash": "0xa76ef625874a4d2126eb3fd1ebb5c1a8d0deb360a12b4f8edf30fb417d82b5a1",
+          "proposer": "0xe783fc94fddaeebef7293d6c5864cff280f121e1",
+          "receiptsRoot": "0x56734b337c3daab6766104bb51bd2ca408cf4537f5528ab3362536c57e65ba67",
+          "reward": "0x79f83dbb81f6f706be3e8491b14790c30d03e659",
+          "size": "0x947",
+          "stateRoot": "0xf685dce2cbef004cb041cf23959aea65e8aa86911fac55739ae1971f7d1dacd4",
+          "timestamp": "0x5d801768",
+          "timestampFoS": "0x4",
+          "totalBlockScore": "0x6e0432",
+          "transactions": [
+            {
+              "blockHash": "0x7d68d09a7a571cdf8a3b6a5ef6e037265b3e3093cf145b0954d22bde5c1d4f61",
+              "blockNumber": "0x6e0431",
+              "contractAddress": null,
+              "feePayer": "0x08260736c18bd8612bee2b21beedf4e97c0bc6b9",
+              "feePayerSignatures": [
+                {
+                  "V": "0x4055",
+                  "R": "0xd3fdd58e18e5a96d1f9af3d1aff31601d8e543a8085c78edfc8602db4c91b3c6",
+                  "S": "0x19d937e315472a188f11a6bb87f47e66a30b44ba907b5f01fcd47dab8d99f3f0"
+                }
+              ],
+              "from": "0x84b605b268e89ccdf591974db82deaa48bce59dc",
+              "gas": "0x419ce0",
+              "gasPrice": "0x5d21dba00",
+              "gasUsed": "0x1d065",
+              "input": "0x50716652000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000013416c50000000000000000000000000000000000000000000000000000000000001f3f000000000000000000000000000000000000000000000000000000003b9af23c",
+              "logs": [ ],
+              "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+              "nonce": "0x8",
+              "senderTxHash": "0x5fe7485db56c0c2b0eb54dd46e584a413193ad66b40e69281f44dadfa7409b2e",
+              "signatures": [
+                {
+                  "V": "0x4056",
+                  "R": "0xca32239c38e1080f3a394504e2a0bb9811cda0a87d25b750cbbab265d581074d",
+                  "S": "0x584ab136a483e755d9d458f9965ca0d514724c7b45f6123d19323f6fa7ccdb5f"
+                }
+              ],
+              "status": "0x1",
+              "to": "0x1db1b93447328dd904152f798ead97987844f7b7",
+              "transactionHash": "0x020a2156bb4b29dc84f26887efae79e07a3d738b2856a66bbaab8aee18d507b5",
+              "transactionIndex": "0x0",
+              "type": "TxTypeFeeDelegatedSmartContractExecution",
+              "typeInt": 49,
+              "value": "0x0"
+            }
+          ],
+          "transactionsRoot": "0x020a2156bb4b29dc84f26887efae79e07a3d738b2856a66bbaab8aee18d507b5",
+          "voteData": "0x"
+        }
+
+    FilterOptions:
+      title: FilterOptions
+      type: object
+      properties:
+        fromBlock:
+          allOf:
+            - title: "fromBlock"
+              default: "latest"
+              description: (optional, default "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
+            - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+        toBlock:
+          allOf:
+            - title: "toBlock"
+              default: "latest"
+              description: (optional, default "latest") Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
+            - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+        address:
+          oneOf:
+            - type: string
+              format: 20-byte DATA
+              title: "Address"
+              description: Contract address
+            - type: array
+              title: ArrayOfAddress
+              items:
+                type: string
+                format: 20-byte DATA
+                description: Address
+          description: (optional) Contract address or a list of addresses from which logs should originate.
+        topics:
+          type: array
+          items:
+            type: string
+            format: 32-byte DATA
+          description: (optional) Array of 32-byte DATA topics. Topics are order-dependent. Each topic can also be an array of DATA with “or” options.
+        blockHash:
+          type: string
+          format: 32-byte DATA
+          description: (optional) A filter option that restricts the logs returned to the single block with the 32-byte hash blockHash. Using blockHash is equivalent to fromBlock = toBlock = the block number with hash blockHash. If blockHash is present in in the filter criteria, then neither fromBlock nor toBlock are allowed
+
+    TracingOptions:
+      title: TracingOptions
+      type: object
+      properties:
+        disableStorage:
+          type: boolean
+          description: Setting this to true will disable storage capture (default = false).
+          default: false
+        disableMemory:
+          type: boolean
+          description: Setting this to true will disable memory capture (default = false).
+          default: false
+        disableStack:
+          type: boolean
+          description: Setting this to true will disable stack capture (default = false).
+          default: false
+        timeout:
+          type: string
+          description: Overrides the default timeout of 5 seconds for JavaScript-based tracing calls. A duration string is a possibly signed sequence of decimal numbers, each with optional fraction and a unit suffix, such as "300ms", "-1.5h" or "2h45m". Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
+        trace:
+          type: string
+          enum: ["4byteTracer","callTracer","fastCallTracer","evmdisTracer","noopTracer","opcountTracer","prestateTracer","revertTracer","unigramTracer","bigramTracer","trigramTracer"]
+          description: |
+            Setting this will enable JavaScript-based transaction tracing, described in the next section. If set, the previous four arguments will be ignored. The predefined tracers can also be used as the following table.
+            | Tracer Name | Description |
+            |-----|-----|
+            | 4byteTracer | 4byteTracer searches for 4byte-identifiers, and collects them for post-processing. It collects the methods identifiers along with the size of the supplied data, so a reversed signature can be matched against the size of the data. |
+            | callTracer | callTracer is a full-blown transaction tracer that extracts and reports all the internal calls made by a transaction, along with any useful information. |
+            | fastCallTracer | fastCallTracer is a Go-native version of callTracer. Since it is not executed on JavaScript VM, it shows more than 10x speedup compared to callTracer. Please use fastCallTracer instead of callTracer if the performance is the matter of the first importance. |
+            | evmdisTracer | evmdisTracer returns sufficient information from a trace to perform evmdis-style disassembly. |
+            | noopTracer | noopTracer is just the barebone boilerplate code required from a JavaScript object to be usable as a transaction tracer. |
+            | opcountTracer | opcountTracer is a sample tracer that just counts the number of instructions executed by the KLVM before the transaction terminated. |
+            | prestateTracer | prestateTracer outputs sufficient information to create a local execution of the transaction from a custom assembled genesis block. |
+            | revertTracer | revertTracer outputs the error string of REVERT. If the execution is not reverted, it outputs an empty string. |
+            | unigramTracer | unigramTracer returns the number of occurrences of each opcode. |
+            | bigramTracer | bigramTracer returns the number of occurrences of two consecutive opcodes. |
+            | trigramTracer | trigramTracer returns the number of occurrences of three consecutive opcodes. |
+
+    StandardTracingOptions:
+      title: StandardTracingOptions
+      type: object
+      description: You may give trace API function a secondary optional argument, which specifies the options for this specific call.
+      properties:
+        disableStorage:
+          type: boolean
+          default: false
+          description: Setting this to true will disable storage capture.
+        disableMemory:
+          type: boolean
+          default: false
+          description: Setting this to true will disable memory capture.
+        disableStack:
+          type: boolean
+          default: false
+          description: Setting this to true will disable stack capture.
+        txHash:
+          type: string
+          description: Setting this value will trace only the specified transaction.

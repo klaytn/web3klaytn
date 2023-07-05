@@ -1,0 +1,104 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/traceBlockByHash:
+    post:
+      summary: "[Trace-traceBlockByHash]"
+      tags:
+        - debug
+      operationId: traceBlockByHash
+      description: |
+        Similar to debug_traceBlock, traceBlockByHash accepts a block hash and will replay the block that is already present in the database.
+
+        **JSONRPC:** `debug_traceBlockByHash`
+
+      parameters:
+        - name: hash
+          in: query
+          description: Hash of a block.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
+        - name: options
+          in: query
+          description: Tracing options.
+          required: false
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracingOptions"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/DebugTraceBlockByHashReq"
+
+      responses:
+        200:
+          description: The structured logs created during the execution of KLVM.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/DebugTraceBlockByHashResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/vMTracing/traceBlockByHash.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/vMTracing/DebugTraceBlockByHashExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+           $ref: "../../../code-samples/javascript/debug/vMTracing/traceBlockByHash.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/debug/vMTracing/traceBlockByHash.py"
+
+components:
+  schemas:
+    DebugTraceBlockByHashReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: debug_traceBlockByHash
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracingOptions"
+          example: ["0xed110b330152df2022d40fa3c38987643034aa56fc96079fb6c67b66a6ed4f19"]
+    DebugTraceBlockByHashResp:
+      type: object
+      properties:
+        result:
+          type: object
+          description: The structured logs created during the execution of KLVM.
+          example: [
+            {
+              result: {
+                failed: false,
+                gas: 247922,
+                returnValue: "60806040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806341c0e1b514610051578063cfae321714610068575b600080fd5b34801561005d57600080fd5b506100666100f8565b005b34801561007457600080fd5b5061007d610168565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156100bd5780820151818401526020810190506100a2565b50505050905090810190601f1680156100ea5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415610166573373ffffffffffffffffffffffffffffffffffffffff16ff5b565b606060018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102005780601f106101d557610100808354040283529160200191610200565b820191906000526020600020905b8154815290600101906020018083116101e357829003601f168201915b50505050509050905600a165627a7a72305820f4e74ca2266a24aabd6a8ee6c4e54ad49014e2faa152e49e7f9d927c932c72870029",
+                structLogs: [{"pc":0,"op":"PUSH1","gas":891344,"gasCost":3,"depth":1,"stack":[],"memory":[],"storage":{}}, {...}, {...}, {...}]
+              }
+            }
+          ]

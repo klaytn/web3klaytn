@@ -1,0 +1,103 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/getRawTransactionByBlockNumberAndIndex:
+    post:
+      operationId: getRawTransactionByBlockNumberAndIndex
+      summary: "[Transaction-getRawTransactionByBlockNumberAndIndex]"
+      tags:
+        - eth
+      description: |
+        GetRawTransactionByBlockNumberAndIndex returns the bytes of the transaction for the given block number and index.
+
+        **JSONRPC:** `eth_getRawTransactionByBlockNumberAndIndex`
+
+      parameters:
+        - name: blockNumberOrTag
+          in: query
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+        - name: index
+          required: true
+          schema:
+            type: string
+            format: hex
+          description: Hex representation of a uint
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/EthGetRawTransactionByBlockNumberAndIndexReq"
+
+      responses:
+        200:
+          description: Returns the bytes of the transaction for the given block number and index.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/EthGetRawTransactionByBlockNumberAndIndexResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/others/getRawTransactionByBlockNumberAndIndex.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/others/EthGetRawTransactionByBlockNumberAndIndexExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/transaction/getRawTransactionByBlockNumberAndIndex.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/others/getRawTransactionByBlockNumberAndIndex.py"
+
+components:
+  schemas:
+    EthGetRawTransactionByBlockNumberAndIndexReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'eth_getRawTransactionByBlockNumberAndIndex'
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              - type: string
+                format: hex
+                title: Index
+                description: Hex representation of a uint.
+          example:  [118593751, "0x0"]
+
+    EthGetRawTransactionByBlockNumberAndIndexResp:
+      type: object
+      properties:
+        result:
+          type: string
+          format: hex
+          description: Hex representation of some bytes
+          example: "0x0"

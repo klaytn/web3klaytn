@@ -1,0 +1,120 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /admin/spamThrottlerConfig:
+    post:
+      operationId: spamThrottlerConfig
+      summary: "[spamThrottlerConfig]"
+      description: |
+        Get spam throttler config
+
+        **JSONRPC:** `admin_spamThrottlerConfig`
+
+      tags:
+        - admin
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/SpamThrottlerConfigReq"
+
+      responses:
+        200:
+          description: Get spam throttler config
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/SpamThrottlerConfigResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/admin/spamThrottlerConfig.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/admin/AdminSpamThrottlerConfigExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/admin/spamThrottlerConfig.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/admin/spamThrottlerConfig.py"
+
+components:
+  schemas:
+    SpamThrottlerConfigReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'admin_spamThrottlerConfig'
+
+    SpamThrottlerConfigResp:
+      type: object
+      properties:
+        result:
+          type: object
+          required:
+            - activate_tx_pool_size
+            - target_fail_ratio
+            - throttle_tps
+            - max_candidates
+            - increase_weight
+            - decrease_weight
+            - initial_threshold
+            - minimum_threshold
+            - threshold_adjustment
+            - throttle_seconds
+          properties:
+            activate_tx_pool_size:
+              type: number
+            target_fail_ratio:
+              type: number
+            throttle_tps:
+              type: number
+            max_candidates:
+              type: number
+            increase_weight:
+              type: number
+            decrease_weight:
+              type: number
+            initial_threshold:
+              type: number
+            minimum_threshold:
+              type: number
+            threshold_adjustment:
+              type: number
+            throttle_seconds:
+              type: number
+          example: {
+            "activate_tx_pool_size": 0,
+            "target_fail_ratio": 0,
+            "throttle_tps": 0,
+            "max_candidates": 0,
+            "increase_weight": 0,
+            "decrease_weight": 0,
+            "initial_threshold": 0,
+            "minimum_threshold": 0,
+            "threshold_adjustment": 0,
+            "throttle_seconds": 0
+          }

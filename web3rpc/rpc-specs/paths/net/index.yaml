@@ -1,0 +1,30 @@
+openapi: "3.0.2"
+info:
+  title: KLAYTN OPEN API
+  version: "1.10.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: net
+    description: API for net namespace
+servers:
+  - url: http://localhost:7151
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+  # net
+  /net/listening:
+    $ref: ./listening.yaml#/paths/~1net~1listening
+  /net/networkID.yaml:
+    $ref: ./networkID.yaml#/paths/~1net~1networkID
+  /net/peerCount:
+    $ref: ./peerCount.yaml#/paths/~1net~1peerCount
+  /net/peerCountByType:
+    $ref: ./peerCountByType.yaml#/paths/~1net~1peerCountByType
+  /net/version:
+    $ref: ./version.yaml#/paths/~1net~1version
+

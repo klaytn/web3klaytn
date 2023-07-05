@@ -1,0 +1,69 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/newBlockFilter:
+    post:
+      operationId: newBlockFilter
+      summary: "[Filter-newBlockFilter]"
+      description: |
+        Creates a filter in the node, to notify when a new block arrives. To check if the state has changed, call klay_getFilterChanges.
+
+        **JSONRPC:** `klay_newBlockFilter`
+
+      tags:
+        - klay
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: "klay_newBlockFilter"
+
+      responses:
+        200:
+          description: Returns a filter id.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: string
+                        format: hex
+                        description: "A filter id."
+                        example: "0xc2f2e8168a7e38b5d979d0f7084130ee"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/filter/newBlockFilter.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/filter/KlayNewBlockFilterExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/filter/newBlockFilter.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref:  "../../../code-samples/python/klay/filter/newBlockFilter.py"

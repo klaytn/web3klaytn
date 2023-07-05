@@ -1,0 +1,120 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /eth/submitWork:
+    post:
+      summary: "[Miscellaneous-submitWork]"
+      tags:
+        - eth
+      operationId: submitWork
+      description: |
+        Used for submitting a proof-of-work solution.
+        
+        Please note that it always return false because there is no PoW mechanism in Klaytn.
+        
+        **JSONRPC:** `eth_submitWork`
+
+      parameters:
+        - name: nonce
+          in: query
+          description: The nonce found (64 bits)
+          required: true
+          schema:
+            type: string
+            format: 8-byte DATA
+        - name: powHash
+          in: query
+          description: The header’s pow-hash (256 bits)
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+        - name: mixDigest
+          in: query
+          description: The mix digest (256 bits)
+          required: true
+          schema:
+            type: string
+            format: 32-byte DATA
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/KlaySubmitWorkReq"
+
+      responses:
+        200:
+          description: Returns true if the provided solution is valid, otherwise false.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/KlaySubmitWorkResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/eth/miscellaneous/submitWork.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/miscellaneous/EthSubmitWorkExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/eth/miscellaneous/submitWork.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/eth/miscellaneous/submitWork.py"
+
+components:
+  schemas:
+    KlaySubmitWorkReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'eth_submitWork'
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: Nonce
+                description: The nonce found (64 bits)
+                type: string
+                format: 8-byte DATA
+              - title: PowHash
+                description: The header’s pow-hash (256 bits)
+                type: string
+                format: 32-byte DATA
+              - title: MixDigest
+                description: The mix digest (256 bits)
+                type: string
+                format: 32-byte DATA
+          example: ["0x0000000000000001", "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"]
+
+    KlaySubmitWorkResp:
+      type: object
+      properties:
+        result:
+          type: boolean
+          description: Returns true if the provided solution is valid, otherwise false.
+          example: false
+

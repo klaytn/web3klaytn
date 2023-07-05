@@ -1,0 +1,90 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/writeMemProfile:
+    post:
+      summary: "[Profiling-writeMemProfile]"
+      tags:
+        - debug
+      operationId: writeMemProfile
+      description: |
+        Writes an allocation profile to the given file. Note that the profiling rate cannot be set through the API, it must be set on the command line using the --memprofilerate flag.
+        
+        **JSONRPC:** `debug_writeMemProfile`
+
+      parameters:
+        - name: file
+          in: query
+          description: The filename for the profiling output.
+          required: true
+          schema:
+            type: string
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/DebugWriteMemProfileReq"
+
+      responses:
+        200:
+          description: Writes an allocation profile to the given file.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/DebugWriteMemProfileResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/profiling/writeMemProfile.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/profiling/DebugWriteMemProfileExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/debug/profilling/writeMemProfile.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/debug/profiling/writeMemProfile.py"
+
+components:
+  schemas:
+    DebugWriteMemProfileReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: debug_writeMemProfile
+        params:
+          type: array
+          description: The filename for the profiling output.
+          items:
+            title: File
+            type: string
+          example: ["mem.profile"]
+
+    DebugWriteMemProfileResp:
+      type: object
+      properties:
+        result:
+          type: string
+          nullable: true
+          default: null

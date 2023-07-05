@@ -1,0 +1,119 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/gcStats:
+    post:
+      operationId: gcStats
+      summary: "[gcStats]"
+      description: |
+        Returns GC statistics.
+
+        **JSONRPC:** `debug_gcStats`
+
+      tags:
+        - debug
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/GcStatsReq"
+
+      responses:
+        200:
+          description: Returns GC statistics
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/GcStatsResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/runtimeDebugging/gcStats.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/runtimeDebugging/DebugGCStatsExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/debug/runtimeDebugging/gcStats.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/debug/runtimeDebugging/gcStats.py"
+
+components:
+  schemas:
+    GcStatsReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'debug_gcStats'
+
+    GcStatsResp:
+      type: object
+      properties:
+        result:
+            type: object
+            description: GC statistics
+            required:
+                - LastGC
+                - NumGC
+                - Pause
+                - PauseEnd
+                - PauseQuantiles
+                - PauseTotal
+            properties:
+              LastGC:
+                type: string
+                format: date-time
+                description: time of last collection
+              NumGC:
+                type: integer
+                description: number of garbage collections
+              Pause:
+                type: array
+                description: pause history, most recent first
+                items:
+                  type: integer
+              PauseEnd:
+                type: array
+                description: pause end times history, most recent first
+                items:
+                  type: string
+                  format: date-time
+              PauseQuantiles:
+                type: string
+              PauseTotal:
+                description: total pause for all collections
+                type: integer
+            example: {
+              "LastGC": "2018-10-08T14:27:34.030659164Z",
+              "NumGC": 40,
+              "Pause": [4582691, 2863122, 1578188, 459447, 197699, 1688008, 678298, 117924, 6871625, 298523, 1281135, 616022, 2513029, 265029, 704801, 685752, 383625, 677657, 1135878, 1730593, 603201, 2667691, 1901266, 1035406, 1624233, 1112526, 397637, 158158, 596931, 2675197, 4421722, 745039, 847417, 4423680, 653433, 281915, 605418, 8127664, 138283, 1810200],
+              "PauseEnd": ["2018-10-08T14:27:34.030659164Z", "2018-10-08T14:25:34.032422737Z", "2018-10-08T14:23:34.015065773Z", "2018-10-08T14:21:34.031893519Z", "2018-10-08T14:19:33.791324489Z", "2018-10-08T14:19:01.028883257Z", "2018-10-08T14:17:01.054270356Z", "2018-10-08T14:15:01.032846304Z", "2018-10-08T14:13:01.07313761Z", "2018-10-08T14:11:01.042653342Z", "2018-10-08T14:09:01.034458873Z", "2018-10-08T14:07:01.022701083Z", "2018-10-08T14:05:01.046456415Z", "2018-10-08T14:03:01.030075376Z", "2018-10-08T14:01:01.027838941Z", "2018-10-08T13:59:01.033363592Z", "2018-10-08T13:57:01.032853252Z", "2018-10-08T13:55:01.06825876Z", "2018-10-08T13:53:01.071426346Z", "2018-10-08T13:51:01.099618831Z", "2018-10-08T13:49:01.016314071Z", "2018-10-08T13:47:01.031721975Z", "2018-10-08T13:45:01.029069094Z", "2018-10-08T13:43:01.026156953Z", "2018-10-08T13:41:01.019240344Z", "2018-10-08T13:39:01.026699743Z", "2018-10-08T13:37:01.02642045Z", "2018-10-08T13:35:00.997556262Z", "2018-10-08T13:33:01.023605742Z", "2018-10-08T13:31:01.025436347Z", "2018-10-08T13:29:01.024808072Z", "2018-10-08T13:27:01.01508169Z", "2018-10-08T13:25:01.023461518Z", "2018-10-08T13:23:01.0144789Z", "2018-10-08T13:21:01.022121597Z", "2018-10-08T13:19:30.748905748Z", "2018-10-08T13:19:29.588457028Z", "2018-10-08T13:19:29.461820065Z", "2018-10-08T13:19:29.436792038Z", "2018-10-08T13:19:29.408990947Z"],
+              "PauseQuantiles": null,
+              "PauseTotal": 64156063
+            }
+
+
+

@@ -1,0 +1,32 @@
+{
+  "name": "@klaytn/ethers-ext",
+  "version": "beta-0.9.0",
+  "main": "dist/src/index.js",
+  "files": [
+    "./dist",
+    "./src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "mocha test/**/*.ts -r ts-node/register",
+    "prepublishOnly": "npm run build"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "ethers": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.4",
+    "@types/lodash": "^4.14.192",
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "@klaytn/web3rpc": "^0.9.0"
+  }
+}

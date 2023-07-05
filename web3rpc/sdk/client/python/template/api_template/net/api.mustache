@@ -1,0 +1,27 @@
+from web3.module import (
+    Module
+)
+from web3.method import (
+    Method,
+    default_root_munger,
+)
+from typing import (
+    Callable,
+    Any,
+)
+from web3.geth import GethAdmin, GethPersonal
+from web3.net import Net
+
+class {{classname}}(Net):
+    namespace = "{{#lambda.lowercase}}{{{baseName}}}{{/lambda.lowercase}}"
+    {{#operations}}
+    {{#operation}}{{^vendorExtensions.x-delegate-to}}
+    
+    _{{operationId}}: Method[Callable[..., Any]] = Method(
+        namespace + "_{{#lambda.camelcase}}{{operationId}}{{/lambda.camelcase}}", mungers=[default_root_munger]
+    )
+
+    def {{operationId}}(self, *args) -> Any:
+        return self._{{operationId}}(*args)
+    {{/vendorExtensions.x-delegate-to}}{{/operation}}
+    {{/operations}}

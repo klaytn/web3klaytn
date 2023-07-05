@@ -1,0 +1,101 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/standardTraceBadBlockToFile:
+    post:
+      summary: "[StandardTrace-standardTraceBadBlockToFile]"
+      tags:
+        - debug
+      operationId: standardTraceBadBlockToFile
+      description: |
+        Similar to debug_traceBadBlock, standardTraceBadBlockToFile accepts a bad block hash and will replay the bad block. It returns a list of file names containing tracing result. Note that the files will be stored in the machine that serves this API.
+
+        **JSONRPC:** `debug_standardTraceBadBlockToFile`
+
+      parameters:
+        - name: hash
+          in: query
+          description: Hash of a block.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockHash"
+        - name: options
+          in: query
+          description: See standard tracing options.
+          required: false
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/StandardTracingOptions"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/DebugStandardTraceBadBlockToFileReq"
+
+      responses:
+        200:
+          description: Returns a list of file names containing tracing result
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/DebugStandardTraceBadBlockToFileResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/vMStandardTracing/standardTraceBadBlockToFile.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/vMStandardTracing/DebugStandardTraceBadBlockToFileExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+           $ref: "../../../code-samples/javascript/debug/vMStandardTracing/standardTraceBadBlockToFile.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/debug/vMStandardTracing/standardTraceBadBlockToFile.py"
+
+components:
+  schemas:
+    DebugStandardTraceBadBlockToFileReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: debug_standardTraceBadBlockToFile
+        params:
+          type: array
+          items:
+            anyOf:
+              - title: Hash
+                description: Hash of a block.
+                type: string
+                format: 32-byte DATA
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/StandardTracingOptions"
+          example: ["0x1d5ba00e313a81ae6d409d459c153327072665d9ea2f47608369722baf0cfbb6"]
+
+    DebugStandardTraceBadBlockToFileResp:
+      type: object
+      properties:
+        result:
+          type: array
+          description: A list of file names. Each represents a tracing result of a transaction. The format of a file name is block_{first 4 bytes of the block hash}-{transaction index}-{first 4 bytes of the transaction hash}-{random string}.
+          items:
+            type: string
+          example: ["/var/folders/v9/z3vq7j4d42b2jq_vxsv0km6h0000gn/T/block_0x1d5ba00e-0-0xae6f8ed4-608268252","/var/folders/v9/z3vq7j4d42b2jq_vxsv0km6h0000gn/T/block_0x1d5ba00e-1-0x2e37321f-315574667"]

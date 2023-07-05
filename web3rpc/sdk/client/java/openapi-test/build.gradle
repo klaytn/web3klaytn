@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+}
+
+group 'foundation.klaytn'
+version '1.0'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    // api "foundation.klaytn:opensdk-eth-java:v1.10.0"
+    // api "foundation.klaytn:opensdk-klay-java:v1.10.0"
+    // api "foundation.klaytn:opensdk-net-java:v1.10.0"
+    // api "foundation.klaytn:opensdk-personal-java:v1.10.0"
+    // api "foundation.klaytn:opensdk-txpool-java:v1.10.0"
+    // api "foundation.klaytn:web3rpc-admin:v1.10.0"
+    // api "foundation.klaytn:opensdk-klaytnDebug-java:v1.10.0"
+    // api "foundation.klaytn:opensdk-mainbridge-java:v1.10.0"
+    // api "foundation.klaytn:opensdk-subbridge-java:v1.10.0"
+    // api "foundation.klaytn:opensdk-governance-java:v1.10.0"
+    implementation "foundation.klaytn:web3rpc:v1.10.0"
+    implementation "org.web3j:core:4.9.7"
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.14.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}

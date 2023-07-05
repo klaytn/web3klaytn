@@ -1,0 +1,75 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/chaindbCompact:
+    post:
+      operationId: chaindbCompact
+      summary: "[Inspection-chaindbCompact]"
+      description: |
+        ChaindbCompact flattens the entire key-value database into a single level, removing all unused slots and merging all keys.
+
+        **JSONRPC:** `debug_chaindbCompact`
+      tags:
+        - debug
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/ChaindbCompactReq"
+
+      responses:
+        200:
+          description: Return value null
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        title: "ChaindbCompactResult"
+                        type: string
+                        example: null
+
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/others/chaindbCompact.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/others/DebugChaindbCompactExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+           $ref: "../../../code-samples/javascript/debug/others/chaindbCompact.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/debug/others/chaindbCompact.py"
+
+components:
+  schemas:
+    ChaindbCompactReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'debug_chaindbCompact'

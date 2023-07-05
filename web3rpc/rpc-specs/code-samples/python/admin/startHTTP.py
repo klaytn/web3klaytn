@@ -1,0 +1,14 @@
+from web3 import Web3
+from web3py_ext import extend
+
+host = "https://api.baobab.klaytn.net:8651"
+
+adminHost = "127.0.0.1"
+port = 8551
+cors = ""
+apis = "klay"
+
+w3 = Web3(Web3.HTTPProvider(host))
+admin_response = w3.admin.start_http(adminHost, port, cors, apis)
+
+print(admin_response)

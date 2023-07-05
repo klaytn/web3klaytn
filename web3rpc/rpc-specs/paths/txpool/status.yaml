@@ -1,0 +1,86 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /txpool/status:
+    post:
+      operationId: status
+      summary: "[status]"
+      description: |
+        The status inspection property can be queried for the number of transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
+        
+        The result is an object with two fields pending and queued, each of which is a counter representing the number of transactions in that particular state.
+        
+        **JSONRPC:** `txpool_status`
+      tags:
+        - txpool
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: txpool_status
+
+      responses:
+        200:
+          description: Returns the number of pending transactions and the number of queued transactions
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - type: object
+                    properties:
+                      result:
+                        type: object
+                        required:
+                          - pending
+                          - queued
+                        properties:
+                          pending:
+                            title: "pending"
+                            description: The number of pending transactions.
+                            oneOf:
+                              - type: string
+                                format: hex
+                              - type: integer
+                          queued:
+                            title: "queued"
+                            description: The number of queued transactions.
+                            oneOf:
+                              - type: string
+                                format: hex
+                              - type: integer
+                        example: {"pending":"0x0","queued":"0x0"}
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/txpool/status.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/txpool/TxpoolStatusExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/txpool/status.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/txpool/status.py"

@@ -1,0 +1,17 @@
+generatorName: web3rpc-javascript
+outputDir: ./openapi
+inputSpec: ../../../rpc-specs/namespaces/all-except-eth.yaml
+projectName: "@klaytn/web3rpc"
+templateDir: ./template
+sortParamsByRequiredFlag: false
+globalProperties:
+  apiDocs: false
+  modelDocs: false
+  modelTests: false
+  apiTests: true
+inlineSchemaNameMappings:
+  accountCreated_default_response: AccountCreatedResponse
+  getRewards_default_response: GetRewardsResponse
+  ethAccounts_default_response: EthAccountsDefaultResponse
+  ethBlockNumber_default_response: EthBlockNumberDefaultResponse
+  ethCall_default_response: EthCallDefaultResponse
