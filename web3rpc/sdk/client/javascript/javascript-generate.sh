@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-CURRENT_FILE_DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
+CURRENT_FILE_DIR=$(cd "$( dirname "$0" )" && pwd)
 PROJECT_DIR=$(cd "$CURRENT_FILE_DIR" && cd ../../.. && pwd )
 
 cd "${CURRENT_FILE_DIR}"
@@ -26,4 +26,4 @@ yarn install
 yarn link
 
 cd "${CURRENT_FILE_DIR}/openapi-test"
-yarn link web3rpc-javascript
+#yarn link web3rpc-javascript

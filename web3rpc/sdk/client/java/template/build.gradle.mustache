@@ -70,7 +70,7 @@ if(hasProperty('target') && target == 'android') {
 
     task sourcesJar(type: Jar) {
         from android.sourceSets.main.java.srcDirs
-        classifier = 'sources'
+        archiveClassifier = 'sources'
     }
 
     artifacts {
@@ -89,8 +89,30 @@ if(hasProperty('target') && target == 'android') {
         publications {
             maven(MavenPublication) {
                artifactId = '{{artifactId}}'
-
                from components.java
+               pom {
+                   name = project.name
+                   description = project.description
+                   version = project.version
+                   url = "https://docs.klaytn.com/"
+                   licenses {
+                       license {
+                           name = "The Apache License, Version 2.0"
+                           url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                           distribution = "repo"
+                       }
+                   }
+               }
+            }
+        }
+        repositories {
+            maven {
+                name = "OSSRH"
+                url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+                credentials {
+                    username = System.getenv("MAVEN_USERNAME")
+                    password = System.getenv("MAVEN_PASSWORD")
+                }
             }
         }
     }
@@ -101,12 +123,12 @@ if(hasProperty('target') && target == 'android') {
     }
 
     task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
+        archiveClassifier = 'sources'
         from sourceSets.main.allSource
     }
 
     task javadocJar(type: Jar, dependsOn: javadoc) {
-        classifier = 'javadoc'
+        archiveClassifier = 'javadoc'
         from javadoc.destinationDir
     }
 

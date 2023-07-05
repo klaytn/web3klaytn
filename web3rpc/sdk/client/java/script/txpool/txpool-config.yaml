@@ -1,7 +1,7 @@
 generatorName: web3rpc-java
 outputDir: ./openapi/txpool
 inputSpec: ../../../rpc-specs/namespaces/txpool-openapi.yaml
-groupId: klaytn.foundation
+groupId: foundation.klaytn
 artifactId: web3rpc-txpool 
 artifactVersion: v1.10.0
 library: retrofit2

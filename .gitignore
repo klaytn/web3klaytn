@@ -126,3 +126,4 @@ bin/**.jar
 
 **/gradlew
 **/gradlew.bat
+**/dist/
