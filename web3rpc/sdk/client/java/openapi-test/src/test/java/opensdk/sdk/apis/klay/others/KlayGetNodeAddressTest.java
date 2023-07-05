@@ -24,6 +24,6 @@ public class KlayGetNodeAddressTest {
         assertNull(response.getError());
 
         assertNotNull(response.getResult());
-        assertTrue(response.getResult().toString().matches("^0x[a-fA-F0-9]+"));
+        assertTrue(((String) response.getResult()).matches("^0x[a-fA-F0-9]+"));
     }
 }

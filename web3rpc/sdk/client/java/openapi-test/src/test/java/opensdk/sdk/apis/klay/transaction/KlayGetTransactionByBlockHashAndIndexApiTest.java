@@ -18,14 +18,14 @@ public class KlayGetTransactionByBlockHashAndIndexApiTest {
     @DisplayName("RPC klay_getTransactionByBlockHashAndIndex")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         KlayGetTransactionByBlockHashAndIndexResponse response = w3.klayGetTransactionByBlockHashAndIndex(
-                "0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68",
+                "0x4c4cbf242a80183d2ea2daf047c578d5fc89c0b14c4262606c8b6bb0b36715be",
                         "0x0"
         ).send();
 
         assertNotNull(response);
         assertNull(response.getError());
 
-//        assertNotNull(response.getResult());
-//        assertTrue(response.getResult().getBlockHash().matches("^0x[a-fA-F0-9]+"));
+        assertNotNull(response.getResult().getBlockHash());
+        assertTrue(response.getResult().getBlockHash().matches("^0x[a-fA-F0-9]+"));
     }
 }

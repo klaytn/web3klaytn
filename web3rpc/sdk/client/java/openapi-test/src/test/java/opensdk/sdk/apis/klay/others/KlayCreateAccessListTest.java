@@ -30,8 +30,8 @@ public class KlayCreateAccessListTest {
 
         assertNotNull(response);
         assertNull(response.getError());
-
         assertNotNull(response.getResult());
+        assertNotNull(response.getResult().getGasUsed());
         assertTrue(response.getResult().getGasUsed().matches("^0x[a-fA-F0-9]+"));
     }
 
