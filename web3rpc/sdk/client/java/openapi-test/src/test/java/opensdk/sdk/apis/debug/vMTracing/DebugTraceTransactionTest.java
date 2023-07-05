@@ -8,11 +8,12 @@ import org.junit.jupiter.api.Test;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import java.util.LinkedHashMap;
 
 import org.web3j.protocol.http.HttpService;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 @DisplayName("Debug RPC Test")
 public class DebugTraceTransactionTest {
     private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
@@ -28,5 +29,11 @@ public class DebugTraceTransactionTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
+        if (response.getResult() instanceof LinkedHashMap<?, ?>) {
+            if (!((LinkedHashMap<?, ?>) response.getResult()).isEmpty()) {
+                assertTrue(((LinkedHashMap<?, ?>) response.getResult()).get("gas") instanceof Integer);
+            }
+        }
     }
 }
