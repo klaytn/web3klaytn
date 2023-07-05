@@ -1,5 +1,6 @@
 const OpenSdk = require("opensdk-javascript");
 const Web3 = require('web3');
+const crypto = require("crypto");
 
 const { RPC, PN_RPC } = require("../test/constant");
 
@@ -114,5 +115,28 @@ export const getNoncePending = () => {
             if (err) return ej(err)
             return res(data.reverse()[0].nonce)
         })
+    })
+}
+
+export const genHexString = () => {
+  const randomBytes = crypto.randomBytes(32);
+  let hexString = randomBytes.toString("hex");
+  return hexString;
+};
+
+export const getEthFilterIdPNNode = () => {
+    return new Promise((res, ej) => {
+        const opts = {
+            "fromBlock": "earliest",
+            "toBlock": "latest",
+            "address": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b",
+            "topics": [
+                "0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8"
+            ]
+        }
+        sdk_PN.eth.newFilter(opts, {}, (error, data, response) => {
+            if (error) ej(error)
+            return res(data)
+        });
     })
 }

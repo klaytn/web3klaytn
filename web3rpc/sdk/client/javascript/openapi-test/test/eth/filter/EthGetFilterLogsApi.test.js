@@ -1,9 +1,9 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
-const { RPC } = require("../../constant");
-const { getEthFilterId } = require("../../../helpers/eth");
+const { PN_RPC } = require("../../constant");
+const { getEthFilterIdPNNode } = require("../../../helpers/eth");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk(new OpenSdk.ApiClient(PN_RPC));
 
 describe('eth_getFilterLogs API', () => {
     test('should return eth_getFilterLogs', (done) => {
@@ -14,7 +14,7 @@ describe('eth_getFilterLogs API', () => {
             expect(Array.isArray(data)).toBe(true);
             done();
         };
-        getEthFilterId().then(id => {
+        getEthFilterIdPNNode().then(id => {
             sdk.eth.getFilterLogs(id, {}, callbackOne);
         })
     });
