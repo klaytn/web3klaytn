@@ -281,10 +281,6 @@ export class Wallet extends EthersWallet {
     const tx = await this.populateTransaction(transaction);
     const signedTx = await this.signTransactionAsFeePayer(tx);
 
-    if (!KlaytnTxFactory.has(tx.type)) {
-      throw new Error(`Fee payer can not sign with Legacy transaction`);
-    }
-
     if (this.provider instanceof JsonRpcProvider) {
       // eth_sendRawTransaction cannot process Klaytn typed transactions.
       const txhash = await this.provider.send("klay_sendRawTransaction", [signedTx]);
