@@ -2,6 +2,7 @@ from base.testing import KlaytnBaseTesting
 from eth_utils.address import to_checksum_address
 from web3._utils.filters import Filter
 
+
 class TestEthNewFilter(KlaytnBaseTesting):
 
     def setUp(self) -> None:

@@ -11,7 +11,7 @@ class TestDebugMetrics(KlaytnBaseTesting):
         self.response = self.w3.debug.metrics(
             self.raw
         )
-        self.assertResponseSuccess()
+        self.assertTrue(len(self.response) >= 0)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

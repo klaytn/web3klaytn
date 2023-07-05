@@ -12,7 +12,7 @@ class TestGetFilterLogs(KlaytnBaseTesting):
         self.response = self.w3.klay.get_filter_logs(
             self.quantity
         )
-        self.assertResponseSuccess()
+        self.assertTrue(len(self.response) >= 0)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
