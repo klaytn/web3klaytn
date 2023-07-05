@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 from web3py_ext import extend
 from web3py_ext.klaytn_account.account_store import AccountStore
 from eth_account import Account
