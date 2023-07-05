@@ -12,7 +12,7 @@ class TestGetRawTransactionByBlockHashAndIndex(KlaytnBaseTesting):
         self.response = self.w3.klay.get_raw_transaction_by_block_hash_and_index(
             self.blockHash, self.index
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response, r'^0x.*$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

@@ -13,3 +13,4 @@ class TestKlayGetBlockWithConsensusInfoByNumberRange(KlaytnBaseTesting):
             self.blockHash, self.numberRange
         )
         self.assertResponseSuccess()
+        self.assertRegex(self.response["0x1"]["hash"], r'^0x.*$')
