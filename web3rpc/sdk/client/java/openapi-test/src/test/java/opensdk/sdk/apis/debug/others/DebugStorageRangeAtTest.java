@@ -27,5 +27,6 @@ public class DebugStorageRangeAtTest {
     DebugStorageRangeAtResponse response = w3.debugStorageRangeAt(blockHash, txIndex, contractAddress, keyStart, maxResult).send();
     assertNotNull(response);
     assertNull(response.getError());
+    assertNotNull(response.getResult());
   }
 }
