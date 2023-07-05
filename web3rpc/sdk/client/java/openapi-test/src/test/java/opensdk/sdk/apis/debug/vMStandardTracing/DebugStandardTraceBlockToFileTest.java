@@ -25,5 +25,7 @@ public class DebugStandardTraceBlockToFileTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNull(response.getResult());
     }
 }
