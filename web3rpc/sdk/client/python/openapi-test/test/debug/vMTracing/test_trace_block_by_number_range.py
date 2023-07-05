@@ -12,7 +12,7 @@ class TestTraceBlockByNumberRange(KlaytnBaseTesting):
         self.response = self.w3.debug.trace_block_by_number_range(
             self.startBlock, self.endBlock
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response["21"]["hash"], r'^0x.*$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

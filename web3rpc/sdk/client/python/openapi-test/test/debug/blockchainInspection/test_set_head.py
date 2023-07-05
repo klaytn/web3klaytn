@@ -11,7 +11,7 @@ class TestSetHead(KlaytnBaseTesting):
         self.response = self.w3.debug.set_head(
             self.number
         )
-        self.assertResponseSuccess()
+        self.assertIsNone(self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

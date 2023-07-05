@@ -1,5 +1,6 @@
 from base.testing import KlaytnBaseTesting
 
+
 class TestGetStakingInfo(KlaytnBaseTesting):
 
     def setUp(self) -> None:
