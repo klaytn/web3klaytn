@@ -16,14 +16,16 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
+import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.crypto.transaction.account.AccountKey;
 import org.web3j.crypto.transaction.type.ITransaction;
 import org.web3j.crypto.transaction.type.TxType;
 import org.web3j.crypto.transaction.type.TxType.Type;
+import org.web3j.crypto.transaction.type.AbstractTxType;
 import org.web3j.crypto.transaction.type.TxTypeAccountUpdate;
 import org.web3j.crypto.transaction.type.TxTypeCancel;
 import org.web3j.crypto.transaction.type.TxTypeChainDataAnchoring;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegate;
 import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedAccountUpdate;
 import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedAccountUpdateWithRatio;
 import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedCancel;
@@ -42,6 +44,12 @@ import org.web3j.crypto.transaction.type.TxTypeSmartContractDeploy;
 import org.web3j.crypto.transaction.type.TxTypeSmartContractExecution;
 import org.web3j.crypto.transaction.type.TxTypeValueTransfer;
 import org.web3j.crypto.transaction.type.TxTypeValueTransferMemo;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthChainId;
+import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
+import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.utils.Numeric;
+import java.io.IOException;
 
 /**
  * Transaction class used for signing transactions locally.<br>
@@ -876,7 +884,7 @@ public class KlayRawTransaction extends RawTransaction {
     }
     
     public static KlayRawTransaction createTransaction(
-        long chainId,
+            long chainId,
             TxType.Type type,
             BigInteger nonce,
             BigInteger gasPrice,
@@ -938,6 +946,287 @@ public class KlayRawTransaction extends RawTransaction {
 
     public byte[] getRaw() {
         return value;
+    }
+
+
+    public KlayRawTransaction fillTransaction(Web3j web3j) throws IOException {
+        AbstractTxType tx = (AbstractTxType) this.getTransaction();
+        TxType.Type type = tx.getKlayType();
+
+        EthChainId EthchainId = web3j.ethChainId().send();
+        long chainId = EthchainId.getChainId().longValue();
+
+        EthGetTransactionCount ethGetTransactionCount =
+        web3j.ethGetTransactionCount(
+                        tx.getFrom(), DefaultBlockParameterName.PENDING)
+                .send();
+
+        BigInteger nonce = ethGetTransactionCount.getTransactionCount();
+
+        Object gasPriceResponse = web3j.klayGasPrice().send().getResult();
+        if (gasPriceResponse == null) {
+            throw new UnsupportedOperationException("Cannot get GasPrice");
+        }
+        BigInteger gasPrice = new BigInteger(Numeric.cleanHexPrefix((String) gasPriceResponse), 16);
+
+
+        KlayRawTransaction raw;
+        if (!Type.isFeeDelegated(type) && !Type.isPartialFeeDelegated(type)) {
+            switch (type) {
+                case ACCOUNT_UPDATE:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getFrom(),
+                        ((TxTypeAccountUpdate)tx).getAccountKey());                       
+                    break;
+                case CANCEL:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getFrom());                            
+                    break;
+                case SMART_CONTRACT_DEPLOY:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom(),
+                        ((TxTypeSmartContractDeploy)tx).getPayload(),
+                        ((TxTypeSmartContractDeploy)tx).getCodeFormat());                            
+                    break;
+                case SMART_CONTRACT_EXECUTION:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom(),
+                        ((TxTypeSmartContractExecution)tx).getPayload());                            
+                    break;
+                case VALUE_TRANSFER:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom());
+                    break;
+                case VALUE_TRANSFER_MEMO:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom(),
+                        ((TxTypeValueTransferMemo)tx).getPayload());
+                    break;
+                case CHAIN_DATA_ANCHORING:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom(),
+                        ((TxTypeChainDataAnchoring)tx).getAnchoredData());
+                    break;  
+                default:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom());
+                    break;
+            }
+            return raw;
+        }
+
+        else {
+            switch (type) {
+                case FEE_DELEGATED_CANCEL:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getFrom());                            
+                    break;
+                case FEE_DELEGATED_CANCEL_WITH_RATIO:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getFrom(),
+                        ((TxTypeFeeDelegatedCancelWithRatio) tx).getFeeRatio());                            
+                    break;
+                case FEE_DELEGATED_SMART_CONTRACT_DEPLOY:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom(),
+                        ((TxTypeFeeDelegatedSmartContractDeploy)tx).getPayload(),
+                        ((TxTypeFeeDelegatedSmartContractDeploy)tx).getCodeFormat());                            
+                    break;
+                case FEE_DELEGATED_SMART_CONTRACT_DEPLOY_WITH_RATIO:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom(),
+                        ((TxTypeFeeDelegatedSmartContractDeployWithRatio)tx).getPayload(),
+                        ((TxTypeFeeDelegatedSmartContractDeployWithRatio)tx).getCodeFormat(),
+                        ((TxTypeFeeDelegatedSmartContractDeployWithRatio)tx).getFeeRatio());                            
+                    break;
+                case FEE_DELEGATED_SMART_CONTRACT_EXECUTION:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom(),
+                        ((TxTypeFeeDelegatedSmartContractExecution)tx).getPayload());                            
+                    break;
+                case FEE_DELEGATED_SMART_CONTRACT_EXECUTION_WITH_RATIO:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom(),
+                        ((TxTypeFeeDelegatedSmartContractExecution)tx).getPayload(),
+                        ((TxTypeFeeDelegatedSmartContractExecution)tx).getFeeRatio());                            
+                    break;
+                case FEE_DELEGATED_VALUE_TRANSFER:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom());
+                    break;
+                case FEE_DELEGATED_VALUE_TRANSFER_MEMO:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom(),
+                        ((TxTypeFeeDelegatedValueTransferMemoWithRatio)tx).getPayload());
+                    break;
+                case FEE_DELEGATED_VALUE_TRANSFER_WITH_RATIO:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom(),
+                        ((TxTypeFeeDelegatedValueTransferWithRatio)tx).getFeeRatio());
+                    break;
+                case FEE_DELEGATED_VALUE_TRANSFER_MEMO_WITH_RATIO:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom(),
+                        ((TxTypeFeeDelegatedValueTransferMemoWithRatio)tx).getPayload(),
+                        ((TxTypeFeeDelegatedValueTransferMemoWithRatio)tx).getFeeRatio());
+                    break;
+                case FEE_DELEGATED_CHAIN_DATA_ANCHORING_WITH_RATIO:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom(),
+                        ((TxTypeFeeDelegatedChainDataAnchoring)tx).getAnchoredData());
+                    break;  
+                case FEE_DELEGATED_CHAIN_DATA_ANCHORING:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom(),
+                        ((TxTypeFeeDelegatedChainDataAnchoring)tx).getAnchoredData(),
+                        ((TxTypeFeeDelegatedChainDataAnchoring)tx).getFeeRatio());
+                    break;  
+                default:
+                    raw = KlayRawTransaction.createTransaction(
+                        chainId,
+                        type,
+                        nonce,
+                        gasPrice,
+                        tx.getGasLimit(),
+                        tx.getTo(),
+                        tx.getValue(),
+                        tx.getFrom());
+                    break;
+            }
+            return raw;
+        }
     }
 
 }
