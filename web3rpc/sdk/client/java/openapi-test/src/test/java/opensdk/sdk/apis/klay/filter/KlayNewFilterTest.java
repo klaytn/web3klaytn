@@ -20,7 +20,7 @@ public class KlayNewFilterTest {
     @DisplayName("RPC klay_newFilter")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         FilterOptions opt = new FilterOptions();
-        opt.setFromBlock("latest");
+        opt.setFromBlock("earliest");
         opt.setToBlock("latest");
         opt.setAddress("0x87ac99835e67168d4f9a40580f8f5c33550ba88b");
         opt.setTopics(List.of("0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8"));
@@ -30,7 +30,7 @@ public class KlayNewFilterTest {
         assertNotNull(response);
         assertNull(response.getError());
 
-        assertTrue(response.getResult() instanceof String);
+        assertNotNull(response.getResult());
         assertTrue(response.getResult().matches("^0x[a-f0-9]+"));
     }
 }
