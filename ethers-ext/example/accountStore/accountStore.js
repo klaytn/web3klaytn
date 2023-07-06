@@ -22,9 +22,9 @@ async function main() {
   console.log( accountStore.getAccountInfos() );
 
   console.log( accountStore.getType('0xA2a8854b1802D8Cd5De631E690817c253d6a9153') );  // 1
-  console.log( accountStore.getType('0xCb0eb737dfda52756495A5e08A9b37AAB3b271dA') );  // 2
-  console.log( accountStore.getType('0xe15Cd70A41dfb05e7214004d7D054801b2a2f06b') );  // 4
-  console.log( accountStore.getType('0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e') );  // 5
+  console.log( accountStore.getType('0xCb0eb737dfda52756495A5e08A9b37AAB3b271dA') );  // 1
+  console.log( accountStore.getType('0xe15Cd70A41dfb05e7214004d7D054801b2a2f06b') );  // 2
+  console.log( accountStore.getType('0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e') );  // 4
   console.log( accountStore.getType('0x5bd2fb3c21564c023a4a735935a2b7a238c4ccea') );  // 5
 
   console.log( accountStore.getAccountInfo('0xA2a8854b1802D8Cd5De631E690817c253d6a9153') ); 
