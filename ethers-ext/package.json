@@ -1,6 +1,6 @@
 {
   "name": "@klaytn/ethers-ext",
-  "version": "beta-0.9.0",
+  "version": "0.9.0-beta",
   "main": "dist/src/index.js",
   "files": [
     "./dist",
