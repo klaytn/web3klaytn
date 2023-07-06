@@ -27,9 +27,6 @@ public class KlayGetAccountKeyTest {
         assertNull(response.getError());
 
         assertNotNull(response.getResult());
-        assertDoesNotThrow(() -> {
-            response.getResult().getKeyType();
-        });
         assertInstanceOf(Integer.class, response.getResult().getKeyType());
     }
 }
