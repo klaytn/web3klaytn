@@ -43,7 +43,7 @@ async function senderSign( nextNonce ) {
 async function feePayerSign( senderTxHashRLP ) {
   const feePayerWallet = new Wallet(feePayerPriv, provider);
 
-  const txCancel = objectFromRLP( senderTxHashRLP );
+  const txCancel = feePayerWallet.decodeTxFromRLP( senderTxHashRLP );
   txCancel.feePayer = feePayerAddr;
   console.log(txCancel);
 
