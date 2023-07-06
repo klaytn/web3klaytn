@@ -15,15 +15,17 @@ import java.io.IOException;
 import java.math.BigInteger;
 
 public class EthGetFiterLogsTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.PN_RPC));
+
     @Test
-    @DisplayName("RPC eth_getFilterLogs")
+    @DisplayName("RPC ")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        String idRaw = EthUtils.getEthFilterId().getResult();
+        String idRaw = EthUtils.getEthFilter().getResult();
         BigInteger id = new BigInteger(idRaw.substring(2), 16);
         EthLog response = w3.ethGetFilterLogs(id).send();
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 }
