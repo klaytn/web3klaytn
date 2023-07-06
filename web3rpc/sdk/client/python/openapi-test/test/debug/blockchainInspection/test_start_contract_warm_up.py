@@ -11,7 +11,7 @@ class TestStartContractWarmUp(KlaytnBaseTesting):
         self.response = self.w3.debug.start_contract_warm_up(
             self.address
         )
-        self.assertResponseSuccess()
+        self.assertIsNone(self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
