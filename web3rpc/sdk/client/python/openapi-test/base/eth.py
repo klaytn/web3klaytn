@@ -4,6 +4,7 @@ from web3py_ext import extend
 from base.constants import KLAYTN_URL, PN_RPC, BAOBAB_URL
 from web3 import Web3
 from eth_utils.address import to_checksum_address
+import random
 
 # w3 = Web3(Web3.HTTPProvider(KLAYTN_URL))
 w3 = Web3(Web3.HTTPProvider(BAOBAB_URL))
@@ -11,6 +12,7 @@ w3_pn = Web3(Web3.HTTPProvider(PN_RPC))
 address = to_checksum_address("0x413ba0e5f6f00664598b5c80042b1308f4ff1408")
 addressPN = to_checksum_address("0x65b47be3457ff26f2911cf89fd079cef0475a2e6")
 passphrasePN = "helloWorld"
+
 
 def create_new_filter():
     filterOptions = {
@@ -36,9 +38,11 @@ def getNonce():
     eth_response = w3.eth.get_transaction_count(address, "latest")
     return eth_response
 
+
 def getFeePayerSignatures(tx):
     klay_response = w3.klay.sign_transaction(tx)
     return klay_response["tx"]
+
 
 def get_raw_transaction():
     private_key = "6cb442edb31d8a1c753f0c3c675588fceb4d82435a1c03b8bb92a5a9274ebbe0"
@@ -76,7 +80,7 @@ def send_transaction_pn():
         "gas": "0x9999",
         "maxFeePerGas": "0x5d21dba00",
         "maxPriorityFeePerGas": "0x5d21dba00"
-}
+    }
     result = w3_pn.klay.send_transaction(klaytnTransactionTypes)
     return result
 
@@ -84,3 +88,9 @@ def send_transaction_pn():
 def get_nonce_pending():
     data = w3_pn.eth.pending_transactions()
     return data[-1]['nonce']
+
+
+def gen_hex_string():
+    random_bytes = bytearray(random.getrandbits(8) for _ in range(32))
+    hex_string = ''.join('{:02x}'.format(b) for b in random_bytes)
+    return hex_string
