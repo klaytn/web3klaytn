@@ -5,4 +5,4 @@ class TestStopWarmUp(KlaytnBaseTesting):
 
     def test_post(self):
         self.response = self.w3.debug.stop_warm_up()
-        self.assertResponseSuccess()
+        self.assertIsNone(self.response)
