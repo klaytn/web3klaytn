@@ -10,21 +10,26 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class KlayGetAccountKeyTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     @Test
     @DisplayName("RPC klay_getAccountKey")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        String address = "0x3111a0577f322e8fb54f78d9982a26ae7ca0f722";
+        String address = "0xa36a5fdc679ecaabe057556ccec2f3558068bdc8";
         String blockNumberOrHashOrTag = "latest";
 
         KlayGetAccountKeyResponse response = w3.klayGetAccountKey(address, blockNumberOrHashOrTag).send();
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNotNull(response.getResult());
+        assertDoesNotThrow(() -> {
+            response.getResult().getKeyType();
+        });
+        assertInstanceOf(Integer.class, response.getResult().getKeyType());
     }
 }
