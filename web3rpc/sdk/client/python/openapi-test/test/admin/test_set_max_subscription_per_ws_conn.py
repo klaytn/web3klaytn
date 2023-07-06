@@ -11,7 +11,7 @@ class TestAdminSetMaxSubscriptionPerWSConn(KlaytnBaseTesting):
         self.response = self.w3.geth.admin.set_max_subscription_per_ws_conn(
             self.limit
         )
-        self.assertResponseSuccess()
+        self.assertIsNone(self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
