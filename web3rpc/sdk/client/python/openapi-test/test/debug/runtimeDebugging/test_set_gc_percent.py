@@ -11,7 +11,7 @@ class TestDebugSetGCPercent(KlaytnBaseTesting):
         self.response = self.w3.debug.set_gc_percent(
             self.percent
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, int)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

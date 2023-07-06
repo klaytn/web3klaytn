@@ -11,7 +11,7 @@ class TestDebugSetVMLogTarget(KlaytnBaseTesting):
         self.response = self.w3.debug.set_vm_log_target(
             self.target
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, str)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
