@@ -16,7 +16,7 @@ import java.io.IOException;
 
 @DisplayName("Eth RPC Test")
 public class EthGetLogTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
     @Test
     @DisplayName("RPC eth_getLogs")
@@ -28,6 +28,7 @@ public class EthGetLogTest {
         EthLog response = w3.ethGetLogs(filterOption).send();
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 
 }
