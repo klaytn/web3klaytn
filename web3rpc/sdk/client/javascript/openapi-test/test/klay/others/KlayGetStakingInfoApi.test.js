@@ -1,8 +1,8 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
-const { RPC } = require("../../constant");
+const { BAOBAB_RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk(new OpenSdk.ApiClient(BAOBAB_RPC));
 
 describe('klay_getStakingInfo API', () => {
     test('should return klay_getStakingInfo', (done) => {
@@ -12,7 +12,7 @@ describe('klay_getStakingInfo API', () => {
             expect(error).toBeNull();
             expect(data).toBeDefined()
             if (data !== null) {
-                expect(Array.isArray(data)).toBeTruthy()
+                expect(typeof data.blockNum === 'number' || /^0x[0-9a-fA-F]+$/.test(data.blockNum)).toBe(true);
             }
             done();
         };
