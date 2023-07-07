@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
-
 public class KlayGetFilterLogsTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.PN_RPC));
+
     @Test
     @DisplayName("RPC klay_getFilterLogs")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
