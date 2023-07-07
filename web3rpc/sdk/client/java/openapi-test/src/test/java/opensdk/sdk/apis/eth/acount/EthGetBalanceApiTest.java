@@ -26,7 +26,7 @@ public class EthGetBalanceApiTest {
         .send();
         assertNotNull(br);
         assertNull(br.getError());
-        if(br.getResult() != null) {
+        if (br.getResult() != null) {
             assertTrue(br.getResult().matches("^0x.*$"));
         }
     }

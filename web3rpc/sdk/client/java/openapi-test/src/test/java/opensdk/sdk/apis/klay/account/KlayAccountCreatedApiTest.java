@@ -1,6 +1,7 @@
 package opensdk.sdk.apis.klay.account;
 
 import opensdk.sdk.apis.constant.UrlConstants;
+import org.web3j.abi.datatypes.Bool;
 import org.web3j.protocol.klaytn.core.method.response.KlayAccountCreatedResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,8 +10,7 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Klay RPC Test")
 public class KlayAccountCreatedApiTest {
@@ -27,6 +27,6 @@ public class KlayAccountCreatedApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
-        assertNull(response.getResult() instanceof Boolean);
+        assertTrue(response.getResult() instanceof Boolean);
     }
 }

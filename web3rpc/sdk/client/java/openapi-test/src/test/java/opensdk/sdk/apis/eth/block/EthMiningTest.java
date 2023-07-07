@@ -20,6 +20,6 @@ public class EthMiningTest {
         assertNotNull(response);
         assertNull(response.getError());
 
-        assertInstanceOf(Boolean.class, response.getResult());
+        assertNotNull(response.getResult());
     }
 }

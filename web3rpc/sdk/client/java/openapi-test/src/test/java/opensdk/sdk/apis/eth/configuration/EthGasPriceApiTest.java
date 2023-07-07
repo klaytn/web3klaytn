@@ -22,7 +22,7 @@ public class EthGasPriceApiTest {
         EthGasPrice br = w3.ethGasPrice().send();
         assertNotNull(br);
         assertNull(br.getError());
-        assertTrue(br.getResult() instanceof String);
+        assertNotNull(br.getResult());
         assertTrue(br.getResult().matches("^0x[0-9a-fA-F]+$"));
     }
 }

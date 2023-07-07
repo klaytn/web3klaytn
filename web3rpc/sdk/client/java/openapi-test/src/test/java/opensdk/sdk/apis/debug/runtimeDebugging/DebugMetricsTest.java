@@ -29,7 +29,7 @@ public class DebugMetricsTest {
         assertNull(response.getError());
         assertNotNull(response.getResult());
         if (response.getResult() instanceof LinkedHashMap<?, ?>) {
-            assertTrue(((LinkedHashMap) response.getResult()).size() > 0);
+            assertTrue(((LinkedHashMap<?, ?>) response.getResult()).size() > 0);
         }
     }
 }
