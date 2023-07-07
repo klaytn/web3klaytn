@@ -19,7 +19,7 @@ public class AdminImportChainTest {
     @Test
     @DisplayName("RPC admin_importChain")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        String fileName = "/tmp/chain.txt";
+        String fileName = "/tmp/chain444.txt";
 
         AdminImportChainResponse response = w3.adminImportChain(fileName).send();
 
