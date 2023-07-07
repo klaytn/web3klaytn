@@ -25,6 +25,5 @@ public class DebugIsPProfRunningTest {
         assertNull(response.getError());
 
         assertNotNull(response.getResult());
-        assertInstanceOf(Boolean.class, response.getResult());
     }
 }

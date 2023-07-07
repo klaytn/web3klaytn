@@ -1,5 +1,6 @@
 package opensdk.sdk.apis.eth.miscellaneous;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ public class EthSubmitWorkTest {
         EthSubmitWork response = w3.ethSubmitWork(nonce, powHash, mixDigest).send();
         assertNotNull(response);
         assertNull(response.getError());
-        assertTrue(response.getResult() instanceof Boolean);
+        assertNotNull(response.getResult());
     }
 
 }

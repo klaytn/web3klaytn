@@ -27,7 +27,7 @@ public class EthGetTransactionByBlockNumberAndIndexTest {
         assertNull(response.getError());
 
         if (response.getResult() != null) {
-            assertInstanceOf(BigInteger.class, response.getResult().getBlockNumber());
+            assertNotNull(response.getResult().getBlockNumber());
         }
     }
 }

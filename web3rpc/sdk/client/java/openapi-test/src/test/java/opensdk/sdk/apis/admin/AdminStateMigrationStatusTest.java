@@ -23,6 +23,6 @@ public class AdminStateMigrationStatusTest {
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());
-        assertTrue(response.getResult().getCommitted() instanceof Integer);
+        assertNotNull(response.getResult().getCommitted());
     }
 }

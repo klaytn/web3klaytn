@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Eth RPC Test")
 public class EthSyncingTest {
     private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+
     @Test
     @DisplayName("RPC eth_syncing")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
@@ -24,5 +25,4 @@ public class EthSyncingTest {
         assertNull(response.getError());
         assertNotNull(response.getResult());
     }
-
 }

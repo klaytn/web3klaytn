@@ -37,6 +37,7 @@ public class EthFillTransactionApiTest {
         assertNotNull(cr);
         assertNull(cr.getError());
         assertNotNull(cr.getResult());
+        assertNotNull(cr.getResult().getRaw());
         assertTrue(cr.getResult().getRaw().matches("^0x[0-9a-fA-F]*$"));
     }
 }

@@ -27,6 +27,7 @@ public class KlayGetAccountApiTest {
         assertNull(response.getError());
 
         assertNotNull(response.getResult());
+        assertNotNull(response.getResult().getAccount());
         assertInstanceOf(String.class, response.getResult().getAccount().getBalance());
     }
 }

@@ -22,6 +22,6 @@ public class AdminDataDirTest {
 
         assertNotNull(response);
         assertNull(response.getError());
-        assertTrue(response.getResult() instanceof String);
+        assertNotNull(response.getResult());
     }
 }

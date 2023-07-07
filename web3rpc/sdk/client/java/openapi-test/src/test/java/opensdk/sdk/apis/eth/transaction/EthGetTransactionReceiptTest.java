@@ -20,7 +20,7 @@ public class EthGetTransactionReceiptTest {
         EthGetTransactionReceipt response = w3.ethGetTransactionReceipt(transactionHash).send();
         assertNotNull(response);
         assertNull(response.getError());
-        if(response.getResult() != null) {
+        if (response.getResult() != null) {
             assertTrue(response.getResult().getBlockNumberRaw().matches("^0x.*$"));
         }
     }

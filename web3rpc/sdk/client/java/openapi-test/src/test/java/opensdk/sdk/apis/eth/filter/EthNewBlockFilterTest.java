@@ -21,7 +21,7 @@ public class EthNewBlockFilterTest {
         assertNotNull(response);
         assertNull(response.getError());
 
-        assertInstanceOf(String.class, response.getResult());
+        assertNotNull(response.getResult());
         assertTrue(response.getResult().matches("^0x[0-9a-fA-F]+$"));
     }
 }

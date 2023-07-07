@@ -25,6 +25,6 @@ public class KlayIsContractAccountTest {
         assertNull(response.getError());
 
         assertNotNull(response.getResult());
-        assertTrue(response.getResult() instanceof Boolean);
+        assertNotNull(response.getResult());
     }
 }

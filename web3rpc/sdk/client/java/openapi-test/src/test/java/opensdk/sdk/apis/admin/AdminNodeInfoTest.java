@@ -23,6 +23,6 @@ public class AdminNodeInfoTest {
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());
-        assertTrue(response.getResult().getName() instanceof String);
+        assertNotNull(response.getResult().getName());
     }
 }

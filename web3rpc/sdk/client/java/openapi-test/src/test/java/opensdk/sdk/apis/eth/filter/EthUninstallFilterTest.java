@@ -23,6 +23,6 @@ public class EthUninstallFilterTest {
         EthUninstallFilter response = w3.ethUninstallFilter(filterId).send();
         assertNotNull(response);
         assertNull(response.getError());
-        assertTrue(response.getResult()instanceof Boolean);
+        assertNotNull(response.getResult());
     }
 }

@@ -25,5 +25,6 @@ public class AdminImportChainTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 }
