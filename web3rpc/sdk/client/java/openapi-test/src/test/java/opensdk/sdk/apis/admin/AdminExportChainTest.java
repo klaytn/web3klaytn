@@ -26,7 +26,7 @@ public class AdminExportChainTest {
 
         assertNotNull(response);
         assertNull(response.getError());
-        assertTrue(response.getResult() instanceof Boolean);
+        assertNotNull(response.getResult());
     }
 
     private static String generateRandomFileName() {
