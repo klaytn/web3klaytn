@@ -24,6 +24,6 @@ public class AdminRemovePeerTest {
 
         assertNotNull(response);
         assertNull(response.getError());
-        assertTrue(response.getResult() instanceof Boolean);
+        assertNotNull(response.getResult());
     }
 }

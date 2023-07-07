@@ -24,7 +24,6 @@ public class KlayNewFilterTest {
         opt.setToBlock("latest");
         opt.setAddress("0x87ac99835e67168d4f9a40580f8f5c33550ba88b");
         opt.setTopics(List.of("0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8"));
-
         KlayNewFilterResponse response = w3.klayNewFilter(opt).send();
 
         assertNotNull(response);

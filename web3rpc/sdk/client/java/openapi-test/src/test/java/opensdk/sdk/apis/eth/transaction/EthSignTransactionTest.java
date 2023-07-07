@@ -33,7 +33,8 @@ public class EthSignTransactionTest {
         assertNotNull(transactionResponse);
         assertNull(transactionResponse.getError());
 
-        assertInstanceOf(String.class, transactionResponse.getResult().getRaw());
+        assertNotNull(transactionResponse.getResult());
+        assertNotNull(transactionResponse.getResult().getRaw());
         assertTrue(transactionResponse.getResult().getRaw().matches("^0x[0-9a-fA-F]+$"));
     }
 }

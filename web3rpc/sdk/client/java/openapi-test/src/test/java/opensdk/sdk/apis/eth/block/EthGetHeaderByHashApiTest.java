@@ -24,7 +24,7 @@ public class EthGetHeaderByHashApiTest {
         .send();
         assertNotNull(br);
         assertNull(br.getError());
-        if(br.getResult() != null) {
+        if (br.getResult() != null) {
             assertTrue(br.getResult().getHash().matches("^0x.*$"));
         }
     }

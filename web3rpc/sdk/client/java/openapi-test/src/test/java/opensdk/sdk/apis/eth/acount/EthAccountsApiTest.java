@@ -22,7 +22,7 @@ class EthAccountsApiTest {
         System.out.println(ar.getAccounts());
         assertNotNull(ar);
         assertNull(ar.getError());
-        if(!ar.getAccounts().isEmpty()) {
+        if (!ar.getAccounts().isEmpty()) {
             for (String address : ar.getAccounts() ) {
                 assertTrue(address.matches("^0x[a-fA-F0-9]+"));
             }

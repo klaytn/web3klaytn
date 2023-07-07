@@ -25,6 +25,6 @@ public class DebugStacksTest {
         assertNull(response.getError());
 
         assertNotNull(response.getResult());
-        assertInstanceOf(String.class, response.getResult());
+        assertNotNull(response.getResult());
     }
 }

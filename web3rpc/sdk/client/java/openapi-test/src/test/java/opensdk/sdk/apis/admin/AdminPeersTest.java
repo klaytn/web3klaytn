@@ -24,8 +24,7 @@ public class AdminPeersTest {
         assertNotNull(response);
         assertNull(response.getError());
         if (!response.getResult().isEmpty()) {
-            assertTrue(response.getResult().get(0).getName() instanceof String);
+            assertNotNull(response.getResult().get(0).getName());
         }
-
     }
 }

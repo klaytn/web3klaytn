@@ -25,7 +25,7 @@ public class KlayGetTransactionCountTest {
         assertNotNull(response);
         assertNull(response.getError());
 
-        assertTrue(response.getResult() instanceof String);
+        assertNotNull(response.getResult());
         assertTrue(response.getResult().matches("^0x[a-f0-9]+"));
     }
 

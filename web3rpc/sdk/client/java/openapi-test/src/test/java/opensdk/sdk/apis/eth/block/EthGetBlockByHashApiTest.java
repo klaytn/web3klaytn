@@ -25,7 +25,8 @@ public class EthGetBlockByHashApiTest {
         .send();
         assertNotNull(br);
         assertNull(br.getError());
-        if(br.getResult() != null) {
+        if (br.getResult() != null) {
+            assertNotNull(br.getResult().getHash());
             assertTrue(br.getResult().getHash().matches("^0x.*$"));
         }
     }

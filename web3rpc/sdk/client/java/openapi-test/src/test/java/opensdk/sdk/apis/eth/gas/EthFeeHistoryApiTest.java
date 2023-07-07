@@ -28,7 +28,7 @@ public class EthFeeHistoryApiTest {
         .send();
         assertNotNull(br);
         assertNull(br.getError());
-        if(br.getResult() != null) {
+        if (br.getResult() != null) {
             assertTrue(br.getResult().getOldestBlockRaw().matches("^0x[0-9a-fA-F]+$"));
         }
     }
