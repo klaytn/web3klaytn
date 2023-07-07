@@ -1,13 +1,10 @@
 const ethers = require("ethers");
-const { Wallet } = require("@klaytn/ethers-ext");
+const { Wallet, Klaytn } = require("@klaytn/ethers-ext");
 
 //
 // TxTypeFeeDelegatedAccountUpdate
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/fee-delegation#txtypefeedelegatedaccountupdate
-// 
-//   type: Must be 0x21,
-//   nonce: In signTransactionAsFeePayer, must not be omitted, because feePayer's nonce is filled when populating
-// 
+//  
 
 // create new account for testing 
 // https://baobab.wallet.klaytn.foundation/ 
@@ -25,7 +22,7 @@ async function main() {
   const senderWallet = new Wallet(senderPriv, provider);
   
   let tx = {
-      type: 0x21,
+      type: Klaytn.TxTypeFeeDelegatedAccountUpdate,
       from: senderAddr,
       key: {
           type: 0x02, 

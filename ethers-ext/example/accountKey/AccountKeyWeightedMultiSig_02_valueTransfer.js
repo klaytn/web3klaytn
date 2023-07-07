@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet } = require("@klaytn/ethers-ext");
+const { Wallet, Klaytn } = require("@klaytn/ethers-ext");
 
 // 
 // AccountKeyWeightedMultiSig Step 02 - value transfer
@@ -20,7 +20,7 @@ const senderNewPriv3 = '0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a48
 async function main() {
 
   let tx = {
-    type: 8,
+    type: Klaytn.TxTypeValueTransfer,
     gasLimit: 100000, 
     to: recieverAddr,
     value: 100000000000,

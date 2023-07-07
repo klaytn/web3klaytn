@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet } = require("@klaytn/ethers-ext");
+const { Wallet, Klaytn } = require("@klaytn/ethers-ext");
 
 const senderAddr = '0xa2a8854b1802d8cd5de631e690817c253d6a9153'  
 const senderPriv = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'
@@ -9,7 +9,6 @@ const contractAddr = '0xD7fA6634bDDe0B2A9d491388e2fdeD0fa25D2067'
 // TxTypeSmartContractExecution
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/basic#txtypesmartcontractexecution
 // 
-//   type: Must be 0x30,
 //   to : deployed contract address 
 //   value: Must be 0, if not payable
 //   input: Refer ethers.utils.interface.encodeFunctionData
@@ -36,7 +35,7 @@ async function main() {
   const param = contract.interface.encodeFunctionData("setNumber", ["0x123"]); 
 
   tx = {
-      type: 0x30,
+      type: Klaytn.TxTypeSmartContractExecution,
       to: contractAddr,
       value: 0,  
       from: senderAddr,

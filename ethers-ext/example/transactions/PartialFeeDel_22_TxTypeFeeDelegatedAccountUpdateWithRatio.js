@@ -1,11 +1,10 @@
 const ethers = require("ethers");
-const { Wallet } = require("@klaytn/ethers-ext");
+const { Wallet, Klaytn } = require("@klaytn/ethers-ext");
 
 //
 // TxTypeFeeDelegatedAccountUpdateWithRatio
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/partial-fee-delegation#txtypefeedelegatedaccountupdatewithratio
 // 
-//   type: Must be 0x22,
 //   nonce: In signTransactionAsFeePayer, must not be omitted, because feePayer's nonce is filled when populating
 //   gasLimit: Must be large enough 
 //             If SDK users (wallet or dapp devs) want to add some margin, they can always
@@ -33,7 +32,7 @@ async function main() {
   const senderWallet = new Wallet(senderPriv, provider);
   
   let tx = {
-      type: 0x22,
+      type: Klaytn.TxTypeFeeDelegatedAccountUpdateWithRatio,
       // gasLimit was 56000
       // https://baobab.scope.klaytn.com/tx/0x2a9fc23547e58f67d83263e509e0dc987ada346521a95d8f48de4e023796dede?tabId=accountKeyInfo
       gasLimit: 60000,  

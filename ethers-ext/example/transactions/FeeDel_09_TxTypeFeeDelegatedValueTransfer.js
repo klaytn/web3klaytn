@@ -1,12 +1,9 @@
 const ethers = require("ethers");
-const { Wallet } = require("@klaytn/ethers-ext");
+const { Wallet, Klaytn } = require("@klaytn/ethers-ext");
  
 //
 // TxTypeFeeDelegatedValueTransfer
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/fee-delegation#txtypefeedelegatedvaluetransfer
-// 
-//   type: Must be 0x09,
-//   nonce: In signTransactionAsFeePayer, must not be omitted, because feePayer's nonce is filled when populating
 // 
 
 const senderAddr = '0xa2a8854b1802d8cd5de631e690817c253d6a9153' 
@@ -23,7 +20,7 @@ async function main() {
   const senderWallet = new Wallet(senderPriv, provider);
   
   let tx = {
-    type: 9,    
+    type: Klaytn.TxTypeFeeDelegatedValueTransfer,    
     to: recieverAddr,
     value: 1e12,
     from: senderAddr,
