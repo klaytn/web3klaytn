@@ -86,7 +86,7 @@ def send_transaction_pn():
 
 
 def get_nonce_pending():
-    data = w3_pn.eth.pending_transactions()
+    data = w3_pn.eth_other.pending_transactions()
     return data[-1]['nonce']
 
 
