@@ -82,20 +82,6 @@ export enum Klaytn {
 // https://docs.klaytn.foundation/content/klaytn/design/klaytn-native-coin-klay
 // https://docs.ethers.org/v5/api/utils/display-logic/#display-logic--units
 // https://github.com/ethers-io/ethers.js/blob/main/src.ts/utils/units.ts 
-const names = [
-  "peb",
-  "kpeb",
-  "Mpeb",
-  "Gpeb",
-  "ston",
-  "uKLAY",
-  "mKLAY",
-  "KLAY",
-  "kKLAY",
-  "MKLAY",
-  "GKLAY",
-  "TKLAY"
-];
 
 const KlayUnit = [
   { unit: 'peb', pebFactor: 0 },
@@ -112,10 +98,25 @@ const KlayUnit = [
   { unit: 'TKLAY', pebFactor: 30 },
 ];
 
+function isValidUnit(unit: string): boolean {
+  for ( let i=0; i < KlayUnit.length ; i++ ) {
+    if ( KlayUnit[i].unit.toLowerCase() === unit.toLowerCase() ) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function getFactor(unit: string): number {
   for ( let i=0; i < KlayUnit.length ; i++ ) {
-    if ( KlayUnit[i].unit === unit) {
-      return KlayUnit[i].pebFactor;
+    if ( KlayUnit[i].unit.toLowerCase() === unit.toLowerCase() ) {
+      if (unit.toLowerCase() == 'mklay' && unit.charAt(0) == 'm') {
+        return 15;  // milli KLAY
+      } else if (unit.toLowerCase() == 'mklay' && unit.charAt(0) == 'M') {
+        return 24;  // Mega KLAY
+      } else {
+        return KlayUnit[i].pebFactor;
+      }
     }
   }
   assertArgument(false, "invalid unit", "unit", unit);
@@ -133,8 +134,7 @@ type Numeric = number | bigint;
 export function formatKlaytnUnits(value: BigNumberish, unit?: string | Numeric): string {
   let decimals = 18;
   if (typeof(unit) === "string") {
-      const index = names.indexOf(unit);
-      assertArgument(index >= 0, "invalid unit", "unit", unit);
+      assertArgument( isValidUnit(unit) == true, "invalid unit", "unit", unit);
       decimals = getFactor(unit);
   } else if (unit != null) {
       decimals = getNumber(unit, "unit");
@@ -154,8 +154,7 @@ export function parseKlaytnUnits(value: string, unit?: string | Numeric): bigint
 
   let decimals = 18;
   if (typeof(unit) === "string") {
-      const index = names.indexOf(unit);
-      assertArgument(index >= 0, "invalid unit", "unit", unit);
+      assertArgument( isValidUnit(unit) == true, "invalid unit", "unit", unit);
       decimals = getFactor( unit );
   } else if (unit != null) {
       decimals = getNumber(unit, "unit");
@@ -168,7 +167,7 @@ export function parseKlaytnUnits(value: string, unit?: string | Numeric): bigint
 /**
 *  Converts %%value%% into a //decimal string// using 18 decimal places.
 */
-export function formatKLAY(peb: BigNumberish): string {
+export function formatKlay(peb: BigNumberish): string {
   return formatKlaytnUnits(peb, 18);
 }
 
@@ -176,7 +175,7 @@ export function formatKLAY(peb: BigNumberish): string {
 *  Converts the //decimal string// %%ether%% to a BigInt, using 18
 *  decimal places.
 */
-export function parseKLAY(klay: string): bigint {
+export function parseKlay(klay: string): bigint {
   return parseKlaytnUnits(klay, 18);
 }
 

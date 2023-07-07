@@ -1,5 +1,5 @@
 const { BigNumber } = require("@ethersproject/bignumber");
-const { formatKlaytnUnits, formatKLAY } = require("@klaytn/ethers-ext");
+const { formatKlaytnUnits, formatKlay } = require("@klaytn/ethers-ext");
 
 // 
 // https://docs.klaytn.foundation/content/klaytn/design/klaytn-native-coin-klay
@@ -24,6 +24,9 @@ async function main() {
     console.log( formatKlaytnUnits(oneGpeb, "ston") );
     // '1.0'
 
+    console.log( formatKlaytnUnits(oneGpeb, "STON") );
+    // '1.0'
+
     console.log( formatKlaytnUnits(oneGpeb, 9) );
     // '1.0'
 
@@ -39,7 +42,7 @@ async function main() {
     console.log( formatKlaytnUnits(oneKLAY, 18) );
     // '1.0'
 
-    console.log( formatKLAY(oneKLAY) );
+    console.log( formatKlay(oneKLAY) );
     // '1.0'
 }
 

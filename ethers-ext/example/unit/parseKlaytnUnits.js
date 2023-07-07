@@ -1,5 +1,5 @@
 const { BigNumber } = require("@ethersproject/bignumber");
-const { parseKlaytnUnits, parseKLAY } = require("@klaytn/ethers-ext");
+const { parseKlaytnUnits, parseKlay } = require("@klaytn/ethers-ext");
 
 // 
 // https://docs.klaytn.foundation/content/klaytn/design/klaytn-native-coin-klay
@@ -20,6 +20,10 @@ async function main() {
     console.log( n.toString() );
     // "1000000000000000000"
     
+    n = BigNumber.from( parseKlaytnUnits("121.0", "StoN") );
+    console.log( n.toString() );
+    // "121000000000"
+
     n = BigNumber.from( parseKlaytnUnits("121.0", "Gpeb") );
     console.log( n.toString() );
     // "121000000000"
@@ -28,11 +32,11 @@ async function main() {
     console.log( n.toString() );
     // "121000000000"
     
-    n = BigNumber.from( parseKLAY("3.0") );
+    n = BigNumber.from( parseKlay("3.0") );
     console.log( n.toString() );
     // "3000000000000000000"
 
-    n = BigNumber.from( parseKLAY("0.5") );
+    n = BigNumber.from( parseKlay("0.5") );
     console.log( n.toString() );
     // "500000000000000000"
 }
