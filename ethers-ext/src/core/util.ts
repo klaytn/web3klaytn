@@ -80,16 +80,15 @@ export enum Klaytn {
 
 
 // For Klay unit
+// https://docs.klaytn.foundation/content/klaytn/design/klaytn-native-coin-klay
+// https://docs.ethers.org/v5/api/utils/display-logic/#display-logic--units
 // https://github.com/ethers-io/ethers.js/blob/main/src.ts/utils/units.ts 
-// https://github.com/klaytn/caver-js/blob/82ba48c52bd3fc2738ccba40f67a4bd0f206822a/packages/caver-utils/src/index.js#L241C1-L420C2
-
 const names = [
   "peb",
   "kpeb",
   "Mpeb",
   "Gpeb",
   "ston",
-  "Ston",
   "uKLAY",
   "mKLAY",
   "KLAY",
@@ -105,7 +104,6 @@ const KlayUnit = [
   { unit: 'Mpeb', pebFactor: 6 },
   { unit: 'Gpeb', pebFactor: 9 },
   { unit: 'ston', pebFactor: 9 },
-  { unit: 'Ston', pebFactor: 9 },
   { unit: 'uKLAY', pebFactor: 12 },
   { unit: 'mKLAY', pebFactor: 15 },
   { unit: 'KLAY', pebFactor: 18 },
@@ -171,7 +169,7 @@ export function parseKlaytnUnits(value: string, unit?: string | Numeric): bigint
 /**
 *  Converts %%value%% into a //decimal string// using 18 decimal places.
 */
-export function formatKlaytn(peb: BigNumberish): string {
+export function formatKLAY(peb: BigNumberish): string {
   return formatKlaytnUnits(peb, 18);
 }
 
@@ -179,7 +177,7 @@ export function formatKlaytn(peb: BigNumberish): string {
 *  Converts the //decimal string// %%ether%% to a BigInt, using 18
 *  decimal places.
 */
-export function parseKlaytn(klay: string): bigint {
+export function parseKLAY(klay: string): bigint {
   return parseKlaytnUnits(klay, 18);
 }
 
