@@ -1,5 +1,6 @@
 from base.testing import KlaytnBaseTesting
 
+
 class TestEthGetProof(KlaytnBaseTesting):
 
     def setUp(self) -> None:
@@ -12,7 +13,7 @@ class TestEthGetProof(KlaytnBaseTesting):
         self.response = self.w3.eth.get_proof(
             self.account, self.position, self.blockNumber
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response["codeHash"], r'^0x.*$')
 
     # def test_post_wrong_with_lack_paramaters(self):
     #     with self.assertRaises(ValueError):
