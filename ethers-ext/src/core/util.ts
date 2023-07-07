@@ -78,7 +78,6 @@ export enum Klaytn {
   AccountKeyRoleBased = 0x05
 };
 
-
 // For Klay unit
 // https://docs.klaytn.foundation/content/klaytn/design/klaytn-native-coin-klay
 // https://docs.ethers.org/v5/api/utils/display-logic/#display-logic--units
@@ -150,7 +149,7 @@ export function formatKlaytnUnits(value: BigNumberish, unit?: string | Numeric):
 *  %%unit%% decimal places. The %%unit%% may the number of decimal places
 *  or the name of a unit (e.g. ``"gpeb"`` for 9 decimal places).
 */
-export function parseKlaytnUnits(value: string, unit?: string | Numeric): bigint {
+export function parseKlaytnUnits(value: string, unit?: string | Numeric): bigint{
   assertArgument(typeof(value) === "string", "value must be a string", "value", value);
 
   let decimals = 18;
@@ -163,7 +162,7 @@ export function parseKlaytnUnits(value: string, unit?: string | Numeric): bigint
   }
 
   // @ts-ignore
-  return FixedNumber.fromString(value, { decimals, width: 512 }).value;
+  return FixedNumber.fromString(value, { decimals, width: 512 });
 }
 
 /**

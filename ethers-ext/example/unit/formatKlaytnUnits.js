@@ -1,5 +1,5 @@
 const { BigNumber } = require("@ethersproject/bignumber");
-const { formatKlaytnUnits, formatKLAY } = require("../../dist/src/core/util"); // require("@klaytn/sdk-ethers");
+const { formatKlaytnUnits, formatKLAY } = require("@klaytn/ethers-ext");
 
 // 
 // https://docs.klaytn.foundation/content/klaytn/design/klaytn-native-coin-klay
