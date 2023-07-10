@@ -25,8 +25,6 @@ public class KlayGetCouncilSizeApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
-
-        assertNotNull(response.getResult());
         assertTrue(response.getResult() instanceof Integer);
     }
 }

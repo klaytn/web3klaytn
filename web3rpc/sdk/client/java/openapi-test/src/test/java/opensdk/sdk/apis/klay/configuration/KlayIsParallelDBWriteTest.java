@@ -22,8 +22,6 @@ public class KlayIsParallelDBWriteTest {
 
         assertNotNull(response);
         assertNull(response.getError());
-
-        assertNotNull(response.getResult());
         assertTrue(response.getResult() instanceof Boolean);
     }
 }

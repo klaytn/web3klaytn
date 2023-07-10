@@ -22,7 +22,6 @@ public class KlayUpperBoundGasPriceTest {
 
         assertNotNull(response);
         assertNull(response.getError());
-        assertNotNull(response.getResult());
         assertTrue(response.getResult() instanceof String);
     }
 }
