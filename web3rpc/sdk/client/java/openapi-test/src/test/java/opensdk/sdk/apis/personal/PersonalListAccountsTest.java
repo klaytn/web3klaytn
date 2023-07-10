@@ -26,9 +26,9 @@ public class PersonalListAccountsTest {
         assertNull(response.getError());
         assertNotNull(response.getResult());
         if (response.getResult() instanceof ArrayList) {
-            if (!((ArrayList) response.getResult()).isEmpty()) {
-                assertTrue(((ArrayList) response.getResult()).get(0) instanceof String);
-                assertTrue(((String) ((ArrayList) response.getResult()).get(0)).matches("^0x[0-9a-fA-F]+$"));
+            if (!((ArrayList<?>) response.getResult()).isEmpty()) {
+                assertTrue(((ArrayList<?>) response.getResult()).get(0) instanceof String);
+                assertTrue(((String) ((ArrayList<?>) response.getResult()).get(0)).matches("^0x[0-9a-fA-F]+$"));
             }
         }
     }

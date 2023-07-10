@@ -25,7 +25,7 @@ public class KlayGetBlockReceiptsTest {
 
         assertNotNull(response);
         assertNull(response.getError());
-        if(response.getResult() instanceof LinkedHashMap<?,?>) {
+        if (response.getResult() instanceof LinkedHashMap<?,?>) {
             LinkedHashMap<?,?> result = (LinkedHashMap<?,?>)response.getResult();
             assertTrue(result.containsKey("chainId"));
         }

@@ -40,6 +40,7 @@ public class KlaySignTransactionTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
         assertNotNull(response.getResult().getRaw());
         assertTrue(response.getResult().getRaw().matches("^0x[a-fA-F0-9]+"));
     }

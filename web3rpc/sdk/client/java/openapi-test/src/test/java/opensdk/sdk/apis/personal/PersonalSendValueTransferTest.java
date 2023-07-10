@@ -49,7 +49,7 @@ public class PersonalSendValueTransferTest {
         assertNull(response.getError());
 
         assertNotNull(response.getResult());
-        assertTrue(response.getResult().toString().matches("^0x.*$"));
+        assertTrue(((String)response.getResult()).matches("^0x.*$"));
     }
 
 }

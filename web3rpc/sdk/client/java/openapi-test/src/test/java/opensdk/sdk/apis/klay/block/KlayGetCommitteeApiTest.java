@@ -25,7 +25,7 @@ public class KlayGetCommitteeApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
-        if(!response.getResult().isEmpty()) {
+        if (!response.getResult().isEmpty()) {
             for (String addresses : response.getResult()) {
                 assertTrue(addresses.matches("^0x[a-fA-F0-9]+"));
             }
