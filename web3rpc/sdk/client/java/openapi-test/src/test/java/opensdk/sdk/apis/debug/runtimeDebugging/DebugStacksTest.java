@@ -25,6 +25,5 @@ public class DebugStacksTest {
         assertNull(response.getError());
 
         assertNotNull(response.getResult());
-        assertNotNull(response.getResult());
     }
 }

@@ -19,7 +19,7 @@ public class DebugPrintBlockTest {
     @Test
     @DisplayName("RPC debug_printBlock")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        DebugPrintBlockResponse response = w3.debugPrintBlock(65120).send();
+        DebugPrintBlockResponse response = w3.debugPrintBlock("latest").send();
         assertNotNull(response);
         assertNull(response.getError());
 
