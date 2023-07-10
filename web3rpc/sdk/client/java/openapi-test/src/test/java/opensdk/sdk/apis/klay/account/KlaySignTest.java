@@ -28,7 +28,6 @@ public class KlaySignTest {
         PersonalUtils.unlockAccount();
         KlaySignResponse signResponse = w3.klaySign(address, message).send();
         assertNull(signResponse.getError());
-        assertNotNull(signResponse.getResult());
         assertTrue(signResponse.getResult() instanceof String);
         assertTrue(((String) signResponse.getResult()).matches("^0x[a-fA-F0-9]+"));
     }

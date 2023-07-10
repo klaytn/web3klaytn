@@ -35,6 +35,7 @@ public class KlayCallApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
         assertTrue(response.getResult().matches("^0x[a-fA-F0-9]+"));
     }
 }

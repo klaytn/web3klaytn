@@ -20,9 +20,8 @@ public class NetPeerCountTest {
         NetPeerCount response = w3.netPeerCount().send();
         assertNotNull(response);
         assertNull(response.getError());
-        assertTrue(response.getResult() instanceof String);
+        assertNotNull(response.getResult());
         assertTrue(response.getResult().matches("^0x[0-9a-fA-F]+$"));
-
     }
 
 }

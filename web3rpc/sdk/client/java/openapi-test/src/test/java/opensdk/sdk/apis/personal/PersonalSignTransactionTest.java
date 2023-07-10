@@ -33,6 +33,7 @@ public class PersonalSignTransactionTest {
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());
+        assertNotNull(response.getResult().getRaw());
         assertTrue(response.getResult().getRaw().matches("^0x[0-9a-fA-F]+$"));
     }
 }

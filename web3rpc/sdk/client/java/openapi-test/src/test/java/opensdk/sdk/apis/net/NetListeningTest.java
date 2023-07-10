@@ -20,7 +20,7 @@ public class NetListeningTest {
         NetListening response = w3.netListening().send();
         assertNotNull(response);
         assertNull(response.getError());
-        assertTrue(response.getResult() instanceof Boolean);
+        assertNotNull(response.getResult());
     }
 }
     

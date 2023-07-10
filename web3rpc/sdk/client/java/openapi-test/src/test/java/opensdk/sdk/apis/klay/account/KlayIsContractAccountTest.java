@@ -23,8 +23,6 @@ public class KlayIsContractAccountTest {
 
         assertNotNull(response);
         assertNull(response.getError());
-
-        assertNotNull(response.getResult());
         assertNotNull(response.getResult());
     }
 }
