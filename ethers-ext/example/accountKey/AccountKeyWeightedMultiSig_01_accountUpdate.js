@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet, Klaytn } = require("@klaytn/ethers-ext");
+const { Wallet, TxType, AccountKeyType } = require("@klaytn/ethers-ext");
 
 // 
 // AccountKeyWeightedMultiSig Step 01 - account update
@@ -25,11 +25,11 @@ async function main() {
   let senderNewPub3 = new ethers.utils.SigningKey( senderNewPriv3 ).compressedPublicKey;
 
   let tx = {
-        type: Klaytn.TxTypeAccountUpdate, 
+        type: TxType.AccountUpdate, 
         from: senderAddr,
         gasLimit: 100000, 
         key: {
-            type: Klaytn.AccountKeyWeightedMultiSig,
+            type: AccountKeyType.WeightedMultiSig,
             keys: [
               2,   // threshold
               [

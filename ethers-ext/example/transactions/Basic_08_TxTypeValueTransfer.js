@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet, Klaytn } = require("@klaytn/ethers-ext");
+const { Wallet, TxType } = require("../../dist/src"); // require("@klaytn/ethers-ext");
 
 //
 // TxTypeValueTransfer
@@ -14,7 +14,7 @@ async function main() {
   const wallet = new Wallet(senderPriv, provider);
 
   let tx = {
-      type: Klaytn.TxTypeValueTransfer,
+      type: TxType.ValueTransfer,
       to: recieverAddr,
       value: 100000000000,
       from: senderAddr,

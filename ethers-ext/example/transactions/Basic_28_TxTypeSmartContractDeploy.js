@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet, Klaytn } = require("@klaytn/ethers-ext");
+const { Wallet, TxType } = require("@klaytn/ethers-ext");
 
 //
 // TxTypeSmartContractDeploy
@@ -20,7 +20,7 @@ async function main() {
   const wallet = new Wallet(senderPriv, provider);
 
   tx = {
-      type: Klaytn.TxTypeSmartContractDeploy,
+      type: TxType.SmartContractDeploy,
       to:    "0x0000000000000000000000000000000000000000",
       value: 0,  
       from: senderAddr,

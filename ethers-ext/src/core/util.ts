@@ -45,37 +45,39 @@ export const HexStr = {
 };
 
 // Klaytn Type Enumeration
-export enum Klaytn {
+export enum TxType {
   // Basic
-  TxTypeValueTransfer = 0x08,
-  TxTypeValueTransferMemo = 0x10, 
-  TxTypeAccountUpdate = 0x20, 
-  TxTypeSmartContractDeploy = 0x28, 
-  TxTypeSmartContractExecution = 0x30, 
-  TxTypeCancel = 0x38, 
+  ValueTransfer = 0x08,
+  ValueTransferMemo = 0x10, 
+  AccountUpdate = 0x20, 
+  SmartContractDeploy = 0x28, 
+  SmartContractExecution = 0x30, 
+  Cancel = 0x38, 
 
   // Fee Delegation
-  TxTypeFeeDelegatedValueTransfer = 0x09,
-  TxTypeFeeDelegatedValueTransferMemo = 0x11, 
-  TxTypeFeeDelegatedAccountUpdate = 0x21, 
-  TxTypeFeeDelegatedSmartContractDeploy = 0x29, 
-  TxTypeFeeDelegatedSmartContractExecution = 0x31, 
-  TxTypeFeeDelegatedCancel = 0x39,
+  FeeDelegatedValueTransfer = 0x09,
+  FeeDelegatedValueTransferMemo = 0x11, 
+  FeeDelegatedAccountUpdate = 0x21, 
+  FeeDelegatedSmartContractDeploy = 0x29, 
+  FeeDelegatedSmartContractExecution = 0x31, 
+  FeeDelegatedCancel = 0x39,
 
   // Partial Fee Delegation 
-  TxTypeFeeDelegatedValueTransferWithRatio = 0x0a,
-  TxTypeFeeDelegatedValueTransferMemoWithRatio = 0x12,
-  TxTypeFeeDelegatedAccountUpdateWithRatio = 0x22, 
-  TxTypeFeeDelegatedSmartContractDeployWithRatio = 0x2a,
-  TxTypeFeeDelegatedSmartContractExecutionWithRatio = 0x32,
-  TxTypeFeeDelegatedCancelWithRatio = 0x3a,
+  FeeDelegatedValueTransferWithRatio = 0x0a,
+  FeeDelegatedValueTransferMemoWithRatio = 0x12,
+  FeeDelegatedAccountUpdateWithRatio = 0x22, 
+  FeeDelegatedSmartContractDeployWithRatio = 0x2a,
+  FeeDelegatedSmartContractExecutionWithRatio = 0x32,
+  FeeDelegatedCancelWithRatio = 0x3a,
+};
 
+export enum AccountKeyType {
   // Account Key Type
-  AccountKeyLegacy = 0x01,
-  AccountKeyPublic = 0x02,
-  AccountKeyFail = 0x03, 
-  AccountKeyWeightedMultiSig = 0x04, 
-  AccountKeyRoleBased = 0x05
+  Legacy = 0x01,
+  Public = 0x02,
+  Fail = 0x03, 
+  WeightedMultiSig = 0x04, 
+  RoleBased = 0x05
 };
 
 // For Klay unit
@@ -160,6 +162,8 @@ export function parseKlaytnUnits(value: string, unit?: string | Numeric): bigint
       decimals = getNumber(unit, "unit");
   }
 
+  // Original Ethers function returns FixedNumber.value, but we need to return BigNumber.
+  // https://github.com/ethers-io/ethers.js/blob/3c17cf56b5164236108269ac1e36d66e2843cd1e/src.ts/utils/units.ts#L75
   // @ts-ignore
   return FixedNumber.fromString(value, { decimals, width: 512 });
 }

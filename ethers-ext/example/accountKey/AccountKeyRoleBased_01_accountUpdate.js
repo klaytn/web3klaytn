@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet, Klaytn } = require("@klaytn/ethers-ext");
+const { Wallet, TxType, AccountKeyType } = require("@klaytn/ethers-ext");
 
 // 
 // AccountKeyRoleBased Step 01 - account update
@@ -29,27 +29,27 @@ async function main() {
   console.log('3', pub3);
 
   let tx = {
-        type: Klaytn.TxTypeAccountUpdate, 
+        type: TxType.AccountUpdate, 
         from: senderAddr,
         gasLimit: 1000000, 
         key: {
-          type: Klaytn.AccountKeyRoleBased,
+          type: AccountKeyType.RoleBased,
           keys: [
             // RoleTransaction
             {
-              type: Klaytn.AccountKeyPublic,  
+              type: AccountKeyType.Public,  
               key: pub1,            
             },
             
             // RoleAccountUpdate
             {
-              type: Klaytn.AccountKeyPublic,  
+              type: AccountKeyType.Public,  
               key: pub2,
             },
             
             // RoleFeePayer
             {
-              type: Klaytn.AccountKeyPublic,  
+              type: AccountKeyType.Public,  
               key: pub3,
             } 
           ]

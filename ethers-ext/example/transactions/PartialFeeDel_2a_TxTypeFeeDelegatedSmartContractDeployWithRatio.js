@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet, Klaytn } = require("@klaytn/ethers-ext");
+const { Wallet, TxType } = require("@klaytn/ethers-ext");
 
 // TxTypeFeeDelegatedSmartContractDeployWithRatio
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/partial-fee-delegation#txtypefeedelegatedsmartcontractdeploywithratio
@@ -23,7 +23,7 @@ async function main() {
   const senderWallet = new Wallet(senderPriv, provider);
   
   let tx = {
-    type: Klaytn.TxTypeFeeDelegatedSmartContractDeployWithRatio,
+    type: TxType.FeeDelegatedSmartContractDeployWithRatio,
     to:    "0x0000000000000000000000000000000000000000",
     value: 0,  
     from: senderAddr,

@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet, Klaytn } = require("@klaytn/ethers-ext");
+const { Wallet, TxType } = require("@klaytn/ethers-ext");
  
 //
 // TxTypeFeeDelegatedValueTransfer
@@ -20,7 +20,7 @@ async function main() {
   const senderWallet = new Wallet(senderPriv, provider);
   
   let tx = {
-    type: Klaytn.TxTypeFeeDelegatedValueTransfer,    
+    type: TxType.FeeDelegatedValueTransfer,    
     to: recieverAddr,
     value: 1e12,
     from: senderAddr,
