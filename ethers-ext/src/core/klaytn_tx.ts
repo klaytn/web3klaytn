@@ -2,7 +2,8 @@ import _ from "lodash";
 import { FieldSet, FieldSetFactory } from "./field"
 import { SignatureLike, getSignatureTuple } from "./sig";
 import { HexStr } from "./util";
-import { parseTransaction } from "ethers/lib/utils";
+import { BigNumber, FixedNumber } from "ethers";
+import { hexValue, parseTransaction } from "ethers/lib/utils";
 import { TransactionRequest } from "@ethersproject/abstract-provider";
 
 export abstract class KlaytnTx extends FieldSet {
@@ -121,8 +122,9 @@ export function encodeTxForRPC( allowedKeys:string[], tx: TransactionRequest ): 
 
       if ( value == 0 || value === "0x0000000000000000000000000000000000000000") {
         value = "0x";
-      } else if ( typeof(value) == 'number' ) {
-        ttx[key] = HexStr.fromNumber(value);
+      } else if ( typeof(value) == 'number' || value instanceof BigNumber ) {
+        // https://github.com/ethers-io/ethers.js/blob/master/packages/providers/src.ts/json-rpc-provider.ts#L701
+        ttx[key] = hexValue( value );
       } else {
         ttx[key] = value;
       }

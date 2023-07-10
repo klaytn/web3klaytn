@@ -148,10 +148,11 @@ export function formatKlaytnUnits(value: BigNumberish, unit?: string | Numeric):
 
 /**
 *  Converts the //decimal string// %%value%% to a BigInt, assuming
-*  %%unit%% decimal places. The %%unit%% may the number of decimal places
-*  or the name of a unit (e.g. ``"gpeb"`` for 9 decimal places).
+*  %%unit%% decimal places. Original Ethers function returns FixedNumber.value, 
+*  but we changed to return BigNumber. The %%unit%% may the number of decimal places
+*  or the name of a unit (e.g. ``"gpeb"`` for 9 decimal places). 
 */
-export function parseKlaytnUnits(value: string, unit?: string | Numeric): bigint{
+export function parseKlaytnUnits(value: string, unit?: string | Numeric): bigint {
   assertArgument(typeof(value) === "string", "value must be a string", "value", value);
 
   let decimals = 18;
@@ -162,10 +163,10 @@ export function parseKlaytnUnits(value: string, unit?: string | Numeric): bigint
       decimals = getNumber(unit, "unit");
   }
 
-  // Original Ethers function returns FixedNumber.value, but we need to return BigNumber.
+  
   // https://github.com/ethers-io/ethers.js/blob/3c17cf56b5164236108269ac1e36d66e2843cd1e/src.ts/utils/units.ts#L75
   // @ts-ignore
-  return FixedNumber.fromString(value, { decimals, width: 512 });
+  return BigNumber.from(FixedNumber.fromString(value, { decimals, width: 512 }));
 }
 
 /**
