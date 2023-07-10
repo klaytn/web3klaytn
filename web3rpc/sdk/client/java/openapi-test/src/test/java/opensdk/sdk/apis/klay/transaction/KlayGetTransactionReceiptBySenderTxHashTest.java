@@ -23,6 +23,7 @@ public class KlayGetTransactionReceiptBySenderTxHashTest {
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());
+        assertNotNull(response.getResult().getBlockHash());
         assertTrue(response.getResult().getBlockHash().matches("^0x[a-fA-F0-9]+"));
     }
 }

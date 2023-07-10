@@ -26,6 +26,7 @@ public class KlayGetTransactionByHashTest {
         assertNull(response.getError());
 
         assertNotNull(response.getResult());
+        assertNotNull(response.getResult().getBlockHash());
         assertTrue(response.getResult().getBlockHash().matches("^0x[a-f0-9]+"));
     }
 

@@ -29,6 +29,7 @@ public class KlayGetBlockByNumberApiTest {
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());
+        assertNotNull(response.getResult().getHash());
         assertTrue(response.getResult().getHash().matches("^0x[a-fA-F0-9]+"));
     }
 }
