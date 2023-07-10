@@ -1,10 +1,9 @@
 const ethers = require("ethers");
-const { Wallet } = require("@klaytn/ethers-ext");
+const { Wallet, TxType } = require("@klaytn/ethers-ext");
 
 // TxTypeFeeDelegatedSmartContractExecutionWithRatio
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/partial-fee-delegation#txtypefeedelegatedsmartcontractexecutionwithratio
 // 
-//   type: Must be 0x32,
 //   to : deployed contract address 
 //   value: Must be 0, if not payable
 //   input: Refer ethers.utils.interface.encodeFunctionData
@@ -39,7 +38,7 @@ async function main() {
   const param = contract.interface.encodeFunctionData("setNumber", ["0x123"]); 
 
   let tx = {
-      type: 0x32, 
+      type: TxType.FeeDelegatedSmartContractExecutionWithRatio, 
       to: CONTRACT_ADDRESS,
       value: 0,  
       from: senderAddr,

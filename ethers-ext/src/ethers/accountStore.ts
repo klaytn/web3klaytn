@@ -11,18 +11,29 @@ export class Accounts {
 
     public wallets : Wallet[];
 
-    constructor( provider: JsonRpcProvider, list: [[string, string?]] ) {
+    constructor( provider: JsonRpcProvider, list: [[string, string?]] | Wallet[]) {
         this.wallets = []
 
         for ( let i=0 ; i<list.length ; i++ ) {
-            if ( list[i].length == 1 ) {
-                this.add( [ list[i][0] ], provider );
-            } else if ( list[i].length == 2 ) {
-                this.add( [ list[i][0], list[i][1] ], provider ); 
+            if ( list[i] instanceof Wallet ) { 
+                // @ts-ignore
+                this.wallets.push( list[i] );
+            } else if ( Array.isArray(list[i]) ) {
+                // @ts-ignore
+                if ( list[i].length == 1 ) {
+                    // @ts-ignore
+                    this.add( [ list[i][0] ], provider );
+                // @ts-ignore
+                } else if ( list[i].length == 2 ) {
+                    // @ts-ignore
+                    this.add( [ list[i][0], list[i][1] ], provider ); 
+                } else {
+                    throw new Error(`Input has to be the array of [address, privateKey] or [privateKey]`);
+                }
             } else {
-                throw new Error(`Input has to be the array of [address, privateKey] or [privateKey]`);
+                throw new Error(`Input has to be Wallet, [address, privateKey], or [privateKey]`);
             }
-        }
+        }            
     }
 
     async add( account: [string, string?], provider: JsonRpcProvider ) : Promise<boolean> {
@@ -127,7 +138,7 @@ export class AccountStore {
     public accountInfos: AccountInfo[] | undefined;
     private signableKeyList: string[] = []; 
     
-    async refresh( provider: JsonRpcProvider, list: [[string, string?]]) {
+    async refresh( provider: JsonRpcProvider, list: [[string, string?]] | Wallet[]) {
         this.provider = provider;
 
         if ( this.accounts != undefined ) {

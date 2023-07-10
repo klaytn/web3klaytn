@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet } = require("@klaytn/ethers-ext");
+const { Wallet, parseKlay } = require("@klaytn/ethers-ext");
 
 //
 // AccountKeyPublic Step 01 - value transfer
@@ -16,7 +16,7 @@ async function main() {
 
   let tx = {
       to: recieverAddr,
-      value: 100000000000,
+      value: parseKlay("1"),
       from: senderAddr,
     }; 
   

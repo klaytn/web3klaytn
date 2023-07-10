@@ -1,11 +1,10 @@
 const ethers = require("ethers");
-const { Wallet } = require("@klaytn/ethers-ext");
+const { Wallet, TxType, AccountKeyType } = require("@klaytn/ethers-ext");
 
 //
 // TxTypeFeeDelegatedAccountUpdateWithRatio
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/partial-fee-delegation#txtypefeedelegatedaccountupdatewithratio
 // 
-//   type: Must be 0x22,
 //   nonce: In signTransactionAsFeePayer, must not be omitted, because feePayer's nonce is filled when populating
 //   gasLimit: Must be large enough 
 //             If SDK users (wallet or dapp devs) want to add some margin, they can always
@@ -33,17 +32,18 @@ async function main() {
   const senderWallet = new Wallet(senderPriv, provider);
   
   let tx = {
-      type: 0x22,
+      type: TxType.FeeDelegatedAccountUpdateWithRatio,
       // gasLimit was 56000
       // https://baobab.scope.klaytn.com/tx/0x2a9fc23547e58f67d83263e509e0dc987ada346521a95d8f48de4e023796dede?tabId=accountKeyInfo
       gasLimit: 60000,  
       from: senderAddr,
       key: {
-          type: 0x02, 
+          type: AccountKeyType.Public, 
           // private key 0xf8cc7c3813ad23817466b1802ee805ee417001fcce9376ab8728c92dd8ea0a6b
           // pubkeyX 0xdbac81e8486d68eac4e6ef9db617f7fbd79a04a3b323c982a09cdfc61f0ae0e8
           // pubkeyY 0x906d7170ba349c86879fb8006134cbf57bda9db9214a90b607b6b4ab57fc026e
-          key: "0x02dbac81e8486d68eac4e6ef9db617f7fbd79a04a3b323c982a09cdfc61f0ae0e8",
+          // Compressed PublicKey "0x02dbac81e8486d68eac4e6ef9db617f7fbd79a04a3b323c982a09cdfc61f0ae0e8",
+          key: ethers.utils.computePublicKey('0xf8cc7c3813ad23817466b1802ee805ee417001fcce9376ab8728c92dd8ea0a6b', true)
       },
       feeRatio: 40, 
   };

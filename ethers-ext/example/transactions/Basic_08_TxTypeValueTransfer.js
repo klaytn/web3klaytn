@@ -1,11 +1,9 @@
 const ethers = require("ethers");
-const { Wallet } = require("@klaytn/ethers-ext");
+const { Wallet, TxType, parseKlay } = require("@klaytn/ethers-ext");
 
 //
 // TxTypeValueTransfer
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/basic#txtypevaluetransfer
-// 
-//   type: Must be 0x08,
 // 
 const recieverAddr = '0xc40b6909eb7085590e1c26cb3becc25368e249e9' 
 const senderAddr = '0xa2a8854b1802d8cd5de631e690817c253d6a9153' 
@@ -16,9 +14,9 @@ async function main() {
   const wallet = new Wallet(senderPriv, provider);
 
   let tx = {
-      type: 8,
+      type: TxType.ValueTransfer,
       to: recieverAddr,
-      value: 100000000000,
+      value: parseKlay("1"),
       from: senderAddr,
     }; 
   
