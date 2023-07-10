@@ -27,6 +27,5 @@ public class DebugSetGCPercentTest {
         assertNull(response.getError());
 
         assertNotNull(response.getResult());
-        assertNotNull(response.getResult());
     }
 }

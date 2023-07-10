@@ -1,6 +1,5 @@
 package opensdk.sdk.apis.eth.miscellaneous;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,8 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 @DisplayName("Eth RPC Test")
