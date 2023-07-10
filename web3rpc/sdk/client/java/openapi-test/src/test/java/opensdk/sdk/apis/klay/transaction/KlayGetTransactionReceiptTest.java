@@ -24,7 +24,7 @@ public class KlayGetTransactionReceiptTest {
         assertNotNull(response);
         assertNull(response.getError());
 
-        if(response.getResult() != null) {
+        if (response.getResult() != null) {
             assertInstanceOf(String.class, response.getResult().getBlockHash());
             assertTrue(response.getResult().getBlockHash().matches("^0x[a-f0-9]+"));
         } else {

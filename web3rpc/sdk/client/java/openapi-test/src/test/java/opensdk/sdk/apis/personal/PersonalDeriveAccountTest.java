@@ -26,6 +26,6 @@ public class PersonalDeriveAccountTest {
     assertNull(response.getError());
 
     assertInstanceOf(String.class, response.getResult());
-    assertTrue(response.getResult().toString().matches("^0x[0-9a-fA-F]+$"));
+    assertTrue(((String)response.getResult()).matches("^0x[0-9a-fA-F]+$"));
   }
 }

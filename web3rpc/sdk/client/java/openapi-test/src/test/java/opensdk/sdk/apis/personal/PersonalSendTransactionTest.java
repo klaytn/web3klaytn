@@ -33,8 +33,8 @@ public class PersonalSendTransactionTest {
         assertNotNull(response);
         assertNull(response.getError());
 
-        assertNotNull(response.getResult());
-        assertTrue(response.getResult().toString().matches("^0x.*$"));
+        assertTrue(response.getResult() instanceof String);
+        assertTrue(((String)response.getResult()).matches("^0x.*$"));
     }
 
 }
