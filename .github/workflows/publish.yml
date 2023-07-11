@@ -54,6 +54,11 @@ jobs:
         shell: bash
         run: |
           cd web3rpc/sdk/client/java && bash -x java-generate.sh && cd -
+        env:
+          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+          ORG_GRADLE_PROJECT_SIGNINGPASSWORD: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
+          ORG_GRADLE_PROJECT_SIGNINGKEY: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
 
       - name: Publish web3rpc package
         uses: gradle/gradle-build-action@v2
