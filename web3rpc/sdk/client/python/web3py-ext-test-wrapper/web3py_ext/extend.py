@@ -1,6 +1,6 @@
 from web3rpc_python_net.api.net_api import NetApi
 from web3rpc_python_klay.api.klay_api import KlayApi
-from web3rpc_python_eth.api.eth_api import EthApi
+# from web3rpc_python_eth.api.eth_api import EthApi
 from web3rpc_python_governance.api.governance_api import GovernanceApi
 from web3rpc_python_txpool.api.txpool_api import TxpoolApi
 from web3rpc_python_debug.api.debug_api import DebugApi
@@ -17,7 +17,7 @@ import web3
 def extended_get_default_modules():
     return {
         "eth": Eth,
-        "eth_other": EthApi,
+        # "eth_other": EthApi,
         "net": NetApi,
         "geth": (
             Geth,
