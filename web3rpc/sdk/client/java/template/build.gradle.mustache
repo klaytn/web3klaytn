@@ -118,6 +118,14 @@ if(hasProperty('target') && target == 'android') {
                     password = System.getenv("MAVEN_PASSWORD")
                 }
             }
+            snapshotRepository {
+                name = "OSSRH"
+                url: "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+                credentials {
+                    username = System.getenv("MAVEN_USERNAME")
+                    password = System.getenv("MAVEN_PASSWORD")
+                }
+            }
         }
     }
     signing {
