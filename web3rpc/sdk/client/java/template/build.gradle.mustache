@@ -133,8 +133,8 @@ if(hasProperty('target') && target == 'android') {
     }
 
     nexusStaging {
-        username= ossrhUsername
-        password= ossrhPassword
+        username= System.getenv("MAVEN_USERNAME")
+        password= System.getenv("MAVEN_PASSWORD")
     }
 
     task execute(type:JavaExec) {
