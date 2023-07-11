@@ -25,5 +25,5 @@ class TestCreateAccessList(TestCase):
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
-            self.response = self.w3.eth.create_access_list()
+            self.response = w3.eth_other.create_access_list()
 
