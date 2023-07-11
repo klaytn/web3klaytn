@@ -127,7 +127,7 @@ if(hasProperty('target') && target == 'android') {
 
         useInMemoryPgpKeys(signingKey, signingPassword)
 
-        sign publishing.publications.mavenJava
+        sign publishing.publications.maven
     }
 
     nexusStaging {
