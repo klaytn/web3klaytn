@@ -53,7 +53,7 @@ jobs:
       - name: generate java sdk
         shell: bash
         run: |
-          cd web3rpc/sdk/client/java && bash -x java-generate.sh && cd -
+          cd web3rpc/sdk/client/java && bash -x java-generate.sh && ./gradlew clean publish closeAndReleaseRepository --stacktrace --debug  && cd -
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
