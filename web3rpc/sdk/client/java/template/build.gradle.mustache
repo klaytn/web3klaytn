@@ -116,6 +116,22 @@ if(hasProperty('target') && target == 'android') {
             }
         }
     }
+    signing {
+        def signingPassword = System.getenv("ORG_GRADLE_PROJECT_signingPassword")
+
+        def signingKey_base64 = System.getenv('ORG_GRADLE_PROJECT_signingKey')
+        def signingKey = (signingKey_base64 == null? null:
+                new String(Base64.getMimeDecoder().decode(signingKey_base64.toString()), "utf-8"))
+
+        useInMemoryPgpKeys(signingKey, signingPassword)
+
+        sign publishing.publications.mavenJava
+    }
+
+    nexusStaging {
+        username= ossrhUsername
+        password= ossrhPassword
+    }
 
     task execute(type:JavaExec) {
        main = System.getProperty('mainClass')
