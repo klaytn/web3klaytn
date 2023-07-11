@@ -121,9 +121,9 @@ if(hasProperty('target') && target == 'android') {
         }
     }
     signing {
-        def signingPassword = System.getenv("ORG_GRADLE_PROJECT_signingPassword")
+        def signingPassword = System.getenv("ORG_GRADLE_PROJECT_SIGNINGPASSWORD")
 
-        def signingKey_base64 = System.getenv('ORG_GRADLE_PROJECT_signingKey')
+        def signingKey_base64 = System.getenv('ORG_GRADLE_PROJECT_SIGNINGKEY')
         def signingKey = (signingKey_base64 == null? null:
                 new String(Base64.getMimeDecoder().decode(signingKey_base64.toString()), "utf-8"))
 
