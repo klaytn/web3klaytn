@@ -10,9 +10,9 @@ import org.web3j.protocol.core.methods.request.Transaction;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Eth RPC Test")
 public class EthCreateAccessListTest {
@@ -29,5 +29,8 @@ public class EthCreateAccessListTest {
         EthCreateAccessListResponse response = w3.ethCreateAccessList(args,blockNumberOrHash).send();
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNotNull(response.getResult());
+        assertInstanceOf(ArrayList.class, response.getResult().getAccessList());
     }
 }

@@ -1,5 +1,6 @@
 package opensdk.sdk.apis.klay.others;
 
+import jnr.ffi.annotations.In;
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.KlayGetStakingInfoResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -8,9 +9,9 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Klay RPC Test")
 public class KlayGetStakingInfoTest {
@@ -25,6 +26,10 @@ public class KlayGetStakingInfoTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNotNull(response.getResult());
+        assertInstanceOf(LinkedHashMap.class, response.getResult());
+        assertTrue(((LinkedHashMap<?,?>) response.getResult()).get("blockNum") instanceof Integer);
     }
 
 }
