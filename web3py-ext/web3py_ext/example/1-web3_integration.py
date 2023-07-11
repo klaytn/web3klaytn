@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 from eth_account import Account
 from eth_account.messages import encode_defunct
 from eth_utils.curried import to_hex

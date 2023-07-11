@@ -116,7 +116,7 @@ class AbstractLocalAccount(LocalAccount):
         elif len(args) == 3:
             address, key, account = args[0], args[1], args[2]
             self._publicapi = account
-            self._address = address
+            self._address = to_checksum_address(address)
             key_raw = key.to_bytes()
             self._private_key = key_raw
             self._key_obj = key

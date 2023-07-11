@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet } = require("@klaytn/ethers-ext");
+const { Wallet, TxType } = require("@klaytn/ethers-ext");
 
 // We refer the example from ethers
 // https://docs.ethers.org/v5/api/contract/example/
@@ -42,7 +42,7 @@ async function main() {
     // }
 
     const feeDelegatedTx = {
-        type: 0x31,
+        type: TxType.FeeDelegatedSmartContractExecution,
         to: tx.to,
         value: 0,  
         from: tx.from,
