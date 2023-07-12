@@ -36,10 +36,9 @@ async function main() {
   const feePayerWallet = new Wallet(feePayerPriv, provider);
 
   tx = feePayerWallet.decodeTxFromRLP( senderTxHashRLP );
-  tx.feePayer = feePayerAddr;
   console.log(tx);
 
-  const sentTx = await feePayerWallet.sendTransactionAsFeePayer(tx);
+  const sentTx = await feePayerWallet.sendTransactionAsFeePayer( senderTxHashRLP );
   console.log('sentTx', sentTx);
 
   const rc = await sentTx.wait();
