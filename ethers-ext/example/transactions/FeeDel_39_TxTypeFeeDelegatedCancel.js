@@ -42,10 +42,9 @@ async function feePayerSign( senderTxHashRLP ) {
   const feePayerWallet = new Wallet(feePayerPriv, provider);
 
   const txCancel = feePayerWallet.decodeTxFromRLP( senderTxHashRLP );
-  txCancel.feePayer = feePayerAddr;
   console.log(txCancel);
 
-  const cancelTx = await feePayerWallet.sendTransactionAsFeePayer(txCancel);
+  const cancelTx = await feePayerWallet.sendTransactionAsFeePayer( senderTxHashRLP );
   console.log('tx next + 1 Cancel', cancelTx);
 }
 
