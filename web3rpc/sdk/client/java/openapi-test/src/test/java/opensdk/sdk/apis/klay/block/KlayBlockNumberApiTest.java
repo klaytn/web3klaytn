@@ -26,5 +26,6 @@ public class KlayBlockNumberApiTest {
 
         assertNotNull(response.getResult());
         assertTrue(response.getResult() instanceof String);
+        assertTrue(((String) response.getResult()).matches("^0x.*$"));
     }
 }
