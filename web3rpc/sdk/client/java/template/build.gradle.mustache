@@ -84,10 +84,22 @@ if(hasProperty('target') && target == 'android') {
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
     apply plugin: 'io.codearte.nexus-staging'
+    apply plugin: 'maven'
+
 
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        archiveClassifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        archiveClassifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
 
     publishing {
         publications {
@@ -96,6 +108,7 @@ if(hasProperty('target') && target == 'android') {
                from components.java
                artifact sourcesJar
                artifact javadocJar
+
                pom {
                    name = project.name
                    description = project.description
@@ -112,12 +125,14 @@ if(hasProperty('target') && target == 'android') {
             }
         }
         repositories {
-            maven {
-                name = "OSSRH"
-                url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-                credentials {
-                    username = System.getenv("MAVEN_USERNAME")
-                    password = System.getenv("MAVEN_PASSWORD")
+            mavenDeployer {
+                repository(
+                    url: "https://s01.oss.sonatype.org/content/repositories/releases") {
+                      authentication(userName: System.getenv("MAVEN_USERNAME"), password: System.getenv("MAVEN_PASSWORD"))
+                }
+                snapshotRepository(
+                    url: "https://s01.oss.sonatype.org/content/repositories/snapshots") {
+                      authentication(userName: nexusUsername, password: nexusPassword)
                 }
             }
         }
@@ -143,20 +158,6 @@ if(hasProperty('target') && target == 'android') {
        classpath = sourceSets.main.runtimeClasspath
     }
 
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        archiveClassifier = 'sources'
-        from sourceSets.main.allSource
-    }
-
-    task javadocJar(type: Jar, dependsOn: javadoc) {
-        archiveClassifier = 'javadoc'
-        from javadoc.destinationDir
-    }
-
-    artifacts {
-        archives sourcesJar
-        archives javadocJar
-    }
 }
 
 ext {
