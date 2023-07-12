@@ -283,7 +283,6 @@ export class Wallet extends EthersWallet {
     if ( typeof transaction === 'string') {
       if ( HexStr.isHex(transaction) ) {
         tx = this.decodeTxFromRLP( transaction ); 
-        tx.feePayer = await this.getAddress(); 
         ptx = await this.populateTransaction(tx);
       } else {
         throw new Error(`Input parameter has to be RLP encoded Hex string.`);
@@ -292,6 +291,8 @@ export class Wallet extends EthersWallet {
       ptx = await this.populateTransaction(transaction);
     }
 
+    // @ts-ignore : we have to add feePayer property 
+    ptx.feePayer = await this.getAddress();
     const signedTx = await this.signTransactionAsFeePayer(ptx);
 
     if (this.provider instanceof JsonRpcProvider) {
