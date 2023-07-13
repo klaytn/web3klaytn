@@ -239,7 +239,7 @@ export class Wallet extends EthersWallet {
     return ttx.txHashRLP();
   }
 
-  async signTransactionAsFeePayer(transaction: Deferrable<TransactionRequest> ): Promise<string> {
+  async signTransactionAsFeePayer(transaction: Deferrable<TransactionRequest>): Promise<string> {
     let tx: TransactionRequest = await resolveProperties(transaction);
 
     const ttx = KlaytnTxFactory.fromObject(tx);
@@ -276,10 +276,24 @@ export class Wallet extends EthersWallet {
     }
   }
 
-  async sendTransactionAsFeePayer(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
+  async sendTransactionAsFeePayer(transaction: Deferrable<TransactionRequest> | string): Promise<TransactionResponse> {
     this._checkProvider("sendTransactionAsFeePayer");
-    const tx = await this.populateTransaction(transaction);
-    const signedTx = await this.signTransactionAsFeePayer(tx);
+
+    let tx, ptx;
+    if ( typeof transaction === 'string') {
+      if ( HexStr.isHex(transaction) ) {
+        tx = this.decodeTxFromRLP( transaction ); 
+        ptx = await this.populateTransaction(tx);
+      } else {
+        throw new Error(`Input parameter has to be RLP encoded Hex string.`);
+      }
+    } else {
+      ptx = await this.populateTransaction(transaction);
+    }
+
+    // @ts-ignore : we have to add feePayer property 
+    ptx.feePayer = await this.getAddress();
+    const signedTx = await this.signTransactionAsFeePayer(ptx);
 
     if (this.provider instanceof JsonRpcProvider) {
       // eth_sendRawTransaction cannot process Klaytn typed transactions.
