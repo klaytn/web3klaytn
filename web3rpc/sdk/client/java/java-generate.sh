@@ -29,4 +29,4 @@ sh "${PROJECT_DIR}"/bin/web3rpc-openapi-generator-cli generate -c "${CURRENT_FIL
 # generate openapi jar library
 cd "${CURRENT_FILE_DIR}/openapi"
 
-sh gradlew clean build publishToMavenLocal publish closeAndReleaseRepository
+sh gradlew clean build publishToMavenLocal
