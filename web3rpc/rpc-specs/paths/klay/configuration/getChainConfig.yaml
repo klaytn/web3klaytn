@@ -153,7 +153,7 @@ components:
             magmaCompatibleBlock:
               type: integer
             unitPrice:
-              type: integer
+              type: number
           example: {
             "chainId": 1001,
             "istanbulCompatibleBlock": 75373312,
