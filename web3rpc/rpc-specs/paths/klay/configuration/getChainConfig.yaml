@@ -109,13 +109,13 @@ components:
                     basefeedenominator:
                       type: integer
                     gastarget:
-                      type: integer
+                      type: number
                     lowerboundbasefee:
-                      type: integer
+                      type: number
                     maxblockgasusedforbasefee:
-                      type: integer
+                      type: number
                     upperboundbasefee:
-                      type: integer
+                      type: number
                 reward:
                   type: object
                   properties:
@@ -126,7 +126,7 @@ components:
                     minimumStake:
                       type: integer
                     mintingAmount:
-                      type: integer
+                      type: number
                     proposerUpdateInterval:
                       type: integer
                     ratio:
