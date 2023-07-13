@@ -28,5 +28,8 @@ public class DebugTraceBadBlockTest {
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());
+        if (!response.getResult().isEmpty()) {
+            assertNotNull(response.getResult().get(0).getGas());
+        }
     }
 }

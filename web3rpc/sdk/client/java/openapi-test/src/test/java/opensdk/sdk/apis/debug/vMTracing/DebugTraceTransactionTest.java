@@ -1,18 +1,17 @@
 package opensdk.sdk.apis.debug.vMTracing;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.DebugTraceTransactionResponse;
-import org.web3j.protocol.klaytn.core.method.response.TracingOptions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
+import org.web3j.protocol.klaytn.core.method.response.DebugTraceTransactionResponse;
+import org.web3j.protocol.klaytn.core.method.response.TracingOptions;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
 
-import org.web3j.protocol.http.HttpService;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Debug RPC Test")
 public class DebugTraceTransactionTest {
@@ -30,5 +29,6 @@ public class DebugTraceTransactionTest {
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());
+        assertNotNull(response.getResult().getGas());
     }
 }
