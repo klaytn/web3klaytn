@@ -16,7 +16,8 @@ repositories {
 }
 
 dependencies {
-    implementation "klaytn.foundation:web3j-ext:v0.9.0"
+    implementation "foundation.klaytn:web3j-ext:v0.9.0"
+    implementation "foundation.klaytn:web3rpc-java:v0.9.0"
 }
 ````
 

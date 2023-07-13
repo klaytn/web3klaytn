@@ -23,7 +23,7 @@ import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
  */
 public class FeeDelegatedSmartContractDeployWithRatioExample implements keySample {
         /**
-         *  @param args 
+         *   
         */
         public void run() throws IOException {
 

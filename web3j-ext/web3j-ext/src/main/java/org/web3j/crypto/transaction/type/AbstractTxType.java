@@ -280,7 +280,6 @@ public abstract class AbstractTxType implements TxType, ITransaction {
      * @param chainId     chain ID
      * @return KlayRawTransaction this contains transaction hash and processed
      *         signature data
-     * @throws EmptyNonceException throw exception when nonce is null
      */
     @Override
     public KlayRawTransaction sign(KlayCredentials credentials, long chainId) {
