@@ -27,5 +27,6 @@ public class KlayGetChainConfigTest {
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());
+        assertNotNull(response.getResult().getChainId());
     }
 }

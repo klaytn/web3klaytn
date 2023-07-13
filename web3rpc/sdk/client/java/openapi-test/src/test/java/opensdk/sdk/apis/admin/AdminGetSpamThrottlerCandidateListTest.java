@@ -1,11 +1,11 @@
 package opensdk.sdk.apis.admin;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.AdminGetSpamThrottlerCandidateListResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
+import org.web3j.protocol.klaytn.core.method.response.AdminGetSpamThrottlerCandidateListResponse;
 
 import java.io.IOException;
 
@@ -23,5 +23,6 @@ public class AdminGetSpamThrottlerCandidateListTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 }
