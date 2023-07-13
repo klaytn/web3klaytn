@@ -1,0 +1,40 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
+package org.web3j.protocol.klaytn.core.method.response;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.Nullable;
+import org.web3j.protocol.core.Response;
+
+public class AdminGetSpamThrottlerCandidateListResponse extends Response<Object> {
+  public static final String JSON_PROPERTY_RESULT = "result";
+  private Object result ;
+
+  public AdminGetSpamThrottlerCandidateListResponse() {
+  }
+
+  public AdminGetSpamThrottlerCandidateListResponse result(Object result) {
+    this.result = result;
+    return this;
+  }
+
+  @Nullable
+  @JsonProperty("result")
+  @JsonInclude(Include.USE_DEFAULTS)
+  public Object getResult() {
+    return this.result;
+  }
+
+    @JsonProperty("result")
+    @JsonInclude(Include.USE_DEFAULTS)
+    public void setResult(Object result) {
+      this.result = result;
+    }
+}
