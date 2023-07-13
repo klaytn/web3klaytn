@@ -59,6 +59,8 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
             supportingFiles.add(SupportingFile("KlaytnTransactionTypes.java.mustache", modelFolder, "KlaytnTransactionTypes.java"))
         } else if (artifactId.equals("web3rpc-eth")) {
             supportingFiles.add(SupportingFile("FilterOptions.java.mustache", modelFolder, "FilterOptions.java"))
+        } else if(artifactId.equals("web3rpc-admin")){
+            supportingFiles.add(SupportingFile("AdminGetSpamThrottlerCandidateListResponse.java.mustache", modelFolder, "AdminGetSpamThrottlerCandidateListResponse.java"))
         }
     }
 
