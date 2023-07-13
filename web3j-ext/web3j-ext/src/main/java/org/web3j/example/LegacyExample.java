@@ -18,7 +18,7 @@ import org.web3j.utils.Numeric;
 import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
 public class LegacyExample implements keySample {
     /**
-     * @param args
+     * 
      */
 
     public static void run() throws IOException {
