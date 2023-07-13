@@ -103,19 +103,16 @@ components:
             - returnValue
             - structLogs
           properties:
-            result:
-              type: object
-              properties:
-                failed:
-                  type: boolean
-                gas:
-                  type: integer
-                returnValue:
-                  type: string
-                structLogs:
-                  type: array
-                  items:
-                    type: object
+            failed:
+              type: boolean
+            gas:
+              type: integer
+            returnValue:
+              type: string
+            structLogs:
+              type: array
+              items:
+                type: object
           example: {
             failed: false,
             gas: 247922,

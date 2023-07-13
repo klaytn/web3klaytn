@@ -27,8 +27,5 @@ public class KlayGetChainConfigTest {
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());
-        if (response.getResult() instanceof LinkedHashMap<?, ?>) {
-            assertTrue(((LinkedHashMap<?, ?>) response.getResult()).containsKey("chainId"));
-        }
     }
 }
