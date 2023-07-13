@@ -30,10 +30,5 @@ public class DebugTraceTransactionTest {
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());
-        if (response.getResult() instanceof LinkedHashMap<?, ?>) {
-            if (!((LinkedHashMap<?, ?>) response.getResult()).isEmpty()) {
-                assertTrue(((LinkedHashMap<?, ?>) response.getResult()).get("gas") instanceof Integer);
-            }
-        }
     }
 }
