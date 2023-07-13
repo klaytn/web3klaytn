@@ -86,7 +86,6 @@ if(hasProperty('target') && target == 'android') {
     apply plugin: 'io.codearte.nexus-staging'
 
 
-
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
     task sourcesJar(type: Jar, dependsOn: classes) {
@@ -124,14 +123,12 @@ if(hasProperty('target') && target == 'android') {
             }
         }
         repositories {
-            mavenDeployer {
-                repository(
-                    url: "https://s01.oss.sonatype.org/content/repositories/releases") {
-                      authentication(userName: System.getenv("MAVEN_USERNAME"), password: System.getenv("MAVEN_PASSWORD"))
-                }
-                snapshotRepository(
-                    url: "https://s01.oss.sonatype.org/content/repositories/snapshots") {
-                      authentication(userName: nexusUsername, password: nexusPassword)
+            maven {
+                name = "OSSRH"
+                url = "https://s01.oss.sonatype.org/content/repositories/releases/"
+                credentials {
+                    username = System.getenv("MAVEN_USERNAME")
+                    password = System.getenv("MAVEN_PASSWORD")
                 }
             }
         }

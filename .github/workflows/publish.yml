@@ -60,11 +60,23 @@ jobs:
           ORG_GRADLE_PROJECT_SIGNINGPASSWORD: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
           ORG_GRADLE_PROJECT_SIGNINGKEY: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
 
-      - name: Publish web3rpc package
+      - name: Publish web3rpc-java package
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: publishMavenPublicationToOSSRHRepository
+          arguments: publish
           build-root-directory: web3rpc/sdk/client/java/openapi
+          gradle-version: release-candidate
+        env:
+          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+          ORG_GRADLE_PROJECT_SIGNINGPASSWORD: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
+          ORG_GRADLE_PROJECT_SIGNINGKEY: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
+
+      - name: Publish web3j-ext
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: publish
+          build-root-directory: web3j-ext/web3j-ext
           gradle-version: release-candidate
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
