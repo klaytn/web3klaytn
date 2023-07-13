@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet } = require("@klaytn/ethers-ext");
+const { Wallet, TxType } = require("@klaytn/ethers-ext");
 
 const senderAddr = '0xa2a8854b1802d8cd5de631e690817c253d6a9153'  
 const senderPriv = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'
@@ -8,8 +8,6 @@ const recieverAddr = '0xc40b6909eb7085590e1c26cb3becc25368e249e9'
 //
 // TxTypeCancel
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/basic#txtypecancel
-// 
-//   type: Must be 0x38,
 //
 // 1) send ValueTransfer tx with the next nonce + 1  
 // 2) send Cancel tx with the next nonce + 1 
@@ -23,7 +21,7 @@ async function main() {
   // 1) send ValueTransfer tx with the next nonce+1
   let nextNonce = await wallet.getTransactionCount();
   let tx = {
-      type: 8,    
+      type: TxType.ValueTransfer,    
       nonce: nextNonce + 1,     
       to: recieverAddr,
       value: 1e12,
@@ -35,7 +33,7 @@ async function main() {
 
   // 2) send Cancel tx with the next nonce+1 
   let txCancel = {
-    type: 0x38,
+    type: TxType.Cancel,
     nonce: nextNonce + 1, 
     from: senderAddr, 
   };

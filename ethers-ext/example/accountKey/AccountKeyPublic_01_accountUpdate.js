@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet } = require("@klaytn/ethers-ext");
+const { Wallet, TxType, AccountKeyType } = require("@klaytn/ethers-ext");
 
 //
 // AccountKeyPublic Step 01 - account update
@@ -19,10 +19,10 @@ async function main() {
   let senderNewPub = new ethers.utils.SigningKey( senderNewPriv ).compressedPublicKey; 
 
   let tx = {
-        type: 0x20,   // TxTypeAccountUpdate
+        type: TxType.AccountUpdate,
         from: senderAddr,
         key: {
-            type: 0x02,  // AccountKeyPublic
+            type: AccountKeyType.Public,
             key: senderNewPub,
         }
     };

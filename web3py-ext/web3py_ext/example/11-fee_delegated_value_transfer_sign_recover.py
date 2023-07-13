@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 from web3py_ext import extend
 from web3 import Web3
 from eth_account import Account
@@ -18,7 +19,7 @@ def web3_fee_delegated_value_transfer_sign_recover():
     fee_delegated_value_transfer_tx = empty_tx(TX_TYPE_FEE_DELEGATED_VALUE_TRANSFER)
     fee_delegated_value_transfer_tx = merge(fee_delegated_value_transfer_tx, {
         'from' : user.address,
-        'to' : user.address, # to feepayer
+        'to' : user.address, # to self
         'value' : Web3.to_peb(0.1, 'klay'),
     })
     fee_delegated_value_transfer_tx = fill_transaction(fee_delegated_value_transfer_tx, w3)

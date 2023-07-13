@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const { Wallet } = require("@klaytn/ethers-ext");
+const { Wallet, TxType, parseKlay } = require("@klaytn/ethers-ext");
 
 // 
 // AccountKeyRoleBased Step 02 - value transfer
@@ -18,10 +18,10 @@ const senderRoleTransactionPriv = '0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74
 async function main() {
 
   let tx = {
-    type: 8,
+    type: TxType.ValueTransfer,
     gasLimit: 100000, 
     to: recieverAddr,
-    value: 100000000000,
+    value: parseKlay("1"),
     from: senderAddr,
   }; 
 

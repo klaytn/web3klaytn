@@ -3,7 +3,7 @@ name: SDK publish on release
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   build:

@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 from web3py_ext import extend
 from web3 import Web3
 from web3py_ext.utils.klaytn_utils import to_pretty

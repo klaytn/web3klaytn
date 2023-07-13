@@ -1,11 +1,9 @@
 const ethers = require("ethers");
-const { Wallet } = require("@klaytn/ethers-ext");
+const { Wallet, TxType } = require("@klaytn/ethers-ext");
 
 //
 // TxTypeFeeDelegatedCancel
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/fee-delegation#txtypefeedelegatedcancel
-// 
-//   type: Must be 0x39,
 //
 // 1) send ValueTransfer tx with the next nonce + 1  
 // 2) send Cancel tx with the next nonce + 1 
@@ -26,7 +24,7 @@ async function senderSign( nextNonce ) {
   const senderWallet = new Wallet(senderPriv, provider);
   
   let txCancel = {
-    type: 0x39,
+    type: TxType.FeeDelegatedCancel,
     nonce: nextNonce + 1,
     from: senderAddr, 
   };
@@ -43,7 +41,7 @@ async function senderSign( nextNonce ) {
 async function feePayerSign( senderTxHashRLP ) {
   const feePayerWallet = new Wallet(feePayerPriv, provider);
 
-  const txCancel = objectFromRLP( senderTxHashRLP );
+  const txCancel = feePayerWallet.decodeTxFromRLP( senderTxHashRLP );
   txCancel.feePayer = feePayerAddr;
   console.log(txCancel);
 
@@ -57,7 +55,7 @@ async function main() {
   // 1) send ValueTransfer tx with the next nonce + 1
   let nextNonce = await wallet.getTransactionCount();
   let tx = {
-      type: 8,      
+      type: TxType.ValueTransfer,      
       nonce: nextNonce + 1,        
       to: recieverAddr,
       value: 1e12,

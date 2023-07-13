@@ -49,9 +49,9 @@ class AccountStore:
             return False
         if not self._validate_key(accountInfo['key']):
             return False
-        
-        accountInfo['address'] = address
-        self.account_store[address] = accountInfo
+        checksum_address = to_checksum_address(address)
+        accountInfo['address'] = checksum_address 
+        self.account_store[checksum_address] = accountInfo
         return True
 
     def _validate_key(self, keyring):

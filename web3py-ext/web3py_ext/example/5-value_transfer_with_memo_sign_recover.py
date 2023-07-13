@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 from web3py_ext import extend
 from web3 import Web3
 from eth_account import Account
