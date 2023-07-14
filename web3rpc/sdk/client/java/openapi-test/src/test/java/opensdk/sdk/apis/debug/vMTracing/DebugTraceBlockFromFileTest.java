@@ -1,17 +1,16 @@
 package opensdk.sdk.apis.debug.vMTracing;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.DebugTraceBlockFromFileResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
+import org.web3j.protocol.klaytn.core.method.response.DebugTraceBlockFromFileResponse;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import org.web3j.protocol.http.HttpService;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Debug RPC Test")
 public class DebugTraceBlockFromFileTest {
@@ -28,6 +27,8 @@ public class DebugTraceBlockFromFileTest {
         assertNull(response.getError());
 
         assertNotNull(response.getResult());
-        assertInstanceOf(ArrayList.class, response.getResult());
+        if (!response.getResult().isEmpty()) {
+            assertNotNull(response.getResult().get(0).getGas());
+        }
     }
 }
