@@ -69,15 +69,17 @@ publishing {
         }
     }
 }
-signing {
-    def signingPassword = System.getenv("ORG_GRADLE_PROJECT_SIGNINGPASSWORD")
+if (System.getenv("PUBLISH_TO_MAVEN_PUBLIC")) {
+    signing {
+        def signingPassword = System.getenv("ORG_GRADLE_PROJECT_SIGNINGPASSWORD")
 
-    def signingKey_base64 = System.getenv('ORG_GRADLE_PROJECT_SIGNINGKEY')
-    def signingKey = (signingKey_base64 == null? null:
-            new String(Base64.getMimeDecoder().decode(signingKey_base64.toString()), "utf-8"))
-    useInMemoryPgpKeys(signingKey, signingPassword)
-    sign publishing.publications.maven
+        def signingKey_base64 = System.getenv('ORG_GRADLE_PROJECT_SIGNINGKEY')
+        def signingKey = (signingKey_base64 == null? null:
+                new String(Base64.getMimeDecoder().decode(signingKey_base64.toString()), "utf-8"))
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign publishing.publications.maven
 
+    }
 }
 
 nexusStaging {
