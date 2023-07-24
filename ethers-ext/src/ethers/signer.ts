@@ -8,7 +8,6 @@ import { KlaytnTxFactory } from "../core";
 import { encodeTxForRPC } from "../core/klaytn_tx";
 import { HexStr } from "../core/util";
 
-import { SignatureLike } from "../core/sig";
 import { objectFromRLP } from "../core/klaytn_tx";
 
 // @ethersproject/abstract-signer/src.ts/index.ts:allowedTransactionKeys

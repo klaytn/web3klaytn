@@ -14,7 +14,7 @@ async function main() {
   const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net')
   const wallet = new Wallet(senderPriv, provider);
 
-  tx = {
+  let tx = {
       type: TxType.ValueTransferMemo,         
       to: recieverAddr,
       value: parseKlay("1"),

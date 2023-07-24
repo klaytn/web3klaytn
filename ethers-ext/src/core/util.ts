@@ -1,4 +1,3 @@
-import _ from "lodash";
 import * as rlp from "@ethersproject/rlp";
 import * as bytes from "@ethersproject/bytes";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";

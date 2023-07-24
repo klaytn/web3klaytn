@@ -37,7 +37,7 @@ async function main() {
     const erc20_rw = new ethers.Contract(address, abi, wallet);
 
     // Transfer 1.23 tokens to the ENS name "ricmoo.eth"
-    tx = await erc20_rw.transfer( recieverAddr, "1" );
+    let tx = await erc20_rw.transfer( recieverAddr, "1" );
     // {
     //   accessList: [],
     //   chainId: 123456,

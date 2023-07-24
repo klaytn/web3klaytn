@@ -277,7 +277,7 @@ export abstract class FieldSet {
 
   public setFieldsFromArray(names: string[], array: any[]): void {
     this.fields = {};
-    for (var i = 0; i < array.length; i++) {
+    for (let i = 0; i < array.length; i++) {
       const name = names[i];
       const fieldType = this.fieldTypes[name];
       if (!fieldType) {

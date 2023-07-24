@@ -2,7 +2,7 @@ import _ from "lodash";
 import { FieldSet, FieldSetFactory } from "./field"
 import { SignatureLike, getSignatureTuple } from "./sig";
 import { HexStr } from "./util";
-import { BigNumber, FixedNumber } from "ethers";
+import { BigNumber } from "ethers";
 import { hexValue, parseTransaction } from "ethers/lib/utils";
 import { TransactionRequest } from "@ethersproject/abstract-provider";
 

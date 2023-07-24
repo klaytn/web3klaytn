@@ -33,7 +33,7 @@ async function main() {
     const erc20_rw = new ethers.Contract(address, abi, senderWallet);
 
     // transaction for calling transfer function
-    tx = await erc20_rw.populateTransaction.transfer( recieverAddr, "1" );
+    let tx = await erc20_rw.populateTransaction.transfer( recieverAddr, "1" );
     console.log( tx );
     // {
     //     data: '0xa9059cbb000000000000000000000000c40b6909eb7085590e1c26cb3becc25368e249e90000000000000000000000000000000000000000000000000000000000000001',

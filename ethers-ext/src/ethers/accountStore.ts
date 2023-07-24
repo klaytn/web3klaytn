@@ -129,8 +129,6 @@ type AccountInfo =  {
     key: any
 } ; 
 
-type AccountInfos = AccountInfo[];
-
 export class AccountStore {
 
     private provider : JsonRpcProvider | undefined;

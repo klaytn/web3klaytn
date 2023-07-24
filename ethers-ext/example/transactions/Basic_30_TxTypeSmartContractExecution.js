@@ -34,7 +34,7 @@ async function main() {
   const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
   const param = contract.interface.encodeFunctionData("setNumber", ["0x123"]); 
 
-  tx = {
+  let tx = {
       type: TxType.SmartContractExecution,
       to: contractAddr,
       value: 0,  
