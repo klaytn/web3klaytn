@@ -27,10 +27,10 @@ export class Accounts {
           // @ts-ignore
           this.add([list[i][0], list[i][1]], provider);
         } else {
-          throw new Error(`Input has to be the array of [address, privateKey] or [privateKey]`);
+          throw new Error("Input has to be the array of [address, privateKey] or [privateKey]");
         }
       } else {
-        throw new Error(`Input has to be Wallet, [address, privateKey], or [privateKey]`);
+        throw new Error("Input has to be Wallet, [address, privateKey], or [privateKey]");
       }
     }
   }
@@ -47,7 +47,7 @@ export class Accounts {
       addr = account[0];
       priv = account[1];
     } else {
-      throw new Error(`Input has to be [address, privateKey] or [privateKey]`);
+      throw new Error("Input has to be [address, privateKey] or [privateKey]");
     }
 
     for (let i = 0; i < this.wallets.length; i++) {
@@ -73,7 +73,7 @@ export class Accounts {
       addr = account[0];
       priv = account[1];
     } else {
-      throw new Error(`Input has to be [address, privateKey] or [privateKey]`);
+      throw new Error("Input has to be [address, privateKey] or [privateKey]");
     }
 
     for (let i = 0; i < this.wallets.length; i++) {
@@ -257,7 +257,7 @@ export class AccountStore {
 
         this.accountInfos.push(accInfo);
       } else {
-        throw new Error(`Klaytn typed transaction can only be broadcasted to a Klaytn JSON-RPC server`);
+        throw new Error("Klaytn typed transaction can only be broadcasted to a Klaytn JSON-RPC server");
       }
     }
   }

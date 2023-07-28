@@ -91,7 +91,7 @@ class AsyncOpenApi {
       // Promisify each methods
       _.forEach(methods, (methodName) => {
         // Assume that the prototype only has a constructor and API methods.
-        if (methodName == 'constructor') {
+        if (methodName == "constructor") {
           return;
         }
 

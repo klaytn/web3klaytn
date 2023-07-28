@@ -8,7 +8,7 @@ export class FieldError extends Error {
   constructor(ty: FieldType, name: string, value: any) {
     const message = `Cannot assign value '${value}' to field '${name}' of type '${ty.constructor.name}'`;
     super(message);
-    this.name = 'FieldError';
+    this.name = "FieldError";
   }
 }
 
@@ -96,12 +96,12 @@ export const FieldTypeWeightedMultiSigKeys = new class implements FieldType {
     let ret = [], keys = [];
 
     if (value.length != 2 && value[1].length < 2)
-      throw new Error('Threshold and Keys format is wrong for MultiSig');
+      throw new Error("Threshold and Keys format is wrong for MultiSig");
     ret.push(HexStr.fromNumber(value[0]));
 
     for (let i = 0; i < value[1].length; i++) {
       if (value[1][i][0] == undefined || value[1][i][1] == undefined)
-        throw new Error('Weight and Key format is wrong for MultiSig');
+        throw new Error("Weight and Key format is wrong for MultiSig");
       let key = [];
       key.push(HexStr.fromNumber(value[1][i][0]));
       key.push(value[1][i][1]);
@@ -148,19 +148,19 @@ export const FieldTypeWeightedMultiSigKeys = new class implements FieldType {
 export const FieldTypeRoleBasedKeys = new class implements FieldType {
   canonicalize(value: [ any, any, any ]): string[] {
     if (value.length != 3)
-      throw new Error('RoleBasedKey format is wrong');
+      throw new Error("RoleBasedKey format is wrong");
 
     let ret = [];
     for (let i = 0; i < value.length; i++) {
-      if (typeof value[i] === 'string') {
+      if (typeof value[i] === "string") {
         // AccountKeyNil '0x80', AccountKeyPublic '0x02', AccountKeyWeightedMultiSig '0x04'
-        if (!(value[i] == '0x80' || value[i].startsWith('0x02') || value[i].startsWith('0x04'))) {
+        if (!(value[i] == "0x80" || value[i].startsWith("0x02") || value[i].startsWith("0x04"))) {
           throw new Error(`'${value[i]}' is wrong string format for role-based key`);
         }
         ret.push(value[i]);
       } else if (Array.isArray(value[i])) {
         ret.push(HexStr.concat("0x04", RLP.encode(FieldTypeWeightedMultiSigKeys.canonicalize(value[i]))));
-      } else if (typeof value[i] === 'object') {
+      } else if (typeof value[i] === "object") {
         if (value[i].type == undefined || HexStr.fromNumber(value[i].type) != "0x02"
               || value[i].key == undefined || String(value[i].key).length != 68) {
           throw new Error(`'${value[i]}' is wrong object format for role-based key`);
@@ -330,14 +330,14 @@ export class FieldSetFactory<T extends FieldSet> {
     const fieldTypes = cls.fieldTypes;
 
     if (!type) {
-      throw new Error(`Cannot register TypedFields: Missing type`);
+      throw new Error("Cannot register TypedFields: Missing type");
     }
     if (this.registry[type]) {
       throw new Error(`Cannot register TypedFields: type ${type} already registered`);
     }
 
     if (!fieldTypes) {
-      throw new Error(`Cannot register TypedFields: Missing fieldTypes`);
+      throw new Error("Cannot register TypedFields: Missing fieldTypes");
     }
     for (const name of this.requiredFields) {
       if (!fieldTypes[name]) {

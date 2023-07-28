@@ -7,12 +7,12 @@ const { Wallet, TxType, parseKlay } = require("@klaytn/ethers-ext");
 //
 
 // the same address of sender in AccountKeyPublic_01_accountUpdate.js
-const recieverAddr = '0xc40b6909eb7085590e1c26cb3becc25368e249e9';
-const senderAddr = '0xe15cd70a41dfb05e7214004d7d054801b2a2f06b'
-const senderNewPriv = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'
+const recieverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
+const senderAddr = "0xe15cd70a41dfb05e7214004d7d054801b2a2f06b"
+const senderNewPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8"
 
 async function main() {
-  const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net');
+  const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
   const wallet = new Wallet(senderAddr, senderNewPriv, provider);
 
   let tx = {
@@ -24,16 +24,16 @@ async function main() {
 
   const ptx = await wallet.populateTransaction(tx);
   const signTx = await wallet.signTransaction(ptx);
-  console.log('signTx', signTx);
+  console.log("signTx", signTx);
 
   const objTx = wallet.decodeTxFromRLP(signTx);
   console.log(objTx);
 
   const txhash = await provider.send("klay_sendRawTransaction", [signTx]);
-  console.log('txhash', txhash);
+  console.log("txhash", txhash);
 
   const rc = await provider.waitForTransaction(txhash);
-  console.log('receipt', rc);
+  console.log("receipt", rc);
 }
 
 main();

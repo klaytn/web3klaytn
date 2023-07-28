@@ -11,7 +11,7 @@ export class AccountKeyLegacy extends AccountKey {
   static type = 0x01;
   static typeName = "AccountKeyLegacy";
   static fieldTypes = {
-    'type': FieldTypeUint8,
+    "type": FieldTypeUint8,
   }
 
   toRLP(): string {
@@ -24,8 +24,8 @@ export class AccountKeyPublic extends AccountKey {
   static type = 0x02;
   static typeName = "AccountKeyPublic";
   static fieldTypes = {
-    'type': FieldTypeUint8,
-    'key':  FieldTypeCompressedPubKey,
+    "type": FieldTypeUint8,
+    "key":  FieldTypeCompressedPubKey,
   };
 
   // 0x02 + encode(CompressedPubKey)
@@ -40,7 +40,7 @@ export class AccountKeyFail extends AccountKey {
   static type = 0x03;
   static typeName = "AccountKeyFail";
   static fieldTypes = {
-    'type': FieldTypeUint8,
+    "type": FieldTypeUint8,
   }
 
   toRLP(): string {
@@ -53,8 +53,8 @@ export class AccountKeyWeightedMultiSig extends AccountKey {
   static type = 0x04;
   static typeName = "AccountKeyWeightedMultiSig";
   static fieldTypes = {
-    'type': FieldTypeUint8,
-    'keys': FieldTypeWeightedMultiSigKeys,
+    "type": FieldTypeUint8,
+    "keys": FieldTypeWeightedMultiSigKeys,
   };
 
   // 0x04 + encode([threshold, [[weight, CompressedPubKey1], [weight2, CompressedPubKey2]]])
@@ -70,8 +70,8 @@ export class AccountKeyRoleBased extends AccountKey {
   static type = 0x05;
   static typeName = "AccountKeyRoleBased";
   static fieldTypes = {
-    'type': FieldTypeUint8,
-    'keys': FieldTypeRoleBasedKeys,
+    "type": FieldTypeUint8,
+    "keys": FieldTypeRoleBasedKeys,
   };
 
   // 0x05 + encode([key1, key2, key3])

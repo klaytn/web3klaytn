@@ -20,7 +20,7 @@ export class MockEthersProvider extends EthersProvider {
     if (handler) {
       return handler(params);
     } else {
-      console.log('mock fallback', method, params);
+      console.log("mock fallback", method, params);
       return super.send(method, params);
     }
   }

@@ -1,6 +1,6 @@
 import _ from "lodash";
 import chai from "chai";
-import chaiAsPromised from 'chai-as-promised'
+import chaiAsPromised from "chai-as-promised"
 
 import { BigNumber, Wallet as EthersWallet } from "ethers";
 import { Wallet as KlaytnWallet } from "../../src/ethers";

@@ -50,7 +50,7 @@ module.exports = {
     // "brace-style": ["warn", "1tbs", { "allowSingleLine": true }],
     // "semi": "warn",
     // "no-extra-semi": "warn",
-    // "quotes": ["warn", "double", { "avoidEscape": true }],
+    "quotes": ["warn", "double", { "avoidEscape": true }],
     // "comma-dangle": ["warn", "only-multiline"],
     // "arrow-parens": "warn",
     // "wrap-iife": "warn",
