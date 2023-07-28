@@ -83,8 +83,7 @@ class _KlaytnTxFactory extends FieldSetFactory<KlaytnTx> {
     const type = HexStr.toNumber(rlp.substr(0, 4));
     if (!this.has(type)) {
       return parseTransaction(value);
-    }
-    else {
+    } else {
       const ctor = this.lookup(type);
       const instance = new ctor();
       instance.setFieldsFromRLP(rlp);
@@ -101,8 +100,9 @@ export const KlaytnTxFactory = new _KlaytnTxFactory(
 export function objectFromRLP(value: string): any {
   const tx = KlaytnTxFactory.fromRLP(value);
 
-  if (tx instanceof KlaytnTx)
+  if (tx instanceof KlaytnTx) {
     return tx.toObject();
+  }
 
   return tx;
 }

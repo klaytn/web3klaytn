@@ -184,8 +184,9 @@ export function parseKlay(klay: string): bigint {
 }
 
 function assertArgument(check: boolean, message: string, code: string, info: any) {
-  if (check == false)
+  if (check == false) {
     throw new Error("message: " + message + ", code: " + code + ", info: " + info);
+  }
 }
 
 // IEEE 754 support 53-bits of mantissa

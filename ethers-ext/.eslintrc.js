@@ -45,15 +45,15 @@ module.exports = {
     //   "newlines-between": "always",
     // }],
 
-    // // formatting
-    // "curly": ["warn", "all"],
-    // "brace-style": ["warn", "1tbs", { "allowSingleLine": true }],
+    // formatting
+    "curly": ["warn", "all"],
+    "brace-style": ["warn", "1tbs", { "allowSingleLine": true }],
     "semi": "warn",
     "no-extra-semi": "warn",
     "quotes": ["warn", "double", { "avoidEscape": true }],
-    // "comma-dangle": ["warn", "only-multiline"],
-    // "arrow-parens": "warn",
-    // "wrap-iife": "warn",
+    "comma-dangle": ["warn", "only-multiline"],
+    "arrow-parens": "warn",
+    "wrap-iife": "warn",
 
     // formatting about spaces
     "max-len": ["off", 120],

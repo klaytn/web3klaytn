@@ -103,8 +103,9 @@ export class Wallet extends EthersWallet {
   }
 
   getAddress(): Promise<string> {
-    if (this.klaytn_address == undefined)
+    if (this.klaytn_address == undefined) {
       return super.getAddress();
+    }
     return Promise.resolve(String(this.klaytn_address));
   }
 
@@ -113,8 +114,9 @@ export class Wallet extends EthersWallet {
   }
 
   async isDecoupled(): Promise<boolean> {
-    if (this.klaytn_address == undefined)
+    if (this.klaytn_address == undefined) {
       return false;
+    }
 
     let addr = await this.getAddress();
     let Eaddr = await this.getEtherAddress();

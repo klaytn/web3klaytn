@@ -89,7 +89,9 @@ export class Accounts {
   }
 
   removeAll() {
-    if (this.wallets.length == 0) return;
+    if (this.wallets.length == 0) {
+      return;
+    }
 
     for (let i = this.wallets.length - 1; 0 <= i && i < this.wallets.length; i--) {
       delete this.wallets[i];
@@ -281,8 +283,9 @@ export class AccountStore {
   hasAccountInfos(address: string) :boolean {
     let i:number;
     for (i = 0; this.accountInfos != undefined && i < this.accountInfos.length; i++) {
-      if (HexStr.isSameAddress(this.accountInfos[i].address, address))
+      if (HexStr.isSameAddress(this.accountInfos[i].address, address)) {
         return true;
+      }
     }
     return false;
   }

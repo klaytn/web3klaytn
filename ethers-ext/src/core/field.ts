@@ -95,13 +95,15 @@ export const FieldTypeWeightedMultiSigKeys = new class implements FieldType {
   canonicalize(value: [ number, [[number, string]] ]): any[] {
     let ret = [], keys = [];
 
-    if (value.length != 2 && value[1].length < 2)
+    if (value.length != 2 && value[1].length < 2) {
       throw new Error("Threshold and Keys format is wrong for MultiSig");
+    }
     ret.push(HexStr.fromNumber(value[0]));
 
     for (let i = 0; i < value[1].length; i++) {
-      if (value[1][i][0] == undefined || value[1][i][1] == undefined)
+      if (value[1][i][0] == undefined || value[1][i][1] == undefined) {
         throw new Error("Weight and Key format is wrong for MultiSig");
+      }
       let key = [];
       key.push(HexStr.fromNumber(value[1][i][0]));
       key.push(value[1][i][1]);
@@ -147,8 +149,9 @@ export const FieldTypeWeightedMultiSigKeys = new class implements FieldType {
 // ]
 export const FieldTypeRoleBasedKeys = new class implements FieldType {
   canonicalize(value: [ any, any, any ]): string[] {
-    if (value.length != 3)
+    if (value.length != 3) {
       throw new Error("RoleBasedKey format is wrong");
+    }
 
     let ret = [];
     for (let i = 0; i < value.length; i++) {
@@ -349,18 +352,21 @@ export class FieldSetFactory<T extends FieldSet> {
   }
 
   public has(type?: any): boolean {
-    if (!!type && HexStr.isHex(type))
+    if (!!type && HexStr.isHex(type)) {
       return !!type && !!this.registry[HexStr.toNumber(type)];
-
-    return !!type && !!this.registry[type];
+    } else {
+      return !!type && !!this.registry[type];
+    }
   }
 
   public lookup(type?: any): ConcreteFieldSet<T> {
-    if (!type || !this.has(type))
+    if (!type || !this.has(type)) {
       throw new Error(`Unsupported type '${type}'`);
+    }
 
-    if (HexStr.isHex(type))
+    if (HexStr.isHex(type)) {
       return this.registry[HexStr.toNumber(type)];
+    }
 
     return this.registry[type];
   }
