@@ -30,12 +30,13 @@ export interface Fields {
 // Accepted types: hex string of an address
 // Canonical type: hex string of checksumed address
 export const FieldTypeAddress = new class implements FieldType {
-  canonicalize(value: any): string { 
+  canonicalize(value: any): string {
     if (value === "0x") {
       return "0x0000000000000000000000000000000000000000"
     }
-    return getAddress(value); 
+    return getAddress(value);
   }
+
   emptyValue(): string { return "0x"; }
 }
 
@@ -51,12 +52,14 @@ export class FieldTypeBytesFixedLen implements FieldType {
   constructor(length: number) {
     this.length = length;
   }
+
   canonicalize(value: any): string {
     if (!HexStr.isHex(value, this.length)) {
       throw new Error(`Value is not ${this.length} bytes`);
     }
     return HexStr.from(value);
   }
+
   emptyValue(): string { return "0x00"; }
 }
 
@@ -71,7 +74,7 @@ export const FieldTypeCompressedPubKey = new FieldTypeBytesFixedLen(33);
 //   [
 //     // [ weight, key ] list for multi-sig
 //     [
-//       "01",   
+//       "01",
 //       "02c734b50ddb229be5e929fc4aa8080ae8240a802d23d3290e5e6156ce029b110e"
 //     ],
 //     [
@@ -90,26 +93,26 @@ export const FieldTypeCompressedPubKey = new FieldTypeBytesFixedLen(33);
 // ]
 export const FieldTypeWeightedMultiSigKeys = new class implements FieldType {
   canonicalize(value: [ number, [[number, string]] ]): any[] {
-    
     let ret = [], keys = [];
 
-    if ( value.length != 2 && value[1].length < 2 )
-        throw new Error('Threshold and Keys format is wrong for MultiSig');
-    ret.push( HexStr.fromNumber(value[0]) );
+    if (value.length != 2 && value[1].length < 2)
+      throw new Error('Threshold and Keys format is wrong for MultiSig');
+    ret.push(HexStr.fromNumber(value[0]));
 
-    for ( let i=0; i<value[1].length ; i++){
-      if ( value[1][i][0] == undefined || value[1][i][1] == undefined)
+    for (let i = 0; i < value[1].length; i++) {
+      if (value[1][i][0] == undefined || value[1][i][1] == undefined)
         throw new Error('Weight and Key format is wrong for MultiSig');
-      let key = []; 
-      key.push( HexStr.fromNumber( value[1][i][0] ));
-      key.push( value[1][i][1] );
-      keys.push( key );
+      let key = [];
+      key.push(HexStr.fromNumber(value[1][i][0]));
+      key.push(value[1][i][1]);
+      keys.push(key);
     }
 
-    ret.push( keys );
+    ret.push(keys);
     return ret;
   }
-  emptyValue(): string {  return "0x"; };
+
+  emptyValue(): string { return "0x"; };
 }
 
 // RoleBasedKeys is canonicalized like follow.
@@ -131,38 +134,38 @@ export const FieldTypeWeightedMultiSigKeys = new class implements FieldType {
 //         "0336f6355f5b532c3c1606f18fa2be7a16ae200c5159c8031dd25bfa389a4c9c06"
 //       ]
 //     ]
-//   ],  
+//   ],
 //
 //   // RoleFeePayer
 //   "02a102c8785266510368d9372badd4c7f4a94b692e82ba74e0b5e26b34558b0f081447"
 // ]
-//    -> 
+//    ->
 // [
 //   "02a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff72ff7dcdf01512d",
 //   "04f84b02f848e301a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff72ff7dcdf01512de301a10336f6355f5b532c3c1606f18fa2be7a16ae200c5159c8031dd25bfa389a4c9c06",
 //   "02a102c8785266510368d9372badd4c7f4a94b692e82ba74e0b5e26b34558b0f081447"
 // ]
 export const FieldTypeRoleBasedKeys = new class implements FieldType {
-  canonicalize(value: [ any, any, any ] ): string[] {  
-    if ( value.length != 3 )
-        throw new Error('RoleBasedKey format is wrong');
+  canonicalize(value: [ any, any, any ]): string[] {
+    if (value.length != 3)
+      throw new Error('RoleBasedKey format is wrong');
 
     let ret = [];
-    for ( let i=0; i<value.length ; i++){
-      if ( typeof value[i] === 'string' ){
-        // AccountKeyNil '0x80', AccountKeyPublic '0x02', AccountKeyWeightedMultiSig '0x04' 
-        if ( !( value[i] == '0x80' || value[i].startsWith('0x02') || value[i].startsWith('0x04') ) ) {
+    for (let i = 0; i < value.length; i++) {
+      if (typeof value[i] === 'string') {
+        // AccountKeyNil '0x80', AccountKeyPublic '0x02', AccountKeyWeightedMultiSig '0x04'
+        if (!(value[i] == '0x80' || value[i].startsWith('0x02') || value[i].startsWith('0x04'))) {
           throw new Error(`'${value[i]}' is wrong string format for role-based key`);
         }
-        ret.push( value[i] );
-      } else if ( Array.isArray(value[i]) ){
-        ret.push( HexStr.concat("0x04", RLP.encode( FieldTypeWeightedMultiSigKeys.canonicalize(value[i]) ))); 
-      } else if ( typeof value[i] === 'object' ) {
-        if ( value[i].type == undefined || HexStr.fromNumber(value[i].type) != "0x02" 
-              || value[i].key == undefined || String( value[i].key ).length != 68 ) {
+        ret.push(value[i]);
+      } else if (Array.isArray(value[i])) {
+        ret.push(HexStr.concat("0x04", RLP.encode(FieldTypeWeightedMultiSigKeys.canonicalize(value[i]))));
+      } else if (typeof value[i] === 'object') {
+        if (value[i].type == undefined || HexStr.fromNumber(value[i].type) != "0x02"
+              || value[i].key == undefined || String(value[i].key).length != 68) {
           throw new Error(`'${value[i]}' is wrong object format for role-based key`);
         }
-        ret.push( HexStr.concat("0x02", RLP.encode(value[i].key)) ); 
+        ret.push(HexStr.concat("0x02", RLP.encode(value[i].key)));
       } else {
         throw new Error(`'${value[i]}' is wrong format for role-based key`);
       }
@@ -170,7 +173,7 @@ export const FieldTypeRoleBasedKeys = new class implements FieldType {
     return ret;
   }
 
-  emptyValue(): string {  return "0x"; };
+  emptyValue(): string { return "0x"; };
 }
 
 export class FieldTypeNumberBits implements FieldType {
@@ -183,9 +186,10 @@ export class FieldTypeNumberBits implements FieldType {
     this.maxBits = maxBits;
     this.maxBN = BigNumber.from(2).pow(maxBits);
   }
+
   canonicalize(value: any): string {
     if (value === "0x") {
-      value = 0; 
+      value = 0;
     }
     const bn = BigNumber.from(value);
 
@@ -198,6 +202,7 @@ export class FieldTypeNumberBits implements FieldType {
     }
     return bn.toHexString();
   }
+
   emptyValue(): string { return "0x"; }
 }
 
@@ -214,21 +219,22 @@ export const FieldTypeSignatureTuples = new class implements FieldType {
   canonicalize(value: SignatureLike[]): SignatureTuple[] {
     return _.map(value, getSignatureTuple);
   }
+
   emptyValue(): SignatureTuple[] { return [] };
 }
 
 export const FieldTypeBool = new class implements FieldType {
   canonicalize(value: any): string {
     if (value === "0x01" || value === "0x") {
-      return value; 
+      return value;
     }
-    return value? "0x01" : "0x" ;
+    return value ? "0x01" : "0x";
   }
+
   emptyValue(): string { return "0x" };
 }
 export abstract class FieldSet {
-
-  ////////////////////////////////////////////////////////////
+  // //////////////////////////////////////////////////////////
   // Child classes MUST override below properties and methods
 
   // An 1-byte type enum
@@ -241,7 +247,7 @@ export abstract class FieldSet {
   public static fieldTypes: FieldTypes;
 
   // End override
-  ////////////////////////////////////////////////////////////
+  // //////////////////////////////////////////////////////////
 
   // shortcuts for this._static.*.
   public readonly type: number = 0;
@@ -343,19 +349,19 @@ export class FieldSetFactory<T extends FieldSet> {
   }
 
   public has(type?: any): boolean {
-    if (!!type && HexStr.isHex(type)) 
+    if (!!type && HexStr.isHex(type))
       return !!type && !!this.registry[HexStr.toNumber(type)];
-  
+
     return !!type && !!this.registry[type];
   }
 
   public lookup(type?: any): ConcreteFieldSet<T> {
     if (!type || !this.has(type))
       throw new Error(`Unsupported type '${type}'`);
-    
-    if ( HexStr.isHex(type))
+
+    if (HexStr.isHex(type))
       return this.registry[HexStr.toNumber(type)];
-    
+
     return this.registry[type];
   }
 

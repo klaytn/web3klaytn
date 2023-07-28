@@ -48,7 +48,6 @@ const txTestCases: txTestCase[] = [
 ];
 
 describe("TypedTxFactory", () => {
-
   // Generate mocha tests from test cases
   for (const tc of txTestCases) {
     it(tc.name, () => {

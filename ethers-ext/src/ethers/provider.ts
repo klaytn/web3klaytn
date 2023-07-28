@@ -17,7 +17,6 @@ interface OpenApiClass {
 }
 
 export class JsonRpcProvider extends EthersJsonRpcProvider {
-
   openApiClient: any;
 
   constructor(url?: ConnectionInfo | string, network?: Networkish) {
@@ -26,6 +25,7 @@ export class JsonRpcProvider extends EthersJsonRpcProvider {
     this.openApiClient = makeApiClient(url);
   }
 
+  /* eslint-disable no-multi-spaces */
   get admin(): AsyncOpenApi      { return this.getAsyncOpenApi(AdminApi); }
   get debug(): AsyncOpenApi      { return this.getAsyncOpenApi(DebugApi); }
   get governance(): AsyncOpenApi { return this.getAsyncOpenApi(GovernanceApi); }
@@ -33,6 +33,7 @@ export class JsonRpcProvider extends EthersJsonRpcProvider {
   get net(): AsyncOpenApi        { return this.getAsyncOpenApi(NetApi); }
   get personal(): AsyncOpenApi   { return this.getAsyncOpenApi(PersonalApi); }
   get txpol(): AsyncOpenApi      { return this.getAsyncOpenApi(TxpoolApi); }
+  /* eslint-enable no-multi-spaces */
 
   getAsyncOpenApi(clazz: OpenApiClass): AsyncOpenApi {
     return new AsyncOpenApi(new clazz(this.openApiClient));

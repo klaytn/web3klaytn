@@ -120,7 +120,7 @@ describe("Wallet", () => {
       assert.isDefined(res.gasLimit);
     }
 
-    it("fill missing fields", async() => {
+    it("fill missing fields", async () => {
       for (let W of [EW, KW, KWD]) {
         await testOK(W, { type: 0, to, value });
       }

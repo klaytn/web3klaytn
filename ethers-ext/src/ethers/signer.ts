@@ -44,7 +44,7 @@ function saveCustomFields(tx: Deferrable<TransactionRequest>): any {
   // So 'from' field also has to be saved
   savedFields['from'] = tx.from;
   _.unset(tx, 'from');
-  
+
   return savedFields;
 }
 
@@ -56,47 +56,46 @@ function restoreCustomFields(tx: Deferrable<TransactionRequest>, savedFields: an
 
 
 export class Wallet extends EthersWallet {
-
   private klaytn_address: string | undefined;
-  
-  private dynamicUpdateWalletAPI;
-  
-  _checkTransaction:((transaction: Deferrable<TransactionRequest>) => Deferrable<TransactionRequest>) | undefined ;
-  _populateTransaction: ((transaction: Deferrable<TransactionRequest>) => Promise<TransactionRequest>) | undefined ;
 
-  _signTransaction; 
+  private dynamicUpdateWalletAPI;
+
+  _checkTransaction:((transaction: Deferrable<TransactionRequest>) => Deferrable<TransactionRequest>) | undefined;
+  _populateTransaction: ((transaction: Deferrable<TransactionRequest>) => Promise<TransactionRequest>) | undefined;
+
+  _signTransaction;
   _sendTransaction;
 
-  constructor(address: any, privateKey?: any, provider?: Provider, dynamicUpdateWalletAPI: boolean=true ) {
-    let str_addr = String(address); 
+  constructor(address: any, privateKey?: any, provider?: Provider, dynamicUpdateWalletAPI: boolean = true) {
+    let str_addr = String(address);
 
-    if ( HexStr.isHex(address) && (str_addr.length == 40 || str_addr.length == 42)) {
-      super( privateKey, provider); 
-      this.klaytn_address = ethers.utils.getAddress(address); 
+    if (HexStr.isHex(address) && (str_addr.length == 40 || str_addr.length == 42)) {
+      super(privateKey, provider);
+      this.klaytn_address = ethers.utils.getAddress(address);
     } else {
-      provider = privateKey; 
+      provider = privateKey;
       privateKey = address;
-      super( privateKey, provider); 
+      super(privateKey, provider);
     }
 
-    // KlaytnWallet API is also working on Wallet 
-    // For example, Wallet.populateTransaction is same with KlaytnWallet.populateTransaction. 
+    // KlaytnWallet API is also working on Wallet
+    // For example, Wallet.populateTransaction is same with KlaytnWallet.populateTransaction.
     this.dynamicUpdateWalletAPI = dynamicUpdateWalletAPI;
-    if ( this.dynamicUpdateWalletAPI == true ) {
-      this._checkTransaction = super.checkTransaction; 
-      super.checkTransaction = this.checkTransaction; 
+    if (this.dynamicUpdateWalletAPI == true) {
+      this._checkTransaction = super.checkTransaction;
+      super.checkTransaction = this.checkTransaction;
 
-      this._populateTransaction = super.populateTransaction; 
-      super.populateTransaction = this.populateTransaction; 
+      this._populateTransaction = super.populateTransaction;
+      super.populateTransaction = this.populateTransaction;
 
       this._signTransaction = super.signTransaction;
-      super.signTransaction = this.signTransaction; 
+      super.signTransaction = this.signTransaction;
 
       // @ts-ignore
       super.signTransactionAsFeePayer = this.signTransactionAsFeePayer;
 
       this._sendTransaction = super.sendTransaction;
-      super.sendTransaction = this.sendTransaction; 
+      super.sendTransaction = this.sendTransaction;
 
       // @ts-ignore
       super.sendTransactionAsFeePayer = this.sendTransactionAsFeePayer;
@@ -104,9 +103,9 @@ export class Wallet extends EthersWallet {
   }
 
   getAddress(): Promise<string> {
-    if ( this.klaytn_address == undefined ) 
+    if (this.klaytn_address == undefined)
       return super.getAddress();
-    return Promise.resolve( String(this.klaytn_address) );
+    return Promise.resolve(String(this.klaytn_address));
   }
 
   getEtherAddress(): Promise<string> {
@@ -114,7 +113,7 @@ export class Wallet extends EthersWallet {
   }
 
   async isDecoupled(): Promise<boolean> {
-    if ( this.klaytn_address == undefined )
+    if (this.klaytn_address == undefined)
       return false;
 
     let addr = await this.getAddress();
@@ -124,7 +123,7 @@ export class Wallet extends EthersWallet {
 
   checkTransaction(transaction: Deferrable<TransactionRequest>): Deferrable<TransactionRequest> {
     const savedFields = saveCustomFields(transaction);
-    if ( this.dynamicUpdateWalletAPI == true && this._checkTransaction != undefined ) {
+    if (this.dynamicUpdateWalletAPI == true && this._checkTransaction != undefined) {
       transaction = this._checkTransaction(transaction);
     } else {
       transaction = super.checkTransaction(transaction);
@@ -138,25 +137,25 @@ export class Wallet extends EthersWallet {
     let tx: TransactionRequest = await resolveProperties(transaction);
 
     if (!KlaytnTxFactory.has(tx.type)) {
-      if ( this.dynamicUpdateWalletAPI == true && this._populateTransaction != undefined ) {
+      if (this.dynamicUpdateWalletAPI == true && this._populateTransaction != undefined) {
         return this._populateTransaction(tx);
       } else {
         return super.populateTransaction(tx);
       }
     }
 
-    // Klaytn AccountKey is not matched with pubKey of the privateKey 
-    if ( !(tx.nonce) && !!(this.klaytn_address)) {
-      if (this.provider instanceof JsonRpcProvider ) { 
-        const result = await this.provider.getTransactionCount( this.klaytn_address);
+    // Klaytn AccountKey is not matched with pubKey of the privateKey
+    if (!(tx.nonce) && !!(this.klaytn_address)) {
+      if (this.provider instanceof JsonRpcProvider) {
+        const result = await this.provider.getTransactionCount(this.klaytn_address);
         tx.nonce = result;
       } else {
         throw new Error(`Klaytn transaction can only be populated from a Klaytn JSON-RPC server`);
       }
     }
 
-    if ( !(tx.gasPrice) ) {
-      if (this.provider instanceof JsonRpcProvider ) {
+    if (!(tx.gasPrice)) {
+      if (this.provider instanceof JsonRpcProvider) {
         const result = await this.provider.send("klay_gasPrice", []);
         tx.gasPrice = result;
       } else {
@@ -164,28 +163,27 @@ export class Wallet extends EthersWallet {
       }
     }
 
-    if ( !(tx.gasLimit) && !!(tx.to) ) {
-      if (this.provider instanceof JsonRpcProvider ) {
-
+    if (!(tx.gasLimit) && !!(tx.to)) {
+      if (this.provider instanceof JsonRpcProvider) {
         const estimateGasAllowedKeys: string[] = [
-          "from", "to", "gasLimit", "gasPrice", "value", "input" ];
-        let ttx = encodeTxForRPC( estimateGasAllowedKeys, tx );
+          "from", "to", "gasLimit", "gasPrice", "value", "input"];
+        let ttx = encodeTxForRPC(estimateGasAllowedKeys, tx);
 
         const result = await this.provider.send("klay_estimateGas", [ttx]);
-        // For the problem that estimateGas does not exactly match, 
+        // For the problem that estimateGas does not exactly match,
         // the code for adding some Gas must be processed in the wallet or Dapp.
-        // e.g. 
+        // e.g.
         //   In ethers, no special logic to modify Gas
         //   In Metamask, multiply 1.5 to Gas for ensuring that the estimated gas is sufficient
         //   https://github.com/MetaMask/metamask-extension/blob/9d38e537fca4a61643743f6bf3409f20189eb8bb/ui/ducks/send/helpers.js#L115
-        tx.gasLimit = Math.ceil(result*1.5); 
+        tx.gasLimit = Math.ceil(result * 1.5);
       } else {
         throw new Error(`Klaytn transaction can only be populated from a Klaytn JSON-RPC server`);
       }
     }
 
     const savedFields = saveCustomFields(tx);
-    if ( this.dynamicUpdateWalletAPI == true && this._populateTransaction != undefined ) {
+    if (this.dynamicUpdateWalletAPI == true && this._populateTransaction != undefined) {
       tx = await this._populateTransaction(tx);
     } else {
       tx = await super.populateTransaction(tx);
@@ -203,22 +201,22 @@ export class Wallet extends EthersWallet {
   //   let rpcTx = JsonRpcProvider.hexlifyTransaction(tx, allowExtra);
 
   //   if (this.provider instanceof JsonRpcProvider ) {
-      
+
   //   }
   //   return 0;
   // }
 
-  decodeTxFromRLP( str :string ): any {
-    return objectFromRLP( str );
+  decodeTxFromRLP(str :string): any {
+    return objectFromRLP(str);
   }
 
   async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
     let tx: TransactionRequest = await resolveProperties(transaction);
 
     if (!KlaytnTxFactory.has(tx.type)) {
-      if ( this.dynamicUpdateWalletAPI == true && this._signTransaction != undefined ) {
+      if (this.dynamicUpdateWalletAPI == true && this._signTransaction != undefined) {
         return this._signTransaction(tx);
-      } else { 
+      } else {
         return super.signTransaction(tx);
       }
     }
@@ -232,7 +230,7 @@ export class Wallet extends EthersWallet {
     }
     ttx.addSenderSig(sig);
 
-    if ( ttx.hasFeePayer() ) {
+    if (ttx.hasFeePayer()) {
       return ttx.senderTxHashRLP()
     }
     return ttx.txHashRLP();
@@ -242,7 +240,7 @@ export class Wallet extends EthersWallet {
     let tx: TransactionRequest = await resolveProperties(transaction);
 
     const ttx = KlaytnTxFactory.fromObject(tx);
-    if ( !ttx.hasFeePayer() ) {
+    if (!ttx.hasFeePayer()) {
       throw new Error(`This transaction can not be signed as FeePayer`);
     }
 
@@ -279,9 +277,9 @@ export class Wallet extends EthersWallet {
     this._checkProvider("sendTransactionAsFeePayer");
 
     let tx, ptx;
-    if ( typeof transaction === 'string') {
-      if ( HexStr.isHex(transaction) ) {
-        tx = this.decodeTxFromRLP( transaction ); 
+    if (typeof transaction === 'string') {
+      if (HexStr.isHex(transaction)) {
+        tx = this.decodeTxFromRLP(transaction);
         ptx = await this.populateTransaction(tx);
       } else {
         throw new Error(`Input parameter has to be RLP encoded Hex string.`);
@@ -290,7 +288,7 @@ export class Wallet extends EthersWallet {
       ptx = await this.populateTransaction(transaction);
     }
 
-    // @ts-ignore : we have to add feePayer property 
+    // @ts-ignore : we have to add feePayer property
     ptx.feePayer = await this.getAddress();
     const signedTx = await this.signTransactionAsFeePayer(ptx);
 
@@ -305,95 +303,90 @@ export class Wallet extends EthersWallet {
 }
 
 export async function verifyMessageAsKlaytnAccountKey(provider: Provider, address: string, message: Bytes | string, signature: any): Promise<boolean> {
-  
   if (provider instanceof JsonRpcProvider) {
-    
     const klaytn_accountKey = await provider.send("klay_getAccountKey", [address, "latest"]);
 
-    if ( klaytn_accountKey.keyType == 1 ) {
+    if (klaytn_accountKey.keyType == 1) {
       // AccountKeyLegacy
-      return verifyMessageAsAccountKeyLegacy( provider, address, message, signature ); 
-      
-    } else if ( klaytn_accountKey.keyType == 2 ) {
+      return verifyMessageAsAccountKeyLegacy(provider, address, message, signature);
+    } else if (klaytn_accountKey.keyType == 2) {
       // AccountKeyPublic
-      return verifyMessageAsAccountKeyPublic( provider, klaytn_accountKey, message, signature ); 
-      
-    } else if ( klaytn_accountKey.keyType == 4 ) {
+      return verifyMessageAsAccountKeyPublic(provider, klaytn_accountKey, message, signature);
+    } else if (klaytn_accountKey.keyType == 4) {
       // AccountKeyWeightedMultiSig
-      return verifyMessageAsAccountKeyWeightedMultiSig(provider, klaytn_accountKey, message, signature );
+      return verifyMessageAsAccountKeyWeightedMultiSig(provider, klaytn_accountKey, message, signature);
+    } else if (klaytn_accountKey.keyType == 5) {
+      // AccountKeyRoleBased
+      const roleTransactionKey = klaytn_accountKey.key[0];
 
-    } else if ( klaytn_accountKey.keyType == 5 ) {
-      // AccountKeyRoleBased 
-      const roleTransactionKey = klaytn_accountKey.key[0]; 
-
-      if ( roleTransactionKey.keyType == 2 ) {
-        return verifyMessageAsAccountKeyPublic( provider, roleTransactionKey, message, signature ); 
-      } else if ( roleTransactionKey.keyType == 4 ) {
-        return verifyMessageAsAccountKeyWeightedMultiSig(provider, roleTransactionKey, message, signature );        
+      if (roleTransactionKey.keyType == 2) {
+        return verifyMessageAsAccountKeyPublic(provider, roleTransactionKey, message, signature);
+      } else if (roleTransactionKey.keyType == 4) {
+        return verifyMessageAsAccountKeyWeightedMultiSig(provider, roleTransactionKey, message, signature);
       }
     }
   } else {
     throw new Error(`Klaytn typed transaction can only be broadcasted to a Klaytn JSON-RPC server`);
   }
 
-  return false; 
+  return false;
 }
 
-function verifyMessageAsAccountKeyLegacy( provider: Provider, address: string, message: Bytes | string, signature: any): boolean {
-  if ( Array.isArray(signature) && !signature[0] ) {
+function verifyMessageAsAccountKeyLegacy(provider: Provider, address: string, message: Bytes | string, signature: any): boolean {
+  if (Array.isArray(signature) && !signature[0]) {
     throw new Error(`Needs a signature as a parameter like [sig] or sig`);
-  } else if ( Array.isArray(signature) && !!signature[0]) {
-    signature = signature[0]; 
+  } else if (Array.isArray(signature) && !!signature[0]) {
+    signature = signature[0];
   }
 
   const actual_signer_addr = recoverAddress(hashMessage(message), signature);
 
-  if ( actual_signer_addr == ethers.utils.getAddress(address) ) {
-    return true; 
+  if (actual_signer_addr == ethers.utils.getAddress(address)) {
+    return true;
   }
-  return false; 
+  return false;
 }
 
-function verifyMessageAsAccountKeyPublic( provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
-  if ( Array.isArray(signature) && !signature[0] ) {
+function verifyMessageAsAccountKeyPublic(provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
+  if (Array.isArray(signature) && !signature[0]) {
     throw new Error(`Needs a signature as a parameter like [sig] or sig`);
-  } else if ( Array.isArray(signature) && !!signature[0]) {
-    signature = signature[0]; 
+  } else if (Array.isArray(signature) && !!signature[0]) {
+    signature = signature[0];
   }
 
   const actual_signer_addr = recoverAddress(hashMessage(message), signature);
 
   const x = String(klaytn_accountKey.key.x).substring(2);
   const y = String(klaytn_accountKey.key.y).substring(2);
-  let klaytn_addr = computeAddress( HexStr.concat( "0x04" + x + y )); 
+  let klaytn_addr = computeAddress(HexStr.concat("0x04" + x + y));
 
-  if ( actual_signer_addr === klaytn_addr ) {
-    return true; 
+  if (actual_signer_addr === klaytn_addr) {
+    return true;
   }
-  return false; 
+  return false;
 }
 
-function verifyMessageAsAccountKeyWeightedMultiSig( provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
-  if ( !Array.isArray(signature) ) {
+function verifyMessageAsAccountKeyWeightedMultiSig(provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
+  if (!Array.isArray(signature)) {
     throw new Error(`This account needs multi-signature [ sig1, sig2 ... sigN ]`);
   }
 
   const threshold = klaytn_accountKey.key.threshold;
-  let current_threshold = 0; 
+  let current_threshold = 0;
 
-  for ( let i=0; i<klaytn_accountKey.key.keys.length; i++ ){
+  for (let i = 0; i < klaytn_accountKey.key.keys.length; i++) {
     let weight = klaytn_accountKey.key.keys[i].weight;
     let x = String(klaytn_accountKey.key.keys[i].key.x).substring(2);
     let y = String(klaytn_accountKey.key.keys[i].key.y).substring(2);
-    let oneOfAddress = computeAddress( HexStr.concat( "0x04" + x + y ));
+    let oneOfAddress = computeAddress(HexStr.concat("0x04" + x + y));
 
-    for ( let j=0; j<signature.length ; j++ ){
+    for (let j = 0; j < signature.length; j++) {
       let actual_signer_addr = recoverAddress(hashMessage(message), signature[j]);
 
-      if ( oneOfAddress === actual_signer_addr ) {
+      if (oneOfAddress === actual_signer_addr) {
         current_threshold += weight;
-        if ( threshold <= current_threshold ) {
-          return true; 
+        if (threshold <= current_threshold) {
+          return true;
         } else {
           break;
         }
