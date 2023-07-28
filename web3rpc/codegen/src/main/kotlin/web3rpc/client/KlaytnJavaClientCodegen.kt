@@ -126,27 +126,35 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
 
     override fun preprocessOpenAPI(openAPI: OpenAPI?) {
         val oldKeys = ArrayList<String>()
-        var namespace = String()
+        val namespaces = ArrayList<String>()
         if (openAPI?.tags?.size!! > 0) {
-            namespace = openAPI.tags?.get(0)?.name!!
+//            namespace = openAPI.tags?.get(0)?.name!!
+            for (tag in openAPI.tags) {
+                val namespace = tag.name
+                namespaces.add(namespace)
+            }
         }
-        openAPI.components?.schemas?.toList()?.forEach { (t, u) ->
-            if (t.contains("_200")) {
-                val newKey = t.replace("_200", "").replaceFirst("", namespace.lowercase()+"_")
-                oldKeys.add(t)
-                u.addExtension("x-extend-response", newKey)
-                openAPI.components?.schemas?.put(newKey, u)
-            }
-            if (t.contains("KlaySyncingResp") || t.contains("schemas-FilterOptions") || t.contains("schemas_FilterOptions")) {
-                openAPI.components?.schemas?.remove(t)
-            }
-            if (t.contains("Resp_result")) {
-                val newKey = t.replace("Resp_result", "")
-                oldKeys.add(t)
-                openAPI.components?.schemas?.put(newKey, u)
-            }
-            if (t.contains("_oneOf") || t.contains("_request") || t.contains("Req")) {
-                oldKeys.add(t)
+        for(namespace in namespaces){
+            openAPI.components?.schemas?.toList()?.forEach { (t, u) ->
+                if(t.contains(namespace.capitalize())){
+                    if (t.contains("_200")) {
+                        val newKey = t.replace("_200", "").replaceFirst("", namespace.lowercase()+"_")
+                        oldKeys.add(t)
+                        u.addExtension("x-extend-response", newKey)
+                        openAPI.components?.schemas?.put(newKey, u)
+                    }
+                    if (t.contains("KlaySyncingResp") || t.contains("schemas-FilterOptions") || t.contains("schemas_FilterOptions")) {
+                        openAPI.components?.schemas?.remove(t)
+                    }
+                    if (t.contains("Resp_result")) {
+                        val newKey = t.replace("Resp_result", "")
+                        oldKeys.add(t)
+                        openAPI.components?.schemas?.put(newKey, u)
+                    }
+                    if (t.contains("_oneOf") || t.contains("_request") || t.contains("Req")) {
+                        oldKeys.add(t)
+                    }
+                }
             }
         }
         openAPI.components?.schemas?.keys?.removeAll(oldKeys.toSet())
@@ -246,65 +254,78 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
         schemaMappings: MutableMap<String, String>?
     ) {
 
-        var namespace = String()
+        val namespaces = ArrayList<String>()
         if (openAPI?.tags?.size!! > 0) {
-            namespace = openAPI.tags?.get(0)?.name!!
-        }
-        val schema = methodResponse?.content?.values
-        schema?.forEach {
-            if (it?.schema?.`$ref`?.contains("_200") == true) {
-                val newRef = it.schema?.`$ref`?.replace("_200", "")
-                it.schema?.`$ref` = newRef?.
-                replaceAfterLast("/", namespace.lowercase()+"_"+newRef.substringAfterLast("/"), "")
+//            namespace = openAPI.tags?.get(0)?.name!!
+            for (tag in openAPI.tags) {
+                val namespace = tag.name
+                namespaces.add(namespace)
             }
         }
-        super.handleMethodResponse(operation, schemas, op, methodResponse, schemaMappings)
+        for(namespace in namespaces){
+            if(operation?.tags?.get(0).equals(namespace)){
+                val schema = methodResponse?.content?.values
+                schema?.forEach {
+                    if (it?.schema?.`$ref`?.contains("_200") == true) {
+                        val newRef = it.schema?.`$ref`?.replace("_200", "")
+                        it.schema?.`$ref` = newRef?.replaceAfterLast("/", namespace.lowercase()+"_"+newRef.substringAfterLast("/"), "")
+                    }
+                }
+            }
+            super.handleMethodResponse(operation, schemas, op, methodResponse, schemaMappings)
+        }
     }
 
     override fun postProcessModelProperty(model: CodegenModel?, property: CodegenProperty?) {
-        var namespace = String()
+        val namespaces = ArrayList<String>()
         if (openAPI?.tags?.size!! > 0) {
-            namespace = openAPI.tags?.get(0)?.name!!
-        }
-        if (property?.ref?.contains("_200") == true) {
-            val newRef = property.ref!!.replace("_200", "")
-            property.ref = newRef.
-            replaceAfterLast("/", namespace.lowercase()+"_"+newRef.substringAfterLast("/"), "")
-        }
-        if (property?.dataType?.contains("200") == true) {
-            val newDataType = property.dataType!!.replace("200", "")
-            property.dataType = newDataType.replaceBefore("", namespace.capitalize())
-        }
-        if (property?.datatypeWithEnum?.contains("200") == true) {
-            val newDatatypeWithEnum = property.datatypeWithEnum!!.replace("200", "")
-            property.datatypeWithEnum = newDatatypeWithEnum.replaceBefore("", namespace.capitalize())
-        }
-        if (property?.ref?.contains("Resp_result") == true) {
-            val newRef = property.ref!!.replace("Resp_result", "")
-            property.ref = newRef.
-            replaceAfterLast("/", newRef.substringAfterLast("/"), "")
-        }
-
-        if (property?.dataType?.contains("RespResult") == true) {
-            property.dataType = property.dataType!!.replace("RespResult", "")
-        }
-
-        if (property?.datatypeWithEnum?.contains("RespResult") == true) {
-            property.datatypeWithEnum = property.datatypeWithEnum!!.replace("RespResult", "")
-        }
-
-        if (property?.items?.datatypeWithEnum?.contains("RespResult") == true) {
-            property.items.datatypeWithEnum = property.items.datatypeWithEnum!!.replace("RespResult", "")
-        }
-
-        model?.imports?.iterator()?.let { iterator ->
-            while (iterator.hasNext()) {
-                val import = iterator.next()
-                if (import?.contains("200") == true || import?.contains("RespResult") == true) {
-                    iterator.remove()
-                }
+//            namespace = openAPI.tags?.get(0)?.name!!
+            for (tag in openAPI.tags) {
+                val namespace = tag.name
+                namespaces.add(namespace)
             }
         }
-        super.postProcessModelProperty(model, property)
+        for(namespace in namespaces){
+            if(model?.name.equals(namespace.capitalize())){
+                if (property?.ref?.contains("_200") == true) {
+                    val newRef = property.ref!!.replace("_200", "")
+                    property.ref = newRef.replaceAfterLast("/", namespace.lowercase()+"_"+newRef.substringAfterLast("/"), "")
+                }
+                if (property?.dataType?.contains("200") == true) {
+                    val newDataType = property.dataType!!.replace("200", "")
+                    property.dataType = newDataType.replaceBefore("", namespace.capitalize())
+                }
+                if (property?.datatypeWithEnum?.contains("200") == true) {
+                    val newDatatypeWithEnum = property.datatypeWithEnum!!.replace("200", "")
+                    property.datatypeWithEnum = newDatatypeWithEnum.replaceBefore("", namespace.capitalize())
+                }
+                if (property?.ref?.contains("Resp_result") == true) {
+                    val newRef = property.ref!!.replace("Resp_result", "")
+                    property.ref = newRef.replaceAfterLast("/", newRef.substringAfterLast("/"), "")
+                }
+
+                if (property?.dataType?.contains("RespResult") == true) {
+                    property.dataType = property.dataType!!.replace("RespResult", "")
+                }
+
+                if (property?.datatypeWithEnum?.contains("RespResult") == true) {
+                    property.datatypeWithEnum = property.datatypeWithEnum!!.replace("RespResult", "")
+                }
+
+                if (property?.items?.datatypeWithEnum?.contains("RespResult") == true) {
+                    property.items.datatypeWithEnum = property.items.datatypeWithEnum!!.replace("RespResult", "")
+                }
+                model?.imports?.iterator()?.let { iterator ->
+                    while (iterator.hasNext()) {
+                        val import = iterator.next()
+                        if (import?.contains("200") == true || import?.contains("RespResult") == true) {
+                            iterator.remove()
+                        }
+                    }
+                }
+                super.postProcessModelProperty(model, property)
+            }
+        }
+
     }
 }
