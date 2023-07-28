@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { FieldSet, FieldSetFactory } from "./field"
+import { FieldSet, FieldSetFactory } from "./field";
 import { SignatureLike, getSignatureTuple } from "./sig";
 import { HexStr } from "./util";
 import { BigNumber } from "ethers";

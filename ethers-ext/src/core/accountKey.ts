@@ -30,4 +30,4 @@ export const FieldTypeAccountKey = new class implements FieldType {
   }
 
   emptyValue(): string { return ""; }
-}
+};

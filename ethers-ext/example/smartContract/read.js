@@ -5,8 +5,8 @@ const { Wallet } = require("@klaytn/ethers-ext");
 // https://docs.ethers.org/v5/api/contract/example/
 
 async function main() {
-  const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153"
-  const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8"
+  const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153";
+  const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
 
   const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
   const wallet = new Wallet(senderPriv, provider);
@@ -37,12 +37,12 @@ async function main() {
   // - Static Calling non-constant methods (as anonymous sender)
   const erc20 = new ethers.Contract(address, abi, provider);
 
-  const symbol = await erc20.symbol()
-  const balance = await erc20.balanceOf(senderAddr)
+  const symbol = await erc20.symbol();
+  const balance = await erc20.balanceOf(senderAddr);
 
-  console.log(`\nReading from ${address}`)
-  console.log(`Symbol: ${symbol}`)
-  console.log(`Balance Returned: ${balance}`)
+  console.log(`\nReading from ${address}`);
+  console.log(`Symbol: ${symbol}`);
+  console.log(`Balance Returned: ${balance}`);
 }
 
 main();

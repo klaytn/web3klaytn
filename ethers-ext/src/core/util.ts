@@ -68,7 +68,7 @@ export enum TxType {
   FeeDelegatedSmartContractDeployWithRatio = 0x2a,
   FeeDelegatedSmartContractExecutionWithRatio = 0x32,
   FeeDelegatedCancelWithRatio = 0x3a,
-};
+}
 
 export enum AccountKeyType {
   // Account Key Type
@@ -77,7 +77,7 @@ export enum AccountKeyType {
   Fail = 0x03,
   WeightedMultiSig = 0x04,
   RoleBased = 0x05
-};
+}
 
 // For Klay unit
 // https://docs.klaytn.foundation/content/klaytn/design/klaytn-native-coin-klay

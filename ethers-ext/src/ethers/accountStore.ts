@@ -11,7 +11,7 @@ export class Accounts {
   public wallets : Wallet[];
 
   constructor(provider: JsonRpcProvider, list: [[string, string?]] | Wallet[]) {
-    this.wallets = []
+    this.wallets = [];
 
     for (let i = 0; i < list.length; i++) {
       if (list[i] instanceof Wallet) {

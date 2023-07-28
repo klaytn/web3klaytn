@@ -32,20 +32,20 @@ export interface Fields {
 export const FieldTypeAddress = new class implements FieldType {
   canonicalize(value: any): string {
     if (value === "0x") {
-      return "0x0000000000000000000000000000000000000000"
+      return "0x0000000000000000000000000000000000000000";
     }
     return getAddress(value);
   }
 
   emptyValue(): string { return "0x"; }
-}
+};
 
 // Accepted types: hex string, byte array
 // Canonical type: hex string
 export const FieldTypeBytes = new class implements FieldType {
   canonicalize(value: any): string { return HexStr.from(value); }
   emptyValue(): string { return "0x"; }
-}
+};
 
 export class FieldTypeBytesFixedLen implements FieldType {
   length: number;
@@ -112,8 +112,8 @@ export const FieldTypeWeightedMultiSigKeys = new class implements FieldType {
     return ret;
   }
 
-  emptyValue(): string { return "0x"; };
-}
+  emptyValue(): string { return "0x"; }
+};
 
 // RoleBasedKeys is canonicalized like follow.
 // e.g.
@@ -173,8 +173,8 @@ export const FieldTypeRoleBasedKeys = new class implements FieldType {
     return ret;
   }
 
-  emptyValue(): string { return "0x"; };
-}
+  emptyValue(): string { return "0x"; }
+};
 
 export class FieldTypeNumberBits implements FieldType {
   maxBits: number;
@@ -220,8 +220,8 @@ export const FieldTypeSignatureTuples = new class implements FieldType {
     return _.map(value, getSignatureTuple);
   }
 
-  emptyValue(): SignatureTuple[] { return [] };
-}
+  emptyValue(): SignatureTuple[] { return []; }
+};
 
 export const FieldTypeBool = new class implements FieldType {
   canonicalize(value: any): string {
@@ -231,8 +231,8 @@ export const FieldTypeBool = new class implements FieldType {
     return value ? "0x01" : "0x";
   }
 
-  emptyValue(): string { return "0x" };
-}
+  emptyValue(): string { return "0x"; }
+};
 export abstract class FieldSet {
   // //////////////////////////////////////////////////////////
   // Child classes MUST override below properties and methods
@@ -289,7 +289,7 @@ export abstract class FieldSet {
       if (!fieldType) {
         throw new Error(`Unknown field '${name}' for '${this.typeName}' (type ${this.type})`);
       }
-      this.fields[name] = fieldType.canonicalize(array[i])
+      this.fields[name] = fieldType.canonicalize(array[i]);
     }
   }
 

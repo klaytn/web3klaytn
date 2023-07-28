@@ -12,7 +12,7 @@ export class AccountKeyLegacy extends AccountKey {
   static typeName = "AccountKeyLegacy";
   static fieldTypes = {
     "type": FieldTypeUint8,
-  }
+  };
 
   toRLP(): string {
     return "0x01c0";
@@ -41,7 +41,7 @@ export class AccountKeyFail extends AccountKey {
   static typeName = "AccountKeyFail";
   static fieldTypes = {
     "type": FieldTypeUint8,
-  }
+  };
 
   toRLP(): string {
     return "0x03c0";

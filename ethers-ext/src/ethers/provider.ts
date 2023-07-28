@@ -95,13 +95,13 @@ class AsyncOpenApi {
           return;
         }
 
-        let method: OpenApiMethod = this.openApi[methodName]
+        let method: OpenApiMethod = this.openApi[methodName];
         // Function.length is the number of function arguments.
         // RPC args = method args - opts - callback
         let numArgs = method.length - 2;
 
         this[methodName] = async (...args: any[]): Promise<any> => {
-          return this._asyncCall(methodName, numArgs, ...args)
+          return this._asyncCall(methodName, numArgs, ...args);
         };
       });
     }

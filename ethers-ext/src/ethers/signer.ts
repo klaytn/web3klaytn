@@ -231,7 +231,7 @@ export class Wallet extends EthersWallet {
     ttx.addSenderSig(sig);
 
     if (ttx.hasFeePayer()) {
-      return ttx.senderTxHashRLP()
+      return ttx.senderTxHashRLP();
     }
     return ttx.txHashRLP();
   }
