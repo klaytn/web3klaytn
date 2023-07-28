@@ -67,7 +67,7 @@ export class Wallet extends EthersWallet {
   _sendTransaction;
 
   constructor(address: any, privateKey?: any, provider?: Provider, dynamicUpdateWalletAPI: boolean = true) {
-    let str_addr = String(address);
+    const str_addr = String(address);
 
     if (HexStr.isHex(address) && (str_addr.length == 40 || str_addr.length == 42)) {
       super(privateKey, provider);
@@ -118,8 +118,8 @@ export class Wallet extends EthersWallet {
       return false;
     }
 
-    let addr = await this.getAddress();
-    let Eaddr = await this.getEtherAddress();
+    const addr = await this.getAddress();
+    const Eaddr = await this.getEtherAddress();
     return addr != Eaddr;
   }
 
@@ -169,7 +169,7 @@ export class Wallet extends EthersWallet {
       if (this.provider instanceof JsonRpcProvider) {
         const estimateGasAllowedKeys: string[] = [
           "from", "to", "gasLimit", "gasPrice", "value", "input"];
-        let ttx = encodeTxForRPC(estimateGasAllowedKeys, tx);
+        const ttx = encodeTxForRPC(estimateGasAllowedKeys, tx);
 
         const result = await this.provider.send("klay_estimateGas", [ttx]);
         // For the problem that estimateGas does not exactly match,
@@ -213,7 +213,7 @@ export class Wallet extends EthersWallet {
   }
 
   async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    let tx: TransactionRequest = await resolveProperties(transaction);
+    const tx: TransactionRequest = await resolveProperties(transaction);
 
     if (!KlaytnTxFactory.has(tx.type)) {
       if (this.dynamicUpdateWalletAPI == true && this._signTransaction != undefined) {
@@ -239,7 +239,7 @@ export class Wallet extends EthersWallet {
   }
 
   async signTransactionAsFeePayer(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    let tx: TransactionRequest = await resolveProperties(transaction);
+    const tx: TransactionRequest = await resolveProperties(transaction);
 
     const ttx = KlaytnTxFactory.fromObject(tx);
     if (!ttx.hasFeePayer()) {
@@ -360,7 +360,7 @@ function verifyMessageAsAccountKeyPublic(provider: Provider, klaytn_accountKey: 
 
   const x = String(klaytn_accountKey.key.x).substring(2);
   const y = String(klaytn_accountKey.key.y).substring(2);
-  let klaytn_addr = computeAddress(HexStr.concat("0x04" + x + y));
+  const klaytn_addr = computeAddress(HexStr.concat("0x04" + x + y));
 
   if (actual_signer_addr === klaytn_addr) {
     return true;
@@ -377,13 +377,13 @@ function verifyMessageAsAccountKeyWeightedMultiSig(provider: Provider, klaytn_ac
   let current_threshold = 0;
 
   for (let i = 0; i < klaytn_accountKey.key.keys.length; i++) {
-    let weight = klaytn_accountKey.key.keys[i].weight;
-    let x = String(klaytn_accountKey.key.keys[i].key.x).substring(2);
-    let y = String(klaytn_accountKey.key.keys[i].key.y).substring(2);
-    let oneOfAddress = computeAddress(HexStr.concat("0x04" + x + y));
+    const weight = klaytn_accountKey.key.keys[i].weight;
+    const x = String(klaytn_accountKey.key.keys[i].key.x).substring(2);
+    const y = String(klaytn_accountKey.key.keys[i].key.y).substring(2);
+    const oneOfAddress = computeAddress(HexStr.concat("0x04" + x + y));
 
     for (let j = 0; j < signature.length; j++) {
-      let actual_signer_addr = recoverAddress(hashMessage(message), signature[j]);
+      const actual_signer_addr = recoverAddress(hashMessage(message), signature[j]);
 
       if (oneOfAddress === actual_signer_addr) {
         current_threshold += weight;

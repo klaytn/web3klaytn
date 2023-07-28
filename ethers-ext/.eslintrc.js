@@ -22,14 +22,13 @@ module.exports = {
 
   // custom rules
   // see https://eslint.org/docs/latest/rules
-  // TODO: raise to "warn" or "error" after fixing them
   "rules": {
     // logic
-    "prefer-const": "off",
-    // "no-promise-executor-return": "warn",
-    // "consistent-return": "warn",
-    // "no-unneeded-ternary": "warn",
-    // "yoda": "warn",
+    "prefer-const": "warn",
+    "no-promise-executor-return": "warn",
+    "consistent-return": "warn",
+    "no-unneeded-ternary": "warn",
+    "yoda": "warn",
 
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/ban-ts-comment": "off",

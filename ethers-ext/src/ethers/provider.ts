@@ -49,8 +49,8 @@ function makeApiClient(url?: ConnectionInfo | string): any {
   // Some ConnectionInfo settings are sliently ignored.
   // See https://github.com/ethers-io/ethers.js/blob/v5/packages/web/src.ts/index.ts#L97:_fetchData
   // See https://github.com/klaytn/web3klaytn/blob/dev/web3rpc/sdk/client/javascript/template/libraries/javascript/ApiClient.mustache
-  let conn = url as ConnectionInfo;
-  let client = new ApiClient(conn.url);
+  const conn = url as ConnectionInfo;
+  const client = new ApiClient(conn.url);
 
   if (conn.user && conn.password) {
     client.authentications = {
@@ -84,9 +84,9 @@ class AsyncOpenApi {
   }
 
   _promisifyApi() {
-    let proto = Reflect.getPrototypeOf(this.openApi);
+    const proto = Reflect.getPrototypeOf(this.openApi);
     if (proto) {
-      let methods = Reflect.ownKeys(proto);
+      const methods = Reflect.ownKeys(proto);
       // Promisify each methods
       _.forEach(methods, (methodName) => {
         // Assume that the prototype only has a constructor and API methods.
@@ -94,10 +94,10 @@ class AsyncOpenApi {
           return;
         }
 
-        let method: OpenApiMethod = this.openApi[methodName];
+        const method: OpenApiMethod = this.openApi[methodName];
         // Function.length is the number of function arguments.
         // RPC args = method args - opts - callback
-        let numArgs = method.length - 2;
+        const numArgs = method.length - 2;
 
         this[methodName] = async (...args: any[]): Promise<any> => {
           return this._asyncCall(methodName, numArgs, ...args);
@@ -107,7 +107,7 @@ class AsyncOpenApi {
   }
 
   async _asyncCall(name: string | symbol, numArgs: number, ...args: any[]) {
-    let opts = {};
+    const opts = {};
     if (args.length != numArgs) {
       throw new Error(`RPC ${String(name)} requires ${numArgs} parameters, ${args.length} given`);
     }

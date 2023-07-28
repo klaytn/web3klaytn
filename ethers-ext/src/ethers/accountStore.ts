@@ -41,7 +41,7 @@ export class Accounts {
     let priv: string;
 
     if (account.length == 1) {
-      let signingKey = new ethers.utils.SigningKey(account[0]);
+      const signingKey = new ethers.utils.SigningKey(account[0]);
       addr = computeAddress(signingKey.compressedPublicKey);
       priv = account[0];
     } else if (account.length == 2 && account[1] != undefined) {
@@ -67,7 +67,7 @@ export class Accounts {
     let priv: string;
 
     if (account.length == 1) {
-      let signingKey = new ethers.utils.SigningKey(account[0]);
+      const signingKey = new ethers.utils.SigningKey(account[0]);
       addr = computeAddress(signingKey.compressedPublicKey);
       priv = account[0];
     } else if (account.length == 2 && account[1] != undefined) {
@@ -94,14 +94,14 @@ export class Accounts {
       return;
     }
 
-    for (let i = this.wallets.length - 1; 0 <= i && i < this.wallets.length; i--) {
+    for (let i = this.wallets.length - 1; i >= 0 && i < this.wallets.length; i--) {
       delete this.wallets[i];
       this.wallets.splice(i, 1);
     }
   }
 
   accountByKey(privateKey: string): Wallet[] {
-    let ret: Wallet[] = [];
+    const ret: Wallet[] = [];
 
     for (let i = 0; i < this.wallets.length; i++) {
       if (HexStr.isSamePrivKey(this.wallets[i].privateKey, privateKey)) {
@@ -112,7 +112,7 @@ export class Accounts {
   }
 
   async accountByAddress(address: string): Promise<Wallet[]> {
-    let ret: Wallet[] = [];
+    const ret: Wallet[] = [];
 
     for (let i = 0; i < this.wallets.length; i++) {
       if (HexStr.isSameAddress(await this.wallets[i].getAddress(), address)) {
@@ -145,7 +145,7 @@ export class AccountStore {
     }
     this.accounts = new Accounts(provider, list);
 
-    let wallets = this.accounts.wallets;
+    const wallets = this.accounts.wallets;
 
     this.signableKeyList = [];
     await this.updateSignableKeyList();
@@ -155,13 +155,13 @@ export class AccountStore {
 
     for (let i = 0; i < wallets.length; i++) {
       if (this.provider instanceof JsonRpcProvider) {
-        let addr:string = await wallets[i].getAddress();
+        const addr:string = await wallets[i].getAddress();
         if (this.hasAccountInfos(addr)) {
           continue;
         }
 
-        let klaytn_account = await this.provider.send("klay_getAccount", [addr, "latest"]);
-        let klaytn_accountKey = klaytn_account.account.key;
+        const klaytn_account = await this.provider.send("klay_getAccount", [addr, "latest"]);
+        const klaytn_accountKey = klaytn_account.account.key;
 
         accInfo = {
           address: addr,
@@ -212,7 +212,7 @@ export class AccountStore {
             }
           };
 
-          let roleKeys = [];
+          const roleKeys = [];
           for (let i = 0; i < klaytn_accountKey.key.length; i++) {
             if (klaytn_accountKey.key[i].keyType == 1) {
               // AccountKeyLegacy in the role-based key
@@ -230,7 +230,7 @@ export class AccountStore {
               });
             } else if (klaytn_accountKey.key[i].keyType == 4) {
               // AccountKeyWeightedMultiSig in the role-based key
-              let multiKeys = {
+              const multiKeys = {
                 type: 4,
                 key: {
                   threshold: klaytn_accountKey.key[i].key.threshold,
@@ -277,7 +277,7 @@ export class AccountStore {
   }
 
   hasInSignableKeyList(address: string) :boolean {
-    let hashedKey = String(address).toLocaleLowerCase();
+    const hashedKey = String(address).toLocaleLowerCase();
     return (this.signableKeyList.indexOf(hashedKey) != -1);
   }
 
@@ -322,9 +322,9 @@ export class AccountStore {
     const stripedX = String(zeroPadX).substring(2);
     const stripedY = String(zeroPadY).substring(2);
 
-    let compressedKey = computePublicKey(HexStr.concat("0x04" + stripedX + stripedY), true);
-    let hashedKey = computeAddress(compressedKey);
-    let hasPrivateKey = this.hasInSignableKeyList(hashedKey);
+    const compressedKey = computePublicKey(HexStr.concat("0x04" + stripedX + stripedY), true);
+    const hashedKey = computeAddress(compressedKey);
+    const hasPrivateKey = this.hasInSignableKeyList(hashedKey);
 
     return {
       compressed: compressedKey,

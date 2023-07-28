@@ -57,7 +57,7 @@ export abstract class KlaytnTx extends FieldSet {
     const feeDelegationsAsFeePayer: Array<number> = [
       0x0a, 0x12, 0x22, 0x2a, 0x32, 0x3a, 0x4a];
 
-    let fp_type = typeof(this.type) == "string" ? HexStr.toNumber(this.type) : this.type;
+    const fp_type = typeof(this.type) == "string" ? HexStr.toNumber(this.type) : this.type;
 
     if (typeof(fp_type) == "number") {
       return feeDelegations.includes(fp_type) || feeDelegationsAsFeePayer.includes(fp_type);
@@ -116,7 +116,7 @@ export function encodeTxForRPC(allowedKeys:string[], tx: TransactionRequest): an
   //   gas: tx.gasLimit? fromnumber(tx.gasLimit) : null;
   // };
 
-  let ttx: any = {};
+  const ttx: any = {};
   for (const key in tx) {
     if (allowedKeys.indexOf(key) != -1) {
       let value = _.get(tx, key);
