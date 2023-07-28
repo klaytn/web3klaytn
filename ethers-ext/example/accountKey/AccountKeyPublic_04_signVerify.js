@@ -1,5 +1,5 @@
-const ethers = require("ethers");
 const { Wallet, verifyMessageAsKlaytnAccountKey } = require("@klaytn/ethers-ext");
+const ethers = require("ethers");
 
 //
 // AccountKeyPublic Step 04 - sign verification

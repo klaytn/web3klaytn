@@ -1,5 +1,5 @@
-const ethers = require("ethers");
 const { Wallet, TxType } = require("@klaytn/ethers-ext");
+const ethers = require("ethers");
 
 // TxTypeFeeDelegatedSmartContractExecution
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/fee-delegation#txtypefeedelegatedsmartcontractexecution

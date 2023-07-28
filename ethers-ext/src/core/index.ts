@@ -1,6 +1,7 @@
 export { KlaytnTx, KlaytnTxFactory } from "./klaytn_tx";
 export { AccountKey, AccountKeyFactory } from "./accountKey";
 
+/* eslint-disable import/order */
 import { KlaytnTxFactory } from "./klaytn_tx";
 
 // Basic TX
@@ -61,6 +62,8 @@ KlaytnTxFactory.add(TxTypeFeeDelegatedCancelWithRatio);
 KlaytnTxFactory.add(TxTypeFeeDelegatedChainDataAnchoringWithRatio);
 
 // AccountKey
+import { AccountKeyFactory } from "./accountKey";
+
 import {
   AccountKeyLegacy,
   AccountKeyPublic,
@@ -68,8 +71,6 @@ import {
   AccountKeyWeightedMultiSig,
   AccountKeyRoleBased,
 } from "./klaytn_accountKeys";
-
-import { AccountKeyFactory } from "./accountKey";
 
 AccountKeyFactory.add(AccountKeyLegacy);
 AccountKeyFactory.add(AccountKeyPublic);

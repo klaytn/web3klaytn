@@ -1,5 +1,6 @@
+import _ from "lodash";
+
 import { FieldTypeAccountKey } from "./accountKey";
-import { RLP, HexStr } from "./util";
 import {
   FieldTypeAddress,
   FieldTypeSignatureTuples,
@@ -9,7 +10,7 @@ import {
   FieldTypeUint256,
   FieldTypeBytes} from "./field";
 import { KlaytnTx } from "./klaytn_tx";
-import _ from "lodash";
+import { RLP, HexStr } from "./util";
 
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/basic#txtypevaluetransfer
 export class TxTypeValueTransfer extends KlaytnTx {

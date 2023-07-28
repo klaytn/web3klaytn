@@ -1,5 +1,5 @@
-const ethers = require("ethers");
 const { Accounts } = require("@klaytn/ethers-ext");
+const ethers = require("ethers");
 
 //
 // Accounts example

@@ -1,5 +1,5 @@
-const ethers = require("ethers");
 const { Wallet, TxType, parseKlay } = require("@klaytn/ethers-ext");
+const ethers = require("ethers");
 
 //
 // AccountKeyWeightedMultiSig Step 02 - value transfer

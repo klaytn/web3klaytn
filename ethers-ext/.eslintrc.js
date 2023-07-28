@@ -6,8 +6,8 @@ module.exports = {
     //"eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     //"plugin:@typescript-eslint/recommended",
-    //"plugin:import/recommended",
-    //"plugin:import/typescript",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": [
@@ -35,15 +35,14 @@ module.exports = {
     // "@typescript-eslint/no-explicit-any": "off",
     // "@typescript-eslint/ban-ts-comment": "off",
 
-    // // imports
-    // "no-duplicate-imports": "warn",
-    // "import/order": ["warn", {
-    //   "alphabetize": { "order": "asc", "caseInsensitive": true },
-    //   "pathGroups": [
-    //     { "pattern": "@klaytn/**", "group": "external", "position": "after" },
-    //   ],
-    //   "newlines-between": "always",
-    // }],
+    // imports
+    "import/order": ["warn", {
+      "alphabetize": { "order": "asc", "caseInsensitive": true },
+      "pathGroups": [
+        { "pattern": "@klaytn/**", "group": "external", "position": "after" },
+      ],
+      "newlines-between": "always",
+    }],
 
     // formatting
     "curly": ["warn", "all"],

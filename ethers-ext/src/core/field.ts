@@ -1,8 +1,9 @@
-import _ from "lodash";
-import { HexStr, RLP } from "./util";
-import { SignatureLike, SignatureTuple, getSignatureTuple } from "./sig";
-import { BigNumber } from "@ethersproject/bignumber";
 import { getAddress } from "@ethersproject/address";
+import { BigNumber } from "@ethersproject/bignumber";
+import _ from "lodash";
+
+import { SignatureLike, SignatureTuple, getSignatureTuple } from "./sig";
+import { HexStr, RLP } from "./util";
 
 export class FieldError extends Error {
   constructor(ty: FieldType, name: string, value: any) {

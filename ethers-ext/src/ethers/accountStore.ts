@@ -1,10 +1,11 @@
-import { BigNumber, ethers } from "ethers";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { computeAddress } from "@ethersproject/transactions";
+import { BigNumber, ethers } from "ethers";
 import { computePublicKey } from "ethers/lib/utils";
 
-import { Wallet } from "./signer";
 import { HexStr } from "../core/util";
+
+import { Wallet } from "./signer";
 
 // Accounts is array of Wallet in ethers.js Ext
 export class Accounts {

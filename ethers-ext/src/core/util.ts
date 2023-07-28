@@ -1,6 +1,6 @@
-import * as rlp from "@ethersproject/rlp";
-import * as bytes from "@ethersproject/bytes";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
+import * as bytes from "@ethersproject/bytes";
+import * as rlp from "@ethersproject/rlp";
 import { FixedNumber, ethers } from "ethers";
 import { computeAddress } from "ethers/lib/utils";
 

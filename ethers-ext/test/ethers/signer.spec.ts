@@ -1,9 +1,10 @@
-import _ from "lodash";
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
-
 import { BigNumber, Wallet as EthersWallet } from "ethers";
+import _ from "lodash";
+
 import { Wallet as KlaytnWallet } from "../../src/ethers";
+
 import { MockEthersProvider, MockKlaytnProvider } from "./mock_provider";
 
 const url = "https://public-en-baobab.klaytn.net";

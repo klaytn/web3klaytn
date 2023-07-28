@@ -1,10 +1,11 @@
+import { TransactionRequest } from "@ethersproject/abstract-provider";
+import { BigNumber } from "ethers";
+import { hexValue, parseTransaction } from "ethers/lib/utils";
 import _ from "lodash";
+
 import { FieldSet, FieldSetFactory } from "./field";
 import { SignatureLike, getSignatureTuple } from "./sig";
 import { HexStr } from "./util";
-import { BigNumber } from "ethers";
-import { hexValue, parseTransaction } from "ethers/lib/utils";
-import { TransactionRequest } from "@ethersproject/abstract-provider";
 
 export abstract class KlaytnTx extends FieldSet {
   // //////////////////////////////////////////////////////////

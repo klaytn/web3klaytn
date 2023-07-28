@@ -1,5 +1,5 @@
-const ethers = require("ethers");
 const { Wallet, TxType, AccountKeyType } = require("@klaytn/ethers-ext");
+const ethers = require("ethers");
 
 //
 // AccountKeyPublic Step 01 - account update

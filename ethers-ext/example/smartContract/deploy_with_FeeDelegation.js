@@ -1,5 +1,5 @@
-const ethers = require("ethers");
 const { Wallet, TxType } = require("@klaytn/ethers-ext");
+const ethers = require("ethers");
 
 // We refer the example from ethers
 // https://docs.ethers.org/v5/api/contract/example/
