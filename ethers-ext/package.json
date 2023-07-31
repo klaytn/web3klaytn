@@ -11,7 +11,7 @@
     "watch": "tsc -w",
     "lint": "npm run lint:check",
     "lint:check": "eslint example src test --cache --quiet",
-    "lint:fix": "echo 'autofix not ready' # eslint example src test --cache --fix",
+    "lint:fix": "eslint example src test --cache --fix",
     "test": "mocha test/**/*.ts -r ts-node/register",
     "prepublishOnly": "npm run build"
   },
