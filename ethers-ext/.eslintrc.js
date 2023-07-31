@@ -3,9 +3,9 @@ module.exports = {
 
   // rule presets and plugins
   "extends": [
-    //"eslint:recommended",
+    "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    //"plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
   ],
@@ -22,18 +22,16 @@ module.exports = {
 
   // custom rules
   // see https://eslint.org/docs/latest/rules
-  // TODO: raise to "warn" or "error" after fixing them
   "rules": {
-    "prefer-const": "off",
-    // // logic
-    // "prefer-const": "warn",
-    // "no-promise-executor-return": "warn",
-    // "consistent-return": "warn",
-    // "no-unneeded-ternary": "warn",
-    // "yoda": "warn",
+    // logic
+    "prefer-const": "warn",
+    "no-promise-executor-return": "warn",
+    "consistent-return": "warn",
+    "no-unneeded-ternary": "warn",
+    "yoda": "warn",
 
-    // "@typescript-eslint/no-explicit-any": "off",
-    // "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
 
     // imports
     "import/order": ["warn", {

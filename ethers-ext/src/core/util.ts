@@ -26,13 +26,13 @@ export const HexStr = {
     return bytes.isHexString(value, length);
   },
   isSameAddress(a:string, b:string): boolean {
-    let A = ethers.utils.getAddress(a);
-    let B = ethers.utils.getAddress(b);
+    const A = ethers.utils.getAddress(a);
+    const B = ethers.utils.getAddress(b);
     return A == B;
   },
   isSamePrivKey(a:string, b:string): boolean {
-    let A = computeAddress(a);
-    let B = computeAddress(b);
+    const A = computeAddress(a);
+    const B = computeAddress(b);
     return this.isSameAddress(A, B);
   },
   stripZeros(value: any): string {
@@ -211,8 +211,10 @@ export function getNumber(value: BigNumberish, name?: string): any {
       return getNumber(BigInt(value), name);
     } catch (e: any) {
       assertArgument(false, `invalid numeric string: ${ e.message }`, name || "value", value);
+      return null;
     }
   }
   assertArgument(false, "invalid numeric value", name || "value", value);
+  return null;
 }
 

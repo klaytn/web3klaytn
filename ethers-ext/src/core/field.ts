@@ -94,7 +94,7 @@ export const FieldTypeCompressedPubKey = new FieldTypeBytesFixedLen(33);
 // ]
 export const FieldTypeWeightedMultiSigKeys = new class implements FieldType {
   canonicalize(value: [ number, [[number, string]] ]): any[] {
-    let ret = [], keys = [];
+    const ret = [], keys = [];
 
     if (value.length != 2 && value[1].length < 2) {
       throw new Error("Threshold and Keys format is wrong for MultiSig");
@@ -105,7 +105,7 @@ export const FieldTypeWeightedMultiSigKeys = new class implements FieldType {
       if (value[1][i][0] == undefined || value[1][i][1] == undefined) {
         throw new Error("Weight and Key format is wrong for MultiSig");
       }
-      let key = [];
+      const key = [];
       key.push(HexStr.fromNumber(value[1][i][0]));
       key.push(value[1][i][1]);
       keys.push(key);
@@ -154,7 +154,7 @@ export const FieldTypeRoleBasedKeys = new class implements FieldType {
       throw new Error("RoleBasedKey format is wrong");
     }
 
-    let ret = [];
+    const ret = [];
     for (let i = 0; i < value.length; i++) {
       if (typeof value[i] === "string") {
         // AccountKeyNil '0x80', AccountKeyPublic '0x02', AccountKeyWeightedMultiSig '0x04'
