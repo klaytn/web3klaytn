@@ -1,17 +1,18 @@
-import { BigNumber, ethers } from "ethers";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { computeAddress } from "@ethersproject/transactions";
+import { BigNumber, ethers } from "ethers";
 import { computePublicKey } from "ethers/lib/utils";
 
-import { Wallet } from "./signer";
 import { HexStr } from "../core/util";
+
+import { Wallet } from "./signer";
 
 // Accounts is array of Wallet in ethers.js Ext
 export class Accounts {
   public wallets : Wallet[];
 
   constructor(provider: JsonRpcProvider, list: [[string, string?]] | Wallet[]) {
-    this.wallets = []
+    this.wallets = [];
 
     for (let i = 0; i < list.length; i++) {
       if (list[i] instanceof Wallet) {
@@ -27,10 +28,10 @@ export class Accounts {
           // @ts-ignore
           this.add([list[i][0], list[i][1]], provider);
         } else {
-          throw new Error(`Input has to be the array of [address, privateKey] or [privateKey]`);
+          throw new Error("Input has to be the array of [address, privateKey] or [privateKey]");
         }
       } else {
-        throw new Error(`Input has to be Wallet, [address, privateKey], or [privateKey]`);
+        throw new Error("Input has to be Wallet, [address, privateKey], or [privateKey]");
       }
     }
   }
@@ -47,7 +48,7 @@ export class Accounts {
       addr = account[0];
       priv = account[1];
     } else {
-      throw new Error(`Input has to be [address, privateKey] or [privateKey]`);
+      throw new Error("Input has to be [address, privateKey] or [privateKey]");
     }
 
     for (let i = 0; i < this.wallets.length; i++) {
@@ -73,7 +74,7 @@ export class Accounts {
       addr = account[0];
       priv = account[1];
     } else {
-      throw new Error(`Input has to be [address, privateKey] or [privateKey]`);
+      throw new Error("Input has to be [address, privateKey] or [privateKey]");
     }
 
     for (let i = 0; i < this.wallets.length; i++) {
@@ -89,7 +90,9 @@ export class Accounts {
   }
 
   removeAll() {
-    if (this.wallets.length == 0) return;
+    if (this.wallets.length == 0) {
+      return;
+    }
 
     for (let i = this.wallets.length - 1; 0 <= i && i < this.wallets.length; i--) {
       delete this.wallets[i];
@@ -257,7 +260,7 @@ export class AccountStore {
 
         this.accountInfos.push(accInfo);
       } else {
-        throw new Error(`Klaytn typed transaction can only be broadcasted to a Klaytn JSON-RPC server`);
+        throw new Error("Klaytn typed transaction can only be broadcasted to a Klaytn JSON-RPC server");
       }
     }
   }
@@ -281,8 +284,9 @@ export class AccountStore {
   hasAccountInfos(address: string) :boolean {
     let i:number;
     for (i = 0; this.accountInfos != undefined && i < this.accountInfos.length; i++) {
-      if (HexStr.isSameAddress(this.accountInfos[i].address, address))
+      if (HexStr.isSameAddress(this.accountInfos[i].address, address)) {
         return true;
+      }
     }
     return false;
   }

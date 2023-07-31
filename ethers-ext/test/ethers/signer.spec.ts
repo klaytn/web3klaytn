@@ -1,9 +1,10 @@
-import _ from "lodash";
 import chai from "chai";
-import chaiAsPromised from 'chai-as-promised'
-
+import chaiAsPromised from "chai-as-promised";
 import { BigNumber, Wallet as EthersWallet } from "ethers";
+import _ from "lodash";
+
 import { Wallet as KlaytnWallet } from "../../src/ethers";
+
 import { MockEthersProvider, MockKlaytnProvider } from "./mock_provider";
 
 const url = "https://public-en-baobab.klaytn.net";
@@ -21,7 +22,7 @@ const txhash = "0x35f47ecde5f7a450f8210809fb03fad28c3c7f52ddb5038dd494011e5eeec3
 
 const assert = chai.assert;
 const expect = chai.expect;
-chai.use(chaiAsPromised)
+chai.use(chaiAsPromised);
 
 describe("Wallet", () => {
   let EP: MockEthersProvider;
@@ -68,7 +69,7 @@ describe("Wallet", () => {
   describe("checkTransaction", () => {
     async function testOK(W: EthersWallet, tx: any) {
       let res = W.checkTransaction(tx);
-      assert.equal(await res.from, await W.getAddress())
+      assert.equal(await res.from, await W.getAddress());
     }
     async function testErr(W: EthersWallet, tx: any, err: string) {
       let trigger = async () => {

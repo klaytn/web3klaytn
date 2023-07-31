@@ -1,6 +1,6 @@
-import * as rlp from "@ethersproject/rlp";
-import * as bytes from "@ethersproject/bytes";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
+import * as bytes from "@ethersproject/bytes";
+import * as rlp from "@ethersproject/rlp";
 import { FixedNumber, ethers } from "ethers";
 import { computeAddress } from "ethers/lib/utils";
 
@@ -68,7 +68,7 @@ export enum TxType {
   FeeDelegatedSmartContractDeployWithRatio = 0x2a,
   FeeDelegatedSmartContractExecutionWithRatio = 0x32,
   FeeDelegatedCancelWithRatio = 0x3a,
-};
+}
 
 export enum AccountKeyType {
   // Account Key Type
@@ -77,7 +77,7 @@ export enum AccountKeyType {
   Fail = 0x03,
   WeightedMultiSig = 0x04,
   RoleBased = 0x05
-};
+}
 
 // For Klay unit
 // https://docs.klaytn.foundation/content/klaytn/design/klaytn-native-coin-klay
@@ -85,18 +85,18 @@ export enum AccountKeyType {
 // https://github.com/ethers-io/ethers.js/blob/main/src.ts/utils/units.ts
 
 const KlayUnit = [
-  { unit: 'peb', pebFactor: 0 },
-  { unit: 'kpeb', pebFactor: 3 },
-  { unit: 'Mpeb', pebFactor: 6 },
-  { unit: 'Gpeb', pebFactor: 9 },
-  { unit: 'ston', pebFactor: 9 },
-  { unit: 'uKLAY', pebFactor: 12 },
-  { unit: 'mKLAY', pebFactor: 15 },
-  { unit: 'KLAY', pebFactor: 18 },
-  { unit: 'kKLAY', pebFactor: 21 },
-  { unit: 'MKLAY', pebFactor: 24 },
-  { unit: 'GKLAY', pebFactor: 27 },
-  { unit: 'TKLAY', pebFactor: 30 },
+  { unit: "peb", pebFactor: 0 },
+  { unit: "kpeb", pebFactor: 3 },
+  { unit: "Mpeb", pebFactor: 6 },
+  { unit: "Gpeb", pebFactor: 9 },
+  { unit: "ston", pebFactor: 9 },
+  { unit: "uKLAY", pebFactor: 12 },
+  { unit: "mKLAY", pebFactor: 15 },
+  { unit: "KLAY", pebFactor: 18 },
+  { unit: "kKLAY", pebFactor: 21 },
+  { unit: "MKLAY", pebFactor: 24 },
+  { unit: "GKLAY", pebFactor: 27 },
+  { unit: "TKLAY", pebFactor: 30 },
 ];
 
 function isValidUnit(unit: string): boolean {
@@ -111,9 +111,9 @@ function isValidUnit(unit: string): boolean {
 function getFactor(unit: string): number {
   for (let i = 0; i < KlayUnit.length; i++) {
     if (KlayUnit[i].unit.toLowerCase() === unit.toLowerCase()) {
-      if (unit.toLowerCase() == 'mklay' && unit.charAt(0) == 'm') {
+      if (unit.toLowerCase() == "mklay" && unit.charAt(0) == "m") {
         return 15; // milli KLAY
-      } else if (unit.toLowerCase() == 'mklay' && unit.charAt(0) == 'M') {
+      } else if (unit.toLowerCase() == "mklay" && unit.charAt(0) == "M") {
         return 24; // Mega KLAY
       } else {
         return KlayUnit[i].pebFactor;
@@ -184,8 +184,9 @@ export function parseKlay(klay: string): bigint {
 }
 
 function assertArgument(check: boolean, message: string, code: string, info: any) {
-  if (check == false)
+  if (check == false) {
     throw new Error("message: " + message + ", code: " + code + ", info: " + info);
+  }
 }
 
 // IEEE 754 support 53-bits of mantissa

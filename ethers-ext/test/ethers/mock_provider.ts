@@ -1,7 +1,8 @@
-import _ from "lodash";
-import { ConnectionInfo } from "ethers/lib/utils";
 import { Networkish } from "@ethersproject/networks";
 import { JsonRpcProvider as EthersProvider } from "@ethersproject/providers";
+import { ConnectionInfo } from "ethers/lib/utils";
+import _ from "lodash";
+
 import { JsonRpcProvider as KlaytnProvider } from "../../src/ethers";
 
 type mockRpcHandler =
@@ -20,7 +21,7 @@ export class MockEthersProvider extends EthersProvider {
     if (handler) {
       return handler(params);
     } else {
-      console.log('mock fallback', method, params);
+      console.log("mock fallback", method, params);
       return super.send(method, params);
     }
   }

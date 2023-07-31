@@ -1,4 +1,5 @@
 import { assert } from "chai";
+
 import { getSignatureTuple } from "../../src/core/sig";
 
 describe("getSignatureTuple", () => {
