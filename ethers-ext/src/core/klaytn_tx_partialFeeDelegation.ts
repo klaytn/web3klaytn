@@ -6,7 +6,7 @@ import {
   FieldTypeBool,
   FieldTypeUint8,
   FieldTypeUint64,
-  FieldTypeUint256, 
+  FieldTypeUint256,
   FieldTypeBytes} from "./field";
 import { KlaytnTx } from "./klaytn_tx";
 import _ from "lodash";
@@ -43,7 +43,7 @@ export class TxTypeFeeDelegatedValueTransferWithRatio extends KlaytnTx {
     const inner = this.getFields([
       'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'feeRatio']);
     return RLP.encode([
-      RLP.encode(inner),  this.getField('feePayer'), this.getField('chainId'), "0x", "0x"]);
+      RLP.encode(inner), this.getField('feePayer'), this.getField('chainId'), "0x", "0x"]);
   }
 
   senderTxHashRLP(): string {
@@ -65,21 +65,21 @@ export class TxTypeFeeDelegatedValueTransferWithRatio extends KlaytnTx {
   setFieldsFromRLP(rlp: string): void {
     // Strip type byte
     const inner_rlp = "0x" + String(rlp).substring(4);
-    const array = _.concat([ this.type ], RLP.decode(inner_rlp));
+    const array = _.concat([this.type], RLP.decode(inner_rlp));
 
     if (array.length == 9) {
-      // from SenderTxHashRLP 
+      // from SenderTxHashRLP
       this.setFieldsFromArray([
         'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'feeRatio', 'txSignatures'
       ], array);
     } else if (array.length == 11) {
-      // from TxHashRLP 
+      // from TxHashRLP
       this.setFieldsFromArray([
         'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'feeRatio', 'txSignatures', 'feePayer', 'feePayerSignatures'
       ], array);
     } else {
       throw new Error('Wrongly encoded RLP string');
-    }    
+    }
   }
 }
 
@@ -116,15 +116,15 @@ export class TxTypeFeeDelegatedValueTransferMemoWithRatio extends KlaytnTx {
     const inner = this.getFields([
       'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'feeRatio']);
     return RLP.encode([
-      RLP.encode(inner),  this.getField('feePayer'), this.getField('chainId'), "0x", "0x"]);
+      RLP.encode(inner), this.getField('feePayer'), this.getField('chainId'), "0x", "0x"]);
   }
 
   senderTxHashRLP(): string {
     // SenderTxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, feeRatio, txSignatures])
     const inner = this.getFields([
-        'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'feeRatio', 'txSignatures']);
+      'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'feeRatio', 'txSignatures']);
     return HexStr.concat(
-        this.getField('type'), RLP.encode(inner));
+      this.getField('type'), RLP.encode(inner));
   }
 
   txHashRLP(): string {
@@ -138,21 +138,21 @@ export class TxTypeFeeDelegatedValueTransferMemoWithRatio extends KlaytnTx {
   setFieldsFromRLP(rlp: string): void {
     // Strip type byte
     const inner_rlp = "0x" + String(rlp).substring(4);
-    const array = _.concat([ this.type ], RLP.decode(inner_rlp));
+    const array = _.concat([this.type], RLP.decode(inner_rlp));
 
     if (array.length == 10) {
-      // from SenderTxHashRLP 
+      // from SenderTxHashRLP
       this.setFieldsFromArray([
         'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'feeRatio', 'txSignatures'
       ], array);
     } else if (array.length == 12) {
-      // from TxHashRLP 
+      // from TxHashRLP
       this.setFieldsFromArray([
         'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'feeRatio', 'txSignatures', 'feePayer', 'feePayerSignatures'
       ], array);
     } else {
       throw new Error('Wrongly encoded RLP string');
-    }  
+    }
   }
 }
 
@@ -182,8 +182,8 @@ export class TxTypeFeeDelegatedSmartContractDeployWithRatio extends KlaytnTx {
     // SigRLP = encode([encode([type, nonce, gasPrice, gas, to, value, from, input, humanReadable, feeRatio, codeFormat]), chainid, 0, 0])
     const inner = this.getFields([
       'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'humanReadable', 'feeRatio', 'codeFormat']);
-    // have to do someting in the future 
-    inner[4]= "0x";
+    // have to do someting in the future
+    inner[4] = "0x";
     return RLP.encode([
       RLP.encode(inner), this.getField('chainId'), "0x", "0x"]);
   }
@@ -192,18 +192,18 @@ export class TxTypeFeeDelegatedSmartContractDeployWithRatio extends KlaytnTx {
     // SigFeePayerRLP = encode([encode([type, nonce, gasPrice, gas, to, value, from, input, humanReadable, feeRatio, codeFormat]), feePayer, chainid, 0, 0])
     const inner = this.getFields([
       'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'humanReadable', 'feeRatio', 'codeFormat']);
-    // have to do someting in the future 
-    inner[4]= "0x";
+    // have to do someting in the future
+    inner[4] = "0x";
     return RLP.encode([
-      RLP.encode(inner),  this.getField('feePayer'), this.getField('chainId'), "0x", "0x"]);
+      RLP.encode(inner), this.getField('feePayer'), this.getField('chainId'), "0x", "0x"]);
   }
 
   senderTxHashRLP(): string {
     // SenderTxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, humanReadable, feeRatio, codeFormat, txSignatures])
     const inner = this.getFields([
       'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'humanReadable', 'feeRatio', 'codeFormat', 'txSignatures']);
-    // have to do someting in the future 
-    inner[3]= "0x";
+    // have to do someting in the future
+    inner[3] = "0x";
     return HexStr.concat(
       this.getField('type'), RLP.encode(inner));
   }
@@ -212,8 +212,8 @@ export class TxTypeFeeDelegatedSmartContractDeployWithRatio extends KlaytnTx {
     // TxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, humanReadable, feeRatio, codeFormat, txSignatures, feePayer, feePayerSignatures])
     const inner = this.getFields([
       'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'humanReadable', 'feeRatio', 'codeFormat', 'txSignatures', 'feePayer', 'feePayerSignatures']);
-    // have to do someting in the future 
-    inner[3]= "0x";
+    // have to do someting in the future
+    inner[3] = "0x";
     return HexStr.concat(
       this.getField('type'), RLP.encode(inner));
   }
@@ -221,21 +221,21 @@ export class TxTypeFeeDelegatedSmartContractDeployWithRatio extends KlaytnTx {
   setFieldsFromRLP(rlp: string): void {
     // Strip type byte
     const inner_rlp = "0x" + String(rlp).substring(4);
-    const array = _.concat([ this.type ], RLP.decode(inner_rlp));
+    const array = _.concat([this.type], RLP.decode(inner_rlp));
 
     if (array.length == 12) {
-      // from SenderTxHashRLP 
+      // from SenderTxHashRLP
       this.setFieldsFromArray([
         'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'humanReadable', 'feeRatio', 'codeFormat', 'txSignatures'
       ], array);
     } else if (array.length == 14) {
-      // from TxHashRLP 
+      // from TxHashRLP
       this.setFieldsFromArray([
         'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'humanReadable', 'feeRatio', 'codeFormat', 'txSignatures', 'feePayer', 'feePayerSignatures'
       ], array);
     } else {
       throw new Error('Wrongly encoded RLP string');
-    }     
+    }
   }
 }
 
@@ -272,7 +272,7 @@ export class TxTypeFeeDelegatedSmartContractExecutionWithRatio extends KlaytnTx 
     const inner = this.getFields([
       'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'feeRatio']);
     return RLP.encode([
-      RLP.encode(inner),  this.getField('feePayer'), this.getField('chainId'), "0x", "0x"]);
+      RLP.encode(inner), this.getField('feePayer'), this.getField('chainId'), "0x", "0x"]);
   }
 
   senderTxHashRLP(): string {
@@ -294,15 +294,15 @@ export class TxTypeFeeDelegatedSmartContractExecutionWithRatio extends KlaytnTx 
   setFieldsFromRLP(rlp: string): void {
     // Strip type byte
     const inner_rlp = "0x" + String(rlp).substring(4);
-    const array = _.concat([ this.type ], RLP.decode(inner_rlp));
+    const array = _.concat([this.type], RLP.decode(inner_rlp));
 
     if (array.length == 10) {
-      // from SenderTxHashRLP 
+      // from SenderTxHashRLP
       this.setFieldsFromArray([
         'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'feeRatio', 'txSignatures'
       ], array);
     } else if (array.length == 12) {
-      // from TxHashRLP 
+      // from TxHashRLP
       this.setFieldsFromArray([
         'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'feeRatio', 'txSignatures', 'feePayer', 'feePayerSignatures'
       ], array);
@@ -334,25 +334,25 @@ export class TxTypeFeeDelegatedAccountUpdateWithRatio extends KlaytnTx {
   sigRLP(): string {
     // SigRLP = encode([encode([type, nonce, gasPrice, gas, from, rlpEncodedKey, feeRatio]), chainid, 0, 0])
     const inner = this.getFields([
-        'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'key', 'feeRatio']);
+      'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'key', 'feeRatio']);
     return RLP.encode([
-        RLP.encode(inner), this.getField('chainId'), "0x", "0x"]);
+      RLP.encode(inner), this.getField('chainId'), "0x", "0x"]);
   }
 
   sigFeePayerRLP(): string {
     // SigFeePayerRLP = encode([encode([type, nonce, gasPrice, gas, from, rlpEncodedKey, feeRatio]), feePayer, chainid, 0, 0])
     const inner = this.getFields([
-        'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'key', 'feeRatio']);
+      'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'key', 'feeRatio']);
     return RLP.encode([
-        RLP.encode(inner),  this.getField('feePayer'), this.getField('chainId'), "0x", "0x"]);
+      RLP.encode(inner), this.getField('feePayer'), this.getField('chainId'), "0x", "0x"]);
   }
 
   senderTxHashRLP(): string {
     // SenderTxHashRLP = type + encode([nonce, gasPrice, gas, from, rlpEncodedKey, feeRatio, txSignatures])
     const inner = this.getFields([
-        'nonce', 'gasPrice', 'gasLimit', 'from', 'key', 'feeRatio', 'txSignatures']);
+      'nonce', 'gasPrice', 'gasLimit', 'from', 'key', 'feeRatio', 'txSignatures']);
     return HexStr.concat(
-        this.getField('type'), RLP.encode(inner));
+      this.getField('type'), RLP.encode(inner));
   }
 
   txHashRLP(): string {
@@ -366,21 +366,21 @@ export class TxTypeFeeDelegatedAccountUpdateWithRatio extends KlaytnTx {
   setFieldsFromRLP(rlp: string): void {
     // Strip type byte
     const inner_rlp = "0x" + String(rlp).substring(4);
-    const array = _.concat([ this.type ], RLP.decode(inner_rlp));
+    const array = _.concat([this.type], RLP.decode(inner_rlp));
 
     if (array.length == 8) {
-      // from SenderTxHashRLP 
+      // from SenderTxHashRLP
       this.setFieldsFromArray([
         'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'key', 'feeRatio', 'txSignatures'
       ], array);
     } else if (array.length == 10) {
-      // from TxHashRLP 
+      // from TxHashRLP
       this.setFieldsFromArray([
         'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'key', 'feeRatio', 'txSignatures', 'feePayer', 'feePayerSignatures'
       ], array);
     } else {
       throw new Error('Wrongly encoded RLP string');
-    }          
+    }
   }
 }
 
@@ -404,53 +404,53 @@ export class TxTypeFeeDelegatedCancelWithRatio extends KlaytnTx {
   sigRLP(): string {
     // SigRLP = encode([encode([type, nonce, gasPrice, gas, from, feeRatio]), chainid, 0, 0])
     const inner = this.getFields([
-        'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'feeRatio']);
+      'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'feeRatio']);
     return RLP.encode([
-        RLP.encode(inner), this.getField('chainId'), "0x", "0x"]);
+      RLP.encode(inner), this.getField('chainId'), "0x", "0x"]);
   }
 
   sigFeePayerRLP(): string {
     // SigFeePayerRLP = encode([encode([type, nonce, gasPrice, gas, from, feeRatio]), feePayer, chainid, 0, 0])
     const inner = this.getFields([
-        'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'feeRatio']);
+      'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'feeRatio']);
     return RLP.encode([
-        RLP.encode(inner),  this.getField('feePayer'), this.getField('chainId'), "0x", "0x"]);
+      RLP.encode(inner), this.getField('feePayer'), this.getField('chainId'), "0x", "0x"]);
   }
 
   senderTxHashRLP(): string {
     // SenderTxHashRLP = type + encode([nonce, gasPrice, gas, from, feeRatio, txSignatures])
     const inner = this.getFields([
-        'nonce', 'gasPrice', 'gasLimit', 'from', 'feeRatio', 'txSignatures']);
+      'nonce', 'gasPrice', 'gasLimit', 'from', 'feeRatio', 'txSignatures']);
     return HexStr.concat(
-        this.getField('type'), RLP.encode(inner));
+      this.getField('type'), RLP.encode(inner));
   }
 
   txHashRLP(): string {
     // TxHashRLP = type + encode([nonce, gasPrice, gas, from, feeRatio, txSignatures, feePayer, feePayerSignatures])
     const inner = this.getFields([
-        'nonce', 'gasPrice', 'gasLimit', 'from', 'feeRatio', 'txSignatures', 'feePayer', 'feePayerSignatures']);
+      'nonce', 'gasPrice', 'gasLimit', 'from', 'feeRatio', 'txSignatures', 'feePayer', 'feePayerSignatures']);
     return HexStr.concat(
-        this.getField('type'), RLP.encode(inner));
+      this.getField('type'), RLP.encode(inner));
   }
 
   setFieldsFromRLP(rlp: string): void {
     // Strip type byte
     const inner_rlp = "0x" + String(rlp).substring(4);
-    const array = _.concat([ this.type ], RLP.decode(inner_rlp));
+    const array = _.concat([this.type], RLP.decode(inner_rlp));
 
     if (array.length == 7) {
-      // from SenderTxHashRLP 
+      // from SenderTxHashRLP
       this.setFieldsFromArray([
         'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'feeRatio', 'txSignatures'
       ], array);
     } else if (array.length == 9) {
-      // from TxHashRLP 
+      // from TxHashRLP
       this.setFieldsFromArray([
         'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'feeRatio', 'txSignatures', 'feePayer', 'feePayerSignatures'
       ], array);
     } else {
       throw new Error('Wrongly encoded RLP string');
-    }              
+    }
   }
 }
 
@@ -483,23 +483,23 @@ export class TxTypeFeeDelegatedChainDataAnchoringWithRatio extends KlaytnTx {
   sigFeePayerRLP(): string {
     // SigFeePayerRLP = encode([encode([type, nonce, gasPrice, gas, from, anchoredData, feeRatio]), feePayer, chainid, 0, 0])
     const inner = this.getFields([
-        'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'input', 'feeRatio']);
+      'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'input', 'feeRatio']);
     return RLP.encode([
-        RLP.encode(inner),  this.getField('feePayer'), this.getField('chainId'), "0x", "0x"]);
+      RLP.encode(inner), this.getField('feePayer'), this.getField('chainId'), "0x", "0x"]);
   }
 
   senderTxHashRLP(): string {
     // SenderTxHashRLP = type + encode([nonce, gasPrice, gas, from, anchoredData, feeRatio, txSignatures])
     const inner = this.getFields([
-        'nonce', 'gasPrice', 'gasLimit', 'from', 'input', 'feeRatio', 'txSignatures']);
+      'nonce', 'gasPrice', 'gasLimit', 'from', 'input', 'feeRatio', 'txSignatures']);
     return HexStr.concat(
-        this.getField('type'), RLP.encode(inner));
+      this.getField('type'), RLP.encode(inner));
   }
 
   txHashRLP(): string {
     // TxHashRLP = type + encode([nonce, gasPrice, gas, from, anchoredData, feeRatio, txSignatures, feePayer, feePayerSignatures])
     const inner = this.getFields([
-      'nonce', 'gasPrice', 'gasLimit', 'from', 'input', 'feeRatio', 'txSignatures', 'feePayer', 'feePayerSignatures' ]);
+      'nonce', 'gasPrice', 'gasLimit', 'from', 'input', 'feeRatio', 'txSignatures', 'feePayer', 'feePayerSignatures']);
     return HexStr.concat(
       this.getField('type'), RLP.encode(inner));
   }
@@ -507,20 +507,20 @@ export class TxTypeFeeDelegatedChainDataAnchoringWithRatio extends KlaytnTx {
   setFieldsFromRLP(rlp: string): void {
     // Strip type byte
     const inner_rlp = "0x" + String(rlp).substring(4);
-    const array = _.concat([ this.type ], RLP.decode(inner_rlp));
+    const array = _.concat([this.type], RLP.decode(inner_rlp));
 
     if (array.length == 8) {
-      // from SenderTxHashRLP 
+      // from SenderTxHashRLP
       this.setFieldsFromArray([
         'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'input', 'feeRatio', 'txSignatures'
       ], array);
     } else if (array.length == 10) {
-      // from TxHashRLP 
+      // from TxHashRLP
       this.setFieldsFromArray([
-        'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'input', 'feeRatio', 'txSignatures', 'feePayer', 'feePayerSignatures' 
+        'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'input', 'feeRatio', 'txSignatures', 'feePayer', 'feePayerSignatures'
       ], array);
     } else {
       throw new Error('Wrongly encoded RLP string');
-    }      
+    }
   }
 }

@@ -9,7 +9,6 @@ type mockRpcHandler =
 
 
 export class MockEthersProvider extends EthersProvider {
-
   overrides: { [method: string]: mockRpcHandler; } = {};
 
   constructor(url?: ConnectionInfo | string, network?: Networkish) {
@@ -36,7 +35,6 @@ export class MockEthersProvider extends EthersProvider {
 }
 
 export class MockKlaytnProvider extends KlaytnProvider {
-
   overrides: { [method: string]: mockRpcHandler } = {};
 
   constructor(url?: ConnectionInfo | string, network?: Networkish) {

@@ -51,7 +51,7 @@ export class AccountKeyFail extends AccountKey {
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeyweightedmultisig
 export class AccountKeyWeightedMultiSig extends AccountKey {
   static type = 0x04;
-  static typeName = "AccountKeyWeightedMultiSig"; 
+  static typeName = "AccountKeyWeightedMultiSig";
   static fieldTypes = {
     'type': FieldTypeUint8,
     'keys': FieldTypeWeightedMultiSigKeys,

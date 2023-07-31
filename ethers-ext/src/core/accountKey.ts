@@ -1,15 +1,14 @@
 import { FieldType, FieldSet, FieldSetFactory } from "./field";
 
 export abstract class AccountKey extends FieldSet {
-
-  ////////////////////////////////////////////////////////////
+  // //////////////////////////////////////////////////////////
   // Child classes MUST override below properties and methods
 
   // RLP encoding to be used in AccountUpdate transactions.
   abstract toRLP(): string;
 
   // End override
-  ////////////////////////////////////////////////////////////
+  // //////////////////////////////////////////////////////////
 }
 
 const requiredFields = ['type'];
@@ -29,5 +28,6 @@ export const FieldTypeAccountKey = new class implements FieldType {
       return AccountKeyFactory.fromObject(value).toRLP();
     }
   }
+
   emptyValue(): string { return ""; }
 }

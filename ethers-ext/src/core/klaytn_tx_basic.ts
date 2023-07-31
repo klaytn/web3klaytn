@@ -6,7 +6,7 @@ import {
   FieldTypeBool,
   FieldTypeUint8,
   FieldTypeUint64,
-  FieldTypeUint256, 
+  FieldTypeUint256,
   FieldTypeBytes} from "./field";
 import { KlaytnTx } from "./klaytn_tx";
 import _ from "lodash";
@@ -46,8 +46,8 @@ export class TxTypeValueTransfer extends KlaytnTx {
   setFieldsFromRLP(rlp: string): void {
     // Strip type byte
     const inner_rlp = "0x" + String(rlp).substring(4);
-    const array = _.concat([ this.type ], RLP.decode(inner_rlp));
-    
+    const array = _.concat([this.type], RLP.decode(inner_rlp));
+
     this.setFieldsFromArray([
       'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'txSignatures'
     ], array);
@@ -90,11 +90,11 @@ export class TxTypeValueTransferMemo extends KlaytnTx {
   setFieldsFromRLP(rlp: string): void {
     // Strip type byte
     const inner_rlp = "0x" + String(rlp).substring(4);
-    const array = _.concat([ this.type ], RLP.decode(inner_rlp));
-    
+    const array = _.concat([this.type], RLP.decode(inner_rlp));
+
     this.setFieldsFromArray([
       'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'txSignatures'
-    ], array);    
+    ], array);
   }
 }
 
@@ -121,7 +121,7 @@ export class TxTypeSmartContractDeploy extends KlaytnTx {
     // SigRLP = encode([encode([type, nonce, gasPrice, gas, to, value, from, input, humanReadable, codeFormat]), chainid, 0, 0])
     const inner = this.getFields([
       'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'humanReadable', 'codeFormat']);
-    inner[4]= "0x";
+    inner[4] = "0x";
     return RLP.encode([
       RLP.encode(inner), this.getField('chainId'), "0x", "0x"]);
   }
@@ -130,8 +130,8 @@ export class TxTypeSmartContractDeploy extends KlaytnTx {
     // TxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, humanReadable, codeFormat, txSignatures])
     const inner = this.getFields([
       'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'humanReadable', 'codeFormat', 'txSignatures']);
-    // have to do someting in the future 
-    inner[3]= "0x";
+    // have to do someting in the future
+    inner[3] = "0x";
     return HexStr.concat(
       this.getField('type'), RLP.encode(inner));
   }
@@ -139,11 +139,11 @@ export class TxTypeSmartContractDeploy extends KlaytnTx {
   setFieldsFromRLP(rlp: string): void {
     // Strip type byte
     const inner_rlp = "0x" + String(rlp).substring(4);
-    const array = _.concat([ this.type ], RLP.decode(inner_rlp));
-    
+    const array = _.concat([this.type], RLP.decode(inner_rlp));
+
     this.setFieldsFromArray([
       'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'humanReadable', 'codeFormat', 'txSignatures'
-    ], array);    
+    ], array);
   }
 }
 
@@ -183,11 +183,11 @@ export class TxTypeSmartContractExecution extends KlaytnTx {
   setFieldsFromRLP(rlp: string): void {
     // Strip type byte
     const inner_rlp = "0x" + String(rlp).substring(4);
-    const array = _.concat([ this.type ], RLP.decode(inner_rlp));
-    
+    const array = _.concat([this.type], RLP.decode(inner_rlp));
+
     this.setFieldsFromArray([
       'type', 'nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'from', 'input', 'txSignatures'
-    ], array);    
+    ], array);
   }
 }
 
@@ -226,11 +226,11 @@ export class TxTypeAccountUpdate extends KlaytnTx {
   setFieldsFromRLP(rlp: string): void {
     // Strip type byte
     const inner_rlp = "0x" + String(rlp).substring(4);
-    const array = _.concat([ this.type ], RLP.decode(inner_rlp));
-    
+    const array = _.concat([this.type], RLP.decode(inner_rlp));
+
     this.setFieldsFromArray([
       'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'key', 'txSignatures'
-    ], array);    
+    ], array);
   }
 }
 
@@ -267,11 +267,11 @@ export class TxTypeCancel extends KlaytnTx {
   setFieldsFromRLP(rlp: string): void {
     // Strip type byte
     const inner_rlp = "0x" + String(rlp).substring(4);
-    const array = _.concat([ this.type ], RLP.decode(inner_rlp));
-    
+    const array = _.concat([this.type], RLP.decode(inner_rlp));
+
     this.setFieldsFromArray([
       'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'txSignatures'
-    ], array);    
+    ], array);
   }
 }
 
@@ -309,8 +309,8 @@ export class TxTypeChainDataAnchoring extends KlaytnTx {
   setFieldsFromRLP(rlp: string): void {
     // Strip type byte
     const inner_rlp = "0x" + String(rlp).substring(4);
-    const array = _.concat([ this.type ], RLP.decode(inner_rlp));
-    
+    const array = _.concat([this.type], RLP.decode(inner_rlp));
+
     this.setFieldsFromArray([
       'type', 'nonce', 'gasPrice', 'gasLimit', 'from', 'input', 'txSignatures'
     ], array);
