@@ -55,22 +55,12 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
         val modelFolder = (sourceFolder + File.separator + modelPackage).replace(".", "/")
 
         // ignored eth namespace]
-        supportingFiles.add(SupportingFile("JsonRpcResponse.java.mustache", modelFolder, "JsonRpcResponse.java"))
-        supportingFiles.add(SupportingFile("ErrorMember.java.mustache", modelFolder, "ErrorMember.java"))
         supportingFiles.add(SupportingFile("KlayGetAccountKey.java.mustache", modelFolder, "KlayGetAccountKey.java"))
         supportingFiles.add(SupportingFile("FilterOptions.java.mustache", modelFolder, "FilterOptions.java"))
         supportingFiles.add(SupportingFile("KlaytnTransactionTypes.java.mustache", modelFolder, "KlaytnTransactionTypes.java"))
         supportingFiles.add(SupportingFile("KlayGetAccountAccountKey.java.mustache", modelFolder, "KlayGetAccountAccountKey.java"))
         supportingFiles.add(SupportingFile("FilterOptions.java.mustache", modelFolder, "FilterOptions.java"))
         supportingFiles.add(SupportingFile("AdminGetSpamThrottlerCandidateListResponse.java.mustache", modelFolder, "AdminGetSpamThrottlerCandidateListResponse.java"))
-        // if (artifactId.equals("web3rpc-klay")) {
-        //     supportingFiles.add(SupportingFile("KlayGetAccountKey.java.mustache", modelFolder, "KlayGetAccountKey.java"))
-        //     supportingFiles.add(SupportingFile("FilterOptions.java.mustache", modelFolder, "FilterOptions.java"))
-        //     supportingFiles.add(SupportingFile("KlaytnTransactionTypes.java.mustache", modelFolder, "KlaytnTransactionTypes.java"))
-        //     supportingFiles.add(SupportingFile("KlayGetAccountAccountKey.java.mustache", modelFolder, "KlayGetAccountAccountKey.java"))
-        // } else if (artifactId.equals("web3rpc-eth")) {
-        //     supportingFiles.add(SupportingFile("FilterOptions.java.mustache", modelFolder, "FilterOptions.java"))
-        // }
     }
 
     override fun getUseInlineModelResolver(): Boolean {
@@ -156,7 +146,7 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
             val refArr = tagMap[namespace];
 
             openAPI.components?.schemas?.toList()?.forEach { (t, u) ->
-                println(t)
+                println("t: " + t)
                 if (t.contains("_200")) {
                     val checkStr = t.substring(0, t.indexOf("200_response")).plus("200_response");
                     if (refArr?.contains(checkStr) == true) {
