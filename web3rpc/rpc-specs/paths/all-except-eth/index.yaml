@@ -9,8 +9,8 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 tags:
-  - name: eth
-    description: namespace
+#  - name: eth
+#    description: namespace
   - name: klay
     description: namespace
   - name: txpool
@@ -34,7 +34,6 @@ servers:
   - url: https://api.baobab.klaytn.net:8651
   - url: https://public-en-cypress.klaytn.net
 paths:
-
   # klay/account
   /klay/account/accountCreated:
     $ref: ../klay/account/accountCreated.yaml#/paths/~1klay~1accountCreated
