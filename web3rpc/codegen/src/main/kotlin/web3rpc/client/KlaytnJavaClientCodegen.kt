@@ -129,11 +129,8 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
         }
         val tagMap = HashMap<String, ArrayList<String>>()
         openAPI.paths.entries.forEachIndexed { index, (k, v) ->
-            println(k);
             val tag = v.readOperations()[0].tags[0];
             val ref = v.readOperations()[0].responses.values.first().content.values.first().schema.`$ref`;
-            println(tag)
-            println(v.readOperations()[0].responses.values.first().content.values.first().schema.`$ref`)
 
             if (tagMap.containsKey(tag)) {
                 tagMap[tag]?.add(ref.split("/").last())
@@ -146,7 +143,6 @@ class KlaytnJavaClientCodegen : JavaClientCodegen {
             val refArr = tagMap[namespace];
 
             openAPI.components?.schemas?.toList()?.forEach { (t, u) ->
-                println("t: " + t)
                 if (t.contains("_200")) {
                     val checkStr = t.substring(0, t.indexOf("200_response")).plus("200_response");
                     if (refArr?.contains(checkStr) == true) {
