@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { BAOBAB_RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(BAOBAB_RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(BAOBAB_RPC));
 
 describe('klay_getTransactionByBlockNumberAndIndex API', () => {
     test('should return klay_getTransactionByBlockNumberAndIndex', (done) => {
@@ -17,6 +17,6 @@ describe('klay_getTransactionByBlockNumberAndIndex API', () => {
         const blockNumber = 118593751
         const transactionIndexPosition = '0x0'
 
-        sdk.klay.getTransactionByBlockNumberAndIndex(blockNumber, transactionIndexPosition, {}, callbackOne);
+        sdk.getTransactionByBlockNumberAndIndex(blockNumber, transactionIndexPosition, {}, callbackOne);
     });
 });

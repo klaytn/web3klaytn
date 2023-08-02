@@ -1,4 +1,4 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const Web3 = require('web3');
 const crypto = require("crypto");
 

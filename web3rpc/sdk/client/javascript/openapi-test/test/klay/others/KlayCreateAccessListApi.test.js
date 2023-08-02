@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(RPC));
 
 describe('klay_createAccessList API', () => {
     test('should return klay_createAccessList', (done) => {
@@ -24,7 +24,7 @@ describe('klay_createAccessList API', () => {
             "data": "0x20965255"
         }
         const blockParameter = 'latest'
-        sdk.klay.createAccessList(callObject, { blockParameter }, callbackOne);
+        sdk.createAccessList(callObject, { blockParameter }, callbackOne);
     });
 });
 

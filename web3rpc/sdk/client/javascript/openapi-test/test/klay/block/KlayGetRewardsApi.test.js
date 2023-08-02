@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(RPC));
 
 describe('Klay getRewards API', () => {
     test('should return info of a block number', (done) => {
@@ -14,6 +14,6 @@ describe('Klay getRewards API', () => {
             done();
         };
         const blockNumberOrTag = 'latest';
-        sdk.klay.getRewards(blockNumberOrTag,{}, callbackOne);
+        sdk.getRewards(blockNumberOrTag,{}, callbackOne);
     });
 });

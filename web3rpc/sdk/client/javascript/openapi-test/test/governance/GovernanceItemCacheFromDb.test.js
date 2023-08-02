@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.GovernanceApi(new OpenSdk.ApiClient(RPC));
 
 describe('governance_itemCacheFromDb API', () => {
     test('should return governance_itemCacheFromDb', (done) => {
@@ -16,7 +16,7 @@ describe('governance_itemCacheFromDb API', () => {
 
         const blockNumber = 0
 
-        sdk.governance.itemCacheFromDb(blockNumber, {}, callbackOne);
+        sdk.itemCacheFromDb(blockNumber, {}, callbackOne);
     });
 });
 

@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(RPC));
 
 describe('klay_getStorageAt API', () => {
     test('should return klay_getStorageAt', (done) => {
@@ -17,6 +17,6 @@ describe('klay_getStorageAt API', () => {
         const storageAddress = '0x295a70b2de5e3953354a6a8344e616ed314d7251'
         const position = '0x0'
         const blockNumberOrHash = 'latest'
-        sdk.klay.getStorageAt(storageAddress, position, blockNumberOrHash, {}, callbackOne);
+        sdk.getStorageAt(storageAddress, position, blockNumberOrHash, {}, callbackOne);
     });
 });

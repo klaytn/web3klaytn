@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { BAOBAB_RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(BAOBAB_RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(BAOBAB_RPC));
 
 describe('debug_dumpBlock API', () => {
     test('should return debug_dumpBlock', (done) => {
@@ -16,7 +16,7 @@ describe('debug_dumpBlock API', () => {
 
         const blockNumber = "0x80"
 
-        sdk.debug.dumpBlock(blockNumber, {}, callbackOne);
+        sdk.dumpBlock(blockNumber, {}, callbackOne);
     });
 });
 

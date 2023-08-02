@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.TxpoolApi(new OpenSdk.ApiClient(RPC));
 
 describe('txpool_content API', () => {
     test('should return txpool_content', (done) => {
@@ -14,7 +14,7 @@ describe('txpool_content API', () => {
             done();
         };
 
-        sdk.txpool.content({}, callbackOne);
+        sdk.content({}, callbackOne);
     });
 });
 

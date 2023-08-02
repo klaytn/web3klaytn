@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.PersonalApi(new OpenSdk.ApiClient(RPC));
 
 describe('personal_newAccount API', () => {
     test('should return personal_newAccount', (done) => {
@@ -18,7 +18,7 @@ describe('personal_newAccount API', () => {
         const oldPassphrase = "hello@1234";
         const newPassphrase = "hello@1234";
 
-        sdk.personal.replaceRawKey(keyData, oldPassphrase, newPassphrase, {}, callbackOne);
+        sdk.replaceRawKey(keyData, oldPassphrase, newPassphrase, {}, callbackOne);
     });
 });
 

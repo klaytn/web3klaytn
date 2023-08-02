@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { BAOBAB_RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(BAOBAB_RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(BAOBAB_RPC));
 
 describe('klay_getTransactionByHash API', () => {
     test('should return klay_getTransactionByHash', (done) => {
@@ -17,6 +17,6 @@ describe('klay_getTransactionByHash API', () => {
         };
         const transactionHash = '0xa40911eedd636d62f09d5f670856e8f168a4372ca69119796c95df547fd6010c'
 
-        sdk.klay.getTransactionByHash(transactionHash, {}, callbackOne);
+        sdk.getTransactionByHash(transactionHash, {}, callbackOne);
     });
 });

@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(RPC));
 
 describe('debug_chaindbCompact API', () => {
     test.skip('should return debug_chaindbCompact', (done) => {
@@ -13,7 +13,7 @@ describe('debug_chaindbCompact API', () => {
             done();
         };
 
-        sdk.debug.chaindbCompact({}, callbackOne);
+        sdk.chaindbCompact({}, callbackOne);
     });
 });
 

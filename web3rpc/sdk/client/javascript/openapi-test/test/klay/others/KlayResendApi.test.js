@@ -1,10 +1,10 @@
 
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { PN_RPC } = require("../../constant");
 const { getNoncePending, unlockAccountPN, sendTransactionPN } = require("../../../helpers/eth");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(PN_RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(PN_RPC));
 
 describe('klay_resend API', () => {
     test('should return klay_resend', (done) => {
@@ -30,7 +30,7 @@ describe('klay_resend API', () => {
             }
             const gasPrice = '0xba43b7500';
             const gasLimit = '0xe8d4a50fff';
-            sdk.klay.resend(oldTrx, gasPrice, gasLimit, {}, callbackOne);
+            sdk.resend(oldTrx, gasPrice, gasLimit, {}, callbackOne);
         })
     });
 });

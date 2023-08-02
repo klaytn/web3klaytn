@@ -1,7 +1,7 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('Klay getAccount API', () => {
     test('should return account.', (done) => {
@@ -15,6 +15,6 @@ describe('Klay getAccount API', () => {
         };
         const address = '0x1cbd3b2770909d4e10f157cabc84c7264073c9ec'
         const blockNumberOrHash = 'latest'
-        sdk.klay.getAccount(address, blockNumberOrHash, {}, callbackOne);
+        sdk.getAccount(address, blockNumberOrHash, {}, callbackOne);
     });
 });

@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(RPC));
 
 describe('klay_newBlockFilter API', () => {
     test('should return klay_newBlockFilter', (done) => {
@@ -15,6 +15,6 @@ describe('klay_newBlockFilter API', () => {
             done();
         };
 
-        sdk.klay.newBlockFilter({}, callbackOne);
+        sdk.newBlockFilter({}, callbackOne);
     });
 }); 

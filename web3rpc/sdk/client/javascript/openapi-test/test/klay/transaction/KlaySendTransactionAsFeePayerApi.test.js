@@ -1,9 +1,9 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 const { unlockAccount, getNonce, getFeePayerSignatures } = require("../../../helpers/eth");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(RPC));
 
 describe('klay_sendTransactionAsFeePayer API', () => {
     test('should return klay_signTransactionAsFeePayer', (done) => {
@@ -28,7 +28,7 @@ describe('klay_sendTransactionAsFeePayer API', () => {
             }
             const signedTX = await getFeePayerSignatures(tx)
 
-            sdk.klay.sendTransactionAsFeePayer(signedTX,
+            sdk.sendTransactionAsFeePayer(signedTX,
                 {}, callbackOne);
         })
     });

@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(RPC));
 
 describe('debug_startCollectingTrieStats API', () => {
     test('should return debug_startCollectingTrieStats', (done) => {
@@ -16,7 +16,7 @@ describe('debug_startCollectingTrieStats API', () => {
 
         const address = "0x0000000000000000000000000000000000000000";
 
-        sdk.debug.startCollectingTrieStats(address, {}, callbackOne);
+        sdk.startCollectingTrieStats(address, {}, callbackOne);
     });
 });
 

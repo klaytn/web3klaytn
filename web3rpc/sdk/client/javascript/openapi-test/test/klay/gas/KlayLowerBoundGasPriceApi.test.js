@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(RPC));
 
 describe('klay_lowerBoundGasPrice API', () => {
     test('should return klay_lowerBoundGasPrice', (done) => {
@@ -15,6 +15,6 @@ describe('klay_lowerBoundGasPrice API', () => {
             done();
         };
 
-        sdk.klay.lowerBoundGasPrice({}, callbackOne);
+        sdk.lowerBoundGasPrice({}, callbackOne);
     });
 });

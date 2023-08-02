@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(RPC));
 
 describe('klay_unsubscribe API', () => {
     test.skip('should return klay_unsubscribe', (done) => {
@@ -15,6 +15,6 @@ describe('klay_unsubscribe API', () => {
             done();
         };
         const id = 'logs'
-        sdk.klay.unsubscribe(id, {}, callbackOne);
+        sdk.unsubscribe(id, {}, callbackOne);
     });
 });

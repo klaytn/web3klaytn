@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.AdminApi(new OpenSdk.ApiClient(RPC));
 
 describe('admin_spamThrottlerConfig API', () => {
     test('should return admin_spamThrottlerConfig', (done) => {
@@ -15,6 +15,6 @@ describe('admin_spamThrottlerConfig API', () => {
             done();
         };
         // TODO check spam throttler in advance.
-        sdk.admin.spamThrottlerConfig({}, callbackOne);
+        sdk.spamThrottlerConfig({}, callbackOne);
     });
 });

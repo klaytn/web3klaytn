@@ -1,4 +1,4 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { BAOBAB_RPC } = require("../test/constant");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(BAOBAB_RPC));

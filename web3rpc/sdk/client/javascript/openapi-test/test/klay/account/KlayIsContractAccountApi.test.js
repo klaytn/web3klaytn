@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(RPC));
 
 describe('klay_isContractAccount API', () => {
     test('should return klay_isContractAccount', (done) => {
@@ -17,7 +17,7 @@ describe('klay_isContractAccount API', () => {
 
         const account = '0xc94770007dda54cF92009BFF0dE90c06F603a09f'
         const blockNumberOrHashOrTag = 'latest'
-        sdk.klay.isContractAccount(account, blockNumberOrHashOrTag, {}, callbackOne);
+        sdk.isContractAccount(account, blockNumberOrHashOrTag, {}, callbackOne);
     });
 });
 

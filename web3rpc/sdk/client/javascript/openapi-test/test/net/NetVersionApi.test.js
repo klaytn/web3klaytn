@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.NetApi(new OpenSdk.ApiClient(RPC));
 
 describe('net_version API', () => {
     test('should return net_version', (done) => {
@@ -14,6 +14,6 @@ describe('net_version API', () => {
              done();
         };
        
-        sdk.net.version( {}, callbackOne);
+        sdk.version( {}, callbackOne);
     });
 });

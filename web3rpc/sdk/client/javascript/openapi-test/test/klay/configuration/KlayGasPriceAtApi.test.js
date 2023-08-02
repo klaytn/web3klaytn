@@ -1,7 +1,7 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('Klay gasPriceAt  API', () => {
     test('should return gas price at block number.', (done) => {
@@ -14,6 +14,6 @@ describe('Klay gasPriceAt  API', () => {
             done();
         };
         const blockNumber=1
-        sdk.klay.gasPriceAt({blockNumber}, callbackOne);
+        sdk.gasPriceAt({blockNumber}, callbackOne);
     });
 });

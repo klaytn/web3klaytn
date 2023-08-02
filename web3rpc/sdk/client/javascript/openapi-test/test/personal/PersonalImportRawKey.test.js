@@ -1,9 +1,9 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
 const { genHexString } = require("../../helpers/eth");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.PersonalApi(new OpenSdk.ApiClient(RPC));
 
 describe('personal_importRawKey API', () => {
     test('should return personal_importRawKey', (done) => {
@@ -17,7 +17,7 @@ describe('personal_importRawKey API', () => {
         const privateKey = genHexString()
         const passphrase = "hello@1234"
 
-        sdk.personal.importRawKey(privateKey, passphrase, {}, callbackOne);
+        sdk.importRawKey(privateKey, passphrase, {}, callbackOne);
     });
 });
 

@@ -1,7 +1,7 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('Klay getBlockTransactionCountByNumber API', () => {
     test('should return block transaction count.', (done) => {
@@ -14,6 +14,6 @@ describe('Klay getBlockTransactionCountByNumber API', () => {
             done();
         };
         const blockNumber = 1
-        sdk.klay.getBlockTransactionCountByNumber(blockNumber, {}, callbackOne);
+        sdk.getBlockTransactionCountByNumber(blockNumber, {}, callbackOne);
     });
 });

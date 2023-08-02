@@ -1,4 +1,4 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 
 
 ( () => {

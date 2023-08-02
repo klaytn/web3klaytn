@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.PersonalApi(new OpenSdk.ApiClient(RPC));
 
 describe('personal_deriveAccount API', () => {
     test.skip('should return personal_deriveAccount', (done) => {
@@ -17,7 +17,7 @@ describe('personal_deriveAccount API', () => {
         const path = "path";
         const pin = true;
 
-        sdk.personal.deriveAccount(url, path, {pin}, callbackOne);
+        sdk.deriveAccount(url, path, {pin}, callbackOne);
     });
 });
 

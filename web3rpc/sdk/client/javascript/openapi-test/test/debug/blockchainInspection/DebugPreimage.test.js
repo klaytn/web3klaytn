@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(RPC));
 
 describe('debug_preimage API', () => {
     test.skip('should return debug_preimage', (done) => {
@@ -15,7 +15,7 @@ describe('debug_preimage API', () => {
 
         const sha3Hash = "0xaf953a2d01f55cfe080c0c94150a60105e8ac3d51153058a1f03dd239dd08586"
 
-        sdk.debug.preimage(sha3Hash, {}, callbackOne);
+        sdk.preimage(sha3Hash, {}, callbackOne);
     });
 });
 

@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { BAOBAB_RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(BAOBAB_RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(BAOBAB_RPC));
 
 describe('klay_getStakingInfo API', () => {
     test('should return klay_getStakingInfo', (done) => {
@@ -17,7 +17,7 @@ describe('klay_getStakingInfo API', () => {
             done();
         };
         const blockNumberOrTag = 'latest'
-        sdk.klay.getStakingInfo(blockNumberOrTag, {}, callbackOne);
+        sdk.getStakingInfo(blockNumberOrTag, {}, callbackOne);
     });
 });
 

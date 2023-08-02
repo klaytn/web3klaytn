@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.AdminApi(new OpenSdk.ApiClient(RPC));
 
 describe('admin_datadir API', () => {
     test('should return admin_datadir', (done) => {
@@ -14,6 +14,6 @@ describe('admin_datadir API', () => {
             done();
         };
 
-        sdk.admin.datadir({}, callbackOne);
+        sdk.datadir({}, callbackOne);
     });
 });

@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(RPC));
 
 describe('debug_mutexProfile API', () => {
     test('should return debug_mutexProfile', (done) => {
@@ -17,7 +17,7 @@ describe('debug_mutexProfile API', () => {
         const file = "mutex.profile";
         const seconds = 10;
 
-        sdk.debug.mutexProfile(file, seconds, {}, callbackOne);
+        sdk.mutexProfile(file, seconds, {}, callbackOne);
     });
 });
 

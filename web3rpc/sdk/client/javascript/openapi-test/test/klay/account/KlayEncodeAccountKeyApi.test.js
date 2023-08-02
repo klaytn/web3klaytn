@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { BAOBAB_RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(BAOBAB_RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(BAOBAB_RPC));
 
 describe('Klay account encode account key API', () => {
     test('should return klay_encodeAccountKey', (done) => {
@@ -15,6 +15,6 @@ describe('Klay account encode account key API', () => {
         };
         const accountKey = {"keyType": 0, "key": {}}
 
-        sdk.klay.encodeAccountKey(accountKey, {}, callbackOne);
+        sdk.encodeAccountKey(accountKey, {}, callbackOne);
     });
 });

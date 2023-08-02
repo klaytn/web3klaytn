@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(RPC));
 
 describe('klay_uninstallFilter API', () => {
     test('should return klay_uninstallFilter', (done) => {
@@ -14,7 +14,7 @@ describe('klay_uninstallFilter API', () => {
             done();
         };
         const quantity = '0xd32fd16b6906e67f6e2b65dcf48fc272'
-        sdk.klay.uninstallFilter(quantity, {}, callbackOne);
+        sdk.uninstallFilter(quantity, {}, callbackOne);
     });
 });
 

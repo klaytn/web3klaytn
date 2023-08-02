@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(RPC));
 
 describe('debug_startContractWarmUp API', () => {
     test('should return debug_startContractWarmUp', (done) => {
@@ -15,7 +15,7 @@ describe('debug_startContractWarmUp API', () => {
 
         const address = "0xfD1d63a152f7A7Ef14bd157C1c73c5bC3239EA5D"
 
-        sdk.debug.startContractWarmUp(address, {}, callbackOne);
+        sdk.startContractWarmUp(address, {}, callbackOne);
     });
 });
 

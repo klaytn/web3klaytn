@@ -1,7 +1,7 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('Klay getHeaderByNumber API', () => {
     test('should return getHeaderByNumber.', (done) => {
@@ -13,6 +13,6 @@ describe('Klay getHeaderByNumber API', () => {
             done();
         };
         const blockNumber = 1
-        sdk.klay.getHeaderByNumber(blockNumber, {}, callbackOne);
+        sdk.getHeaderByNumber(blockNumber, {}, callbackOne);
     });
 });

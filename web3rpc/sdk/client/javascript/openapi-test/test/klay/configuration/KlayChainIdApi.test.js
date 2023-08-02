@@ -1,7 +1,7 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('Klay chainId  API', () => {
     test('should return chainId', (done) => {
@@ -12,6 +12,6 @@ describe('Klay chainId  API', () => {
             expect(data).toBeDefined()
             done();
         };
-        sdk.klay.chainID({}, callbackOne);
+        sdk.chainID({}, callbackOne);
     });
 });

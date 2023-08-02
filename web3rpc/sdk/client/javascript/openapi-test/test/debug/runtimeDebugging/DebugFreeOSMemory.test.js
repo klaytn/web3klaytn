@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(RPC));
 
 describe('debug_freeOSMemory API', () => {
     test('should return debug_freeOSMemory', (done) => {
@@ -14,7 +14,7 @@ describe('debug_freeOSMemory API', () => {
             done();
         };
 
-        sdk.debug.freeOSMemory({}, callbackOne);
+        sdk.freeOSMemory({}, callbackOne);
     });
 });
 

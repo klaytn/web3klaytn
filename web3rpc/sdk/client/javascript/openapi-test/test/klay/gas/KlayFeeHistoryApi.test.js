@@ -1,7 +1,7 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('Klay feeHistory API', () => {
     test('should return fee information', (done) => {
@@ -15,6 +15,6 @@ describe('Klay feeHistory API', () => {
         const blockCount = '0x10'
         const lastBlock = 'latest'
         const rewardPercentiles = [0.1, 0.2, 0.3]
-        sdk.klay.feeHistory(blockCount, lastBlock, rewardPercentiles, {}, callbackOne);
+        sdk.feeHistory(blockCount, lastBlock, rewardPercentiles, {}, callbackOne);
     });
 });

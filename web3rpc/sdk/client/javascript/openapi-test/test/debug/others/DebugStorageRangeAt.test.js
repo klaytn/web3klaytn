@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(RPC));
 
 describe('debug_storageRangeAt API', () => {
     test.skip('should return debug_storageRangeAt', (done) => {
@@ -19,7 +19,7 @@ describe('debug_storageRangeAt API', () => {
         const keyStart = "0x12";
         const maxResult = 1;
 
-        sdk.debug.storageRangeAt(blockHash, txIndex, contractAddress, keyStart, maxResult, {}, callbackOne);
+        sdk.storageRangeAt(blockHash, txIndex, contractAddress, keyStart, maxResult, {}, callbackOne);
     });
 });
 

@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.GovernanceApi(new OpenSdk.ApiClient(RPC));
 
 describe('governance_idxCache API', () => {
     test('should return governance_idxCache', (done) => {
@@ -14,7 +14,7 @@ describe('governance_idxCache API', () => {
             done();
         };
 
-        sdk.governance.idxCache({}, callbackOne);
+        sdk.idxCache({}, callbackOne);
     });
 });
 

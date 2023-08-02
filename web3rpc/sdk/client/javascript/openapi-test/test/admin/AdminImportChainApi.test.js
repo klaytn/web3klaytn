@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.AdminApi(new OpenSdk.ApiClient(RPC));
 
 describe('admin_importChain API', () => {
     test('should return admin_importChain', (done) => {
@@ -14,6 +14,6 @@ describe('admin_importChain API', () => {
             done();
         };
         const fileName = '/tmp/chain.txt'
-        sdk.admin.importChain(fileName, {}, callbackOne);
+        sdk.importChain(fileName, {}, callbackOne);
     });
 });

@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.PersonalApi(new OpenSdk.ApiClient(RPC));
 
 describe('personal_listWallets API', () => {
     test('should return personal_listWallets', (done) => {
@@ -14,7 +14,7 @@ describe('personal_listWallets API', () => {
             done();
         };
 
-        sdk.personal.listWallets({}, callbackOne);
+        sdk.listWallets({}, callbackOne);
     });
 });
 

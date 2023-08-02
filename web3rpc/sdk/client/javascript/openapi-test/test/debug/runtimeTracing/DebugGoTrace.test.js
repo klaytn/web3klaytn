@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(RPC));
 
 describe('debug_goTrace API', () => {
     test('should return debug_goTrace', (done) => {
@@ -17,7 +17,7 @@ describe('debug_goTrace API', () => {
         const file = "go.trace";
         const seconds = 5;
 
-        sdk.debug.goTrace(file, seconds, {}, callbackOne);
+        sdk.goTrace(file, seconds, {}, callbackOne);
     });
 });
 

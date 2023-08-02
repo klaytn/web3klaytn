@@ -1,9 +1,9 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
 const { getNonce, unlockAccount } = require("../../helpers/eth");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.PersonalApi(new OpenSdk.ApiClient(RPC));
 
 describe('personal_signTransaction API', () => {
     test('should return personal_signTransaction', (done) => {
@@ -18,7 +18,7 @@ describe('personal_signTransaction API', () => {
         unlockAccount().then(async address => {
             const password = "helloWorld";
             const nonce = await getNonce(address)
-            sdk.personal.signTransaction({
+            sdk.signTransaction({
                 "from": address,
                 "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",
                 "value": "0x1",

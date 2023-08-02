@@ -1,9 +1,9 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 const { getRawTransaction, unlockAccount, getNonce } = require("../../../helpers/eth");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(RPC));
 
 describe('klay_sendRawTransaction API', () => {
     test('should return klay_sendRawTransaction', (done) => {
@@ -17,7 +17,7 @@ describe('klay_sendRawTransaction API', () => {
         unlockAccount().then(async address => {
             const nonce = await getNonce(address)
             const rawTx = await getRawTransaction(nonce)
-            sdk.klay.sendRawTransaction(rawTx, {}, callbackOne);
+            sdk.sendRawTransaction(rawTx, {}, callbackOne);
         })
     });
 });

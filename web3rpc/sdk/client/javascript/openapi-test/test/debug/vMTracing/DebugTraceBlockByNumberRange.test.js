@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(RPC));
 
 describe('debug_traceBlockByNumberRange API', () => {
     test('should return debug_traceBlockByNumberRange', (done) => {
@@ -21,7 +21,7 @@ describe('debug_traceBlockByNumberRange API', () => {
         const startBlock = 21;
         const endBlock = 30;
 
-        sdk.debug.traceBlockByNumberRange(startBlock, endBlock, {}, callbackOne);
+        sdk.traceBlockByNumberRange(startBlock, endBlock, {}, callbackOne);
     });
 });
 

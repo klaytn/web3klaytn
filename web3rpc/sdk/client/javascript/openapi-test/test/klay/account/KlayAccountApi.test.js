@@ -1,7 +1,7 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const {expect} = require("@jest/globals");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('Klay account API', () => {
     test('should return false for Not_Found', (done) => {
@@ -13,6 +13,6 @@ describe('Klay account API', () => {
             expect(data.length > 0 ? data.every((address) => /^0x[a-fA-F0-9]+/.test(address)) : true).toBe(true)
             done();
         };
-        sdk.klay.accounts({}, callbackOne);
+        sdk.accounts({}, callbackOne);
     });
 });

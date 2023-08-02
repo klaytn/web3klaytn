@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.AdminApi(new OpenSdk.ApiClient(RPC));
 
 describe('admin_stateMigrationStatus API', () => {
     test('should return admin_stateMigrationStatus', (done) => {
@@ -15,6 +15,6 @@ describe('admin_stateMigrationStatus API', () => {
             done();
         };
 
-        sdk.admin.stateMigrationStatus({}, callbackOne);
+        sdk.stateMigrationStatus({}, callbackOne);
     });
 });

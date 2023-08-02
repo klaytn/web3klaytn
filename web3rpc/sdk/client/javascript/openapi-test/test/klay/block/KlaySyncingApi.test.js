@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(RPC));
 
 describe('klay_syncing API', () => {
     test('should return klay_syncing', (done) => {
@@ -14,7 +14,7 @@ describe('klay_syncing API', () => {
             done();
         };
 
-        sdk.klay.syncing({}, callbackOne);
+        sdk.syncing({}, callbackOne);
     });
 });
 

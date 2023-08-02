@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(RPC));
 
 describe('debug_setBlockProfileRate API', () => {
     test('should return debug_setBlockProfileRate', (done) => {
@@ -16,7 +16,7 @@ describe('debug_setBlockProfileRate API', () => {
 
         const rate = 3;
 
-        sdk.debug.setBlockProfileRate(rate, {}, callbackOne);
+        sdk.setBlockProfileRate(rate, {}, callbackOne);
     });
 });
 

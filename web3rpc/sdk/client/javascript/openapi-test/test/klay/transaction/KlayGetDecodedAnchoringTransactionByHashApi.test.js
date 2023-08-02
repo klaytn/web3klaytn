@@ -1,7 +1,7 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('klay_getDecodedAnchoringTransactionByHash API', () => {
     test('should return klay_getDecodedAnchoringTransactionByHash', (done) => {
@@ -15,6 +15,6 @@ describe('klay_getDecodedAnchoringTransactionByHash API', () => {
             done();
         };
         const hashOfTransaction = '0x026b64e16b86633c0199f78f37a64840d3601d83e5c799f115b63024764524ca'
-        sdk.klay.getDecodedAnchoringTransactionByHash(hashOfTransaction, {}, callbackOne);
+        sdk.getDecodedAnchoringTransactionByHash(hashOfTransaction, {}, callbackOne);
     });
 });

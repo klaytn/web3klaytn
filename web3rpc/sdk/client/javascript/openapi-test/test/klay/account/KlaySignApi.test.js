@@ -1,9 +1,9 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 const { unlockAccount } = require("../../../helpers/eth");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(RPC));
 
 describe('klay_sign API', () => {
     test('should return klay_sign', (done) => {
@@ -17,7 +17,7 @@ describe('klay_sign API', () => {
         unlockAccount().then(address => {
 
             const message = '0xdeadbeaf'
-            sdk.klay.sign(address, message, {}, callbackOne);
+            sdk.sign(address, message, {}, callbackOne);
         })
     });
 });

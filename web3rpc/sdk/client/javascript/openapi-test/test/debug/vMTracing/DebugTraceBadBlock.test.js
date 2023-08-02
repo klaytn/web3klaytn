@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(RPC));
 
 describe('debug_traceBadBlock API', () => {
     test.skip('should return debug_traceBadBlock', (done) => {
@@ -15,7 +15,7 @@ describe('debug_traceBadBlock API', () => {
 
         const blockHash = "0xcecc781a00eaa53579c188e603b7726211c2ff765f06cf606e7638c884fa7c06";
 
-        sdk.debug.traceBadBlock(blockHash, {}, callbackOne);
+        sdk.traceBadBlock(blockHash, {}, callbackOne);
     });
 });
 

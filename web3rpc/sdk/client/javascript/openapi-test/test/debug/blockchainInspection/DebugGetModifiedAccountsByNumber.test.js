@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { BAOBAB_RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(BAOBAB_RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(BAOBAB_RPC));
 
 describe('debug_getModifiedAccountsByNumber API', () => {
     test('should return debug_getModifiedAccountsByNumber', (done) => {
@@ -17,7 +17,7 @@ describe('debug_getModifiedAccountsByNumber API', () => {
         const startBlockNum = 171904
         const endBlockNum = 172160
 
-        sdk.debug.getModifiedAccountsByNumber(startBlockNum, {endBlockNum}, callbackOne);
+        sdk.getModifiedAccountsByNumber(startBlockNum, {endBlockNum}, callbackOne);
     });
 });
 

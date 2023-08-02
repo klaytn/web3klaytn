@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient(RPC));
 
 describe('klay_getBlockWithConsensusInfoByNumberRange API', () => {
     test('should return klay_getBlockWithConsensusInfoByNumberRange', (done) => {
@@ -15,6 +15,6 @@ describe('klay_getBlockWithConsensusInfoByNumberRange API', () => {
         };
         const blockHashOrBlockNumber=1
         const range=10
-        sdk.klay.getBlockWithConsensusInfoByNumberRange(blockHashOrBlockNumber,range, {}, callbackOne);
+        sdk.getBlockWithConsensusInfoByNumberRange(blockHashOrBlockNumber,range, {}, callbackOne);
     });
 });

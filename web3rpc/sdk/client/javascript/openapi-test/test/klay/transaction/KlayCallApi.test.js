@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 describe('Eth transaction call API', () => {
     test('should return result', (done) => {
 
@@ -22,6 +22,6 @@ describe('Eth transaction call API', () => {
             "input": "0x8ada066e"
         }
         const blockTag = 'latest'
-        sdk.klay.call(callObject, blockTag, {}, callbackOne);
+        sdk.call(callObject, blockTag, {}, callbackOne);
     }, 50000);
 });

@@ -1,7 +1,7 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('klay_getCommitteeSize API', () => {
     test('should return klay_getCommitteeSize', (done) => {
@@ -14,6 +14,6 @@ describe('klay_getCommitteeSize API', () => {
             done();
         };
         const blockNumberOrTag = '0x1b4'
-        sdk.klay.getCommitteeSize({ blockNumberOrTag }, callbackOne);
+        sdk.getCommitteeSize({ blockNumberOrTag }, callbackOne);
     });
 });

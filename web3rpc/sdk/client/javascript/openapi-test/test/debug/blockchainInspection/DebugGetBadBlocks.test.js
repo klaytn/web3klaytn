@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(RPC));
 
 describe('debug_getBadBlocks API', () => {
     test('should return debug_getBadBlocks', (done) => {
@@ -17,7 +17,7 @@ describe('debug_getBadBlocks API', () => {
             done();
         };
 
-        sdk.debug.getBadBlocks({}, callbackOne);
+        sdk.getBadBlocks({}, callbackOne);
     });
 });
 

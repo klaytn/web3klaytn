@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(RPC));
 
 describe('debug_getModifiedStorageNodesByNumber.test API', () => {
     test.skip('should return debug_getModifiedStorageNodesByNumber', (done) => {
@@ -17,7 +17,7 @@ describe('debug_getModifiedStorageNodesByNumber.test API', () => {
         const startBlockNum = 100;
         const endBlockNum = 200;
 
-        sdk.debug.getModifiedStorageNodesByNumber(contractAddress, startBlockNum, endBlockNum, {}, callbackOne);
+        sdk.getModifiedStorageNodesByNumber(contractAddress, startBlockNum, endBlockNum, {}, callbackOne);
     });
 });
 

@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC, BAOBAB_RPC } = require("../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.PersonalApi(new OpenSdk.ApiClient(RPC));
 
 describe('personal_sendAccountUpdate API', () => {
     test('should return personal_sendAccountUpdate', (done) => {
@@ -20,7 +20,7 @@ describe('personal_sendAccountUpdate API', () => {
         };
         const passphrase = "helloWorld";
 
-        sdk.personal.sendAccountUpdate(tx, passphrase, {}, callbackOne);
+        sdk.sendAccountUpdate(tx, passphrase, {}, callbackOne);
     });
 });
 

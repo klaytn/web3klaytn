@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.AdminApi(new OpenSdk.ApiClient(RPC));
 
 describe('admin_setSpamThrottlerWhiteList API', () => {
     test('should return admin_setSpamThrottlerWhiteList', (done) => {
@@ -14,6 +14,6 @@ describe('admin_setSpamThrottlerWhiteList API', () => {
             done();
         };
         const address = ['0xfdeedbb2fe5b48d5b49e435ba00e0358740d0cf5']
-        sdk.admin.setSpamThrottlerWhiteList(address, {}, callbackOne);
+        sdk.setSpamThrottlerWhiteList(address, {}, callbackOne);
     });
 });

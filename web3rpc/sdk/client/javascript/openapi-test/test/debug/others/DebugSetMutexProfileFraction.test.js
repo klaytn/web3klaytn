@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(RPC));
 
 describe('debug_setMutexProfileFraction API', () => {
     test('should return debug_setMutexProfileFraction', (done) => {
@@ -16,7 +16,7 @@ describe('debug_setMutexProfileFraction API', () => {
 
         const rate = 2;
 
-        sdk.debug.setMutexProfileFraction(rate, {}, callbackOne);
+        sdk.setMutexProfileFraction(rate, {}, callbackOne);
     });
 });
 

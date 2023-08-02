@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { GOVERNANCE_RPC } = require("../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(GOVERNANCE_RPC));
+const sdk = new OpenSdk.GovernanceApi(new OpenSdk.ApiClient(GOVERNANCE_RPC));
 
 describe('governance_vote API', () => {
     test('should return governance_vote', (done) => {
@@ -17,7 +17,7 @@ describe('governance_vote API', () => {
         const key = "governance.governanceMode";
         const value = "ballot";
 
-        sdk.governance.vote(key, value, {}, callbackOne);
+        sdk.vote(key, value, {}, callbackOne);
     });
 });
 

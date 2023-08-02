@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.NetApi(new OpenSdk.ApiClient(RPC));
 
 describe('net_networkID API', () => {
     test('should return net_networkID', (done) => {
@@ -16,6 +16,6 @@ describe('net_networkID API', () => {
             done();
         };
 
-        sdk.net.networkID({}, callbackOne);
+        sdk.networkID({}, callbackOne);
     });
 });

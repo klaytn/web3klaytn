@@ -1,7 +1,7 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 
 describe('klay_getBlockWithConsensusInfoByNumber API', () => {
     test('should return block info.', (done) => {
@@ -16,6 +16,6 @@ describe('klay_getBlockWithConsensusInfoByNumber API', () => {
             done();
         };
         const blockNumber = 1;
-        sdk.klay.getBlockWithConsensusInfoByNumber(blockNumber, {}, callbackOne);
+        sdk.getBlockWithConsensusInfoByNumber(blockNumber, {}, callbackOne);
     });
 });

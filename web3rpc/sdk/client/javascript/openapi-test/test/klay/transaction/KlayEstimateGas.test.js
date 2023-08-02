@@ -1,7 +1,7 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const sdk = new OpenSdk.KlayApi(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
 jest.setTimeout(50000)
 describe('Klay estimate gas  API', () => {
     test('should return result', (done) => {
@@ -21,6 +21,6 @@ describe('Klay estimate gas  API', () => {
             "value": "0x0",
             "input": "0x8ada066e"
         }
-        sdk.klay.estimateGas(callObject, {}, callbackOne);
+        sdk.estimateGas(callObject, {}, callbackOne);
     });
 });

@@ -1,8 +1,8 @@
-const OpenSdk = require("opensdk-javascript");
+const OpenSdk = require("@klaytn/web3rpc");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
+const sdk = new OpenSdk.DebugApi(new OpenSdk.ApiClient(RPC));
 
 describe('debug_verbosityByID API', () => {
     test('should return debug_verbosityByID', (done) => {
@@ -17,7 +17,7 @@ describe('debug_verbosityByID API', () => {
         const id = 1;
         const level = 3;
 
-        sdk.debug.verbosityByID(id, level, {}, callbackOne);
+        sdk.verbosityByID(id, level, {}, callbackOne);
     });
 });
 
