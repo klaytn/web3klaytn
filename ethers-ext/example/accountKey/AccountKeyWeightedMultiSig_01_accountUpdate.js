@@ -1,6 +1,5 @@
 const ethers = require("ethers");
-const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
-const fs = require('fs');
+const { Wallet, TxType, AccountKeyType } = require("@klaytn/ethers-ext");
 
 // 
 // AccountKeyWeightedMultiSig Step 01 - account update
@@ -11,49 +10,32 @@ const fs = require('fs');
 //   create a new account for testing 
 //   https://baobab.wallet.klaytn.foundation/ 
 //
-
-const sender_priv = '0x1dad451aeb1198930d8ca2d3d6c6d8892f364dd0a321cbacc6dcdcd3c5250333' 
-const sender = '0x218e49acd85a1eb3e840eac0c9668e188c452e0c' 
-
-
-// returns multiple public keys for updating sender's accountKey 
-function getPubkey() {
-  const new_priv = fs.readFileSync('./example/privateKey', 'utf8'); 
-  return new ethers.utils.SigningKey( new_priv ).compressedPublicKey;   
-}
-function getPubkey2(){
-  const new_priv2 = fs.readFileSync('./example/privateKey2', 'utf8');
-  return new ethers.utils.SigningKey( new_priv2 ).compressedPublicKey;  
-}
-function getPubkey3(){
-  const new_priv3 = fs.readFileSync('./example/privateKey3', 'utf8');
-  return new ethers.utils.SigningKey( new_priv3 ).compressedPublicKey;  
-}
-
+const senderAddr = '0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e' 
+const senderPriv = '0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a' 
+const senderNewPriv1 = '0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a'
+const senderNewPriv2 = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'
+const senderNewPriv3 = '0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac'
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net');
-  const wallet = new Wallet( sender_priv, provider );
+  const wallet = new Wallet( senderPriv, provider );
 
-  let new_key = getPubkey(); 
-  console.log('1', new_key);
-  let new_key2 = getPubkey2(); 
-  console.log('2', new_key2);
-  let new_key3 = getPubkey3(); 
-  console.log('3', new_key3);
+  let senderNewPub1 = new ethers.utils.SigningKey( senderNewPriv1 ).compressedPublicKey; 
+  let senderNewPub2 = new ethers.utils.SigningKey( senderNewPriv2 ).compressedPublicKey; 
+  let senderNewPub3 = new ethers.utils.SigningKey( senderNewPriv3 ).compressedPublicKey;
 
   let tx = {
-        type: 0x20,   // TxTypeAccountUpdate
-        from: sender,
+        type: TxType.AccountUpdate, 
+        from: senderAddr,
         gasLimit: 100000, 
         key: {
-            type: 0x04,   // AccountKeyWeightedMultiSig
+            type: AccountKeyType.WeightedMultiSig,
             keys: [
               2,   // threshold
               [
-                [ 1, new_key, ],
-                [ 1, new_key2 ],
-                [ 1, new_key3 ]
+                [ 1, senderNewPub1 ],
+                [ 1, senderNewPub2 ],
+                [ 1, senderNewPub3 ]
               ]
             ]
         }

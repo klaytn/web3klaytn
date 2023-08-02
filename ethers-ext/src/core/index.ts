@@ -70,6 +70,7 @@ import {
 } from "./klaytn_accountKeys";
 
 import { AccountKeyFactory } from "./accountKey";
+
 AccountKeyFactory.add(AccountKeyLegacy);
 AccountKeyFactory.add(AccountKeyPublic);
 AccountKeyFactory.add(AccountKeyFail);

@@ -1,4 +1,5 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
@@ -15,7 +16,7 @@ state_override_set = {
         }
 }
 
-sdk = OpenSDK(host)
-eth_response = sdk.eth.call(call_object, block_tag, state_override_set)
+w3 = Web3(Web3.HTTPProvider(host))
+eth_response = w3.eth.call(call_object, block_tag, state_override_set)
 
 print(eth_response)

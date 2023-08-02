@@ -37,6 +37,19 @@ public class TxTypeSmartContractDeploy extends AbstractTxType   {
         return new TxTypeSmartContractDeploy(type, nonce, gasPrice, gasLimit, value, from, payload, codeFormat);
     }
 
+    public TxTypeSmartContractDeploy(
+        long chainId, TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit,
+            BigInteger value, String from, byte[] payload, BigInteger codeFormat) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, "", value);
+        this.payload = payload;
+        this.codeFormat = codeFormat;
+    }
+
+    public static TxTypeSmartContractDeploy createTransaction(
+        long chainId, TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit,
+            BigInteger value, String from, byte[] payload, BigInteger codeFormat) {
+        return new TxTypeSmartContractDeploy(chainId, type, nonce, gasPrice, gasLimit, value, from, payload, codeFormat);
+    }
     public byte[] getPayload() {
         return payload;
     }

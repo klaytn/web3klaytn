@@ -30,6 +30,13 @@ public abstract class TxTypeFeeDelegate extends AbstractTxType {
         this.feePayer = EMPTY_FEE_PAYER_ADDRESS;
     }
 
+    public TxTypeFeeDelegate(long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit,
+        String from, String to, BigInteger value) {
+    super(chainId, type, nonce, gasPrice, gasLimit, from, to, value);
+    this.feePayerSignatureData = new HashSet<>();
+    this.feePayer = EMPTY_FEE_PAYER_ADDRESS;
+    }
+
     public Set<KlaySignatureData> getFeePayerSignatureData() {
         return feePayerSignatureData;
     }
@@ -121,7 +128,6 @@ public abstract class TxTypeFeeDelegate extends AbstractTxType {
      * @param chainId     chain ID
      * @return KlayRawTransaction this contains transaction hash and processed
      *         signature data
-     * @throws EmptyNonceException throw exception when nonce is null
      */
     @Override
     public KlayRawTransaction sign(KlayCredentials credentials, long chainId) {

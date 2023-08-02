@@ -1,7 +1,5 @@
 const ethers = require("ethers");
-const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
-const { verifyMessageAsKlaytnAccountKey } = require("../../dist/src/ethers/signer");
-const fs = require('fs');
+const { Wallet, verifyMessageAsKlaytnAccountKey } = require("@klaytn/ethers-ext");
 
 //
 // AccountKeyWeightedMultiSig Step 03 - sign verification  
@@ -13,40 +11,27 @@ const fs = require('fs');
 const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net');
 
 // the same address of sender in AccountKeyWeightedMultiSig_01_accountUpdate.js 
-const sender = '0x218e49acd85a1eb3e840eac0c9668e188c452e0c';
+const senderAddr = '0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e' 
+const senderNewPriv1 = '0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a'
+const senderNewPriv2 = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'
 
-
-async function doSignMessage( message, privateKey_path ) {
-  const updated_priv = fs.readFileSync( privateKey_path, 'utf8'); 
-  const wallet = new Wallet( updated_priv, provider );
-
-  const signature = await wallet.signMessage(message);
-
-  return {
-    message: message,
-    signature: signature,
-  };
-}
-
-async function doVerifyMessage ( obj ) {
-  return await verifyMessageAsKlaytnAccountKey( provider, sender, obj.message, obj.signature);
-}
 
 async function main() {
   const message = "Hello World"; 
 
-  const obj = await doSignMessage( message, './example/privateKey');
-  console.log( obj );
-  const obj2 = await doSignMessage( message, './example/privateKey2');
-  console.log( obj2 );
+  const wallet = new Wallet( senderNewPriv1, provider);
+  const signature = await wallet.signMessage(message);
+  console.log( signature );
 
-  const result = await doVerifyMessage( {
-    message: message, 
-    signature: [
-      obj.signature,
-      obj2.signature, 
-    ]
-  } ); 
+  const wallet2 = new Wallet( senderNewPriv2, provider );
+  const signature2 = await wallet2.signMessage(message);
+  console.log( signature2 );
+
+  const signatures = [
+    signature,
+    signature2, 
+  ];
+  const result = await verifyMessageAsKlaytnAccountKey( provider, senderAddr, message, signatures);
   console.log( "verification result:", result);
 }
 

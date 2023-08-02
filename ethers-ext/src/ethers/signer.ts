@@ -2,11 +2,14 @@ import { Wallet as EthersWallet } from "@ethersproject/wallet";
 import { Provider, TransactionRequest, TransactionResponse } from "@ethersproject/abstract-provider";
 import { Bytes, Deferrable, computeAddress, hashMessage, keccak256, recoverAddress, resolveProperties } from "ethers/lib/utils";
 import { JsonRpcProvider } from "@ethersproject/providers";
+import { ethers } from "ethers";
 import _ from "lodash";
 import { KlaytnTxFactory } from "../core";
 import { encodeTxForRPC } from "../core/klaytn_tx";
 import { HexStr } from "../core/util";
+
 import { SignatureLike } from "../core/sig";
+import { objectFromRLP } from "../core/klaytn_tx";
 
 // @ethersproject/abstract-signer/src.ts/index.ts:allowedTransactionKeys
 const ethersAllowedTransactionKeys: Array<string> = [
@@ -68,12 +71,9 @@ export class Wallet extends EthersWallet {
   constructor(address: any, privateKey?: any, provider?: Provider, dynamicUpdateWalletAPI: boolean=true ) {
     let str_addr = String(address); 
 
-    if ( HexStr.isHex(address) && str_addr.length == 42 && str_addr.startsWith("0x")) {
+    if ( HexStr.isHex(address) && (str_addr.length == 40 || str_addr.length == 42)) {
       super( privateKey, provider); 
-      this.klaytn_address = address; 
-    } else if ( HexStr.isHex(address) && str_addr.length == 40 && !str_addr.startsWith("0x")) {
-      super( privateKey, provider); 
-      this.klaytn_address = "0x" + address; 
+      this.klaytn_address = ethers.utils.getAddress(address); 
     } else {
       provider = privateKey; 
       privateKey = address;
@@ -118,9 +118,9 @@ export class Wallet extends EthersWallet {
     if ( this.klaytn_address == undefined )
       return false;
 
-    let A = String( await this.getAddress() ).toLocaleUpperCase();
-    let B = String( await this.getEtherAddress() ).toLocaleUpperCase();
-    return A.localeCompare( B.toString() ) != 0;
+    let addr = await this.getAddress();
+    let Eaddr = await this.getEtherAddress();
+    return addr != Eaddr;
   }
 
   checkTransaction(transaction: Deferrable<TransactionRequest>): Deferrable<TransactionRequest> {
@@ -179,8 +179,7 @@ export class Wallet extends EthersWallet {
         //   In ethers, no special logic to modify Gas
         //   In Metamask, multiply 1.5 to Gas for ensuring that the estimated gas is sufficient
         //   https://github.com/MetaMask/metamask-extension/blob/9d38e537fca4a61643743f6bf3409f20189eb8bb/ui/ducks/send/helpers.js#L115
-        tx.gasLimit = result*1.5;  
-        console.log('gasLimit', result)
+        tx.gasLimit = Math.ceil(result*1.5); 
       } else {
         throw new Error(`Klaytn transaction can only be populated from a Klaytn JSON-RPC server`);
       }
@@ -210,6 +209,10 @@ export class Wallet extends EthersWallet {
   //   return 0;
   // }
 
+  decodeTxFromRLP( str :string ): any {
+    return objectFromRLP( str );
+  }
+
   async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
     let tx: TransactionRequest = await resolveProperties(transaction);
 
@@ -236,7 +239,7 @@ export class Wallet extends EthersWallet {
     return ttx.txHashRLP();
   }
 
-  async signTransactionAsFeePayer(transaction: Deferrable<TransactionRequest> ): Promise<string> {
+  async signTransactionAsFeePayer(transaction: Deferrable<TransactionRequest>): Promise<string> {
     let tx: TransactionRequest = await resolveProperties(transaction);
 
     const ttx = KlaytnTxFactory.fromObject(tx);
@@ -273,14 +276,24 @@ export class Wallet extends EthersWallet {
     }
   }
 
-  async sendTransactionAsFeePayer(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
+  async sendTransactionAsFeePayer(transaction: Deferrable<TransactionRequest> | string): Promise<TransactionResponse> {
     this._checkProvider("sendTransactionAsFeePayer");
-    const tx = await this.populateTransaction(transaction);
-    const signedTx = await this.signTransactionAsFeePayer(tx);
 
-    if (!KlaytnTxFactory.has(tx.type)) {
-      return await this.provider.sendTransaction(signedTx);
+    let tx, ptx;
+    if ( typeof transaction === 'string') {
+      if ( HexStr.isHex(transaction) ) {
+        tx = this.decodeTxFromRLP( transaction ); 
+        ptx = await this.populateTransaction(tx);
+      } else {
+        throw new Error(`Input parameter has to be RLP encoded Hex string.`);
+      }
+    } else {
+      ptx = await this.populateTransaction(transaction);
     }
+
+    // @ts-ignore : we have to add feePayer property 
+    ptx.feePayer = await this.getAddress();
+    const signedTx = await this.signTransactionAsFeePayer(ptx);
 
     if (this.provider instanceof JsonRpcProvider) {
       // eth_sendRawTransaction cannot process Klaytn typed transactions.
@@ -298,22 +311,26 @@ export async function verifyMessageAsKlaytnAccountKey(provider: Provider, addres
     
     const klaytn_accountKey = await provider.send("klay_getAccountKey", [address, "latest"]);
 
-    if ( klaytn_accountKey.keyType == 2 ) {
+    if ( klaytn_accountKey.keyType == 1 ) {
+      // AccountKeyLegacy
+      return verifyMessageAsAccountKeyLegacy( provider, address, message, signature ); 
+      
+    } else if ( klaytn_accountKey.keyType == 2 ) {
       // AccountKeyPublic
-      return verifyMessageAsKlaytnAccountKeyPublic( provider, klaytn_accountKey, message, signature ); 
+      return verifyMessageAsAccountKeyPublic( provider, klaytn_accountKey, message, signature ); 
       
     } else if ( klaytn_accountKey.keyType == 4 ) {
       // AccountKeyWeightedMultiSig
-      return verifyMessageAsKlaytnAccountKeyWeightedMultiSig(provider, klaytn_accountKey, message, signature );
+      return verifyMessageAsAccountKeyWeightedMultiSig(provider, klaytn_accountKey, message, signature );
 
     } else if ( klaytn_accountKey.keyType == 5 ) {
       // AccountKeyRoleBased 
       const roleTransactionKey = klaytn_accountKey.key[0]; 
 
       if ( roleTransactionKey.keyType == 2 ) {
-        return verifyMessageAsKlaytnAccountKeyPublic( provider, roleTransactionKey, message, signature ); 
+        return verifyMessageAsAccountKeyPublic( provider, roleTransactionKey, message, signature ); 
       } else if ( roleTransactionKey.keyType == 4 ) {
-        return verifyMessageAsKlaytnAccountKeyWeightedMultiSig(provider, roleTransactionKey, message, signature );        
+        return verifyMessageAsAccountKeyWeightedMultiSig(provider, roleTransactionKey, message, signature );        
       }
     }
   } else {
@@ -323,7 +340,28 @@ export async function verifyMessageAsKlaytnAccountKey(provider: Provider, addres
   return false; 
 }
 
-function verifyMessageAsKlaytnAccountKeyPublic( provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
+function verifyMessageAsAccountKeyLegacy( provider: Provider, address: string, message: Bytes | string, signature: any): boolean {
+  if ( Array.isArray(signature) && !signature[0] ) {
+    throw new Error(`Needs a signature as a parameter like [sig] or sig`);
+  } else if ( Array.isArray(signature) && !!signature[0]) {
+    signature = signature[0]; 
+  }
+
+  const actual_signer_addr = recoverAddress(hashMessage(message), signature);
+
+  if ( actual_signer_addr == ethers.utils.getAddress(address) ) {
+    return true; 
+  }
+  return false; 
+}
+
+function verifyMessageAsAccountKeyPublic( provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
+  if ( Array.isArray(signature) && !signature[0] ) {
+    throw new Error(`Needs a signature as a parameter like [sig] or sig`);
+  } else if ( Array.isArray(signature) && !!signature[0]) {
+    signature = signature[0]; 
+  }
+
   const actual_signer_addr = recoverAddress(hashMessage(message), signature);
 
   const x = String(klaytn_accountKey.key.x).substring(2);
@@ -336,9 +374,10 @@ function verifyMessageAsKlaytnAccountKeyPublic( provider: Provider, klaytn_accou
   return false; 
 }
 
-function verifyMessageAsKlaytnAccountKeyWeightedMultiSig( provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
-  if ( !Array.isArray(signature) )
-  throw new Error(`This account needs multi-signature [ sig1, sig2 ... sigN ]`);
+function verifyMessageAsAccountKeyWeightedMultiSig( provider: Provider, klaytn_accountKey: any, message: Bytes | string, signature: any): boolean {
+  if ( !Array.isArray(signature) ) {
+    throw new Error(`This account needs multi-signature [ sig1, sig2 ... sigN ]`);
+  }
 
   const threshold = klaytn_accountKey.key.threshold;
   let current_threshold = 0; 

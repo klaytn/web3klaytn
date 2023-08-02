@@ -1,6 +1,5 @@
 const ethers = require("ethers");
-const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
-const fs = require('fs');
+const { Wallet, TxType, AccountKeyType } = require("@klaytn/ethers-ext");
 
 //
 // AccountKeyPublic Step 01 - account update
@@ -9,24 +8,22 @@ const fs = require('fs');
 
 // create a new account for testing 
 // https://baobab.wallet.klaytn.foundation/ 
-const sender_priv = '0xef4a1f765223384ba69a240dc7ac2baed1d484e97206f2cb7c198257c59e11b1' 
-const sender = '0x1173d5dc7b5e1e07d857d74e962b6ed7d4234a92' 
-
-// newly updating private key for sender
-const new_priv = fs.readFileSync('./example/privateKey', 'utf8') 
+const senderAddr = '0xe15cd70a41dfb05e7214004d7d054801b2a2f06b' 
+const senderPriv = '0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac' 
+const senderNewPriv = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8' 
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net');
-  const wallet = new Wallet( sender_priv, provider );
+  const wallet = new Wallet( senderPriv, provider );
 
-  let new_key = new ethers.utils.SigningKey( new_priv ).compressedPublicKey; 
+  let senderNewPub = new ethers.utils.SigningKey( senderNewPriv ).compressedPublicKey; 
 
   let tx = {
-        type: 0x20,   // TxTypeAccountUpdate
-        from: sender,
+        type: TxType.AccountUpdate,
+        from: senderAddr,
         key: {
-            type: 0x02,  // AccountKeyPublic
-            key: new_key,
+            type: AccountKeyType.Public,
+            key: senderNewPub,
         }
     };
   

@@ -1,40 +1,42 @@
 const ethers = require("ethers");
-const { Accounts } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
-const fs = require('fs');
+const { Accounts } = require("@klaytn/ethers-ext");
 
 //
 // Accounts example
 // 
 
-const priv = fs.readFileSync('./example/privateKey', 'utf8') 
-const priv2 = fs.readFileSync('./example/privateKey2', 'utf8') 
-const priv3 = fs.readFileSync('./example/privateKey3', 'utf8') 
-
 async function main() {
-  let accounts = new Accounts([
-    [priv],
-    ['0x1173d5dc7b5e1e07d857d74e962b6ed7d4234a92', priv], 
-    ['0xe81d480b3e90f11f82b35f3fED1400dcc79cf1B5', priv2]
+  const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net');
+
+  let accounts = new Accounts( provider, [
+    ['0xA2a8854b1802D8Cd5De631E690817c253d6a9153', '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'],
+    ['0xCb0eb737dfda52756495A5e08A9b37AAB3b271dA', '0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16fc000cff4'],
+    ['0xe15Cd70A41dfb05e7214004d7D054801b2a2f06b', '0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac'],
+    ['0xe15cd70a41dfb05e7214004d7d054801b2a2f06b', '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'],
+    ['0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e', '0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a']
   ]); 
-  
-  console.log( accounts );
 
-  console.log( await accounts.add( ['0x669b3C8DC78FC785792469dD109314b36879EaFc', priv3] )) ; // true 
-  console.log( await accounts.add( ['0x669b3C8DC78FC785792469dD109314b36879EaFc', priv3] )) ; // false (already exist)
-
-  console.log( accounts );
-
-  console.log( await accounts.remove( ['0x669b3C8DC78FC785792469dD109314b36879EaFc', priv3] )) ; // true 
-  console.log( await accounts.remove( ['0x669b3C8DC78FC785792469dD109314b36879EaFc', priv3] )) ; // false (already delete)
+  console.log( await accounts.add( 
+    ['0x5bd2fb3c21564c023a4a735935a2b7a238c4ccea', '0x9ba8cb8f60044058a9e6f815c5c42d3a216f47044c61a1750b6d29ddc7f34bda'])) ; // true 
+  console.log( await accounts.add( 
+    ['0x5bd2fb3c21564c023a4a735935a2b7a238c4ccea', '0x9ba8cb8f60044058a9e6f815c5c42d3a216f47044c61a1750b6d29ddc7f34bda'])) ; // false (already exist)
 
   console.log( accounts );
 
+  console.log( await accounts.remove( 
+    ['0x5bd2fb3c21564c023a4a735935a2b7a238c4ccea', '0x9ba8cb8f60044058a9e6f815c5c42d3a216f47044c61a1750b6d29ddc7f34bda'])) ; // true
+  console.log( await accounts.remove( 
+    ['0x5bd2fb3c21564c023a4a735935a2b7a238c4ccea', '0x9ba8cb8f60044058a9e6f815c5c42d3a216f47044c61a1750b6d29ddc7f34bda'])) ; // false (already exist)
+  console.log( await accounts.add( 
+    ['0x5bd2fb3c21564c023a4a735935a2b7a238c4ccea', '0x9ba8cb8f60044058a9e6f815c5c42d3a216f47044c61a1750b6d29ddc7f34bda'])) ; // true
+
+  let priv = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'; 
   console.log( accounts.accountByKey( priv ).length ) ; // 2 
-  console.log( accounts.accountByKey( priv )[0].getAddress() ) ; // '0x3208ca99480f82bfe240ca6bc06110cd12bb6366'
-  console.log( accounts.accountByKey( priv )[1].getAddress() ) ; // '0x1173d5dc7b5e1e07d857d74e962b6ed7d4234a92'
+  console.log( accounts.accountByKey( priv )[0].getAddress() ) ; // '0xA2a8854b1802D8Cd5De631E690817c253d6a9153'
+  console.log( accounts.accountByKey( priv )[1].getAddress() ) ; // '0xe15cd70a41dfb05e7214004d7d054801b2a2f06b'
 
-  let wallets = await accounts.accountByAddress( '0x3208ca99480f82bfe240ca6bc06110cd12bb6366' );
-  console.log( wallets[0].getAddress() );  // '0x3208ca99480f82bfe240ca6bc06110cd12bb6366'
+  let wallets = await accounts.accountByAddress( '0xe15cd70a41dfb05e7214004d7d054801b2a2f06b' );
+  console.log( wallets[0].getAddress() );  // '0xe15cd70a41dfb05e7214004d7d054801b2a2f06b'
 }
 
 main();

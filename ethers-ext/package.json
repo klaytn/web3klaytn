@@ -1,7 +1,7 @@
 {
-  "name": "ethers-klaytn",
-  "version": "0.0.1",
-  "main": "index.js",
+  "name": "@klaytn/ethers-ext",
+  "version": "0.9.1-beta",
+  "main": "dist/src/index.js",
   "files": [
     "./dist",
     "./src"
@@ -26,6 +26,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "@klaytn/web3rpc": "^0.9.0"
   }
 }

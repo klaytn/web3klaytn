@@ -23,6 +23,16 @@ public class TxTypeFeeDelegatedCancel extends TxTypeFeeDelegate {
         return new TxTypeFeeDelegatedCancel(type, nonce, gasPrice, gasLimit, from);
     }
 
+    protected TxTypeFeeDelegatedCancel(
+        long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, "", BigInteger.ZERO);
+    }
+
+    public static TxTypeFeeDelegatedCancel createTransaction(
+        long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from) {
+        return new TxTypeFeeDelegatedCancel(chainId, type, nonce, gasPrice, gasLimit, from);
+    }
+
     /**
      * create RlpType List which contains nonce, gas price, gas limit and from.
      * List elements can be different depending on transaction type.

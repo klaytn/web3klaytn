@@ -1,7 +1,5 @@
 const ethers = require("ethers");
-const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
-const { RLP, HexStr } = require("../../dist/src/core/util")
-const fs = require('fs');
+const { Wallet, TxType, AccountKeyType } = require("@klaytn/ethers-ext");
 
 // 
 // AccountKeyRoleBased Step 01 - account update
@@ -12,64 +10,47 @@ const fs = require('fs');
 //   create a new account for testing 
 //   https://baobab.wallet.klaytn.foundation/ 
 //
-
-const sender_priv = '0x3656ff020a8bdb90c991f571eb5615b4ee5d675a729b0f48c756fa980b0da71e' 
-const sender = '0x9b4284806060423079e612203c22e8cb48b9870e' 
-
-
-// returns multiple public keys for updating sender's accountKey 
-function getPubkey() {
-  const new_priv = fs.readFileSync('./example/privateKey', 'utf8'); 
-  return new ethers.utils.SigningKey( new_priv ).compressedPublicKey;   
-}
-function getPubkey2(){
-  const new_priv2 = fs.readFileSync('./example/privateKey2', 'utf8');
-  return new ethers.utils.SigningKey( new_priv2 ).compressedPublicKey;  
-}
-function getPubkey3(){
-  const new_priv3 = fs.readFileSync('./example/privateKey3', 'utf8');
-  return new ethers.utils.SigningKey( new_priv3 ).compressedPublicKey;  
-}
-
+const senderAddr = '0x5bd2fb3c21564c023a4a735935a2b7a238c4ccea' 
+const senderPriv = '0x9ba8cb8f60044058a9e6f815c5c42d3a216f47044c61a1750b6d29ddc7f34bda' 
+const senderRoleTransactionPriv = '0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac'
+const senderRoleAccountUpdatePriv = '0x9ba8cb8f60044058a9e6f815c5c42d3a216f47044c61a1750b6d29ddc7f34bda'
+const senderRoleFeePayerPriv = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net');
-  const wallet = new Wallet( sender_priv, provider );
+  const wallet = new Wallet( senderPriv, provider );
 
-  let new_key = getPubkey(); 
-  console.log('1', new_key);
-  let new_key2 = getPubkey2(); 
-  console.log('2', new_key2);
-  let new_key3 = getPubkey3(); 
-  console.log('3', new_key3);
+  let pub1 = new ethers.utils.SigningKey( senderRoleTransactionPriv ).compressedPublicKey; 
+  let pub2 = new ethers.utils.SigningKey( senderRoleAccountUpdatePriv ).compressedPublicKey; 
+  let pub3 = new ethers.utils.SigningKey( senderRoleFeePayerPriv ).compressedPublicKey;
+
+  console.log('1', pub1);
+  console.log('2', pub2);
+  console.log('3', pub3);
 
   let tx = {
-        type: 0x20,   // TxTypeAccountUpdate
-        from: sender,
+        type: TxType.AccountUpdate, 
+        from: senderAddr,
         gasLimit: 1000000, 
         key: {
-          type: 0x05,   // AccountKeyRoleBased
+          type: AccountKeyType.RoleBased,
           keys: [
             // RoleTransaction
-            [
-              2,   
-              [
-                [ 1, new_key, ],
-                [ 1, new_key2 ],
-                [ 1, new_key3 ]
-              ]
-            ],
+            {
+              type: AccountKeyType.Public,  
+              key: pub1,            
+            },
             
             // RoleAccountUpdate
             {
-              type: 0x02,  
-              key: new_key,
+              type: AccountKeyType.Public,  
+              key: pub2,
             },
             
             // RoleFeePayer
             {
-              type: 0x02,  
-              key: new_key,
+              type: AccountKeyType.Public,  
+              key: pub3,
             } 
           ]
         }

@@ -1,0 +1,503 @@
+openapi: "3.0.2"
+info:
+  title: web3rpc
+  version: "0.9.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+#  - name: eth
+#    description: namespace
+  - name: klay
+    description: namespace
+  - name: txpool
+    description: namespace
+  - name: governance
+    description: namespace
+  - name: net
+    description: namespace
+  - name: admin
+    description: namespace
+  - name: personal
+    description: namespace
+  - name: debug
+    description: namespace
+  - name: mainbridge
+    description: namespace
+  - name: subbridge
+    description: namespace
+servers:
+  - url: http://localhost:8551
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+  # klay/account
+  /klay/account/accountCreated:
+    $ref: ../klay/account/accountCreated.yaml#/paths/~1klay~1accountCreated
+  /klay/account/accounts:
+    $ref: ../klay/account/accounts.yaml#/paths/~1klay~1accounts
+  /klay/account/decodeAccountKey:
+    $ref: ../klay/account/decodeAccountKey.yaml#/paths/~1klay~1decodeAccountKey
+  /klay/account/encodeAccountKey:
+    $ref: ../klay/account/encodeAccountKey.yaml#/paths/~1klay~1encodeAccountKey
+  /klay/account/getAccount:
+    $ref: ../klay/account/getAccount.yaml#/paths/~1klay~1getAccount
+  /klay/account/getAccountKey:
+    $ref: ../klay/account/getAccountKey.yaml#/paths/~1klay~1getAccountKey
+  /klay/account/getBalance:
+    $ref: ../klay/account/getBalance.yaml#/paths/~1klay~1getBalance
+  /klay/account/getCode:
+    $ref: ../klay/account/getCode.yaml#/paths/~1klay~1getCode
+  /klay/account/getTransactionCount:
+    $ref: ../klay/account/getTransactionCount.yaml#/paths/~1klay~1getTransactionCount
+  /klay/account/isContractAccount:
+    $ref: ../klay/account/isContractAccount.yaml#/paths/~1klay~1isContractAccount
+  /klay/account/sign:
+    $ref: ../klay/account/sign.yaml#/paths/~1klay~1sign
+
+  # klay/block
+  /klay/block/blockNumber:
+    $ref: ../klay/block/blockNumber.yaml#/paths/~1klay~1blockNumber
+  /klay/block/getBlockByHash:
+    $ref: ../klay/block/getBlockByHash.yaml#/paths/~1klay~1getBlockByHash
+  /klay/block/getBlockByNumber:
+    $ref: ../klay/block/getBlockByNumber.yaml#/paths/~1klay~1getBlockByNumber
+  /klay/block/getBlockReceipts:
+    $ref: ../klay/block/getBlockReceipts.yaml#/paths/~1klay~1getBlockReceipts
+  /klay/block/getBlockTransactionCountByHash:
+    $ref: ../klay/block/getBlockTransactionCountByHash.yaml#/paths/~1klay~1getBlockTransactionCountByHash
+  /klay/block/getBlockTransactionCountByNumber:
+    $ref: ../klay/block/getBlockTransactionCountByNumber.yaml#/paths/~1klay~1getBlockTransactionCountByNumber
+  /klay/block/getBlockWithConsensusInfoByHash:
+    $ref: ../klay/block/getBlockWithConsensusInfoByHash.yaml#/paths/~1klay~1getBlockWithConsensusInfoByHash
+  /klay/block/getBlockWithConsensusInfoByNumber:
+    $ref: ../klay/block/getBlockWithConsensusInfoByNumber.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumber
+  /klay/block/getBlockWithConsensusInfoByNumberRange:
+    $ref: ../klay/block/getBlockWithConsensusInfoByNumberRange.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumberRange
+  /klay/block/getCommittee:
+    $ref: ../klay/block/getCommittee.yaml#/paths/~1klay~1getCommittee
+  /klay/block/getCommitteeSize:
+    $ref: ../klay/block/getCommitteeSize.yaml#/paths/~1klay~1getCommitteeSize
+  /klay/block/getCouncil:
+    $ref: ../klay/block/getCouncil.yaml#/paths/~1klay~1getCouncil
+  /klay/block/getCouncilSize:
+    $ref: ../klay/block/getCouncilSize.yaml#/paths/~1klay~1getCouncilSize
+  /klay/block/getHeaderByHash:
+    $ref: ../klay/block/getHeaderByHash.yaml#/paths/~1klay~1getHeaderByHash
+  /klay/block/getHeaderByNumber:
+    $ref: ../klay/block/getHeaderByNumber.yaml#/paths/~1klay~1getHeaderByNumber
+  /klay/block/getRewards:
+    $ref: ../klay/block/getRewards.yaml#/paths/~1klay~1getRewards
+  /klay/block/getStorageAt:
+    $ref: ../klay/block/getStorageAt.yaml#/paths/~1klay~1getStorageAt
+  /klay/block/syncing:
+    $ref: ../klay/block/syncing.yaml#/paths/~1klay~1syncing
+
+  # klay/transaction
+  /klay/createAccessList:
+    $ref: ../klay/transaction/createAccessList.yaml#/paths/~1klay~1createAccessList
+  /klay/getRawTransactionByBlockHashAndIndex:
+    $ref: ../klay/transaction/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockHashAndIndex
+  /klay/getRawTransactionByBlockNumberAndIndex:
+    $ref: ../klay/transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockNumberAndIndex
+  /klay/getRawTransactionByHash:
+    $ref: ../klay/transaction/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
+  /klay/resend:
+    $ref: ../klay/transaction/resend.yaml#/paths/~1klay~1resend
+  /klay/transaction/call:
+    $ref: ../klay/transaction/call.yaml#/paths/~1klay~1call
+  /klay/transaction/estimateComputationCost:
+    $ref: ../klay/transaction/estimateComputationCost.yaml#/paths/~1klay~1estimateComputationCost
+  /klay/transaction/estimateGas:
+    $ref: ../klay/transaction/estimateGas.yaml#/paths/~1klay~1estimateGas
+  /klay/transaction/getDecodedAnchoringTransactionByHash:
+    $ref: ../klay/transaction/getDecodedAnchoringTransactionByHash.yaml#/paths/~1klay~1getDecodedAnchoringTransactionByHash
+  /klay/transaction/getTransactionByBlockHashAndIndex:
+    $ref: ../klay/transaction/getTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getTransactionByBlockHashAndIndex
+  /klay/transaction/getTransactionByBlockNumberAndIndex:
+    $ref: ../klay/transaction/getTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getTransactionByBlockNumberAndIndex
+  /klay/transaction/getTransactionByHash:
+    $ref: ../klay/transaction/getTransactionByHash.yaml#/paths/~1klay~1getTransactionByHash
+  /klay/transaction/getTransactionBySenderTxHash:
+    $ref: ../klay/transaction/getTransactionBySenderTxHash.yaml#/paths/~1klay~1getTransactionBySenderTxHash
+  /klay/transaction/getTransactionReceipt:
+    $ref: ../klay/transaction/getTransactionReceipt.yaml#/paths/~1klay~1getTransactionReceipt
+  /klay/transaction/getTransactionReceiptBySenderTxHash:
+    $ref: ../klay/transaction/getTransactionReceiptBySenderTxHash.yaml#/paths/~1klay~1getTransactionReceiptBySenderTxHash
+  /klay/transaction/pendingTransactions:
+    $ref: ../klay/transaction/pendingTransactions.yaml#/paths/~1klay~1pendingTransactions
+  /klay/transaction/sendRawTransaction:
+    $ref: ../klay/transaction/sendRawTransaction.yaml#/paths/~1klay~1sendRawTransaction
+  /klay/transaction/sendTransaction:
+    $ref: ../klay/transaction/sendTransaction.yaml#/paths/~1klay~1sendTransaction
+  /klay/transaction/sendTransactionAsFeePayer:
+    $ref: ../klay/transaction/sendTransactionAsFeePayer.yaml#/paths/~1klay~1sendTransactionAsFeePayer
+  /klay/transaction/signTransaction:
+    $ref: ../klay/transaction/signTransaction.yaml#/paths/~1klay~1signTransaction
+  /klay/transaction/signTransactionAsFeePayer:
+    $ref: ../klay/transaction/signTransactionAsFeePayer.yaml#/paths/~1klay~1signTransactionAsFeePayer
+
+  # klay/configuration
+  /klay/configuration/chainID:
+    $ref: ../klay/configuration/chainID.yaml#/paths/~1klay~1chainID
+  /klay/configuration/clientVersion:
+    $ref: ../klay/configuration/clientVersion.yaml#/paths/~1klay~1clientVersion
+  /klay/configuration/gasPrice:
+    $ref: ../klay/configuration/gasPrice.yaml#/paths/~1klay~1gasPrice
+  /klay/configuration/gasPriceAt:
+    $ref: ../klay/configuration/gasPriceAt.yaml#/paths/~1klay~1gasPriceAt
+  /klay/configuration/getChainConfig:
+    $ref: ../klay/configuration/getChainConfig.yaml#/paths/~1klay~1getChainConfig
+  /klay/configuration/isParallelDBWrite:
+    $ref: ../klay/configuration/isParallelDBWrite.yaml#/paths/~1klay~1isParallelDBWrite
+  /klay/configuration/isSenderTxHashIndexingEnabled:
+    $ref: ../klay/configuration/isSenderTxHashIndexingEnabled.yaml#/paths/~1klay~1isSenderTxHashIndexingEnabled
+  /klay/configuration/protocolVersion:
+    $ref: ../klay/configuration/protocolVersion.yaml#/paths/~1klay~1protocolVersion
+  /klay/configuration/rewardbase:
+    $ref: ../klay/configuration/rewardBase.yaml#/paths/~1klay~1rewardbase
+
+  # klay/filter
+  /klay/filter/getFilterChanges:
+    $ref: ../klay/filter/getFilterChanges.yaml#/paths/~1klay~1getFilterChanges
+  /klay/filter/getFilterLogs:
+    $ref: ../klay/filter/getFilterLogs.yaml#/paths/~1klay~1getFilterLogs
+  /klay/filter/getLogs:
+    $ref: ../klay/filter/getLogs.yaml#/paths/~1klay~1getLogs
+  /klay/filter/newBlockFilter:
+    $ref: ../klay/filter/newBlockFilter.yaml#/paths/~1klay~1newBlockFilter
+  /klay/filter/newFilter:
+    $ref: ../klay/filter/newFilter.yaml#/paths/~1klay~1newFilter
+  /klay/filter/newPendingTransactionFilter:
+    $ref: ../klay/filter/newPendingTransactionFilter.yaml#/paths/~1klay~1newPendingTransactionFilter
+  /klay/filter/subscribe:
+    $ref: ../klay/filter/subscribe.yaml#/paths/~1klay~1subscribe
+  /klay/filter/uninstallFilter:
+    $ref: ../klay/filter/uninstallFilter.yaml#/paths/~1klay~1uninstallFilter
+  /klay/filter/unsubscribe:
+    $ref: ../klay/filter/unsubscribe.yaml#/paths/~1klay~1unsubscribe
+
+  # klay/gas
+  /klay/gas/feeHistory:
+    $ref: ../klay/gas/feeHistory.yaml#/paths/~1klay~1feeHistory
+  /klay/gas/lowerBoundGasPrice:
+    $ref: ../klay/gas/lowerBoundGasPrice.yaml#/paths/~1klay~1lowerBoundGasPrice
+  /klay/gas/maxPriorityFeePerGas:
+    $ref: ../klay/gas/maxPriorityFeePerGas.yaml#/paths/~1klay~1maxPriorityFeePerGas
+  /klay/gas/upperBoundGasPrice:
+    $ref: ../klay/gas/upperBoundGasPrice.yaml#/paths/~1klay~1upperBoundGasPrice
+
+  # klay/miscellaneous
+  /klay/getStakingInfo:
+    $ref: ../klay/miscellaneous/getStakingInfo.yaml#/paths/~1klay~1getStakingInfo
+  /klay/miscellaneous/sha3:
+    $ref: ../klay/miscellaneous/sha3.yaml#/paths/~1klay~1sha3
+  /klay/nodeAddress:
+    $ref: ../klay/miscellaneous/nodeAddress.yaml#/paths/~1klay~1nodeAddress
+
+  # net
+  /net/listening:
+    $ref: ../net/listening.yaml#/paths/~1net~1listening
+  /net/networkID:
+    $ref: ../net/networkID.yaml#/paths/~1net~1networkID
+  /net/peerCount:
+    $ref: ../net/peerCount.yaml#/paths/~1net~1peerCount
+  /net/peerCountByType:
+    $ref: ../net/peerCountByType.yaml#/paths/~1net~1peerCountByType
+  /net/version:
+    $ref: ../net/version.yaml#/paths/~1net~1version
+
+  # txpool
+  /txpool/content:
+    $ref: ../txpool/content.yaml#/paths/~1txpool~1content
+  /txpool/inspect:
+    $ref: ../txpool/inspect.yaml#/paths/~1txpool~1inspect
+  /txpool/status:
+    $ref: ../txpool/status.yaml#/paths/~1txpool~1status
+
+  # personal
+  /personal/deriveAccount:
+    $ref: ../personal/deriveAccount.yaml#/paths/~1personal~1deriveAccount
+  /personal/ecRecover:
+    $ref: ../personal/ecRecover.yaml#/paths/~1personal~1ecRecover
+  /personal/importRawKey:
+    $ref: ../personal/importRawKey.yaml#/paths/~1personal~1importRawKey
+  /personal/listAccounts:
+    $ref: ../personal/listAccounts.yaml#/paths/~1personal~1listAccounts
+  /personal/listWallets:
+    $ref: ../personal/listWallets.yaml#/paths/~1personal~1listWallets
+  /personal/lockAccount:
+    $ref: ../personal/lockAccount.yaml#/paths/~1personal~1lockAccount
+  /personal/newAccount:
+    $ref: ../personal/newAccount.yaml#/paths/~1personal~1newAccount
+  /personal/openWallet:
+    $ref: ../personal/openWallet.yaml#/paths/~1personal~1openWallet
+  /personal/replaceRawKey:
+    $ref: ../personal/replaceRawKey.yaml#/paths/~1personal~1replaceRawKey
+  /personal/sendAccountUpdate:
+    $ref: ../personal/sendAccountUpdate.yaml#/paths/~1personal~1sendAccountUpdate
+  # /personal/sendTransaction:
+  #   $ref: ../personal/sendTransaction.yaml#/paths/~1personal~1sendTransaction
+  /personal/sendValueTransfer:
+    $ref: ../personal/sendValueTransfer.yaml#/paths/~1personal~1sendValueTransfer
+  # /personal/sign:
+  #   $ref: ../personal/sign.yaml#/paths/~1personal~1sign
+  # /personal/signTransaction:
+  #   $ref: ../personal/signTransaction.yaml#/paths/~1personal~1signTransaction
+  /personal/unlockAccount:
+    $ref: ../personal/unlockAccount.yaml#/paths/~1personal~1unlockAccount
+
+  # debug/logging:
+  /debug/logging/backtraceAt:
+    $ref: ../debug/logging/backtraceAt.yaml#/paths/~1debug~1backtraceAt
+  /debug/logging/setVMLogTarget:
+    $ref: ../debug/logging/setVMLogTarget.yaml#/paths/~1debug~1setVMLogTarget
+  /debug/logging/verbosity:
+    $ref: ../debug/logging/verbosity.yaml#/paths/~1debug~1verbosity
+  /debug/logging/verbosityByID:
+    $ref: ../debug/logging/verbosityByID.yaml#/paths/~1debug~1verbosityByID
+  /debug/logging/verbosityByName:
+    $ref: ../debug/logging/verbosityByName.yaml#/paths/~1debug~1verbosityByName
+  /debug/logging/vmodule:
+    $ref: ../debug/logging/vmodule.yaml#/paths/~1debug~1vmodule
+
+  # debug/blockchainInspection:
+  /debug/blockchainInspection/dumpBlock:
+    $ref: ../debug/blockchainInspection/dumpBlock.yaml#/paths/~1debug~1dumpBlock
+  /debug/blockchainInspection/dumpStateTrie:
+    $ref: ../debug/blockchainInspection/dumpStateTrie.yaml#/paths/~1debug~1dumpStateTrie
+  /debug/blockchainInspection/getBadBlocks:
+    $ref: ../debug/blockchainInspection/getBadBlocks.yaml#/paths/~1debug~1getBadBlocks
+  /debug/blockchainInspection/getBlockRlp:
+    $ref: ../debug/blockchainInspection/getBlockRlp.yaml#/paths/~1debug~1getBlockRlp
+  /debug/blockchainInspection/getModifiedAccountsByHash:
+    $ref: ../debug/blockchainInspection/getModifiedAccountsByHash.yaml#/paths/~1debug~1getModifiedAccountsByHash
+  /debug/blockchainInspection/getModifiedAccountsByNumber:
+    $ref: ../debug/blockchainInspection/getModifiedAccountsByNumber.yaml#/paths/~1debug~1getModifiedAccountsByNumber
+  /debug/blockchainInspection/preimage:
+    $ref: ../debug/blockchainInspection/preimage.yaml#/paths/~1debug~1preimage
+  /debug/blockchainInspection/printBlock:
+    $ref: ../debug/blockchainInspection/printBlock.yaml#/paths/~1debug~1printBlock
+  /debug/blockchainInspection/setHead:
+    $ref: ../debug/blockchainInspection/setHead.yaml#/paths/~1debug~1setHead
+  /debug/blockchainInspection/startCollectingTrieStats:
+    $ref: ../debug/blockchainInspection/startCollectingTrieStats.yaml#/paths/~1debug~1startCollectingTrieStats
+  /debug/blockchainInspection/startContractWarmUp:
+    $ref: ../debug/blockchainInspection/startContractWarmUp.yaml#/paths/~1debug~1startContractWarmUp
+  /debug/blockchainInspection/startWarmUp:
+    $ref: ../debug/blockchainInspection/startWarmUp.yaml#/paths/~1debug~1startWarmUp
+  /debug/blockchainInspection/stopWarmUp:
+    $ref: ../debug/blockchainInspection/stopWarmUp.yaml#/paths/~1debug~1stopWarmUp
+  /debug/chaindbCompact:
+    $ref: ../debug/others/chaindbCompact.yaml#/paths/~1debug~1chaindbCompact
+  /debug/chaindbProperty:
+    $ref: ../debug/others/chaindbProperty.yaml#/paths/~1debug~1chaindbProperty
+  /debug/getModifiedStorageNodesByNumber:
+    $ref: ../debug/others/getModifiedStorageNodesByNumber.yaml#/paths/~1debug~1getModifiedStorageNodesByNumber
+  /debug/seedHash:
+    $ref: ../debug/others/seedHash.yaml#/paths/~1debug~1seedHash
+  /debug/storageRangeAt:
+    $ref: ../debug/others/storageRangeAt.yaml#/paths/~1debug~1storageRangeAt
+
+  # debug/vMTracing:
+  /debug/vMTracing/traceBadBlock:
+    $ref: ../debug/vMTracing/traceBadBlock.yaml#/paths/~1debug~1traceBadBlock
+  /debug/vMTracing/traceBlock:
+    $ref: ../debug/vMTracing/traceBlock.yaml#/paths/~1debug~1traceBlock
+  /debug/vMTracing/traceBlockByHash:
+    $ref: ../debug/vMTracing/traceBlockByHash.yaml#/paths/~1debug~1traceBlockByHash
+  /debug/vMTracing/traceBlockByNumber:
+    $ref: ../debug/vMTracing/traceBlockByNumber.yaml#/paths/~1debug~1traceBlockByNumber
+  /debug/vMTracing/traceBlockByNumberRange:
+    $ref: ../debug/vMTracing/traceBlockByNumberRange.yaml#/paths/~1debug~1traceBlockByNumberRange
+  /debug/vMTracing/traceBlockFromFile:
+    $ref: ../debug/vMTracing/traceBlockFromFile.yaml#/paths/~1debug~1traceBlockFromFile
+  /debug/vMTracing/traceChain:
+    $ref: ../debug/vMTracing/traceChain.yaml#/paths/~1debug~1traceChain
+  /debug/vMTracing/traceTransaction:
+    $ref: ../debug/vMTracing/traceTransaction.yaml#/paths/~1debug~1traceTransaction
+
+  # debug/vMStandardTracing:
+  /debug/vMStandardTracing/standardTraceBadBlockToFile:
+    $ref: ../debug/vMStandardTracing/standardTraceBadBlockToFile.yaml#/paths/~1debug~1standardTraceBadBlockToFile
+  /debug/vMStandardTracing/standardTraceBlockToFile:
+    $ref: ../debug/vMStandardTracing/standardTraceBlockToFile.yaml#/paths/~1debug~1standardTraceBlockToFile
+
+  # debug/profiling:
+  /debug/profiling/isPProfRunning:
+    $ref: ../debug/profiling/isPProfRunning.yaml#/paths/~1debug~1isPProfRunning
+  /debug/profiling/startPProf:
+    $ref: ../debug/profiling/startPProf.yaml#/paths/~1debug~1startPProf
+  /debug/profiling/stopPProf:
+    $ref: ../debug/profiling/stopPProf.yaml#/paths/~1debug~1stopPProf
+  /debug/setMutexProfileFraction:
+    $ref: ../debug/others/setMutexProfileFraction.yaml#/paths/~1debug~1setMutexProfileFraction
+
+  # debug/runtimeDebugging:
+  /debug/runtimeDebugging/freeOSMemory:
+    $ref: ../debug/runtimeDebugging/freeOSMemory.yaml#/paths/~1debug~1freeOSMemory
+  /debug/runtimeDebugging/gcStats:
+    $ref: ../debug/runtimeDebugging/gcStats.yaml#/paths/~1debug~1gcStats
+  /debug/runtimeDebugging/memStats:
+    $ref: ../debug/runtimeDebugging/memStats.yaml#/paths/~1debug~1memStats
+  /debug/runtimeDebugging/metrics:
+    $ref: ../debug/runtimeDebugging/metrics.yaml#/paths/~1debug~1metrics
+  /debug/runtimeDebugging/setGCPercent:
+    $ref: ../debug/runtimeDebugging/setGCPercent.yaml#/paths/~1debug~1setGCPercent
+  /debug/runtimeDebugging/stacks:
+    $ref: ../debug/runtimeDebugging/stacks.yaml#/paths/~1debug~1stacks
+
+  # debug/profiling:
+  /debug/profiling/blockProfile:
+    $ref: ../debug/profiling/blockProfile.yaml#/paths/~1debug~1blockProfile
+  /debug/profiling/cpuProfile:
+    $ref: ../debug/profiling/cpuProfile.yaml#/paths/~1debug~1cpuProfile
+  /debug/profiling/mutexProfile:
+    $ref: ../debug/profiling/mutexProfile.yaml#/paths/~1debug~1mutexProfile
+  /debug/profiling/setBlockProfileRate:
+    $ref: ../debug/profiling/setBlockProfileRate.yaml#/paths/~1debug~1setBlockProfileRate
+  /debug/profiling/startCPUProfile:
+    $ref: ../debug/profiling/startCPUProfile.yaml#/paths/~1debug~1startCPUProfile
+  /debug/profiling/stopCPUProfile:
+    $ref: ../debug/profiling/stopCPUProfile.yaml#/paths/~1debug~1stopCPUProfile
+  /debug/profiling/writeBlockProfile:
+    $ref: ../debug/profiling/writeBlockProfile.yaml#/paths/~1debug~1writeBlockProfile
+  /debug/profiling/writeMemProfile:
+    $ref: ../debug/profiling/writeMemProfile.yaml#/paths/~1debug~1writeMemProfile
+  /debug/profiling/writeMutexProfile:
+    $ref: ../debug/profiling/writeMutexProfile.yaml#/paths/~1debug~1writeMutexProfile
+
+  # debug/runtimeTracing:
+  /debug/runtimeTracing/goTrace:
+    $ref: ../debug/runtimeTracing/goTrace.yaml#/paths/~1debug~1goTrace
+  /debug/runtimeTracing/startGoTrace:
+    $ref: ../debug/runtimeTracing/startGoTrace.yaml#/paths/~1debug~1startGoTrace
+  /debug/runtimeTracing/stopGoTrace:
+    $ref: ../debug/runtimeTracing/stopGoTrace.yaml#/paths/~1debug~1stopGoTrace
+
+  # governance
+  /governance/chainConfig:
+    $ref: ../governance/chainConfig.yaml#/paths/~1governance~1chainConfig
+  # /governance/getStakingInfo:
+  #   $ref: ../governance/getStakingInfo.yaml#/paths/~1governance~1getStakingInfo
+  /governance/idxCache:
+    $ref: ../governance/idxCache.yaml#/paths/~1governance~1idxCache
+  /governance/idxCacheFromDb:
+    $ref: ../governance/idxCacheFromDb.yaml#/paths/~1governance~1idxCacheFromDb
+  /governance/itemCacheFromDb:
+    $ref: ../governance/itemCacheFromDb.yaml#/paths/~1governance~1itemCacheFromDb
+  /governance/itemsAt:
+    $ref: ../governance/itemsAt.yaml#/paths/~1governance~1itemsAt
+  /governance/myVotes:
+    $ref: ../governance/myVotes.yaml#/paths/~1governance~1myVotes
+  /governance/myVotingPower:
+    $ref: ../governance/myVotingPower.yaml#/paths/~1governance~1myVotingPower
+  # /governance/nodeAddress:
+  #   $ref: ../governance/nodeAddress.yaml#/paths/~1governance~1nodeAddress
+  /governance/pendingChanges:
+    $ref: ../governance/pendingChanges.yaml#/paths/~1governance~1pendingChanges
+  /governance/showTally:
+    $ref: ../governance/showTally.yaml#/paths/~1governance~1showTally
+  /governance/totalVotingPower:
+    $ref: ../governance/totalVotingPower.yaml#/paths/~1governance~1totalVotingPower
+  /governance/vote:
+    $ref: ../governance/vote.yaml#/paths/~1governance~1vote
+  /governance/votes:
+    $ref: ../governance/votes.yaml#/paths/~1governance~1votes
+
+  # admin
+  /admin/addPeer:
+    $ref: ../admin/addPeer.yaml#/paths/~1admin~1addPeer
+  /admin/datadir:
+    $ref: ../admin/datadir.yaml#/paths/~1admin~1datadir
+  /admin/exportChain:
+    $ref: ../admin/exportChain.yaml#/paths/~1admin~1exportChain
+  /admin/getSpamThrottlerCandidateList:
+    $ref: ../admin/getSpamThrottlerCandidateList.yaml#/paths/~1admin~1getSpamThrottlerCandidateList
+  /admin/getSpamThrottlerThrottleList:
+    $ref: ../admin/getSpamThrottlerThrottleList.yaml#/paths/~1admin~1getSpamThrottlerThrottleList
+  /admin/getSpamThrottlerWhiteList:
+    $ref: ../admin/getSpamThrottlerWhiteList.yaml#/paths/~1admin~1getSpamThrottlerWhiteList
+  /admin/importChain:
+    $ref: ../admin/importChain.yaml#/paths/~1admin~1importChain
+  /admin/importChainFromString:
+    $ref: ../admin/importChainFromString.yaml#/paths/~1admin~1importChainFromString
+  /admin/nodeInfo:
+    $ref: ../admin/nodeInfo.yaml#/paths/~1admin~1nodeInfo
+  /admin/peers:
+    $ref: ../admin/peers.yaml#/paths/~1admin~1peers
+  /admin/removePeer:
+    $ref: ../admin/removePeer.yaml#/paths/~1admin~1removePeer
+  /admin/saveTrieNodeCacheToDisk:
+    $ref: ../admin/saveTrieNodeCacheToDisk.yaml#/paths/~1admin~1saveTrieNodeCacheToDisk
+  /admin/setMaxSubscriptionPerWSConn:
+    $ref: ../admin/setMaxSubscriptionPerWSConn.yaml#/paths/~1admin~1setMaxSubscriptionPerWSConn
+  /admin/setSpamThrottlerWhiteList:
+    $ref: ../admin/setSpamThrottlerWhiteList.yaml#/paths/~1admin~1setSpamThrottlerWhiteList
+  /admin/spamThrottlerConfig:
+    $ref: ../admin/spamThrottlerConfig.yaml#/paths/~1admin~1spamThrottlerConfig
+  /admin/startHTTP:
+    $ref: ../admin/startHTTP.yaml#/paths/~1admin~1startHTTP
+  /admin/startSpamThrottler:
+    $ref: ../admin/startSpamThrottler.yaml#/paths/~1admin~1startSpamThrottler
+  /admin/startStateMigration:
+    $ref: ../admin/startStateMigration.yaml#/paths/~1admin~1startStateMigration
+  /admin/startWS:
+    $ref: ../admin/startWS.yaml#/paths/~1admin~1startWS
+  /admin/stateMigrationStatus:
+    $ref: ../admin/stateMigrationStatus.yaml#/paths/~1admin~1stateMigrationStatus
+  /admin/stopHTTP:
+    $ref: ../admin/stopHTTP.yaml#/paths/~1admin~1stopHTTP
+  /admin/stopSpamThrottler:
+    $ref: ../admin/stopSpamThrottler.yaml#/paths/~1admin~1stopSpamThrottler
+  /admin/stopStateMigration:
+    $ref: ../admin/stopStateMigration.yaml#/paths/~1admin~1stopStateMigration
+  /admin/stopWS:
+    $ref: ../admin/stopWS.yaml#/paths/~1admin~1stopWS
+
+  # mainbridge:
+  # /mainbridge/convertChildChainBlockHashToParentChainTxHash:
+  #   $ref: ../mainbridge/convertChildChainBlockHashToParentChainTxHash.yaml#/paths/~1mainbridge~1convertChildChainBlockHashToParentChainTxHash
+  # /mainbridge/getChildChainIndexingEnabled:
+  #   $ref: ../mainbridge/getChildChainIndexingEnabled.yaml#/paths/~1mainbridge~1getChildChainIndexingEnabled
+  # /mainbridge/nodeInfo:
+  #   $ref: ../mainbridge/nodeInfo.yaml#/paths/~1mainbridge~1nodeInfo
+
+  # subbridge:
+  # /subbridge/addPeer:
+  #   $ref: ../subbridge/addPeer.yaml#/paths/~1subbridge~1addPeer
+  # /subbridge/anchoring:
+  #   $ref: ../subbridge/anchoring.yaml#/paths/~1subbridge~1anchoring
+  # /subbridge/convertRequestTxHashToHandleTxHash:
+  #   $ref: ../subbridge/convertRequestTxHashToHandleTxHash.yaml#/paths/~1subbridge~1convertRequestTxHashToHandleTxHash  
+  # /subbridge/deployBridge:
+  #   $ref: ../subbridge/deployBridge.yaml#/paths/~1subbridge~1deployBridge
+  # /subbridge/deregisterBridge:
+  #   $ref: ../subbridge/deregisterBridge.yaml#/paths/~1subbridge~1deregisterBridge
+  # /subbridge/deregisterToken:
+  #   $ref: ../subbridge/deregisterToken.yaml#/paths/~1subbridge~1deregisterToken
+  # /subbridge/getBridgeInFormation:
+  #   $ref: ../subbridge/getBridgeInformation.yaml#/paths/~1subbridge~1getBridgeInformation
+  # /subbridge/getReceiptFromParentChain:
+  #   $ref: ../subbridge/getReceiptFromParentChain.yaml#/paths/~1subbridge~1getReceiptFromParentChain
+  # /subbridge/listBridge:
+  #   $ref: ../subbridge/listBridge.yaml#/paths/~1subbridge~1listBridge
+  # /subbridge/nodeInfo:
+  #   $ref: ../subbridge/nodeInfo.yaml#/paths/~1subbridge~1nodeInfo
+  # /subbridge/registerBridge:
+  #   $ref: ../subbridge/registerBridge.yaml#/paths/~1subbridge~1registerBridge
+  # /subbridge/registerToken:
+  #   $ref: ../subbridge/registerToken.yaml#/paths/~1subbridge~1registerToken
+  # /subbridge/removePeer:
+  #   $ref: ../subbridge/removePeer.yaml#/paths/~1subbridge~1removePeer
+  # /subbridge/subscribeBridge:
+  #   $ref: ../subbridge/subscribeBridge.yaml#/paths/~1subbridge~1subscribeBridge
+  # /subbridge/txPending:
+  #   $ref: ../subbridge/txPending.yaml#/paths/~1subbridge~1txPending
+  # /subbridge/txPendingCount:
+  #   $ref: ../subbridge/txPendingCount.yaml#/paths/~1subbridge~1txPendingCount
+  # /subbridge/unsubscribeBridge:
+  #   $ref: ../subbridge/unsubscribeBridge.yaml#/paths/~1subbridge~1unsubscribeBridge

@@ -27,6 +27,8 @@ servers:
   - url: https://public-en-cypress.klaytn.net
 paths:
 
+
+
   # klay/account
   /klay/account/accountCreated:
     $ref: ../web3rpc/rpc-specs/paths/klay/account/accountCreated.yaml#/paths/~1klay~1accountCreated
@@ -90,24 +92,22 @@ paths:
     $ref: ../web3rpc/rpc-specs/paths/klay/block/syncing.yaml#/paths/~1klay~1syncing
 
   # klay/transaction
-  /klay/createAccessList:
-    $ref: ../web3rpc/rpc-specs/paths/klay/transaction/createAccessList.yaml#/paths/~1klay~1createAccessList
-  /klay/getRawTransactionByBlockHashAndIndex:
-    $ref: ../web3rpc/rpc-specs/paths/klay/transaction/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockHashAndIndex
-  /klay/getRawTransactionByBlockNumberAndIndex:
-    $ref: ../web3rpc/rpc-specs/paths/klay/transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockNumberAndIndex
-  /klay/getRawTransactionByHash:
-    $ref: ../web3rpc/rpc-specs/paths/klay/transaction/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
-  /klay/resend:
-    $ref: ../web3rpc/rpc-specs/paths/klay/transaction/resend.yaml#/paths/~1klay~1resend
   /klay/transaction/call:
     $ref: ../web3rpc/rpc-specs/paths/klay/transaction/call.yaml#/paths/~1klay~1call
+  /klay/transaction/createAccessList:
+    $ref: ../web3rpc/rpc-specs/paths/klay/transaction/createAccessList.yaml#/paths/~1klay~1createAccessList
   /klay/transaction/estimateComputationCost:
     $ref: ../web3rpc/rpc-specs/paths/klay/transaction/estimateComputationCost.yaml#/paths/~1klay~1estimateComputationCost
   /klay/transaction/estimateGas:
     $ref: ../web3rpc/rpc-specs/paths/klay/transaction/estimateGas.yaml#/paths/~1klay~1estimateGas
   /klay/transaction/getDecodedAnchoringTransactionByHash:
     $ref: ../web3rpc/rpc-specs/paths/klay/transaction/getDecodedAnchoringTransactionByHash.yaml#/paths/~1klay~1getDecodedAnchoringTransactionByHash
+  /klay/transaction/getRawTransactionByBlockHashAndIndex:
+    $ref: ../web3rpc/rpc-specs/paths/klay/transaction/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockHashAndIndex
+  /klay/transaction/getRawTransactionByBlockNumberAndIndex:
+    $ref: ../web3rpc/rpc-specs/paths/klay/transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockNumberAndIndex
+  /klay/transaction/getRawTransactionByHash:
+    $ref: ../web3rpc/rpc-specs/paths/klay/transaction/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
   /klay/transaction/getTransactionByBlockHashAndIndex:
     $ref: ../web3rpc/rpc-specs/paths/klay/transaction/getTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getTransactionByBlockHashAndIndex
   /klay/transaction/getTransactionByBlockNumberAndIndex:
@@ -122,6 +122,8 @@ paths:
     $ref: ../web3rpc/rpc-specs/paths/klay/transaction/getTransactionReceiptBySenderTxHash.yaml#/paths/~1klay~1getTransactionReceiptBySenderTxHash
   /klay/transaction/pendingTransactions:
     $ref: ../web3rpc/rpc-specs/paths/klay/transaction/pendingTransactions.yaml#/paths/~1klay~1pendingTransactions
+  /klay/transaction/resend:
+    $ref: ../web3rpc/rpc-specs/paths/klay/transaction/resend.yaml#/paths/~1klay~1resend
   /klay/transaction/sendRawTransaction:
     $ref: ../web3rpc/rpc-specs/paths/klay/transaction/sendRawTransaction.yaml#/paths/~1klay~1sendRawTransaction
   /klay/transaction/sendTransaction:
@@ -184,12 +186,12 @@ paths:
     $ref: ../web3rpc/rpc-specs/paths/klay/gas/upperBoundGasPrice.yaml#/paths/~1klay~1upperBoundGasPrice
 
   # klay/miscellaneous
-  /klay/getStakingInfo:
+  /klay/miscellaneous/getStakingInfo:
     $ref: ../web3rpc/rpc-specs/paths/klay/miscellaneous/getStakingInfo.yaml#/paths/~1klay~1getStakingInfo
+  /klay/miscellaneous/nodeAddress:
+    $ref: ../web3rpc/rpc-specs/paths/klay/miscellaneous/nodeAddress.yaml#/paths/~1klay~1nodeAddress
   /klay/miscellaneous/sha3:
     $ref: ../web3rpc/rpc-specs/paths/klay/miscellaneous/sha3.yaml#/paths/~1klay~1sha3
-  /klay/nodeAddress:
-    $ref: ../web3rpc/rpc-specs/paths/klay/miscellaneous/nodeAddress.yaml#/paths/~1klay~1nodeAddress
 
   # eth/account
   /eth/account/accounts:
@@ -234,22 +236,20 @@ paths:
     $ref: ../web3rpc/rpc-specs/paths/eth/block/syncing.yaml#/paths/~1eth~1syncing
 
   # eth/transaction
-  /eth/createAccessList:
-    $ref: ../web3rpc/rpc-specs/paths/eth/transaction/createAccessList.yaml#/paths/~1eth~1createAccessList
-  /eth/getRawTransactionByBlockHashAndIndex:
-    $ref: ../web3rpc/rpc-specs/paths/eth/transaction/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockHashAndIndex
-  /eth/getRawTransactionByBlockNumberAndIndex:
-    $ref: ../web3rpc/rpc-specs/paths/eth/transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockNumberAndIndex
-  /eth/getRawTransactionByHash:
-    $ref: ../web3rpc/rpc-specs/paths/eth/transaction/getRawTransactionByHash.yaml#/paths/~1eth~1getRawTransactionByHash
-  /eth/resend:
-    $ref: ../web3rpc/rpc-specs/paths/eth/transaction/resend.yaml#/paths/~1eth~1resend
   /eth/transaction/call:
     $ref: ../web3rpc/rpc-specs/paths/eth/transaction/call.yaml#/paths/~1eth~1call
+  /eth/transaction/createAccessList:
+    $ref: ../web3rpc/rpc-specs/paths/eth/transaction/createAccessList.yaml#/paths/~1eth~1createAccessList
   /eth/transaction/estimateGas:
     $ref: ../web3rpc/rpc-specs/paths/eth/transaction/estimateGas.yaml#/paths/~1eth~1estimateGas
   /eth/transaction/fillTransaction:
     $ref: ../web3rpc/rpc-specs/paths/eth/transaction/fillTransaction.yaml#/paths/~1eth~1fillTransaction
+  /eth/transaction/getRawTransactionByBlockHashAndIndex:
+    $ref: ../web3rpc/rpc-specs/paths/eth/transaction/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockHashAndIndex
+  /eth/transaction/getRawTransactionByBlockNumberAndIndex:
+    $ref: ../web3rpc/rpc-specs/paths/eth/transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockNumberAndIndex
+  /eth/transaction/getRawTransactionByHash:
+    $ref: ../web3rpc/rpc-specs/paths/eth/transaction/getRawTransactionByHash.yaml#/paths/~1eth~1getRawTransactionByHash
   /eth/transaction/getTransactionByBlockHashAndIndex:
     $ref: ../web3rpc/rpc-specs/paths/eth/transaction/getTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getTransactionByBlockHashAndIndex
   /eth/transaction/getTransactionByBlockNumberAndIndex:
@@ -260,6 +260,8 @@ paths:
     $ref: ../web3rpc/rpc-specs/paths/eth/transaction/getTransactionReceipt.yaml#/paths/~1eth~1getTransactionReceipt
   /eth/transaction/pendingTransactions:
     $ref: ../web3rpc/rpc-specs/paths/eth/transaction/pendingTransactions.yaml#/paths/~1eth~1pendingTransactions
+  /eth/transaction/resend:
+    $ref: ../web3rpc/rpc-specs/paths/eth/transaction/resend.yaml#/paths/~1eth~1resend
   /eth/transaction/sendRawTransaction:
     $ref: ../web3rpc/rpc-specs/paths/eth/transaction/sendRawTransaction.yaml#/paths/~1eth~1sendRawTransaction
   /eth/transaction/sendTransaction:
@@ -386,6 +388,10 @@ paths:
     $ref: ../web3rpc/rpc-specs/paths/debug/logging/vmodule.yaml#/paths/~1debug~1vmodule
 
   # debug/blockchainInspection:
+  /debug/blockchainInspection/chaindbCompact:
+    $ref: ../web3rpc/rpc-specs/paths/debug/others/chaindbCompact.yaml#/paths/~1debug~1chaindbCompact
+  /debug/blockchainInspection/chaindbProperty:
+    $ref: ../web3rpc/rpc-specs/paths/debug/others/chaindbProperty.yaml#/paths/~1debug~1chaindbProperty
   /debug/blockchainInspection/dumpBlock:
     $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/dumpBlock.yaml#/paths/~1debug~1dumpBlock
   /debug/blockchainInspection/dumpStateTrie:
@@ -398,10 +404,14 @@ paths:
     $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/getModifiedAccountsByHash.yaml#/paths/~1debug~1getModifiedAccountsByHash
   /debug/blockchainInspection/getModifiedAccountsByNumber:
     $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/getModifiedAccountsByNumber.yaml#/paths/~1debug~1getModifiedAccountsByNumber
+  /debug/blockchainInspection/getModifiedStorageNodesByNumber:
+    $ref: ../web3rpc/rpc-specs/paths/debug/others/getModifiedStorageNodesByNumber.yaml#/paths/~1debug~1getModifiedStorageNodesByNumber
   /debug/blockchainInspection/preimage:
     $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/preimage.yaml#/paths/~1debug~1preimage
   /debug/blockchainInspection/printBlock:
     $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/printBlock.yaml#/paths/~1debug~1printBlock
+  /debug/blockchainInspection/seedHash:
+    $ref: ../web3rpc/rpc-specs/paths/debug/others/seedHash.yaml#/paths/~1debug~1seedHash
   /debug/blockchainInspection/setHead:
     $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/setHead.yaml#/paths/~1debug~1setHead
   /debug/blockchainInspection/startCollectingTrieStats:
@@ -412,15 +422,7 @@ paths:
     $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/startWarmUp.yaml#/paths/~1debug~1startWarmUp
   /debug/blockchainInspection/stopWarmUp:
     $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/stopWarmUp.yaml#/paths/~1debug~1stopWarmUp
-  /debug/chaindbCompact:
-    $ref: ../web3rpc/rpc-specs/paths/debug/others/chaindbCompact.yaml#/paths/~1debug~1chaindbCompact
-  /debug/chaindbProperty:
-    $ref: ../web3rpc/rpc-specs/paths/debug/others/chaindbProperty.yaml#/paths/~1debug~1chaindbProperty
-  /debug/getModifiedStorageNodesByNumber:
-    $ref: ../web3rpc/rpc-specs/paths/debug/others/getModifiedStorageNodesByNumber.yaml#/paths/~1debug~1getModifiedStorageNodesByNumber
-  /debug/seedHash:
-    $ref: ../web3rpc/rpc-specs/paths/debug/others/seedHash.yaml#/paths/~1debug~1seedHash
-  /debug/storageRangeAt:
+  /debug/blockchainInspection/storageRangeAt:
     $ref: ../web3rpc/rpc-specs/paths/debug/others/storageRangeAt.yaml#/paths/~1debug~1storageRangeAt
 
   # debug/vMTracing:
@@ -447,50 +449,6 @@ paths:
   /debug/vMStandardTracing/standardTraceBlockToFile:
     $ref: ../web3rpc/rpc-specs/paths/debug/vMStandardTracing/standardTraceBlockToFile.yaml#/paths/~1debug~1standardTraceBlockToFile
 
-  # debug/profiling:
-  /debug/profiling/isPProfRunning:
-    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/isPProfRunning.yaml#/paths/~1debug~1isPProfRunning
-  /debug/profiling/startPProf:
-    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/startPProf.yaml#/paths/~1debug~1startPProf
-  /debug/profiling/stopPProf:
-    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/stopPProf.yaml#/paths/~1debug~1stopPProf
-  /debug/setMutexProfileFraction:
-    $ref: ../web3rpc/rpc-specs/paths/debug/others/setMutexProfileFraction.yaml#/paths/~1debug~1setMutexProfileFraction
-
-  # debug/runtimeDebugging:
-  /debug/runtimeDebugging/freeOSMemory:
-    $ref: ../web3rpc/rpc-specs/paths/debug/runtimeDebugging/freeOSMemory.yaml#/paths/~1debug~1freeOSMemory
-  /debug/runtimeDebugging/gcStats:
-    $ref: ../web3rpc/rpc-specs/paths/debug/runtimeDebugging/gcStats.yaml#/paths/~1debug~1gcStats
-  /debug/runtimeDebugging/memStats:
-    $ref: ../web3rpc/rpc-specs/paths/debug/runtimeDebugging/memStats.yaml#/paths/~1debug~1memStats
-  /debug/runtimeDebugging/metrics:
-    $ref: ../web3rpc/rpc-specs/paths/debug/runtimeDebugging/metrics.yaml#/paths/~1debug~1metrics
-  /debug/runtimeDebugging/setGCPercent:
-    $ref: ../web3rpc/rpc-specs/paths/debug/runtimeDebugging/setGCPercent.yaml#/paths/~1debug~1setGCPercent
-  /debug/runtimeDebugging/stacks:
-    $ref: ../web3rpc/rpc-specs/paths/debug/runtimeDebugging/stacks.yaml#/paths/~1debug~1stacks
-
-  # debug/profiling:
-  /debug/profiling/blockProfile:
-    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/blockProfile.yaml#/paths/~1debug~1blockProfile
-  /debug/profiling/cpuProfile:
-    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/cpuProfile.yaml#/paths/~1debug~1cpuProfile
-  /debug/profiling/mutexProfile:
-    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/mutexProfile.yaml#/paths/~1debug~1mutexProfile
-  /debug/profiling/setBlockProfileRate:
-    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/setBlockProfileRate.yaml#/paths/~1debug~1setBlockProfileRate
-  /debug/profiling/startCPUProfile:
-    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/startCPUProfile.yaml#/paths/~1debug~1startCPUProfile
-  /debug/profiling/stopCPUProfile:
-    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/stopCPUProfile.yaml#/paths/~1debug~1stopCPUProfile
-  /debug/profiling/writeBlockProfile:
-    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/writeBlockProfile.yaml#/paths/~1debug~1writeBlockProfile
-  /debug/profiling/writeMemProfile:
-    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/writeMemProfile.yaml#/paths/~1debug~1writeMemProfile
-  /debug/profiling/writeMutexProfile:
-    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/writeMutexProfile.yaml#/paths/~1debug~1writeMutexProfile
-
   # debug/runtimeTracing:
   /debug/runtimeTracing/goTrace:
     $ref: ../web3rpc/rpc-specs/paths/debug/runtimeTracing/goTrace.yaml#/paths/~1debug~1goTrace
@@ -498,6 +456,34 @@ paths:
     $ref: ../web3rpc/rpc-specs/paths/debug/runtimeTracing/startGoTrace.yaml#/paths/~1debug~1startGoTrace
   /debug/runtimeTracing/stopGoTrace:
     $ref: ../web3rpc/rpc-specs/paths/debug/runtimeTracing/stopGoTrace.yaml#/paths/~1debug~1stopGoTrace
+
+  # debug/profiling:
+  /debug/profiling/blockProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/blockProfile.yaml#/paths/~1debug~1blockProfile
+  /debug/profiling/cpuProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/cpuProfile.yaml#/paths/~1debug~1cpuProfile
+  /debug/profiling/isPProfRunning:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/isPProfRunning.yaml#/paths/~1debug~1isPProfRunning
+  /debug/profiling/mutexProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/mutexProfile.yaml#/paths/~1debug~1mutexProfile
+  /debug/profiling/setBlockProfileRate:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/setBlockProfileRate.yaml#/paths/~1debug~1setBlockProfileRate
+  /debug/profiling/setMutexProfileFraction:
+    $ref: ../web3rpc/rpc-specs/paths/debug/others/setMutexProfileFraction.yaml#/paths/~1debug~1setMutexProfileFraction
+  /debug/profiling/startCPUProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/startCPUProfile.yaml#/paths/~1debug~1startCPUProfile
+  /debug/profiling/startPProf:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/startPProf.yaml#/paths/~1debug~1startPProf
+  /debug/profiling/stopCPUProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/stopCPUProfile.yaml#/paths/~1debug~1stopCPUProfile
+  /debug/profiling/stopPProf:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/stopPProf.yaml#/paths/~1debug~1stopPProf
+  /debug/profiling/writeBlockProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/writeBlockProfile.yaml#/paths/~1debug~1writeBlockProfile
+  /debug/profiling/writeMemProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/writeMemProfile.yaml#/paths/~1debug~1writeMemProfile
+  /debug/profiling/writeMutexProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/writeMutexProfile.yaml#/paths/~1debug~1writeMutexProfile
 
   # governance
   /governance/chainConfig:

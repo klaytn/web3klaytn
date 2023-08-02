@@ -1,10 +1,11 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
 fileName = "/tmp/chain.txt"
 
-sdk = OpenSDK(host)
-admin_response = sdk.admin.export_chain(fileName)
+w3 = Web3(Web3.HTTPProvider(host))
+admin_response = w3.admin.export_chain(fileName)
 
 print(admin_response)

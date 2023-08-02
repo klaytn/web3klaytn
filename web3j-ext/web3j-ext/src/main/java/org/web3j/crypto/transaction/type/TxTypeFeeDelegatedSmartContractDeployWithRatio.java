@@ -44,6 +44,20 @@ public class TxTypeFeeDelegatedSmartContractDeployWithRatio extends TxTypeFeeDel
         return new TxTypeFeeDelegatedSmartContractDeployWithRatio(type, nonce, gasPrice, gasLimit, value, from, payload, feeRatio, codeFormat);
     }
 
+    public TxTypeFeeDelegatedSmartContractDeployWithRatio(
+        long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, BigInteger value,
+            String from, byte[] payload, BigInteger feeRatio, BigInteger codeFormat) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, "", value);
+        this.payload = payload;
+        this.feeRatio = feeRatio;
+        this.codeFormat = codeFormat;
+    }
+
+    public static TxTypeFeeDelegatedSmartContractDeployWithRatio createTransaction(
+        long chainId, TxType.Type type,BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, BigInteger value,
+            String from, byte[] payload, BigInteger feeRatio, BigInteger codeFormat) {
+        return new TxTypeFeeDelegatedSmartContractDeployWithRatio(chainId, type, nonce, gasPrice, gasLimit, value, from, payload, feeRatio, codeFormat);
+    }
     public byte[] getPayload() {
         return payload;
     }
@@ -102,7 +116,6 @@ public class TxTypeFeeDelegatedSmartContractDeployWithRatio extends TxTypeFeeDel
             BigInteger nonce = ((RlpString) values.get(0)).asPositiveBigInteger();
             BigInteger gasPrice = ((RlpString) values.get(1)).asPositiveBigInteger();
             BigInteger gasLimit = ((RlpString) values.get(2)).asPositiveBigInteger();
-            String to = ((RlpString) values.get(3)).asString();
             BigInteger value = ((RlpString) values.get(4)).asPositiveBigInteger();
             String from = ((RlpString) values.get(5)).asString();
             byte[] payload = ((RlpString) values.get(6)).getBytes();

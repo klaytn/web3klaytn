@@ -1,4 +1,5 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
@@ -6,7 +7,7 @@ blockCount = "0x10"
 lastBlock = "latest"
 rewardPercentiles = [0.1, 0.2, 0.3]
 
-sdk = OpenSDK(host)
-klay_response = sdk.klay.fee_history(blockCount, lastBlock, rewardPercentiles)
+w3 = Web3(Web3.HTTPProvider(host))
+klay_response = w3.klay.fee_history(blockCount, lastBlock, rewardPercentiles)
 
 print(klay_response)

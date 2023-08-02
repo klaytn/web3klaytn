@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/setVMLogTarget:
     post:
-      summary: "[setVMLogTarget]"
+      summary: "[Logging-setVMLogTarget]"
       tags:
         - debug
       operationId: setVMLogTarget

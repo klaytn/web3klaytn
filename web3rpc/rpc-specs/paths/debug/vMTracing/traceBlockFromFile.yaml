@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/traceBlockFromFile:
     post:
-      summary: "[traceBlockFromFile]"
+      summary: "[Trace-traceBlockFromFile]"
       tags:
         - debug
       operationId: traceBlockFromFile

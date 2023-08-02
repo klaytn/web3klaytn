@@ -41,6 +41,10 @@ apis:
     root: ./paths/subbridge/index.yaml
     labels:
       - v1.0.0
+  all-except-eth@v1.0.0:
+    root: ./paths/all-except-eth/index.yaml
+    labels: 
+      -  v1.0.0
 extends:
   - recommended
 features.openapi:

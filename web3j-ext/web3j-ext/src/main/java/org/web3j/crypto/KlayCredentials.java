@@ -20,13 +20,6 @@
 
 package org.web3j.crypto;
 
-import java.io.IOException;
-
-import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.klaytn.Web3j;
-import org.web3j.protocol.klaytn.core.method.response.KlayGetAccount;
-import org.web3j.protocol.klaytn.core.method.response.KlayGetAccountAccount;
-import org.web3j.protocol.klaytn.core.method.response.KlayGetAccountKey;
 import org.web3j.utils.Numeric;
 import org.web3j.utils.Strings;
 

@@ -1,6 +1,7 @@
 import { BigNumber, ethers } from "ethers";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { computeAddress } from "@ethersproject/transactions";
+import { computePublicKey } from "ethers/lib/utils";
 
 import { Wallet } from "./signer";
 import { HexStr } from "../core/util";
@@ -10,18 +11,29 @@ export class Accounts {
 
     public wallets : Wallet[];
 
-    constructor( provider: JsonRpcProvider, list: [[string, string?]] ) {
+    constructor( provider: JsonRpcProvider, list: [[string, string?]] | Wallet[]) {
         this.wallets = []
 
         for ( let i=0 ; i<list.length ; i++ ) {
-            if ( list[i].length == 1 ) {
-                this.add( [ list[i][0] ], provider );
-            } else if ( list[i].length == 2 ) {
-                this.add( [ list[i][0], list[i][1] ], provider ); 
+            if ( list[i] instanceof Wallet ) { 
+                // @ts-ignore
+                this.wallets.push( list[i] );
+            } else if ( Array.isArray(list[i]) ) {
+                // @ts-ignore
+                if ( list[i].length == 1 ) {
+                    // @ts-ignore
+                    this.add( [ list[i][0] ], provider );
+                // @ts-ignore
+                } else if ( list[i].length == 2 ) {
+                    // @ts-ignore
+                    this.add( [ list[i][0], list[i][1] ], provider ); 
+                } else {
+                    throw new Error(`Input has to be the array of [address, privateKey] or [privateKey]`);
+                }
             } else {
-                throw new Error(`Input has to be the array of [address, privateKey] or [privateKey]`);
+                throw new Error(`Input has to be Wallet, [address, privateKey], or [privateKey]`);
             }
-        }
+        }            
     }
 
     async add( account: [string, string?], provider: JsonRpcProvider ) : Promise<boolean> {
@@ -40,8 +52,8 @@ export class Accounts {
         }
 
         for ( let i=0 ; i<this.wallets.length ; i++ ) {
-            if ( HexStr.isSameHex( await this.wallets[i].getAddress(), addr) && 
-                    HexStr.isSameHex( this.wallets[i].privateKey, priv) ) {
+            if ( HexStr.isSameAddress( await this.wallets[i].getAddress(), addr) && 
+                    HexStr.isSamePrivKey( this.wallets[i].privateKey, priv) ) {
                 return false; 
             }
         }
@@ -66,9 +78,9 @@ export class Accounts {
         }
 
         for ( let i=0 ; i<this.wallets.length ; i++ ) {
-            if ( HexStr.isSameHex( await this.wallets[i].getAddress(), addr) && 
+            if ( HexStr.isSameAddress( await this.wallets[i].getAddress(), addr) && 
             // @ts-ignore
-                    HexStr.isSameHex( await this.wallets[i].privateKey, priv ) ) {
+                    HexStr.isSamePrivKey( await this.wallets[i].privateKey, priv ) ) {
                 delete this.wallets[i];
                 this.wallets.splice( i, 1 );      
                 return true; 
@@ -90,7 +102,7 @@ export class Accounts {
         let ret: Wallet[] = [];
 
         for ( let i=0 ; i<this.wallets.length ; i++ ) {
-            if ( HexStr.isSameHex( this.wallets[i].privateKey, privateKey) ) {
+            if ( HexStr.isSamePrivKey( this.wallets[i].privateKey, privateKey) ) {
                 ret.push( this.wallets[i] );
             }
         }        
@@ -101,7 +113,7 @@ export class Accounts {
         let ret: Wallet[] = [];
 
         for ( let i=0 ; i<this.wallets.length ; i++ ) {
-            if ( HexStr.isSameHex( await this.wallets[i].getAddress(), address ) ) {
+            if ( HexStr.isSameAddress( await this.wallets[i].getAddress(), address ) ) {
                 ret.push( this.wallets[i] );
             }
         }        
@@ -126,7 +138,7 @@ export class AccountStore {
     public accountInfos: AccountInfo[] | undefined;
     private signableKeyList: string[] = []; 
     
-    async refresh( provider: JsonRpcProvider, list: [[string, string?]]) {
+    async refresh( provider: JsonRpcProvider, list: [[string, string?]] | Wallet[]) {
         this.provider = provider;
 
         if ( this.accounts != undefined ) {
@@ -273,7 +285,7 @@ export class AccountStore {
     hasAccountInfos( address: string ) :boolean {
         let i:number;
         for ( i=0 ; this.accountInfos != undefined && i < this.accountInfos.length ; i++ ){
-            if ( HexStr.isSameHex( this.accountInfos[i].address, address )  )
+            if ( HexStr.isSameAddress( this.accountInfos[i].address, address )  )
                 return true; 
         }
         return false;
@@ -282,7 +294,7 @@ export class AccountStore {
     getType( address:string ) : number | null {
         let i:number;
         for ( i=0 ; this.accountInfos != undefined && i < this.accountInfos.length ; i++) {
-            if ( HexStr.isSameHex( this.accountInfos[i].address, address) ){
+            if ( HexStr.isSameAddress( this.accountInfos[i].address, address) ){
                 return this.accountInfos[i].key.type;
             }
         }
@@ -292,7 +304,7 @@ export class AccountStore {
     getAccountInfo( address: string ) : AccountInfo | null {
         let i:number;
         for ( i=0 ; this.accountInfos != undefined && i < this.accountInfos.length ; i++) {
-            if ( HexStr.isSameHex( this.accountInfos[i].address, address) ){
+            if ( HexStr.isSameAddress( this.accountInfos[i].address, address) ){
                 return this.accountInfos[i];
             }
         }
@@ -304,20 +316,14 @@ export class AccountStore {
     }
 
     getPubkeyInfo( x:string, y:string ): any {
-        const stripedX = String(x).substring(2);
-        const stripedY = String(y).substring(2);
+        const zeroPadX = HexStr.zeroPad( x, 32 );
+        const zeroPadY = HexStr.zeroPad( y, 32 );
 
-        const zeroPadX = HexStr.zeroPad( stripedX, 64 );
-        const zeroPadY = HexStr.zeroPad( stripedY, 64 );
+        const stripedX = String(zeroPadX).substring(2);
+        const stripedY = String(zeroPadY).substring(2);
 
-        let compressedKey;
-        if ( ['0','2','4','6','8','a','c','e'].indexOf( String(x).substring(-1) ) != -1 ) {
-            compressedKey = HexStr.concat( "0x02" + zeroPadX );
-        } else {
-            compressedKey = HexStr.concat( "0x03" + zeroPadX );
-        }
-        
-        let hashedKey = computeAddress( HexStr.concat( "0x04" + zeroPadX + zeroPadY )); 
+        let compressedKey = computePublicKey( HexStr.concat( "0x04" + stripedX + stripedY ), true );
+        let hashedKey = computeAddress( compressedKey ); 
         let hasPrivateKey = this.hasInSignableKeyList( hashedKey );
 
         return { 

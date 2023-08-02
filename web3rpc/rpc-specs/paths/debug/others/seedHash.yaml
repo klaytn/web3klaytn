@@ -13,7 +13,7 @@ paths:
   /debug/seedHash:
     post:
       operationId: seedHash
-      summary: "[seedHash]"
+      summary: "[Inspection-seedHash]"
       description: |
         Retrieves the seed hash of a block.
 

@@ -48,7 +48,7 @@ public class AccountInfo {
 		if( !jsonKey.has("key")) {
 			return null;
 		}
-		
+
 		int type = 2;
 		if( jsonKey.has("keyType")) {
 			type = jsonKey.getInt("keyType");
@@ -87,8 +87,10 @@ public class AccountInfo {
 			for(int n = 0; n < keys.length(); n++)
 			{
 			    JSONObject object = keys.getJSONObject(n);
-
-			    getKeyJSON(object, accountlist);
+			    JSONObject result = getKeyJSON(object, accountlist);
+				
+				object.put("pubkey", result.getJSONObject("key").getJSONObject("pubkey"));
+				object.remove("key");
 			}
 			return jsonKey;
 			

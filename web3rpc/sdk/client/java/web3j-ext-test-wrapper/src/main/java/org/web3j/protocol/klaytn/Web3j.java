@@ -10,17 +10,14 @@ import org.web3j.utils.Async;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.klaytn.core.AdminApi;
 import org.web3j.protocol.klaytn.core.DebugApi;
-import org.web3j.protocol.klaytn.core.EthApi;
 import org.web3j.protocol.klaytn.core.GovernanceApi;
 import org.web3j.protocol.klaytn.core.KlayApi;
-import org.web3j.protocol.klaytn.core.MainbridgeApi;
 import org.web3j.protocol.klaytn.core.NetApi;
 import org.web3j.protocol.klaytn.core.PersonalApi;
-import org.web3j.protocol.klaytn.core.SubbridgeApi;
 import org.web3j.protocol.klaytn.core.TxpoolApi;
 
 
-public class Web3j extends JsonRpc2_0Web3j implements EthApi, KlayApi, GovernanceApi, AdminApi, NetApi, PersonalApi, TxpoolApi, MainbridgeApi, SubbridgeApi, DebugApi{
+public class Web3j extends JsonRpc2_0Web3j implements KlayApi, GovernanceApi, AdminApi, NetApi, PersonalApi, TxpoolApi, DebugApi{
     public static final int DEFAULT_BLOCK_TIME = 15 * 1000;
 
     public Web3j(Web3jService web3jService) {
@@ -64,13 +61,13 @@ public class Web3j extends JsonRpc2_0Web3j implements EthApi, KlayApi, Governanc
     public Request<?, EthSendTransaction> ethSendRawTransaction(String signedTransactionData) {
         long txType = 0;
         try {
-            txType = Long.parseUnsignedLong(signedTransactionData.substring(0, 1), 16);
+            txType = Long.parseUnsignedLong(signedTransactionData.substring(2, 4), 16);
         } catch (NumberFormatException e) {
-            // something
         }
+        
         // Klaytn transaction type
         if(8 <= txType && txType <= 74) {
-            new Request<>(
+            return new Request<>(
                 "klay_sendRawTransaction",
                 Arrays.asList(signedTransactionData),
                 web3jService,

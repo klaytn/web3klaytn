@@ -111,16 +111,6 @@ paths:
     $ref: ./transaction/pendingTransactions.yaml#/paths/~1klay~1pendingTransactions
   /klay/transaction/getTransactionReceiptBySenderTxHash:
     $ref: ./transaction/getTransactionReceiptBySenderTxHash.yaml#/paths/~1klay~1getTransactionReceiptBySenderTxHash
-  /klay/transaction/createAccessList:
-    $ref: ./transaction/createAccessList.yaml#/paths/~1klay~1createAccessList
-  /klay/transaction/getRawTransactionByBlockHashAndIndex:
-    $ref: ./transaction/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockHashAndIndex
-  /klay/transaction/getRawTransactionByHash:
-    $ref: ./transaction/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
-  /klay/transaction/resend:
-    $ref: ./transaction/resend.yaml#/paths/~1klay~1resend
-  /klay/transaction/getRawTransactionByBlockNumberAndIndex:
-    $ref: ./transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockNumberAndIndex
 
   # klay/configuration
   /klay/configuration/chainID:
@@ -175,7 +165,17 @@ paths:
   # klay/miscellaneous
   /klay/miscellaneous/sha3:
     $ref: ./miscellaneous/sha3.yaml#/paths/~1klay~1sha3
-  /klay/miscellaneous/nodeAddress:
+  /klay/createAccessList:
+    $ref: ./transaction/createAccessList.yaml#/paths/~1klay~1createAccessList
+  /klay/getRawTransactionByBlockHashAndIndex:
+    $ref: ./transaction/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockHashAndIndex
+  /klay/nodeAddress:
     $ref: ./miscellaneous/nodeAddress.yaml#/paths/~1klay~1nodeAddress
-  /klay/miscellaneous/getStakingInfo:
+  /klay/getRawTransactionByHash:
+    $ref: ./transaction/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
+  /klay/resend:
+    $ref: ./transaction/resend.yaml#/paths/~1klay~1resend
+  /klay/getRawTransactionByBlockNumberAndIndex:
+    $ref: ./transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockNumberAndIndex
+  /klay/getStakingInfo:
     $ref: ./miscellaneous/getStakingInfo.yaml#/paths/~1klay~1getStakingInfo

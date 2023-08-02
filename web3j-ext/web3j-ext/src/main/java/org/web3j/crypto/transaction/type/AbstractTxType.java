@@ -20,7 +20,6 @@ import org.web3j.crypto.KlayCredentials;
 import org.web3j.crypto.KlaySignatureData;
 import org.web3j.crypto.KlayRawTransaction;
 import org.web3j.utils.BytesUtils;
-import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Sign;
 import org.web3j.rlp.RlpEncoder;
 import org.web3j.rlp.RlpList;
@@ -72,8 +71,23 @@ public abstract class AbstractTxType implements TxType, ITransaction {
 
     private TxType.Type type;
 
+    private long chainId = 0;
+
     public AbstractTxType(TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit,
             String from, String to, BigInteger value) {
+        this.type = type;
+        this.nonce = nonce;
+        this.gasPrice = gasPrice;
+        this.gasLimit = gasLimit;
+        this.from = from;
+        this.to = to;
+        this.value = value;
+        this.senderSignatureDataSet = new HashSet<>();
+    }
+
+    public AbstractTxType(long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit,
+    String from, String to, BigInteger value) {
+        this.chainId = chainId;
         this.type = type;
         this.nonce = nonce;
         this.gasPrice = gasPrice;
@@ -266,7 +280,6 @@ public abstract class AbstractTxType implements TxType, ITransaction {
      * @param chainId     chain ID
      * @return KlayRawTransaction this contains transaction hash and processed
      *         signature data
-     * @throws EmptyNonceException throw exception when nonce is null
      */
     @Override
     public KlayRawTransaction sign(KlayCredentials credentials, long chainId) {
@@ -288,6 +301,10 @@ public abstract class AbstractTxType implements TxType, ITransaction {
         byte[] rawTx = BytesUtils.concat(type, encodedTransaction);
 
         return new KlayRawTransaction(this, rawTx, getSenderSignatureData());
+    }
+
+    public long getChainId() {
+        return chainId;
     }
 
     public TxType.Type getKlayType() {

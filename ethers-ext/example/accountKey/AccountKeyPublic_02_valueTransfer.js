@@ -1,6 +1,5 @@
 const ethers = require("ethers");
-const { Wallet } = require("../../dist/src/ethers"); // require("@klaytn/sdk-ethers");
-const fs = require('fs');
+const { Wallet, TxType, parseKlay } = require("@klaytn/ethers-ext");
 
 //
 // AccountKeyPublic Step 02 - value transfer
@@ -8,21 +7,19 @@ const fs = require('fs');
 // 
 
 // the same address of sender in AccountKeyPublic_01_accountUpdate.js 
-const sender = '0x1173d5dc7b5e1e07d857d74e962b6ed7d4234a92';
-const reciever = '0xc40b6909eb7085590e1c26cb3becc25368e249e9';
-
-// newly updated private key of sender
-const updated_priv = fs.readFileSync('./example/privateKey', 'utf8');
+const recieverAddr = '0xc40b6909eb7085590e1c26cb3becc25368e249e9';
+const senderAddr = '0xe15cd70a41dfb05e7214004d7d054801b2a2f06b' 
+const senderNewPriv = '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8' 
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider('https://public-en-baobab.klaytn.net');
-  const wallet = new Wallet( sender, updated_priv, provider );
+  const wallet = new Wallet( senderAddr, senderNewPriv, provider );
 
   let new_tx = {
-    type: 8,        // TxTypeValueTransfer
-    to: reciever,
-    value: 100000000000,
-    from: sender,
+    type: TxType.ValueTransfer,
+    to: recieverAddr,
+    value: parseKlay("1"),
+    from: senderAddr,
   }; 
 
   let sentTx = await wallet.sendTransaction(new_tx);

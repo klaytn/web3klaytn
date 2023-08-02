@@ -3,7 +3,6 @@ package org.web3j.crypto.transaction.type;
 import java.math.BigInteger;
 import java.util.List;
 
-import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Sign.SignatureData;
 import org.web3j.crypto.transaction.account.AccountKey;
 import org.web3j.crypto.transaction.account.AccountKeyDecoder;
@@ -29,6 +28,18 @@ public class TxTypeAccountUpdate extends AbstractTxType {
     public static TxTypeAccountUpdate createTransaction(TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from, AccountKey accountKey) {
         return new TxTypeAccountUpdate(type, nonce, gasPrice, gasLimit, from, accountKey);
     }
+
+    public TxTypeAccountUpdate(long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from, AccountKey accountKey) {
+        super(chainId, type, nonce, gasPrice, gasLimit, from, "", BigInteger.ZERO);
+        this.accountKey = accountKey;
+        
+    }
+
+    public static TxTypeAccountUpdate createTransaction(long chainId, TxType.Type type, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String from, AccountKey accountKey) {
+        return new TxTypeAccountUpdate(chainId, type, nonce, gasPrice, gasLimit, from, accountKey);
+    }
+
+
 
     public AccountKey getAccountKey() {
         return accountKey;

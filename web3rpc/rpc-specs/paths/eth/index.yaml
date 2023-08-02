@@ -75,22 +75,11 @@ paths:
     $ref: ./transaction/sendTransaction.yaml#/paths/~1eth~1sendTransaction
   /eth/transaction/signTransaction:
     $ref: ./transaction/signTransaction.yaml#/paths/~1eth~1signTransaction
+
   /eth/transaction/pendingTransactions:
     $ref: ./transaction/pendingTransactions.yaml#/paths/~1eth~1pendingTransactions
   /eth/transaction/fillTransaction:
     $ref: ./transaction/fillTransaction.yaml#/paths/~1eth~1fillTransaction
-  /eth/transaction/createAccessList:
-    $ref: ./transaction/createAccessList.yaml#/paths/~1eth~1createAccessList
-  /eth/transaction/getRawTransactionByBlockHashAndIndex:
-    $ref: ./transaction/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockHashAndIndex
-  /eth/transaction/getRawTransactionByBlockNumberAndIndex:
-    $ref: ./transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockNumberAndIndex
-  /eth/transaction/getRawTransactionByHash:
-    $ref: ./transaction/getRawTransactionByHash.yaml#/paths/~1eth~1getRawTransactionByHash
-  /eth/transaction/resend:
-    $ref: ./transaction/resend.yaml#/paths/~1eth~1resend
-  /eth/transaction/estimateGas:
-    $ref: ./transaction/estimateGas.yaml#/paths/~1eth~1estimateGas
 
   # eth/config
   /eth/config/chainID:
@@ -107,6 +96,8 @@ paths:
   # eth/gas
   /eth/gas/feeHistory:
     $ref: ./gas/feeHistory.yaml#/paths/~1eth~1feeHistory
+  /eth/gas/estimateGas:
+    $ref: ./transaction/estimateGas.yaml#/paths/~1eth~1estimateGas
   /eth/gas/maxPriorityFeePerGas:
     $ref: ./gas/maxPriorityFeePerGas.yaml#/paths/~1eth~1maxPriorityFeePerGas
 
@@ -141,5 +132,15 @@ paths:
   #   $ref: ./miscellaneous/getWork.yaml#/paths/~1eth~1getWork
   /eth/miscellaneous/submitHashrate:
     $ref: ./miscellaneous/submitHashrate.yaml#/paths/~1eth~1submitHashrate
-  /eth/miscellaneous/getProof:
+  /eth/createAccessList:
+    $ref: ./transaction/createAccessList.yaml#/paths/~1eth~1createAccessList
+  /eth/getRawTransactionByBlockHashAndIndex:
+    $ref: ./transaction/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockHashAndIndex
+  /eth/getRawTransactionByBlockNumberAndIndex:
+    $ref: ./transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockNumberAndIndex
+  /eth/getRawTransactionByHash:
+    $ref: ./transaction/getRawTransactionByHash.yaml#/paths/~1eth~1getRawTransactionByHash
+  /eth/getProof:
     $ref: ./miscellaneous/getProof.yaml#/paths/~1eth~1getProof
+  /eth/resend:
+    $ref: ./transaction/resend.yaml#/paths/~1eth~1resend

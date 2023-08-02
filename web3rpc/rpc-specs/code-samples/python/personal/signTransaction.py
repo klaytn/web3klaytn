@@ -1,4 +1,5 @@
-from opensdk.sdk import OpenSDK
+from web3 import Web3
+from web3py_ext import extend
 
 host = "https://api.baobab.klaytn.net:8651"
 
@@ -12,7 +13,7 @@ transactionObject = {
 }
 password = "helloWorld"
 
-sdk = OpenSDK(host)
-personal_response = sdk.personal.sign_transaction(transactionObject, password)
+w3 = Web3(Web3.HTTPProvider(host))
+personal_response = w3.personal.sign_transaction(transactionObject, password)
 
 print(personal_response)

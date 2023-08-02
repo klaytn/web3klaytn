@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/startGoTrace:
     post:
-      summary: "[startGoTrace]"
+      summary: "[RuntimeTrace-startGoTrace]"
       tags:
         - debug
       operationId: startGoTrace
