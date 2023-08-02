@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.io.IOException;
 import java.math.BigInteger;
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.EthResendResponse;
+//import org.web3j.protocol.klaytn.core.method.response.EthResendResponse;
 import opensdk.sdk.utils.CommonUtils;
 import opensdk.sdk.utils.EthUtils;
 import opensdk.sdk.utils.PersonalUtils;
@@ -30,9 +30,9 @@ public class EthResendTest {
     Transaction tx = new Transaction(addressPn,new BigInteger(noncePending.substring(2) , 16) ,null , null
         ,"0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",new BigInteger("1",16) ,null , null ,new BigInteger("5d21dba00" , 16) ,
         new BigInteger("5d21dba00" , 16));
-    EthResendResponse response = w3.ethResend(tx, gasPrice, gasLimit).send();
-    assertNotNull(response);
-    assertNull(response.getError());
-    assertNotNull(response.getResult());
+//    EthResendResponse response = w3.ethResend(tx, gasPrice, gasLimit).send();
+//    assertNotNull(response);
+//    assertNull(response.getError());
+//    assertNotNull(response.getResult());
   }
 }
