@@ -1,7 +1,8 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
+const { BAOBAB_RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const sdk = new OpenSdk(new OpenSdk.ApiClient(BAOBAB_RPC));
 
 describe('Klay clientVersion  API', () => {
     test('should return clientVersion', (done) => {
