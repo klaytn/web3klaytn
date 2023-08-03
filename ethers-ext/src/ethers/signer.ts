@@ -59,15 +59,7 @@ function restoreCustomFields(tx: Deferrable<TransactionRequest>, savedFields: an
 export class Wallet extends EthersWallet {
   private klaytn_address: string | undefined;
 
-  private dynamicUpdateWalletAPI;
-
-  _checkTransaction:((transaction: Deferrable<TransactionRequest>) => Deferrable<TransactionRequest>) | undefined;
-  _populateTransaction: ((transaction: Deferrable<TransactionRequest>) => Promise<TransactionRequest>) | undefined;
-
-  _signTransaction;
-  _sendTransaction;
-
-  constructor(address: any, privateKey?: any, provider?: Provider, dynamicUpdateWalletAPI: boolean = true) {
+  constructor(address: any, privateKey?: any, provider?: Provider) {
     const str_addr = String(address);
 
     if (HexStr.isHex(address) && (str_addr.length == 40 || str_addr.length == 42)) {
@@ -77,29 +69,6 @@ export class Wallet extends EthersWallet {
       provider = privateKey;
       privateKey = address;
       super(privateKey, provider);
-    }
-
-    // KlaytnWallet API is also working on Wallet
-    // For example, Wallet.populateTransaction is same with KlaytnWallet.populateTransaction.
-    this.dynamicUpdateWalletAPI = dynamicUpdateWalletAPI;
-    if (this.dynamicUpdateWalletAPI == true) {
-      this._checkTransaction = super.checkTransaction;
-      super.checkTransaction = this.checkTransaction;
-
-      this._populateTransaction = super.populateTransaction;
-      super.populateTransaction = this.populateTransaction;
-
-      this._signTransaction = super.signTransaction;
-      super.signTransaction = this.signTransaction;
-
-      // @ts-ignore
-      super.signTransactionAsFeePayer = this.signTransactionAsFeePayer;
-
-      this._sendTransaction = super.sendTransaction;
-      super.sendTransaction = this.sendTransaction;
-
-      // @ts-ignore
-      super.sendTransactionAsFeePayer = this.sendTransactionAsFeePayer;
     }
   }
 
@@ -125,26 +94,19 @@ export class Wallet extends EthersWallet {
   }
 
   checkTransaction(transaction: Deferrable<TransactionRequest>): Deferrable<TransactionRequest> {
-    const savedFields = saveCustomFields(transaction);
-    if (this.dynamicUpdateWalletAPI == true && this._checkTransaction != undefined) {
-      transaction = this._checkTransaction(transaction);
-    } else {
-      transaction = super.checkTransaction(transaction);
-    }
-    restoreCustomFields(transaction, savedFields);
+    const tx = _.clone(transaction);
+    const savedFields = saveCustomFields(tx);
+    transaction = super.checkTransaction(tx);
+    restoreCustomFields(tx, savedFields);
 
-    return transaction;
+    return tx;
   }
 
   async populateTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionRequest> {
     let tx: TransactionRequest = await resolveProperties(transaction);
 
     if (!KlaytnTxFactory.has(tx.type)) {
-      if (this.dynamicUpdateWalletAPI == true && this._populateTransaction != undefined) {
-        return this._populateTransaction(tx);
-      } else {
-        return super.populateTransaction(tx);
-      }
+      return super.populateTransaction(tx);
     }
 
     // Klaytn AccountKey is not matched with pubKey of the privateKey
@@ -186,11 +148,7 @@ export class Wallet extends EthersWallet {
     }
 
     const savedFields = saveCustomFields(tx);
-    if (this.dynamicUpdateWalletAPI == true && this._populateTransaction != undefined) {
-      tx = await this._populateTransaction(tx);
-    } else {
-      tx = await super.populateTransaction(tx);
-    }
+    tx = await super.populateTransaction(tx);
     restoreCustomFields(tx, savedFields);
 
     return tx;
@@ -217,11 +175,7 @@ export class Wallet extends EthersWallet {
     const tx: TransactionRequest = await resolveProperties(transaction);
 
     if (!KlaytnTxFactory.has(tx.type)) {
-      if (this.dynamicUpdateWalletAPI == true && this._signTransaction != undefined) {
-        return this._signTransaction(tx);
-      } else {
-        return super.signTransaction(tx);
-      }
+      return super.signTransaction(tx);
     }
 
     const ttx = KlaytnTxFactory.fromObject(tx);
