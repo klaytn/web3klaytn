@@ -1,7 +1,6 @@
-KLAYTN_URL = "https://dev.api.klaytn.sotatek.works"
-BAOBAB_URL = "https://public-en-baobab.klaytn.net"
-GOVERNANCE_RPC = "https://dev.api.kcn191.klaytn.sotatek.works"
-PN_RPC = "http://172.16.1.223:8561"
-HTTP_200_OK = 200
-ERROR_CODE_INCORRECT_METHOD = -32601
-ERROR_CODE_REQUIRE_ARGUMENT = -32602
+import os
+
+KLAYTN_URL = os.environ.get("RPC", "https://dev.api.klaytn.sotatek.works")
+BAOBAB_URL = os.environ.get("BAOBAB_RPC", 'https://public-en-baobab.klaytn.net')
+GOVERNANCE_RPC = os.environ.get("GOVERNANCE_RPC",  "https://dev.api.kcn191.klaytn.sotatek.works")
+PN_RPC = os.environ.get("PN_RPC", "http://172.16.1.223:8561")
