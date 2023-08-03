@@ -1,7 +1,12 @@
-KLAYTN_URL = "https://dev.api.klaytn.sotatek.works"
-BAOBAB_URL = "https://public-en-baobab.klaytn.net"
-GOVERNANCE_RPC = "https://dev.api.kcn191.klaytn.sotatek.works"
-PN_RPC = "http://172.16.1.223:8561"
-HTTP_200_OK = 200
-ERROR_CODE_INCORRECT_METHOD = -32601
-ERROR_CODE_REQUIRE_ARGUMENT = -32602
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+KLAYTN_URL = os.getenv('RPC')
+BAOBAB_URL = os.getenv('BAOBAB_RPC')
+GOVERNANCE_RPC = os.getenv('GOVERNANCE_RPC')
+PN_RPC = os.getenv('PN_RPC')
+HTTP_200_OK = os.getenv('HTTP_200_OK')
+ERROR_CODE_INCORRECT_METHOD = os.getenv('ERROR_CODE_INCORRECT_METHOD')
+ERROR_CODE_REQUIRE_ARGUMENT = os.getenv('ERROR_CODE_REQUIRE_ARGUMENT')
