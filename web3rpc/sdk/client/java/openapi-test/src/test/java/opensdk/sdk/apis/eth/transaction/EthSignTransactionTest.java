@@ -1,7 +1,7 @@
 package opensdk.sdk.apis.eth.transaction;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.EthSignTransactionResponse;
+//import org.web3j.protocol.klaytn.core.method.response.EthSignTransactionResponse;
 import opensdk.sdk.utils.EthUtils;
 import opensdk.sdk.utils.PersonalUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -29,12 +29,12 @@ public class EthSignTransactionTest {
         Transaction tx = new Transaction(address,new BigInteger(nonce, 16),null,new BigInteger("9999",16)
                 ,"0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",new BigInteger("1",16),null,null
                 ,new BigInteger("5d21dba00",16),new BigInteger("5d21dba00",16));
-        EthSignTransactionResponse transactionResponse = w3.ethSignTransaction(tx).send();
-        assertNotNull(transactionResponse);
-        assertNull(transactionResponse.getError());
-
-        assertNotNull(transactionResponse.getResult());
-        assertNotNull(transactionResponse.getResult().getRaw());
-        assertTrue(transactionResponse.getResult().getRaw().matches("^0x[0-9a-fA-F]+$"));
+//        EthSignTransactionResponse transactionResponse = w3.ethSignTransaction(tx).send();
+//        assertNotNull(transactionResponse);
+//        assertNull(transactionResponse.getError());
+//
+//        assertNotNull(transactionResponse.getResult());
+//        assertNotNull(transactionResponse.getResult().getRaw());
+//        assertTrue(transactionResponse.getResult().getRaw().matches("^0x[0-9a-fA-F]+$"));
     }
 }

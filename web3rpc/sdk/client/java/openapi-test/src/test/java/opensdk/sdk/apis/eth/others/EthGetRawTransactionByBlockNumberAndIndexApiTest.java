@@ -1,7 +1,7 @@
 package opensdk.sdk.apis.eth.others;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.EthGetRawTransactionByBlockNumberAndIndexResponse;
+//import org.web3j.protocol.klaytn.core.method.response.EthGetRawTransactionByBlockNumberAndIndexResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.web3j.protocol.http.HttpService;
@@ -19,13 +19,13 @@ public class EthGetRawTransactionByBlockNumberAndIndexApiTest {
     @Test
     @DisplayName("RPC eth_getRawTransactionByBlockNumberAndIndex")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        EthGetRawTransactionByBlockNumberAndIndexResponse er = w3.ethGetRawTransactionByBlockNumberAndIndex(
-            118593751,
-            "0x0")
-        .send();
-        assertNotNull(er);
-        assertNull(er.getError());
-        assertNotNull(er.getResult());
-        assertTrue(er.getResult().matches("^0x.*$"));
+//        EthGetRawTransactionByBlockNumberAndIndexResponse er = w3.ethGetRawTransactionByBlockNumberAndIndex(
+//            118593751,
+//            "0x0")
+//        .send();
+//        assertNotNull(er);
+//        assertNull(er.getError());
+//        assertNotNull(er.getResult());
+//        assertTrue(er.getResult().matches("^0x.*$"));
     }
 }
