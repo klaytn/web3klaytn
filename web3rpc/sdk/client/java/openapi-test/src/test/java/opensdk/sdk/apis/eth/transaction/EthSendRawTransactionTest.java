@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Eth RPC Test")
 public class EthSendRawTransactionTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
     public static final String address = "0x1a2dc19e4ca604d8bfd65c42ed5f93e19702d47e";
     @Test
     @DisplayName("RPC eth_sendRawTransaction")
