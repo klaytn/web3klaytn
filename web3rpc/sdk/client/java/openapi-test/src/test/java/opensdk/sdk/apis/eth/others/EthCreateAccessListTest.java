@@ -10,13 +10,10 @@ import org.web3j.protocol.core.methods.request.Transaction;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Eth RPC Test")
 public class EthCreateAccessListTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
     @Test
     @DisplayName("RPC eth_createAccessList")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {

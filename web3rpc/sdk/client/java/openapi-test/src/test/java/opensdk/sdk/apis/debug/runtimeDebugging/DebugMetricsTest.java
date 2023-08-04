@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import org.web3j.protocol.http.HttpService;
@@ -16,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Debug RPC Test")
 public class DebugMetricsTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
     @Test
     @DisplayName("RPC debug_metrics")

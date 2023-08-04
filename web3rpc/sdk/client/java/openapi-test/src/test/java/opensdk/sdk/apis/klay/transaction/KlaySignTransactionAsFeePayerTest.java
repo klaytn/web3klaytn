@@ -12,7 +12,6 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -21,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Klay RPC Test")
 public class KlaySignTransactionAsFeePayerTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
     @Test
     @DisplayName("RPC klay_signTransactionAsFeePayer")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {

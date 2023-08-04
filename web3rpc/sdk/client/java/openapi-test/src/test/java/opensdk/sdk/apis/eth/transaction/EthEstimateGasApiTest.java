@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Eth RPC Test")
 public class EthEstimateGasApiTest {
 
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
     @Test
     @DisplayName("RPC eth_estimateGas")
