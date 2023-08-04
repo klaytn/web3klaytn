@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @DisplayName("Eth RPC Test")
 public class EthProtocolVersionTest {
 
-  private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+  private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
   @Disabled
   @Test
