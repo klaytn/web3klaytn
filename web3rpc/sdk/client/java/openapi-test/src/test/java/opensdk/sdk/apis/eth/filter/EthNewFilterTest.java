@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Eth RPC Test")
 public class EthNewFilterTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
     @Test
     @DisplayName("RPC eth_newFilter")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {

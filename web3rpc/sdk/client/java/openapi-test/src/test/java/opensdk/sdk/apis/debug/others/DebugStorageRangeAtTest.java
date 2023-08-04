@@ -13,7 +13,7 @@ import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.http.HttpService;
 @DisplayName("Debug RPC Test")
 public class DebugStorageRangeAtTest {
-  private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+  private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
   @Disabled
   @Test
   @DisplayName("RPC debug_storageRangeAt")

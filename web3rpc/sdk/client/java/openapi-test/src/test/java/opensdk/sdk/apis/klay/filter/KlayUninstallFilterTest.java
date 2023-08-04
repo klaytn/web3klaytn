@@ -1,7 +1,6 @@
 package opensdk.sdk.apis.klay.filter;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.abi.datatypes.Bool;
 import org.web3j.protocol.klaytn.core.method.response.KlayUninstallFilterResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class KlayUninstallFilterTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
     @Test
     @DisplayName("RPC klay_uninstallFilter")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
