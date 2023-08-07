@@ -1,7 +1,8 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
+const { BAOBAB_RPC } = require("../../constant");
 
-const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const sdk = new OpenSdk(new OpenSdk.ApiClient(BAOBAB_RPC));
 jest.setTimeout(50000)
 describe('Klay estimate gas  API', () => {
     test('should return result', (done) => {
