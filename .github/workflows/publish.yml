@@ -1,9 +1,11 @@
 name: SDK publish on release
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["testing"]
+    branches: [main]
+    types:
+      - completed
 
 jobs:
   build:
