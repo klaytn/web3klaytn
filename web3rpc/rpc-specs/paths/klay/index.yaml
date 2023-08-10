@@ -131,6 +131,8 @@ paths:
     $ref: ./configuration/rewardBase.yaml#/paths/~1klay~1rewardbase
   /klay/configuration/getChainConfig:
     $ref: ./configuration/getChainConfig.yaml#/paths/~1klay~1getChainConfig
+  /klay/configuration/forkStatus:
+    $ref: ./configuration/forkStatus.yaml#/paths/~1klay~1forkStatus
 
   # klay/filter
   /klay/filter/getFilterChanges:

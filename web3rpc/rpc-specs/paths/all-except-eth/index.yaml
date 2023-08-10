@@ -147,10 +147,10 @@ paths:
     $ref: ../klay/configuration/clientVersion.yaml#/paths/~1klay~1clientVersion
   /klay/configuration/gasPrice:
     $ref: ../klay/configuration/gasPrice.yaml#/paths/~1klay~1gasPrice
-  /klay/configuration/gasPriceAt:
-    $ref: ../klay/configuration/gasPriceAt.yaml#/paths/~1klay~1gasPriceAt
-  /klay/configuration/getChainConfig:
-    $ref: ../klay/configuration/getChainConfig.yaml#/paths/~1klay~1getChainConfig
+  # /klay/configuration/gasPriceAt:
+  #   $ref: ../klay/configuration/gasPriceAt.yaml#/paths/~1klay~1gasPriceAt
+  # /klay/configuration/getChainConfig:
+  #   $ref: ../klay/configuration/getChainConfig.yaml#/paths/~1klay~1getChainConfig
   /klay/configuration/isParallelDBWrite:
     $ref: ../klay/configuration/isParallelDBWrite.yaml#/paths/~1klay~1isParallelDBWrite
   /klay/configuration/isSenderTxHashIndexingEnabled:
@@ -159,6 +159,8 @@ paths:
     $ref: ../klay/configuration/protocolVersion.yaml#/paths/~1klay~1protocolVersion
   /klay/configuration/rewardbase:
     $ref: ../klay/configuration/rewardBase.yaml#/paths/~1klay~1rewardbase
+  /klay/configuration/forkStatus:
+    $ref: ../klay/configuration/forkStatus.yaml#/paths/~1klay~1forkStatus
 
   # klay/filter
   /klay/filter/getFilterChanges:
@@ -379,8 +381,8 @@ paths:
     $ref: ../debug/runtimeTracing/stopGoTrace.yaml#/paths/~1debug~1stopGoTrace
 
   # governance
-  /governance/chainConfig:
-    $ref: ../governance/chainConfig.yaml#/paths/~1governance~1chainConfig
+  # /governance/chainConfig:
+  #   $ref: ../governance/chainConfig.yaml#/paths/~1governance~1chainConfig
   # /governance/getStakingInfo:
   #   $ref: ../governance/getStakingInfo.yaml#/paths/~1governance~1getStakingInfo
   /governance/idxCache:
@@ -389,8 +391,8 @@ paths:
     $ref: ../governance/idxCacheFromDb.yaml#/paths/~1governance~1idxCacheFromDb
   /governance/itemCacheFromDb:
     $ref: ../governance/itemCacheFromDb.yaml#/paths/~1governance~1itemCacheFromDb
-  /governance/itemsAt:
-    $ref: ../governance/itemsAt.yaml#/paths/~1governance~1itemsAt
+  # /governance/itemsAt:
+  #   $ref: ../governance/itemsAt.yaml#/paths/~1governance~1itemsAt
   /governance/myVotes:
     $ref: ../governance/myVotes.yaml#/paths/~1governance~1myVotes
   /governance/myVotingPower:
@@ -407,6 +409,12 @@ paths:
     $ref: ../governance/vote.yaml#/paths/~1governance~1vote
   /governance/votes:
     $ref: ../governance/votes.yaml#/paths/~1governance~1votes
+  /governance/getParams:
+    $ref: ../governance/getParams.yaml#/paths/~1governance~1getParams
+  /governance/getChainConfig:
+    $ref: ../governance/getChainConfig.yaml#/paths/~1governance~1getChainConfig
+  /governance/getRewardsAccumulated:
+    $ref: ../governance/getRewardsAccumulated.yaml#/paths/~1governance~1getRewardsAccumulated
 
   # admin
   /admin/addPeer:
