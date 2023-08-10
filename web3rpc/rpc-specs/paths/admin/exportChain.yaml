@@ -29,6 +29,18 @@ paths:
             type: string
           description: the fully qualified path to the file where the blockchain must be exported.
           in: query
+        - name: firstBlock
+          required: false
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/IntegerBlockNumber"
+          description: First block
+          in: query
+        - name: lastBlock
+          required: false
+          schema:
+            $ref: "../../components/schemas/common/Common.yaml#/components/schemas/IntegerBlockNumber"
+          description: Last block
+          in: query
 
       requestBody:
         content:
@@ -81,9 +93,16 @@ components:
           type: array
           description: the fully qualified path to the file where the blockchain must be exported.
           items:
-            title: FileName
-            type: string
-          example: ["/tmp/chain.txt"]
+            anyOf:
+              - type: string
+                title: FileName
+              - type: number
+                format: integer
+                title: FirstBlock
+              - type: number
+                format: integer
+                title: LastBlock
+          example: ["/tmp/chain.txt", 1, 1000]
 
     ExportChainResp:
       type: object
