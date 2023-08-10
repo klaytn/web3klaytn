@@ -52,10 +52,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klay/configuration/forkStatus.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/configuration/KlayforkStatusExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/configuration/KlayForkStatusExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
