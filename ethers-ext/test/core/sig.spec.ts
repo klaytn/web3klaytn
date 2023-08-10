@@ -1,4 +1,5 @@
 import { assert } from "chai";
+
 import { getSignatureTuple } from "../../src/core/sig";
 
 describe("getSignatureTuple", () => {
@@ -7,11 +8,11 @@ describe("getSignatureTuple", () => {
     const vHex = "0x1b";
     const rHex = "0x66809fb130a6ea4ae4e823baa92573a5f1bfb4e88e64048aecfb18a2b4012b99";
     const sHex = "0x75c2c3e5f7b0a182c767137c488649cd5104a5e747371fd922d618e328e5c508";
-    const canonical = [ vHex, rHex, sHex ];
+    const canonical = [vHex, rHex, sHex];
 
     const testcases = [
       // tuple
-      [ vHex, rHex, sHex ],
+      [vHex, rHex, sHex],
 
       // object
       { v: vNum, r: rHex, s: sHex },

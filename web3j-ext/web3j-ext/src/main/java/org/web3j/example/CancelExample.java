@@ -23,7 +23,7 @@ import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
  */
 public class CancelExample implements keySample {
     /**
-     * @param args
+     * 
      */
 
     public static void run() throws IOException {

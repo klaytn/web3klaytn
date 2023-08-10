@@ -19,7 +19,7 @@ import org.web3j.tx.KlayRawTransactionManager;
 
 public class KlayRawTransactionManagerExample implements keySample {
     /**
-     * @param args
+     *
      */
 
     public static void run() throws IOException {

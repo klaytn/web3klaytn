@@ -29,7 +29,7 @@ import java.util.Collections;
  */
 public class InteractWithContractAndFeeDelegateExample implements keySample {
     /**
-     * @param args
+     * 
      */
     public static void run() throws IOException {
 

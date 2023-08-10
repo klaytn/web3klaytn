@@ -1,6 +1,7 @@
-import _ from "lodash";
-import { HexStr } from "./util";
 import { splitSignature } from "@ethersproject/bytes";
+import _ from "lodash";
+
+import { HexStr } from "./util";
 
 // List of signature tuples used in Klaytn transactions.
 // All elements must be string for convenient RLP encoding.

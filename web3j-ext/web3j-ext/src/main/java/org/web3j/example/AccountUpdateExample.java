@@ -24,7 +24,7 @@ import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
  */
 public class AccountUpdateExample implements keySample {
 	/**
-	 * @param args
+	 * 
 	 */
     
     public static void run(KlayCredentials credentials) throws IOException {

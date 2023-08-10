@@ -127,3 +127,4 @@ bin/**.jar
 **/gradlew
 **/gradlew.bat
 **/dist/
+**/package-lock.json

@@ -1,16 +1,17 @@
 export { KlaytnTx, KlaytnTxFactory } from "./klaytn_tx";
 export { AccountKey, AccountKeyFactory } from "./accountKey";
 
+/* eslint-disable import/order */
 import { KlaytnTxFactory } from "./klaytn_tx";
 
-// Basic TX 
+// Basic TX
 import {
   TxTypeValueTransfer,
   TxTypeValueTransferMemo,
   TxTypeSmartContractDeploy,
   TxTypeSmartContractExecution,
   TxTypeAccountUpdate,
-  TxTypeCancel, 
+  TxTypeCancel,
   TxTypeChainDataAnchoring,
 } from "./klaytn_tx_basic";
 
@@ -29,7 +30,7 @@ import {
   TxTypeFeeDelegatedSmartContractDeploy,
   TxTypeFeeDelegatedSmartContractExecution,
   TxTypeFeeDelegatedAccountUpdate,
-  TxTypeFeeDelegatedCancel, 
+  TxTypeFeeDelegatedCancel,
   TxTypeFeeDelegatedChainDataAnchoring,
 } from "./klaytn_tx_feeDelegation";
 
@@ -48,7 +49,7 @@ import {
   TxTypeFeeDelegatedSmartContractDeployWithRatio,
   TxTypeFeeDelegatedSmartContractExecutionWithRatio,
   TxTypeFeeDelegatedAccountUpdateWithRatio,
-  TxTypeFeeDelegatedCancelWithRatio, 
+  TxTypeFeeDelegatedCancelWithRatio,
   TxTypeFeeDelegatedChainDataAnchoringWithRatio,
 } from "./klaytn_tx_partialFeeDelegation";
 
@@ -60,16 +61,16 @@ KlaytnTxFactory.add(TxTypeFeeDelegatedAccountUpdateWithRatio);
 KlaytnTxFactory.add(TxTypeFeeDelegatedCancelWithRatio);
 KlaytnTxFactory.add(TxTypeFeeDelegatedChainDataAnchoringWithRatio);
 
-// AccountKey 
+// AccountKey
+import { AccountKeyFactory } from "./accountKey";
+
 import {
   AccountKeyLegacy,
   AccountKeyPublic,
   AccountKeyFail,
-  AccountKeyWeightedMultiSig, 
+  AccountKeyWeightedMultiSig,
   AccountKeyRoleBased,
 } from "./klaytn_accountKeys";
-
-import { AccountKeyFactory } from "./accountKey";
 
 AccountKeyFactory.add(AccountKeyLegacy);
 AccountKeyFactory.add(AccountKeyPublic);

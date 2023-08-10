@@ -13,6 +13,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.+'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.30.0'
     }
 }
 
@@ -81,15 +82,31 @@ if(hasProperty('target') && target == 'android') {
 
     apply plugin: 'java'
     apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+    apply plugin: 'io.codearte.nexus-staging'
+
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        archiveClassifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        archiveClassifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
 
     publishing {
         publications {
-            maven(MavenPublication) {
+            mavenJava(MavenPublication) {
                artifactId = '{{artifactId}}'
                from components.java
+               artifact sourcesJar
+               artifact javadocJar
+
                pom {
                    name = project.name
                    description = project.description
@@ -108,7 +125,7 @@ if(hasProperty('target') && target == 'android') {
         repositories {
             maven {
                 name = "OSSRH"
-                url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+                url = "https://s01.oss.sonatype.org/content/repositories/releases/"
                 credentials {
                     username = System.getenv("MAVEN_USERNAME")
                     password = System.getenv("MAVEN_PASSWORD")
@@ -116,26 +133,27 @@ if(hasProperty('target') && target == 'android') {
             }
         }
     }
+    signing {
+        def signingPassword = System.getenv("ORG_GRADLE_PROJECT_SIGNINGPASSWORD")
+
+        def signingKey_base64 = System.getenv('ORG_GRADLE_PROJECT_SIGNINGKEY')
+        def signingKey = (signingKey_base64 == null? null:
+                new String(Base64.getMimeDecoder().decode(signingKey_base64.toString()), "utf-8"))
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign publishing.publications.mavenJava
+
+    }
+
+    nexusStaging {
+        username= System.getenv("MAVEN_USERNAME")
+        password= System.getenv("MAVEN_PASSWORD")
+    }
 
     task execute(type:JavaExec) {
        main = System.getProperty('mainClass')
        classpath = sourceSets.main.runtimeClasspath
     }
 
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        archiveClassifier = 'sources'
-        from sourceSets.main.allSource
-    }
-
-    task javadocJar(type: Jar, dependsOn: javadoc) {
-        archiveClassifier = 'javadoc'
-        from javadoc.destinationDir
-    }
-
-    artifacts {
-        archives sourcesJar
-        archives javadocJar
-    }
 }
 
 ext {
