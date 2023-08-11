@@ -17,7 +17,7 @@ describe('governance_getRewardsAccumulated API', () => {
         const firstBlock = 123400489;
         const lastBlock = 123416489;
 
-        sdk.governance.itemsAt(firstBlock, lastBlock, {}, callbackOne);
+        sdk.governance.getRewardsAccumulated(firstBlock, lastBlock, {}, callbackOne);
     });
 });
 

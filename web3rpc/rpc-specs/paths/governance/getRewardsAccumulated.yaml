@@ -172,7 +172,7 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../code-samples/javascript/governance/getRewardsAccumulated.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../code-samples/python/governance/governance_getRewardsAccumulated.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/governance/governance_getRewardsAccumulated.py"
