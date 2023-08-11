@@ -13,7 +13,6 @@ public class EthSignExample {
         String address = "0x413ba0e5f6f00664598b5c80042b1308f4ff1408";
         EthSign response = w3.ethSign(address, "0xdeadbeaf").send();
         response.getResult();
-
     }
     
 }

@@ -3,7 +3,7 @@ package opensdk.sdk.apis.eth.others;
 import java.io.IOException;
 import java.math.BigInteger;
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.EthResendResponse;
+//import org.web3j.protocol.klaytn.core.method.response.EthResendResponse;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.core.methods.request.Transaction;
@@ -25,7 +25,7 @@ public class EthResendExample {
       null ,
       new BigInteger("5d21dba00" , 16),
       new BigInteger("5d21dba00" , 16));
-    EthResendResponse response = w3.ethResend(sendArgs, gasPrice, gasLimit).send();
-    response.getResult();
+//    EthResendResponse response = w3.ethResend(sendArgs, gasPrice, gasLimit).send();
+//    response.getResult();
   }
 }
