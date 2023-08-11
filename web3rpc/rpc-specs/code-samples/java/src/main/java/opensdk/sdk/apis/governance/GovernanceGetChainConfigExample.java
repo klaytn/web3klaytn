@@ -7,10 +7,10 @@ import org.web3j.protocol.klaytn.core.method.response.GovernanceGetChainConfigRe
 
 import java.io.IOException;
 
-public class GovernanceChainConfigExample {
+public class GovernanceGetChainConfigExample {
     private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
-    void governanceChainConfigExample() throws IOException {
+    void governanceGetChainConfigExample() throws IOException {
         GovernanceGetChainConfigResponse response = w3.governanceGetChainConfig().send();
         response.getResult();
     }

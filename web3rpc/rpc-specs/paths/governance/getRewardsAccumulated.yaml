@@ -164,10 +164,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../code-samples/curl/governance/getRewardsAccumulated.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/governance/governance_getRewardsAccumulatedExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+           $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/governance/GovernanceGetRewardsAccumulatedExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
