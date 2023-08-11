@@ -61,10 +61,10 @@ paths:
           source:
             $ref: "../../../code-samples/javascript/klay/configuration/forkStatus.js"
             
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../../code-samples/python/klay/configuration/forkStatus.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/configuration/forkStatus.py"
 
 components:
   schemas:

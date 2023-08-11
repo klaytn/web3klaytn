@@ -103,7 +103,7 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../code-samples/javascript/governance/getParams.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../code-samples/python/governance/getParams.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/governance/getParams.py"
