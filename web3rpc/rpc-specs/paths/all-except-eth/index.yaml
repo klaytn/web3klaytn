@@ -149,8 +149,8 @@ paths:
     $ref: ../klay/configuration/gasPrice.yaml#/paths/~1klay~1gasPrice
   # /klay/configuration/gasPriceAt:
   #   $ref: ../klay/configuration/gasPriceAt.yaml#/paths/~1klay~1gasPriceAt
-  # /klay/configuration/getChainConfig:
-  #   $ref: ../klay/configuration/getChainConfig.yaml#/paths/~1klay~1getChainConfig
+  #  /klay/configuration/getChainConfig:
+  #    $ref: ../klay/configuration/getChainConfig.yaml#/paths/~1klay~1getChainConfig
   /klay/configuration/isParallelDBWrite:
     $ref: ../klay/configuration/isParallelDBWrite.yaml#/paths/~1klay~1isParallelDBWrite
   /klay/configuration/isSenderTxHashIndexingEnabled:

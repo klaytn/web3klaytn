@@ -21,8 +21,9 @@ public class AdminExportChainTest {
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String randomFileName = generateRandomFileName();
         String file = "/tmp/" + randomFileName  + ".txt";
-
-        AdminExportChainResponse response = w3.adminExportChain(file).send();
+        int firstBlock = 1;
+        int lastBlock = 500;
+        AdminExportChainResponse response = w3.adminExportChain(file, firstBlock, lastBlock).send();
 
         assertNotNull(response);
         assertNull(response.getError());

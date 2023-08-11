@@ -1,7 +1,7 @@
 package opensdk.sdk.apis.personal;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.PersonalSignTransactionResponse;
+//import org.web3j.protocol.klaytn.core.method.response.PersonalSignTransactionResponse;
 import org.web3j.protocol.klaytn.core.method.response.TransactionObject;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
@@ -22,7 +22,7 @@ public class PersonalSignTransactionExample {
 
         String password = "helloWorld";
 
-        PersonalSignTransactionResponse response = w3.personalSignTransaction(transactionObject, password).send();
-        response.getResult();
+//        PersonalSignTransactionResponse response = w3.personalSignTransaction(transactionObject, password).send();
+//        response.getResult();
     }
 }
