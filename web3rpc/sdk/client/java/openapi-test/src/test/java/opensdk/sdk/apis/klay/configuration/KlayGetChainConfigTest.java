@@ -20,9 +20,7 @@ public class KlayGetChainConfigTest {
     @DisplayName("RPC klay_getChainConfig")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         Integer blogNumberOrTag = 100;
-
         KlayGetChainConfigResponse response = w3.klayGetChainConfig(blogNumberOrTag).send();
-
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());
