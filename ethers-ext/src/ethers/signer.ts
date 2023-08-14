@@ -1,5 +1,5 @@
 import { Provider, TransactionRequest, TransactionResponse } from "@ethersproject/abstract-provider";
-import { JsonRpcProvider } from "@ethersproject/providers";
+import { JsonRpcProvider as EthersJsonRpcProvider } from "@ethersproject/providers";
 import { Wallet as EthersWallet } from "@ethersproject/wallet";
 import { ethers } from "ethers";
 import { Bytes, Deferrable, computeAddress, hashMessage, keccak256, recoverAddress, resolveProperties } from "ethers/lib/utils";
@@ -9,6 +9,7 @@ import { KlaytnTxFactory } from "../core";
 import { encodeTxForRPC, objectFromRLP } from "../core/klaytn_tx";
 import { HexStr } from "../core/util";
 
+import { JsonRpcProvider } from "./provider";
 
 // @ethersproject/abstract-signer/src.ts/index.ts:allowedTransactionKeys
 const ethersAllowedTransactionKeys: Array<string> = [
@@ -58,15 +59,7 @@ function restoreCustomFields(tx: Deferrable<TransactionRequest>, savedFields: an
 export class Wallet extends EthersWallet {
   private klaytn_address: string | undefined;
 
-  private dynamicUpdateWalletAPI;
-
-  _checkTransaction:((transaction: Deferrable<TransactionRequest>) => Deferrable<TransactionRequest>) | undefined;
-  _populateTransaction: ((transaction: Deferrable<TransactionRequest>) => Promise<TransactionRequest>) | undefined;
-
-  _signTransaction;
-  _sendTransaction;
-
-  constructor(address: any, privateKey?: any, provider?: Provider, dynamicUpdateWalletAPI: boolean = true) {
+  constructor(address: any, privateKey?: any, provider?: Provider) {
     const str_addr = String(address);
 
     if (HexStr.isHex(address) && (str_addr.length == 40 || str_addr.length == 42)) {
@@ -76,29 +69,6 @@ export class Wallet extends EthersWallet {
       provider = privateKey;
       privateKey = address;
       super(privateKey, provider);
-    }
-
-    // KlaytnWallet API is also working on Wallet
-    // For example, Wallet.populateTransaction is same with KlaytnWallet.populateTransaction.
-    this.dynamicUpdateWalletAPI = dynamicUpdateWalletAPI;
-    if (this.dynamicUpdateWalletAPI == true) {
-      this._checkTransaction = super.checkTransaction;
-      super.checkTransaction = this.checkTransaction;
-
-      this._populateTransaction = super.populateTransaction;
-      super.populateTransaction = this.populateTransaction;
-
-      this._signTransaction = super.signTransaction;
-      super.signTransaction = this.signTransaction;
-
-      // @ts-ignore
-      super.signTransactionAsFeePayer = this.signTransactionAsFeePayer;
-
-      this._sendTransaction = super.sendTransaction;
-      super.sendTransaction = this.sendTransaction;
-
-      // @ts-ignore
-      super.sendTransactionAsFeePayer = this.sendTransactionAsFeePayer;
     }
   }
 
@@ -124,31 +94,24 @@ export class Wallet extends EthersWallet {
   }
 
   checkTransaction(transaction: Deferrable<TransactionRequest>): Deferrable<TransactionRequest> {
-    const savedFields = saveCustomFields(transaction);
-    if (this.dynamicUpdateWalletAPI == true && this._checkTransaction != undefined) {
-      transaction = this._checkTransaction(transaction);
-    } else {
-      transaction = super.checkTransaction(transaction);
-    }
-    restoreCustomFields(transaction, savedFields);
+    const tx = _.clone(transaction);
+    const savedFields = saveCustomFields(tx);
+    transaction = super.checkTransaction(tx);
+    restoreCustomFields(tx, savedFields);
 
-    return transaction;
+    return tx;
   }
 
   async populateTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionRequest> {
     let tx: TransactionRequest = await resolveProperties(transaction);
 
     if (!KlaytnTxFactory.has(tx.type)) {
-      if (this.dynamicUpdateWalletAPI == true && this._populateTransaction != undefined) {
-        return this._populateTransaction(tx);
-      } else {
-        return super.populateTransaction(tx);
-      }
+      return super.populateTransaction(tx);
     }
 
     // Klaytn AccountKey is not matched with pubKey of the privateKey
     if (!(tx.nonce) && !!(this.klaytn_address)) {
-      if (this.provider instanceof JsonRpcProvider) {
+      if (this.provider instanceof EthersJsonRpcProvider) {
         const result = await this.provider.getTransactionCount(this.klaytn_address);
         tx.nonce = result;
       } else {
@@ -157,7 +120,7 @@ export class Wallet extends EthersWallet {
     }
 
     if (!(tx.gasPrice)) {
-      if (this.provider instanceof JsonRpcProvider) {
+      if (this.provider instanceof EthersJsonRpcProvider) {
         const result = await this.provider.send("klay_gasPrice", []);
         tx.gasPrice = result;
       } else {
@@ -166,7 +129,7 @@ export class Wallet extends EthersWallet {
     }
 
     if (!(tx.gasLimit) && !!(tx.to)) {
-      if (this.provider instanceof JsonRpcProvider) {
+      if (this.provider instanceof EthersJsonRpcProvider) {
         const estimateGasAllowedKeys: string[] = [
           "from", "to", "gasLimit", "gasPrice", "value", "input"];
         const ttx = encodeTxForRPC(estimateGasAllowedKeys, tx);
@@ -178,18 +141,14 @@ export class Wallet extends EthersWallet {
         //   In ethers, no special logic to modify Gas
         //   In Metamask, multiply 1.5 to Gas for ensuring that the estimated gas is sufficient
         //   https://github.com/MetaMask/metamask-extension/blob/9d38e537fca4a61643743f6bf3409f20189eb8bb/ui/ducks/send/helpers.js#L115
-        tx.gasLimit = Math.ceil(result * 1.5);
+        tx.gasLimit = Math.ceil(result * 2.5);
       } else {
         throw new Error("Klaytn transaction can only be populated from a Klaytn JSON-RPC server");
       }
     }
 
     const savedFields = saveCustomFields(tx);
-    if (this.dynamicUpdateWalletAPI == true && this._populateTransaction != undefined) {
-      tx = await this._populateTransaction(tx);
-    } else {
-      tx = await super.populateTransaction(tx);
-    }
+    tx = await super.populateTransaction(tx);
     restoreCustomFields(tx, savedFields);
 
     return tx;
@@ -216,11 +175,7 @@ export class Wallet extends EthersWallet {
     const tx: TransactionRequest = await resolveProperties(transaction);
 
     if (!KlaytnTxFactory.has(tx.type)) {
-      if (this.dynamicUpdateWalletAPI == true && this._signTransaction != undefined) {
-        return this._signTransaction(tx);
-      } else {
-        return super.signTransaction(tx);
-      }
+      return super.signTransaction(tx);
     }
 
     const ttx = KlaytnTxFactory.fromObject(tx);
@@ -266,7 +221,7 @@ export class Wallet extends EthersWallet {
       return await this.provider.sendTransaction(signedTx);
     }
 
-    if (this.provider instanceof JsonRpcProvider) {
+    if (this.provider instanceof EthersJsonRpcProvider) {
       // eth_sendRawTransaction cannot process Klaytn typed transactions.
       const txhash = await this.provider.send("klay_sendRawTransaction", [signedTx]);
       return await this.provider.getTransaction(txhash);
@@ -294,7 +249,7 @@ export class Wallet extends EthersWallet {
     ptx.feePayer = await this.getAddress();
     const signedTx = await this.signTransactionAsFeePayer(ptx);
 
-    if (this.provider instanceof JsonRpcProvider) {
+    if (this.provider instanceof EthersJsonRpcProvider) {
       // eth_sendRawTransaction cannot process Klaytn typed transactions.
       const txhash = await this.provider.send("klay_sendRawTransaction", [signedTx]);
       return await this.provider.getTransaction(txhash);
@@ -305,7 +260,7 @@ export class Wallet extends EthersWallet {
 }
 
 export async function verifyMessageAsKlaytnAccountKey(provider: Provider, address: string, message: Bytes | string, signature: any): Promise<boolean> {
-  if (provider instanceof JsonRpcProvider) {
+  if (provider instanceof EthersJsonRpcProvider) {
     const klaytn_accountKey = await provider.send("klay_getAccountKey", [address, "latest"]);
 
     if (klaytn_accountKey.keyType == 1) {
