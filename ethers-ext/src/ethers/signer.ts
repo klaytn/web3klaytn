@@ -149,7 +149,7 @@ export class Wallet extends EthersWallet {
 
     // Klaytn AccountKey is not matched with pubKey of the privateKey
     if (!(tx.nonce) && !!(this.klaytn_address)) {
-      if (this.provider instanceof JsonRpcProvider || this.provider instanceof EthersJsonRpcProvider) {
+      if (this.provider instanceof EthersJsonRpcProvider) {
         const result = await this.provider.getTransactionCount(this.klaytn_address);
         tx.nonce = result;
       } else {
@@ -158,7 +158,7 @@ export class Wallet extends EthersWallet {
     }
 
     if (!(tx.gasPrice)) {
-      if (this.provider instanceof JsonRpcProvider || this.provider instanceof EthersJsonRpcProvider) {
+      if (this.provider instanceof EthersJsonRpcProvider) {
         const result = await this.provider.send("klay_gasPrice", []);
         tx.gasPrice = result;
       } else {
@@ -167,7 +167,7 @@ export class Wallet extends EthersWallet {
     }
 
     if (!(tx.gasLimit) && !!(tx.to)) {
-      if (this.provider instanceof JsonRpcProvider || this.provider instanceof EthersJsonRpcProvider) {
+      if (this.provider instanceof EthersJsonRpcProvider) {
         const estimateGasAllowedKeys: string[] = [
           "from", "to", "gasLimit", "gasPrice", "value", "input"];
         const ttx = encodeTxForRPC(estimateGasAllowedKeys, tx);
@@ -267,7 +267,7 @@ export class Wallet extends EthersWallet {
       return await this.provider.sendTransaction(signedTx);
     }
 
-    if (this.provider instanceof JsonRpcProvider || this.provider instanceof EthersJsonRpcProvider) {
+    if (this.provider instanceof EthersJsonRpcProvider) {
       // eth_sendRawTransaction cannot process Klaytn typed transactions.
       const txhash = await this.provider.send("klay_sendRawTransaction", [signedTx]);
       return await this.provider.getTransaction(txhash);
@@ -287,13 +287,15 @@ export class Wallet extends EthersWallet {
       } else {
         throw new Error("Input parameter has to be RLP encoded Hex string.");
       }
+    } else {
+      ptx = await this.populateTransaction(transaction);
     }
 
     // @ts-ignore : we have to add feePayer property
     ptx.feePayer = await this.getAddress();
     const signedTx = await this.signTransactionAsFeePayer(ptx);
 
-    if (this.provider instanceof JsonRpcProvider || this.provider instanceof EthersJsonRpcProvider) {
+    if (this.provider instanceof EthersJsonRpcProvider) {
       // eth_sendRawTransaction cannot process Klaytn typed transactions.
       const txhash = await this.provider.send("klay_sendRawTransaction", [signedTx]);
       return await this.provider.getTransaction(txhash);
@@ -304,7 +306,7 @@ export class Wallet extends EthersWallet {
 }
 
 export async function verifyMessageAsKlaytnAccountKey(provider: Provider, address: string, message: Bytes | string, signature: any): Promise<boolean> {
-  if (provider instanceof JsonRpcProvider || provider instanceof EthersJsonRpcProvider) {
+  if (provider instanceof EthersJsonRpcProvider) {
     const klaytn_accountKey = await provider.send("klay_getAccountKey", [address, "latest"]);
 
     if (klaytn_accountKey.keyType == 1) {
