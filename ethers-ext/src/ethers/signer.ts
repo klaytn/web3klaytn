@@ -194,9 +194,25 @@ export class Wallet extends EthersWallet {
   }
 
   async signTransactionAsFeePayer(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    const tx: TransactionRequest = await resolveProperties(transaction);
+    let tx = transaction;
+    if (typeof transaction === "string") {
+      if (HexStr.isHex(transaction)) {
+        tx = this.decodeTxFromRLP(transaction);
+        // @ts-ignore : we have to add feePayer property
+        tx.chainId = Math.floor((tx.txSignatures[0][0] - 35) / 2);
+      } else {
+        throw new Error("Input parameter has to be RLP encoded Hex string.");
+      }
+    }
 
-    const ttx = KlaytnTxFactory.fromObject(tx);
+    const rtx: TransactionRequest = await resolveProperties(tx);
+    // @ts-ignore : we have to add feePayer property
+    if (!rtx.feePayer) {
+      // @ts-ignore : we have to add feePayer property
+      rtx.feePayer = await this.getAddress();
+    }
+
+    const ttx = KlaytnTxFactory.fromObject(rtx);
     if (!ttx.hasFeePayer()) {
       throw new Error("This transaction can not be signed as FeePayer");
     }
@@ -204,7 +220,9 @@ export class Wallet extends EthersWallet {
     const sigFeePayerHash = keccak256(ttx.sigFeePayerRLP());
     const sig = this._signingKey().signDigest(sigFeePayerHash);
 
+    // @ts-ignore : we have to add feePayer property
     if (tx.chainId) { // EIP-155
+      // @ts-ignore : we have to add feePayer property
       sig.v = sig.recoveryParam + tx.chainId * 2 + 35;
     }
     ttx.addFeePayerSig(sig);
@@ -245,8 +263,6 @@ export class Wallet extends EthersWallet {
       ptx = await this.populateTransaction(transaction);
     }
 
-    // @ts-ignore : we have to add feePayer property
-    ptx.feePayer = await this.getAddress();
     const signedTx = await this.signTransactionAsFeePayer(ptx);
 
     if (this.provider instanceof EthersJsonRpcProvider) {
