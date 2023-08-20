@@ -1,9 +1,11 @@
 name: SDK publish on release
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["testing"]
+    branches: [main]
+    types:
+      - completed
 
 jobs:
   build:
@@ -26,7 +28,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '11'
 
       - name: generate code and namespace
         shell: bash
