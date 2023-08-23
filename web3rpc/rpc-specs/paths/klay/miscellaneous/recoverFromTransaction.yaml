@@ -73,10 +73,10 @@ paths:
           label: "Javascript"
           source:
             $ref: "../../../code-samples/javascript/klay/miscellaneous/recoverFromTransaction.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../../code-samples/python/klay/miscellaneous/recoverFromTransaction.py"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/miscellaneous/recoverFromTransaction.py"
 
 components:
   schemas:
