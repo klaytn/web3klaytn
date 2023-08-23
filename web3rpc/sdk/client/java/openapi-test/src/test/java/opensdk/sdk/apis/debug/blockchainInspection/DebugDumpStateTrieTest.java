@@ -8,13 +8,13 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import org.web3j.protocol.http.HttpService;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 @DisplayName("Debug RPC Test")
 public class DebugDumpStateTrieTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
 
     @Test
     @DisplayName("RPC debug_dumpStateTrie")
@@ -22,5 +22,8 @@ public class DebugDumpStateTrieTest {
         DebugDumpStateTrieResponse response = w3.debugDumpStateTrie("0x80").send();
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNotNull(response.getResult());
+        assertInstanceOf(String.class, response.getResult().getRoot());
     }
 }

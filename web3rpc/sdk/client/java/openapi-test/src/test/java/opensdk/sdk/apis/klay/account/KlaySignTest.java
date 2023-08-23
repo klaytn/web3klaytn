@@ -14,11 +14,12 @@ import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @DisplayName("Klay RPC Test")
 public class KlaySignTest {
-    private static final Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private static final Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
     @Test
     @DisplayName("RPC klay_sign")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {
@@ -27,6 +28,7 @@ public class KlaySignTest {
         PersonalUtils.unlockAccount();
         KlaySignResponse signResponse = w3.klaySign(address, message).send();
         assertNull(signResponse.getError());
-        assertNotNull(signResponse.getResult());
+        assertTrue(signResponse.getResult() instanceof String);
+        assertTrue(((String) signResponse.getResult()).matches("^0x[a-fA-F0-9]+"));
     }
 }

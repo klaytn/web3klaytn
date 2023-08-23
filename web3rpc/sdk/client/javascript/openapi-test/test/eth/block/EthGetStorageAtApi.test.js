@@ -11,6 +11,7 @@ describe('eth_getStorageAt API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(data).toMatch(/^0x.*$/gm)
             done();
         };
         const address = '0x295a70b2de5e3953354a6a8344e616ed314d7251'

@@ -11,7 +11,7 @@ class TestDebugSetBlockProfileRate(KlaytnBaseTesting):
         self.response = self.w3.debug.set_block_profile_rate(
             self.rate
         )
-        self.assertResponseSuccess()
+        self.assertIsNone(self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

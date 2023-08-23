@@ -5,5 +5,4 @@ class TestKlayClientVersion(KlaytnBaseTesting):
 
     def test_post(self):
         self.response = self.w3.klay.client_version()
-
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, str)

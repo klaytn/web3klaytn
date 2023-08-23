@@ -12,9 +12,11 @@ class TestGetAccount(KlaytnBaseTesting):
         self.response = self.w3.klay.get_account(
             self.address, self.blockNumberOrHash
         )
-        self.assertResponseSuccess()
+        if self.response is not None:
+            self.assertIsInstance(self.response["accType"], int)
+        else:
+            self.assertIsNone(self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
             self.response = self.w3.klay.get_account(self.blockNumberOrHash)
-

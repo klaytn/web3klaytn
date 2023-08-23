@@ -10,7 +10,7 @@ describe('eth_getUncleByBlockHashAndIndex API', () => {
         let callbackOne = function (error, data, response) {
 
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
             done();
         };
         const blockHash = '0xc9dbfbab67e9a0508bcb3f95ae408023668cef431b805592781a821926715b8a'

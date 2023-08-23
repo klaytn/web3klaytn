@@ -5,4 +5,4 @@ class TestKlayChainId(KlaytnBaseTesting):
 
     def test_post(self):
         self.response = self.w3.klay.chain_id()
-        self.assertResponseSuccess()
+        self.assertRegex(self.response, r'^0x.*$')

@@ -10,7 +10,8 @@ describe('eth_getLogs API', () => {
         let callbackOne = function (error, data, response) {
 
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(Array.isArray(data)).toBe(true);
             done();
         };
         const filterOptions = {

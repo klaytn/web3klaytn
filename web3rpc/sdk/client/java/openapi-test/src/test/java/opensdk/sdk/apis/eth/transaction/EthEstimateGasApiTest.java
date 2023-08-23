@@ -1,8 +1,5 @@
 package opensdk.sdk.apis.eth.transaction;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,10 +10,12 @@ import org.web3j.protocol.core.methods.response.EthEstimateGas;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @DisplayName("Eth RPC Test")
 public class EthEstimateGasApiTest {
 
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
     @Test
     @DisplayName("RPC eth_estimateGas")
@@ -29,5 +28,6 @@ public class EthEstimateGasApiTest {
         .send();
         assertNotNull(cr);
         assertNull(cr.getError());
+        assertTrue(cr.getResult().matches("^0x[0-9a-fA-F]+$"));
     }
 }

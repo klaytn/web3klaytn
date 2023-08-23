@@ -1,7 +1,7 @@
 package opensdk.sdk.apis.personal;
 
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.PersonalSendTransactionResponse;
+//import org.web3j.protocol.klaytn.core.method.response.PersonalSendTransactionResponse;
 import org.web3j.protocol.klaytn.core.method.response.TransactionObject;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
@@ -20,8 +20,8 @@ public class PersonalSendTransactionExample {
 
         String password = "helloWorld";
 
-        PersonalSendTransactionResponse response = w3.personalSendTransaction(transactionObject, password).send();
-        response.getResult();
+//        PersonalSendTransactionResponse response = w3.personalSendTransaction(transactionObject, password).send();
+//        response.getResult();
     }
 
 }

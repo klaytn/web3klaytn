@@ -13,9 +13,8 @@ class TestKlayGetStorageAt(KlaytnBaseTesting):
         self.response = self.w3.klay.get_storage_at(
             self.address, self.position, self.blockHash
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response, r'^0x.*$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
             self.response = self.w3.klay.get_storage_at(self.blockHash)
-

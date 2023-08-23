@@ -10,7 +10,8 @@ describe('klay_sendTransactionAsFeePayer API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(/^0x[a-fA-F0-9]+/.test(data)).toBe(true);
             done();
         };
         unlockAccount().then(async address => {

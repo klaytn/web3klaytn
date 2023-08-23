@@ -10,12 +10,11 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Klay RPC Test")
 public class KlayFeeHistoryApiTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
     @Test
     @DisplayName("RPC klay_feeHistory")
@@ -28,5 +27,9 @@ public class KlayFeeHistoryApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNotNull(response.getResult());
+        assertNotNull(response.getResult().getOldestBlock());
+        assertTrue(response.getResult().getOldestBlock().matches("^0x[a-f0-9]+"));
     }
 }

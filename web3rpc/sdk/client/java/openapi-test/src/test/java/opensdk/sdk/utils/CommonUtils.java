@@ -17,7 +17,7 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 
 public class CommonUtils {
-    static final Web3j w3ForServer = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    static final Web3j w3ForServer = Web3j.build(new HttpService(UrlConstants.RPC));
     static final Web3j w3ForPN = Web3j.build(new HttpService(UrlConstants.PN_RPC));
 
     public static final String address = "0x413ba0e5f6f00664598b5c80042b1308f4ff1408";

@@ -1,6 +1,7 @@
 package opensdk.sdk.apis.klay.filter;
 
 import opensdk.sdk.apis.constant.UrlConstants;
+import opensdk.sdk.utils.EthUtils;
 import org.web3j.protocol.klaytn.core.method.response.KlayGetFilterChangesResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,14 +15,16 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Klay RPC Test")
 public class KlayGetFilterChangesTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.PN_RPC));
 
     @Test
     @DisplayName("RPC klay_getFilterChange")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        KlayGetFilterChangesResponse response = w3.klayGetFilterChanges("0x1aa7b9746d4192e90fb0acd89c514375").send();
+        String quantity = EthUtils.getEthFilter().getResult();
+        KlayGetFilterChangesResponse response = w3.klayGetFilterChanges(quantity).send();
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 }

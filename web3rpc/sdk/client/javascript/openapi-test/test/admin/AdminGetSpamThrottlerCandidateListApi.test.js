@@ -9,7 +9,8 @@ describe('admin_getSpamThrottlerCandidateList API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(typeof data === 'object').toBeTruthy();
             done();
         };
 

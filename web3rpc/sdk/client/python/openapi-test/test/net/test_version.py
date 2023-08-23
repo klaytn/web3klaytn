@@ -5,4 +5,4 @@ class TestNetVersion(KlaytnBaseTesting):
 
     def test_post(self):
         self.response = self.w3.net.version
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, str)

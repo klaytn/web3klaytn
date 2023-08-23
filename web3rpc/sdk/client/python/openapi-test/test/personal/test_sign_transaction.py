@@ -19,7 +19,7 @@ class TestSignTransaction(KlaytnBaseTesting):
         self.response = self.w3.geth.personal.sign_transaction(
             self.transactionObject, self.password
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response["raw"], r'^0x[0-9a-fA-F]+$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

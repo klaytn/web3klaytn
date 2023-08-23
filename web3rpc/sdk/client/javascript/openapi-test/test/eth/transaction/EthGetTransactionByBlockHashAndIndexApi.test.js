@@ -10,6 +10,9 @@ describe('eth_getTransactionByBlockHashAndIndex API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            if (data !== null) {
+                expect(data.blockNumber).toMatch(/^0x.*$/gm)
+            };
             done();
         };
         const blockHash = '0xc9dbfbab67e9a0508bcb3f95ae408023668cef431b805592781a821926715b8a'

@@ -7,10 +7,11 @@ const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 describe('klay_newFilter API', () => {
     test('should return klay_newFilter', (done) => {
 
-        let callbackOne =  function (error, data, response) {
-             expect(error).toBeNull();
-             expect(data).toBeDefined()
-             done();
+        let callbackOne = function (error, data, response) {
+            expect(error).toBeNull();
+            expect(data).toBeDefined();
+            expect(/^0x[a-f0-9]+/.test(data)).toBe(true);
+            done();
         };
         const fromBlock = 'earliest'
         const toBlock = 'latest'
@@ -18,7 +19,7 @@ describe('klay_newFilter API', () => {
         const topics = [
             '0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8'
         ]
-       
-        sdk.klay.newFilter({fromBlock, toBlock, address, topics},{}, callbackOne);
+
+        sdk.klay.newFilter({ fromBlock, toBlock, address, topics }, {}, callbackOne);
     });
 });

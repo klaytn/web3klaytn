@@ -10,23 +10,24 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Admin RPC Test")
 public class AdminExportChainTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
     @Test
     @DisplayName("RPC admin_exportChain")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
         String randomFileName = generateRandomFileName();
         String file = "/tmp/" + randomFileName  + ".txt";
-
-        AdminExportChainResponse response = w3.adminExportChain(file).send();
+        int firstBlock = 1;
+        int lastBlock = 500;
+        AdminExportChainResponse response = w3.adminExportChain(file, firstBlock, lastBlock).send();
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 
     private static String generateRandomFileName() {

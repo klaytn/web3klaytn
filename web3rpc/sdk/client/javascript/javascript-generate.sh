@@ -25,5 +25,11 @@ cd "${CURRENT_FILE_DIR}/openapi"
 yarn install
 yarn link
 
+cd "${CURRENT_FILE_DIR}/opensdk"
+yarn link @klaytn/web3rpc
+yarn install
+yarn link
+
 cd "${CURRENT_FILE_DIR}/openapi-test"
+yarn link opensdk-javascript
 #yarn link web3rpc-javascript

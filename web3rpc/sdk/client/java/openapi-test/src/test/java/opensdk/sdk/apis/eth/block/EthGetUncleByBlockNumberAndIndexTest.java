@@ -17,16 +17,18 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Eth RPC Test")
 public class EthGetUncleByBlockNumberAndIndexTest {
-  private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
-  @Test
-  @DisplayName("RPC eth_getUncleByBlockNumberAndIndex")
-  void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-    EthBlock response = w3.ethGetUncleByBlockNumberAndIndex(
-        DefaultBlockParameter.valueOf(new BigInteger("e8", 16)), 
-        BigInteger.valueOf(1))
-    .send();
-    assertNotNull(response);
-    assertNull(response.getError());
-  }
+    @Test
+    @DisplayName("RPC eth_getUncleByBlockNumberAndIndex")
+    void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
+        EthBlock response = w3.ethGetUncleByBlockNumberAndIndex(
+                        DefaultBlockParameter.valueOf(new BigInteger("e8", 16)),
+                        BigInteger.valueOf(1))
+                .send();
+        assertNotNull(response);
+        assertNull(response.getError());
+
+        assertNull(response.getResult());
+    }
 }

@@ -5,4 +5,4 @@ class TestUpperBoundGasPrice(KlaytnBaseTesting):
 
     def test_post(self):
         self.response = self.w3.klay.upper_bound_gas_price()
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, str)

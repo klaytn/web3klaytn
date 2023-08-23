@@ -25,7 +25,7 @@ class TestResend(KlaytnBaseTesting):
         self.response = self.w3.eth.resend(
             self.oldTrx, self.gasPrice, self.gasLimit
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response, r'^0x.*$')
 
     # @unittest.skip
     # def test_post_wrong_with_lack_paramaters(self):

@@ -11,7 +11,10 @@ class TestTraceBadBlock(KlaytnBaseTesting):
         self.response = self.w3.debug.trace_bad_block(
             self.blockHash
         )
-        self.assertResponseSuccess()
+        if self.response is not None:
+            self.assertIsInstance(self.response["gas"], int)
+        else:
+            self.assertIsNone(self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

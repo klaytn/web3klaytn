@@ -1,8 +1,5 @@
 package opensdk.sdk.apis.debug.blockchainInspection;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import java.io.IOException;
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.DebugPreimageResponse;
@@ -12,9 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.web3j.protocol.klaytn.Web3j;
 
 import org.web3j.protocol.http.HttpService;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 @DisplayName("Debug RPC Test")
 public class DebugPreImageTest {
-  private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+  private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
   @Disabled
   @Test
   @DisplayName("RPC debug_preimage")
@@ -24,5 +24,6 @@ public class DebugPreImageTest {
     DebugPreimageResponse response = w3.debugPreimage(sha3Hash).send();
     assertNotNull(response);
     assertNull(response.getError());
+    assertTrue(response.getResult() instanceof String);
   }
 }

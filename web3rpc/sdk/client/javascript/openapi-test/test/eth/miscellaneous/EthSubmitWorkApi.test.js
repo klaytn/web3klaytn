@@ -11,6 +11,7 @@ describe('eth_submitWork API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(typeof data === 'boolean').toBeTruthy()
             done();
         };
         const nonce = '0x0000000000000001'

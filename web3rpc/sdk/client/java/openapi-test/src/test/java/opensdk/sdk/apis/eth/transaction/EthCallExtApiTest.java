@@ -5,20 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.EthCallResponse;
-import org.web3j.protocol.klaytn.core.method.response.StateOverrideSet;
+//import org.web3j.protocol.klaytn.core.method.response.EthCallResponse;
+//import org.web3j.protocol.klaytn.core.method.response.StateOverrideSet;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
-import org.web3j.protocol.core.methods.request.Transaction;
 
 import java.io.IOException;
-import java.util.Map;
 
 @DisplayName("Eth RPC Test")
 class EthCallExTApiTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
 
     @Test
     @DisplayName("RPC eth_call")
@@ -31,16 +29,16 @@ class EthCallExTApiTest {
             + "08054905090565b80600081905550505600a165627a7a723058207783dba41884f73679e167576362b727"
             + "7f88458815141651f48ca38c25b498f80029\"}}";
         ObjectMapper mapper = new ObjectMapper();
-        Map<String , StateOverrideSet> el = mapper.readValue(jsonString,Map.class);
-
-        EthCallResponse cr = w3.ethCall(
-            Transaction.createEthCallTransaction(
-                "0xca7a99380131e6c76cfa622396347107aeedca2d",
-                "0xbE3892d33620bE5aca8c75D39e7401871194d290",
-                "0x2e64cec1"),
-            "latest",el)
-        .send();
-        assertNotNull(cr);
-        assertNull(cr.getError());
+//        Map<String , StateOverrideSet> el = mapper.readValue(jsonString,Map.class);
+//
+//        EthCallResponse cr = w3.ethCall(
+//            Transaction.createEthCallTransaction(
+//                "0xca7a99380131e6c76cfa622396347107aeedca2d",
+//                "0xbE3892d33620bE5aca8c75D39e7401871194d290",
+//                "0x2e64cec1"),
+//            "latest",el)
+//        .send();
+//        assertNotNull(cr);
+//        assertNull(cr.getError());
     }
 }

@@ -8,9 +8,9 @@ describe('klay_uninstallFilter API', () => {
     test('should return klay_uninstallFilter', (done) => {
 
         let callbackOne = function (error, data, response) {
-
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(typeof data === 'boolean').toBe(true);
             done();
         };
         const quantity = '0xd32fd16b6906e67f6e2b65dcf48fc272'

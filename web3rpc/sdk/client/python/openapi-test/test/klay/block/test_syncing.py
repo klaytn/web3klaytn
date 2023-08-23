@@ -5,4 +5,4 @@ class TestKlaySyncing(KlaytnBaseTesting):
 
     def test_post(self):
         self.response = self.w3.klay.syncing()
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, bool)

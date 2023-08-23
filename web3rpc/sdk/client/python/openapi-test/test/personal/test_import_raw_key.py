@@ -1,11 +1,12 @@
 from base.testing import KlaytnBaseTesting
+from base.eth import gen_hex_string
 
 
 class TestImportRawKey(KlaytnBaseTesting):
 
     def setUp(self) -> None:
         super().setUp()
-        self.privateKey = "cd87934ee007b7a458fa00dc0314fff8b2bd43b3079f46c820c379e483b4fd8e"
+        self.privateKey = gen_hex_string()
         self.passphrase = "gr8=B!0@uc$b"
 
     def test_post(self):

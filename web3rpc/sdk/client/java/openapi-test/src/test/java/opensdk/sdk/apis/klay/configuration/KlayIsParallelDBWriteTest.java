@@ -9,13 +9,12 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @DisplayName("Klay RPC Test")
 public class KlayIsParallelDBWriteTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
     @Test
     @DisplayName("RPC klay_isParallelDbWrite")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
@@ -23,5 +22,6 @@ public class KlayIsParallelDBWriteTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertTrue(response.getResult() instanceof Boolean);
     }
 }

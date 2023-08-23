@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/getChainConfig:
     post:
-      operationId: getChainConfig
+      operationId: .getChainConfig
       summary: "[Configuration-getChainConfig]"
       description: |
         Returns the configuration of the chain.
@@ -87,6 +87,73 @@ components:
       properties:
         result:
           type: object
+          properties:
+            chainId:
+              type: integer
+            deriveShaImpl:
+              type: string
+            ethTxTypeCompatibleBlock:
+              type: integer
+            governance:
+              type: object
+              properties:
+                govParamContract:
+                  type: string
+                governanceMode:
+                  type: string
+                governingNode:
+                  type: string
+                kip71:
+                  type: object
+                  properties:
+                    basefeedenominator:
+                      type: integer
+                    gastarget:
+                      type: number
+                    lowerboundbasefee:
+                      type: number
+                    maxblockgasusedforbasefee:
+                      type: number
+                    upperboundbasefee:
+                      type: number
+                reward:
+                  type: object
+                  properties:
+                    deferredTxFee:
+                      type: boolean
+                    kip82ratio:
+                      type: string
+                    minimumStake:
+                      type: integer
+                    mintingAmount:
+                      type: number
+                    proposerUpdateInterval:
+                      type: integer
+                    ratio:
+                      type: string
+                    stakingUpdateInterval:
+                      type: integer
+                    useGiniCoeff:
+                      type: boolean
+            istanbul:
+              type: object
+              properties:
+                epoch:
+                  type: integer
+                policy:
+                  type: integer
+                sub:
+                  type: integer
+            istanbulCompatibleBlock:
+              type: integer
+            koreCompatibleBlock:
+              type: integer
+            londonCompatibleBlock:
+              type: integer
+            magmaCompatibleBlock:
+              type: integer
+            unitPrice:
+              type: number
           example: {
             "chainId": 1001,
             "istanbulCompatibleBlock": 75373312,

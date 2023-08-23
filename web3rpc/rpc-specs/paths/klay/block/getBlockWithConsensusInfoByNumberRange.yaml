@@ -93,6 +93,101 @@ components:
       properties:
         result:
           type: object
+          properties:
+            blockscore:
+              type: string
+            committee:
+              type: array
+              items:
+                type: string
+            extraData:
+              type: string
+            gasUsed:
+              type: string
+            governanceData:
+              type: string
+            hash:
+              type: string
+            logsBloom:
+              type: string
+            number:
+              type: string
+            parentHash:
+              type: string
+            proposer:
+              type: string
+            receiptsRoot:
+              type: string
+            reward:
+              type: string
+            size:
+              type: string
+            stateRoot:
+              type: string
+            timestamp:
+              type: string
+            timestampFoS:
+              type: string
+            totalBlockScore:
+              type: string
+            transactions:
+              type: array
+              items:
+                type: object
+                properties:
+                  blockHash:
+                    type: string
+                  blockNumber:
+                    type: string
+                  contractAddress:
+                    type: string
+                  from:
+                    type: string
+                  gas:
+                    type: string
+                  gasPrice:
+                    type: string
+                  gasUsed:
+                    type: string
+                  logs:
+                    type: array
+                    items:
+                      type: object
+                  logsBloom:
+                    type: string
+                  nonce:
+                    type: string
+                  senderTxHash:
+                    type: string
+                  signatures:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        V:
+                          type: string
+                        R:
+                          type: string
+                        S:
+                          type: string
+                  status:
+                    type: string
+                  to:
+                    type: string
+                  transactionHash:
+                    type: string
+                  transactionIndex:
+                    type: string
+                  type:
+                    type: string
+                  typeInt:
+                    type: integer
+                  value:
+                    type: string
+            transactionsRoot:
+              type: string
+            voteData:
+              type: string
           description: Object - A block object with consensus information (a proposer and a list of committee members)
           example:
             {

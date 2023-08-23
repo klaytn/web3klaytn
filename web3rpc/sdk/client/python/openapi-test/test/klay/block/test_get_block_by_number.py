@@ -14,7 +14,7 @@ class TestKlayGetBlockByNumber(KlaytnBaseTesting):
             self.blockTag, self.boolean
         )
         self.assertResponseSuccess()
-        self.assertTrue(re.match(r"^0x?", self.response["hash"]))
+        self.assertRegex(self.response["hash"], r'^0x?')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

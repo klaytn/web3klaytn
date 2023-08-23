@@ -15,7 +15,7 @@ import java.io.IOException;
 @DisplayName("Personal RPC Test")
 public class PersonalOpenWalletTest {
 
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
     @Test
     @DisplayName("RPC personal_openWallet")
@@ -26,5 +26,6 @@ public class PersonalOpenWalletTest {
         PersonalOpenWalletResponse response = w3.personalOpenWallet(url, passphrase).send();
         assertNotNull(response);
         assertNull(response.getError());
+        assertNull(response.getResult());
     }
 }

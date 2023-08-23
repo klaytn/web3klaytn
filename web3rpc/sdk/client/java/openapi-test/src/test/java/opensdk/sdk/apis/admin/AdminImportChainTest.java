@@ -14,16 +14,17 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Admin RPC Test")
 public class AdminImportChainTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
     @Test
     @DisplayName("RPC admin_importChain")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        String fileName = "/tmp/chain.txt";
+        String fileName = "/tmp/chain444.txt";
 
         AdminImportChainResponse response = w3.adminImportChain(fileName).send();
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 }

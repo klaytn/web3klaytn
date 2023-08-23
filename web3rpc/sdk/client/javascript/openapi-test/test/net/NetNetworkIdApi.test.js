@@ -11,6 +11,7 @@ describe('net_networkID API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(typeof data === 'number').toBe(true);
 
             done();
         };

@@ -8,9 +8,9 @@ describe('klay_syncing API', () => {
     test('should return klay_syncing', (done) => {
 
         let callbackOne = function (error, data, response) {
-
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(typeof data === 'boolean').toBe(true);
             done();
         };
 

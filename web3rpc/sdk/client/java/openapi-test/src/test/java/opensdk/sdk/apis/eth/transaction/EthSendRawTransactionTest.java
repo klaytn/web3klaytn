@@ -1,9 +1,6 @@
 package opensdk.sdk.apis.eth.transaction;
 
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import opensdk.sdk.apis.constant.UrlConstants;
@@ -22,10 +19,12 @@ import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 
 @DisplayName("Eth RPC Test")
 public class EthSendRawTransactionTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
     public static final String address = "0x1a2dc19e4ca604d8bfd65c42ed5f93e19702d47e";
     @Test
     @DisplayName("RPC eth_sendRawTransaction")
@@ -47,7 +46,9 @@ public class EthSendRawTransactionTest {
         byte[] signMessage = TransactionEncoder.signMessage(txObject, credentials);
         String message = Numeric.toHexString(signMessage);
         EthSendTransaction response = w3.ethSendRawTransaction(message).send();
+
         assertNotNull(response);
         assertNull(response.getError());
+        assertTrue(response.getResult().matches("^0x[0-9a-fA-F]+$"));
     }
 }

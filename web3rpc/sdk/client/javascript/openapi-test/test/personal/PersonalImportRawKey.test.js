@@ -1,6 +1,7 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
 const { RPC } = require("../constant");
+const { genHexString } = require("../../helpers/eth");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
@@ -13,7 +14,7 @@ describe('personal_importRawKey API', () => {
             done();
         };
 
-        const privateKey = "ce4ab585ec68f7023d64211a47b52d6c05e456164373ea86f87214d92ce04725";
+        const privateKey = genHexString()
         const passphrase = "hello@1234"
 
         sdk.personal.importRawKey(privateKey, passphrase, {}, callbackOne);

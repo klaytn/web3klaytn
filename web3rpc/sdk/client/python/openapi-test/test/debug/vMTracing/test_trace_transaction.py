@@ -5,13 +5,13 @@ class TestTraceTransaction(KlaytnBaseTesting):
 
     def setUp(self) -> None:
         super().setUp()
-        self.txHash = "0x07f6057bc93aca52e53cdbfac9b9830f6a9cae2b3f48f0b47e4cb54959143d09"
+        self.txHash = "0xa9acfc383bb777cdeaa4e860db28209bb1e3afccd3c623aad0732367566ec015"
 
     def test_post(self):
         self.response = self.w3.debug.trace_transaction(
             self.txHash
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response["gas"], int)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

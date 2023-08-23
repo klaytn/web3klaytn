@@ -10,12 +10,11 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Eth RPC Test")
 public class EthGetTransactionByBlockHashAndIndexTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
     @Test
     @DisplayName("RPC eth_getTransactionByBlockHashAndIndex")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
@@ -25,5 +24,9 @@ public class EthGetTransactionByBlockHashAndIndexTest {
         .send();
         assertNotNull(response);
         assertNull(response.getError());
+
+        if (response.getResult() != null) {
+            assertNotNull(response.getResult().getBlockNumber());
+        }
     }
 }

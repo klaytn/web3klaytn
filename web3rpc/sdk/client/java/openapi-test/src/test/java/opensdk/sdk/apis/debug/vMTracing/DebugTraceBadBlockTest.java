@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.web3j.protocol.http.HttpService;
 @DisplayName("Debug RPC Test")
 public class DebugTraceBadBlockTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
 
     @Disabled
     @Test
@@ -27,5 +27,9 @@ public class DebugTraceBadBlockTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
+        if (!response.getResult().isEmpty()) {
+            assertNotNull(response.getResult().get(0).getGas());
+        }
     }
 }
