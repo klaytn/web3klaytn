@@ -65,10 +65,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klay/miscellaneous/recoverFromTransaction.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/miscellaneous/recoverFromTransaction.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/miscellaneous/KlayRecoverFromTransactionExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:

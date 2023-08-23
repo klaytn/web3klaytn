@@ -77,10 +77,10 @@ paths:
           label: "Curl"
           source:
             $ref: "../../../code-samples/curl/klay/miscellaneous/recoverFromMessage.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/miscellaneous/KlayrecoverFromMessageExample.java"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/miscellaneous/KlayRecoverFromMessageExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
