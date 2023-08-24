@@ -181,3 +181,7 @@ paths:
     $ref: ./transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockNumberAndIndex
   /klay/getStakingInfo:
     $ref: ./miscellaneous/getStakingInfo.yaml#/paths/~1klay~1getStakingInfo
+  /klay/recoverFromTransaction:
+    $ref: ./miscellaneous/recoverFromTransaction.yaml#/paths/~1klay~1recoverFromTransaction
+  /klay/recoverFromMessage:
+    $ref: ./miscellaneous/recoverFromMessage.yaml#/paths/~1klay~1recoverFromMessage

@@ -199,6 +199,10 @@ paths:
     $ref: ../klay/miscellaneous/sha3.yaml#/paths/~1klay~1sha3
   /klay/nodeAddress:
     $ref: ../klay/miscellaneous/nodeAddress.yaml#/paths/~1klay~1nodeAddress
+  /klay/recoverFromTransaction:
+    $ref: ../klay/miscellaneous/recoverFromTransaction.yaml#/paths/~1klay~1recoverFromTransaction
+  /klay/recoverFromMessage:
+    $ref: ../klay/miscellaneous/recoverFromMessage.yaml#/paths/~1klay~1recoverFromMessage
 
   # net
   /net/listening:
