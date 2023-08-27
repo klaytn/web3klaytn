@@ -22,16 +22,29 @@ async function main() {
     // nonce: await web3.eth.getTransactionCount(addr),
     // gas: 21000,
     gasPrice: 25e9,
-    type: 8,
+    type: 0,
   };
 
   let signResult = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
   console.log({ signResult });
 
+  // TODO: auto-assign jsonrpc and id fields
+  let sendResult = await web3.eth.provider.request({
+    jsonrpc: "2.0", id: "1",
+    method: "klay_sendRawTransaction", params: [signResult.rawTransaction] });
+  let txhash = sendResult.result;
+  console.log({ sendResult });
+
+  // web3.eth.sendSignedTransaction would wait for tx mining, but provider.requestt do not.
+  // TODO: modify sendSignedTransaction to use klay_sendRawTransaction
+  await new Promise((r) => setTimeout(r, 2000));
+
+  /*
   let sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
   console.log({ txid: sendResult.transactionHash });
+  */
 
-  let receipt = await web3.eth.getTransactionReceipt(sendResult.transactionHash);
+  let receipt = await web3.eth.getTransactionReceipt(txhash);
   console.log({ receipt });
 }
 
