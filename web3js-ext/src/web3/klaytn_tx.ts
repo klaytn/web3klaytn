@@ -22,7 +22,7 @@ const web3jsAllowedTransactionKeys = [
 
 // web3.js may strip or reject some Klaytn-specific transaction fields.
 // To prserve transaction fields around web3js function calls, use saveCustomFields.
-function saveCustomFields(tx: any): any {
+export function saveCustomFields(tx: any): any {
   // Save fields that are not allowed in web3.js
   const savedFields: any = {};
   for (const key in tx) {
@@ -58,7 +58,7 @@ export async function prepareTransaction(
 
     let txData = { ...tx, ...savedFields };
 
-    // Below fields might
+    // Below fields might be
     // (1) not specified at the first place,
     // (2) or lost during prepareTransactionForSigning,
     // (3) or not populated by prepareTransactionForSigning.
@@ -129,6 +129,7 @@ export class KlaytnTx extends LegacyTransaction {
       value:    toHex(this.value),
       from:     this.from ? this.from : undefined,
       data:     bytesToHex(this.data),
+      input:    bytesToHex(this.data),
       chainId:  this.chainId ? toHex(this.chainId) : undefined,
     });
     if (this.v && this.r && this. s) {
