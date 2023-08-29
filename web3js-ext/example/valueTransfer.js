@@ -22,7 +22,7 @@ async function main() {
     // nonce: await web3.eth.getTransactionCount(addr),
     // gas: 21000,
     gasPrice: 25e9,
-    type: 0,
+    type: 8,
   };
 
   let signResult = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
