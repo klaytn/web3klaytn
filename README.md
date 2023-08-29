@@ -12,5 +12,5 @@ The extension is focused on seamless development for web3 developers. Being able
 
 - ethers extension : **ethers-ext** (javascript) [NPM](https://www.npmjs.com/package/@klaytn/ethers-ext) [Github](https://github.com/klaytn/web3klaytn/tree/main/ethers-ext)
 - web3js extension : **web3js-ext** (javascript) (TBU)
-- web3j extension : **web3j-ext** (java) (TBU)
+- web3j extension : **web3j-ext** (java) [MVN](https://mvnrepository.com/artifact/foundation.klaytn/web3j-ext) [Github](https://github.com/klaytn/web3klaytn/tree/main/web3j-ext)
 - web3py extension : **web3py-ext** (python) [pypi](https://pypi.org/project/web3py-ext/) [Github](https://github.com/klaytn/web3klaytn/tree/main/web3py-ext)
