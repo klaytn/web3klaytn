@@ -28,6 +28,7 @@ async function main() {
   let signResult = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
   console.log({ signResult });
 
+  //*
   // TODO: auto-assign jsonrpc and id fields
   let sendResult = await web3.eth.provider.request({
     jsonrpc: "2.0", id: "1",
@@ -38,11 +39,10 @@ async function main() {
   // web3.eth.sendSignedTransaction would wait for tx mining, but provider.requestt do not.
   // TODO: modify sendSignedTransaction to use klay_sendRawTransaction
   await new Promise((r) => setTimeout(r, 2000));
-
-  /*
+  /*/
   let sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
-  console.log({ txid: sendResult.transactionHash });
-  */
+  let txhash = sendResult.transactionHash;
+  //*/
 
   let receipt = await web3.eth.getTransactionReceipt(txhash);
   console.log({ receipt });
