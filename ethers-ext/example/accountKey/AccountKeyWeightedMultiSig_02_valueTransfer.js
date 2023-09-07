@@ -34,28 +34,16 @@ async function main() {
 
   // sign 2
   const wallet2 = new Wallet(senderAddr, senderNewPriv2, provider);
-  let decodedTx = wallet2.decodeTxFromRLP(txHashRLP);
-  console.log(decodedTx);
-  let ptx2 = await wallet2.populateTransaction(decodedTx);
+  let ptx2 = await wallet2.populateTransaction(txHashRLP);
   const txHashRLP2 = await wallet2.signTransaction(ptx2);
   console.log("TxHashRLP2", txHashRLP2);
 
-  // sign 3
+  // sign 3 & send 
   const wallet3 = new Wallet(senderAddr, senderNewPriv3, provider);
-  let decodedTx2 = wallet3.decodeTxFromRLP(txHashRLP2);
-  console.log(decodedTx2);
-  let ptx3 = await wallet3.populateTransaction(decodedTx2);
-  const txHashRLP3 = await wallet3.signTransaction(ptx3);
-  console.log("TxHashRLP3", txHashRLP3);
+  const res = await wallet3.sendTransaction(txHashRLP2);
+  console.log("transaction", res);
 
-  let decodedTx3 = wallet3.decodeTxFromRLP(txHashRLP3);
-  console.log(decodedTx3);
-
-  // send
-  const txhash = await provider.send("klay_sendRawTransaction", [txHashRLP3]);
-  console.log("txhash", txhash);
-
-  const rc = await provider.waitForTransaction(txhash);
+  const rc = await res.wait();
   console.log("receipt", rc);
 }
 
