@@ -102,9 +102,22 @@ export class Wallet extends EthersWallet {
     return tx;
   }
 
-  async populateTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionRequest> {
-    let tx: TransactionRequest = await resolveProperties(transaction);
+  convertTxFromRLP(transaction: Deferrable<TransactionRequest> | string): any {
+    if (typeof transaction === "string") {
+      if (HexStr.isHex(transaction)) {
+        return this.decodeTxFromRLP(transaction);
+      } else {
+        throw new Error("String type input has to be RLP encoded Hex string.");
+      }
+    } else {
+      return transaction;
+    }
+  }
 
+  async populateTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionRequest> {
+    let tx: TransactionRequest = this.convertTxFromRLP(transaction);
+    tx = await resolveProperties(tx); 
+    
     if (!KlaytnTxFactory.has(tx.type)) {
       return super.populateTransaction(tx);
     }
@@ -172,8 +185,9 @@ export class Wallet extends EthersWallet {
   }
 
   async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    const tx: TransactionRequest = await resolveProperties(transaction);
-
+    let tx: TransactionRequest = this.convertTxFromRLP(transaction);
+    tx = await resolveProperties(tx); 
+    
     if (!KlaytnTxFactory.has(tx.type)) {
       return super.signTransaction(tx);
     }
@@ -194,18 +208,15 @@ export class Wallet extends EthersWallet {
   }
 
   async signTransactionAsFeePayer(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    let tx = transaction;
-    if (typeof transaction === "string") {
-      if (HexStr.isHex(transaction)) {
-        tx = this.decodeTxFromRLP(transaction);
-        // @ts-ignore : we have to add feePayer property
-        tx.chainId = Math.floor((tx.txSignatures[0][0] - 35) / 2);
-      } else {
-        throw new Error("Input parameter has to be RLP encoded Hex string.");
-      }
+    let tx: TransactionRequest = this.convertTxFromRLP(transaction);
+    
+    // @ts-ignore : chainId can be omitted from RLP encoded format 
+    if (!tx.chainId) {
+      // @ts-ignore
+      tx.chainId = this.getChainId();
     }
-
     const rtx: TransactionRequest = await resolveProperties(tx);
+
     // @ts-ignore : we have to add feePayer property
     if (!rtx.feePayer) {
       // @ts-ignore : we have to add feePayer property
@@ -232,10 +243,12 @@ export class Wallet extends EthersWallet {
 
   async sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
     this._checkProvider("sendTransaction");
-    const tx = await this.populateTransaction(transaction);
-    const signedTx = await this.signTransaction(tx);
 
-    if (!KlaytnTxFactory.has(tx.type)) {
+    let tx: TransactionRequest = this.convertTxFromRLP(transaction);
+    let ptx = await this.populateTransaction(tx);
+    const signedTx = await this.signTransaction(ptx);
+
+    if (!KlaytnTxFactory.has(ptx.type)) {
       return await this.provider.sendTransaction(signedTx);
     }
 
@@ -251,18 +264,11 @@ export class Wallet extends EthersWallet {
   async sendTransactionAsFeePayer(transaction: Deferrable<TransactionRequest> | string): Promise<TransactionResponse> {
     this._checkProvider("sendTransactionAsFeePayer");
 
-    let tx, ptx;
-    if (typeof transaction === "string") {
-      if (HexStr.isHex(transaction)) {
-        tx = this.decodeTxFromRLP(transaction);
-        ptx = await this.populateTransaction(tx);
-      } else {
-        throw new Error("Input parameter has to be RLP encoded Hex string.");
-      }
-    } else {
-      ptx = await this.populateTransaction(transaction);
-    }
+    let tx: TransactionRequest = this.convertTxFromRLP(transaction);
+    let ptx = await this.populateTransaction(tx);
 
+    // @ts-ignore : we have to add feePayer property
+    ptx.feePayer = await this.getAddress();
     const signedTx = await this.signTransactionAsFeePayer(ptx);
 
     if (this.provider instanceof EthersJsonRpcProvider) {
