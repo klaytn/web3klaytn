@@ -102,7 +102,7 @@ export class Wallet extends EthersWallet {
     return tx;
   }
 
-  convertTxFromRLP(transaction: Deferrable<TransactionRequest> | string): any {
+  _convertTxFromRLP(transaction: Deferrable<TransactionRequest> | string): any {
     if (typeof transaction === "string") {
       if (HexStr.isHex(transaction)) {
         return this.decodeTxFromRLP(transaction);
@@ -115,7 +115,7 @@ export class Wallet extends EthersWallet {
   }
 
   async populateTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionRequest> {
-    let tx: TransactionRequest = this.convertTxFromRLP(transaction);
+    let tx: TransactionRequest = this._convertTxFromRLP(transaction);
     tx = await resolveProperties(tx); 
     
     if (!KlaytnTxFactory.has(tx.type)) {
@@ -185,7 +185,7 @@ export class Wallet extends EthersWallet {
   }
 
   async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    let tx: TransactionRequest = this.convertTxFromRLP(transaction);
+    let tx: TransactionRequest = this._convertTxFromRLP(transaction);
     tx = await resolveProperties(tx); 
     
     if (!KlaytnTxFactory.has(tx.type)) {
@@ -208,7 +208,7 @@ export class Wallet extends EthersWallet {
   }
 
   async signTransactionAsFeePayer(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    let tx: TransactionRequest = this.convertTxFromRLP(transaction);
+    let tx: TransactionRequest = this._convertTxFromRLP(transaction);
     
     // @ts-ignore : chainId can be omitted from RLP encoded format 
     if (!tx.chainId) {
@@ -244,7 +244,7 @@ export class Wallet extends EthersWallet {
   async sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
     this._checkProvider("sendTransaction");
 
-    let tx: TransactionRequest = this.convertTxFromRLP(transaction);
+    let tx: TransactionRequest = this._convertTxFromRLP(transaction);
     let ptx = await this.populateTransaction(tx);
     const signedTx = await this.signTransaction(ptx);
 
@@ -264,7 +264,7 @@ export class Wallet extends EthersWallet {
   async sendTransactionAsFeePayer(transaction: Deferrable<TransactionRequest> | string): Promise<TransactionResponse> {
     this._checkProvider("sendTransactionAsFeePayer");
 
-    let tx: TransactionRequest = this.convertTxFromRLP(transaction);
+    let tx: TransactionRequest = this._convertTxFromRLP(transaction);
     let ptx = await this.populateTransaction(tx);
 
     // @ts-ignore : we have to add feePayer property
