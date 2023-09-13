@@ -1,5 +1,6 @@
 export { KlaytnTx, KlaytnTxFactory } from "./klaytn_tx";
 export { AccountKey, AccountKeyFactory } from "./accountKey";
+export { decryptJsonWallet } from "./keystore";
 
 /* eslint-disable import/order */
 import { KlaytnTxFactory } from "./klaytn_tx";
