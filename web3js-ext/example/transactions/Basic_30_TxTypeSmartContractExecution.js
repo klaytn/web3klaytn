@@ -1,5 +1,7 @@
-const { Wallet, TxType } = require("@klaytn/ethers-ext");
-const ethers = require("ethers");
+const { Web3 } = require("web3");
+const { KlaytnWeb3 } = require( "../../dist/src");
+
+const { TxType } = require("@klaytn/ethers-ext");
 
 const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153";
 const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
@@ -11,28 +13,18 @@ const contractAddr = "0xD7fA6634bDDe0B2A9d491388e2fdeD0fa25D2067";
 //
 //   to : deployed contract address
 //   value: Must be 0, if not payable
-//   input: Refer ethers.utils.interface.encodeFunctionData
-//          https://docs.ethers.org/v5/api/utils/abi/interface/#Interface--encoding
-//
-//          // 1) by using contract object
-//          const CONTRACT_ADDRESS = '0xD7fA6634bDDe0B2A9d491388e2fdeD0fa25D2067';
-//          const CONTRACT_ABI = ["function setNumber(uint256 newNumber) public", "function increment() public"];
-//          const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
-//          const param = contract.interface.encodeFunctionData("setNumber", ["0x123"]);
-//
-//          // 2) by using utils.interface
-//          const CONTRACT_ABI = ["function setNumber(uint256 newNumber) public", "function increment() public"];
-//          const iface = new ethers.utils.Interface( CONTRACT_ABI );
-//          const param = iface.encodeFunctionData("setNumber", [ "0x123" ])
+//   input: Refer https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-encodeabi
 //
 async function main() {
-  const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
-  const wallet = new Wallet(senderPriv, provider);
+  const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
+  const web3 = new KlaytnWeb3(provider);
+
+  const sender = web3.eth.accounts.privateKeyToAccount(senderPriv);
 
   const CONTRACT_ADDRESS = contractAddr;
   const CONTRACT_ABI = ["function setNumber(uint256 newNumber) public", "function increment() public"];
-  const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
-  const param = contract.interface.encodeFunctionData("setNumber", ["0x123"]);
+  const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+  const param = contract.methods.setNumber("0x123").encodeABI();  // to do - contract.methods.setNumber is not a function
 
   let tx = {
     type: TxType.SmartContractExecution,
@@ -42,11 +34,14 @@ async function main() {
     input: param,
   };
 
-  const sentTx = await wallet.sendTransaction(tx);
-  console.log("sentTx", sentTx);
+  let signResult = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
+  console.log({ signResult });
 
-  const rc = await sentTx.wait();
-  console.log("receipt", rc);
+  let sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
+  let txhash = sendResult.transactionHash;
+
+  let receipt = await web3.eth.getTransactionReceipt(txhash);
+  console.log({ receipt });
 }
 
 main();
