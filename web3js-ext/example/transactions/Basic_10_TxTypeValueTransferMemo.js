@@ -22,7 +22,7 @@ async function main() {
     type: TxType.ValueTransferMemo,
     to: recieverAddr,
     value: 1e9,
-    // value: parseKlay("1"),   to be resolved - invalid type error
+    // value: parseKlay("1"),   // TODO: add type conversion function 
     from: senderAddr,
     input: "0x1234567890",
   };

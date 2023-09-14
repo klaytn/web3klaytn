@@ -34,7 +34,7 @@ async function main() {
 
   let signResult = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
   web3.eth.sendSignedTransaction(signResult.rawTransaction); 
-  // to be resolved - .on function not working 
+  // TODO: .on function not working 
   //.on("receipt", (receipt) => console.log("tx next + 1", receipt));
 
   // 2) send Cancel tx with the next nonce+1
@@ -46,7 +46,7 @@ async function main() {
 
   signResult = await web3.eth.accounts.signTransaction(txCancel, sender.privateKey);
   web3.eth.sendSignedTransaction(signResult.rawTransaction)
-  // to be resolved - .on function not working 
+  // TODO: .on function not working 
   //.on("receipt", (receipt) => console.log("tx next + 1 cancel", receipt));
 
   // 3) send ValueTransfer tx with the next nonce
