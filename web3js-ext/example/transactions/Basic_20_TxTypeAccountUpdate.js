@@ -3,9 +3,7 @@ const { KlaytnWeb3 } = require( "../../dist/src");
 
 const { TxType } = require("@klaytn/ethers-ext");
 
-const { Wallet } = require('ethereumjs-wallet');
-const { EthUtil } = require('ethereumjs-util');
-
+const { secp256k1 } = require("ethereum-cryptography/secp256k1.js")
 //
 // TxTypeAccountUpdate
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/basic#txtypeaccountupdate
@@ -27,11 +25,7 @@ async function main() {
 
   const sender = web3.eth.accounts.privateKeyToAccount(senderPriv);
 
-  // to be resolved - Wallet & EthUtil is undefined 
-  // Get a wallet instance from a new private key & Get a public key
-  const privateKeyBuffer = EthUtil.toBuffer(senderNewPriv);
-  const wallet = Wallet.fromPrivateKey(privateKeyBuffer);
-  const publicKey = wallet.getPublicKeyString();                                                                                                                                                                                                                                                               
+  const publicKey = "0x" + Buffer.from(secp256k1.getPublicKey( BigInt(senderNewPriv), true)).toString('hex')
   console.log(publicKey);
 
   let tx = {

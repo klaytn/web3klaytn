@@ -94,6 +94,7 @@ export class KlaytnTx extends LegacyTransaction {
   private readonly _klaytnType: number;
   public readonly from?: string;
   public readonly chainId?: bigint;
+  public readonly key?: any;
 
   // Parsed KlaytnTx object
   private readonly klaytnTxData: any; // TODO: import KlaytnTx as CoreKlaytnTx from ethers-ext
@@ -122,6 +123,8 @@ export class KlaytnTx extends LegacyTransaction {
     this._klaytnType = toNumber(txData.type) as number;
     this.from = txData.from;
     this.chainId = txData.chainId;
+    // @ts-ignore
+    this.key = txData.key;
 
     let initTxData = {
       // Convert to type understood by CoreKlaytnTx.
@@ -136,14 +139,13 @@ export class KlaytnTx extends LegacyTransaction {
       data:     bytesToHex(this.data),
       input:    bytesToHex(this.data),
       chainId:  this.chainId ? toHex(this.chainId) : undefined,
+      humanReadable: false, 
+      codeFormat: 0x00,
+      key: this.key,
     }; 
 
     if ( txData.type == 0x28 ) {
       initTxData.to = "0x0000000000000000000000000000000000000000";
-      // @ts-ignore
-      initTxData.humanReadable = false; 
-      // @ts-ignore
-      initTxData.codeFormat = 0x00; 
     }
 
     // A readonly CoreKlaytnTx object
