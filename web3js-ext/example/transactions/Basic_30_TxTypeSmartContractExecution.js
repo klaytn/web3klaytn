@@ -28,7 +28,7 @@ async function main() {
        {
         "internalType": "uint256",
         "name": "newNumber",
-        "type": "unit256"
+        "type": "uint256"
        }
       ],
       "name": "setNumber",
@@ -45,7 +45,7 @@ async function main() {
      }
     ]; 
   const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-  const param = contract.methods.setNumber(0x123).encodeABI();  // to do - data type "unit256" is not valid
+  const param = contract.methods.setNumber(0x123).encodeABI(); 
 
   let tx = {
     type: TxType.SmartContractExecution,
