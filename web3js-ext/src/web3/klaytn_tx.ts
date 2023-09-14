@@ -117,8 +117,7 @@ export class KlaytnTx extends LegacyTransaction {
     this.from = txData.from;
     this.chainId = txData.chainId;
 
-    // A readonly CoreKlaytnTx object
-    this.klaytnTxData = KlaytnTxFactory.fromObject({
+    let initTxData = {
       // Convert to type understood by CoreKlaytnTx.
       // TODO: add more fields for other TxTypes
       type:     toHex(this.type || 0),
@@ -131,7 +130,19 @@ export class KlaytnTx extends LegacyTransaction {
       data:     bytesToHex(this.data),
       input:    bytesToHex(this.data),
       chainId:  this.chainId ? toHex(this.chainId) : undefined,
-    });
+    }; 
+
+    if ( txData.type == 0x28 ) {
+      initTxData.to = "0x0000000000000000000000000000000000000000";
+      // @ts-ignore
+      initTxData.humanReadable = false; 
+      // @ts-ignore
+      initTxData.codeFormat = 0x00; 
+    }
+
+    // A readonly CoreKlaytnTx object
+    this.klaytnTxData = KlaytnTxFactory.fromObject(initTxData);
+
     if (this.v && this.r && this. s) {
       this.klaytnTxData.addSenderSig([
         Number(this.v),
