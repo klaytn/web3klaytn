@@ -21,7 +21,7 @@ async function main() {
     type: TxType.ValueTransfer,
     to: recieverAddr,
     value: 1e9,
-    // value: parseKlay("1"),   to be resolved - invalid type error
+    value: convertToPeb('1', 'KLAY'),
     from: senderAddr,
     gas: 21000,
     gasPrice: 25e9,
