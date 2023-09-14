@@ -22,9 +22,30 @@ async function main() {
   const sender = web3.eth.accounts.privateKeyToAccount(senderPriv);
 
   const CONTRACT_ADDRESS = contractAddr;
-  const CONTRACT_ABI = ["function setNumber(uint256 newNumber) public", "function increment() public"];
+  const CONTRACT_ABI = [ 
+    {
+      "inputs": [
+       {
+        "internalType": "uint256",
+        "name": "newNumber",
+        "type": "unit256"
+       }
+      ],
+      "name": "setNumber",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+     },
+     {
+      "inputs": [],
+      "name": "increment",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+     }
+    ]; 
   const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-  const param = contract.methods.setNumber("0x123").encodeABI();  // to do - contract.methods.setNumber is not a function
+  const param = contract.methods.setNumber(0x123).encodeABI();  // to do - data type "unit256" is not valid
 
   let tx = {
     type: TxType.SmartContractExecution,
