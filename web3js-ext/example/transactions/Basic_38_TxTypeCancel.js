@@ -23,32 +23,31 @@ async function main() {
   const sender = web3.eth.accounts.privateKeyToAccount(senderPriv);
 
   // 1) send ValueTransfer tx with the next nonce+1
-  let nextNonce = await web3.eth.getTransactionCount();
+  let nextNonce = await web3.eth.getTransactionCount(senderAddr);
   let tx = {
     type: TxType.ValueTransfer,
-    nonce: nextNonce + 1,
+    nonce: nextNonce + 1n,
     to: recieverAddr,
     value: 1e12,
     from: senderAddr,
   };
 
   let signResult = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
-  let sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
-
-  console.log("tx next + 1", sendResult);
+  web3.eth.sendSignedTransaction(signResult.rawTransaction); 
+  // to be resolved - .on function not working 
+  //.on("receipt", (receipt) => console.log("tx next + 1", receipt));
 
   // 2) send Cancel tx with the next nonce+1
   let txCancel = {
     type: TxType.Cancel,
-    nonce: nextNonce + 1,
+    nonce: nextNonce + 1n,
     from: senderAddr,
   };
 
   signResult = await web3.eth.accounts.signTransaction(txCancel, sender.privateKey);
-  sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
-  let txhash = sendResult.transactionHash;
-
-  console.log("tx next + 1 Cancel", sendResult);
+  web3.eth.sendSignedTransaction(signResult.rawTransaction)
+  // to be resolved - .on function not working 
+  //.on("receipt", (receipt) => console.log("tx next + 1 cancel", receipt));
 
   // 3) send ValueTransfer tx with the next nonce
   tx.nonce = nextNonce;
@@ -56,11 +55,10 @@ async function main() {
   signResult = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
   sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
 
-  console.log("tx next", sendResult);
+  console.log("sendResult", sendResult);
 
-  let receipt = await web3.eth.getTransactionReceipt(txhash);
-  console.log({ receipt });
+  let receipt = await web3.eth.getTransactionReceipt(sendResult.transactionHash);
+  console.log( receipt );
 }
 
-// to do - Web3ValidatorError: value at "/0" is required
 main();

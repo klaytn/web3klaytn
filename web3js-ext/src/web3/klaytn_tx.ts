@@ -53,6 +53,12 @@ export async function prepareTransaction(
     transaction = _.clone(transaction);
     let savedFields = saveCustomFields(transaction);
 
+    // prepareTransactionForSigning expects ANY value (not undefined)
+    // because otherwise eth_estimateGas will fail with an RPC error '"0x"..*hexutil.Big'.
+    // however, some Klaytn tx types stipulates to NOT have value (e.g. TxTypeCancel, TxTypeAccountUpdate)
+    // Therefore we fill with zero value if not defined.
+    transaction.value ??= 0;
+
     let tx = await prepareTransactionForSigning(
       transaction, context, privateKey, true, true);
 
