@@ -1,6 +1,8 @@
 import { assert } from "chai";
+import { TransactionRequest } from "@ethersproject/abstract-provider";
 
 import { KlaytnTxFactory } from "../../src/core";
+import { encodeTxForRPC } from "../../src/core/klaytn_tx";
 
 // Non-canonical types, which are common user-supplied values.
 const nonce = 1234;
@@ -71,4 +73,39 @@ describe("TypedTxFactory", () => {
       assert.equal(tx.txHashRLP(), tc.txRLP);
     });
   }
+});
+
+describe("encodeTxForRPC", () => {
+  it("success", () => {
+    let tx: TransactionRequest = {
+      chainId: 42,
+      gasLimit: 0x1111,
+      gasPrice: 0x222,
+      type: 2,
+      maxFeePerGas: 0x33,
+      maxPriorityFeePerGas: 0x4,
+      nonce: 0,
+      value: 0,
+
+      from: "0x00000000000000000000000000000000000000aa",
+      to: "0x00000000000000000000000000000000000000bb",
+      data: "0x",
+    };
+
+    let formatted = encodeTxForRPC(tx);
+    assert.deepEqual(formatted, {
+      chainId: '0x2a',
+      gas: '0x1111',
+      gasPrice: '0x222',
+      type: '0x2',
+      maxFeePerGas: '0x33',
+      maxPriorityFeePerGas: '0x4',
+      nonce: '0x0',
+      value: '0x0',
+
+      from: '0x00000000000000000000000000000000000000aa',
+      to: '0x00000000000000000000000000000000000000bb',
+      data: '0x',
+    });
+  });
 });
