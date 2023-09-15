@@ -8,9 +8,7 @@ import java.math.BigInteger;
 import org.web3j.crypto.KlayCredentials;
 import org.web3j.crypto.transaction.type.TxType;
 import org.web3j.crypto.transaction.type.TxType.Type;
-import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthChainId;
-import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
@@ -33,29 +31,22 @@ public class KlayRawTransactionManagerExample implements keySample {
         EthChainId EthchainId = web3j.ethChainId().send();
         long chainId = EthchainId.getChainId().longValue();
         String to = "0x000000000000000000000000000000000000dead";
-        BigInteger nonce = web3j.ethGetTransactionCount(from, DefaultBlockParameterName.LATEST).send()
-                .getTransactionCount();
         BigInteger value = BigInteger.valueOf(100);
-
-        String data = "Klaytn Web3j";
-        byte[] payload = data.getBytes();
 
         TxType.Type type = Type.VALUE_TRANSFER;
 
         KlayRawTransactionManager manager = new KlayRawTransactionManager(web3j, credentials, chainId);
-        EthSendTransaction transactionResponse  = manager.sendKlayTransaction(type, GAS_PRICE, GAS_LIMIT, to, value, from);
+        EthSendTransaction transactionResponse = manager.sendKlayTransaction(type, GAS_PRICE, GAS_LIMIT, to, value,
+                from);
         System.out.println("TxHash : \n " + transactionResponse.getResult());
         String txHash = transactionResponse.getResult();
-        try
-        {
+        try {
             Thread.sleep(2000);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e);
         }
         TransactionReceipt receipt = web3j.klayGetTransactionReceipt(txHash).send().getResult();
-        System.out.print("receipt : \n" + receipt);                
+        System.out.println("receipt : \n" + receipt);
         web3j.shutdown();
     }
 }

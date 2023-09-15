@@ -18,6 +18,7 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.utils.Numeric;
 import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
+
 /**
  * 
  */
@@ -38,7 +39,6 @@ public class CancelExample implements keySample {
         long chainId = EthchainId.getChainId().longValue();
         BigInteger nonce = web3j.ethGetTransactionCount(from, DefaultBlockParameterName.LATEST).send()
                 .getTransactionCount();
-        BigInteger value = BigInteger.valueOf(100);
 
         TxType.Type type = Type.CANCEL;
 
@@ -54,19 +54,18 @@ public class CancelExample implements keySample {
         EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
         System.out.println("TxHash : \n " + transactionResponse.getResult());
         String txHash = transactionResponse.getResult();
-        try
-        {
-             Thread.sleep(2000);
-        }
-        catch(Exception e)
-        {
+        try {
+            Thread.sleep(2000);
+        } catch (Exception e) {
             System.out.println(e);
-         }
+        }
         TransactionReceipt receipt = web3j.klayGetTransactionReceipt(txHash).send().getResult();
-        System.out.print("receipt : \n" + receipt);                
+        System.out.println("receipt : \n" + receipt);
         web3j.shutdown();
 
         TxTypeCancel rawTransaction = TxTypeCancel.decodeFromRawTransaction(signedMessage);
+
+        System.out.println("TxType : " + rawTransaction.getKlayType());
 
     }
 
