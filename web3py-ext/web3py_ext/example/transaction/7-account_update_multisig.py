@@ -57,8 +57,8 @@ def web3_account_update_multisig():
     print("\ndecoded transaction:", to_pretty(decoded_tx))
 
     # temp test
-    # tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
-    # tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-    # print('tx hash: ', tx_hash, 'receipt: ', tx_receipt) 
+    tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+    print('tx hash: ', tx_hash, 'receipt: ', tx_receipt) 
 
 web3_account_update_multisig()
