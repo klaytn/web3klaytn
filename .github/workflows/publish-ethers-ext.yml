@@ -1,4 +1,4 @@
-name: SDK publish on release - Ether
+name: "SDK publish on release - Ether"
 on:
   workflow_run:
     workflows: ["testing"]
