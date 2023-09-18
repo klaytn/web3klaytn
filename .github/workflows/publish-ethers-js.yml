@@ -2,7 +2,7 @@ name: SDK publish on release - JavaScript
 on:
   workflow_run:
     workflows: ["testing"]
-    branches: [devops/update-cicd-pipeline]
+    branches: ["devops/update-cicd-pipeline"]
     types:
       - completed
 
