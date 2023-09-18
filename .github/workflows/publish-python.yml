@@ -1,0 +1,52 @@
+name: SDK publish on release - Python
+on:
+  workflow_run:
+    workflows: ["testing"]
+    branches: [devops/update-cicd-pipeline]
+    types:
+      - completed
+
+jobs:
+  build:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+      - name: generate code and namespace
+        shell: bash
+        run: |
+          cd web3rpc/codegen && gradle wrapper && gradle wrapper clean :deployJar && cd - &&\
+          cd web3rpc/rpc-specs && npm install && bash -x generate-namespace.sh && cd -
+
+
+      - name: generate python sdk
+        shell: bash
+        run: |
+          cd web3py-ext &&\
+          python -m pip install build wheel twine &&\
+          ls -ls &&\
+          python setup.py bdist_wheel &&\
+          cd -
+
+      # - name: Publish distribution 📦 to PyPI
+      #   uses: pypa/gh-action-pypi-publish@release/v1
+      #   continue-on-error: true
+      #   with:
+      #     password: ${{ secrets.PYPI_API_TOKEN }}
+      #     packages-dir: web3py-ext/dist
