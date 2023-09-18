@@ -1,10 +1,7 @@
 name: SDK publish on release - Java
 on:
   workflow_run:
-    workflows: ["testing"]
     branches: ["devops/update-cicd-pipeline"]
-    types:
-      - completed
 
 jobs:
   build:
