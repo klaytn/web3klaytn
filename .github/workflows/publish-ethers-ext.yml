@@ -1,7 +1,7 @@
 name: "SDK publish on release - Ether"
 on:
   workflow_run:
-    workflows: ["testing"]
+    workflows: [testing]
     branches: [devops/update-cicd-pipeline]
     types:
       - completed
