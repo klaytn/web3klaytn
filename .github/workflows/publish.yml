@@ -1,4 +1,4 @@
-name: SDK publish on release
+name: "SDK publish on release"
 
 on:
   workflow_run:
