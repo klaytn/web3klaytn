@@ -3,7 +3,7 @@ name: testing
 on:
   push:
     branches:
-      - devops/update-cicd-pipeline
+      - main
   pull_request:
     types:
       - opened

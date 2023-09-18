@@ -1,13 +1,11 @@
-name: "SDK publish on release - Ether"
+name: SDK publish on release - Ether
 on:
   workflow_run:
-    workflows: [testing]
-    branches: [devops/update-cicd-pipeline]
+    workflows: ["testing"]
+    branches: [main]
     types:
       - completed
-  push:
-    branches:
-        - devops/update-cicd-pipeline
+
 jobs:
   build:
     permissions: write-all
