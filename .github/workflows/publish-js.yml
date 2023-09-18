@@ -5,7 +5,9 @@ on:
     branches: ["devops/update-cicd-pipeline"]
     types:
       - completed
-
+  push:
+    branches:
+        - devops/update-cicd-pipeline
 jobs:
   build:
     permissions: write-all
