@@ -44,9 +44,9 @@ jobs:
           python setup.py bdist_wheel &&\
           cd -
 
-      # - name: Publish distribution 📦 to PyPI
-      #   uses: pypa/gh-action-pypi-publish@release/v1
-      #   continue-on-error: true
-      #   with:
-      #     password: ${{ secrets.PYPI_API_TOKEN }}
-      #     packages-dir: web3py-ext/dist
+      - name: Publish distribution 📦 to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        continue-on-error: true
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          packages-dir: web3py-ext/dist
