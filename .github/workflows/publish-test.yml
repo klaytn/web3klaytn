@@ -3,9 +3,11 @@ name: "SDK publish on release TEST"
 on:
   workflow_run:
     workflows: ["testing-test"]
-    branches: [devops/update-cicd-pipeline]
+    branches: [main]
     types:
       - completed
+  push:
+    branches: [devops/update-cicd-pipeline]
 
 jobs:
   build:
