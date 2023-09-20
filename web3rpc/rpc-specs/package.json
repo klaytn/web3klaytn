@@ -12,5 +12,4 @@
     "dev": "redocly preview-docs",
     "build": "redocly bundle"
   }
-
 }
