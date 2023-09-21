@@ -1,4 +1,4 @@
-export { KlaytnTx, KlaytnTxFactory } from "./klaytn_tx";
+export { KlaytnTx, KlaytnTxFactory, objectFromRLP } from "./klaytn_tx";
 export { AccountKey, AccountKeyFactory } from "./accountKey";
 
 /* eslint-disable import/order */

@@ -1,5 +1,7 @@
-const { Wallet, TxType, parseKlay } = require("@klaytn/ethers-ext");
-const ethers = require("ethers");
+const { Web3 } = require("web3");
+const { KlaytnWeb3 } = require( "../../dist/src");
+
+const { TxType, parseKlay, objectFromRLP } = require("../../../ethers-ext/dist/src");
 
 //
 // TxTypeFeeDelegatedValueTransfer
@@ -12,36 +14,44 @@ const feePayerAddr = "0xcb0eb737dfda52756495a5e08a9b37aab3b271da";
 const feePayerPriv = "0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16fc000cff4";
 const recieverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
 
-const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
 
 async function main() {
+  const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
+  const web3 = new KlaytnWeb3(provider);
+
   // sender
-  const senderWallet = new Wallet(senderPriv, provider);
+  const senderWallet = web3.eth.accounts.privateKeyToAccount(senderPriv);
 
   let tx = {
     type: TxType.FeeDelegatedValueTransfer,
     to: recieverAddr,
-    value: parseKlay("1"),
+    value: 1e9,
+    // value: convertToPeb('1', 'KLAY'),
     from: senderAddr,
+    gas: 300000,  // intrinsic gas too low
+    gasPrice: 100e9,  // intrinsic gas too low
   };
 
-  tx = await senderWallet.populateTransaction(tx);
-  console.log(tx);
-
-  const senderTxHashRLP = await senderWallet.signTransaction(tx);
-  console.log("senderTxHashRLP", senderTxHashRLP);
+  let senderTx = await web3.eth.accounts.signTransaction(tx, senderWallet.privateKey);
+  console.log(senderTx);
 
   // fee payer
-  const feePayerWallet = new Wallet(feePayerPriv, provider);
+  const feePayerWallet = web3.eth.accounts.privateKeyToAccount(feePayerPriv, provider);
 
-  tx = feePayerWallet.decodeTxFromRLP(senderTxHashRLP);
+  tx = objectFromRLP(senderTx.rawTransaction);
   console.log(tx);
 
-  const sentTx = await feePayerWallet.sendTransactionAsFeePayer(senderTxHashRLP);
-  console.log("sentTx", sentTx);
+  let signResult = await web3.eth.accounts.signTransactionAsFeePayer(tx, feePayerWallet.privateKey);
+  console.log(signResult);
 
-  const rc = await sentTx.wait();
-  console.log("receipt", rc);
+  tx = objectFromRLP(signResult.rawTransaction);
+  console.log(tx);
+
+  let sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
+  let txhash = sendResult.transactionHash;
+
+  let receipt = await web3.eth.getTransactionReceipt(txhash);
+  console.log({ receipt });
 }
 
 main();
