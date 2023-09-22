@@ -1,9 +1,10 @@
 const { Web3 } = require("web3");
 const { KlaytnWeb3 } = require( "../../dist/src");
 
-const { TxType } = require("@klaytn/ethers-ext");
+const { TxType, AccountKeyType } = require("@klaytn/ethers-ext");
 
 const { secp256k1 } = require("ethereum-cryptography/secp256k1.js")
+
 //
 // TxTypeAccountUpdate
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/basic#txtypeaccountupdate
@@ -23,8 +24,6 @@ async function main() {
   const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
   const web3 = new KlaytnWeb3(provider);
 
-  const sender = web3.eth.accounts.privateKeyToAccount(senderPriv);
-
   const publicKey = "0x" + Buffer.from(secp256k1.getPublicKey( BigInt(senderNewPriv), true)).toString('hex')
   console.log(publicKey);
 
@@ -32,11 +31,12 @@ async function main() {
     type: TxType.AccountUpdate,
     from: senderAddr,
     key: {
-      type: 0x02,
+      type: AccountKeyType.Public,
       key: publicKey,
     }
   };
 
+  const sender = web3.eth.accounts.privateKeyToAccount(senderPriv);
   let signResult = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
   console.log({ signResult });
 
