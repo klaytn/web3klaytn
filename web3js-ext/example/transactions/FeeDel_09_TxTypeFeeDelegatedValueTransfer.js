@@ -1,7 +1,7 @@
 const { Web3 } = require("web3");
 const { KlaytnWeb3 } = require( "../../dist/src");
 
-const { TxType, parseKlay, objectFromRLP } = require("../../../ethers-ext/dist/src");
+const { TxType, objectFromRLP } = require("../../../ethers-ext/dist/src");
 
 //
 // TxTypeFeeDelegatedValueTransfer
@@ -19,33 +19,31 @@ async function main() {
   const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
   const web3 = new KlaytnWeb3(provider);
 
-  // sender
-  const senderWallet = web3.eth.accounts.privateKeyToAccount(senderPriv);
-
   let tx = {
     type: TxType.FeeDelegatedValueTransfer,
     to: recieverAddr,
     value: 1e9,
     // value: convertToPeb('1', 'KLAY'),
     from: senderAddr,
-    gas: 300000,  // intrinsic gas too low
-    gasPrice: 100e9,  // intrinsic gas too low
+    gas: 300000,  
+    gasPrice: 100e9,  
   };
 
+  // sender
+  const senderWallet = web3.eth.accounts.privateKeyToAccount(senderPriv);
   let senderTx = await web3.eth.accounts.signTransaction(tx, senderWallet.privateKey);
   console.log(senderTx);
 
+  // tx = objectFromRLP(senderTx.rawTransaction);
+  // console.log(tx);
+
   // fee payer
   const feePayerWallet = web3.eth.accounts.privateKeyToAccount(feePayerPriv, provider);
-
-  tx = objectFromRLP(senderTx.rawTransaction);
-  console.log(tx);
-
-  let signResult = await web3.eth.accounts.signTransactionAsFeePayer(tx, feePayerWallet.privateKey);
+  let signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayerWallet.privateKey);
   console.log(signResult);
 
-  tx = objectFromRLP(signResult.rawTransaction);
-  console.log(tx);
+  // tx = objectFromRLP(signResult.rawTransaction);
+  // console.log(tx);
 
   let sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
   let txhash = sendResult.transactionHash;
