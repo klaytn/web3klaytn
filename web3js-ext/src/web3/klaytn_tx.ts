@@ -11,7 +11,7 @@ import * as ethereumCryptography from 'ethereum-cryptography/secp256k1.js';
 
 export const secp256k1 = ethereumCryptography.secp256k1 ?? ethereumCryptography;
 
-import { KlaytnTxFactory } from "@klaytn/ethers-ext";
+import { KlaytnTxFactory, TxType } from "@klaytn/ethers-ext";
 export interface KlaytnTxData extends TxData {
   from?: string,
   chainId?: bigint,
@@ -172,7 +172,9 @@ export class KlaytnTx extends LegacyTransaction {
       feePayerSignatures: this.feePayerSignatures,
     }; 
 
-    if ( txData.type == 0x28 ) {
+    if ( txData.type == TxType.SmartContractDeploy ||
+      txData.type == TxType.FeeDelegatedSmartContractDeploy || 
+      txData.type == TxType.FeeDelegatedSmartContractDeployWithRatio) {
       klaytnTxObject.to = "0x0000000000000000000000000000000000000000";
     }
 
