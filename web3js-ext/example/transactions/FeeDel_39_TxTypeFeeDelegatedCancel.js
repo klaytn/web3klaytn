@@ -1,5 +1,7 @@
-const { Wallet, TxType } = require("@klaytn/ethers-ext");
-const ethers = require("ethers");
+const { Web3 } = require("web3");
+const { KlaytnWeb3 } = require( "../../dist/src");
+
+const { TxType } = require("@klaytn/ethers-ext");
 
 //
 // TxTypeFeeDelegatedCancel
@@ -17,64 +19,66 @@ const feePayerAddr = "0xcb0eb737dfda52756495a5e08a9b37aab3b271da";
 const feePayerPriv = "0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16fc000cff4";
 const recieverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
 
-const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
-
-
-async function senderSign(nextNonce) {
-  const senderWallet = new Wallet(senderPriv, provider);
-
-  let txCancel = {
-    type: TxType.FeeDelegatedCancel,
-    nonce: nextNonce + 1,
-    from: senderAddr,
-  };
-
-  txCancel = await senderWallet.populateTransaction(txCancel);
-  console.log(txCancel);
-
-  const senderTxHashRLP = await senderWallet.signTransaction(txCancel);
-  console.log("senderTxHashRLP", senderTxHashRLP);
-
-  return senderTxHashRLP;
-}
-
-async function feePayerSign(senderTxHashRLP) {
-  const feePayerWallet = new Wallet(feePayerPriv, provider);
-
-  const txCancel = feePayerWallet.decodeTxFromRLP(senderTxHashRLP);
-  console.log(txCancel);
-
-  const cancelTx = await feePayerWallet.sendTransactionAsFeePayer(senderTxHashRLP);
-  console.log("tx next + 1 Cancel", cancelTx);
-}
 
 async function main() {
-  const wallet = new Wallet(senderPriv, provider);
+  const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
+  const web3 = new KlaytnWeb3(provider);
+
+  const senderWallet = web3.eth.accounts.privateKeyToAccount(senderPriv, provider);
+  const feePayerWallet = web3.eth.accounts.privateKeyToAccount(feePayerPriv, provider);
 
   // 1) send ValueTransfer tx with the next nonce + 1
-  let nextNonce = await wallet.getTransactionCount();
+  let nextNonce = await web3.eth.getTransactionCount(senderAddr);
+  console.log(nextNonce);
   let tx = {
-    type: TxType.ValueTransfer,
-    nonce: nextNonce + 1,
+    type: TxType.FeeDelegatedValueTransfer,
+    nonce: nextNonce + 1n,
     to: recieverAddr,
     value: 1e12,
     from: senderAddr,
+    gas: 300000,  // intrinsic gas too low
+    gasPrice: 100e9,
   };
 
-  const nextTx = await wallet.sendTransaction(tx);
-  console.log("tx next + 1", nextTx);
+  // // sender sign
+  let senderTx = await web3.eth.accounts.signTransaction(tx, senderWallet.privateKey);
+  console.log({senderTx});
+  // feePayer sign
+  let signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayerWallet.privateKey);
+  console.log({signResult});
+  web3.eth.sendSignedTransaction(signResult.rawTransaction);
 
   // 2) send Cancel tx with the next nonce+1
-  const senderTxHashRLP = await senderSign(nextNonce);
-  await feePayerSign(senderTxHashRLP);
+  let txCancel = {
+    type: TxType.FeeDelegatedCancel,
+    nonce: nextNonce + 1n,
+    from: senderAddr,
+    gas: 300000,  // intrinsic gas too low
+    gasPrice: 100e9,
+  };
+
+  // sender sign
+  senderTx = await web3.eth.accounts.signTransaction(txCancel, senderWallet.privateKey);
+  console.log({senderTx});
+  // feePayer sign
+  signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayerWallet.privateKey);
+  console.log({signResult});
+  web3.eth.sendSignedTransaction(signResult.rawTransaction);
 
   // 3) send ValueTransfer tx with the next nonce
   tx.nonce = nextNonce;
-  const sentTx = await wallet.sendTransaction(tx);
-  console.log("tx next", sentTx);
 
-  const rc = await sentTx.wait();
-  console.log("receipt", rc);
+  // sender sign
+  senderTx = await web3.eth.accounts.signTransaction(tx, senderWallet.privateKey);
+  console.log({senderTx});
+  // feePayer sign
+  signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayerWallet.privateKey);
+  console.log({signResult});
+  sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
+  console.log("sendResult", sendResult);
+
+  let receipt = await web3.eth.getTransactionReceipt(sendResult.transactionHash);
+  console.log( receipt );
 }
 
 main();
