@@ -149,7 +149,7 @@ export class KlaytnTx extends LegacyTransaction {
     // @ts-ignore
     this.feePayerSignatures = txData.feePayerSignatures;
 
-    let initTxData = {
+    let klaytnTxObject = {
       // Convert to type understood by CoreKlaytnTx.
       // TODO: add more fields for other TxTypes
       type:     toHex(this.type || 0),
@@ -173,11 +173,11 @@ export class KlaytnTx extends LegacyTransaction {
     }; 
 
     if ( txData.type == 0x28 ) {
-      initTxData.to = "0x0000000000000000000000000000000000000000";
+      klaytnTxObject.to = "0x0000000000000000000000000000000000000000";
     }
 
     // A readonly CoreKlaytnTx object
-    this.klaytnTxData = KlaytnTxFactory.fromObject(initTxData);
+    this.klaytnTxData = KlaytnTxFactory.fromObject(klaytnTxObject);
 
     if (this.v && this.r && this. s) {
       this.klaytnTxData.addSenderSig([
