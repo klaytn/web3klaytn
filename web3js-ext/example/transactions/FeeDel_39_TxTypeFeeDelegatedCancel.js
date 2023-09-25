@@ -40,7 +40,7 @@ async function main() {
     gasPrice: 100e9,
   };
 
-  // // sender sign
+  // sender sign
   let senderTx = await web3.eth.accounts.signTransaction(tx, senderWallet.privateKey);
   console.log({senderTx});
   // feePayer sign
