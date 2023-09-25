@@ -66,9 +66,7 @@ export class KlaytnWeb3 extends Web3 {
         tx = transaction;
       }
 
-      // @ts-ignore : we have to add feePayer property
       if (!tx.feePayer) {
-        // @ts-ignore : we have to find how to add feePayer address
         tx.feePayer = privateKeyToAddress(privateKey);
       }
 

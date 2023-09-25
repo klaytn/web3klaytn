@@ -2,7 +2,7 @@ import { Transaction as LegacyTransaction, TypedTransaction, TxData, TxOptions, 
 import { bytesToHex, hexToBytes, toHex, toNumber, numberToHex, toBigInt } from "web3-utils";
 import { keccak256 } from 'ethereum-cryptography/keccak.js';
 import { RLP } from '@ethereumjs/rlp';
-import { Bytes, Numbers, Transaction as TransactionFields, Web3Context } from "web3";
+import { Bytes, Numbers, Transaction as TransactionFields, Uint, Web3Context } from "web3";
 import _ from "lodash";
 import { prepareTransactionForSigning } from "web3-eth";
 
@@ -22,6 +22,7 @@ export interface KlaytnTxData extends TxData {
   feePayer_s? : Uint8Array,
   txSignatures? : any,
   feePayerSignatures? : any,
+  feeRatio? : Uint,
 }
 
 // See web3-types/src/eth_types.ts:TransactionBase and its child interfaces
@@ -113,6 +114,7 @@ export class KlaytnTx extends LegacyTransaction {
   public readonly feePayer_s?: Uint8Array;
   public readonly txSignatures?: any;
   public readonly feePayerSignatures?: any;
+  public readonly feeRatio?: Uint;
 
   // Parsed KlaytnTx object
   private readonly klaytnTxData: any; // TODO: import KlaytnTx as CoreKlaytnTx from ethers-ext
@@ -148,6 +150,7 @@ export class KlaytnTx extends LegacyTransaction {
     this.feePayer_s = txData.feePayer_s;
     this.txSignatures = txData.txSignatures;
     this.feePayerSignatures = txData.feePayerSignatures;
+    this.feeRatio = txData.feeRatio;
 
     let klaytnTxObject = {
       // Convert to type understood by CoreKlaytnTx.
@@ -166,10 +169,9 @@ export class KlaytnTx extends LegacyTransaction {
       codeFormat: 0x00,
       key: this.key,
       feePayer: this.feePayer,
-      // @ts-ignore
       txSignatures: this.txSignatures,
-      // @ts-ignore
       feePayerSignatures: this.feePayerSignatures,
+      feeRatio: this.feeRatio, 
     }; 
 
     if ( txData.type == TxType.SmartContractDeploy ||
