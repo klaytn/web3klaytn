@@ -15,6 +15,13 @@ import { KlaytnTxFactory, TxType } from "@klaytn/ethers-ext";
 export interface KlaytnTxData extends TxData {
   from?: string,
   chainId?: bigint,
+  key? : any,
+  feePayer? : string,
+  feePayer_v? : bigint,
+  feePayer_r? : Uint8Array,
+  feePayer_s? : Uint8Array,
+  txSignatures? : any,
+  feePayerSignatures? : any,
 }
 
 // See web3-types/src/eth_types.ts:TransactionBase and its child interfaces
@@ -134,19 +141,12 @@ export class KlaytnTx extends LegacyTransaction {
     this._klaytnType = toNumber(txData.type) as number;
     this.from = txData.from;
     this.chainId = txData.chainId;
-    // @ts-ignore
     this.key = txData.key;
-    // @ts-ignore
     this.feePayer = txData.feePayer;
-    // @ts-ignore
     this.feePayer_v = txData.feePayer_v;
-    // @ts-ignore
     this.feePayer_r = txData.feePayer_r;
-    // @ts-ignore
     this.feePayer_s = txData.feePayer_s;
-    // @ts-ignore
     this.txSignatures = txData.txSignatures;
-    // @ts-ignore
     this.feePayerSignatures = txData.feePayerSignatures;
 
     let klaytnTxObject = {

@@ -1,7 +1,7 @@
 const { Web3 } = require("web3");
 const { KlaytnWeb3 } = require( "../../dist/src");
 
-const { TxType, AccountKeyType, objectFromRLP } = require("../../../ethers-ext/dist/src");
+const { TxType, objectFromRLP } = require("../../../ethers-ext/dist/src");
 
 // TxTypeFeeDelegatedSmartContractDeploy
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/fee-delegation#txtypefeedelegatedsmartcontractdeploy
