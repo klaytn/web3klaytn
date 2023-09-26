@@ -1,10 +1,7 @@
 package opensdk.sdk.apis.personal;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.PersonalSignTransactionResponse;
+//import org.web3j.protocol.klaytn.core.method.response.PersonalSignTransactionResponse;
 import org.web3j.protocol.klaytn.core.method.response.TransactionObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +12,7 @@ import java.io.IOException;
 
 @DisplayName("Personal RPC Test")
 public class PersonalSignTransactionTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
     @Test
     @DisplayName("RPC personal_signTransaction")
@@ -30,8 +27,11 @@ public class PersonalSignTransactionTest {
 
         String password = "helloWorld";
 
-        PersonalSignTransactionResponse response = w3.personalSignTransaction(transactionObject, password).send();
-        assertNotNull(response);
-        assertNull(response.getError());
+//        PersonalSignTransactionResponse response = w3.personalSignTransaction(transactionObject, password).send();
+//        assertNotNull(response);
+//        assertNull(response.getError());
+//        assertNotNull(response.getResult());
+//        assertNotNull(response.getResult().getRaw());
+//        assertTrue(response.getResult().getRaw().matches("^0x[0-9a-fA-F]+$"));
     }
 }

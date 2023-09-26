@@ -17,9 +17,8 @@ class TestKlayEstimateComputationCost(KlaytnBaseTesting):
         self.response = self.w3.klay.estimate_computation_cost(
             self.callObject, self.blockNumberOrHash
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response, r'^0x.*$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
             self.response = self.w3.klay.estimate_computation_cost(self.callObject)
-

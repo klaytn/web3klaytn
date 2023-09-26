@@ -1,6 +1,7 @@
 from base.testing import KlaytnBaseTesting
 from unittest import skip
 
+
 class TestFillTransaction(KlaytnBaseTesting):
 
     def setUp(self) -> None:
@@ -18,7 +19,7 @@ class TestFillTransaction(KlaytnBaseTesting):
         self.response = self.w3.eth.fill_transaction(
             self.transactionArgs
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response["raw"], r'^0x.*$')
 
     # def test_post_wrong_with_lack_paramaters(self):
     #     with self.assertRaises(ValueError):

@@ -1,8 +1,5 @@
 package opensdk.sdk.apis.eth.block;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,10 +9,12 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @DisplayName("Klay RPC Test")
 public class EthGetBlockByHashApiTest {
 
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
     @Test
     @DisplayName("RPC eth_getBlockByHash")
@@ -26,5 +25,9 @@ public class EthGetBlockByHashApiTest {
         .send();
         assertNotNull(br);
         assertNull(br.getError());
+        if (br.getResult() != null) {
+            assertNotNull(br.getResult().getHash());
+            assertTrue(br.getResult().getHash().matches("^0x.*$"));
+        }
     }
 }

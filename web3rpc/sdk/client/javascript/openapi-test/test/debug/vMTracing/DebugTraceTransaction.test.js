@@ -9,7 +9,9 @@ describe('debug_traceTransaction API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(typeof data === 'object').toBeTruthy();
+            expect(typeof data.gas === 'number').toBeTruthy();
             done();
         };
 

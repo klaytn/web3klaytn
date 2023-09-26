@@ -10,6 +10,7 @@ describe('eth_fillTransaction API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(typeof data.raw === 'number' || /^0x[0-9a-fA-F]+$/.test(data.raw)).toBe(true);
             done();
         };
         const transactionArgs = {

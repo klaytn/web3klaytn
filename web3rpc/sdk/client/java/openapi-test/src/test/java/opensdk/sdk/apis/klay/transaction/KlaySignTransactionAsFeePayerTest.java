@@ -12,15 +12,15 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Klay RPC Test")
 public class KlaySignTransactionAsFeePayerTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
     @Test
     @DisplayName("RPC klay_signTransactionAsFeePayer")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException, ExecutionException, InterruptedException {
@@ -41,7 +41,9 @@ public class KlaySignTransactionAsFeePayerTest {
         KlaySignTransactionAsFeePayerResponse tr = w3.klaySignTransactionAsFeePayer(type).send();
         assertNotNull(tr);
         assertNull(tr.getError());
-
+        assertNotNull(tr.getResult());
+        assertNotNull(tr.getResult().getRaw());
+        assertTrue(tr.getResult().getRaw().matches("^0x[a-fA-F0-9]+"));
     }
 
 }

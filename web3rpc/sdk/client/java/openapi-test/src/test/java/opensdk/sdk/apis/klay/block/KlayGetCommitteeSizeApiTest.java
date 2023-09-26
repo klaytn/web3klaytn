@@ -9,13 +9,12 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Klay RPC Test")
 public class KlayGetCommitteeSizeApiTest {
 
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
 
     @Test
     @DisplayName("RPC klay_getCommitteeSize")
@@ -26,5 +25,6 @@ public class KlayGetCommitteeSizeApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertTrue(response.getResult() instanceof Integer);
     }
 }

@@ -23,7 +23,7 @@ class TestResend(KlaytnBaseTesting):
         self.response = self.w3.klay.resend(
             self.oldTrx, self.gasPrice, self.gasLimit
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response, r'^0x.*$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

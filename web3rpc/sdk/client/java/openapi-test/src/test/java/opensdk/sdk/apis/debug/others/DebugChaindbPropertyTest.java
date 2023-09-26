@@ -9,9 +9,13 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 import org.web3j.protocol.http.HttpService;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @DisplayName("Debug RPC Test")
 public class DebugChaindbPropertyTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
     @Test
     @DisplayName("RPC debug_chaindbProperty")
@@ -20,5 +24,9 @@ public class DebugChaindbPropertyTest {
 
         DebugChaindbPropertyResponse response = w3.debugChaindbProperty(property).send();
         response.getResult();
+
+        assertNotNull(response);
+        assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 }

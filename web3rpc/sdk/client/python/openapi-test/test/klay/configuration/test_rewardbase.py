@@ -5,4 +5,4 @@ class TestRewardbase(KlaytnBaseTesting):
 
     def test_post(self):
         self.response = self.w3.klay.rewardbase()
-        self.assertResponseSuccess()
+        self.assertRegex(self.response, r'^0x.*$')

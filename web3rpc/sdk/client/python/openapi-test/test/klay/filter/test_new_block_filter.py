@@ -5,4 +5,4 @@ class TestNewBlockFilter(KlaytnBaseTesting):
 
     def test_post(self):
         self.response = self.w3.klay.new_block_filter()
-        self.assertResponseSuccess()
+        self.assertRegex(self.response, r'^0x.*$')

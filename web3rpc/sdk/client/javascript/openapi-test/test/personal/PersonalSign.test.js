@@ -11,6 +11,7 @@ describe('personal_sign API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(data).toMatch(/^0x[0-9a-fA-F]+$/)
             done();
         };
         unlockAccount().then(address => {

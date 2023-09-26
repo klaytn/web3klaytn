@@ -11,7 +11,7 @@ class TestDebugGetBlockRlp(KlaytnBaseTesting):
         self.response = self.w3.debug.get_block_rlp(
             self.blockHash
         )
-        self.assertResponseSuccess()
+        self.assertIsInstance(self.response, str)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

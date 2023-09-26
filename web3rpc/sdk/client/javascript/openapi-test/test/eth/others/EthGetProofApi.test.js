@@ -10,6 +10,7 @@ describe('eth_getProof API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(data.codeHash).toMatch(/^0x.*$/gm)
             done();
         };
         const account = '0x487f2dfef230c2120b8cc55c5087b103146536ec'

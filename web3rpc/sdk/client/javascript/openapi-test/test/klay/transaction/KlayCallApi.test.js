@@ -1,15 +1,16 @@
 const OpenSdk = require("opensdk-javascript");
 const { expect } = require("@jest/globals");
+const { BAOBAB_RPC } = require("../../constant");
 
-
-const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+const sdk = new OpenSdk(new OpenSdk.ApiClient(BAOBAB_RPC));
 describe('Eth transaction call API', () => {
     test('should return result', (done) => {
 
         let callbackOne = function (error, data, response) {
 
             expect(error).toBeNull();
-            expect(data).toBeDefined()        
+            expect(data).toBeDefined();
+            expect(/^0x[a-fA-F0-9]+/.test(data)).toBe(true);
             done();
         };
         const callObject = {
@@ -19,8 +20,8 @@ describe('Eth transaction call API', () => {
             "gasPrice": "0x5d21dba00",
             "value": "0x0",
             "input": "0x8ada066e"
-          }
+        }
         const blockTag = 'latest'
         sdk.klay.call(callObject, blockTag, {}, callbackOne);
-    },50000);
+    }, 50000);
 });

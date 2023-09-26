@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @DisplayName("Klay RPC Test")
 public class KlayGetRewardsApiTest {
 
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
 
     @Test
     @DisplayName("RPC klay_getRewards")
@@ -26,5 +26,6 @@ public class KlayGetRewardsApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 }

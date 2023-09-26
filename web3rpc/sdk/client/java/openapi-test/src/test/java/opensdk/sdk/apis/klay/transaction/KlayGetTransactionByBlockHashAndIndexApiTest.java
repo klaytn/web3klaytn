@@ -9,12 +9,11 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Klay RPC Test")
 public class KlayGetTransactionByBlockHashAndIndexApiTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
     @Test
     @DisplayName("RPC klay_getTransactionByBlockHashAndIndex")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
@@ -25,5 +24,9 @@ public class KlayGetTransactionByBlockHashAndIndexApiTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNotNull(response.getResult());
+        assertNotNull(response.getResult().getBlockHash());
+        assertTrue(response.getResult().getBlockHash().matches("^0x[a-fA-F0-9]+"));
     }
 }

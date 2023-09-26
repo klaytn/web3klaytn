@@ -12,4 +12,4 @@ class TestStartPProf(KlaytnBaseTesting):
         self.response = self.w3.debug.start_p_prof(
             self.address, self.port
         )
-        self.assertResponseSuccess()
+        self.assertIsNone(self.response)

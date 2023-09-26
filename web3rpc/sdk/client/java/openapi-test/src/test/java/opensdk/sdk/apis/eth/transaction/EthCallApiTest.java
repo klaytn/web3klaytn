@@ -1,8 +1,5 @@
 package opensdk.sdk.apis.eth.transaction;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,9 +10,12 @@ import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthCall;
 
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 @DisplayName("Eth RPC Test")
 class EthCallApiTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
 
     @Test
     @DisplayName("RPC eth_call")
@@ -29,5 +29,6 @@ class EthCallApiTest {
         .send();
         assertNotNull(cr);
         assertNull(cr.getError());
+        assertTrue(cr.getResult().matches("^0x[0-9a-fA-F]*$"));
     }
 }

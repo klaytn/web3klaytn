@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class DebugStandardTraceBadBlockToFileTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
 
     @Disabled
     @Test
@@ -26,5 +26,6 @@ public class DebugStandardTraceBadBlockToFileTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
     }
 }

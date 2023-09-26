@@ -8,13 +8,13 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Klay RPC Test")
 public class KlayGetStakingInfoTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
 
     @Test
     @DisplayName("RPC klay_getStakingInfo")
@@ -25,6 +25,10 @@ public class KlayGetStakingInfoTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNotNull(response.getResult());
+        assertInstanceOf(LinkedHashMap.class, response.getResult());
+        assertTrue(((LinkedHashMap<?,?>) response.getResult()).get("blockNum") instanceof Integer);
     }
 
 }

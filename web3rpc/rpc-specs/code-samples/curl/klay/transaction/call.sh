@@ -1,5 +1,4 @@
-curl
-  'https://api.baobab.klaytn.net:8651/klay/call' \
+curl 'https://api.baobab.klaytn.net:8651/klay/call' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{

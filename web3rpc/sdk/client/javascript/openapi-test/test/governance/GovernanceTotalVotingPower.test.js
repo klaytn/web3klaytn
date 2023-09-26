@@ -10,6 +10,7 @@ describe('governance_totalVotingPower API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data).toBeDefined()
+            expect(typeof data === 'number').toBe(true)
             done();
         };
 

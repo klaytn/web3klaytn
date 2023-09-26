@@ -9,18 +9,21 @@ import org.web3j.protocol.klaytn.Web3j;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Eth RPC Test")
 public class EthGetTransactionByHashTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
     @Test
     @DisplayName("RPC eth_getTransactionByHash")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        String blockHash = "0x88df016429689c079f3b2f6ad39fa052532c56795b733da78a91ebe6a713944b";
+        String blockHash = "0x0a83919ee23b96cb093012df861e53a6964d92a66ead837f8fc2b146da9b1831";
         EthTransaction response = w3.ethGetTransactionByHash(blockHash).send();
         assertNotNull(response);
         assertNull(response.getError());
+
+        if (response.getResult() != null) {
+            assertNotNull(response.getResult().getBlockNumber());
+        }
     }
 }

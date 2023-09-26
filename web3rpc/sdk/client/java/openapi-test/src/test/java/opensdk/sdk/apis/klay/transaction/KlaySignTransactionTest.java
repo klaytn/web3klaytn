@@ -16,10 +16,11 @@ import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Klay RPC Test")
 public class KlaySignTransactionTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
     @Test
     @DisplayName("RPC klay_signTransaction")
@@ -39,5 +40,8 @@ public class KlaySignTransactionTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
+        assertNotNull(response.getResult().getRaw());
+        assertTrue(response.getResult().getRaw().matches("^0x[a-fA-F0-9]+"));
     }
 }

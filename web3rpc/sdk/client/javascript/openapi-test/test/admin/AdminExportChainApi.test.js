@@ -9,7 +9,8 @@ describe('admin_exportChain API', () => {
 
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
-            expect(data).toBeDefined()
+            expect(data).toBeDefined();
+            expect(typeof data === 'boolean').toBeTruthy();
             done();
         };
         const fileName = `/tmp/chain-${Date.now()}.txt`

@@ -6,6 +6,7 @@
     "test": "jest --silent=false"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "web3": "^1.9.0"
   },
   "devDependencies": {

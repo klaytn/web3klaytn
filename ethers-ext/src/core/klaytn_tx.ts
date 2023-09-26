@@ -1,6 +1,7 @@
 import { TransactionRequest } from "@ethersproject/abstract-provider";
 import { BigNumber } from "ethers";
 import { hexValue, parseTransaction } from "ethers/lib/utils";
+import { accessListify } from "@ethersproject/transactions";
 import _ from "lodash";
 
 import { FieldSet, FieldSetFactory } from "./field";
@@ -108,28 +109,39 @@ export function objectFromRLP(value: string): any {
   return tx;
 }
 
-export function encodeTxForRPC(allowedKeys:string[], tx: TransactionRequest): any {
-  // TODO: refactoring like below
-  // https://github.com/ethers-io/ethers.js/blob/master/packages/providers/src.ts/json-rpc-provider.ts#L701
-  // return {
-  //   from: hexlify(tx.from),
-  //   gas: tx.gasLimit? fromnumber(tx.gasLimit) : null;
-  // };
+export function encodeTxForRPC(tx: TransactionRequest): any {
+  const formatted: any = {};
 
-  const ttx: any = {};
-  for (const key in tx) {
-    if (allowedKeys.indexOf(key) != -1) {
-      let value = _.get(tx, key);
-
-      if (value == 0 || value === "0x0000000000000000000000000000000000000000") {
-        value = "0x";
-      } else if (typeof(value) == "number" || value instanceof BigNumber) {
-        // https://github.com/ethers-io/ethers.js/blob/master/packages/providers/src.ts/json-rpc-provider.ts#L701
-        ttx[key] = hexValue(value);
-      } else {
-        ttx[key] = value;
-      }
+  const numericFields = ["chainId", "gasLimit", "gasPrice", "type", "maxFeePerGas", "maxPriorityFeePerGas", "nonce", "value"];
+  _.each(numericFields, (key) => {
+    if (!_.has(tx, key)) {
+      return;
     }
+
+    let value = (<any>tx)[key];
+    value = hexValue(BigNumber.from(value));
+
+    if (key == "gasLimit") {
+      formatted["gas"] = value;
+    } else {
+      formatted[key] = value;
+    }
+  });
+
+  const bytestrFields = ["from", "to", "data", "input"]
+  _.each(bytestrFields, (key) => {
+    if (!_.has(tx, key)) {
+      return;
+    }
+
+    let value = (<any>tx)[key];
+    value = HexStr.from(value);
+    formatted[key] = value;
+  });
+
+  if (tx.accessList) {
+    formatted["accessList"] = accessListify(tx.accessList);
   }
-  return ttx;
+
+  return formatted;
 }

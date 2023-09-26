@@ -11,10 +11,12 @@ describe('eth_getBlockTransactionCountByHash API', () => {
 
             expect(error).toBeNull();
             expect(data).toBeDefined()
-
+            if (data !== null) {
+                expect(typeof data === 'number' || /^0x[0-9a-fA-F]+$/.test(data)).toBe(true);
+            }
             done();
         };
-        const blockHash = '0xba647d41423faeebe8a7c64737d284fc2eba6f0388a3e1ebf6243db509ec1577'
+        const blockHash = '0xf54af05b054b05407ba420344757392c2a945fb0206ebe3af302813aba72ee77'
         
         sdk.eth.getBlockTransactionCountByHash(blockHash, {}, callbackOne);
     });

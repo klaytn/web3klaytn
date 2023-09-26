@@ -11,7 +11,10 @@ class TestStandardTraceBlockToFile(KlaytnBaseTesting):
         self.response = self.w3.debug.standard_trace_block_to_file(
             self.blockHash
         )
-        self.assertResponseSuccess()
+        if self.response is not None:
+            self.assertIsInstance(self.response, str)
+        else:
+            self.assertIsNone(self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):

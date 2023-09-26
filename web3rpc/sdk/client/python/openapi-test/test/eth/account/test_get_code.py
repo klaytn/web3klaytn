@@ -1,6 +1,7 @@
 from base.testing import KlaytnBaseTesting
 from eth_utils.address import to_checksum_address
 
+
 class TestGetCode(KlaytnBaseTesting):
 
     def setUp(self) -> None:

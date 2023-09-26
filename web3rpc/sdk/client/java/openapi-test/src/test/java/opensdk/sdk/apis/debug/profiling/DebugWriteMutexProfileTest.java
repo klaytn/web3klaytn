@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.web3j.protocol.http.HttpService;
 @DisplayName("Debug RPC Test")
 public class DebugWriteMutexProfileTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
     @Test
     @DisplayName("RPC debug_writeMutextProfile")
@@ -25,5 +25,7 @@ public class DebugWriteMutexProfileTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+
+        assertNull(response.getResult());
     }
 }

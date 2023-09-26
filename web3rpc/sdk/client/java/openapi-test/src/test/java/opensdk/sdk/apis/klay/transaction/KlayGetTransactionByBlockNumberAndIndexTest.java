@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Klay RPC Test")
 public class KlayGetTransactionByBlockNumberAndIndexTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
     @Test
     @DisplayName("RPC klay_getTransactionByBlockNumberAndIndex")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
@@ -23,5 +23,8 @@ public class KlayGetTransactionByBlockNumberAndIndexTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertNotNull(response.getResult());
+        assertNotNull(response.getResult().getHash());
+        assertTrue(response.getResult().getBlockHash().matches("^0x[a-f0-9]+"));
     }
 }

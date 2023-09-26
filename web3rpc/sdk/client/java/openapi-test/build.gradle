@@ -8,8 +8,8 @@ group 'foundation.klaytn'
 version '1.0'
 
 repositories {
-    mavenCentral()
     mavenLocal()
+    mavenCentral()
 }
 
 dependencies {

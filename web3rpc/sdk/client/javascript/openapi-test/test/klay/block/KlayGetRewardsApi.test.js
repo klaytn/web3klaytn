@@ -9,6 +9,8 @@ describe('Klay getRewards API', () => {
         let callbackOne = function (error, data, response) {
             expect(error).toBeNull();
             expect(data).toBeDefined();
+            expect(data.rewards).toBeDefined();
+            expect(typeof data.rewards === 'object').toBe(true);
             done();
         };
         const blockNumberOrTag = 'latest';

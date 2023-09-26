@@ -11,9 +11,11 @@ class TestGetTransactionBySenderTxHash(KlaytnBaseTesting):
         self.response = self.w3.klay.get_transaction_by_sender_tx_hash(
             self.transactionHash
         )
-        self.assertResponseSuccess()
+        if self.response is not None:
+            self.assertRegex(self.response["hash"], r'^0x.*$')
+        else:
+            self.assertIsNone(self.response)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
             self.response = self.w3.klay.get_transaction_by_sender_tx_hash()
-

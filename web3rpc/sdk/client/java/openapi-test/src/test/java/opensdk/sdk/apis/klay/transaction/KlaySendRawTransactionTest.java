@@ -21,11 +21,12 @@ import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @DisplayName("Klay RPC Test")
 public class KlaySendRawTransactionTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
     public static final String address = "0x68c78d152501837f851e6ebc192b69746675c6fa";
 
     @Test
@@ -52,5 +53,7 @@ public class KlaySendRawTransactionTest {
 
         assertNotNull(response);
         assertNull(response.getError());
+        assertTrue(response.getResult() instanceof String);
+        assertTrue(((String) response.getResult()).matches("^0x[a-fA-F0-9]+"));
     }
 }

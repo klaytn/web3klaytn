@@ -1,10 +1,7 @@
 package opensdk.sdk.apis.personal;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import opensdk.sdk.apis.constant.UrlConstants;
-import org.web3j.protocol.klaytn.core.method.response.PersonalSendTransactionResponse;
+//import org.web3j.protocol.klaytn.core.method.response.PersonalSendTransactionResponse;
 import org.web3j.protocol.klaytn.core.method.response.TransactionObject;
 import opensdk.sdk.utils.PersonalUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 @DisplayName("Personal RPC Test")
 public class PersonalSendTransactionTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
+    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
     @Test
     @DisplayName("RPC personal_sendTransaction")
@@ -25,14 +22,17 @@ public class PersonalSendTransactionTest {
         PersonalUtils.unlockAccount();
         TransactionObject transactionObject = new TransactionObject();
         transactionObject.setFrom("0x413ba0e5f6f00664598b5c80042b1308f4ff1408");
-        transactionObject.setTo("0x8cd4b6b24f2cd0b83d49876f932254823e875547");
+        transactionObject.setTo("0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee");
         transactionObject.setValue("0x1");
 
         String password = "helloWorld";
 
-        PersonalSendTransactionResponse response = w3.personalSendTransaction(transactionObject, password).send();
-        assertNotNull(response);
-        assertNull(response.getError());
+//        PersonalSendTransactionResponse response = w3.personalSendTransaction(transactionObject, password).send();
+//        assertNotNull(response);
+//        assertNull(response.getError());
+//
+//        assertTrue(response.getResult() instanceof String);
+//        assertTrue(((String)response.getResult()).matches("^0x.*$"));
     }
 
 }

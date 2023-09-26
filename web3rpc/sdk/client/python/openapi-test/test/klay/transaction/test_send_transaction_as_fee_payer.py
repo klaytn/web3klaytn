@@ -7,7 +7,7 @@ class TestSendTransactionAsFeePayer(KlaytnBaseTesting):
     def setUp(self) -> None:
         super().setUp()
         self.txObject = {
-            "type": '0x11',
+            "typeInt": 17,
             "from": unlock_account(),
             "to": "0x44711E89b0c23845b5B2ed9D3716BA42b8a3e075",
             "gas": "0x9999",
@@ -21,9 +21,29 @@ class TestSendTransactionAsFeePayer(KlaytnBaseTesting):
 
     def test_post(self):
         self.response = self.w3.klay.send_transaction_as_fee_payer(
-            self.signedTX
+            {
+                "typeInt": self.signedTX["typeInt"],
+                "type": self.signedTX["type"],
+                "nonce": self.signedTX["nonce"],
+                "gasPrice": self.signedTX["gasPrice"],
+                "gas": self.signedTX["gas"],
+                "to": self.signedTX["to"],
+                "value": self.signedTX["value"],
+                "from": self.signedTX["from"],
+                "input": self.signedTX["input"],
+                "signatures": [
+                    {
+                        "V": self.signedTX["signatures"][0]["V"],
+                        "R": self.signedTX["signatures"][0]["R"],
+                        "S": self.signedTX["signatures"][0]["S"]
+                    }
+                ],
+                "feePayer": self.signedTX["feePayer"],
+                "feePayerSignatures": self.signedTX["feePayerSignatures"],
+                "hash": self.signedTX["hash"]
+            }
         )
-        self.assertResponseSuccess()
+        self.assertRegex(self.response, r'^0x.*$')
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
