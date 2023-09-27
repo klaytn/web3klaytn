@@ -17,6 +17,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: nrwl/nx-set-shas@v3
+        id: last_successful_commit_pr
+        with:
+            main-branch-name: "main"
+            workflow-id: "publish.yml"
+            last-successful-event: "pull-request"
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -37,13 +44,6 @@ jobs:
         run: |
           cd web3rpc/codegen && gradle wrapper && gradle wrapper clean :deployJar && cd - &&\
           cd web3rpc/rpc-specs && npm install && bash -x generate-namespace.sh && cd 
-
-      - uses: nrwl/nx-set-shas@v3
-        id: last_successful_commit_pr
-        with:
-            main-branch-name: "main"
-            workflow-id: "publish.yaml"
-            last-successful-event: "pull-request"
 
       - name: Verify Changed files
         uses: tj-actions/changed-files@v39
