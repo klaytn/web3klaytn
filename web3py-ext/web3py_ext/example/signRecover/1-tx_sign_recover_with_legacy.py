@@ -8,7 +8,7 @@ from web3py_ext.transaction.transaction import (
 
 w3 = Web3(Web3.HTTPProvider('https://public-en-baobab.klaytn.net'))
 
-def web3_legacy_value_transfer_sign_recover():
+def web3_tx_sign_recover_legacy():
     user = Account.from_key('0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8')
     value_transfer_tx = {
         'from' : user.address,
@@ -20,4 +20,4 @@ def web3_legacy_value_transfer_sign_recover():
     recovered_tx = Account.recover_transaction(signed_tx.rawTransaction)
     print("\nsender", user.address, "\nrecovered", recovered_tx)
 
-web3_legacy_value_transfer_sign_recover()
+web3_tx_sign_recover_legacy()

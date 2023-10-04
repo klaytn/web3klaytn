@@ -143,9 +143,7 @@ export class Wallet extends EthersWallet {
 
     if (!(tx.gasLimit) && !!(tx.to)) {
       if (this.provider instanceof EthersJsonRpcProvider) {
-        const estimateGasAllowedKeys: string[] = [
-          "from", "to", "gasLimit", "gasPrice", "value", "input"];
-        const ttx = encodeTxForRPC(estimateGasAllowedKeys, tx);
+        const ttx = encodeTxForRPC(tx);
 
         const result = await this.provider.send("klay_estimateGas", [ttx]);
         // For the problem that estimateGas does not exactly match,

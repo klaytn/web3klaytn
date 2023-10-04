@@ -20,7 +20,7 @@ def web3_value_transfer_with_memo_sign_recover():
         'from' : user.address,
         'to' : user.address,
         'value' : Web3.to_peb(0.1, 'klay'),
-        'data' : 'memo'.encode(encoding='utf-8')
+        'data' : b'TestMemoData'
     })
     value_transfer_tx = fill_transaction(value_transfer_tx, w3)
 
