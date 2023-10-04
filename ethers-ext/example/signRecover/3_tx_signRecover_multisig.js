@@ -4,7 +4,7 @@ const ethers = require("ethers");
 const { Wallet, parseKlay, TxType } = require("../../dist/src");
 
 
-const recieverAddr = "0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e";
+const receiverAddr = "0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e";
 const senderAddr = "0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e";
 
 async function main() {
@@ -29,7 +29,7 @@ async function main() {
   let tx = {
     type: TxType.ValueTransfer,
     from: senderAddr,
-    to: recieverAddr,
+    to: receiverAddr,
     value: parseKlay("1"),
   };
 

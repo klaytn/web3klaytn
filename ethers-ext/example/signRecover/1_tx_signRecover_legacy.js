@@ -9,12 +9,12 @@ async function main() {
   const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
   const wallet = new Wallet(senderPriv, provider);
 
-  const recieverAddr = wallet.address;
+  const receiverAddr = wallet.address;
   const senderAddr = wallet.address;
 
   let tx = {
     from: senderAddr,
-    to: recieverAddr,
+    to: receiverAddr,
     value: parseKlay("1"),
   };
 
@@ -33,7 +33,7 @@ async function main() {
   const expandedSig = {
     r: txObj.r,
     s: txObj.s,
-    recoveryParam: 0, // not really sure what this does
+    recoveryParam: 0,
     v: txObj.v
   };
   const signature = ethers.utils.joinSignature(expandedSig);
