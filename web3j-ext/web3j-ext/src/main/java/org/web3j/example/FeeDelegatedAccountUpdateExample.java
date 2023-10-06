@@ -19,6 +19,7 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.utils.Numeric;
 import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
+
 /**
  * 
  */
@@ -34,10 +35,8 @@ public class FeeDelegatedAccountUpdateExample implements keySample {
                 String from = credentials.getAddress();
                 EthChainId EthchainId = web3j.ethChainId().send();
                 long chainId = EthchainId.getChainId().longValue();
-                String to = "0x000000000000000000000000000000000000dead";
                 BigInteger nonce = web3j.ethGetTransactionCount(from, DefaultBlockParameterName.LATEST).send()
-                        .getTransactionCount();
-                BigInteger value = BigInteger.valueOf(100);
+                                .getTransactionCount();
 
                 BigInteger newPubkey = new_credentials.getEcKeyPair().getPublicKey();
 
@@ -46,12 +45,12 @@ public class FeeDelegatedAccountUpdateExample implements keySample {
                 TxType.Type type = Type.FEE_DELEGATED_ACCOUNT_UPDATE;
 
                 KlayRawTransaction raw = KlayRawTransaction.createTransaction(
-                        type,
-                        nonce,
-                        GAS_PRICE,
-                        GAS_LIMIT,
-                        from,
-                        accountkey);
+                                type,
+                                nonce,
+                                GAS_PRICE,
+                                GAS_LIMIT,
+                                from,
+                                accountkey);
 
                 // Sign as sender
                 byte[] signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, credentials);
@@ -63,20 +62,19 @@ public class FeeDelegatedAccountUpdateExample implements keySample {
                 EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
                 System.out.println("TxHash : \n " + transactionResponse.getResult());
                 String txHash = transactionResponse.getResult();
-                try
-        {
-             Thread.sleep(2000);
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
-         }
+                try {
+                        Thread.sleep(2000);
+                } catch (Exception e) {
+                        System.out.println(e);
+                }
                 TransactionReceipt receipt = web3j.klayGetTransactionReceipt(txHash).send().getResult();
-                System.out.print("receipt : \n" + receipt);                
+                System.out.println("receipt : \n" + receipt);
                 web3j.shutdown();
 
                 TxTypeFeeDelegatedAccountUpdate rawTransaction = TxTypeFeeDelegatedAccountUpdate
-                        .decodeFromRawTransaction(signedMessage);
-                }
+                                .decodeFromRawTransaction(signedMessage);
+
+                System.out.println("TxType : " + rawTransaction.getKlayType());
+        }
 
 }
