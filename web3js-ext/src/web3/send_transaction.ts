@@ -60,6 +60,9 @@ export function klay_sendSignedTransaction<
   saveCustomFields(unSerializedTransactionForCall);
   if (unSerializedTransactionForCall.value == "0x") {
     unSerializedTransactionForCall.value = "0x0";
+  }  
+  if (unSerializedTransactionForCall.nonce == "0x") {
+    unSerializedTransactionForCall.nonce = "0x0";
   }
 
   // Because modifying the rpc name to "klay_sendRawTransaction" is not trivial,
