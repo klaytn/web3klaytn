@@ -45,9 +45,21 @@ export class KlaytnWeb3 extends Web3 {
   accounts_signTransaction(context: Web3Context): typeof this.eth.accounts.signTransaction {
     // signTransactionWithContext. see web3/src/accounts.ts:initAccountsForContext
     return async (transaction: Transaction, privateKey: Bytes): Promise<SignTransactionResult> => {
-      let tx = await prepareTransaction(transaction, context, privateKey);
+      let tx; 
+
+      if (typeof transaction === "string") {
+        if (Web3.utils.isHex(transaction)) {
+          tx = objectFromRLP(transaction);
+        } else {
+          throw new Error("String type input has to be RLP encoded Hex string.");
+        }
+      } else {
+        tx = transaction;
+      }
+
+      let ttx = await prepareTransaction(tx, context, privateKey);
       let priv = bytesToHex(privateKey);
-      return signTransaction(tx, priv);
+      return signTransaction(ttx, priv);
     };
   }
 
