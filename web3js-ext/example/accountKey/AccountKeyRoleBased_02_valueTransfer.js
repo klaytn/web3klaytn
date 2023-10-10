@@ -1,5 +1,7 @@
-const { Wallet, TxType, parseKlay } = require("@klaytn/ethers-ext");
-const ethers = require("ethers");
+const { Web3 } = require("web3");
+const { KlaytnWeb3 } = require( "../../dist/src");
+
+const { TxType, AccountKeyType, objectFromRLP } = require("../../../ethers-ext/dist/src");
 
 //
 // AccountKeyRoleBased Step 02 - value transfer
@@ -8,38 +10,34 @@ const ethers = require("ethers");
 //   gasLimit: Must be large enough
 //
 
-const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
-
 // the same address of sender in AccountKeyRoleBased_01_accountUpdate.js
 const recieverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
-const senderAddr = "0x5bd2fb3c21564c023a4a735935a2b7a238c4ccea";
+const senderAddr = "0x334b4d3c775c45c59de54e9f0408cba25a1aece7";
 const senderRoleTransactionPriv = "0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac";
 
 async function main() {
+  const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
+  const web3 = new KlaytnWeb3(provider);
+
   let tx = {
     type: TxType.ValueTransfer,
     gasLimit: 100000,
     to: recieverAddr,
-    value: parseKlay("1"),
+    value: 1e9,
+    // value: convertToPeb('1', 'KLAY'),
     from: senderAddr,
   };
 
-  const wallet = new Wallet(senderAddr, senderRoleTransactionPriv, provider);
-  let ptx = await wallet.populateTransaction(tx);
-  console.log(ptx);
+  const wallet = web3.eth.accounts.privateKeyToAccount(senderRoleTransactionPriv);
+  let signTx = await web3.eth.accounts.signTransaction(tx, wallet.privateKey);
+  console.log(signTx);
 
-  const txHashRLP = await wallet.signTransaction(ptx);
-  console.log("TxHashRLP", txHashRLP);
 
-  let decodedTx = wallet.decodeTxFromRLP(txHashRLP);
-  console.log(decodedTx);
+  let sendResult = await web3.eth.sendSignedTransaction(signTx.rawTransaction);
+  console.log( sendResult );
 
-  // send
-  const txhash = await provider.send("klay_sendRawTransaction", [txHashRLP]);
-  console.log("txhash", txhash);
-
-  const rc = await provider.waitForTransaction(txhash);
-  console.log("receipt", rc);
+  let receipt = await web3.eth.getTransactionReceipt(sendResult.transactionHash);
+  console.log({ receipt });
 }
 
 main();
