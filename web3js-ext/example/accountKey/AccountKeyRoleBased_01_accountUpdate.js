@@ -24,9 +24,9 @@ async function main() {
   const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
   const web3 = new KlaytnWeb3(provider);
 
-  let pub1 = "0x" + Buffer.from(secp256k1.getPublicKey( BigInt(senderRoleTransactionPriv), true)).toString('hex');
-  let pub2 = "0x" + Buffer.from(secp256k1.getPublicKey( BigInt(senderRoleAccountUpdatePriv), true)).toString('hex');
-  let pub3 = "0x" + Buffer.from(secp256k1.getPublicKey( BigInt(senderRoleFeePayerPriv), true)).toString('hex');
+  const pub1 = "0x" + Buffer.from(secp256k1.getPublicKey( BigInt(senderRoleTransactionPriv), true)).toString('hex');
+  const pub2 = "0x" + Buffer.from(secp256k1.getPublicKey( BigInt(senderRoleAccountUpdatePriv), true)).toString('hex');
+  const pub3 = "0x" + Buffer.from(secp256k1.getPublicKey( BigInt(senderRoleFeePayerPriv), true)).toString('hex');
 
   console.log("1", pub1);
   console.log("2", pub2);
