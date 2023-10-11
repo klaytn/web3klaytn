@@ -11,7 +11,7 @@ const { TxType, AccountKeyType, objectFromRLP } = require("../../../ethers-ext/d
 //
 
 // the same address of sender in AccountKeyWeightedMultiSig_01_accountUpdate.js
-const recieverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
+const receiverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
 const senderAddr = "0x55815c94c0c375e11a535096f8067c0418a93b48";
 const senderNewPriv1 = "0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a";
 const senderNewPriv2 = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
@@ -24,7 +24,7 @@ async function main() {
   let tx = {
     type: TxType.ValueTransfer,
     gasLimit: 100000,
-    to: recieverAddr,
+    to: receiverAddr,
     value: 1e9,
     // value: convertToPeb('1', 'KLAY'),
     from: senderAddr,

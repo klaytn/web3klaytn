@@ -11,7 +11,7 @@ const { TxType, AccountKeyType, objectFromRLP } = require("../../../ethers-ext/d
 //
 
 // the same address of sender in AccountKeyRoleBased_01_accountUpdate.js
-const recieverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
+const receiverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
 const senderAddr = "0x334b4d3c775c45c59de54e9f0408cba25a1aece7";
 const senderRoleTransactionPriv = "0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac";
 
@@ -22,7 +22,7 @@ async function main() {
   let tx = {
     type: TxType.ValueTransfer,
     gasLimit: 100000,
-    to: recieverAddr,
+    to: receiverAddr,
     value: 1e9,
     // value: convertToPeb('1', 'KLAY'),
     from: senderAddr,
