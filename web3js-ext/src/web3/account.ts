@@ -21,11 +21,17 @@ import {
 	SignTransactionResult, 
 	parseAndValidatePrivateKey,
 	privateKeyToAddress,
+	privateKeyToAccount,
 	encrypt,
 } from "web3-eth-accounts";
 import { isNullish } from 'web3-validator';
 
 import { prepareTransaction } from "./klaytn_tx";
+
+// eslint-disable-next-line import/extensions
+import * as ethereumCryptography from 'ethereum-cryptography/secp256k1.js';
+
+const secp256k1 = ethereumCryptography.secp256k1 ?? ethereumCryptography;
 
 export const signTransactionAsFeePayer = async (
 	transaction: TypedTransaction,
@@ -63,17 +69,17 @@ export const signTransactionAsFeePayer = async (
 };
 
 /**
- * Get an Account object from the privateKey
- *
+ * Get an Account object from the privateKey with context
+ * 
+ * @param context - web3 context
  * @param privateKey - String or Uint8Array of 32 bytes
  * @param ignoreLength - if true, will not error check length
  * @returns A Web3Account object
  *
- * The `Web3Account.signTransaction` is not stateful here. We need network access to get the account `nonce` and `chainId` to sign the transaction.
- * Use {@link Web3.eth.accounts.signTransaction} instead.
- *
  * ```ts
- * privateKeyToAccount("0x348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8709");
+ * let provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
+ * let web3 = new KlaytnWeb3(provider);
+ * web3.eth.accounts.privateKeyToAccount("0x348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8709");
  * >    {
  * 			address: '0xb8CE9ab6943e0eCED004cDe8e3bBed6568B2Fa01',
  * 			privateKey: '0x348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8709',
@@ -83,7 +89,7 @@ export const signTransactionAsFeePayer = async (
  * 	}
  * ```
  */
-export const privateKeyToAccount = (context: Web3Context, privateKey: Bytes, ignoreLength?: boolean): Web3Account => {
+export const privateKeyToAccountWithContext = (context: Web3Context, privateKey: Bytes, ignoreLength?: boolean): Web3Account => {
 	const privateKeyUint8Array = parseAndValidatePrivateKey(privateKey, ignoreLength);
 
 	return {
@@ -102,4 +108,29 @@ export const privateKeyToAccount = (context: Web3Context, privateKey: Bytes, ign
 		encrypt: async (password: string, options?: Record<string, unknown>) =>
 			encrypt(privateKeyUint8Array, password, options),
 	};
+};
+
+/**
+ *
+ * Generates and returns a Web3Account object that includes the private and public key
+ * For creation of private key, it uses an audited package ethereum-cryptography/secp256k1
+ * that is cryptographically secure random number with certain characteristics.
+ * Read more: https://www.npmjs.com/package/ethereum-cryptography#secp256k1-curve
+ *
+ * @returns A Web3Account object
+ * ```ts
+ * web3.eth.accounts.create();
+ * {
+ * address: '0xbD504f977021b5E5DdccD8741A368b147B3B38bB',
+ * privateKey: '0x964ced1c69ad27a311c432fdc0d8211e987595f7eb34ab405a5f16bdc9563ec5',
+ * signTransaction: [Function: signTransaction],
+ * sign: [Function: sign],
+ * encrypt: [AsyncFunction: encrypt]
+ * }
+ * ```
+ */
+export const createWithContext = (context: Web3Context): Web3Account => {
+	const privateKey = secp256k1.utils.randomPrivateKey();
+
+	return privateKeyToAccountWithContext(context, `${bytesToHex(privateKey)}`);
 };
