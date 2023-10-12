@@ -1,5 +1,5 @@
 import Web3, {Bytes, Transaction, Web3Context} from "web3";
-import { signTransaction, SignTransactionResult, privateKeyToAddress } from "web3-eth-accounts";
+import { signTransaction, SignTransactionResult, privateKeyToAddress, Web3Account } from "web3-eth-accounts";
 import { bytesToHex } from "web3-utils";
 import { DataFormat, DEFAULT_RETURN_FORMAT } from "web3-types";
 import { SendTransactionOptions } from "web3-eth";
@@ -7,7 +7,7 @@ import _ from "lodash";
 
 import { prepareTransaction } from "./klaytn_tx";
 import { klay_sendSignedTransaction } from "./send_transaction";
-import { signTransactionAsFeePayer } from "./account";
+import { privateKeyToAccount, signTransactionAsFeePayer } from "./account";
 
 // TODO: Change the path after web3-core deployed
 const { objectFromRLP } = require("../../../../ethers-ext/dist/src");
@@ -23,6 +23,7 @@ export class KlaytnWeb3 extends Web3 {
     // Override web3.eth.accounts. See web3/src/accounts.ts:initAccountsForContext
     // The functions are bound to 'this' object.
     // TODO: override more web3.eth.accounts methods
+    this.eth.accounts.privateKeyToAccount = this.accounts_privateKeyToAccount(this);
     this.eth.accounts.signTransaction = this.accounts_signTransaction(this);
 
     // New added function for Klaytn
@@ -41,6 +42,14 @@ export class KlaytnWeb3 extends Web3 {
   }
 
   // Below methods return a function bound to the context 'web3'.
+
+  accounts_privateKeyToAccount(context: Web3Context): typeof this.eth.accounts.privateKeyToAccount {
+
+    return (privateKey: Bytes, ignoreLength?: boolean): Web3Account => {
+      return privateKeyToAccount(context, privateKey, ignoreLength);
+    }; 
+  }
+
 
   accounts_signTransaction(context: Web3Context): typeof this.eth.accounts.signTransaction {
     // signTransactionWithContext. see web3/src/accounts.ts:initAccountsForContext
