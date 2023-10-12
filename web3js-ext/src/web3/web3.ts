@@ -1,13 +1,13 @@
 import Web3, {Bytes, Transaction, Web3Context} from "web3";
 import { signTransaction, SignTransactionResult, privateKeyToAddress, Web3Account } from "web3-eth-accounts";
 import { bytesToHex } from "web3-utils";
-import { DataFormat, DEFAULT_RETURN_FORMAT } from "web3-types";
+import { Address, HexString, DataFormat, DEFAULT_RETURN_FORMAT } from "web3-types";
 import { SendTransactionOptions } from "web3-eth";
 import _ from "lodash";
 
 import { prepareTransaction } from "./klaytn_tx";
 import { klay_sendSignedTransaction } from "./send_transaction";
-import { privateKeyToAccountWithContext as privateKeyToAccountWithContext, signTransactionAsFeePayer, createWithContext } from "./account";
+import { privateKeyToAccountWithContext as privateKeyToAccountWithContext, signTransactionAsFeePayer, createWithContext, recoverTransactionWithKlaytnTx } from "./account";
 
 // TODO: Change the path after web3-core deployed
 const { objectFromRLP } = require("../../../../ethers-ext/dist/src");
@@ -26,6 +26,7 @@ export class KlaytnWeb3 extends Web3 {
     this.eth.accounts.create = this.accounts_create(this);
     this.eth.accounts.privateKeyToAccount = this.accounts_privateKeyToAccount(this);
     this.eth.accounts.signTransaction = this.accounts_signTransaction(this);
+    this.eth.accounts.recoverTransaction = this.accounts_recoverTransaction(this);
 
     // New added function for Klaytn
     // @ts-ignore 
@@ -45,20 +46,16 @@ export class KlaytnWeb3 extends Web3 {
   // Below methods return a function bound to the context 'web3'.
 
   accounts_create(context: Web3Context): typeof this.eth.accounts.create {
-
     return (): Web3Account => {
       return createWithContext(context);
     }; 
   }
 
-
   accounts_privateKeyToAccount(context: Web3Context): typeof this.eth.accounts.privateKeyToAccount {
-
     return (privateKey: Bytes, ignoreLength?: boolean): Web3Account => {
       return privateKeyToAccountWithContext(context, privateKey, ignoreLength);
     }; 
   }
-
 
   accounts_signTransaction(context: Web3Context): typeof this.eth.accounts.signTransaction {
     // signTransactionWithContext. see web3/src/accounts.ts:initAccountsForContext
@@ -66,6 +63,13 @@ export class KlaytnWeb3 extends Web3 {
       let tx = await prepareTransaction(transaction, context, privateKey);
       let priv = bytesToHex(privateKey);
       return signTransaction(tx, priv);
+    };
+  }
+
+  accounts_recoverTransaction(context: Web3Context): typeof this.eth.accounts.recoverTransaction {
+    // signTransactionWithContext. see web3/src/accounts.ts:initAccountsForContext
+    return (rawTransaction: HexString): Address => {
+      return recoverTransactionWithKlaytnTx(context, rawTransaction);
     };
   }
 

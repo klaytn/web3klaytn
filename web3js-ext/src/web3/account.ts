@@ -1,6 +1,7 @@
 import Web3, {Web3Context} from "web3";
 import {
 	TransactionSigningError,
+	UndefinedRawTransactionError,
 } from 'web3-errors';
 import {
 	Bytes,
@@ -133,4 +134,24 @@ export const createWithContext = (context: Web3Context): Web3Account => {
 	const privateKey = secp256k1.utils.randomPrivateKey();
 
 	return privateKeyToAccountWithContext(context, `${bytesToHex(privateKey)}`);
+};
+
+/**
+ * Recovers the Ethereum address which was used to sign the given RLP encoded transaction.
+ *
+ * @param rawTransaction - The hex string having RLP encoded transaction
+ * @returns The Ethereum address used to sign this transaction
+ * ```ts
+ * recoverTransaction('0xf869808504e3b29200831e848094f0109fc8df283027b6285cc889f5aa624eac1f55843b9aca008025a0c9cf86333bcb065d140032ecaab5d9281bde80f21b9687b3e94161de42d51895a0727a108a0b8d101465414033c3f705a9c7b826e596766046ee1183dbc8aeaa68');
+ * > "0x2c7536E3605D9C16a7a3D7b1898e529396a65c23"
+ * ```
+ */
+export const recoverTransactionWithKlaytnTx = async (context: Web3Context, rawTransaction: HexString): Address => {
+	if (isNullish(rawTransaction)) throw new UndefinedRawTransactionError();
+
+	const tx = TransactionFactory.fromSerializedData(hexToBytes(rawTransaction));
+
+	await... 
+
+	return toChecksumAddress(tx.getSenderAddress().toString());
 };
