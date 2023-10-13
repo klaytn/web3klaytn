@@ -31,22 +31,22 @@ async function main() {
   };
 
   // sign 1
-  const wallet = web3.eth.accounts.privateKeyToAccount(senderNewPriv1);
-  let signTx = await web3.eth.accounts.signTransaction(tx, wallet.privateKey);
+  const account = web3.eth.accounts.privateKeyToAccount(senderNewPriv1);
+  let signTx = await web3.eth.accounts.signTransaction(tx, account.privateKey);
 
   // tx = objectFromRLP(signTx.rawTransaction);
   // console.log(tx);
 
   // sign 2
-  const wallet2 = web3.eth.accounts.privateKeyToAccount(senderNewPriv2, provider);
-  let signTx2 = await web3.eth.accounts.signTransaction(signTx.rawTransaction, wallet2.privateKey);
+  const account2 = web3.eth.accounts.privateKeyToAccount(senderNewPriv2, provider);
+  let signTx2 = await web3.eth.accounts.signTransaction(signTx.rawTransaction, account2.privateKey);
 
   // tx = objectFromRLP(signTx2.rawTransaction);
   // console.log(tx);
 
   // sign 3
-  const wallet3 = web3.eth.accounts.privateKeyToAccount(senderNewPriv3, provider);
-  let signTx3 = await web3.eth.accounts.signTransaction(signTx2.rawTransaction, wallet3.privateKey);
+  const account3 = web3.eth.accounts.privateKeyToAccount(senderNewPriv3, provider);
+  let signTx3 = await web3.eth.accounts.signTransaction(signTx2.rawTransaction, account3.privateKey);
 
   tx = objectFromRLP(signTx3.rawTransaction);
   console.log(tx);

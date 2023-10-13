@@ -28,8 +28,8 @@ async function main() {
     from: senderAddr,
   };
 
-  const wallet = web3.eth.accounts.privateKeyToAccount(senderRoleTransactionPriv);
-  let signTx = await web3.eth.accounts.signTransaction(tx, wallet.privateKey);
+  const account = web3.eth.accounts.privateKeyToAccount(senderRoleTransactionPriv);
+  let signTx = await web3.eth.accounts.signTransaction(tx, account.privateKey);
   console.log(signTx);
 
 
