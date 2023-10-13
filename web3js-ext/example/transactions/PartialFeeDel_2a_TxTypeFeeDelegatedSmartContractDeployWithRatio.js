@@ -37,16 +37,16 @@ async function main() {
   };
   
   // sender
-  const senderWallet = web3.eth.accounts.privateKeyToAccount(senderPriv);
-  let senderTx = await web3.eth.accounts.signTransaction(tx, senderWallet.privateKey);
+  const sender = web3.eth.accounts.privateKeyToAccount(senderPriv);
+  let senderTx = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
   console.log(senderTx);
 
   // tx = objectFromRLP(senderTx.rawTransaction);
   // console.log(tx);
 
   // fee payer
-  const feePayerWallet = web3.eth.accounts.privateKeyToAccount(feePayerPriv, provider);
-  let signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayerWallet.privateKey);
+  const feePayer = web3.eth.accounts.privateKeyToAccount(feePayerPriv, provider);
+  let signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayer.privateKey);
   console.log(signResult);
 
   // tx = objectFromRLP(signResult.rawTransaction);
