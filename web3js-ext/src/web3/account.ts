@@ -32,6 +32,11 @@ import { isNullish } from 'web3-validator';
 
 import { prepareTransaction } from "./klaytn_tx";
 
+// TODO: Change the path after web3-core deployed
+const { objectFromRLP } = require("../../../../ethers-ext/dist/src");
+
+import { KlaytnTxFactory} from "@klaytn/ethers-ext";
+
 // eslint-disable-next-line import/extensions
 import * as ethereumCryptography from 'ethereum-cryptography/secp256k1.js';
 
@@ -152,7 +157,21 @@ export const createWithContext = (context: Web3Context): Web3Account => {
 export const recoverTransactionWithKlaytnTx = (context: Web3Context, rawTransaction: HexString): Address => {
 	if (isNullish(rawTransaction)) throw new UndefinedRawTransactionError();
 
-	const tx = TransactionFactory.fromSerializedData(hexToBytes(rawTransaction));
+	const data = hexToBytes(rawTransaction);
+	let tx; 
 
+	if ( KlaytnTxFactory.has(data[0]) ) {
+		tx = objectFromRLP(rawTransaction);
+		
+		if ( !tx.from ) {
+			throw new Error('tx.from is not a property.');
+		} else if ( typeof tx.from == "string") {
+			return toChecksumAddress(tx.from);
+		} else {
+			throw new Error('tx.from is not a string type.');
+		}
+	}
+	
+	tx = TransactionFactory.fromSerializedData(data);
 	return toChecksumAddress(tx.getSenderAddress().toString());
 };
