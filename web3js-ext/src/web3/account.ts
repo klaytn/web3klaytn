@@ -40,17 +40,10 @@ import {
 } from "web3-eth-accounts";
 import { isNullish } from 'web3-validator';
 
-import { prepareTransaction } from "./klaytn_tx";
-
 // TODO: Change the path after web3-core deployed
 const { objectFromRLP } = require("../../../../ethers-ext/dist/src");
 
 import { KlaytnTxFactory} from "@klaytn/ethers-ext";
-
-// eslint-disable-next-line import/extensions
-import * as ethereumCryptography from 'ethereum-cryptography/secp256k1.js';
-
-const secp256k1 = ethereumCryptography.secp256k1 ?? ethereumCryptography;
 
 export const signTransactionAsFeePayer = async (
 	transaction: TypedTransaction,
@@ -89,7 +82,7 @@ export const signTransactionAsFeePayer = async (
 
 
 /**
- * Recovers the Ethereum address which was used to sign the given RLP encoded transaction.
+ * Recovers the Ethereum address which was used to sign the given RLP encoded Ethereum & Klaytn transaction.
  *
  * @param rawTransaction - The hex string having RLP encoded transaction
  * @returns The Ethereum address used to sign this transaction
@@ -121,6 +114,7 @@ export const recoverTransactionWithKlaytnTx = (rawTransaction: HexString): Addre
 };
 
 // We overrided web3/src/accounts.ts:initAccountsForContext
+// Below methods are bound to the context 'web3'.
 export const initAccountsForContext = (context: Web3Context<EthExecutionAPI>) => {
 	const signTransactionWithContext = async (transaction: Transaction, privateKey: Bytes) => {
 		const tx = await prepareTransactionForSigning(transaction, context);
@@ -140,6 +134,7 @@ export const initAccountsForContext = (context: Web3Context<EthExecutionAPI>) =>
 		};
 	};
 
+	// TODO : we will support KeyStore V4. 
 	const decryptWithContext = async (
 		keystore: KeyStore | string,
 		password: string,

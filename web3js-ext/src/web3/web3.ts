@@ -30,8 +30,6 @@ export class KlaytnWeb3 extends Web3 {
     this._accountProvider = accounts;
     this._wallet = accounts.wallet;
 
-    // this.eth.accounts.decrypt = this.accounts_decrypt;
-
     // this.eth.accounts.wallet = new Wallet({
     //   create: this.eth.accounts.create, 
     //   privateKeyToAccount: this.eth.accounts.privateKeyToAccount,
@@ -53,20 +51,6 @@ export class KlaytnWeb3 extends Web3 {
     // TODO: Connect web3.klay, web3.net, etc from @klaytn/web3rpc
 
   }
-
-  // Below methods return a function bound to the context 'web3'.
-
-
-  // async accounts_decrypt(keystore: KeyStore | string, password: string, options?: Record<string, unknown>){
-  //   const account = await decrypt(keystore, password, (options?.nonStrict as boolean) ?? true);
-
-  //   return {
-  //     ...account,
-  //   // TODO : decrypt function will be implemented with KeyStore V4 later
-  //   // signTransaction: async (transaction: Transaction) =>
-  //   // 	signTransactionWithContext(transaction, account.privateKey),
-  //   };
-  // }
 
   accounts_signTransactionAsFeePayer(context: Web3Context): typeof this.eth.accounts.signTransaction {
     return async (transaction: any, privateKey: Bytes): Promise<any> => {
