@@ -30,7 +30,6 @@ export class KlaytnWeb3 extends Web3 {
     this._accountProvider = accounts;
     this._wallet = accounts.wallet;
 
-    // this.eth.accounts.recoverTransaction = this.accounts_recoverTransaction();
     // this.eth.accounts.decrypt = this.accounts_decrypt;
 
     // this.eth.accounts.wallet = new Wallet({
@@ -66,12 +65,6 @@ export class KlaytnWeb3 extends Web3 {
   //   // TODO : decrypt function will be implemented with KeyStore V4 later
   //   // signTransaction: async (transaction: Transaction) =>
   //   // 	signTransactionWithContext(transaction, account.privateKey),
-  //   };
-  // }
-
-  // accounts_recoverTransaction(): typeof this.eth.accounts.recoverTransaction {
-  //   return (rawTransaction: HexString): Address => {
-  //     return recoverTransactionWithKlaytnTx(rawTransaction);
   //   };
   // }
 
