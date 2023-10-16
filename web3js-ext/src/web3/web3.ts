@@ -30,13 +30,6 @@ export class KlaytnWeb3 extends Web3 {
     this._accountProvider = accounts;
     this._wallet = accounts.wallet;
 
-    // this.eth.accounts.wallet = new Wallet({
-    //   create: this.eth.accounts.create, 
-    //   privateKeyToAccount: this.eth.accounts.privateKeyToAccount,
-    //   // @ts-ignore
-    //   decrypt: this.eth.accounts.decrypt,
-    // });
-
     // New added function for Klaytn
     // @ts-ignore 
     this.eth.accounts.signTransactionAsFeePayer = this.accounts_signTransactionAsFeePayer(this);
