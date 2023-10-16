@@ -8,10 +8,7 @@ import _ from "lodash";
 import { prepareTransaction } from "./klaytn_tx";
 import { klay_sendSignedTransaction } from "./send_transaction";
 import { 
-  privateKeyToAccountWithContext, 
   signTransactionAsFeePayer, 
-  createWithContext, 
-  recoverTransactionWithKlaytnTx,
   initAccountsForContext,
 } from "./account";
 
@@ -36,7 +33,6 @@ export class KlaytnWeb3 extends Web3 {
     // // The functions are bound to 'this' object.
     // // TODO: override more web3.eth.accounts methods
     // this.eth.accounts.create = this.accounts_create(this);
-    // this.eth.accounts.privateKeyToAccount = this.accounts_privateKeyToAccount(this);
     // this.eth.accounts.recoverTransaction = this.accounts_recoverTransaction();
     // this.eth.accounts.decrypt = this.accounts_decrypt;
 
@@ -67,12 +63,6 @@ export class KlaytnWeb3 extends Web3 {
   // accounts_create(context: Web3Context): typeof this.eth.accounts.create {
   //   return (): Web3Account => {
   //     return createWithContext(context);
-  //   }; 
-  // }
-
-  // accounts_privateKeyToAccount(context: Web3Context): typeof this.eth.accounts.privateKeyToAccount {
-  //   return (privateKey: Bytes, ignoreLength?: boolean): Web3Account => {
-  //     return privateKeyToAccountWithContext(context, privateKey, ignoreLength);
   //   }; 
   // }
 

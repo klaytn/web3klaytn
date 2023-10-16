@@ -88,44 +88,6 @@ export const signTransactionAsFeePayer = async (
 };
 
 /**
- * Get an Account object from the privateKey with context
- * 
- * @param context - web3 context
- * @param privateKey - String or Uint8Array of 32 bytes
- * @param ignoreLength - if true, will not error check length
- * @returns A Web3Account object
- *
- * ```ts
- * let provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
- * let web3 = new KlaytnWeb3(provider);
- * web3.eth.accounts.privateKeyToAccount("0x348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8709");
- * >    {
- * 			address: '0xb8CE9ab6943e0eCED004cDe8e3bBed6568B2Fa01',
- * 			privateKey: '0x348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8709',
- * 			sign,
- * 			signTransaction,
- * 			encrypt,
- * 	}
- * ```
- */
-// export const privateKeyToAccountWithContext = (context: Web3Context, privateKey: Bytes, ignoreLength?: boolean): Web3Account => {
-//   // web3/src/accounts.ts:initAccountsForContext
-//   const account = privateKeyToAccount(privateKey);
-
-//   return {
-//     ...account,
-//     signTransaction: async (transaction: Transaction) =>
-//       signTransactionWithContext(transaction, account.privateKey),
-//   };
-// };
-
-// export const signTransactionWithContext = async(transaction: Transaction, context: Web3Context, privateKey: Bytes) {
-// 	let tx = await prepareTransaction(transaction, context, privateKey);
-// 	let priv = bytesToHex(privateKey);
-// 	return signTransaction(tx, priv);
-// };
-
-/**
  *
  * Generates and returns a Web3Account object that includes the private and public key
  * For creation of private key, it uses an audited package ethereum-cryptography/secp256k1
@@ -144,11 +106,11 @@ export const signTransactionAsFeePayer = async (
  * }
  * ```
  */
-export const createWithContext = (context: Web3Context): Web3Account => {
-	const privateKey = secp256k1.utils.randomPrivateKey();
+// export const createWithContext = (context: Web3Context): Web3Account => {
+// 	const privateKey = secp256k1.utils.randomPrivateKey();
 
-	return privateKeyToAccountWithContext(context, bytesToHex(privateKey));
-};
+// 	return privateKeyToAccountWithContext(context, bytesToHex(privateKey));
+// };
 
 /**
  * Recovers the Ethereum address which was used to sign the given RLP encoded transaction.
