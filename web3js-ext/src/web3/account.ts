@@ -108,22 +108,22 @@ export const signTransactionAsFeePayer = async (
  * 	}
  * ```
  */
-export const privateKeyToAccountWithContext = (context: Web3Context, privateKey: Bytes, ignoreLength?: boolean): Web3Account => {
-  // web3/src/accounts.ts:initAccountsForContext
-  const account = privateKeyToAccount(privateKey);
+// export const privateKeyToAccountWithContext = (context: Web3Context, privateKey: Bytes, ignoreLength?: boolean): Web3Account => {
+//   // web3/src/accounts.ts:initAccountsForContext
+//   const account = privateKeyToAccount(privateKey);
 
-  return {
-    ...account,
-    signTransaction: async (transaction: Transaction) =>
-      signTransactionWithContext(transaction, account.privateKey),
-  };
-};
+//   return {
+//     ...account,
+//     signTransaction: async (transaction: Transaction) =>
+//       signTransactionWithContext(transaction, account.privateKey),
+//   };
+// };
 
-export const signTransactionWithContext = async(transaction: Transaction, context: Web3Context, privateKey: Bytes) {
-	let tx = await prepareTransaction(transaction, context, privateKey);
-	let priv = bytesToHex(privateKey);
-	return signTransaction(tx, priv);
-};
+// export const signTransactionWithContext = async(transaction: Transaction, context: Web3Context, privateKey: Bytes) {
+// 	let tx = await prepareTransaction(transaction, context, privateKey);
+// 	let priv = bytesToHex(privateKey);
+// 	return signTransaction(tx, priv);
+// };
 
 /**
  *

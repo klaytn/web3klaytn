@@ -37,7 +37,6 @@ export class KlaytnWeb3 extends Web3 {
     // // TODO: override more web3.eth.accounts methods
     // this.eth.accounts.create = this.accounts_create(this);
     // this.eth.accounts.privateKeyToAccount = this.accounts_privateKeyToAccount(this);
-    // this.eth.accounts.signTransaction = this.accounts_signTransaction(this);
     // this.eth.accounts.recoverTransaction = this.accounts_recoverTransaction();
     // this.eth.accounts.decrypt = this.accounts_decrypt;
 
@@ -85,15 +84,6 @@ export class KlaytnWeb3 extends Web3 {
   //   // TODO : decrypt function will be implemented with KeyStore V4 later
   //   // signTransaction: async (transaction: Transaction) =>
   //   // 	signTransactionWithContext(transaction, account.privateKey),
-  //   };
-  // }
-
-  // accounts_signTransaction(context: Web3Context): typeof this.eth.accounts.signTransaction {
-  //   // signTransactionWithContext. see web3/src/accounts.ts:initAccountsForContext
-  //   return async (transaction: Transaction, privateKey: Bytes): Promise<SignTransactionResult> => {
-  //     let tx = await prepareTransaction(transaction, context, privateKey);
-  //     let priv = bytesToHex(privateKey);
-  //     return signTransaction(tx, priv);
   //   };
   // }
 
