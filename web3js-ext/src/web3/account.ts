@@ -1,10 +1,25 @@
-import Web3, {Web3Context} from "web3";
+import { EthExecutionAPI, Bytes, Transaction, KeyStore, ETH_DATA_FORMAT } from 'web3-types';
+import { format } from 'web3-utils';
+import { Web3Context } from 'web3-core';
+import { prepareTransactionForSigning } from 'web3-eth';
+import {
+	create,
+	decrypt,
+	encrypt,
+	hashMessage,
+	privateKeyToAccount,
+	recover,
+	recoverTransaction,
+	signTransaction,
+	sign,
+	Wallet,
+} from 'web3-eth-accounts';
+
 import {
 	TransactionSigningError,
 	UndefinedRawTransactionError,
 } from 'web3-errors';
 import {
-	Bytes,
 	HexString,
 	Address,
 } from 'web3-types';
@@ -17,16 +32,11 @@ import {
 
 import { 
 	Web3Account,
-	Transaction,
 	TransactionFactory,
 	TypedTransaction, 
-	sign,
-	signTransaction,
 	SignTransactionResult, 
 	parseAndValidatePrivateKey,
 	privateKeyToAddress,
-	privateKeyToAccount,
-	encrypt,
 } from "web3-eth-accounts";
 import { isNullish } from 'web3-validator';
 
@@ -101,11 +111,18 @@ export const signTransactionAsFeePayer = async (
 export const privateKeyToAccountWithContext = (context: Web3Context, privateKey: Bytes, ignoreLength?: boolean): Web3Account => {
   // web3/src/accounts.ts:initAccountsForContext
   const account = privateKeyToAccount(privateKey);
+
   return {
     ...account,
     signTransaction: async (transaction: Transaction) =>
       signTransactionWithContext(transaction, account.privateKey),
   };
+};
+
+export const signTransactionWithContext = async(transaction: Transaction, context: Web3Context, privateKey: Bytes) {
+	let tx = await prepareTransaction(transaction, context, privateKey);
+	let priv = bytesToHex(privateKey);
+	return signTransaction(tx, priv);
 };
 
 /**
@@ -163,4 +180,68 @@ export const recoverTransactionWithKlaytnTx = (rawTransaction: HexString): Addre
 	
 	tx = TransactionFactory.fromSerializedData(data);
 	return toChecksumAddress(tx.getSenderAddress().toString());
+};
+
+
+export const initAccountsForContext = (context: Web3Context<EthExecutionAPI>) => {
+	const signTransactionWithContext = async (transaction: Transaction, privateKey: Bytes) => {
+		const tx = await prepareTransactionForSigning(transaction, context);
+
+		const privateKeyBytes = format({ format: 'bytes' }, privateKey, ETH_DATA_FORMAT);
+
+		return signTransaction(tx, privateKeyBytes);
+	};
+
+	const privateKeyToAccountWithContext = (privateKey: Uint8Array | string) => {
+		const account = privateKeyToAccount(privateKey);
+
+		return {
+			...account,
+			signTransaction: async (transaction: Transaction) =>
+				signTransactionWithContext(transaction, account.privateKey),
+		};
+	};
+
+	const decryptWithContext = async (
+		keystore: KeyStore | string,
+		password: string,
+		options?: Record<string, unknown>,
+	) => {
+		const account = await decrypt(keystore, password, (options?.nonStrict as boolean) ?? true);
+
+		return {
+			...account,
+			signTransaction: async (transaction: Transaction) =>
+				signTransactionWithContext(transaction, account.privateKey),
+		};
+	};
+
+	const createWithContext = () => {
+		const account = create();
+
+		return {
+			...account,
+			signTransaction: async (transaction: Transaction) =>
+				signTransactionWithContext(transaction, account.privateKey),
+		};
+	};
+
+	const wallet = new Wallet({
+		create: createWithContext,
+		privateKeyToAccount: privateKeyToAccountWithContext,
+		decrypt: decryptWithContext,
+	});
+
+	return {
+		signTransaction: signTransactionWithContext,
+		create: createWithContext,
+		privateKeyToAccount: privateKeyToAccountWithContext,
+		decrypt: decryptWithContext,
+		recoverTransaction,
+		hashMessage,
+		sign,
+		recover,
+		encrypt,
+		wallet,
+	};
 };

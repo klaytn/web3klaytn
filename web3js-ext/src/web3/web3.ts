@@ -7,7 +7,13 @@ import _ from "lodash";
 
 import { prepareTransaction } from "./klaytn_tx";
 import { klay_sendSignedTransaction } from "./send_transaction";
-import { privateKeyToAccountWithContext as privateKeyToAccountWithContext, signTransactionAsFeePayer, createWithContext, recoverTransactionWithKlaytnTx } from "./account";
+import { 
+  privateKeyToAccountWithContext, 
+  signTransactionAsFeePayer, 
+  createWithContext, 
+  recoverTransactionWithKlaytnTx,
+  initAccountsForContext,
+} from "./account";
 
 // TODO: Change the path after web3-core deployed
 const { objectFromRLP } = require("../../../../ethers-ext/dist/src");
@@ -20,21 +26,27 @@ export class KlaytnWeb3 extends Web3 {
     // The Web3 constructor. See web3/src/web3.ts
     super(provider);
 
-    // Override web3.eth.accounts. See web3/src/accounts.ts:initAccountsForContext
-    // The functions are bound to 'this' object.
-    // TODO: override more web3.eth.accounts methods
-    this.eth.accounts.create = this.accounts_create(this);
-    this.eth.accounts.privateKeyToAccount = this.accounts_privateKeyToAccount(this);
-    this.eth.accounts.signTransaction = this.accounts_signTransaction(this);
-    this.eth.accounts.recoverTransaction = this.accounts_recoverTransaction();
-    this.eth.accounts.decrypt = this.accounts_decrypt;
+    const accounts = initAccountsForContext(this);
 
-    this.eth.accounts.wallet = new Wallet({
-      create: this.eth.accounts.create, 
-      privateKeyToAccount: this.eth.accounts.privateKeyToAccount,
-      // @ts-ignore
-      decrypt: this.eth.accounts.decrypt,
-    });
+    this.eth.accounts = accounts;
+    this._accountProvider = accounts;
+    this._wallet = accounts.wallet;
+
+    // // Override web3.eth.accounts. See web3/src/accounts.ts:initAccountsForContext
+    // // The functions are bound to 'this' object.
+    // // TODO: override more web3.eth.accounts methods
+    // this.eth.accounts.create = this.accounts_create(this);
+    // this.eth.accounts.privateKeyToAccount = this.accounts_privateKeyToAccount(this);
+    // this.eth.accounts.signTransaction = this.accounts_signTransaction(this);
+    // this.eth.accounts.recoverTransaction = this.accounts_recoverTransaction();
+    // this.eth.accounts.decrypt = this.accounts_decrypt;
+
+    // this.eth.accounts.wallet = new Wallet({
+    //   create: this.eth.accounts.create, 
+    //   privateKeyToAccount: this.eth.accounts.privateKeyToAccount,
+    //   // @ts-ignore
+    //   decrypt: this.eth.accounts.decrypt,
+    // });
 
     // New added function for Klaytn
     // @ts-ignore 
@@ -53,46 +65,45 @@ export class KlaytnWeb3 extends Web3 {
 
   // Below methods return a function bound to the context 'web3'.
 
-  accounts_create(context: Web3Context): typeof this.eth.accounts.create {
-    return (): Web3Account => {
-      return createWithContext(context);
-    }; 
-  }
+  // accounts_create(context: Web3Context): typeof this.eth.accounts.create {
+  //   return (): Web3Account => {
+  //     return createWithContext(context);
+  //   }; 
+  // }
 
-  accounts_privateKeyToAccount(context: Web3Context): typeof this.eth.accounts.privateKeyToAccount {
-    return (privateKey: Bytes, ignoreLength?: boolean): Web3Account => {
-      return privateKeyToAccountWithContext(context, privateKey, ignoreLength);
-    }; 
-  }
+  // accounts_privateKeyToAccount(context: Web3Context): typeof this.eth.accounts.privateKeyToAccount {
+  //   return (privateKey: Bytes, ignoreLength?: boolean): Web3Account => {
+  //     return privateKeyToAccountWithContext(context, privateKey, ignoreLength);
+  //   }; 
+  // }
 
-  async accounts_decrypt(keystore: KeyStore | string, password: string, options?: Record<string, unknown>){
-    const account = await decrypt(keystore, password, (options?.nonStrict as boolean) ?? true);
+  // async accounts_decrypt(keystore: KeyStore | string, password: string, options?: Record<string, unknown>){
+  //   const account = await decrypt(keystore, password, (options?.nonStrict as boolean) ?? true);
 
-    return {
-      ...account,
-    // TODO : decrypt function will be implemented with KeyStore V4 later
-    // signTransaction: async (transaction: Transaction) =>
-    // 	signTransactionWithContext(transaction, account.privateKey),
-    };
-  }
+  //   return {
+  //     ...account,
+  //   // TODO : decrypt function will be implemented with KeyStore V4 later
+  //   // signTransaction: async (transaction: Transaction) =>
+  //   // 	signTransactionWithContext(transaction, account.privateKey),
+  //   };
+  // }
 
-  accounts_signTransaction(context: Web3Context): typeof this.eth.accounts.signTransaction {
-    // signTransactionWithContext. see web3/src/accounts.ts:initAccountsForContext
-    return async (transaction: Transaction, privateKey: Bytes): Promise<SignTransactionResult> => {
-      let tx = await prepareTransaction(transaction, context, privateKey);
-      let priv = bytesToHex(privateKey);
-      return signTransaction(tx, priv);
-    };
-  }
+  // accounts_signTransaction(context: Web3Context): typeof this.eth.accounts.signTransaction {
+  //   // signTransactionWithContext. see web3/src/accounts.ts:initAccountsForContext
+  //   return async (transaction: Transaction, privateKey: Bytes): Promise<SignTransactionResult> => {
+  //     let tx = await prepareTransaction(transaction, context, privateKey);
+  //     let priv = bytesToHex(privateKey);
+  //     return signTransaction(tx, priv);
+  //   };
+  // }
 
-  accounts_recoverTransaction(): typeof this.eth.accounts.recoverTransaction {
-    return (rawTransaction: HexString): Address => {
-      return recoverTransactionWithKlaytnTx(rawTransaction);
-    };
-  }
+  // accounts_recoverTransaction(): typeof this.eth.accounts.recoverTransaction {
+  //   return (rawTransaction: HexString): Address => {
+  //     return recoverTransactionWithKlaytnTx(rawTransaction);
+  //   };
+  // }
 
   accounts_signTransactionAsFeePayer(context: Web3Context): typeof this.eth.accounts.signTransaction {
-    // signTransactionWithContext. see web3/src/accounts.ts:initAccountsForContext
     return async (transaction: any, privateKey: Bytes): Promise<any> => {
       let tx; 
 
