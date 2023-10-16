@@ -154,7 +154,7 @@ export const createWithContext = (context: Web3Context): Web3Account => {
  * > "0x2c7536E3605D9C16a7a3D7b1898e529396a65c23"
  * ```
  */
-export const recoverTransactionWithKlaytnTx = (context: Web3Context, rawTransaction: HexString): Address => {
+export const recoverTransactionWithKlaytnTx = (rawTransaction: HexString): Address => {
 	if (isNullish(rawTransaction)) throw new UndefinedRawTransactionError();
 
 	const data = hexToBytes(rawTransaction);

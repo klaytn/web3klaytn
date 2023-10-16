@@ -26,12 +26,13 @@ export class KlaytnWeb3 extends Web3 {
     this.eth.accounts.create = this.accounts_create(this);
     this.eth.accounts.privateKeyToAccount = this.accounts_privateKeyToAccount(this);
     this.eth.accounts.signTransaction = this.accounts_signTransaction(this);
-    this.eth.accounts.recoverTransaction = this.accounts_recoverTransaction(this);
+    this.eth.accounts.recoverTransaction = this.accounts_recoverTransaction();
     this.eth.accounts.decrypt = this.accounts_decrypt;
 
     this.eth.accounts.wallet = new Wallet({
       create: this.eth.accounts.create, 
       privateKeyToAccount: this.eth.accounts.privateKeyToAccount,
+      // @ts-ignore
       decrypt: this.accounts_decrypt,
     });
 
@@ -65,15 +66,15 @@ export class KlaytnWeb3 extends Web3 {
   }
 
   async accounts_decrypt(keystore: KeyStore | string, password: string, options?: Record<string, unknown>){
-		const account = await decrypt(keystore, password, (options?.nonStrict as boolean) ?? true);
+    const account = await decrypt(keystore, password, (options?.nonStrict as boolean) ?? true);
 
-		return {
-			...account,
-      // // TO-DO : decrypt function will be implemented with KeyStore V4 later
-			// signTransaction: async (transaction: Transaction) =>
-			// 	signTransactionWithContext(transaction, account.privateKey),
-		};
-	}
+    return {
+      ...account,
+    // TODO : decrypt function will be implemented with KeyStore V4 later
+    // signTransaction: async (transaction: Transaction) =>
+    // 	signTransactionWithContext(transaction, account.privateKey),
+    };
+  }
 
   accounts_signTransaction(context: Web3Context): typeof this.eth.accounts.signTransaction {
     // signTransactionWithContext. see web3/src/accounts.ts:initAccountsForContext
@@ -84,10 +85,9 @@ export class KlaytnWeb3 extends Web3 {
     };
   }
 
-  accounts_recoverTransaction(context: Web3Context): typeof this.eth.accounts.recoverTransaction {
-    // signTransactionWithContext. see web3/src/accounts.ts:initAccountsForContext
+  accounts_recoverTransaction(): typeof this.eth.accounts.recoverTransaction {
     return (rawTransaction: HexString): Address => {
-      return recoverTransactionWithKlaytnTx(context, rawTransaction);
+      return recoverTransactionWithKlaytnTx(rawTransaction);
     };
   }
 
