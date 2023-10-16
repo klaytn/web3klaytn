@@ -1,7 +1,7 @@
 import Web3, {Bytes, Transaction, Web3Context} from "web3";
-import { signTransaction, SignTransactionResult, privateKeyToAddress, Web3Account } from "web3-eth-accounts";
+import { signTransaction, SignTransactionResult, privateKeyToAddress, Web3Account, Wallet, decrypt, } from "web3-eth-accounts";
 import { bytesToHex } from "web3-utils";
-import { Address, HexString, DataFormat, DEFAULT_RETURN_FORMAT } from "web3-types";
+import { Address, HexString, DataFormat, DEFAULT_RETURN_FORMAT, KeyStore } from "web3-types";
 import { SendTransactionOptions } from "web3-eth";
 import _ from "lodash";
 
@@ -27,6 +27,13 @@ export class KlaytnWeb3 extends Web3 {
     this.eth.accounts.privateKeyToAccount = this.accounts_privateKeyToAccount(this);
     this.eth.accounts.signTransaction = this.accounts_signTransaction(this);
     this.eth.accounts.recoverTransaction = this.accounts_recoverTransaction(this);
+    this.eth.accounts.decrypt = this.accounts_decrypt;
+
+    this.eth.accounts.wallet = new Wallet({
+      create: this.eth.accounts.create, 
+      privateKeyToAccount: this.eth.accounts.privateKeyToAccount,
+      decrypt: this.accounts_decrypt,
+    });
 
     // New added function for Klaytn
     // @ts-ignore 
@@ -56,6 +63,17 @@ export class KlaytnWeb3 extends Web3 {
       return privateKeyToAccountWithContext(context, privateKey, ignoreLength);
     }; 
   }
+
+  async accounts_decrypt(keystore: KeyStore | string, password: string, options?: Record<string, unknown>){
+		const account = await decrypt(keystore, password, (options?.nonStrict as boolean) ?? true);
+
+		return {
+			...account,
+      // // TO-DO : decrypt function will be implemented with KeyStore V4 later
+			// signTransaction: async (transaction: Transaction) =>
+			// 	signTransactionWithContext(transaction, account.privateKey),
+		};
+	}
 
   accounts_signTransaction(context: Web3Context): typeof this.eth.accounts.signTransaction {
     // signTransactionWithContext. see web3/src/accounts.ts:initAccountsForContext
