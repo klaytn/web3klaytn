@@ -141,7 +141,7 @@ export const privateKeyToAccountWithContext = (context: Web3Context, privateKey:
 export const createWithContext = (context: Web3Context): Web3Account => {
 	const privateKey = secp256k1.utils.randomPrivateKey();
 
-	return privateKeyToAccountWithContext(context, `${bytesToHex(privateKey)}`);
+	return privateKeyToAccountWithContext(context, bytesToHex(privateKey));
 };
 
 /**
