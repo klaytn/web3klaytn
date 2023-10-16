@@ -33,7 +33,7 @@ export class KlaytnWeb3 extends Web3 {
       create: this.eth.accounts.create, 
       privateKeyToAccount: this.eth.accounts.privateKeyToAccount,
       // @ts-ignore
-      decrypt: this.accounts_decrypt,
+      decrypt: this.eth.accounts.decrypt,
     });
 
     // New added function for Klaytn
