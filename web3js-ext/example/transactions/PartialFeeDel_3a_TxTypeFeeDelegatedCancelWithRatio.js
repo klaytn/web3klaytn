@@ -24,8 +24,8 @@ async function main() {
   const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
   const web3 = new KlaytnWeb3(provider);
 
-  const senderWallet = web3.eth.accounts.privateKeyToAccount(senderPriv, provider);
-  const feePayerWallet = web3.eth.accounts.privateKeyToAccount(feePayerPriv, provider);
+  const sender = web3.eth.accounts.privateKeyToAccount(senderPriv, provider);
+  const feePayer = web3.eth.accounts.privateKeyToAccount(feePayerPriv, provider);
 
   // 1) send ValueTransfer tx with the next nonce + 1
   let nextNonce = await web3.eth.getTransactionCount(senderAddr);
@@ -43,10 +43,10 @@ async function main() {
 
 
   // sender sign
-  let senderTx = await web3.eth.accounts.signTransaction(tx, senderWallet.privateKey);
+  let senderTx = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
   console.log({senderTx});
   // feePayer sign
-  let signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayerWallet.privateKey);
+  let signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayer.privateKey);
   console.log({signResult});
   web3.eth.sendSignedTransaction(signResult.rawTransaction);
 
@@ -61,10 +61,10 @@ async function main() {
   };
 
   // sender sign
-  senderTx = await web3.eth.accounts.signTransaction(txCancel, senderWallet.privateKey);
+  senderTx = await web3.eth.accounts.signTransaction(txCancel, sender.privateKey);
   console.log({senderTx});
   // feePayer sign
-  signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayerWallet.privateKey);
+  signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayer.privateKey);
   console.log({signResult});
   web3.eth.sendSignedTransaction(signResult.rawTransaction);
 
@@ -72,10 +72,10 @@ async function main() {
   tx.nonce = nextNonce;
 
   // sender sign
-  senderTx = await web3.eth.accounts.signTransaction(tx, senderWallet.privateKey);
+  senderTx = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
   console.log({senderTx});
   // feePayer sign
-  signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayerWallet.privateKey);
+  signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayer.privateKey);
   console.log({signResult});
   sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
   console.log("sendResult", sendResult);
