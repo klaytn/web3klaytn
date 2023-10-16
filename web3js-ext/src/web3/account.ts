@@ -99,24 +99,13 @@ export const signTransactionAsFeePayer = async (
  * ```
  */
 export const privateKeyToAccountWithContext = (context: Web3Context, privateKey: Bytes, ignoreLength?: boolean): Web3Account => {
-	const privateKeyUint8Array = parseAndValidatePrivateKey(privateKey, ignoreLength);
-
-	return {
-		address: privateKeyToAddress(privateKeyUint8Array),
-		privateKey: bytesToHex(privateKeyUint8Array),
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		// @ts-ignore
-		signTransaction: async (otx: Transaction): Promise<SignTransactionResult> => {
-			// @ts-ignore
-			let tx = await prepareTransaction(otx, context, privateKey);
-			let priv = bytesToHex(privateKey);
-			return signTransaction(tx, priv);
-		},
-		sign: (data: Record<string, unknown> | string) =>
-			sign(typeof data === 'string' ? data : JSON.stringify(data), privateKeyUint8Array),
-		encrypt: async (password: string, options?: Record<string, unknown>) =>
-			encrypt(privateKeyUint8Array, password, options),
-	};
+  // web3/src/accounts.ts:initAccountsForContext
+  const account = privateKeyToAccount(privateKey);
+  return {
+    ...account,
+    signTransaction: async (transaction: Transaction) =>
+      signTransactionWithContext(transaction, account.privateKey),
+  };
 };
 
 /**
