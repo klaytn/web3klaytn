@@ -1,44 +1,25 @@
-import { EthExecutionAPI, Bytes, Transaction, KeyStore, ETH_DATA_FORMAT } from 'web3-types';
-import { format } from 'web3-utils';
+import { Address, HexString, EthExecutionAPI, Bytes, Transaction, KeyStore, ETH_DATA_FORMAT } from 'web3-types';
+import { format, bytesToHex, hexToBytes, sha3Raw, toChecksumAddress, isHex } from 'web3-utils';
 import { Web3Context } from 'web3-core';
-import { prepareTransactionForSigning } from 'web3-eth';
 import {
 	create,
 	decrypt,
 	encrypt,
 	hashMessage,
+	privateKeyToAddress,
 	privateKeyToAccount,
 	recover,
-	recoverTransaction,
 	signTransaction,
 	sign,
 	Wallet,
-} from 'web3-eth-accounts';
-
-import {
-	TransactionSigningError,
-	UndefinedRawTransactionError,
-} from 'web3-errors';
-import {
-	HexString,
-	Address,
-} from 'web3-types';
-import {
-	bytesToHex,
-	hexToBytes,
-	sha3Raw,
-	toChecksumAddress,
-} from 'web3-utils';
-
-import { 
-	Web3Account,
 	TransactionFactory,
 	TypedTransaction, 
 	SignTransactionResult, 
-	parseAndValidatePrivateKey,
-	privateKeyToAddress,
-} from "web3-eth-accounts";
+} from 'web3-eth-accounts';
 import { isNullish } from 'web3-validator';
+import { TransactionSigningError, UndefinedRawTransactionError } from 'web3-errors';
+
+import { prepareTransaction } from "./klaytn_tx";
 
 // TODO: Change the path after web3-core deployed
 const { objectFromRLP } = require("../../../../ethers-ext/dist/src");
@@ -117,11 +98,44 @@ export const recoverTransactionWithKlaytnTx = (rawTransaction: HexString): Addre
 // Below methods are bound to the context 'web3'.
 export const initAccountsForContext = (context: Web3Context<EthExecutionAPI>) => {
 	const signTransactionWithContext = async (transaction: Transaction, privateKey: Bytes) => {
-		const tx = await prepareTransactionForSigning(transaction, context);
+		let tx; 
+		
+		if (typeof transaction === "string") {
+			if (isHex(transaction)) {
+			  tx = objectFromRLP(transaction);
+			} else {
+			  throw new Error("String type input has to be RLP encoded Hex string.");
+			}
+		} else {
+			tx = transaction;
+		}	
 
-		const privateKeyBytes = format({ format: 'bytes' }, privateKey, ETH_DATA_FORMAT);
+		let ttx = await prepareTransaction(tx, context, privateKey);
+		let priv = bytesToHex(privateKey);
+		return signTransaction(ttx, priv);
+	};
 
-		return signTransaction(tx, privateKeyBytes);
+	// New added function for Klaytn
+	const signTransactionAsFeePayerWithContext = async (transaction: any, privateKey: Bytes): Promise<any> => {
+		let tx; 
+
+		if (typeof transaction === "string") {
+			if (isHex(transaction)) {
+				tx = objectFromRLP(transaction);
+			} else {
+				throw new Error("String type input has to be RLP encoded Hex string.");
+			}
+		} else {
+			tx = transaction;
+		}
+
+		if (!tx.feePayer) {
+			tx.feePayer = privateKeyToAddress(privateKey);
+		}
+
+		let ftx = await prepareTransaction(tx, context, privateKey);      
+		let priv = bytesToHex(privateKey);
+		return signTransactionAsFeePayer(ftx, priv);
 	};
 
 	const privateKeyToAccountWithContext = (privateKey: Uint8Array | string) => {
@@ -167,7 +181,7 @@ export const initAccountsForContext = (context: Web3Context<EthExecutionAPI>) =>
 
 	return {
 		signTransaction: signTransactionWithContext,
-		signTransactionAsFeePayer: signTransactionAsFeePayer, 
+		signTransactionAsFeePayer: signTransactionAsFeePayerWithContext,
 		create: createWithContext,
 		privateKeyToAccount: privateKeyToAccountWithContext,
 		decrypt: decryptWithContext,
