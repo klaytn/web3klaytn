@@ -87,30 +87,6 @@ export const signTransactionAsFeePayer = async (
 	};
 };
 
-/**
- *
- * Generates and returns a Web3Account object that includes the private and public key
- * For creation of private key, it uses an audited package ethereum-cryptography/secp256k1
- * that is cryptographically secure random number with certain characteristics.
- * Read more: https://www.npmjs.com/package/ethereum-cryptography#secp256k1-curve
- *
- * @returns A Web3Account object
- * ```ts
- * web3.eth.accounts.create();
- * {
- * address: '0xbD504f977021b5E5DdccD8741A368b147B3B38bB',
- * privateKey: '0x964ced1c69ad27a311c432fdc0d8211e987595f7eb34ab405a5f16bdc9563ec5',
- * signTransaction: [Function: signTransaction],
- * sign: [Function: sign],
- * encrypt: [AsyncFunction: encrypt]
- * }
- * ```
- */
-// export const createWithContext = (context: Web3Context): Web3Account => {
-// 	const privateKey = secp256k1.utils.randomPrivateKey();
-
-// 	return privateKeyToAccountWithContext(context, bytesToHex(privateKey));
-// };
 
 /**
  * Recovers the Ethereum address which was used to sign the given RLP encoded transaction.
@@ -144,7 +120,7 @@ export const recoverTransactionWithKlaytnTx = (rawTransaction: HexString): Addre
 	return toChecksumAddress(tx.getSenderAddress().toString());
 };
 
-
+// We overrided web3/src/accounts.ts:initAccountsForContext
 export const initAccountsForContext = (context: Web3Context<EthExecutionAPI>) => {
 	const signTransactionWithContext = async (transaction: Transaction, privateKey: Bytes) => {
 		const tx = await prepareTransactionForSigning(transaction, context);

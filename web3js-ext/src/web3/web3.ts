@@ -23,16 +23,13 @@ export class KlaytnWeb3 extends Web3 {
     // The Web3 constructor. See web3/src/web3.ts
     super(provider);
 
+    // web3.eth.accounts methods are bound to 'this' object.
     const accounts = initAccountsForContext(this);
 
     this.eth.accounts = accounts;
     this._accountProvider = accounts;
     this._wallet = accounts.wallet;
 
-    // // Override web3.eth.accounts. See web3/src/accounts.ts:initAccountsForContext
-    // // The functions are bound to 'this' object.
-    // // TODO: override more web3.eth.accounts methods
-    // this.eth.accounts.create = this.accounts_create(this);
     // this.eth.accounts.recoverTransaction = this.accounts_recoverTransaction();
     // this.eth.accounts.decrypt = this.accounts_decrypt;
 
@@ -60,11 +57,6 @@ export class KlaytnWeb3 extends Web3 {
 
   // Below methods return a function bound to the context 'web3'.
 
-  // accounts_create(context: Web3Context): typeof this.eth.accounts.create {
-  //   return (): Web3Account => {
-  //     return createWithContext(context);
-  //   }; 
-  // }
 
   // async accounts_decrypt(keystore: KeyStore | string, password: string, options?: Record<string, unknown>){
   //   const account = await decrypt(keystore, password, (options?.nonStrict as boolean) ?? true);
