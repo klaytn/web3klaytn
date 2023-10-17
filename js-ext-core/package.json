@@ -2,15 +2,22 @@
   "name": "@klaytn/js-ext-core",
   "version": "0.9.6-beta",
   "license": "MIT",
-
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./util": {
+      "types": "./dist/util/index.d.ts",
+      "default": "./dist/util/index.js"
+    }
+  },
   "files": [
     "./dist",
     "./src"
   ],
-
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
@@ -20,10 +27,10 @@
     "test": "mocha test/**/*.ts -r ts-node/register",
     "prepublishOnly": "npm run build"
   },
-
   "devDependencies": {
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
+    "@types/lodash": "^4.14.199",
     "@types/mocha": "^10.0.1",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
     "chai": "^4.3.7",
@@ -35,5 +42,12 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@ethersproject/address": "^5.7.0",
+    "@ethersproject/bignumber": "^5.7.0",
+    "@ethersproject/bytes": "^5.7.0",
+    "@ethersproject/rlp": "^5.7.0",
+    "@ethersproject/transactions": "^5.7.0",
+    "@ethersproject/units": "^5.7.0",
+    "lodash": "^4.17.21"
   }
 }
