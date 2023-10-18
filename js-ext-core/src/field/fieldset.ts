@@ -9,7 +9,7 @@ export abstract class FieldSet {
   // Child classes MUST override below properties and methods
 
   // An 1-byte type enum
-  public static type: number;
+  public static type: number = -1;
 
   // Human readable name of the type. Appears in error messages.
   public static typeName: string;
@@ -21,7 +21,7 @@ export abstract class FieldSet {
   // //////////////////////////////////////////////////////////
 
   // shortcuts for this._static.*.
-  public readonly type: number = 0;
+  public readonly type: number = -1;
   public readonly typeName: string = "";
   public readonly fieldTypes: FieldTypes = {};
 
@@ -100,7 +100,7 @@ export class FieldSetFactory<T extends FieldSet> {
     const type = cls.type;
     const fieldTypes = cls.fieldTypes;
 
-    if (!type) {
+    if (type === -1) {
       throw new Error("Cannot register TypedFields: Missing type");
     }
     if (this.registry[type]) {
@@ -120,23 +120,23 @@ export class FieldSetFactory<T extends FieldSet> {
   }
 
   public has(type?: any): boolean {
-    if (!!type && HexStr.isHex(type)) {
-      return !!type && !!this.registry[HexStr.toNumber(type)];
+    if (HexStr.isHex(type)) {
+      return _.has(this.registry, HexStr.toNumber(type));
     } else {
-      return !!type && !!this.registry[type];
+      return _.has(this.registry, type);
     }
   }
 
   public lookup(type?: any): ConcreteFieldSet<T> {
-    if (!type || !this.has(type)) {
+    if (!this.has(type)) {
       throw new Error(`Unsupported type '${type}'`);
     }
 
     if (HexStr.isHex(type)) {
       return this.registry[HexStr.toNumber(type)];
+    } else {
+      return this.registry[type];
     }
-
-    return this.registry[type];
   }
 
   public fromObject(fields: Fields): T {

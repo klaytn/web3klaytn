@@ -24,12 +24,13 @@
     "lint": "npm run lint:check",
     "lint:check": "eslint example src test --cache --quiet",
     "lint:fix": "eslint example src test --cache --fix",
-    "test": "mocha test/**/*.ts -r ts-node/register",
+    "test": "mocha -r ts-node/register \"test/**/*.ts\"",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
+    "@types/elliptic": "^6.4.16",
     "@types/lodash": "^4.14.199",
     "@types/mocha": "^10.0.1",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
@@ -48,6 +49,7 @@
     "@ethersproject/rlp": "^5.7.0",
     "@ethersproject/transactions": "^5.7.0",
     "@ethersproject/units": "^5.7.0",
+    "elliptic": "^6.5.4",
     "lodash": "^4.17.21"
   }
 }

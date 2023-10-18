@@ -53,25 +53,6 @@ export const FieldTypeBytes = new class implements FieldType {
   emptyValue(): string { return "0x"; }
 };
 
-// Accepted types: hex string, byte array
-// Canonical type: hex string
-export class FieldTypeBytesFixedLen implements FieldType {
-  length: number;
-  constructor(length: number) {
-    this.length = length;
-  }
-
-  canonicalize(value: any): string {
-    value = HexStr.from(value);
-    if (!HexStr.isHex(value, this.length)) {
-      throw new Error(`Value is not ${this.length} bytes`);
-    }
-    return value;
-  }
-
-  emptyValue(): string { return "0x" + "00".repeat(this.length); }
-}
-
 // Accepted types: JS number, JS bigint, BigNumber class, hex-encoded string
 // Canonical type: hex string
 export class FieldTypeNumberBits implements FieldType {

@@ -37,12 +37,25 @@ export function isFeeDelegationTxType(type: number): boolean {
 export function isPartialFeeDelegationTxType(type: number): boolean {
   return (type in TxType) && ((type & 0x3) == 0x2);
 }
+export function isFeePayerSigTxType(type: number): boolean {
+  return isFeeDelegationTxType(type) || isPartialFeeDelegationTxType(type);
+}
 
 export enum AccountKeyType {
   // Account Key Type
+  Nil = 0x00,
   Legacy = 0x01,
   Public = 0x02,
   Fail = 0x03,
   WeightedMultiSig = 0x04,
   RoleBased = 0x05
+}
+
+export function isKlaytnAccountKeyType(type: number): boolean {
+  return (type in AccountKeyType);
+}
+// Returns true if it can be embedded in an AccountKeyRoleBased
+export function isEmbeddableAccountKeyType(type: number): boolean {
+  // any of AccountKeyNil, AccountKeyLegacy, AccountKeyPublic, AccountKeyFail, and AccountKeyWeightedMultiSig.
+  return (type in AccountKeyType) && (type != AccountKeyType.RoleBased);
 }

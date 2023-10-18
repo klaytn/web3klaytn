@@ -1,7 +1,22 @@
 import { splitSignature } from "@ethersproject/bytes";
+import { ec } from "elliptic";
 import _ from "lodash";
 
 import { HexStr } from "./data";
+
+const secp256k1 = new ec("secp256k1");
+
+// Returns a 33-byte compressed public key from
+// a compressed (33-byte) or uncompressed (65-byte) public key.
+export function getCompressedPublicKey(pub: any): string {
+  const hex = HexStr.from(pub);
+  if (HexStr.isHex(hex, 33) || HexStr.isHex(hex, 65)) {
+    const pub = secp256k1.keyFromPublic(hex.substring(2), "hex");
+    return "0x" + pub.getPublic(true, "hex");
+  } else {
+    throw new Error("Public key must be 33 or 65 bytes");
+  }
+}
 
 // List of signature tuples used in Klaytn transactions.
 // All elements must be string for RLP encoding.
