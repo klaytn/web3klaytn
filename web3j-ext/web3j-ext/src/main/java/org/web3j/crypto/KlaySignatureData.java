@@ -24,6 +24,7 @@ import org.web3j.rlp.RlpList;
 import org.web3j.rlp.RlpString;
 import org.web3j.rlp.RlpType;
 import org.web3j.utils.Bytes;
+import org.web3j.utils.BytesUtils;
 import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
@@ -49,8 +50,7 @@ public class KlaySignatureData {
         KlaySignatureData emptySig = new KlaySignatureData(
                 Numeric.hexStringToByteArray("0x01"),
                 Numeric.hexStringToByteArray("0x"),
-                Numeric.hexStringToByteArray("0x")
-        );
+                Numeric.hexStringToByteArray("0x"));
 
         return emptySig;
     }
@@ -60,7 +60,8 @@ public class KlaySignatureData {
 
         for (RlpType signature : signatureRlpTypeList) {
             List<RlpType> vrs = ((RlpList) signature).getValues();
-            if (vrs.size() < 3) continue;
+            if (vrs.size() < 3)
+                continue;
             byte[] v = ((RlpString) vrs.get(0)).getBytes();
             byte[] r = ((RlpString) vrs.get(1)).getBytes();
             byte[] s = ((RlpString) vrs.get(2)).getBytes();
@@ -112,24 +113,52 @@ public class KlaySignatureData {
 
     @Override
     public String toString() {
-        return "V : " + Numeric.toBigInt(getV()) + "\nR : " + Numeric.toBigInt(getR()) + "\nS : " + Numeric.toBigInt(getS());
+        return "V : " + Numeric.toBigInt(getV()) + "\nR : " + Numeric.toBigInt(getR()) + "\nS : "
+                + Numeric.toBigInt(getS());
     }
 
     public static KlaySignatureData createKlaySignatureDataFromChainId(long chainId) {
-        return new KlaySignatureData(BigInteger.valueOf(chainId).toByteArray(), new byte[]{}, new byte[]{});
+        return new KlaySignatureData(BigInteger.valueOf(chainId).toByteArray(), new byte[] {}, new byte[] {});
     }
 
     public RlpList toRlpList() {
         return new RlpList(
                 RlpString.create(Bytes.trimLeadingZeroes(getV())),
                 RlpString.create(Bytes.trimLeadingZeroes(getR())),
-                RlpString.create(Bytes.trimLeadingZeroes(getS()))
-        );
+                RlpString.create(Bytes.trimLeadingZeroes(getS())));
     }
 
     public static KlaySignatureData createEip155KlaySignatureData(
-        Sign.SignatureData signatureData, long chainId) {
-    long v = (Numeric.toBigInt(signatureData.getV()).intValue() + chainId * 2) + 8;
-    return new KlaySignatureData(BigInteger.valueOf(v).toByteArray(), signatureData.getR(), signatureData.getS());
-}
+            Sign.SignatureData signatureData, long chainId) {
+        long v = (Numeric.toBigInt(signatureData.getV()).intValue() + chainId * 2) + 8;
+        return new KlaySignatureData(BigInteger.valueOf(v).toByteArray(), signatureData.getR(), signatureData.getS());
+    }
+
+    public static byte[] getKlaytnMessageHash(String message) {
+        final String preamble = "\u0019Klaytn Signed Message:\n";
+
+        byte[] messageArr = BytesUtils.isHexStrict(message) ? Numeric.hexStringToByteArray(message)
+                : message.getBytes();
+        byte[] preambleArr = preamble.concat(String.valueOf(messageArr.length)).getBytes();
+
+        // klayMessage is concatenated array (preambleArr + messageArr)
+        byte[] klayMessage = BytesUtils.concat(preambleArr, messageArr);
+        byte[] result = Hash.sha3(klayMessage);
+
+        // return data after converting to hex string.
+        return result;
+    }
+
+    public static Sign.SignatureData signPrefixedMessage(String message, KlayCredentials cred) {
+        byte[] messageBytes = getKlaytnMessageHash(message);
+        return Sign.signMessage(messageBytes, cred.getEcKeyPair(), false);
+    }
+
+    public static String getSignatureString(Sign.SignatureData signature) {
+        byte[] retval = new byte[65];
+        System.arraycopy(signature.getR(), 0, retval, 0, 32);
+        System.arraycopy(signature.getS(), 0, retval, 32, 32);
+        System.arraycopy(signature.getV(), 0, retval, 64, 1);
+        return Numeric.toHexString(retval);
+    }
 }

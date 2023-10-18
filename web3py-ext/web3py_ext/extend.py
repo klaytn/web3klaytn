@@ -16,6 +16,7 @@ from web3py_ext.klaytn_account.instrumented_local_account import (
     klaytn_extended_recover_transaction_as_feepayer,
     klaytn_extended_recover_transaction,
     klaytn_extended_decode_transaction,
+    klaytn_v4_support_decrypt,
 )
 from web3.eth.eth import Eth
 from web3._utils.method_formatters import ABI_REQUEST_FORMATTERS
@@ -37,6 +38,7 @@ Account.sign_transaction_as_feepayer = types.MethodType(klaytn_extended_sign_tra
 Account.recover_transaction_as_feepayer = types.MethodType(klaytn_extended_recover_transaction_as_feepayer, Account)
 Account.klaytn_recover_transaction = types.MethodType(klaytn_extended_recover_transaction, Account)
 Account.decode_transaction = types.MethodType(klaytn_extended_decode_transaction, Account)
+Account.v4_decrypt = types.MethodType(klaytn_v4_support_decrypt, Account)
 
 # transaction
 TypedTransaction.from_dict = types.MethodType(from_dict, TypedTransaction)

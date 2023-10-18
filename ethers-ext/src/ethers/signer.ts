@@ -8,6 +8,7 @@ import _ from "lodash";
 import { KlaytnTxFactory } from "../core";
 import { encodeTxForRPC, objectFromRLP } from "../core/klaytn_tx";
 import { HexStr } from "../core/util";
+import { decryptKeystoreListSync } from "./keystore";
 
 import { JsonRpcProvider } from "./provider";
 
@@ -276,6 +277,16 @@ export class Wallet extends EthersWallet {
     } else {
       throw new Error("Klaytn typed transaction can only be broadcasted to a Klaytn JSON-RPC server");
     }
+  }
+
+  static fromEncryptedJsonSync(json: string, password: string | Bytes): Wallet {
+    const { address, privateKeys } = decryptKeystoreListSync(json, password);
+    return new Wallet(address, privateKeys[0]);
+  }
+
+  static fromEncryptedJsonListSync(json: string, password: string | Bytes): Wallet[] {
+    const { address, privateKeys } = decryptKeystoreListSync(json, password);
+    return _.map(privateKeys, (privateKey) => new Wallet(address, privateKey));
   }
 }
 

@@ -1,6 +1,6 @@
 from typing import Dict, Mapping, NamedTuple, Tuple
 import warnings
-
+import json
 from eth_account.signers.base import (
     BaseAccount,
 )
@@ -10,13 +10,16 @@ from eth_account.account import (
     LocalAccount,
 )
 
+from eth_keyfile import (
+    decode_keyfile_json,
+)
+
 from eth_account._utils.signing import (
     serializable_unsigned_transaction_from_dict,
     sign_transaction_hash,
     encode_transaction,
     sign_transaction_dict,
     hash_of_signed_transaction,
-    
     TypedTransaction,
 )
 from eth_utils.curried import (
@@ -56,6 +59,7 @@ from eth_utils.curried import (
     is_string,
     to_bytes,
     to_int,
+    is_dict,
     encode_hex,
 )
 from web3py_ext.transaction.extended_transaction_utils import (
@@ -430,3 +434,53 @@ def to_vrs(signature) -> Tuple[int, int, int]:
     if not all(k in signature for k in "vrs"):
         raise ValueError("attempting to encode an unsigned transaction")
     return (signature["v"], signature["r"], signature["s"])
+
+
+def klaytn_v3_decrypt(keyfile, password_bytes):
+    return [{
+            'address':keyfile['address'], 
+            'private_key':HexBytes(decode_keyfile_json(keyfile, password_bytes))
+        }]
+    
+def klaytn_v4_decrypt(keyfile, password_bytes):
+    if 'keyring' not in keyfile or not isinstance(keyfile['keyring'], list):
+        raise TypeError("v4 keystore should have a keyring(list)")
+    
+    def flatten_to_v3(keyring):
+        flat_v3 = []
+        for key in keyring:
+            if isinstance(key, list):
+                flat_v3.extend(flatten_to_v3(key))
+            else:
+                flat_v3.append({
+                    'version':3,
+                    'crypto':key
+                })
+        return flat_v3
+
+    return list(
+        map(
+            lambda x:{
+                'address':keyfile['address'], 
+                'private_key':HexBytes(decode_keyfile_json(x, password_bytes))
+                },
+            flatten_to_v3(keyfile['keyring'])
+        )
+    )
+
+def klaytn_v4_support_decrypt(self, keyfile_json, password):
+    password_bytes = text_if_str(to_bytes, password)
+
+    if isinstance(keyfile_json, str):
+        keyfile = json.loads(keyfile_json)
+    elif is_dict(keyfile_json):
+        keyfile = keyfile_json
+    else:
+        raise TypeError(
+            "The keyfile should be supplied as a JSON string, or a dictionary."
+        )
+    
+    if 'version' in keyfile and keyfile['version'] == 4:
+        return klaytn_v4_decrypt(keyfile, password_bytes)
+    else:
+        return klaytn_v3_decrypt(keyfile, password_bytes)

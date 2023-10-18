@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'foundation.klaytn'
-version 'v0.9.4'
+version 'v0.9.5'
 
 repositories {
     mavenCentral()
