@@ -59,3 +59,5 @@ export function isEmbeddableAccountKeyType(type: number): boolean {
   // any of AccountKeyNil, AccountKeyLegacy, AccountKeyPublic, AccountKeyFail, and AccountKeyWeightedMultiSig.
   return (type in AccountKeyType) && (type != AccountKeyType.RoleBased);
 }
+
+export const CodeFormatEVM = 0x00;

@@ -41,17 +41,24 @@ export abstract class FieldSet {
 
   // Fields accessors
 
+  // Reset all fields from an object
   public setFields(obj: Fields): void {
     this.fields = {};
     _.forOwn(this.fieldTypes, (fieldType, name) => {
       if (obj[name] === undefined) {
         this.fields[name] = null;
-      } else {
+        return;
+      }
+
+      try {
         this.fields[name] = fieldType.canonicalize(obj[name]);
+      } catch (e) {
+        throw new Error(`Cannot set field '${name}' to '${JSON.stringify(obj[name])}': ${e}`);
       }
     });
   }
 
+  // Reset all fields from the array
   public setFieldsFromArray(names: string[], array: any[]): void {
     this.fields = {};
     for (let i = 0; i < array.length; i++) {
@@ -60,10 +67,16 @@ export abstract class FieldSet {
       if (!fieldType) {
         throw new Error(`Unknown field '${name}' for '${this.typeName}' (type ${this.type})`);
       }
-      this.fields[name] = fieldType.canonicalize(array[i]);
+
+      try {
+        this.fields[name] = fieldType.canonicalize(array[i]);
+      } catch (e) {
+        throw new Error(`Cannot set field '${name}' to '${JSON.stringify(array[i])}': ${e}`);
+      }
     }
   }
 
+  // Get one field
   public getField(name: string): any {
     const value = this.fields[name];
     if (value == null) {
@@ -72,6 +85,7 @@ export abstract class FieldSet {
     return value;
   }
 
+  // Get many fields as an array
   public getFields(names: string[]): any[] {
     return _.map(names, (name) => this.getField(name));
   }
@@ -129,7 +143,7 @@ export class FieldSetFactory<T extends FieldSet> {
 
   public lookup(type?: any): ConcreteFieldSet<T> {
     if (!this.has(type)) {
-      throw new Error(`Unsupported type '${type}'`);
+      throw new Error(`Unsupported type '${HexStr.fromNumber(type)}'`);
     }
 
     if (HexStr.isHex(type)) {

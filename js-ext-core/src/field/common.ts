@@ -38,13 +38,14 @@ export interface Fields {
 export const FieldTypeAddress = new class implements FieldType {
   canonicalize(value: any): string {
     if (value === "0x") {
-      return "0x0000000000000000000000000000000000000000";
+      return "0x";
     }
     return getAddress(value);
   }
 
   emptyValue(): string { return "0x"; }
 };
+
 
 // Accepted types: hex string, byte array
 // Canonical type: hex string

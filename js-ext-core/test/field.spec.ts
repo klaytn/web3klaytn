@@ -3,6 +3,7 @@ import { assert } from "chai";
 
 import {
   FieldType,
+  FieldTypeAccountKey,
   FieldTypeAccountKeyList,
   FieldTypeAddress,
   FieldTypeBool,
@@ -21,7 +22,6 @@ function assertField(fieldType: FieldType, value: any, expected: any) {
 describe("Fields", () => {
   it("FieldTypeAddress", () => {
     // convert to checksumed address
-    assertField(FieldTypeAddress, "0x", "0x0000000000000000000000000000000000000000");
     assertField(FieldTypeAddress, "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa");
   });
 
@@ -93,5 +93,38 @@ describe("Fields", () => {
 
     assertField(FieldTypeAccountKeyList, [], []);
     assertField(FieldTypeAccountKeyList, [key1, key2, key3], [key1RLP, key2RLP, key3RLP]);
+  });
+
+  it("FieldTypeAccountKey", () => {
+    assertField(FieldTypeAccountKey, { type: 0 }, "0x80");
+    assertField(FieldTypeAccountKey, { type: 1 }, "0x01c0");
+    assertField(FieldTypeAccountKey,
+      { // Baobab tx 0x968a646e3ff05ebae17835045a77cf6871a00f8f74173cda7cc2b51c26b217dc
+        type: 2,
+        key: "0x03dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd"
+      },
+      "0x02a103dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd");
+    assertField(FieldTypeAccountKey, { type: 3 }, "0x03c0");
+    assertField(FieldTypeAccountKey,
+      { // Baobab tx 0x9e08f40ff18a9eb296d21c066486f2838ff2934d0aca26cf84d8e0a2af76778d
+        type: 4,
+        threshold: 2,
+        keys: [
+          [1, "0x03f26489914098c5da51f0f646e3000da4d6197217df082b4f7ce1530f0a0cbf2a"],
+          [1, "0x03dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd"],
+          [1, "0x021473839f05083617d532325ce8aa40edffb2bc79f1ce17c77cc41f92f027dd82"],
+        ]
+      },
+      "0x04f86f02f86ce301a103f26489914098c5da51f0f646e3000da4d6197217df082b4f7ce1530f0a0cbf2ae301a103dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cde301a1021473839f05083617d532325ce8aa40edffb2bc79f1ce17c77cc41f92f027dd82");
+    assertField(FieldTypeAccountKey,
+      { // Baobab tx 0xa2d249a56e660ecfb28cd0b945962eb41b036b028a16bb9926f5855a0506841a
+        type: 5,
+        keys: [
+          { type: 2, key: "0x03f26489914098c5da51f0f646e3000da4d6197217df082b4f7ce1530f0a0cbf2a" },
+          { type: 2, key: "0x0263021199702b9fefca617bdcb2a9ed4a810dfa8d270d4e804a1e778450e63ec3" },
+          { type: 2, key: "0x03dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd" },
+        ]
+      },
+      "0x05f86ca302a103f26489914098c5da51f0f646e3000da4d6197217df082b4f7ce1530f0a0cbf2aa302a10263021199702b9fefca617bdcb2a9ed4a810dfa8d270d4e804a1e778450e63ec3a302a103dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd");
   });
 });

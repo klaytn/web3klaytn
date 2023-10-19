@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-import { AccountKeyFactory } from "../accountkey";
+import { AccountKey, AccountKeyFactory } from "../accountkey";
 import { HexStr, RLP, getCompressedPublicKey, isEmbeddableAccountKeyType } from "../util";
 
 import { FieldType } from "./common";
@@ -77,4 +77,20 @@ export const FieldTypeAccountKeyList = new class implements FieldType {
   }
 
   emptyValue(): string[] { return []; }
+};
+
+// Accepted types: An AccountKey in JS object or RLP format
+// Canonical type: An AccountKey in RLP format
+// Example canonical value:
+// "0x02a103e4a01407460c1c03ac0c82fd84f303a699b210c0b054f4aff72ff7dcdf01512d",
+export const FieldTypeAccountKey = new class implements FieldType {
+  canonicalize(value: any): string {
+    if (_.isString(value) && HexStr.isHex(value)) { // pass RLP format
+      return value;
+    } else { // encode JS object format
+      return AccountKeyFactory.fromObject(value).toRLP();
+    }
+  }
+
+  emptyValue(): string { return "0x80"; }
 };
