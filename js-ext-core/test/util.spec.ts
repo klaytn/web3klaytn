@@ -1,6 +1,10 @@
 import { BigNumber } from "@ethersproject/bignumber";
 import { formatUnits as formatEthUnits, parseUnits as parseEthUnits, formatEther, parseEther } from "@ethersproject/units";
 import { assert } from "chai";
+/* eslint-disable */
+// @ts-ignore: package @klaytn/web3rpc has no .d.ts file.
+//import { ApiClient, KlayApi } from "@klaytn/web3rpc";
+/* eslint-enable */
 
 import {
   TxType,
@@ -16,6 +20,8 @@ import {
   parseKlay,
   decryptKeystoreList,
   decryptKeystoreListSync,
+  asyncOpenApi,
+  HexStr,
 } from "../src";
 
 
@@ -192,5 +198,49 @@ describe("util", () => {
         assert.deepEqual(account.privateKeyList, tc.keys);
       }
     });
+  });
+
+  it("asyncOpenApi", async () => {
+    // Uncomment to test with real HTTP Providers.
+    /* // (1) ethers.JsonRpcProvider
+    const { JsonRpcProvider } = require("@ethersproject/providers");
+    const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+    const send = (method: string, params: any[]) => provider.send(method, params);
+    //*/
+
+    /* // (2) web3.HttpProvider
+    const { Web3, HttpProvider } = require("web3");
+    const provider = new HttpProvider("https://public-en-baobab.klaytn.net");
+    const web3 = new Web3(provider);
+    const send = (method: string, params: any[]) => web3.requestManager.send({ method, params });
+    //*/
+
+    //* // (3) Test mock
+    const send = (_method: string, _params: any[]) => Promise.resolve("0x1234");
+    //*/
+
+    // Uncomment to test with real OpenApi generated codes.
+    /* // (1) @klaytn/web3rpc
+    const { KlayApi } = require("@klaytn/web3rpc");
+    //*/
+
+    //* // (2) Test mock
+    class MockKlayApi {
+      apiClient: any;
+      constructor(apiClient: any) {
+        this.apiClient = apiClient;
+      }
+      blockNumber(_opts: any, callback: any) {
+        const bodyParams = { method: 'klay_blockNumber', params: [] };
+        this.apiClient.callApi('/', 'POST', null, null, null, null, bodyParams,
+          [], ['application/json'], ['application/json'], {}, null, callback);
+      }
+    };
+    const KlayApi = MockKlayApi as any;
+    //*/
+
+    const klay = asyncOpenApi(send, KlayApi);
+    const ret = await klay.blockNumber();
+    assert.isTrue(HexStr.isHex(ret));
   });
 });
