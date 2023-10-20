@@ -1,4 +1,5 @@
 import { parse as parseTransaction, Transaction as EthersTx } from "@ethersproject/transactions";
+import _ from "lodash";
 
 import { FieldSet, FieldSetFactory, Fields } from "../field";
 import { HexStr, getSignatureTuple, SignatureLike, isKlaytnTxType, isFeePayerSigTxType, RLP, TxType } from "../util";
@@ -26,9 +27,9 @@ export abstract class KlaytnTx extends FieldSet {
   // RLP encoding for fee payer to sign.
   sigFeePayerRLP(): string {
     if (!isFeePayerSigTxType(this.type)) {
-      throw new Error(`fee payer not supported in txtype ${this.type}`);
+      this.throwTypeError("sigFeePayerRLP not defined");
     } else {
-      throw new Error(`sigFeePayerRLP not implemented for txtype ${this.type}`);
+      this.throwTypeError("sigFeePayerRLP not implemented");
     }
   }
 
@@ -37,12 +38,16 @@ export abstract class KlaytnTx extends FieldSet {
     if (!isFeePayerSigTxType(this.type)) {
       return this.txHashRLP();
     } else {
-      throw new Error(`senderTxHashRLP not implemented for txtype ${this.type}`);
+      this.throwTypeError("senderTxHashRLP not implemented");
     }
   }
 
   // //////////////////////////////////////////////////////////
   // Child classes CANNOT override below methods
+
+  throwTypeError(msg: string): never {
+    throw new Error(`${msg} for '${this.typeName}' (type ${HexStr.fromNumber(this.type)})`);
+  }
 
   // Add a signature
   addSenderSig(sig: SignatureLike) {
@@ -86,7 +91,7 @@ export abstract class KlaytnTx extends FieldSet {
   decodeTypePrefixedRLP(rlp: string, namesWithoutType: string[]): void {
     const type = HexStr.toNumber(rlp.substring(0, 4));
     if (type !== this.type) {
-      throw new Error(`invalid type: ${type} for ${this.typeName}`);
+      this.throwTypeError(`Invalid type '${type}`);
     }
 
     const withoutType = "0x" + String(rlp).substring(4); // Strip type byte
@@ -94,6 +99,23 @@ export abstract class KlaytnTx extends FieldSet {
     const names = ["type", ...namesWithoutType];
     const fields = [this.type, ...RLP.decode(withoutType)];
     this.setFieldsFromArray(names, fields);
+  }
+
+  // Helper for setFieldsFromRLP
+  // Given multiple candidates for names[], use the one that matches the RLP decoded array length.
+  decodeTypePrefixedVarlenRLP(rlp: string, ...namesCandidates: string[][]): void {
+    // Decode the RLP without the type prefix
+    const arrayLen = RLP.decode("0x" + rlp.substring(4)).length;
+
+    // Find the 'names' list with matching length
+    for (let i = 0; i < namesCandidates.length; i++) {
+      const names = namesCandidates[i];
+      if (arrayLen == names.length) {
+        this.decodeTypePrefixedRLP(rlp, names);
+        return;
+      }
+    }
+    this.throwTypeError(`Invalid RLP string '${rlp}'`);
   }
 }
 

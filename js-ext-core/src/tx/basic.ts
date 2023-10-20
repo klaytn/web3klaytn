@@ -6,7 +6,7 @@ import {
   FieldTypeSignatureTuples,
   FieldTypeUint256,
   FieldTypeUint64,
-   FieldTypeUint8
+  FieldTypeUint8
 } from "../field";
 import { TxType } from "../util";
 

@@ -7,10 +7,12 @@ import {
   TxType,
   TxTypeAccountUpdate,
   TxTypeCancel,
+  TxTypeFeeDelegatedValueTransfer,
   TxTypeSmartContractDeploy,
   TxTypeSmartContractExecution,
   TxTypeValueTransfer,
-  TxTypeValueTransferMemo
+  TxTypeValueTransferMemo,
+  isFeePayerSigTxType
 } from "../src";
 
 interface TestCase {
@@ -190,33 +192,116 @@ const testcases: TestCase[] = [
     sigRLP: "0xe39fde388204d219830f424094a94f5374fce5edbc8e2a8697c15331677e6ebf0b018080",
     txHashRLP: "0x38f8648204d219830f424094a94f5374fce5edbc8e2a8697c15331677e6ebf0bf845f84325a0fb2c3d53d2f6b7bb1deb5a09f80366a5a45429cc1e3956687b075a9dcad20434a05c6187822ee23b1001e9613d29a5d6002f990498d2902904f7f259ab3358216e",
   },
+  {
+    clazz: TxTypeFeeDelegatedValueTransfer,
+    object: {
+      type: 0x09,
+      nonce: 1234,
+      gasPrice: 0x19,
+      gasLimit: 0xf4240,
+      to: "0x7b65B75d204aBed71587c9E519a89277766EE1d0",
+      value: 10,
+      from: "0xa94f5374Fce5edBC8E2a8697C15331677e6EbF0B",
+      feePayer: "0x5A0043070275d9f6054307Ee7348bD660849D90f",
+      chainId: 0x1,
+      txSignatures: [{v: 0x25, r: "0x9f8e49e2ad84b0732984398749956e807e4b526c786af3c5f7416b293e638956", s: "0x6bf88342092f6ff9fabe31739b2ebfa1409707ce54a54693e91a6b9bb77df0e7"}],
+      feePayerSignatures: [{v: 0x26, r: "0xf45cf8d7f88c08e6b6ec0b3b562f34ca94283e4689021987abb6b0772ddfd80a", s: "0x298fe2c5aeabb6a518f4cbb5ff39631a5d88be505d3923374f65fdcf63c2955b"}],
+    },
+    canonical: {
+      type: "0x09",
+      nonce: "0x04d2",
+      gasLimit: "0x0f4240",
+      gasPrice: "0x19",
+      to: "0x7b65B75d204aBed71587c9E519a89277766EE1d0",
+      value: "0x0a",
+      from: "0xa94f5374Fce5edBC8E2a8697C15331677e6EbF0B",
+      feePayer: "0x5A0043070275d9f6054307Ee7348bD660849D90f",
+      chainId: "0x01",
+      txSignatures: [["0x25", "0x9f8e49e2ad84b0732984398749956e807e4b526c786af3c5f7416b293e638956", "0x6bf88342092f6ff9fabe31739b2ebfa1409707ce54a54693e91a6b9bb77df0e7"]],
+      feePayerSignatures: [["0x26", "0xf45cf8d7f88c08e6b6ec0b3b562f34ca94283e4689021987abb6b0772ddfd80a", "0x298fe2c5aeabb6a518f4cbb5ff39631a5d88be505d3923374f65fdcf63c2955b"]],
+    },
+    sigRLP: "0xf839b5f4098204d219830f4240947b65b75d204abed71587c9e519a89277766ee1d00a94a94f5374fce5edbc8e2a8697c15331677e6ebf0b018080",
+    sigFeePayerRLP: "0xf84eb5f4098204d219830f4240947b65b75d204abed71587c9e519a89277766ee1d00a94a94f5374fce5edbc8e2a8697c15331677e6ebf0b945a0043070275d9f6054307ee7348bd660849d90f018080",
+    senderTxHashRLP: "0x09f87a8204d219830f4240947b65b75d204abed71587c9e519a89277766ee1d00a94a94f5374fce5edbc8e2a8697c15331677e6ebf0bf845f84325a09f8e49e2ad84b0732984398749956e807e4b526c786af3c5f7416b293e638956a06bf88342092f6ff9fabe31739b2ebfa1409707ce54a54693e91a6b9bb77df0e7",
+    txHashRLP: "0x09f8d68204d219830f4240947b65b75d204abed71587c9e519a89277766ee1d00a94a94f5374fce5edbc8e2a8697c15331677e6ebf0bf845f84325a09f8e49e2ad84b0732984398749956e807e4b526c786af3c5f7416b293e638956a06bf88342092f6ff9fabe31739b2ebfa1409707ce54a54693e91a6b9bb77df0e7945a0043070275d9f6054307ee7348bd660849d90ff845f84326a0f45cf8d7f88c08e6b6ec0b3b562f34ca94283e4689021987abb6b0772ddfd80aa0298fe2c5aeabb6a518f4cbb5ff39631a5d88be505d3923374f65fdcf63c2955b",
+  }
   // TODO: TxTypeFeeDelegated*
   // TODO: TxTypeFeeDelegated*WithRatio
 ];
 
 describe("KlaytnTxFactory", () => {
-  for (const tc of testcases) {
-    it(tc.clazz.typeName, () => {
-      // Test fromObject
-      const tx = KlaytnTxFactory.fromObject(tc.object);
-      assert.instanceOf(tx, tc.clazz);
+  describe("without any signatures", () => {
+    for (const tc of testcases) {
+      it(tc.clazz.typeName, () => {
+        const object = _.clone(tc.object);
+        delete object.txSignatures;
+        delete object.feePayerSignatures;
 
-      // Test field canonicalization
-      const canonical = tx.toObject();
-      assert.deepEqual(canonical, tc.canonical);
+        const canonical = _.clone(tc.canonical);
+        canonical.txSignatures = null;
+        if (canonical.feePayerSignatures) {
+          canonical.feePayerSignatures = null;
+        }
 
-      // Test RLP encoding
-      assert.equal(tx.sigRLP(), tc.sigRLP);
-      assert.equal(tx.txHashRLP(), tc.txHashRLP);
-      // TODO: test sigFeePayerRLP and senderTxHashRLP
+        // Object -> RLP
+        const tx = KlaytnTxFactory.fromObject(object);
+        assert.instanceOf(tx, tc.clazz);
+        assert.deepEqual(tx.toObject(), canonical);
+        assert.equal(tx.sigRLP(), tc.sigRLP);
+      });
+    }
+  });
+  describe("without feepayer signatures", () => {
+    for (const tc of testcases) {
+      if (!isFeePayerSigTxType(tc.clazz.type)) {
+        continue;
+      }
+      it(tc.clazz.typeName, () => {
+        const object = _.clone(tc.object);
+        delete object.feePayerSignatures;
 
-      // Test fromRLP
-      const tx2 = KlaytnTxFactory.fromRLP(tx.txHashRLP()) as KlaytnTx;
-      assert.instanceOf(tx2, tc.clazz);
-      assert.equal(tx2.txHashRLP(), tx.txHashRLP());
-      // TODO: test fromRLP(senderTxHashRLP)
-    });
-  }
+        const canonical = _.clone(tc.canonical);
+        canonical.feePayerSignatures = null;
+
+        // Object -> RLP
+        const tx = KlaytnTxFactory.fromObject(object);
+        assert.instanceOf(tx, tc.clazz);
+        assert.deepEqual(tx.toObject(), canonical);
+        assert.equal(tx.sigRLP(), tc.sigRLP);
+        assert.equal(tx.sigFeePayerRLP(), tc.sigFeePayerRLP);
+        assert.equal(tx.senderTxHashRLP(), tc.senderTxHashRLP);
+
+        // (signed) RLP -> Object
+        const tx2 = KlaytnTxFactory.fromRLP(tc.senderTxHashRLP as string) as KlaytnTx;
+        assert.instanceOf(tx2, tc.clazz);
+        assert.equal(tx2.senderTxHashRLP(), tx.senderTxHashRLP());
+      });
+    }
+  });
+  describe("with all signatures", () => {
+    for (const tc of testcases) {
+      it(tc.clazz.typeName, () => {
+        const object = _.clone(tc.object);
+        const canonical = _.clone(tc.canonical);
+
+        // Object -> RLP
+        const tx = KlaytnTxFactory.fromObject(object);
+        assert.instanceOf(tx, tc.clazz);
+        assert.deepEqual(tx.toObject(), canonical);
+        assert.equal(tx.sigRLP(), tc.sigRLP);
+        assert.equal(tx.txHashRLP(), tc.txHashRLP);
+        if (isFeePayerSigTxType(tc.clazz.type)) {
+          assert.equal(tx.sigFeePayerRLP(), tc.sigFeePayerRLP);
+          assert.equal(tx.senderTxHashRLP(), tc.senderTxHashRLP);
+        }
+
+        // (signed) RLP -> Object
+        const tx2 = KlaytnTxFactory.fromRLP(tc.txHashRLP) as KlaytnTx;
+        assert.instanceOf(tx2, tc.clazz);
+        assert.equal(tx2.txHashRLP(), tc.txHashRLP);
+      });
+    }
+  });
 
   it("alias input to data", () => {
     const typesWithInput = [
