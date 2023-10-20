@@ -6,6 +6,7 @@ import _ from "lodash";
 import { klay_sendSignedTransaction } from "./send_transaction";
 import { initAccountsForContext } from "./account";
 
+// @ts-ignore: package @klaytn/web3rpc has no .d.ts file.
 import { ApiClient, AdminApi, DebugApi, GovernanceApi, KlayApi, NetApi, PersonalApi, TxpoolApi } from "@klaytn/web3rpc";
 
 import { ConnectionInfo } from "@ethersproject/web";
@@ -44,7 +45,7 @@ export class KlaytnWeb3 extends Web3 {
     this.eth.sendSignedTransaction = this.eth_sendSignedTransaction(this);
     
     // TODO: Connect web3.klay, web3.net, etc from @klaytn/web3rpc
-    this.openApiClient = makeApiClient(provider.url);
+    this.openApiClient = makeApiClient(provider.clientUrl);
   }
         
   /* eslint-disable no-multi-spaces */
@@ -54,7 +55,7 @@ export class KlaytnWeb3 extends Web3 {
   get klay(): AsyncOpenApi       { return this.getAsyncOpenApi(KlayApi); }
   get net(): AsyncOpenApi        { return this.getAsyncOpenApi(NetApi); }
   get personal(): AsyncOpenApi   { return this.getAsyncOpenApi(PersonalApi); }
-  get txpol(): AsyncOpenApi      { return this.getAsyncOpenApi(TxpoolApi); }
+  get txpool(): AsyncOpenApi      { return this.getAsyncOpenApi(TxpoolApi); }
   /* eslint-enable no-multi-spaces */
 
   getAsyncOpenApi(clazz: OpenApiClass): AsyncOpenApi {
