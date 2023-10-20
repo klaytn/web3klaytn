@@ -31,7 +31,7 @@ export class JsonRpcProvider extends EthersJsonRpcProvider {
   get klay(): AsyncOpenApi       { return this.getAsyncOpenApi(KlayApi); }
   get net(): AsyncOpenApi        { return this.getAsyncOpenApi(NetApi); }
   get personal(): AsyncOpenApi   { return this.getAsyncOpenApi(PersonalApi); }
-  get txpol(): AsyncOpenApi      { return this.getAsyncOpenApi(TxpoolApi); }
+  get txpool(): AsyncOpenApi      { return this.getAsyncOpenApi(TxpoolApi); }
   /* eslint-enable no-multi-spaces */
 
   getAsyncOpenApi(clazz: OpenApiClass): AsyncOpenApi {

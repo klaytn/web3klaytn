@@ -48,8 +48,13 @@ export class KlaytnWeb3 extends Web3 {
   }
         
   /* eslint-disable no-multi-spaces */
-  // @ts-ignore
+  get admin(): AsyncOpenApi      { return this.getAsyncOpenApi(AdminApi); }
+  get debug(): AsyncOpenApi      { return this.getAsyncOpenApi(DebugApi); }
+  get governance(): AsyncOpenApi { return this.getAsyncOpenApi(GovernanceApi); }
   get klay(): AsyncOpenApi       { return this.getAsyncOpenApi(KlayApi); }
+  get net(): AsyncOpenApi        { return this.getAsyncOpenApi(NetApi); }
+  get personal(): AsyncOpenApi   { return this.getAsyncOpenApi(PersonalApi); }
+  get txpol(): AsyncOpenApi      { return this.getAsyncOpenApi(TxpoolApi); }
   /* eslint-enable no-multi-spaces */
 
   getAsyncOpenApi(clazz: OpenApiClass): AsyncOpenApi {
