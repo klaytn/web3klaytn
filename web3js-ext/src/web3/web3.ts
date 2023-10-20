@@ -88,7 +88,7 @@ export class KlaytnWeb3 extends Web3 {
 
 
 // Make OpenAPI-Generator ApiClient from ConnectionInfo
-function makeApiClient(url?: ConnectionInfo | string): any {
+function makeApiClient(url: string, opts?: RequestInit)
   if (_.isString(url)) {
     return new ApiClient(url);
   }
