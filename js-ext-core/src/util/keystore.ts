@@ -1,15 +1,7 @@
-import { getAddress } from "@ethersproject/address";
-import { Bytes } from "@ethersproject/bytes";
-import { ProgressCallback, decryptKeystore, decryptKeystoreSync } from "@ethersproject/json-wallets";
+// js-ext-core does not provide keystore decryption function
+// to make the library slim. Decrypting the splitted keystore JSON
+// shall be done outside this library.
 import _ from "lodash";
-
-// Decrypted keystore private keys.
-export interface KeystoreAccountList {
-  address: string;
-  // The first private key in the privateKeyList. For backward compatilibilty with KeystoreAccount.
-  privateKey: string;
-  privateKeyList: string[];
-}
 
 // Cipher is an opaque structure to be passed down to decryption library.
 type EncryptedKey = any;
@@ -32,34 +24,45 @@ interface KeystoreKIP3 {
   id?: string,
 }
 
-// Flatten a KIP-3 JSON into multiple V3 JSONs, each V3 is derived from one keyring element.
-export function flattenKeystoreKIP3(json: string): string[] {
+// Split a KIP-3 JSON into multiple V3 JSONs, each V3 is derived from one keyring element.
+//
+// The address may not coincide with the decrypted private key. There are two ways
+// to deal with the issue.
+//
+// If deleteAddress is true, every resulting V3 JSON does not contain 'address' field.
+// It is recommended to deleteAddress when feeding into ethers.js decryptKeystore function.
+// When the address field exists, decryptKeystore tries to match the address and private key,
+// resulting in "address mismatch" error. Without the address field, decryptKeystore skips the check.
+//
+// If deleteAddress is false, every resulting V3 JSON has the same 'address' field
+// with the original KIP-3 JSON. It is recommended to not deleteAddress when feeding into
+// web3.js decrypt function. The web3.js decrypt function requires, but not inspects the
+// address field.
+export function splitKeystoreKIP3(json: string, deleteAddress: boolean = true): string[] {
   const data: KeystoreKIP3 = JSON.parse(json);
   const keyring = data.keyring;
   if (!_.isArray(keyring)) {
     throw new Error("Invalid KIP-3 JSON wallet");
   }
 
-  let ciphers: any[] = [];
+  let cryptos: any[] = [];
   if (!_.isArray(keyring[0])) {
-    ciphers = _.flattenDepth(keyring, 1);
+    cryptos = _.flattenDepth(keyring, 1);
   } else {
-    ciphers = _.flattenDepth(keyring, 2);
+    cryptos = _.flattenDepth(keyring, 2);
   }
 
-  return _.map(ciphers, (cipher) => {
+  return _.map(cryptos, (crypto) => {
     const v3: KeystoreV3 = {
-      ...data,
-      crypto: cipher,
+      version: 3,
+      crypto: crypto,
+      address: data.address,
+      id: data.id,
     };
 
-    // Delete now unnecessary keyring field.
-    delete (v3 as any).keyring;
-
-    // The address may not coincide with the decrypted private key.
-    // When the address field exists, ethers decryptKeystore try to match the address and private key,
-    // resulting in "address mismatch" error. Without the address field, decryptKeystore skips the check.
-    delete v3.address;
+    if (deleteAddress) {
+      delete v3.address;
+    }
 
     return JSON.stringify(v3);
   });
@@ -75,68 +78,4 @@ export function isKIP3Json(json: string): boolean {
     return false;
   }
   return _.isNumber(data.version) && (data.version == 4) && _.isArray(data.keyring);
-}
-
-function decryptKIP3(json: string, password: Bytes | string, progressCallback?: ProgressCallback): Promise<KeystoreAccountList> {
-  const obj = JSON.parse(json);
-  const jsonList = flattenKeystoreKIP3(json);
-  const count = jsonList.length;
-
-  const accounts = _.map(jsonList, (json, index) => {
-    const result = decryptKeystoreSync(json, password);
-    if (progressCallback) {
-      progressCallback((index + 1) / count);
-    }
-    return result;
-  });
-
-  return Promise.resolve({
-    address: getAddress(obj.address), // the address may not coincide with private keys, get directly from the json.
-    privateKey: accounts[0].privateKey,
-    privateKeyList: _.map(accounts, (account) => account.privateKey),
-  });
-}
-
-function decryptKIP3Sync(json: string, password: Bytes | string): KeystoreAccountList {
-  const obj = JSON.parse(json);
-  const jsonList = flattenKeystoreKIP3(json);
-
-  const accounts = _.map(jsonList, (json) => {
-    return decryptKeystoreSync(json, password);
-  });
-
-  return {
-    address: getAddress(obj.address), // the address may not coincide with private keys, get directly from the json.
-    privateKey: accounts[0].privateKey,
-    privateKeyList: _.map(accounts, (account) => account.privateKey),
-  };
-}
-
-export function decryptKeystoreList(json: string, password: Bytes | string, progressCallback?: ProgressCallback): Promise<KeystoreAccountList> {
-  if (isKIP3Json(json)) {
-    return decryptKIP3(json, password, progressCallback);
-  } else {
-    // Because ethers decryptJsonWallet is not an async function,
-    // decryptJsonWalletList is not an async function either, hence using 'then'.
-    return decryptKeystore(json, password, progressCallback).then((account) => {
-      return {
-        address: account.address,
-        privateKey: account.privateKey,
-        privateKeyList: [account.privateKey],
-      };
-    });
-  }
-}
-
-export function decryptKeystoreListSync(json: string, password: Bytes | string): KeystoreAccountList {
-  if (isKIP3Json(json)) {
-    return decryptKIP3Sync(json, password);
-  } else {
-    const account = decryptKeystoreSync(json, password);
-    return {
-      address: account.address,
-      privateKey: account.privateKey,
-      privateKeyList: [account.privateKey],
-    };
-  }
 }

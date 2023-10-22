@@ -8,9 +8,9 @@ For dApp developers and blockchain users, use the SDKs like [@klaytn/ethers-ext]
 - `AccountKeyFactory` for Klaytn account objects
 - `KlaytnTxFactory` for Klaytn transaction objects
 - `AccountKeyType` and `TxType` enums
-- `decryptKeystoreList` for decrypting KIP-3 JSON keystore
 - `getRpcTxObject` to normalize `eth_call` RPC parameters
 - `getCompressedPublicKey` and `getSignatureTuple` to normalize cryptographic data
+- `splitKeystoreKIP3` for handling KIP-3 JSON keystore
 - `formatKlay` and `parseKlay` to convert KLAY denominations
 - `asyncOpenApi` to promisify [@klaytn/web3rpc](https://www.npmjs.com/package/@klaytn/web3rpc) methods
 
