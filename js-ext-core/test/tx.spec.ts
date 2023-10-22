@@ -1,4 +1,5 @@
 import { assert } from "chai";
+import { BigNumber } from "@ethersproject/bignumber";
 import _ from "lodash";
 
 import {
@@ -12,7 +13,8 @@ import {
   TxTypeSmartContractExecution,
   TxTypeValueTransfer,
   TxTypeValueTransferMemo,
-  isFeePayerSigTxType
+  isFeePayerSigTxType,
+  parseTransaction
 } from "../src";
 
 interface TestCase {
@@ -324,6 +326,35 @@ describe("KlaytnTxFactory", () => {
       assert.equal(KlaytnTxFactory.fromObject({ type, to: "0x" }).getField("to"), "0x");
       assert.equal(KlaytnTxFactory.fromObject({ type, to: "0x0000000000000000000000000000000000000000" }).getField("to"), "0x");
       assert.equal(KlaytnTxFactory.fromObject({ type, to: "0x7b65B75d204aBed71587c9E519a89277766EE1d0" }).getField("to"), "0x");
+    });
+  });
+
+  describe("parseTransaction", () => {
+    it("klaytn txtype", () => {
+      const rlp = testcases[0].txHashRLP;
+      const obj = testcases[0].canonical;
+      assert.deepEqual(parseTransaction(rlp), obj);
+    });
+    it.only("eth txtype", () => {
+      // let wallet = ethers.Wallet.createRandom();
+      // wallet.signTransaction({ to: wallet.address, value: 0x1234 });
+      const rlp = "0xf85f808080944f097405c6486cfd00d2daae9bec709590832eb3821234801ca0ba1fa1a6de839161a29db9f6733aab8d789eeb65ffa139b245d09e65398b75e3a00f46258a9f2f358041de590156396a9426f98d9a3bdbd22ed91c609b2359075d";
+      const obj = {
+        nonce: 0,
+        gasPrice: BigNumber.from(0),
+        gasLimit: BigNumber.from(0),
+        to: '0x4F097405C6486Cfd00d2dAae9bEC709590832eb3',
+        value: BigNumber.from(0x1234),
+        data: '0x',
+        chainId: 0,
+        v: 28,
+        r: '0xba1fa1a6de839161a29db9f6733aab8d789eeb65ffa139b245d09e65398b75e3',
+        s: '0x0f46258a9f2f358041de590156396a9426f98d9a3bdbd22ed91c609b2359075d',
+        from: '0x4F097405C6486Cfd00d2dAae9bEC709590832eb3',
+        hash: '0xa0a675580c5ad468f51ba3029b2769a8fbaf6af6a97d802f49d3c8ab897d2372',
+        type: null
+      };
+      assert.deepEqual(parseTransaction(rlp), obj);
     });
   });
 });

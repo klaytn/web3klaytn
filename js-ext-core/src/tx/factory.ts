@@ -1,8 +1,20 @@
-import { parse as parseTransaction, Transaction as EthersTx } from "@ethersproject/transactions";
+import { parse as parseEthTransaction, Transaction as EthersTransaction } from "@ethersproject/transactions";
 import _ from "lodash";
 
 import { FieldSet, FieldSetFactory, Fields } from "../field";
 import { HexStr, getSignatureTuple, SignatureLike, isKlaytnTxType, isFeePayerSigTxType, RLP, TxType } from "../util";
+
+function getTypePrefix(rlp: string) {
+  if (!HexStr.isHex(rlp)) {
+    throw new Error("Not an RLP encoded string");
+  }
+
+  if (rlp.length < 4) {
+    throw new Error("RLP encoded string too short");
+  }
+
+  return HexStr.toNumber(rlp.substring(0, 4)); // 0xNN
+}
 
 export abstract class KlaytnTx extends FieldSet {
   // A Klaytn Tx has 4 kinds of RLP encoding:
@@ -137,19 +149,10 @@ class _KlaytnTxFactory extends FieldSetFactory<KlaytnTx> {
     return super.fromObject(fields);
   }
 
-  public fromRLP(value: string): KlaytnTx | EthersTx {
-    if (!HexStr.isHex(value)) {
-      throw new Error("Not an RLP encoded string");
-    }
-
-    const rlp = HexStr.from(value);
-    if (rlp.length < 4) {
-      throw new Error("RLP encoded string too short");
-    }
-
-    const type = HexStr.toNumber(rlp.substring(0, 4));
+  public fromRLP(rlp: string): KlaytnTx {
+    const type = getTypePrefix(rlp);
     if (!isKlaytnTxType(type)) {
-      return parseTransaction(value);
+      throw new Error("Not a Klaytn raw transaction");
     }
 
     const ctor = this.lookup(type);
@@ -160,6 +163,11 @@ class _KlaytnTxFactory extends FieldSetFactory<KlaytnTx> {
 }
 export const KlaytnTxFactory = new _KlaytnTxFactory();
 
-export function decodeTransaction(value: string) {
-  return KlaytnTxFactory.fromRLP(value);
+export function parseTransaction(rlp: string): EthersTransaction {
+  const type = getTypePrefix(rlp);
+  if (!isKlaytnTxType(type)) {
+    return parseEthTransaction(rlp);
+  } else {
+    return KlaytnTxFactory.fromRLP(rlp).toObject() as EthersTransaction;
+  }
 }
