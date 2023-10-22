@@ -1,10 +1,8 @@
 // Data type utilities
 
-import { getAddress } from "@ethersproject/address";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import * as bytes from "@ethersproject/bytes";
 import * as rlp from "@ethersproject/rlp";
-import { computeAddress } from "@ethersproject/transactions";
 
 export const RLP = {
   encode: rlp.encode,
@@ -26,12 +24,6 @@ export const HexStr = {
   },
   isHex(value: any, length?: number): boolean {
     return bytes.isHexString(value, length);
-  },
-  addressEquals(a: string, b: string): boolean {
-    return getAddress(a) == getAddress(b);
-  },
-  privateKeyEquals(a: string, b: string): boolean {
-    return computeAddress(a) == computeAddress(b);
   },
   stripZeros(value: any): string {
     return bytes.hexlify(bytes.stripZeros(value));
