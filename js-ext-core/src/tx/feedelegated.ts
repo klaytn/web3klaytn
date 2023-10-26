@@ -281,3 +281,54 @@ export class TxTypeFeeDelegatedAccountUpdate extends KlaytnTx {
         ["nonce", "gasPrice", "gasLimit", "from", "key", "txSignatures", "feePayer", "feePayerSignatures"]);
   }
 }
+
+// https://docs.klaytn.foundation/content/klaytn/design/transactions/fee-delegation#txtypefeedelegatedcancel
+export class TxTypeFeeDelegatedCancel extends KlaytnTx {
+  static type = TxType.FeeDelegatedCancel;
+  static typeName = "TxTypeFeeDelegatedCancel";
+  static fieldTypes = {
+    "type":         FieldTypeUint8,
+    "nonce":        FieldTypeUint64,
+    "gasPrice":     FieldTypeUint256,
+    "gasLimit":     FieldTypeUint64,
+    "from":         FieldTypeAddress,
+    "chainId":      FieldTypeUint64,
+    "txSignatures": FieldTypeSignatureTuples,
+    "feePayer":     FieldTypeAddress,
+    "feePayerSignatures": FieldTypeSignatureTuples,
+  };
+
+  // SigRLP = encode([encode([type, nonce, gasPrice, gas, from]), chainid, 0, 0])
+  sigRLP(): string {
+    return this.encodeNestedRLP(
+      ["type", "nonce", "gasPrice", "gasLimit", "from"],
+      ["chainId"]);
+  }
+
+  // SigFeePayerRLP = encode([encode([type, nonce, gasPrice, gas, from]), feePayer, chainid, 0, 0])
+  sigFeePayerRLP(): string {
+    return this.encodeNestedRLP(
+      ["type", "nonce", "gasPrice", "gasLimit", "from"], 
+      ["feePayer","chainId"]);
+  }
+
+  // SenderTxHashRLP = type + encode([nonce, gasPrice, gas, from, txSignatures])
+  senderTxHashRLP(): string {
+    return this.encodeTypePrefixedRLP(
+      ["nonce", "gasPrice", "gasLimit", "from", "txSignatures"]);
+  }
+
+  // TxHashRLP = type + encode([nonce, gasPrice, gas, from, txSignatures, feePayer, feePayerSignatures])
+  txHashRLP(): string {
+    return this.encodeTypePrefixedRLP(
+      ["nonce", "gasPrice", "gasLimit", "from", "txSignatures", "feePayer", "feePayerSignatures"]);
+  }
+
+  // SenderTxHashRLP = type + encode([nonce, gasPrice, gas, from, txSignatures])
+  // TxHashRLP = type + encode([nonce, gasPrice, gas, from, txSignatures, feePayer, feePayerSignatures])
+  setFieldsFromRLP(rlp: string): void {
+    this.decodeTypePrefixedVarlenRLP(rlp,
+      ["nonce", "gasPrice", "gasLimit", "from", "txSignatures"], 
+      ["nonce", "gasPrice", "gasLimit", "from", "txSignatures", "feePayer", "feePayerSignatures"]);
+  }
+}
