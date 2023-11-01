@@ -1,6 +1,7 @@
 import { Provider, TransactionRequest, TransactionResponse } from "@ethersproject/abstract-provider";
 import { JsonRpcProvider as EthersJsonRpcProvider } from "@ethersproject/providers";
 import { Wallet as EthersWallet } from "@ethersproject/wallet";
+import { poll } from "@ethersproject/web";
 import { ethers } from "ethers";
 import { Bytes, Deferrable, computeAddress, hashMessage, keccak256, recoverAddress, resolveProperties } from "ethers/lib/utils";
 import _ from "lodash";
@@ -8,9 +9,8 @@ import _ from "lodash";
 import { KlaytnTxFactory } from "../core";
 import { encodeTxForRPC, objectFromRLP } from "../core/klaytn_tx";
 import { HexStr } from "../core/util";
-import { decryptKeystoreListSync } from "./keystore";
 
-import { JsonRpcProvider } from "./provider";
+import { decryptKeystoreListSync } from "./keystore";
 
 // @ethersproject/abstract-signer/src.ts/index.ts:allowedTransactionKeys
 const ethersAllowedTransactionKeys: Array<string> = [
@@ -117,8 +117,8 @@ export class Wallet extends EthersWallet {
 
   async populateTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionRequest> {
     let tx: TransactionRequest = this._convertTxFromRLP(transaction);
-    tx = await resolveProperties(tx); 
-    
+    tx = await resolveProperties(tx);
+
     if (!KlaytnTxFactory.has(tx.type)) {
       return super.populateTransaction(tx);
     }
@@ -185,8 +185,8 @@ export class Wallet extends EthersWallet {
 
   async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
     let tx: TransactionRequest = this._convertTxFromRLP(transaction);
-    tx = await resolveProperties(tx); 
-    
+    tx = await resolveProperties(tx);
+
     if (!KlaytnTxFactory.has(tx.type)) {
       return super.signTransaction(tx);
     }
@@ -207,9 +207,9 @@ export class Wallet extends EthersWallet {
   }
 
   async signTransactionAsFeePayer(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    let tx: TransactionRequest = this._convertTxFromRLP(transaction);
-    
-    // @ts-ignore : chainId can be omitted from RLP encoded format 
+    const tx: TransactionRequest = this._convertTxFromRLP(transaction);
+
+    // @ts-ignore : chainId can be omitted from RLP encoded format
     if (!tx.chainId) {
       // @ts-ignore
       tx.chainId = this.getChainId();
@@ -243,39 +243,48 @@ export class Wallet extends EthersWallet {
   async sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
     this._checkProvider("sendTransaction");
 
-    let tx: TransactionRequest = this._convertTxFromRLP(transaction);
-    let ptx = await this.populateTransaction(tx);
+    const tx: TransactionRequest = this._convertTxFromRLP(transaction);
+    const ptx = await this.populateTransaction(tx);
     const signedTx = await this.signTransaction(ptx);
 
     if (!KlaytnTxFactory.has(ptx.type)) {
       return await this.provider.sendTransaction(signedTx);
     }
 
-    if (this.provider instanceof EthersJsonRpcProvider) {
-      // eth_sendRawTransaction cannot process Klaytn typed transactions.
-      const txhash = await this.provider.send("klay_sendRawTransaction", [signedTx]);
-      return await this.provider.getTransaction(txhash);
-    } else {
-      throw new Error("Klaytn typed transaction can only be broadcasted to a Klaytn JSON-RPC server");
-    }
+    return this._sendRawTransaction(signedTx);
   }
 
   async sendTransactionAsFeePayer(transaction: Deferrable<TransactionRequest> | string): Promise<TransactionResponse> {
     this._checkProvider("sendTransactionAsFeePayer");
 
-    let tx: TransactionRequest = this._convertTxFromRLP(transaction);
-    let ptx = await this.populateTransaction(tx);
+    const tx: TransactionRequest = this._convertTxFromRLP(transaction);
+    const ptx = await this.populateTransaction(tx);
 
     // @ts-ignore : we have to add feePayer property
     ptx.feePayer = await this.getAddress();
     const signedTx = await this.signTransactionAsFeePayer(ptx);
 
-    if (this.provider instanceof EthersJsonRpcProvider) {
-      // eth_sendRawTransaction cannot process Klaytn typed transactions.
-      const txhash = await this.provider.send("klay_sendRawTransaction", [signedTx]);
-      return await this.provider.getTransaction(txhash);
-    } else {
+    return this._sendRawTransaction(signedTx);
+  }
+
+  async _sendRawTransaction(signedTx: string): Promise<TransactionResponse> {
+    if (!(this.provider instanceof EthersJsonRpcProvider)) {
       throw new Error("Klaytn typed transaction can only be broadcasted to a Klaytn JSON-RPC server");
+    } else {
+      const txhash = await this.provider.send("klay_sendRawTransaction", [signedTx]);
+
+      // Retry until the transaction shows up in the txpool
+      // Using poll() like in the ethers.JsonRpcProvider.sendTransaction
+      // https://github.com/ethers-io/ethers.js/blob/v5.7/packages/providers/src.ts/json-rpc-provider.ts#L283
+      const pollFunc = async () => {
+        const tx = await this.provider.getTransaction(txhash);
+        if (tx == null) {
+          return undefined; // retry
+        } else {
+          return tx; // success
+        }
+      };
+      return poll(pollFunc) as Promise<TransactionResponse>;
     }
   }
 
