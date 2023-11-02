@@ -21,6 +21,31 @@ KlaytnTxFactory.add(TxTypeAccountUpdate);
 KlaytnTxFactory.add(TxTypeCancel);
 
 import {
-  TxTypeFeeDelegatedValueTransfer
+  TxTypeFeeDelegatedValueTransfer,
+  TxTypeFeeDelegatedValueTransferMemo,
+  TxTypeFeeDelegatedSmartContractDeploy,
+  TxTypeFeeDelegatedSmartContractExecution,
+  TxTypeFeeDelegatedAccountUpdate,
+  TxTypeFeeDelegatedCancel,
 } from "./feedelegated";
 KlaytnTxFactory.add(TxTypeFeeDelegatedValueTransfer);
+KlaytnTxFactory.add(TxTypeFeeDelegatedValueTransferMemo);
+KlaytnTxFactory.add(TxTypeFeeDelegatedSmartContractDeploy);
+KlaytnTxFactory.add(TxTypeFeeDelegatedSmartContractExecution);
+KlaytnTxFactory.add(TxTypeFeeDelegatedAccountUpdate);
+KlaytnTxFactory.add(TxTypeFeeDelegatedCancel);
+
+import {
+  TxTypeFeeDelegatedValueTransferWithRatio,
+  TxTypeFeeDelegatedValueTransferMemoWithRatio,
+  TxTypeFeeDelegatedSmartContractDeployWithRatio,
+  TxTypeFeeDelegatedSmartContractExecutionWithRatio,
+  TxTypeFeeDelegatedAccountUpdateWithRatio,
+  TxTypeFeeDelegatedCancelWithRatio,
+} from "./partialfeedelegated";
+KlaytnTxFactory.add(TxTypeFeeDelegatedValueTransferWithRatio);
+KlaytnTxFactory.add(TxTypeFeeDelegatedValueTransferMemoWithRatio);
+KlaytnTxFactory.add(TxTypeFeeDelegatedSmartContractDeployWithRatio);
+KlaytnTxFactory.add(TxTypeFeeDelegatedSmartContractExecutionWithRatio);
+KlaytnTxFactory.add(TxTypeFeeDelegatedAccountUpdateWithRatio);
+KlaytnTxFactory.add(TxTypeFeeDelegatedCancelWithRatio);
