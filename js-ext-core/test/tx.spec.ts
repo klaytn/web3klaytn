@@ -699,7 +699,13 @@ describe("KlaytnTxFactory", () => {
     const typesWithInput = [
       TxType.ValueTransferMemo,
       TxType.SmartContractDeploy,
-      TxType.SmartContractExecution, // TODO: add more
+      TxType.SmartContractExecution, 
+      TxType.FeeDelegatedValueTransferMemo,
+      TxType.FeeDelegatedSmartContractDeploy,
+      TxType.FeeDelegatedSmartContractExecution, 
+      TxType.FeeDelegatedValueTransferMemoWithRatio,
+      TxType.FeeDelegatedSmartContractDeployWithRatio,
+      TxType.FeeDelegatedSmartContractExecutionWithRatio, 
     ];
     _.each(typesWithInput, (type) => {
       assert.equal(KlaytnTxFactory.fromObject({ type, input: "0x6162" }).getField("data"), "0x6162");
@@ -708,8 +714,10 @@ describe("KlaytnTxFactory", () => {
   });
 
   it("empty to field in SmartContractDeploy", () => {
-    const deployTypes = [ // TODO: add 0x29, 0x2a
+    const deployTypes = [ 
       TxType.SmartContractDeploy,
+      TxType.FeeDelegatedSmartContractDeploy,
+      TxType.FeeDelegatedSmartContractDeployWithRatio,
     ];
     _.each(deployTypes, (type) => {
       assert.equal(KlaytnTxFactory.fromObject({ type, to: null }).getField("to"), "0x");
