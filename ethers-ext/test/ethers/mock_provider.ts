@@ -3,7 +3,7 @@ import { JsonRpcProvider as EthersProvider } from "@ethersproject/providers";
 import { ConnectionInfo } from "ethers/lib/utils";
 import _ from "lodash";
 
-import { JsonRpcProvider as KlaytnProvider } from "../../src/ethers";
+import { JsonRpcProvider as KlaytnProvider } from "../../src";
 
 type mockRpcHandler =
   (params: Array<any>) => (Promise<any> | any);
@@ -19,7 +19,7 @@ export class MockEthersProvider extends EthersProvider {
   send(method: string, params: Array<any>): Promise<any> {
     let handler = this.overrides[method];
     if (handler) {
-      return handler(params);
+      return Promise.resolve(handler(params));
     } else {
       console.log("mock fallback", method, params);
       return super.send(method, params);
@@ -45,7 +45,7 @@ export class MockKlaytnProvider extends KlaytnProvider {
   send(method: string, params: Array<any>): Promise<any> {
     let handler = this.overrides[method];
     if (handler) {
-      return handler(params);
+      return Promise.resolve(handler(params));
     } else {
       return super.send(method, params);
     }
