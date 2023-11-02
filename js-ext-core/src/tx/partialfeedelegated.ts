@@ -15,7 +15,7 @@ import { KlaytnTx } from "./factory";
 
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/partial-fee-delegation#txtypefeedelegatedvaluetransferwithratio
 export class TxTypeFeeDelegatedValueTransferWithRatio extends KlaytnTx {
-    static type = TxType.FeeDelegatedValueTransferMemoWithRatio;
+    static type = TxType.FeeDelegatedValueTransferWithRatio;
     static typeName = "TxTypeFeeDelegatedValueTransferWithRatio";
     static fieldTypes = {
       "type":         FieldTypeUint8,
