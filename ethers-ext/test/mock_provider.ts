@@ -3,7 +3,7 @@ import { JsonRpcProvider as EthersProvider } from "@ethersproject/providers";
 import { ConnectionInfo } from "ethers/lib/utils";
 import _ from "lodash";
 
-import { JsonRpcProvider as KlaytnProvider } from "../../src";
+import { JsonRpcProvider as KlaytnProvider } from "../src";
 
 type mockRpcHandler =
   (params: Array<any>) => (Promise<any> | any);

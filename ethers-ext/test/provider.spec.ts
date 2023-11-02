@@ -28,7 +28,7 @@ describe("Provider", () => {
     P.mock_override("txpool_status", () => txpoolStatus);
   });
 
-  it.only("non-eth namespaces", async () => {
+  it("non-eth namespaces", async () => {
     assert.deepEqual(await P.getBlockNumber(), parseInt(blockNum)); // eth_blockNumber
     assert.deepEqual(await P.admin.datadir(), "/home/ubuntu/klaytn/data");
     assert.deepEqual(await P.debug.traceTransaction(blockNum), trace);

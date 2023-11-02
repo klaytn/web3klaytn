@@ -1,6 +1,6 @@
 import { assert } from "chai";
 
-import { decryptKeystoreList, decryptKeystoreListSync } from "../../src";
+import { decryptKeystoreList, decryptKeystoreListSync } from "../src";
 
 describe("keystore", () => {
   const testcases = [

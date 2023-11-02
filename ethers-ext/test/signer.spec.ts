@@ -3,7 +3,7 @@ import chaiAsPromised from "chai-as-promised";
 import { BigNumber, Wallet as EthersWallet } from "ethers";
 import _ from "lodash";
 
-import { Wallet as KlaytnWallet } from "../../src";
+import { Wallet as KlaytnWallet } from "../src";
 
 import { MockEthersProvider, MockKlaytnProvider } from "./mock_provider";
 
