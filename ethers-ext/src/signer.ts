@@ -1,14 +1,13 @@
 import { Provider, TransactionRequest, TransactionResponse } from "@ethersproject/abstract-provider";
+import { ExternallyOwnedAccount } from "@ethersproject/abstract-signer";
 import { JsonRpcProvider as EthersJsonRpcProvider } from "@ethersproject/providers";
 import { Wallet as EthersWallet } from "@ethersproject/wallet";
 import { poll } from "@ethersproject/web";
-import { HexStr } from "@klaytn/js-ext-core";
+import { KlaytnTxFactory, HexStr, isFeePayerSigTxType, parseTransaction } from "@klaytn/js-ext-core";
 import { ethers } from "ethers";
-import { Bytes, Deferrable, ProgressCallback, computeAddress, hashMessage, keccak256, recoverAddress, resolveProperties } from "ethers/lib/utils";
+import { Bytes, BytesLike, Deferrable, ProgressCallback, SigningKey, computeAddress, hashMessage, keccak256, recoverAddress, resolveProperties } from "ethers/lib/utils";
 import _ from "lodash";
 
-import { KlaytnTxFactory } from "./core";
-import { encodeTxForRPC, objectFromRLP } from "./core/klaytn_tx";
 import { decryptKeystoreList, decryptKeystoreListSync } from "./keystore";
 
 // @ethersproject/abstract-signer/src.ts/index.ts:allowedTransactionKeys
@@ -55,6 +54,16 @@ function restoreCustomFields(tx: Deferrable<TransactionRequest>, savedFields: an
   }
 }
 
+async function getTransactionRequest(transactionOrRLP: Deferrable<TransactionRequest> | string): Promise<TransactionRequest> {
+  if (_.isString(transactionOrRLP)) {
+    return parseTransaction(transactionOrRLP) as TransactionRequest;
+  } else {
+    const tx = transactionOrRLP;
+    return resolveProperties(tx);
+  }
+}
+
+type PrivateKeyLike = BytesLike | ExternallyOwnedAccount | SigningKey;
 
 export class Wallet extends EthersWallet {
   // Override Wallet factories accepting keystores to support KIP-3 (v4) format
@@ -79,40 +88,47 @@ export class Wallet extends EthersWallet {
     return _.map(privateKeyList, (privateKey) => new Wallet(address, privateKey));
   }
 
-  private klaytn_address: string | undefined;
+  // Decoupled account address. Defined only if specified in constructor.
+  private klaytnAddr: string | undefined;
 
-  constructor(address: any, privateKey?: any, provider?: Provider) {
-    const str_addr = String(address);
-
-    if (HexStr.isHex(address) && (str_addr.length == 40 || str_addr.length == 42)) {
+  // new KlaytnWallet(privateKey, provider?) or
+  // new KlaytnWallet(address, privateKey, provider?)
+  constructor(
+    addressOrPrivateKey: string | PrivateKeyLike,
+    privateKeyOrProvider?: PrivateKeyLike | Provider,
+    provider?: Provider) {
+    // First argument is an address.
+    if (HexStr.isHex(addressOrPrivateKey, 20)) {
+      const address = HexStr.from(addressOrPrivateKey);
+      const privateKey = privateKeyOrProvider as PrivateKeyLike;
       super(privateKey, provider);
-      this.klaytn_address = ethers.utils.getAddress(address);
-    } else {
-      provider = privateKey;
-      privateKey = address;
-      super(privateKey, provider);
+      this.klaytnAddr = address;
+    } else { // First argument is a private key.
+      const privateKey = addressOrPrivateKey as PrivateKeyLike;
+      const _provider = privateKeyOrProvider as Provider;
+      super(privateKey, _provider);
     }
   }
 
-  getAddress(): Promise<string> {
-    if (this.klaytn_address == undefined) {
+  getAddress(legacy?: boolean): Promise<string> {
+    if (legacy || !this.klaytnAddr) {
       return super.getAddress();
+    } else {
+      return Promise.resolve(this.klaytnAddr);
     }
-    return Promise.resolve(String(this.klaytn_address));
   }
 
+  // @deprecated in favor of getAddress(true)
   getEtherAddress(): Promise<string> {
     return super.getAddress();
   }
 
   async isDecoupled(): Promise<boolean> {
-    if (this.klaytn_address == undefined) {
+    if (!this.klaytnAddr) {
       return false;
+    } else {
+      return (await this.getAddress(false)) == (await this.getAddress(true));
     }
-
-    const addr = await this.getAddress();
-    const Eaddr = await this.getEtherAddress();
-    return addr != Eaddr;
   }
 
   checkTransaction(transaction: Deferrable<TransactionRequest>): Deferrable<TransactionRequest> {
@@ -124,168 +140,124 @@ export class Wallet extends EthersWallet {
     return tx;
   }
 
-  _convertTxFromRLP(transaction: Deferrable<TransactionRequest> | string): any {
-    if (typeof transaction === "string") {
-      if (HexStr.isHex(transaction)) {
-        return this.decodeTxFromRLP(transaction);
-      } else {
-        throw new Error("String type input has to be RLP encoded Hex string.");
-      }
-    } else {
-      return transaction;
-    }
-  }
-
   async populateTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionRequest> {
-    let tx: TransactionRequest = this._convertTxFromRLP(transaction);
-    tx = await resolveProperties(tx);
+    const tx = await getTransactionRequest(transaction);
 
+    // Not a Klaytn TxType; fallback to ethers.Wallet
     if (!KlaytnTxFactory.has(tx.type)) {
       return super.populateTransaction(tx);
     }
 
-    // Klaytn AccountKey is not matched with pubKey of the privateKey
-    if (!(tx.nonce) && !!(this.klaytn_address)) {
-      if (this.provider instanceof EthersJsonRpcProvider) {
-        const result = await this.provider.getTransactionCount(this.klaytn_address);
-        tx.nonce = result;
-      } else {
-        throw new Error("Klaytn transaction can only be populated from a Klaytn JSON-RPC server");
-      }
+    // If the account address is decoupled from private key,
+    // the ethers.Wallet.populateTransaction() may fill the nonce of the wrong address.
+    if (!tx.nonce) {
+      tx.nonce = await this.provider.getTransactionCount(await this.getAddress());
     }
 
-    if (!(tx.gasPrice)) {
-      if (this.provider instanceof EthersJsonRpcProvider) {
-        const result = await this.provider.send("klay_gasPrice", []);
-        tx.gasPrice = result;
-      } else {
-        throw new Error("Klaytn transaction can only be populated from a Klaytn JSON-RPC server");
-      }
+    // Sometimes estimateGas underestimates the required gas limit.
+    // Therefore adding some buffer to the RPC result.
+    // Other cases:
+    // - ethers.js uses estimateGas result as-is.
+    // - Metamask multiplies by 1 or 1.5 depending on chainId
+    //   (https://github.com/MetaMask/metamask-extension/blob/v11.3.0/ui/ducks/send/helpers.js#L126)
+    // TODO: To minimize buffer, add constant intrinsic gas overhead instead of multiplier.
+    if (!tx.gasLimit) {
+      const bufferMultiplier = 2.5;
+      const gasLimit = await this.provider.estimateGas(tx);
+      tx.gasLimit = Math.ceil(gasLimit.toNumber() * bufferMultiplier);
     }
 
-    if (!(tx.gasLimit) && !!(tx.to)) {
-      if (this.provider instanceof EthersJsonRpcProvider) {
-        const ttx = encodeTxForRPC(tx);
-
-        const result = await this.provider.send("klay_estimateGas", [ttx]);
-        // For the problem that estimateGas does not exactly match,
-        // the code for adding some Gas must be processed in the wallet or Dapp.
-        // e.g.
-        //   In ethers, no special logic to modify Gas
-        //   In Metamask, multiply 1.5 to Gas for ensuring that the estimated gas is sufficient
-        //   https://github.com/MetaMask/metamask-extension/blob/9d38e537fca4a61643743f6bf3409f20189eb8bb/ui/ducks/send/helpers.js#L115
-        tx.gasLimit = Math.ceil(result * 2.5);
-      } else {
-        throw new Error("Klaytn transaction can only be populated from a Klaytn JSON-RPC server");
-      }
-    }
-
+    // Leave rest of the fields to ethers
     const savedFields = saveCustomFields(tx);
-    tx = await super.populateTransaction(tx);
-    restoreCustomFields(tx, savedFields);
+    const populatedTx = await super.populateTransaction(tx);
+    restoreCustomFields(populatedTx, savedFields);
 
-    return tx;
+    return populatedTx;
   }
 
-  // TODO: refactor like below
-  // async rpc_estimateGas(tx: TransactionRequest): Promise<number> {
-  //   let allowExtra = {
-
-  //   }
-  //   let rpcTx = JsonRpcProvider.hexlifyTransaction(tx, allowExtra);
-
-  //   if (this.provider instanceof JsonRpcProvider ) {
-
-  //   }
-  //   return 0;
-  // }
-
-  decodeTxFromRLP(str :string): any {
-    return objectFromRLP(str);
+  // @deprecated in favor of parseTransaction
+  decodeTxFromRLP(rlp :string): any {
+    return parseTransaction(rlp);
   }
 
+  // Sign as a sender
+  // tx.sigs += Sign(tx.sigRLP(), wallet.privateKey)
+  // return tx.txHashRLP() or tx.senderTxHashRLP();
   async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    let tx: TransactionRequest = this._convertTxFromRLP(transaction);
-    tx = await resolveProperties(tx);
+    const tx = await getTransactionRequest(transaction);
 
+    // Not a Klaytn TxType; fallback to ethers.Wallet
     if (!KlaytnTxFactory.has(tx.type)) {
       return super.signTransaction(tx);
     }
 
-    const ttx = KlaytnTxFactory.fromObject(tx);
-    const sigHash = keccak256(ttx.sigRLP());
-    const sig = this._signingKey().signDigest(sigHash);
+    const klaytnTx = KlaytnTxFactory.fromObject(tx);
 
-    if (tx.chainId) { // EIP-155
-      sig.v = sig.recoveryParam + tx.chainId * 2 + 35;
-    }
-    ttx.addSenderSig(sig);
+    const sigHash = keccak256(klaytnTx.sigRLP());
+    const sig = this._eip155sign(sigHash, tx.chainId);
+    klaytnTx.addSenderSig(sig);
 
-    if (ttx.hasFeePayer()) {
-      return ttx.senderTxHashRLP();
+    if (isFeePayerSigTxType(klaytnTx.type)) {
+      return klaytnTx.senderTxHashRLP();
+    } else {
+      return klaytnTx.txHashRLP();
     }
-    return ttx.txHashRLP();
   }
 
+  // Sign as a fee payer
+  // tx.feepayerSigs += Sign(tx.sigFeePayerRLP(), wallet.privateKey)
+  // return tx.txHashRLP();
   async signTransactionAsFeePayer(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    const tx: TransactionRequest = this._convertTxFromRLP(transaction);
+    const tx = await getTransactionRequest(transaction);
 
-    // @ts-ignore : chainId can be omitted from RLP encoded format
-    if (!tx.chainId) {
-      // @ts-ignore
-      tx.chainId = this.getChainId();
-    }
-    const rtx: TransactionRequest = await resolveProperties(tx);
-
-    // @ts-ignore : we have to add feePayer property
-    if (!rtx.feePayer) {
-      // @ts-ignore : we have to add feePayer property
-      rtx.feePayer = await this.getAddress();
+    // Not a Klaytn TxType; not supported
+    if (!KlaytnTxFactory.has(tx.type)) {
+      throw new Error(`feePayer signature not supported for tx type ${tx.type}`);
     }
 
-    const ttx = KlaytnTxFactory.fromObject(rtx);
-    if (!ttx.hasFeePayer()) {
-      throw new Error("This transaction can not be signed as FeePayer");
+    // Automatically populate 'feePayer' field, just like how 'from' field is populated.
+    // @ts-ignore: feePayer field does not exist in ethers.TransactionRequest type
+    tx.feePayer ??= await this.getAddress();
+    const klaytnTx = KlaytnTxFactory.fromObject(tx);
+    if (!isFeePayerSigTxType(klaytnTx.type)) {
+      klaytnTx.throwTypeError("feePayer signature not supported");
     }
 
-    const sigFeePayerHash = keccak256(ttx.sigFeePayerRLP());
-    const sig = this._signingKey().signDigest(sigFeePayerHash);
+    const sigFeePayerHash = keccak256(klaytnTx.sigFeePayerRLP());
+    const sig = this._eip155sign(sigFeePayerHash, tx.chainId);
+    klaytnTx.addFeePayerSig(sig);
 
-    // @ts-ignore : we have to add feePayer property
-    if (tx.chainId) { // EIP-155
-      // @ts-ignore : we have to add feePayer property
-      sig.v = sig.recoveryParam + tx.chainId * 2 + 35;
-    }
-    ttx.addFeePayerSig(sig);
-
-    return ttx.txHashRLP();
+    return klaytnTx.txHashRLP();
   }
 
   async sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
     this._checkProvider("sendTransaction");
 
-    const tx: TransactionRequest = this._convertTxFromRLP(transaction);
-    const ptx = await this.populateTransaction(tx);
-    const signedTx = await this.signTransaction(ptx);
+    const populatedTx = await this.populateTransaction(transaction);
+    const signedTx = await this.signTransaction(populatedTx);
 
-    if (!KlaytnTxFactory.has(ptx.type)) {
+    if (!KlaytnTxFactory.has(populatedTx.type)) {
       return await this.provider.sendTransaction(signedTx);
+    } else {
+      return await this._sendRawTransaction(signedTx);
     }
-
-    return this._sendRawTransaction(signedTx);
   }
 
-  async sendTransactionAsFeePayer(transaction: Deferrable<TransactionRequest> | string): Promise<TransactionResponse> {
+  async sendTransactionAsFeePayer(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
     this._checkProvider("sendTransactionAsFeePayer");
 
-    const tx: TransactionRequest = this._convertTxFromRLP(transaction);
-    const ptx = await this.populateTransaction(tx);
+    const populatedTx = await this.populateTransaction(transaction);
+    const signedTx = await this.signTransactionAsFeePayer(populatedTx);
 
-    // @ts-ignore : we have to add feePayer property
-    ptx.feePayer = await this.getAddress();
-    const signedTx = await this.signTransactionAsFeePayer(ptx);
+    return await this._sendRawTransaction(signedTx);
+  }
 
-    return this._sendRawTransaction(signedTx);
+  _eip155sign(digest: string, chainId?: number) {
+    const sig = this._signingKey().signDigest(digest);
+    if (chainId) {
+      sig.v = sig.recoveryParam + chainId * 2 + 35;
+    }
+    return sig;
   }
 
   async _sendRawTransaction(signedTx: string): Promise<TransactionResponse> {
