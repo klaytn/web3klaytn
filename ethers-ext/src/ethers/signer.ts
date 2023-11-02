@@ -3,14 +3,13 @@ import { JsonRpcProvider as EthersJsonRpcProvider } from "@ethersproject/provide
 import { Wallet as EthersWallet } from "@ethersproject/wallet";
 import { poll } from "@ethersproject/web";
 import { ethers } from "ethers";
-import { Bytes, Deferrable, computeAddress, hashMessage, keccak256, recoverAddress, resolveProperties } from "ethers/lib/utils";
+import { Bytes, Deferrable, ProgressCallback, computeAddress, hashMessage, keccak256, recoverAddress, resolveProperties } from "ethers/lib/utils";
 import _ from "lodash";
 
 import { KlaytnTxFactory } from "../core";
 import { encodeTxForRPC, objectFromRLP } from "../core/klaytn_tx";
 import { HexStr } from "../core/util";
-
-import { decryptKeystoreListSync } from "./keystore";
+import { decryptKeystoreList, decryptKeystoreListSync } from "../keystore";
 
 // @ethersproject/abstract-signer/src.ts/index.ts:allowedTransactionKeys
 const ethersAllowedTransactionKeys: Array<string> = [
@@ -58,6 +57,28 @@ function restoreCustomFields(tx: Deferrable<TransactionRequest>, savedFields: an
 
 
 export class Wallet extends EthersWallet {
+  // Override Wallet factories accepting keystores to support KIP-3 (v4) format
+  static override async fromEncryptedJson(json: string, password: string | Bytes, progress?: ProgressCallback): Promise<Wallet> {
+    const { address, privateKey } = await decryptKeystoreList(json, password, progress);
+    return new Wallet(address, privateKey);
+  }
+
+  static override fromEncryptedJsonSync(json: string, password: string | Bytes): Wallet {
+    const { address, privateKey } = decryptKeystoreListSync(json, password);
+    return new Wallet(address, privateKey);
+  }
+
+  // New Wallet[] factories accepting keystores supporting KIP-3 (v4) format
+  static async fromEncryptedJsonList(json: string, password: string | Bytes, progress?: ProgressCallback): Promise<Wallet[]> {
+    const { address, privateKeyList } = await decryptKeystoreList(json, password, progress);
+    return _.map(privateKeyList, (privateKey) => new Wallet(address, privateKey));
+  }
+
+  static fromEncryptedJsonListSync(json: string, password: string | Bytes): Wallet[] {
+    const { address, privateKeyList } = decryptKeystoreListSync(json, password);
+    return _.map(privateKeyList, (privateKey) => new Wallet(address, privateKey));
+  }
+
   private klaytn_address: string | undefined;
 
   constructor(address: any, privateKey?: any, provider?: Provider) {
@@ -286,16 +307,6 @@ export class Wallet extends EthersWallet {
       };
       return poll(pollFunc) as Promise<TransactionResponse>;
     }
-  }
-
-  static fromEncryptedJsonSync(json: string, password: string | Bytes): Wallet {
-    const { address, privateKeys } = decryptKeystoreListSync(json, password);
-    return new Wallet(address, privateKeys[0]);
-  }
-
-  static fromEncryptedJsonListSync(json: string, password: string | Bytes): Wallet[] {
-    const { address, privateKeys } = decryptKeystoreListSync(json, password);
-    return _.map(privateKeys, (privateKey) => new Wallet(address, privateKey));
   }
 }
 
