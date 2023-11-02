@@ -6,10 +6,10 @@ import { ethers } from "ethers";
 import { Bytes, Deferrable, ProgressCallback, computeAddress, hashMessage, keccak256, recoverAddress, resolveProperties } from "ethers/lib/utils";
 import _ from "lodash";
 
-import { KlaytnTxFactory } from "../core";
-import { encodeTxForRPC, objectFromRLP } from "../core/klaytn_tx";
-import { HexStr } from "../core/util";
-import { decryptKeystoreList, decryptKeystoreListSync } from "../keystore";
+import { KlaytnTxFactory } from "./core";
+import { encodeTxForRPC, objectFromRLP } from "./core/klaytn_tx";
+import { HexStr } from "./core/util";
+import { decryptKeystoreList, decryptKeystoreListSync } from "./keystore";
 
 // @ethersproject/abstract-signer/src.ts/index.ts:allowedTransactionKeys
 const ethersAllowedTransactionKeys: Array<string> = [

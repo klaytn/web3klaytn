@@ -3,8 +3,7 @@ import { computeAddress } from "@ethersproject/transactions";
 import { BigNumber, ethers } from "ethers";
 import { computePublicKey } from "ethers/lib/utils";
 
-import { HexStr } from "../core/util";
-
+import { HexStr } from "./core/util";
 import { Wallet } from "./signer";
 
 // Accounts is array of Wallet in ethers.js Ext
