@@ -1,6 +1,8 @@
 // AccountKeyLegacy
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeylegacy
 
+const { sign } = require("crypto");
+
 const { Wallet } = require("@klaytn/ethers-ext");
 const { ethers } = require("ethers");
 
@@ -26,8 +28,23 @@ async function sendTx() {
   console.log("receipt", rc);
 }
 
+// Verify a transaction signed by an AccountKeyLegacy account
+async function verifyTx() {
+  let tx = {
+    from: senderAddr,
+    to: recieverAddr,
+    value: 0,
+  };
+
+  let signedTx = await wallet.signTransaction(tx);
+  console.log("signedTx", signedTx);
+
+  const addr1 = await provider.send("klay_recoverFromTransaction", [signedTx, "latest"]);
+  console.log("recoveredAddr rpc", addr1, addr1.toLowerCase() === senderAddr);
+}
+
 // Verify a message signed by an AccountKeyLegacy account
-async function recoverMsg() {
+async function verifyMsg() {
   const msg = "hello";
   const msghex = ethers.utils.hexlify(ethers.utils.toUtf8Bytes(msg));
   const sig = await wallet.signMessage(msg);
@@ -42,6 +59,7 @@ async function recoverMsg() {
 
 async function main() {
   await sendTx();
-  await recoverMsg();
+  await verifyTx();
+  await verifyMsg();
 }
 main().catch(console.error);
