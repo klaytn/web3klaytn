@@ -31,8 +31,9 @@
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
     "@types/elliptic": "^6.4.16",
+    "@types/jest": "^29.5.7",
     "@types/lodash": "^4.14.199",
-    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.8.10",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
@@ -49,6 +50,7 @@
     "@ethersproject/rlp": "^5.7.0",
     "@ethersproject/transactions": "^5.7.0",
     "@ethersproject/units": "^5.7.0",
+    "build": "^0.1.4",
     "elliptic": "^6.5.4",
     "lodash": "^4.17.21"
   }
