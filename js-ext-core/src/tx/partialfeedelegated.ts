@@ -79,7 +79,7 @@ export class TxTypeFeeDelegatedValueTransferMemoWithRatio extends KlaytnTx {
       "to":           FieldTypeAddress,
       "value":        FieldTypeUint256,
       "from":         FieldTypeAddress,
-      "input":        FieldTypeBytes,
+      "data":         FieldTypeBytes,
       "feeRatio":     FieldTypeUint8,
       "chainId":      FieldTypeUint64,
       "txSignatures": FieldTypeSignatureTuples,
@@ -90,35 +90,35 @@ export class TxTypeFeeDelegatedValueTransferMemoWithRatio extends KlaytnTx {
     // SigRLP = encode([encode([type, nonce, gasPrice, gas, to, value, from, input, feeRatio]), chainid, 0, 0])
     sigRLP(): string {
       return this.encodeNestedRLP(
-        ["type", "nonce", "gasPrice", "gasLimit", "to", "value", "from", "input", "feeRatio"],
+        ["type", "nonce", "gasPrice", "gasLimit", "to", "value", "from", "data", "feeRatio"],
         ["chainId"]);
     }
   
     // SigFeePayerRLP = encode([encode([type, nonce, gasPrice, gas, to, value, from, input, feeRatio]), feePayer, chainid, 0, 0])
     sigFeePayerRLP(): string {
       return this.encodeNestedRLP(
-        ["type", "nonce", "gasPrice", "gasLimit", "to", "value", "from", "input", "feeRatio"],
+        ["type", "nonce", "gasPrice", "gasLimit", "to", "value", "from", "data", "feeRatio"],
         ["feePayer", "chainId"]);
     }
   
     // SenderTxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, feeRatio, txSignatures])
     senderTxHashRLP(): string {
       return this.encodeTypePrefixedRLP(
-        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "input", "feeRatio", "txSignatures"]);
+        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "data", "feeRatio", "txSignatures"]);
     }
   
     // TxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, feeRatio, txSignatures, feePayer, feePayerSignatures])
     txHashRLP(): string {
       return this.encodeTypePrefixedRLP(
-        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "input", "feeRatio", "txSignatures", "feePayer", "feePayerSignatures"]);
+        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "data", "feeRatio", "txSignatures", "feePayer", "feePayerSignatures"]);
     }
   
     // SenderTxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, feeRatio, txSignatures])
     // TxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, feeRatio, txSignatures, feePayer, feePayerSignatures])
     setFieldsFromRLP(rlp: string): void {
       this.decodeTypePrefixedVarlenRLP(rlp, 
-        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "input", "feeRatio", "txSignatures"], 
-        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "input", "feeRatio", "txSignatures", "feePayer", "feePayerSignatures"]);
+        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "data", "feeRatio", "txSignatures"], 
+        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "data", "feeRatio", "txSignatures", "feePayer", "feePayerSignatures"]);
     }
 }
   
@@ -134,7 +134,7 @@ export class TxTypeFeeDelegatedSmartContractDeployWithRatio extends KlaytnTx {
       "to":           FieldTypeAddress,
       "value":        FieldTypeUint256,
       "from":         FieldTypeAddress,
-      "input":        FieldTypeBytes,
+      "data":        FieldTypeBytes,
       "humanReadable": FieldTypeBool,
       "feeRatio":     FieldTypeUint8,
       "codeFormat":   FieldTypeUint8,
@@ -147,35 +147,35 @@ export class TxTypeFeeDelegatedSmartContractDeployWithRatio extends KlaytnTx {
     // SigRLP = encode([encode([type, nonce, gasPrice, gas, to, value, from, input, humanReadable, feeRatio, codeFormat]), chainid, 0, 0])
     sigRLP(): string {
       return this.encodeNestedRLP(
-        ["type", "nonce", "gasPrice", "gasLimit", "to", "value", "from", "input", "humanReadable", "feeRatio", "codeFormat"],
+        ["type", "nonce", "gasPrice", "gasLimit", "to", "value", "from", "data", "humanReadable", "feeRatio", "codeFormat"],
         ["chainId"]);
     }
   
     // SigFeePayerRLP = encode([encode([type, nonce, gasPrice, gas, to, value, from, input, humanReadable, feeRatio, codeFormat]), feePayer, chainid, 0, 0])
     sigFeePayerRLP(): string {
       return this.encodeNestedRLP(
-        ["type", "nonce", "gasPrice", "gasLimit", "to", "value", "from", "input", "humanReadable", "feeRatio", "codeFormat"],
+        ["type", "nonce", "gasPrice", "gasLimit", "to", "value", "from", "data", "humanReadable", "feeRatio", "codeFormat"],
         ["feePayer", "chainId"]);
     }
   
     // SenderTxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, humanReadable, feeRatio, codeFormat, txSignatures])
     senderTxHashRLP(): string {
       return this.encodeTypePrefixedRLP(
-        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "input", "humanReadable", "feeRatio", "codeFormat", "txSignatures"]);
+        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "data", "humanReadable", "feeRatio", "codeFormat", "txSignatures"]);
     }
   
     // TxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, humanReadable, feeRatio, codeFormat, txSignatures, feePayer, feePayerSignatures])
     txHashRLP(): string {
       return this.encodeTypePrefixedRLP(
-        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "input", "humanReadable", "feeRatio", "codeFormat", "txSignatures", "feePayer", "feePayerSignatures"]);
+        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "data", "humanReadable", "feeRatio", "codeFormat", "txSignatures", "feePayer", "feePayerSignatures"]);
     }
   
     // SenderTxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, humanReadable, feeRatio, codeFormat, txSignatures])
     // TxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, humanReadable, feeRatio, codeFormat, txSignatures, feePayer, feePayerSignatures])
     setFieldsFromRLP(rlp: string): void {
       this.decodeTypePrefixedVarlenRLP(rlp, 
-        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "input", "humanReadable", "feeRatio", "codeFormat", "txSignatures"],
-        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "input", "humanReadable", "feeRatio", "codeFormat", "txSignatures", "feePayer", "feePayerSignatures"]);
+        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "data", "humanReadable", "feeRatio", "codeFormat", "txSignatures"],
+        ["nonce", "gasPrice", "gasLimit", "to", "value", "from", "data", "humanReadable", "feeRatio", "codeFormat", "txSignatures", "feePayer", "feePayerSignatures"]);
     }
 }
   
