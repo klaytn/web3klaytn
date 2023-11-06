@@ -69,14 +69,21 @@ export default class <&classname> {
       let postBody = <#bodyParam>new <dataType>(undefined, undefined, undefined)</bodyParam>;
       let optsIndex = 0;
       postBody.params = [];
-      <#queryParams><#required>
-      postBody.params.push(<paramName>);</required><^required>
-      var optParam = opts['<paramName>'] || opts[optsIndex++];
-      if (optParam === undefined || optParam === null) {
-        throw new Error("Missing the required parameter '<paramName>' when calling <operationId>");
-      }
-      postBody.params.push(optParam);
-      </required></queryParams>
+      <#queryParams>
+        <#required>
+          postBody.params.push(<paramName>);</required>
+        <^required>
+          var defaultValue = null;
+          <#vendorExtensions.x-default-latest>defaultValue = "latest";</vendorExtensions.x-default-latest>
+          <#vendorExtensions.x-default-emptyobj>defaultValue = {};</vendorExtensions.x-default-emptyobj>
+
+          var optParam = opts['<paramName>'] || opts[optsIndex++] || defaultValue;
+          if (optParam === undefined || optParam === null) {
+            throw new Error("Missing the required parameter '<paramName>' when calling <operationId>");
+          }
+          postBody.params.push(optParam);
+        </required>
+      </queryParams>
 
       let authNames = [<#authMethods>'<name>'<^-last>, </-last></authMethods>];
       let contentTypes = [<#consumes>'<& mediaType>'<^-last>, </-last></consumes>];
