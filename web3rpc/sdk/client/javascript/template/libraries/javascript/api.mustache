@@ -1,5 +1,15 @@
 {{>licenseInfo}}
 
+{{! NOTE-Klaytn: The "optional" parameter must present in the JSON-RPC body anyway. Hence they are actually "required".
+    Instead of marking them required in the YAML spec, we handle them in the generated code. It is JavaScript specific problem.
+
+    Because how openapi-generator works, we have to take out the optional parameters from the "opts".
+    See https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/java/org/openapitools/codegen/languages/JavascriptClientCodegen.java
+    and https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/Javascript/libraries/javascript/api.mustache
+
+    Unlike the original openapi-generator, the "opts" can be an Object or an Array for convenience of @klaytn/js-ext-core:promisifyMethod.
+    See https://github.com/klaytn/web3klaytn/blob/main/js-ext-core/src/util/openapi.ts }}
+
 {{=< >=}}
 import ApiClient from "../ApiClient";
 <#imports>import <&import> from '../<#modelPackage><&modelPackage>/</modelPackage><import>';
@@ -57,12 +67,16 @@ export default class <&classname> {
 </allParams>
 
       let postBody = <#bodyParam>new <dataType>(undefined, undefined, undefined)</bodyParam>;
+      let optsIndex = 0;
       postBody.params = [];
       <#queryParams><#required>
       postBody.params.push(<paramName>);</required><^required>
-      if(opts['<paramName>']) {
-        postBody.params.push(opts['<paramName>']);
-      }</required></queryParams>
+      var optParam = opts['<paramName>'] || opts[optsIndex++];
+      if (optParam === undefined || optParam === null) {
+        throw new Error("Missing the required parameter '<paramName>' when calling <operationId>");
+      }
+      postBody.params.push(optParam);
+      </required></queryParams>
 
       let authNames = [<#authMethods>'<name>'<^-last>, </-last></authMethods>];
       let contentTypes = [<#consumes>'<& mediaType>'<^-last>, </-last></consumes>];
