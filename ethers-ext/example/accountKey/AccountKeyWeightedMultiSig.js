@@ -1,9 +1,12 @@
 // AccountKeyWeightedMultiSig Step 01 - account update
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeyweightedmultisig
 
-const { Wallet } = require("@klaytn/ethers-ext");
-const { TxType, AccountKeyType, parseKlay } = require("@klaytn/js-ext-core");
+// const { Wallet } = require("@klaytn/ethers-ext");
+// const { TxType, AccountKeyType, parseKlay } = require("@klaytn/js-ext-core");
 const { ethers } = require("ethers");
+
+const { Wallet } = require("../../../ethers-ext/dist");
+const { TxType, AccountKeyType, parseKlay } = require("../../../js-ext-core/dist");
 
 const senderAddr = "0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e";
 // const senderPriv = "0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a";
@@ -29,13 +32,20 @@ async function updateAccount() {
     gasLimit: 1000000,
     key: {
       type: AccountKeyType.WeightedMultiSig,
+      threshold: 2,
       keys: [
-        2, // threshold
-        [
-          [1, senderNewPub1],
-          [1, senderNewPub2],
-          [1, senderNewPub3]
-        ]
+        {
+          "weight": 1,
+          "key": senderNewPub1
+        },
+        {
+          "weight": 1,
+          "key": senderNewPub2
+        },
+        {
+          "weight": 1,
+          "key": senderNewPub3
+        }
       ]
     }
   };
@@ -94,10 +104,10 @@ async function recoverMsg() {
   console.log({ senderAddr, msg, msghex, sig });
 
   const addr1 = ethers.utils.verifyMessage(msg, sig);
-  console.log("recoveredAddr lib", addr1, addr1.toLowerCase() === senderAddr);
+  console.log("recoveredAddr lib", addr1, addr1.toLowerCase() === wallet2.address.toLowerCase());
 
   const addr2 = await provider.send("klay_recoverFromMessage", [senderAddr, msghex, sig, "latest"]);
-  console.log("recoveredAddr rpc", addr2, addr2.toLowerCase() === senderAddr);
+  console.log("recoveredAddr rpc", addr2, addr2.toLowerCase() === wallet2.address.toLowerCase());
 }
 
 async function main() {

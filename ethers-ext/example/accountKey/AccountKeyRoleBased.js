@@ -22,10 +22,6 @@ async function updateAccount() {
   let pub2 = new ethers.utils.SigningKey(senderRoleAccountUpdatePriv).compressedPublicKey;
   let pub3 = new ethers.utils.SigningKey(senderRoleFeePayerPriv).compressedPublicKey;
 
-  console.log("1", pub1);
-  console.log("2", pub2);
-  console.log("3", pub3);
-
   let tx = {
     type: TxType.AccountUpdate,
     from: senderAddr,
@@ -86,10 +82,10 @@ async function recoverMsg() {
   console.log({ senderAddr, msg, msghex, sig });
 
   const addr1 = ethers.utils.verifyMessage(msg, sig);
-  console.log("recoveredAddr lib", addr1, addr1.toLowerCase() === senderAddr);
+  console.log("recoveredAddr lib", addr1, addr1.toLowerCase() === wallet2.address.toLowerCase());
 
   const addr2 = await provider.send("klay_recoverFromMessage", [senderAddr, msghex, sig, "latest"]);
-  console.log("recoveredAddr rpc", addr2, addr2.toLowerCase() === senderAddr);
+  console.log("recoveredAddr rpc", addr2, addr2.toLowerCase() === wallet2.address.toLowerCase());
 }
 
 async function main() {

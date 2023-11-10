@@ -58,10 +58,10 @@ async function recoverMsg() {
   console.log({ senderAddr, msg, msghex, sig });
 
   const addr1 = ethers.utils.verifyMessage(msg, sig);
-  console.log("recoveredAddr lib", addr1, addr1.toLowerCase() === senderAddr);
+  console.log("recoveredAddr lib", addr1, addr1.toLowerCase() === wallet2.address.toLowerCase());
 
   const addr2 = await provider.send("klay_recoverFromMessage", [senderAddr, msghex, sig, "latest"]);
-  console.log("recoveredAddr rpc", addr2, addr2.toLowerCase() === senderAddr);
+  console.log("recoveredAddr rpc", addr2, addr2.toLowerCase() === wallet2.address.toLowerCase());
 }
 
 async function main() {
