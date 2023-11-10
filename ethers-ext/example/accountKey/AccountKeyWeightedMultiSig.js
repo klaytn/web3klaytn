@@ -1,12 +1,9 @@
 // AccountKeyWeightedMultiSig Step 01 - account update
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeyweightedmultisig
 
-// const { Wallet } = require("@klaytn/ethers-ext");
-// const { TxType, AccountKeyType, parseKlay } = require("@klaytn/js-ext-core");
+const { Wallet } = require("@klaytn/ethers-ext");
+const { TxType, AccountKeyType, parseKlay } = require("@klaytn/js-ext-core");
 const { ethers } = require("ethers");
-
-const { Wallet } = require("../../../ethers-ext/dist");
-const { TxType, AccountKeyType, parseKlay } = require("../../../js-ext-core/dist");
 
 const senderAddr = "0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e";
 // const senderPriv = "0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a";
@@ -34,18 +31,9 @@ async function updateAccount() {
       type: AccountKeyType.WeightedMultiSig,
       threshold: 2,
       keys: [
-        {
-          "weight": 1,
-          "key": senderNewPub1
-        },
-        {
-          "weight": 1,
-          "key": senderNewPub2
-        },
-        {
-          "weight": 1,
-          "key": senderNewPub3
-        }
+        [1, senderNewPub1],
+        [1, senderNewPub2],
+        [1, senderNewPub3]
       ]
     }
   };
