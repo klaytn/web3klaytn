@@ -1,0 +1,61 @@
+{
+    "version": 4,
+    "id": "31b27eee-8554-46df-b11b-d7262916d4c2",
+    "address": "0x5bd2fb3c21564c023a4a735935a2b7a238c4ccea",
+    "keyring": [
+        [
+            {
+                "ciphertext": "992452cfa2b07e0e1494e6a9893db328ec77feb861a88ced36aafcc61834d86b",
+                "cipherparams": {
+                    "iv": "38d8fbb04aecc96a7eb588f8d057ac83"
+                },
+                "cipher": "aes-128-ctr",
+                "kdf": "scrypt",
+                "kdfparams": {
+                    "dklen": 32,
+                    "salt": "9df721827cbff1dcd5b5a3985afccbb56ff84bb12022a59ee4b0ea37c24942da",
+                    "n": 4096,
+                    "r": 8,
+                    "p": 1
+                },
+                "mac": "6023d947acd1ebc8f34bae8a733b6405858e53f8c97f9c0336f98b6283e810ad"
+            }
+        ],
+        [
+            {
+                "ciphertext": "38ee5237a23582afac237754186826871eefa1aa39fb399f1ee1a65bd9c718ad",
+                "cipherparams": {
+                    "iv": "e001671a06e858d73d909ba46fe19b9c"
+                },
+                "cipher": "aes-128-ctr",
+                "kdf": "scrypt",
+                "kdfparams": {
+                    "dklen": 32,
+                    "salt": "76aec3736e47b6a65f1bc9ade9671b543dbed97c1900ac425e833097751a165f",
+                    "n": 4096,
+                    "r": 8,
+                    "p": 1
+                },
+                "mac": "f650635cf9ea93d57a876f47a777f98463a8f588bb223d8dc169b601987c7f7c"
+            }
+        ],
+        [
+            {
+                "ciphertext": "6c206c11b728761cd37532dd22d4525e05da1048c174f163d5665ee7e5b5284b",
+                "cipherparams": {
+                    "iv": "07455721fc33c9aaf7730197ec946207"
+                },
+                "cipher": "aes-128-ctr",
+                "kdf": "scrypt",
+                "kdfparams": {
+                    "dklen": 32,
+                    "salt": "b6bac6390f645eaf134a64cd401148c0e809897c29e8da1a7b3e33c3ed45e11a",
+                    "n": 4096,
+                    "r": 8,
+                    "p": 1
+                },
+                "mac": "83cc501c13f1397fb958cda7075e07cf388c417dd601ffb609cf4bc9e588ce02"
+            }
+        ]
+    ]
+}
