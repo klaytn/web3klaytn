@@ -1,6 +1,3 @@
-const { Wallet, TxType } = require("@klaytn/ethers-ext");
-const ethers = require("ethers");
-
 // TxTypeFeeDelegatedSmartContractDeployWithRatio
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/partial-fee-delegation#txtypefeedelegatedsmartcontractdeploywithratio
 //
@@ -9,18 +6,20 @@ const ethers = require("ethers");
 //   input: SmartContract binary,
 //   humanReadable: Must be false,
 //   codeFormat: Must be 0x00
-//
+
+const { Wallet } = require("@klaytn/ethers-ext");
+const { TxType } = require("@klaytn/js-ext-core");
+const ethers = require("ethers");
 
 const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153";
 const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
 const feePayerAddr = "0xcb0eb737dfda52756495a5e08a9b37aab3b271da";
 const feePayerPriv = "0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16fc000cff4";
 
-const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
-
 async function main() {
-  // sender
+  const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
   const senderWallet = new Wallet(senderPriv, provider);
+  const feePayerWallet = new Wallet(feePayerPriv, provider);
 
   let tx = {
     type: TxType.FeeDelegatedSmartContractDeployWithRatio,
@@ -32,17 +31,12 @@ async function main() {
     feeRatio: 30,
     codeFormat: 0x00,
   };
+
   tx = await senderWallet.populateTransaction(tx);
   console.log(tx);
 
   const senderTxHashRLP = await senderWallet.signTransaction(tx);
   console.log("senderTxHashRLP", senderTxHashRLP);
-
-  // fee payer
-  const feePayerWallet = new Wallet(feePayerPriv, provider);
-
-  tx = feePayerWallet.decodeTxFromRLP(senderTxHashRLP);
-  console.log(tx);
 
   const sentTx = await feePayerWallet.sendTransactionAsFeePayer(senderTxHashRLP);
   console.log("sentTx", sentTx);
