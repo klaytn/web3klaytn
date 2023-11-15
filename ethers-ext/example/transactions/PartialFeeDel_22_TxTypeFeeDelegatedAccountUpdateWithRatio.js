@@ -25,7 +25,7 @@ const feePayerPriv = "0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16f
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
-  const senderWallet = new Wallet(senderPriv, provider);
+  const senderWallet = new Wallet(senderAddr, senderPriv, provider);
   const feePayerWallet = new Wallet(feePayerPriv, provider);
 
   let tx = {
