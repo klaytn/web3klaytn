@@ -3,7 +3,7 @@ outputDir: ./openapi/
 inputSpec: ../../../rpc-specs/namespaces/all-except-eth.yaml 
 groupId: foundation.klaytn
 artifactId: web3rpc-java
-artifactVersion: v0.9.6
+artifactVersion: v0.9.7
 library: retrofit2
 templateDir: ./template
 globalProperties:
