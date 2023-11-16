@@ -57,7 +57,8 @@ paths:
     $ref: ./block/mining.yaml#/paths/~1eth~1mining
   /eth/block/getBlockTransactionCountByNumber:
     $ref: ./block/getBlockTransactionCountByNumber.yaml#/paths/~1eth~1getBlockTransactionCountByNumber
-
+  /eth/block/getBlockReceipt:
+    $ref: ./block/getBlockReceipts.yaml#/paths/~1eth~1getBlockReceipts
   # eth/transaction
   /eth/transaction/call:
     $ref: ./transaction/call.yaml#/paths/~1eth~1call

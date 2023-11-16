@@ -10,17 +10,17 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getBlockReceipts:
+  /eth/getBlockReceipts:
     post:
       operationId: getBlockReceipts
       summary: "[Block-getBlockReceipts]"
       description: |
         Returns receipts included in a block identified by block hash.
 
-        **JSONRPC:** `klay_getBlockReceipts`
+        **JSONRPC:** `eth_getBlockReceipts`
 
       tags:
-        - klay
+        - eth
 
       parameters:
         - name: hashOfBlock
@@ -53,19 +53,19 @@ paths:
         - lang: "curl"
           label: "Curl"
           source:
-            $ref: "../../../code-samples/curl/klay/block/getBlockReceipts.sh"
+            $ref: "../../../code-samples/curl/eth/block/getBlockReceipts.sh"
         - lang: "java"
           label: "Java"
           source:
-            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/block/KlayGetBlockReceiptsExample.java"
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/block/EthGetBlockReceiptsExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
-            $ref: "../../../code-samples/javascript/klay/block/getBlockReceipts.js"
+            $ref: "../../../code-samples/javascript/eth/block/getBlockReceipts.js"
         - lang: "python"
           label: "Python"
           source:
-            $ref: "../../../code-samples/python/klay/block/getBlockReceipts.py"
+            $ref: "../../../code-samples/python/eth/block/getBlockReceipts.py"
 
 components:
   schemas:
@@ -77,7 +77,7 @@ components:
       properties:
         method:
           type: string
-          default: 'klay_getBlockReceipts'
+          default: 'eth_getBlockReceipts'
         params:
           type: array
           description: Hash of a block

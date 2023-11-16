@@ -1,0 +1,202 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /admin/nodeInfo:
+    post:
+      operationId: nodeConfig
+      summary: "[admin_nodeConfig]"
+      description: |
+        A series of node configurations
+
+        **JSONRPC:** `admin_nodeConfig`
+
+      tags:
+        - admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/NodeConfigReq"
+
+      responses:
+        200:
+          description: The node config information.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/NodeConfigResp"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/admin/nodeConfig.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/admin/nodeConfig.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/admin/nodeConfig.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../code-samples/python/admin/nodeConfig.py"
+
+components:
+  schemas:
+    NodeConfigReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: "admin_nodeConfig"
+
+    NodeInfoResp:
+      type: object
+      properties:
+        result:
+          type: object
+          description: The node information.
+          example:
+            {
+              "Genesis": null,
+              "NetworkId": 203,
+              "SyncMode": "full",
+              "NoPruning": false,
+              "WorkerDisable": false,
+              "DownloaderDisable": false,
+              "FetcherDisable": false,
+              "ParentOperatorAddr": null,
+              "AnchoringPeriod": 0,
+              "SentChainTxsLimit": 0,
+              "OverwriteGenesis": false,
+              "StartBlockNumber": 0,
+              "DBType": "LevelDB",
+              "SkipBcVersionCheck": false,
+              "SingleDB": false,
+              "NumStateTrieShards": 4,
+              "EnableDBPerfMetrics": true,
+              "LevelDBCompression": 0,
+              "LevelDBBufferPool": true,
+              "LevelDBCacheSize": 768,
+              "DynamoDBConfig":
+                {
+                  "TableName": "",
+                  "Region": "ap-northeast-2",
+                  "Endpoint": "",
+                  "S3Endpoint": "",
+                  "IsProvisioned": false,
+                  "ReadCapacityUnits": 10000,
+                  "WriteCapacityUnits": 10000,
+                  "ReadOnly": false,
+                  "PerfCheck": false,
+                },
+              "RocksDBConfig":
+                {
+                  "Secondary": false,
+                  "DumpMallocStat": false,
+                  "DisableMetrics": false,
+                  "CacheSize": 768,
+                  "CompressionType": "lz4",
+                  "BottommostCompressionType": "zstd",
+                  "FilterPolicy": "ribbon",
+                  "MaxOpenFiles": 1024,
+                  "CacheIndexAndFilter": false,
+                },
+              "TrieCacheSize": 512,
+              "TrieTimeout": 300000000000,
+              "TrieBlockInterval": 128,
+              "TriesInMemory": 128,
+              "LivePruning": false,
+              "LivePruningRetention": 172800,
+              "SenderTxHashIndexing": false,
+              "ParallelDBWrite": true,
+              "TrieNodeCacheConfig":
+                {
+                  "CacheType": "LocalCache",
+                  "NumFetcherPrefetchWorker": 32,
+                  "UseSnapshotForPrefetch": false,
+                  "LocalCacheSizeMiB": 0,
+                  "FastCacheFileDir": "/klaytn/fastcache",
+                  "FastCacheSavePeriod": 0,
+                  "RedisEndpoints": null,
+                  "RedisClusterEnable": false,
+                  "RedisPublishBlockEnable": false,
+                  "RedisSubscribeBlockEnable": false,
+                },
+              "SnapshotCacheSize": 0,
+              "SnapshotAsyncGen": false,
+              "ServiceChainSigner": "0x0000000000000000000000000000000000000000",
+              "ExtraData": null,
+              "GasPrice": 0,
+              "Rewardbase": "0x3208ca99480f82bfe240ca6bc06110cd12bb6366",
+              "TxPool":
+                {
+                  "NoLocals": false,
+                  "AllowLocalAnchorTx": false,
+                  "DenyRemoteTx": false,
+                  "Journal": "/klaytn/klay/transactions.rlp",
+                  "JournalInterval": 3600000000000,
+                  "PriceLimit": 1,
+                  "PriceBump": 10,
+                  "ExecSlotsAccount": 16384,
+                  "ExecSlotsAll": 16384,
+                  "NonExecSlotsAccount": 16384,
+                  "NonExecSlotsAll": 16384,
+                  "KeepLocals": false,
+                  "Lifetime": 300000000000,
+                  "NoAccountCreation": false,
+                  "EnableSpamThrottlerAtRuntime": false,
+                },
+              "GPO":
+                {
+                  "Blocks": 20,
+                  "Percentile": 60,
+                  "MaxHeaderHistory": 1024,
+                  "MaxBlockHistory": 1024,
+                  "Default": null,
+                },
+              "EnablePreimageRecording": false,
+              "EnableInternalTxTracing": false,
+              "EnableOpDebug": false,
+              "Istanbul":
+                {
+                  "Timeout": 10000,
+                  "BlockPeriod": 1,
+                  "ProposerPolicy": 0,
+                  "Epoch": 30000,
+                  "SubGroupSize": 21,
+                },
+              "DocRoot": "",
+              "WsEndpoint": "",
+              "TxResendInterval": 4,
+              "TxResendCount": 1000,
+              "TxResendUseLegacy": false,
+              "NoAccountCreation": false,
+              "IsPrivate": true,
+              "AutoRestartFlag": true,
+              "RestartTimeOutFlag": 900000000000,
+              "DaemonPathFlag": "/klaytn-docker-pkg/bin/kcnd",
+              "RPCGasCap": null,
+              "RPCEVMTimeout": 5000000000,
+              "RPCTxFeeCap": 0,
+              "DisableUnsafeDebug": false,
+              "StateRegenerationTimeLimit": 60000000000,
+            }
