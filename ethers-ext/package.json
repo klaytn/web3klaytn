@@ -1,6 +1,6 @@
 {
   "name": "@klaytn/ethers-ext",
-  "version": "0.9.5-beta",
+  "version": "0.9.7-beta",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -21,7 +21,7 @@
     "ethers": "^5.7.2"
   },
   "devDependencies": {
-    "@klaytn/ethers-ext": "^0.9.5-beta",
+    "@klaytn/ethers-ext": "^0.9.7-beta",
     "@types/aes-js": "^3.1.1",
     "@types/bn.js": "^5.1.1",
     "@types/chai": "^4.3.4",
@@ -39,8 +39,8 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@klaytn/js-ext-core": "^0.9.6-beta",
-    "@klaytn/web3rpc": "^0.9.5",
+    "@klaytn/js-ext-core": "^0.9.7-beta",
+    "@klaytn/web3rpc": "^0.9.7",
     "bn.js": "^5.2.1",
     "eth-lib": "^0.1.29",
     "lodash": "^4.17.21",
