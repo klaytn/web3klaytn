@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "module": "commonjs",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
@@ -11,5 +12,5 @@
     "esModuleInterop": true
   },
   "exclude": ["dist", "example", "node_modules"],
-  "include": ["./test", "./src"]
+  "include": ["./src"]
 }
