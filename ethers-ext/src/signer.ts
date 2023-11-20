@@ -4,8 +4,8 @@ import { JsonRpcProvider as EthersJsonRpcProvider } from "@ethersproject/provide
 import { Wallet as EthersWallet } from "@ethersproject/wallet";
 import { poll } from "@ethersproject/web";
 import { KlaytnTxFactory, HexStr, isFeePayerSigTxType, parseTransaction } from "@klaytn/js-ext-core";
-import { ethers } from "ethers";
-import { Bytes, BytesLike, Deferrable, ProgressCallback, SigningKey, computeAddress, hashMessage, keccak256, recoverAddress, resolveProperties } from "ethers/lib/utils";
+import { BigNumber } from "ethers";
+import { Bytes, BytesLike, Deferrable, Logger, ProgressCallback, SigningKey, computeAddress, keccak256, resolveProperties } from "ethers/lib/utils";
 import _ from "lodash";
 
 import { decryptKeystoreList, decryptKeystoreListSync } from "./keystore";
@@ -22,7 +22,8 @@ function saveCustomFields(tx: Deferrable<TransactionRequest>): any {
   // Save fields that are not allowed in ethers.js
   const savedFields: any = {};
   for (const key in tx) {
-    if (ethersAllowedTransactionKeys.indexOf(key) === -1) {
+    // 'from' may not be corresponded to the public key of the private key in a decoupled account.
+    if (ethersAllowedTransactionKeys.indexOf(key) === -1 || key == "from") {
       savedFields[key] = _.get(tx, key);
       _.unset(tx, key);
     }
@@ -39,11 +40,6 @@ function saveCustomFields(tx: Deferrable<TransactionRequest>): any {
     savedFields["type"] = tx.type;
     tx.type = 0;
   }
-
-  // 'from' may not be corresponded to the public key of the private key in Klaytn account
-  // So 'from' field also has to be saved
-  savedFields["from"] = tx.from;
-  _.unset(tx, "from");
 
   return savedFields;
 }
@@ -112,7 +108,7 @@ export class Wallet extends EthersWallet {
 
   getAddress(legacy?: boolean): Promise<string> {
     if (legacy || !this.klaytnAddr) {
-      return super.getAddress();
+      return Promise.resolve(computeAddress(this.publicKey));
     } else {
       return Promise.resolve(this.klaytnAddr);
     }
@@ -131,12 +127,25 @@ export class Wallet extends EthersWallet {
     }
   }
 
+  // Fill legacy address for Ethereum TxTypes, and (possibly) decoupled address for Klaytn TxTypes.
   checkTransaction(transaction: Deferrable<TransactionRequest>): Deferrable<TransactionRequest> {
     const tx = _.clone(transaction);
-    const savedFields = saveCustomFields(tx);
-    transaction = super.checkTransaction(tx);
-    restoreCustomFields(tx, savedFields);
 
+    const legacy = !KlaytnTxFactory.has(tx.type);
+    const expectedFrom = this.getAddress(legacy);
+    if (!tx.from) {
+      tx.from = expectedFrom;
+    } else {
+      tx.from = Promise.all([
+        Promise.resolve(tx.from),
+        expectedFrom,
+      ]).then(([from, expectedFrom]) => {
+        if (from?.toLowerCase() != expectedFrom?.toLowerCase()) {
+          throw new Error(`from address mismatch tx=${JSON.stringify(transaction)} addr=${expectedFrom}`);
+        }
+        return from;
+      });
+    }
     return tx;
   }
 
@@ -148,10 +157,15 @@ export class Wallet extends EthersWallet {
       return super.populateTransaction(tx);
     }
 
+    // Fill 'from' field.
+    if (!tx.from) {
+      tx.from = await this.getAddress();
+    }
+
     // If the account address is decoupled from private key,
     // the ethers.Wallet.populateTransaction() may fill the nonce of the wrong address.
     if (!tx.nonce) {
-      tx.nonce = await this.provider.getTransactionCount(await this.getAddress());
+      tx.nonce = await this.provider.getTransactionCount(tx.from);
     }
 
     // Sometimes estimateGas underestimates the required gas limit.
@@ -191,6 +205,9 @@ export class Wallet extends EthersWallet {
       return super.signTransaction(tx);
     }
 
+    // Because RLP-encoded tx may not contain chainId, fill up here.
+    tx.chainId ??= await this._chainIdFromTx(tx);
+
     const klaytnTx = KlaytnTxFactory.fromObject(tx);
 
     const sigHash = keccak256(klaytnTx.sigRLP());
@@ -215,9 +232,13 @@ export class Wallet extends EthersWallet {
       throw new Error(`feePayer signature not supported for tx type ${tx.type}`);
     }
 
+    // Because RLP-encoded tx may not contain chainId, fill up here.
+    tx.chainId ??= await this._chainIdFromTx(tx);
+
     // Automatically populate 'feePayer' field, just like how 'from' field is populated.
     // @ts-ignore: feePayer field does not exist in ethers.TransactionRequest type
     tx.feePayer ??= await this.getAddress();
+
     const klaytnTx = KlaytnTxFactory.fromObject(tx);
     if (!isFeePayerSigTxType(klaytnTx.type)) {
       klaytnTx.throwTypeError("feePayer signature not supported");
@@ -258,6 +279,24 @@ export class Wallet extends EthersWallet {
       sig.v = sig.recoveryParam + chainId * 2 + 35;
     }
     return sig;
+  }
+
+  // Extract chainId from tx signatures.
+  // If no signatures, query provider.
+  async _chainIdFromTx(tx: any): Promise<number | undefined> {
+    function extractFromSig(field: any[]): number | undefined {
+      if (_.isArray(field) && field.length > 0 &&
+          _.isArray(field[0]) && field[0].length == 3) {
+        const v = BigNumber.from(field[0][0]).toNumber();
+        return (v - 35) / 2;
+      }
+      return undefined;
+    }
+
+    return (
+      extractFromSig(tx.txSignatures) ??
+      extractFromSig(tx.feePayerSignatures) ??
+      this.getChainId());
   }
 
   async _sendRawTransaction(signedTx: string): Promise<TransactionResponse> {
