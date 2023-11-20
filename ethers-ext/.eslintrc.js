@@ -42,6 +42,10 @@ module.exports = {
       ],
       "newlines-between": "always",
     }],
+    "import/no-unresolved": [
+      "error", // eslint-plugin-import cannot resolve subpaths https://github.com/firebase/firebase-admin-node/discussions/1359
+      { ignore: ["^@klaytn/js-ext-core/util$"] }
+    ],
 
     // formatting
     "curly": ["warn", "all"],

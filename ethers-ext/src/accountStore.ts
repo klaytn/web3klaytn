@@ -1,11 +1,18 @@
+import { BigNumber } from "@ethersproject/bignumber";
 import { JsonRpcProvider } from "@ethersproject/providers";
+import { SigningKey } from "@ethersproject/signing-key";
 import { computeAddress } from "@ethersproject/transactions";
-import { BigNumber, ethers } from "ethers";
-import { computePublicKey } from "ethers/lib/utils";
-
-import { HexStr } from "../core/util";
+import { HexStr } from "@klaytn/js-ext-core";
+import { computePublicKey, getAddress } from "ethers/lib/utils";
 
 import { Wallet } from "./signer";
+
+function isSameAddress(a: string, b: string) {
+  return getAddress(a) == getAddress(b);
+}
+function isSamePrivateKey(a: string, b: string) {
+  return computeAddress(a) == computeAddress(b);
+}
 
 // Accounts is array of Wallet in ethers.js Ext
 export class Accounts {
@@ -41,7 +48,7 @@ export class Accounts {
     let priv: string;
 
     if (account.length == 1) {
-      const signingKey = new ethers.utils.SigningKey(account[0]);
+      const signingKey = new SigningKey(account[0]);
       addr = computeAddress(signingKey.compressedPublicKey);
       priv = account[0];
     } else if (account.length == 2 && account[1] != undefined) {
@@ -52,8 +59,8 @@ export class Accounts {
     }
 
     for (let i = 0; i < this.wallets.length; i++) {
-      if (HexStr.isSameAddress(await this.wallets[i].getAddress(), addr) &&
-        HexStr.isSamePrivKey(this.wallets[i].privateKey, priv)) {
+      if (isSameAddress(await this.wallets[i].getAddress(), addr) &&
+        isSamePrivateKey(this.wallets[i].privateKey, priv)) {
         return false;
       }
     }
@@ -67,7 +74,7 @@ export class Accounts {
     let priv: string;
 
     if (account.length == 1) {
-      const signingKey = new ethers.utils.SigningKey(account[0]);
+      const signingKey = new SigningKey(account[0]);
       addr = computeAddress(signingKey.compressedPublicKey);
       priv = account[0];
     } else if (account.length == 2 && account[1] != undefined) {
@@ -78,9 +85,9 @@ export class Accounts {
     }
 
     for (let i = 0; i < this.wallets.length; i++) {
-      if (HexStr.isSameAddress(await this.wallets[i].getAddress(), addr) &&
+      if (isSameAddress(await this.wallets[i].getAddress(), addr) &&
         // @ts-ignore
-        HexStr.isSamePrivKey(await this.wallets[i].privateKey, priv)) {
+        isSamePrivateKey(await this.wallets[i].privateKey, priv)) {
         delete this.wallets[i];
         this.wallets.splice(i, 1);
         return true;
@@ -104,7 +111,7 @@ export class Accounts {
     const ret: Wallet[] = [];
 
     for (let i = 0; i < this.wallets.length; i++) {
-      if (HexStr.isSamePrivKey(this.wallets[i].privateKey, privateKey)) {
+      if (isSameAddress(this.wallets[i].privateKey, privateKey)) {
         ret.push(this.wallets[i]);
       }
     }
@@ -115,7 +122,7 @@ export class Accounts {
     const ret: Wallet[] = [];
 
     for (let i = 0; i < this.wallets.length; i++) {
-      if (HexStr.isSameAddress(await this.wallets[i].getAddress(), address)) {
+      if (isSameAddress(await this.wallets[i].getAddress(), address)) {
         ret.push(this.wallets[i]);
       }
     }
@@ -284,7 +291,7 @@ export class AccountStore {
   hasAccountInfos(address: string) :boolean {
     let i:number;
     for (i = 0; this.accountInfos != undefined && i < this.accountInfos.length; i++) {
-      if (HexStr.isSameAddress(this.accountInfos[i].address, address)) {
+      if (isSameAddress(this.accountInfos[i].address, address)) {
         return true;
       }
     }
@@ -294,7 +301,7 @@ export class AccountStore {
   getType(address:string) : number | null {
     let i:number;
     for (i = 0; this.accountInfos != undefined && i < this.accountInfos.length; i++) {
-      if (HexStr.isSameAddress(this.accountInfos[i].address, address)) {
+      if (isSameAddress(this.accountInfos[i].address, address)) {
         return this.accountInfos[i].key.type;
       }
     }
@@ -304,7 +311,7 @@ export class AccountStore {
   getAccountInfo(address: string) : AccountInfo | null {
     let i:number;
     for (i = 0; this.accountInfos != undefined && i < this.accountInfos.length; i++) {
-      if (HexStr.isSameAddress(this.accountInfos[i].address, address)) {
+      if (isSameAddress(this.accountInfos[i].address, address)) {
         return this.accountInfos[i];
       }
     }
