@@ -22,6 +22,8 @@ class KlaytnJavascriptClientCodegen : JavascriptClientCodegen {
         return true
     }
 
+    // See https://github.com/swagger-api/swagger-codegen/blob/master/modules/swagger-codegen/src/main/java/io/swagger/codegen/CodegenParameter.java
+    // and https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/java/org/openapitools/codegen/languages/JavascriptClientCodegen.java
     override fun fromOperation(
         path: String,
         httpMethod: String,
@@ -37,6 +39,13 @@ class KlaytnJavascriptClientCodegen : JavascriptClientCodegen {
         }
         for (name in removedImports) {
             op.imports.remove(name)
+        }
+        for (queryParam in op.queryParams) {
+            if (!KlaytnCodegenUtils.attachDefaultValue(queryParam)) {
+                println("No default for param ${queryParam.paramName} of ${operation.operationId}")
+                // Use it for strict checks
+                // throw Exception("No default for param ${queryParam.paramName} of ${operation.operationId}")
+            }
         }
         return op
     }

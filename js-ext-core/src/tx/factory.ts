@@ -143,7 +143,9 @@ class _KlaytnTxFactory extends FieldSetFactory<KlaytnTx> {
       fields.data = fields.input;
     }
     // In TxTypeSmartContractDeploy, force 'to' = 0x for compatibility
-    if (HexStr.fromNumber(fields.type) == HexStr.fromNumber(TxType.SmartContractDeploy)) {
+    if (HexStr.fromNumber(fields.type) == HexStr.fromNumber(TxType.SmartContractDeploy) || 
+        HexStr.fromNumber(fields.type) == HexStr.fromNumber(TxType.FeeDelegatedSmartContractDeploy) ||
+        HexStr.fromNumber(fields.type) == HexStr.fromNumber(TxType.FeeDelegatedSmartContractDeployWithRatio)) {
       fields.to = "0x";
     }
     return super.fromObject(fields);

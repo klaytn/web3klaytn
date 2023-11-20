@@ -24,4 +24,9 @@ jobs:
       - name: testing ethers-ext
         shell: bash
         run: |
-          cd ethers-ext && npm install && npm run lint && npm run test
+          cd ethers-ext && npm install && npm run lint && npm run test && cd - 
+
+      - name: testing js-ext-core
+        shell: bash
+        run: |
+          cd js-ext-core && npm install && npm run lint && npm run test && cd -
