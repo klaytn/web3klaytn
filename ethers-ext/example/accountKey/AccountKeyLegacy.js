@@ -13,7 +13,6 @@ const recieverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
 const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
 const wallet = new Wallet(senderPriv, provider);
 
-// Send transaction from an AccountKeyLegacy account
 async function sendTx() {
   let tx = {
     from: senderAddr,
@@ -28,22 +27,6 @@ async function sendTx() {
   console.log("receipt", rc);
 }
 
-// Verify a transaction signed by an AccountKeyLegacy account
-async function verifyTx() {
-  let tx = {
-    from: senderAddr,
-    to: recieverAddr,
-    value: 0,
-  };
-
-  let signedTx = await wallet.signTransaction(tx);
-  console.log("signedTx", signedTx);
-
-  const addr1 = await provider.send("klay_recoverFromTransaction", [signedTx, "latest"]);
-  console.log("recoveredAddr rpc", addr1, addr1.toLowerCase() === senderAddr);
-}
-
-// Verify a message signed by an AccountKeyLegacy account
 async function verifyMsg() {
   const msg = "hello";
   const msghex = ethers.utils.hexlify(ethers.utils.toUtf8Bytes(msg));
@@ -59,7 +42,6 @@ async function verifyMsg() {
 
 async function main() {
   await sendTx();
-  await verifyTx();
   await verifyMsg();
 }
 main().catch(console.error);

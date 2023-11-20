@@ -1,4 +1,4 @@
-// AccountKeyPublic Step 01 - account update
+// AccountKeyPublic
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeypublic
 
 const { TxType, AccountKeyType, parseKlay } = require("@klaytn/js-ext-core");
@@ -14,7 +14,6 @@ const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.
 const wallet = new Wallet(senderAddr, senderPriv, provider);
 const wallet2 = new Wallet(senderAddr, senderNewPriv, provider);
 
-// Update Account
 async function updateAccount() {
   let senderNewPub = new ethers.utils.SigningKey(senderNewPriv).compressedPublicKey;
 
@@ -34,7 +33,6 @@ async function updateAccount() {
   console.log("receipt", rc);
 }
 
-// Send transaction from an AccountKeyLegacy account
 async function sendTx() {
   let tx = {
     type: TxType.ValueTransfer,
@@ -50,7 +48,6 @@ async function sendTx() {
   console.log("receipt", rc);
 }
 
-// Verify a message signed by an AccountKeyLegacy account
 async function recoverMsg() {
   const msg = "hello";
   const msghex = ethers.utils.hexlify(ethers.utils.toUtf8Bytes(msg));

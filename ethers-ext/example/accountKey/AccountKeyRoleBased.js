@@ -1,4 +1,4 @@
-// AccountKeyRoleBased Step 01 - account update
+// AccountKeyRoleBased
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeyrolebased
 
 const { Wallet } = require("@klaytn/ethers-ext");
@@ -16,7 +16,6 @@ const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.
 const wallet = new Wallet(senderAddr, senderRoleAccountUpdatePriv, provider);
 const wallet2 = new Wallet(senderAddr, senderRoleTransactionPriv, provider);
 
-// Update Account
 async function updateAccount() {
   let pub1 = new ethers.utils.SigningKey(senderRoleTransactionPriv).compressedPublicKey;
   let pub2 = new ethers.utils.SigningKey(senderRoleAccountUpdatePriv).compressedPublicKey;
@@ -57,7 +56,6 @@ async function updateAccount() {
   console.log("receipt", rc);
 }
 
-// Send transaction from an AccountKeyLegacy account
 async function sendTx() {
   let tx = {
     type: TxType.ValueTransfer,
@@ -74,7 +72,6 @@ async function sendTx() {
   console.log("receipt", rc);
 }
 
-// Verify a message signed by an AccountKeyLegacy account
 async function recoverMsg() {
   const msg = "hello";
   const msghex = ethers.utils.hexlify(ethers.utils.toUtf8Bytes(msg));

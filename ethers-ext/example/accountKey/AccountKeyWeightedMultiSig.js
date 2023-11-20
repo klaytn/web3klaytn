@@ -1,4 +1,4 @@
-// AccountKeyWeightedMultiSig Step 01 - account update
+// AccountKeyWeightedMultiSig
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeyweightedmultisig
 
 const { Wallet } = require("@klaytn/ethers-ext");
@@ -17,7 +17,6 @@ const wallet = new Wallet(senderAddr, senderNewPriv1, provider);
 const wallet2 = new Wallet(senderAddr, senderNewPriv2, provider);
 const wallet3 = new Wallet(senderAddr, senderNewPriv3, provider);
 
-// Update Account
 async function updateAccount() {
   let senderNewPub1 = new ethers.utils.SigningKey(senderNewPriv1).compressedPublicKey;
   let senderNewPub2 = new ethers.utils.SigningKey(senderNewPriv2).compressedPublicKey;
@@ -39,12 +38,12 @@ async function updateAccount() {
   };
 
   // sign 1
-  let ptx = await wallet.populateTransaction(tx);
-  const txHashRLP = await wallet.signTransaction(ptx);
-  console.log("TxHashRLP", txHashRLP);
+  let ptx1 = await wallet.populateTransaction(tx);
+  const txHashRLP1 = await wallet.signTransaction(ptx1);
+  console.log("TxHashRLP1", txHashRLP1);
 
   // sign 2
-  let ptx2 = await wallet2.populateTransaction(txHashRLP);
+  let ptx2 = await wallet2.populateTransaction(txHashRLP1);
   const txHashRLP2 = await wallet2.signTransaction(ptx2);
   console.log("TxHashRLP2", txHashRLP2);
 
@@ -56,7 +55,6 @@ async function updateAccount() {
   console.log("receipt", rc);
 }
 
-// Send transaction from an AccountKeyLegacy account
 async function sendTx() {
   let tx = {
     type: TxType.ValueTransfer,
@@ -67,12 +65,12 @@ async function sendTx() {
   };
 
   // sign 1
-  let ptx = await wallet.populateTransaction(tx);
-  const txHashRLP = await wallet.signTransaction(ptx);
-  console.log("TxHashRLP", txHashRLP);
+  let ptx1 = await wallet.populateTransaction(tx);
+  const txHashRLP1 = await wallet.signTransaction(ptx1);
+  console.log("TxHashRLP1", txHashRLP1);
 
   // sign 2
-  let ptx2 = await wallet2.populateTransaction(txHashRLP);
+  let ptx2 = await wallet2.populateTransaction(txHashRLP1);
   const txHashRLP2 = await wallet2.signTransaction(ptx2);
   console.log("TxHashRLP2", txHashRLP2);
 
@@ -84,7 +82,6 @@ async function sendTx() {
   console.log("receipt", rc);
 }
 
-// Verify a message signed by an AccountKeyLegacy account
 async function recoverMsg() {
   const msg = "hello";
   const msghex = ethers.utils.hexlify(ethers.utils.toUtf8Bytes(msg));
