@@ -10,10 +10,10 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /admin/nodeInfo:
+  /admin/nodeConfig:
     post:
       operationId: nodeConfig
-      summary: "[admin_nodeConfig]"
+      summary: "[nodeConfig]"
       description: |
         A series of node configurations
 
@@ -47,7 +47,7 @@ paths:
         - lang: "java"
           label: "Java"
           source:
-            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/admin/nodeConfig.java"
+            $ref: "../../code-samples/java/src/main/java/opensdk/sdk/apis/admin/AdminNodeConfigExample.java"
         - lang: "javascript"
           label: "Javascript"
           source:
@@ -68,7 +68,7 @@ components:
           type: string
           default: "admin_nodeConfig"
 
-    NodeInfoResp:
+    NodeConfigResp:
       type: object
       properties:
         result:

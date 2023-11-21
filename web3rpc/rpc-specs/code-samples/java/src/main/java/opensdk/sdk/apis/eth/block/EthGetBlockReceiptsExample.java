@@ -11,7 +11,7 @@ import java.io.IOException;
 public class EthGetBlockReceiptsExampleGetBlockReceiptsExample {
     private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
-    void rthGetBlockReceiptsExample() throws IOException {
+    void EthGetBlockReceiptsExample() throws IOException {
         String blockHash = "0xba647d41423faeebe8a7c64737d284fc2eba6f0388a3e1ebf6243db509ec1577";
         KlayGetBlockReceiptsResponse response = w3.ethGetBlockReceipts(blockHash).send();
         response.getResult();

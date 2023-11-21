@@ -34,10 +34,10 @@ paths:
           required: true
           schema:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
-        - name: options
+        - name: traceObject
           in: query
           description: Tracing options.
-          required: false
+          required: true
           schema:
             $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracerObject"
 
@@ -91,4 +91,7 @@ components:
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracerCallObject"
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
               - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracerObject"
-          example: [{"to":"0x46eda75e7ca73cb1c2f83c3927211655420dbc44","data":"0x3fb5c1cb00000000000000000000000000000000000000000000000000000000000003e7"}, "latest", {"tracer":"revertTracer"}]
+            example: 
+              - {"to":"0x46eda75e7ca73cb1c2f83c3927211655420dbc44","data":"0x3fb5c1cb00000000000000000000000000000000000000000000000000000000000003e7"}
+              - "latest"
+              - {"tracer":"revertTracer"}

@@ -325,6 +325,8 @@ paths:
     $ref: ../debug/vMTracing/traceChain.yaml#/paths/~1debug~1traceChain
   /debug/vMTracing/traceTransaction:
     $ref: ../debug/vMTracing/traceTransaction.yaml#/paths/~1debug~1traceTransaction
+  /debug/vMTracing/traceCall:
+    $ref: ../debug/vMTracing/traceCall.yaml#/paths/~1debug~1traceCall
 
   # debug/vMStandardTracing:
   /debug/vMStandardTracing/standardTraceBadBlockToFile:
@@ -469,7 +471,9 @@ paths:
     $ref: ../admin/stopStateMigration.yaml#/paths/~1admin~1stopStateMigration
   /admin/stopWS:
     $ref: ../admin/stopWS.yaml#/paths/~1admin~1stopWS
-
+  /admin/nodeConfig:
+    $ref: ../admin/nodeConfig.yaml#/paths/~1admin~1nodeConfig
+    
   # mainbridge:
   # /mainbridge/convertChildChainBlockHashToParentChainTxHash:
   #   $ref: ../mainbridge/convertChildChainBlockHashToParentChainTxHash.yaml#/paths/~1mainbridge~1convertChildChainBlockHashToParentChainTxHash
