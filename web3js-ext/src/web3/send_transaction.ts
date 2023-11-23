@@ -22,7 +22,7 @@ import {
 import { isAbiErrorFragment, decodeContractErrorData } from "web3-eth-abi";
 import _ from "lodash";
 
-import { KlaytnTxFactory } from "@klaytn/ethers-ext";
+import { KlaytnTxFactory } from "@klaytn/js-ext-core";
 
 import { saveCustomFields } from "./klaytn_tx";
 

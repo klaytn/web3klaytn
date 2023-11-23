@@ -21,10 +21,7 @@ import { TransactionSigningError, UndefinedRawTransactionError } from 'web3-erro
 
 import { prepareTransaction } from "./klaytn_tx";
 
-// TODO: Change the path after web3-core deployed
-const { objectFromRLP } = require("../../../../ethers-ext/dist/src");
-
-import { KlaytnTxFactory} from "@klaytn/ethers-ext";
+import { KlaytnTxFactory } from "@klaytn/js-ext-core";
 
 export const signTransactionAsFeePayer = async (
 	transaction: TypedTransaction,
@@ -79,7 +76,7 @@ export const recoverTransactionWithKlaytnTx = (rawTransaction: HexString): Addre
 	let tx; 
 
 	if ( KlaytnTxFactory.has(data[0]) ) {
-		tx = objectFromRLP(rawTransaction);
+		tx = KlaytnTxFactory.fromRLP(rawTransaction).toObject();
 		
 		if ( !tx.from ) {
 			throw new Error('tx.from is not a property.');
@@ -102,7 +99,7 @@ export const initAccountsForContext = (context: Web3Context<EthExecutionAPI>) =>
 		
 		if (typeof transaction === "string") {
 			if (isHex(transaction)) {
-			  tx = objectFromRLP(transaction);
+			  tx = KlaytnTxFactory.fromRLP(transaction).toObject();
 			} else {
 			  throw new Error("String type input has to be RLP encoded Hex string.");
 			}
@@ -121,7 +118,7 @@ export const initAccountsForContext = (context: Web3Context<EthExecutionAPI>) =>
 
 		if (typeof transaction === "string") {
 			if (isHex(transaction)) {
-				tx = objectFromRLP(transaction);
+				tx = KlaytnTxFactory.fromRLP(transaction).toObject();
 			} else {
 				throw new Error("String type input has to be RLP encoded Hex string.");
 			}

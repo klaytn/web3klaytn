@@ -11,7 +11,7 @@ import * as ethereumCryptography from 'ethereum-cryptography/secp256k1.js';
 
 export const secp256k1 = ethereumCryptography.secp256k1 ?? ethereumCryptography;
 
-import { KlaytnTxFactory, TxType } from "@klaytn/ethers-ext";
+import { KlaytnTxFactory, TxType } from "@klaytn/js-ext-core";
 export interface KlaytnTxData extends TxData {
   from?: string,
   chainId?: bigint,
