@@ -1,8 +1,7 @@
 // AccountKeyPublic
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeypublic
 
-const { TxType, AccountKeyType, parseKlay } = require("@klaytn/js-ext-core");
-const { Wallet } = require("@klaytn/ethers-ext");
+const { Wallet, TxType, AccountKeyType, parseKlay } = require("@klaytn/ethers-ext");
 const { ethers } = require("ethers");
 
 const senderAddr = "0xe15cd70a41dfb05e7214004d7d054801b2a2f06b";

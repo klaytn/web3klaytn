@@ -1,8 +1,7 @@
 // AccountKeyRoleBased
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeyrolebased
 
-const { Wallet } = require("@klaytn/ethers-ext");
-const { TxType, AccountKeyType, parseKlay } = require("@klaytn/js-ext-core");
+const { Wallet, TxType, AccountKeyType, parseKlay } = require("@klaytn/ethers-ext");
 const { ethers } = require("ethers");
 
 const senderAddr = "0x5bd2fb3c21564c023a4a735935a2b7a238c4ccea";

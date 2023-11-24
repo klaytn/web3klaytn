@@ -6,8 +6,7 @@
 // 3) send ValueTransfer tx with the next nonce
 //    then you can see Cancel tx with the next nonce + 1
 
-const { Wallet } = require("@klaytn/ethers-ext");
-const { TxType, parseKlay } = require("@klaytn/js-ext-core");
+const { Wallet, TxType, parseKlay } = require("@klaytn/ethers-ext");
 const ethers = require("ethers");
 
 const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153";
