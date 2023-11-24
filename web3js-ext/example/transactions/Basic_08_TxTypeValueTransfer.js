@@ -2,7 +2,7 @@
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/basic#txtypevaluetransfer
 
 const { Web3 } = require("web3");
-const { KlaytnWeb3, TxType } = require( "@klaytn/web3js-ext");
+const { KlaytnWeb3, TxType, toPeb } = require("../../dist/web3");
 
 const recieverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
 const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153";
@@ -17,8 +17,7 @@ async function main() {
   let tx = {
     type: TxType.ValueTransfer,
     to: recieverAddr,
-    value: 1e9,
-    // value: convertToPeb('1', 'KLAY'),
+    value: toPeb("0.01"),
     from: senderAddr,
     gas: 21000,
     gasPrice: 25e9,
