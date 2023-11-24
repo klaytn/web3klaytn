@@ -11,7 +11,7 @@ import * as ethereumCryptography from 'ethereum-cryptography/secp256k1.js';
 
 export const secp256k1 = ethereumCryptography.secp256k1 ?? ethereumCryptography;
 
-import { KlaytnTxFactory, TxType } from "@klaytn/js-ext-core";
+import { KlaytnTxFactory, TxType, isFeePayerSigTxType } from "@klaytn/js-ext-core";
 export interface KlaytnTxData extends TxData {
   from?: string,
   chainId?: bigint,
@@ -284,7 +284,7 @@ export class KlaytnTx extends LegacyTransaction {
 
     let tx = this.klaytnTxData; 
 
-    if (tx.hasFeePayer()) {
+    if (isFeePayerSigTxType(tx.type)) {
       return hexToBytes(tx.senderTxHashRLP());
     }
     return hexToBytes(tx.txHashRLP());
