@@ -22,7 +22,7 @@ import {
 import { isAbiErrorFragment, decodeContractErrorData } from "web3-eth-abi";
 import _ from "lodash";
 
-import { KlaytnTxFactory } from "@klaytn/js-ext-core";
+import { KlaytnTxFactory, getRpcTxObject } from "@klaytn/js-ext-core";
 
 import { saveCustomFields } from "./klaytn_tx";
 
@@ -54,16 +54,8 @@ export function klay_sendSignedTransaction<
   }
 
   // Parse the signed KlaytnTx
-  // TODO: make something like encodeTxForRPC
   const unSerializedTransaction = KlaytnTxFactory.fromRLP(signedTransactionFormattedHex).toObject();
-  const unSerializedTransactionForCall = _.clone(unSerializedTransaction);
-  saveCustomFields(unSerializedTransactionForCall);
-  if (unSerializedTransactionForCall.value == "0x") {
-    unSerializedTransactionForCall.value = "0x0";
-  }  
-  if (unSerializedTransactionForCall.nonce == "0x") {
-    unSerializedTransactionForCall.nonce = "0x0";
-  }
+  const unSerializedTransactionForCall = getRpcTxObject(unSerializedTransaction);
 
   // Because modifying the rpc name to "klay_sendRawTransaction" is not trivial,
   // we resort to reimplement the whole logic.
