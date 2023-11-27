@@ -1,12 +1,8 @@
-const { Web3 } = require("web3");
-const { KlaytnWeb3 } = require( "../../dist/src");
-
-const { TxType, AccountKeyType, objectFromRLP } = require("../../../ethers-ext/dist/src");
-
-//
 // AccountKeyPublic Step 02 - value transfer
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeypublic
-//
+
+const { Web3 } = require("web3");
+const { KlaytnWeb3, TxType, toPeb } = require( "../../dist/web3");
 
 // the same address of sender in AccountKeyPublic_01_accountUpdate.js
 const receiverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
@@ -20,8 +16,7 @@ async function main() {
   let tx = {
     type: TxType.ValueTransfer,
     to: receiverAddr,
-    value: 1e9,
-    // value: convertToPeb('1', 'KLAY'),
+    value: toPeb('0.01', 'KLAY'),
     from: senderAddr,
   };
 
