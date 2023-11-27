@@ -91,6 +91,11 @@ export function parseKlay(klay: string): BigNumber {
 export const formatUnits = formatKlayUnits;
 export const parseUnits = parseKlayUnits;
 
-// Alias to web3js-like names
-export const fromPeb = formatKlay; // Equivalent to web3.utils.fromWei
-export const toPeb = parseKlay; // Equivalent to web3.utils.toWei
+
+// Equivalent to web3.utils.fromWei
+export const fromPeb = formatKlay; 
+
+// Equivalent to web3.utils.toWei
+export function toPeb(value: string, unitName?: string | BigNumberish): string { 
+  return parseKlayUnits(value, unitName).toString(); 
+}
