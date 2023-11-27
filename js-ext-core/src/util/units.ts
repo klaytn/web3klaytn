@@ -93,7 +93,9 @@ export const parseUnits = parseKlayUnits;
 
 
 // Equivalent to web3.utils.fromWei
-export const fromPeb = formatKlay; 
+export function fromPeb(number: any, unitName?: string | BigNumberish): string {
+  return formatKlayUnits(number, unitName);
+}
 
 // Equivalent to web3.utils.toWei
 export function toPeb(value: string, unitName?: string | BigNumberish): string { 

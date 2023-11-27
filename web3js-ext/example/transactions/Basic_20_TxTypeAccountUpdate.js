@@ -1,23 +1,18 @@
-const { Web3 } = require("web3");
-const { KlaytnWeb3 } = require( "../../dist/src");
-
-const { TxType, AccountKeyType } = require("@klaytn/ethers-ext");
-
-const { secp256k1 } = require("ethereum-cryptography/secp256k1.js")
-
-//
 // TxTypeAccountUpdate
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/basic#txtypeaccountupdate
 //
 //   from: address of sender to be updated
 //   key: Refer Klaytn account key
 //        https://docs.klaytn.foundation/content/klaytn/design/accounts#account-key
-//
+
+const { Web3 } = require("web3");
+const { KlaytnWeb3, TxType, AccountKeyType } = require("../../dist/web3");
+const { secp256k1 } = require("ethereum-cryptography/secp256k1.js")
 
 // create new account for testing
 // https://baobab.wallet.klaytn.foundation/
-const senderAddr = "0x7532967dda17c5e367c7a5c5dcb56ef6ed299e20";
-const senderPriv = "0x4ef44daeb7941877bebc7b97c023e1e51b5593ee1fbc4a232387774603173b86";
+const senderAddr = "0xe15cd70a41dfb05e7214004d7d054801b2a2f06b";
+const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
 const senderNewPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
 
 async function main() {
