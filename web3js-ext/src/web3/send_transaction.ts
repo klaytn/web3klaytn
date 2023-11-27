@@ -55,7 +55,6 @@ export function klay_sendSignedTransaction<
 
   // Parse the signed KlaytnTx
   const unSerializedTransaction = KlaytnTxFactory.fromRLP(signedTransactionFormattedHex).toObject();
-  console.log(unSerializedTransaction);
 
   // hot fix 
   // TODO : the code below will be deleted after deploying same logic in js-ext-core

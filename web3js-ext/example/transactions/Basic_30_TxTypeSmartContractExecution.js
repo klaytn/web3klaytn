@@ -1,20 +1,17 @@
-const { Web3 } = require("web3");
-const { KlaytnWeb3 } = require( "../../dist/src");
-
-const { TxType } = require("@klaytn/ethers-ext");
-
-const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153";
-const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
-const contractAddr = "0xD7fA6634bDDe0B2A9d491388e2fdeD0fa25D2067";
-
-//
 // TxTypeSmartContractExecution
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/basic#txtypesmartcontractexecution
 //
 //   to : deployed contract address
 //   value: Must be 0, if not payable
 //   input: Refer https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-encodeabi
-//
+
+const { Web3 } = require("web3");
+const { KlaytnWeb3, TxType, toPeb } = require("../../dist/web3");
+
+const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153";
+const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
+const contractAddr = "0xD7fA6634bDDe0B2A9d491388e2fdeD0fa25D2067";
+
 async function main() {
   const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
   const web3 = new KlaytnWeb3(provider);
