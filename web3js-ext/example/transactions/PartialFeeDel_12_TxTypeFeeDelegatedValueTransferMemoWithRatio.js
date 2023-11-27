@@ -3,12 +3,9 @@
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/partial-fee-delegation#txtypefeedelegatedvaluetransfermemowithratio
 //
 //   nonce: In signTransactionAsFeePayer, must not be omitted, because feePayer's nonce is filled when populating
-//
 
 const { Web3 } = require("web3");
-const { KlaytnWeb3 } = require( "../../dist/src");
-const { TxType, objectFromRLP } = require("../../../ethers-ext/dist/src");
-
+const { KlaytnWeb3, TxType, toPeb, parseTransaction } = require( "../../dist/web3");
 
 const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153";
 const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
@@ -24,8 +21,7 @@ async function main() {
   let tx = {
     type: TxType.FeeDelegatedValueTransferMemoWithRatio,
     to: recieverAddr,
-    value: 1e9,
-    // value: convertToPeb('1', 'KLAY'),
+    value: toPeb("0.01"),
     from: senderAddr,
     input: "0x1234567890",
     gas: 300000,  
@@ -38,7 +34,7 @@ async function main() {
   let senderTx = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
   console.log(senderTx);
 
-  // tx = objectFromRLP(senderTx.rawTransaction);
+  // tx = parseTransaction(senderTx.rawTransaction);
   // console.log(tx);
 
   // fee payer
@@ -46,7 +42,7 @@ async function main() {
   let signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayer.privateKey);
   console.log(signResult);
 
-  // tx = objectFromRLP(signResult.rawTransaction);
+  // tx = parseTransaction(signResult.rawTransaction);
   // console.log(tx);
 
   let sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
