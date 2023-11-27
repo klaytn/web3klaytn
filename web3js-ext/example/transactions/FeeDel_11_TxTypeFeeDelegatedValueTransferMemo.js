@@ -20,7 +20,7 @@ async function main() {
     value: toPeb("0.01"),
     from: senderAddr,
     input: "0x1234567890",
-    gas: 100000000,   // intrinsic gas too low
+    gas: 250000,   // intrinsic gas too low
     gasPrice: 25e9,  
   };
 
@@ -29,16 +29,16 @@ async function main() {
   let senderTx = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
   console.log(senderTx);
 
-  tx = parseTransaction(senderTx.rawTransaction);
-  console.log(tx);
+  // tx = parseTransaction(senderTx.rawTransaction);
+  // console.log(tx);
 
   // fee payer
   const feePayer = web3.eth.accounts.privateKeyToAccount(feePayerPriv, provider);
   let signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayer.privateKey);
   console.log(signResult);
 
-  tx = parseTransaction(signResult.rawTransaction);
-  console.log(tx);
+  // tx = parseTransaction(signResult.rawTransaction);
+  // console.log(tx);
 
   let sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
   let txhash = sendResult.transactionHash;

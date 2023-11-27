@@ -1,8 +1,3 @@
-const { Web3 } = require("web3");
-const { KlaytnWeb3 } = require( "../../dist/src");
-
-const { TxType, objectFromRLP } = require("../../../ethers-ext/dist/src");
-
 // TxTypeFeeDelegatedSmartContractDeploy
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/fee-delegation#txtypefeedelegatedsmartcontractdeploy
 //
@@ -11,13 +6,14 @@ const { TxType, objectFromRLP } = require("../../../ethers-ext/dist/src");
 //   input: SmartContract binary,
 //   humanReadable: Must be false,
 //   codeFormat: Must be 0x00
-//
+
+const { Web3 } = require("web3");
+const { KlaytnWeb3, TxType, parseTransaction } = require( "../../dist/web3");
 
 const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153";
 const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
 const feePayerAddr = "0xcb0eb737dfda52756495a5e08a9b37aab3b271da";
 const feePayerPriv = "0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16fc000cff4";
-
 
 async function main() {
   const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
@@ -40,7 +36,7 @@ async function main() {
   let senderTx = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
   console.log(senderTx);
 
-  // tx = objectFromRLP(senderTx.rawTransaction);
+  // tx = parseTransaction(senderTx.rawTransaction);
   // console.log(tx);
 
   // fee payer
@@ -48,7 +44,7 @@ async function main() {
   let signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayer.privateKey);
   console.log(signResult);
 
-  // tx = objectFromRLP(signResult.rawTransaction);
+  // tx = parseTransaction(signResult.rawTransaction);
   // console.log(tx);
 
   let sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
