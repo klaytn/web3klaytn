@@ -55,6 +55,13 @@ export function klay_sendSignedTransaction<
 
   // Parse the signed KlaytnTx
   const unSerializedTransaction = KlaytnTxFactory.fromRLP(signedTransactionFormattedHex).toObject();
+  console.log(unSerializedTransaction);
+
+  // hot fix 
+  // TODO : the code below will be deleted after deploying same logic in js-ext-core
+  if (unSerializedTransaction.value == "0x") unSerializedTransaction.value = 0;
+  if (unSerializedTransaction.to == "0x") unSerializedTransaction.to = "0x0000000000000000000000000000000000000000"
+
   const unSerializedTransactionForCall = getRpcTxObject(unSerializedTransaction);
 
   // Because modifying the rpc name to "klay_sendRawTransaction" is not trivial,
