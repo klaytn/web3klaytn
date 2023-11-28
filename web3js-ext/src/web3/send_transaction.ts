@@ -22,9 +22,12 @@ import {
 import { isAbiErrorFragment, decodeContractErrorData } from "web3-eth-abi";
 import _ from "lodash";
 
-import { KlaytnTxFactory, getRpcTxObject } from "@klaytn/js-ext-core";
+import { HexStr, KlaytnTxFactory, getRpcTxObject } from "@klaytn/js-ext-core";
 
 import { saveCustomFields } from "./klaytn_tx";
+import { TxType } from "@klaytn/ethers-ext";
+import { AccountKey } from "@klaytn/ethers-ext/dist/src/core";
+import { AccountKeyType } from ".";
 
 // Platform-independent NodeJS timeout types
 type TimeoutT = ReturnType<typeof setTimeout>;
@@ -58,8 +61,55 @@ export function klay_sendSignedTransaction<
 
   // hot fix 
   // TODO : the code below will be deleted after deploying same logic in js-ext-core
+  if (unSerializedTransaction.nonce == "0x") unSerializedTransaction.nonce = 0;
   if (unSerializedTransaction.value == "0x") unSerializedTransaction.value = 0;
-  if (unSerializedTransaction.to == "0x") unSerializedTransaction.to = "0x0000000000000000000000000000000000000000"
+  if (unSerializedTransaction.to == "0x") unSerializedTransaction.to = "0x0000000000000000000000000000000000000000";
+  // if (unSerializedTransaction.key && unSerializedTransaction.key.type == AccountKeyType.WeightedMultiSig) {
+  //   // WeightedMultiSigKeys is canonicalized like follow.
+  //   // e.g.
+  //   // [
+  //   //   "03",   // threshold
+  //   //   [
+  //   //     // [ weight, key ] list for multi-sig
+  //   //     [
+  //   //       "01",
+  //   //       "02c734b50ddb229be5e929fc4aa8080ae8240a802d23d3290e5e6156ce029b110e"
+  //   //     ],
+  //   //     [
+  //   //       "01",
+  //   //       "0212d45f1cc56fbd6cd8fc877ab63b5092ac77db907a8a42c41dad3e98d7c64dfb"
+  //   //     ],
+  //   //     [
+  //   //       "01",
+  //   //       "02ea9a9f85065a00d7b9ffd3a8532a574035984587fd08107d8f4cbad6b786b0cd"
+  //   //     ],
+  //   //     [
+  //   //       "01",
+  //   //       "038551bc489d62fa2e6f767ba87fe93a62b679fca8ff3114eb5805e6487b51e8f6"
+  //   //     ]
+  //   //   ]
+  //   // ]
+  //   const value = unSerializedTransaction.key; 
+  //   const ret = [], keys = [];
+
+  //   if (value.type != AccountKeyType.WeightedMultiSig && value.keys.length < 2) {
+  //     throw new Error("Threshold and Keys format is wrong for MultiSig");
+  //   }
+  //   ret.push(HexStr.fromNumber(value.threshold));
+
+  //   for (let i = 0; i < value.keys.length; i++) {
+  //     if (value.keys[i][0] == undefined || value.keys[i][1] == undefined) {
+  //       throw new Error("Weight and Key format is wrong for MultiSig");
+  //     }
+  //     const key = [];
+  //     key.push(HexStr.fromNumber(value.keys[i][0]));
+  //     key.push(value.keys[i][1]);
+  //     keys.push(key);
+  //   }
+  //   ret.push(keys);
+
+  //   unSerializedTransaction.key = ret;
+  // }
 
   const unSerializedTransactionForCall = getRpcTxObject(unSerializedTransaction);
 
