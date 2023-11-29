@@ -15,7 +15,7 @@ export function getRpcTxObject(tx: any): any {
     if (!_.has(tx, key)) { return; }
 
     if (tx[key] == "0x"){
-      formatted[key] = hexValue("0x");
+      value = hexValue("0x");
     }
     else {
       value = hexValue(BigNumber.from(tx[key]));
