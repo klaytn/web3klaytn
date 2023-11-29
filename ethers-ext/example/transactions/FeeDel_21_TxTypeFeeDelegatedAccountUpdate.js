@@ -1,8 +1,7 @@
 // TxTypeFeeDelegatedAccountUpdate
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/fee-delegation#txtypefeedelegatedaccountupdate
 
-const { Wallet } = require("@klaytn/ethers-ext");
-const { TxType, AccountKeyType } = require("@klaytn/js-ext-core");
+const { Wallet, TxType, AccountKeyType } = require("@klaytn/ethers-ext");
 const ethers = require("ethers");
 
 // create new account for testing in https://baobab.wallet.klaytn.foundation/

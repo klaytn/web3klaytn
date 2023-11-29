@@ -8,8 +8,7 @@
 //   codeFormat: Must be 0x00
 //
 
-const { Wallet } = require("@klaytn/ethers-ext");
-const { TxType } = require("@klaytn/js-ext-core");
+const { Wallet, TxType } = require("@klaytn/ethers-ext");
 const ethers = require("ethers");
 
 const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153";

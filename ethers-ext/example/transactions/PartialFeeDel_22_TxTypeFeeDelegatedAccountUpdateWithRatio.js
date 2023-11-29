@@ -12,8 +12,7 @@
 //             You should see the source code for the info (e.g. VTwithMemo intrinsic gas is 21000 + len(memo)*100 )
 //             https://github.com/klaytn/klaytn/blob/dev/blockchain/types/tx_internal_data_value_transfer_memo.go#L239
 
-const { Wallet } = require("@klaytn/ethers-ext");
-const { TxType, AccountKeyType } = require("@klaytn/js-ext-core");
+const { Wallet, TxType, AccountKeyType } = require("@klaytn/ethers-ext");
 const ethers = require("ethers");
 
 // create new account for testing in https://baobab.wallet.klaytn.foundation/

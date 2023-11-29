@@ -1,8 +1,7 @@
 // AccountKeyWeightedMultiSig
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeyweightedmultisig
 
-const { Wallet } = require("@klaytn/ethers-ext");
-const { TxType, AccountKeyType, parseKlay } = require("@klaytn/js-ext-core");
+const { Wallet, TxType, AccountKeyType, parseKlay } = require("@klaytn/ethers-ext");
 const { ethers } = require("ethers");
 
 const senderAddr = "0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e";

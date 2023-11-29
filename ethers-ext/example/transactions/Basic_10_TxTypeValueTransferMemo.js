@@ -1,8 +1,7 @@
 // TxTypeValueTransferMemo
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/basic#txtypevaluetransfermemo
 
-const { Wallet } = require("@klaytn/ethers-ext");
-const { TxType, parseKlay } = require("@klaytn/js-ext-core");
+const { Wallet, TxType, parseKlay } = require("@klaytn/ethers-ext");
 const ethers = require("ethers");
 
 const recieverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
