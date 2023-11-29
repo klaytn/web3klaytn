@@ -15,6 +15,7 @@ import {
   recoverTransaction,
   sign,
   signTransaction,
+  TxData,
   Wallet,
   Web3Account,
 } from "web3-eth-accounts";
@@ -23,7 +24,7 @@ import { ENS } from "web3-eth-ens";
 import { Iban } from "web3-eth-iban";
 import { Personal } from "web3-eth-personal";
 import { Net } from "web3-net";
-import { KeyStore, Bytes, Transaction } from "web3-types";
+import { KeyStore, Bytes, Transaction, Uint } from "web3-types";
 
 // Type analogous to web3-eth-accounts/src/types.ts:Web3Account
 // Designed for the "account object" returned by
@@ -115,4 +116,17 @@ export interface KlaytnAccountsInterface {
 			transaction: Transaction | string,
 			privateKey: Bytes,
 		) => ReturnType<typeof signTransaction>;
+}
+
+export interface KlaytnTxData extends TxData {
+  from?: string,
+  chainId?: bigint,
+  key? : any,
+  feePayer? : string,
+  feePayer_v? : bigint,
+  feePayer_r? : Uint8Array,
+  feePayer_s? : Uint8Array,
+  txSignatures? : any,
+  feePayerSignatures? : any,
+  feeRatio? : Uint,
 }

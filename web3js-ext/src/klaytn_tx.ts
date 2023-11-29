@@ -11,19 +11,9 @@ import { bytesToHex, hexToBytes, toHex, toNumber, numberToHex, toBigInt } from "
 
 export const secp256k1 = ethereumCryptography.secp256k1 ?? ethereumCryptography;
 
+import { KlaytnTxData } from "./types";
+
 import { KlaytnTxFactory, TxType, isFeePayerSigTxType } from "@klaytn/js-ext-core";
-export interface KlaytnTxData extends TxData {
-  from?: string,
-  chainId?: bigint,
-  key? : any,
-  feePayer? : string,
-  feePayer_v? : bigint,
-  feePayer_r? : Uint8Array,
-  feePayer_s? : Uint8Array,
-  txSignatures? : any,
-  feePayerSignatures? : any,
-  feeRatio? : Uint,
-}
 
 // See web3-types/src/eth_types.ts:TransactionBase and its child interfaces
 const web3jsAllowedTransactionKeys = [

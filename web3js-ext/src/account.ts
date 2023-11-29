@@ -1,7 +1,7 @@
 import { KlaytnTxFactory } from "@klaytn/js-ext-core";
 import _ from "lodash";
 import { Web3Context } from "web3-core";
-import { TransactionSigningError, UndefinedRawTransactionError } from "web3-errors";
+import { TransactionSigningError} from "web3-errors";
 import {
   Web3Account,
   create,
@@ -13,28 +13,30 @@ import {
   recover,
   signTransaction,
   sign,
-  recoverTransaction,
   Wallet,
-  TransactionFactory,
   TypedTransaction,
   SignTransactionResult,
 } from "web3-eth-accounts";
-import { Address, HexString, EthExecutionAPI, Bytes, Transaction, KeyStore } from "web3-types";
-import { bytesToHex, hexToBytes, sha3Raw, toChecksumAddress, isHex } from "web3-utils";
+import { HexString, EthExecutionAPI, Bytes, Transaction, KeyStore } from "web3-types";
+import { bytesToHex, hexToBytes, sha3Raw } from "web3-utils";
 import { isNullish } from "web3-validator";
 
 import { prepareTransaction } from "./klaytn_tx";
+import { klaytnRecoverTransaction } from "./tx";
 import { KlaytnAccountsInterface, KlaytnWeb3Account } from "./types";
 
 
+// Create an web3.eth.accounts object bound to given context
+// See web3/src/accounts.ts:initAccountsForContext
 export function context_accounts(context: Web3Context<EthExecutionAPI>): KlaytnAccountsInterface {
   const _signTransaction = context_signTransaction(context);
+  const _signTransactionAsFeePayer = context_signTransactionAsFeePayer(context);
   const _create = context_create(context);
   const _privateKeyToAccount = context_privateKeyToAccount(context);
   const _decrypt = context_decrypt(context);
 
   return {
-    recoverTransaction,
+    recoverTransaction: klaytnRecoverTransaction,
     hashMessage,
     sign,
     recover,
@@ -44,7 +46,7 @@ export function context_accounts(context: Web3Context<EthExecutionAPI>): KlaytnA
     privateKeyToAccount: _privateKeyToAccount,
     decrypt: _decrypt,
     signTransaction: _signTransaction,
-    signTransactionAsFeePayer: _signTransaction,
+    signTransactionAsFeePayer: _signTransactionAsFeePayer,
 
     wallet: new Wallet({
       create: _create,
@@ -79,6 +81,7 @@ export function context_decrypt(context: Web3Context<EthExecutionAPI>) {
   };
 }
 
+// common components of create, privateKeyToAccount, decrypt.
 function wrapAccount(context: Web3Context<EthExecutionAPI>, account: Web3Account): KlaytnWeb3Account {
   const _signTransaction = context_signTransaction(context);
   const _signTransactionAsFeePayer = context_signTransactionAsFeePayer(context);
@@ -158,27 +161,4 @@ export const signTransactionAsFeePayer = async (
     rawTransaction: rawTx,
     transactionHash: bytesToHex(txHash),
   };
-};
-
-// TODO: move to tx.ts
-export const recoverTransactionWithKlaytnTx = (rawTransaction: HexString): Address => {
-  if (isNullish(rawTransaction)) { throw new UndefinedRawTransactionError(); }
-
-  const data = hexToBytes(rawTransaction);
-  let tx;
-
-  if (KlaytnTxFactory.has(data[0])) {
-    tx = KlaytnTxFactory.fromRLP(rawTransaction).toObject();
-
-    if (!tx.from) {
-      throw new Error("tx.from is not a property.");
-    } else if (typeof tx.from == "string") {
-      return toChecksumAddress(tx.from);
-    } else {
-      throw new Error("tx.from is not a string type.");
-    }
-  }
-
-  tx = TransactionFactory.fromSerializedData(data);
-  return toChecksumAddress(tx.getSenderAddress().toString());
 };
