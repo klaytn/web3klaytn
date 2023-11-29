@@ -198,7 +198,7 @@ describe("Wallet", () => {
         await testOK(W, { type: 0, to, value });
       }
       for (let W of [KW, KWD]) {
-        // await testOK(W, { type: 9, to, feePayer, value });
+        await testOK(W, { type: 9, to, feePayer, value });
       }
     });
     it("as fee payer", async () => {
