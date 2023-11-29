@@ -50,7 +50,7 @@ async function main() {
   tx.nonce = nextNonce;
 
   signResult = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
-  sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
+  let sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
 
   console.log("sendResult", sendResult);
 

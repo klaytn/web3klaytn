@@ -16,8 +16,8 @@ import {
   TypedTransaction,
   SignTransactionResult,
 } from "web3-eth-accounts";
-import { Address, HexString, EthExecutionAPI, Bytes, Transaction, KeyStore, ETH_DATA_FORMAT } from "web3-types";
-import { format, bytesToHex, hexToBytes, sha3Raw, toChecksumAddress, isHex } from "web3-utils";
+import { Address, HexString, EthExecutionAPI, Bytes, Transaction, KeyStore } from "web3-types";
+import { bytesToHex, hexToBytes, sha3Raw, toChecksumAddress, isHex } from "web3-utils";
 import { isNullish } from "web3-validator";
 
 import { prepareTransaction } from "./klaytn_tx";
@@ -98,9 +98,9 @@ export const initAccountsForContext = (context: Web3Context<EthExecutionAPI>) =>
 
     if (typeof transaction === "string") {
       if (isHex(transaction)) {
-			  tx = KlaytnTxFactory.fromRLP(transaction).toObject();
+        tx = KlaytnTxFactory.fromRLP(transaction).toObject();
       } else {
-			  throw new Error("String type input has to be RLP encoded Hex string.");
+        throw new Error("String type input has to be RLP encoded Hex string.");
       }
     } else {
       tx = transaction;

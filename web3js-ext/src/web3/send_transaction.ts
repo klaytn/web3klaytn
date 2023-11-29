@@ -1,7 +1,4 @@
-import { TxType } from "@klaytn/ethers-ext";
-import { AccountKey } from "@klaytn/ethers-ext/dist/src/core";
 import { KlaytnTxFactory, getRpcTxObject } from "@klaytn/js-ext-core";
-import _ from "lodash";
 import { Web3Context, Web3PromiEvent } from "web3-core";
 import {
   ContractExecutionError,
@@ -23,13 +20,8 @@ import {
   Bytes, DataFormat, FormatType, TransactionCall, TransactionReceipt,
   EthExecutionAPI, ETH_DATA_FORMAT, DEFAULT_RETURN_FORMAT, ContractAbi, AbiErrorFragment
 } from "web3-types";
-import { format, toHex, rejectIfTimeout, pollTillDefined } from "web3-utils";
+import { format, rejectIfTimeout, pollTillDefined } from "web3-utils";
 
-
-import { saveCustomFields } from "./klaytn_tx";
-
-
-import { AccountKeyType } from ".";
 
 // Platform-independent NodeJS timeout types
 type TimeoutT = ReturnType<typeof setTimeout>;

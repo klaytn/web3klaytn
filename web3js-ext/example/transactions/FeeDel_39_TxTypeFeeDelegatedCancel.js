@@ -69,7 +69,7 @@ async function main() {
   // feePayer sign
   signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayer.privateKey);
   console.log({signResult});
-  sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
+  let sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
   console.log("sendResult", sendResult);
 
   let receipt = await web3.eth.getTransactionReceipt(sendResult.transactionHash);
