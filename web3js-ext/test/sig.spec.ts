@@ -1,7 +1,7 @@
 import { assert } from "chai";
 import Web3 from "web3";
 
-import { KlaytnWeb3 } from "../../src/web3";
+import { KlaytnWeb3 } from "../src/web3";
 
 describe("KlaytnWeb3", () => {
   it("success", () => {
