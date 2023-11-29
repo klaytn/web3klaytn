@@ -2,7 +2,7 @@
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeypublic
 
 const { Web3 } = require("web3");
-const { KlaytnWeb3, TxType, AccountKeyType } = require( "../../dist/web3");
+const { KlaytnWeb3, TxType, AccountKeyType } = require( "@klaytn/web3js-ext");
 const { secp256k1 } = require("ethereum-cryptography/secp256k1.js")
 
 // create a new account for testing

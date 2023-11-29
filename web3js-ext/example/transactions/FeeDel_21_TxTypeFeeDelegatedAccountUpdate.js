@@ -2,7 +2,7 @@
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/fee-delegation#txtypefeedelegatedaccountupdate
 
 const { Web3 } = require("web3");
-const { KlaytnWeb3, TxType, AccountKeyType, parseTransaction } = require("../../dist/web3");
+const { KlaytnWeb3, TxType, AccountKeyType, parseTransaction } = require("@klaytn/web3js-ext");
 const { secp256k1 } = require("ethereum-cryptography/secp256k1.js")
 
 // create new account for testing in https://baobab.wallet.klaytn.foundation/

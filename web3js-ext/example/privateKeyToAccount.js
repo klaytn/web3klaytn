@@ -1,5 +1,5 @@
 const { Web3 } = require("web3");
-const { KlaytnWeb3, TxType, toPeb} = require( "../dist/web3");
+const { KlaytnWeb3, TxType, toPeb} = require( "@klaytn/web3js-ext");
 
 const recieverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
 const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153";

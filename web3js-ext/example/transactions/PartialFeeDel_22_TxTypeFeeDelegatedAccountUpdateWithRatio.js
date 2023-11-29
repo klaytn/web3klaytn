@@ -14,7 +14,7 @@
 //             https://github.com/klaytn/klaytn/blob/dev/blockchain/types/tx_internal_data_value_transfer_memo.go#L239
 
 const { Web3 } = require("web3");
-const { KlaytnWeb3, TxType, AccountKeyType, parseTransaction } = require( "../../dist/web3");
+const { KlaytnWeb3, TxType, AccountKeyType, parseTransaction } = require( "@klaytn/web3js-ext");
 const { secp256k1 } = require("ethereum-cryptography/secp256k1.js")
 
 // create new account for testing

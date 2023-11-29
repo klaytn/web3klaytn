@@ -4,7 +4,7 @@
 //   gasLimit: Must be large enough
 
 const { Web3 } = require("web3");
-const { KlaytnWeb3, TxType, toPeb, parseTransaction } = require( "../../dist/web3");
+const { KlaytnWeb3, TxType, toPeb, parseTransaction } = require( "@klaytn/web3js-ext");
 const { secp256k1 } = require("ethereum-cryptography/secp256k1.js")
 
 // the same address of sender in AccountKeyWeightedMultiSig_01_accountUpdate.js

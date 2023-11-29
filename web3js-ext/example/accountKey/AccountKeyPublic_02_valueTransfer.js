@@ -2,7 +2,7 @@
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeypublic
 
 const { Web3 } = require("web3");
-const { KlaytnWeb3, TxType, toPeb } = require( "../../dist/web3");
+const { KlaytnWeb3, TxType, toPeb } = require( "@klaytn/web3js-ext");
 
 // the same address of sender in AccountKeyPublic_01_accountUpdate.js
 const receiverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
