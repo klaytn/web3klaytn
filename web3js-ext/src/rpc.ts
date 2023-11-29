@@ -7,7 +7,7 @@ import { klay_sendSignedTransaction } from "./send_transaction";
 // Create a getProtocolVersion() function bound to given context
 // Should replace web3.eth.getProtocolVersion().
 // Override it because eth_getProtocolVersion is not supported in Klaytn node.
-export function bound_getProtocolVersion(context: Web3Context) {
+export function context_getProtocolVersion(context: Web3Context) {
   // See web3-eth/src/web3_eth.ts:Web3Eth
   // See web3-rpc-methods/src/eth_rpc_methods.ts
   return async (): Promise<string> => {
@@ -21,7 +21,7 @@ export function bound_getProtocolVersion(context: Web3Context) {
 // Create a sendSignedTransaction() function bound to given context
 // Should replace web3.eth.sendSignedTransaction().
 // Override it because eth_sendRawTransaction cannot accept Klaytn TxTypes.
-export function bound_sendSignedTransaction(context: Web3Context) {
+export function context_sendSignedTransaction(context: Web3Context) {
   // See web3-eth/src/web3_eth.ts:Web3Eth
   return async<ReturnFormat extends DataFormat = typeof DEFAULT_RETURN_FORMAT> (
     transaction: Bytes,

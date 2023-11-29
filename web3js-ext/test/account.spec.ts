@@ -141,12 +141,15 @@ describe("accounts", () => {
     const tx9 = { type: 9, from, to, feePayer, value, nonce, gasPrice, gasLimit, chainId, txSignatures };
 
     it("account.signTransactionAsFeePayer", async () => {
-      const account = EW3.eth.accounts.privateKeyToAccount(priv);
+      const account = KW3.eth.accounts.privateKeyToAccount(priv);
       const signResult = await account.signTransactionAsFeePayer(tx9);
       checkSignResult(signResult);
     });
     it("web3.eth.accounts.signTransactionAsFeePayer", async () => {
-      const signResult = await KW3.eth.accounts.signTransactionAsFeePayer(tx9, priv);
+      let signResult = await KW3.eth.accounts.signTransactionAsFeePayer(tx9, priv);
+      checkSignResult(signResult);
+
+      signResult = await KW3.eth.accounts.signTransactionAsFeePayer(senderTxHashRLP as any, priv);
       checkSignResult(signResult);
     });
   });

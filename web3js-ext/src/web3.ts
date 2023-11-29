@@ -4,20 +4,16 @@ import {
   Web3ContextInitOptions,
   isSupportedProvider
 } from "web3-core";
-import { RegisteredSubscription, SendTransactionOptions } from "web3-eth";
+import { RegisteredSubscription } from "web3-eth";
 import {
   EthExecutionAPI,
   SupportedProviders,
-  Bytes,
-  DEFAULT_RETURN_FORMAT,
-  DataFormat,
 } from "web3-types";
 import * as utils from "web3-utils";
 
-import { initAccountsForContext } from "./account";
-import { bound_getProtocolVersion, bound_sendSignedTransaction } from "./rpc";
-import { klay_sendSignedTransaction } from "./send_transaction";
-import { ExtWeb3EthInterface } from "./type-extensions";
+import { context_accounts } from "./account";
+import { context_getProtocolVersion, context_sendSignedTransaction } from "./rpc";
+import { KlaytnWeb3EthInterface } from "./types";
 
 
 // Follow the Web3 class from the web3/src/web3.ts
@@ -31,7 +27,7 @@ export class KlaytnWeb3
 
   // Properties analogous to Web3 class
   public utils: typeof utils;
-  public eth: ExtWeb3EthInterface;
+  public eth: KlaytnWeb3EthInterface;
 
   // The inner Web3 instance that provides the base implementation.
   // KlaytnWeb3 will delegate most of its methods to this instance.
@@ -52,21 +48,21 @@ export class KlaytnWeb3
 
     // Expose required properties from inner Web3 object
     this.utils = this._web3.utils;
-    this.eth = this._web3.eth as ExtWeb3EthInterface;
+    this.eth = this._web3.eth as KlaytnWeb3EthInterface;
 
     // Override web3.eth.accounts methods
-    const accounts = initAccountsForContext(this);
+    const accounts = context_accounts(this);
     this.eth.accounts = accounts;
-    this._accountProvider = accounts;
+    this._accountProvider = accounts as any; // inevitable conflict due to signTransaction receiving string
     this._wallet = accounts.wallet;
 
     // Override web3.eth RPC method wrappers.
     // See web3-eth/src/web3_eth.ts:Web3Eth
     // Note that most of the web3.eth methods should keep calling eth_ RPCs to Klaytn node,
     // except below ones.
-    this.eth.getProtocolVersion = bound_getProtocolVersion(this._web3);
+    this.eth.getProtocolVersion = context_getProtocolVersion(this._web3);
     // TODO: fix typing
-    this.eth.sendSignedTransaction = bound_sendSignedTransaction(this._web3) as typeof this.eth.sendSignedTransaction;
+    this.eth.sendSignedTransaction = context_sendSignedTransaction(this._web3) as typeof this.eth.sendSignedTransaction;
   }
 }
 
