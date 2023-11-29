@@ -1,8 +1,8 @@
 // AccountKeyPublic Step 02 - value transfer
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeypublic
 
+const { KlaytnWeb3, TxType, toPeb } = require("@klaytn/web3js-ext");
 const { Web3 } = require("web3");
-const { KlaytnWeb3, TxType, toPeb } = require( "@klaytn/web3js-ext");
 
 // the same address of sender in AccountKeyPublic_01_accountUpdate.js
 const receiverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
@@ -16,7 +16,7 @@ async function main() {
   let tx = {
     type: TxType.ValueTransfer,
     to: receiverAddr,
-    value: toPeb('0.01', 'KLAY'),
+    value: toPeb("0.01", "KLAY"),
     from: senderAddr,
   };
 
@@ -26,7 +26,7 @@ async function main() {
 
 
   let sendResult = await web3.eth.sendSignedTransaction(signTx.rawTransaction);
-  console.log( sendResult );
+  console.log(sendResult);
 
   let receipt = await web3.eth.getTransactionReceipt(sendResult.transactionHash);
   console.log({ receipt });

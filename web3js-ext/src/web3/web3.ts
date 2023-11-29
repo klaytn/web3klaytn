@@ -1,10 +1,10 @@
-import Web3, {Bytes, Web3Context} from "web3";
-import { DataFormat, DEFAULT_RETURN_FORMAT } from "web3-types";
-import { SendTransactionOptions } from "web3-eth";
 import _ from "lodash";
+import Web3, {Bytes, Web3Context} from "web3";
+import { SendTransactionOptions } from "web3-eth";
+import { DataFormat, DEFAULT_RETURN_FORMAT } from "web3-types";
 
-import { klay_sendSignedTransaction } from "./send_transaction";
 import { initAccountsForContext } from "./account";
+import { klay_sendSignedTransaction } from "./send_transaction";
 
 export class KlaytnWeb3 extends Web3 {
   constructor(provider: any) {
@@ -26,9 +26,8 @@ export class KlaytnWeb3 extends Web3 {
     // except a few methods below which call klay_ RPCs despite its name 'web3.eth'.
     this.eth.getProtocolVersion = this.eth_getProtocolVersion(this);
     this.eth.sendSignedTransaction = this.eth_sendSignedTransaction(this);
-    
-    // TODO: Connect web3.klay, web3.net, etc from @klaytn/web3rpc
 
+    // TODO: Connect web3.klay, web3.net, etc from @klaytn/web3rpc
   }
 
   eth_getProtocolVersion(context: Web3Context): typeof this.eth.getProtocolVersion {
@@ -38,8 +37,8 @@ export class KlaytnWeb3 extends Web3 {
       return context.requestManager.send({
         method: "klay_protocolVersion",
         params: [],
-      })
-    }
+      });
+    };
   }
 
   eth_sendSignedTransaction(context: Web3Context): typeof this.eth.sendSignedTransaction {
@@ -49,8 +48,8 @@ export class KlaytnWeb3 extends Web3 {
       transaction: Bytes,
       returnFormat: ReturnFormat = DEFAULT_RETURN_FORMAT as ReturnFormat,
       options?: SendTransactionOptions) => {
-        // TODO: use klay_sendRawTransaction
-        return klay_sendSignedTransaction(context, transaction, returnFormat, options)
-      }
+      // TODO: use klay_sendRawTransaction
+      return klay_sendSignedTransaction(context, transaction, returnFormat, options);
+    };
   }
 }

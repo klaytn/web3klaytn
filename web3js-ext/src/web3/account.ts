@@ -1,61 +1,60 @@
-import { Address, HexString, EthExecutionAPI, Bytes, Transaction, KeyStore, ETH_DATA_FORMAT } from 'web3-types';
-import { format, bytesToHex, hexToBytes, sha3Raw, toChecksumAddress, isHex } from 'web3-utils';
-import { Web3Context } from 'web3-core';
+import { KlaytnTxFactory } from "@klaytn/js-ext-core";
+import { Web3Context } from "web3-core";
+import { TransactionSigningError, UndefinedRawTransactionError } from "web3-errors";
 import {
-	create,
-	decrypt,
-	encrypt,
-	hashMessage,
-	privateKeyToAddress,
-	privateKeyToAccount,
-	recover,
-	signTransaction,
-	sign,
-	Wallet,
-	TransactionFactory,
-	TypedTransaction, 
-	SignTransactionResult, 
-} from 'web3-eth-accounts';
-import { isNullish } from 'web3-validator';
-import { TransactionSigningError, UndefinedRawTransactionError } from 'web3-errors';
+  create,
+  decrypt,
+  encrypt,
+  hashMessage,
+  privateKeyToAddress,
+  privateKeyToAccount,
+  recover,
+  signTransaction,
+  sign,
+  Wallet,
+  TransactionFactory,
+  TypedTransaction,
+  SignTransactionResult,
+} from "web3-eth-accounts";
+import { Address, HexString, EthExecutionAPI, Bytes, Transaction, KeyStore, ETH_DATA_FORMAT } from "web3-types";
+import { format, bytesToHex, hexToBytes, sha3Raw, toChecksumAddress, isHex } from "web3-utils";
+import { isNullish } from "web3-validator";
 
 import { prepareTransaction } from "./klaytn_tx";
 
-import { KlaytnTxFactory } from "@klaytn/js-ext-core";
 
 export const signTransactionAsFeePayer = async (
-	transaction: TypedTransaction,
-	privateKey: HexString,
-	// To make it compatible with rest of the API, have to keep it async
-	// eslint-disable-next-line @typescript-eslint/require-await
+  transaction: TypedTransaction,
+  privateKey: HexString,
+  // To make it compatible with rest of the API, have to keep it async
+  // eslint-disable-next-line @typescript-eslint/require-await
 ): Promise<SignTransactionResult> => {
-    // @ts-ignore
-	const signedTx = transaction.signAsFeePayer(hexToBytes(privateKey));
-	if (isNullish(signedTx.feePayer_v) || isNullish(signedTx.feePayer_r) || isNullish(signedTx.feePayer_s))
-		throw new TransactionSigningError('Signer Error');
+  // @ts-ignore
+  const signedTx = transaction.signAsFeePayer(hexToBytes(privateKey));
+  if (isNullish(signedTx.feePayer_v) || isNullish(signedTx.feePayer_r) || isNullish(signedTx.feePayer_s)) { throw new TransactionSigningError("Signer Error"); }
 
-	const validationErrors = signedTx.validate(true);
+  const validationErrors = signedTx.validate(true);
 
-	if (validationErrors.length > 0) {
-		let errorString = 'Signer Error ';
-		for (const validationError of validationErrors) {
-			errorString += `${errorString} ${validationError}.`;
-		}
-		throw new TransactionSigningError(errorString);
-	}
+  if (validationErrors.length > 0) {
+    let errorString = "Signer Error ";
+    for (const validationError of validationErrors) {
+      errorString += `${errorString} ${validationError}.`;
+    }
+    throw new TransactionSigningError(errorString);
+  }
 
-    // @ts-ignore
-	const rawTx = bytesToHex(signedTx.serializeAsFeePayer());
-	const txHash = sha3Raw(rawTx); // using keccak in web3-utils.sha3Raw instead of SHA3 (NIST Standard) as both are different
+  // @ts-ignore
+  const rawTx = bytesToHex(signedTx.serializeAsFeePayer());
+  const txHash = sha3Raw(rawTx); // using keccak in web3-utils.sha3Raw instead of SHA3 (NIST Standard) as both are different
 
-	return {
-		messageHash: bytesToHex(signedTx.getMessageToSignAsFeePayer(true)),
-		v: `0x${signedTx.feePayer_v.toString(16)}`,
-		r: `0x${signedTx.feePayer_r.toString(16).padStart(64, '0')}`,
-		s: `0x${signedTx.feePayer_s.toString(16).padStart(64, '0')}`,
-		rawTransaction: rawTx,
-		transactionHash: bytesToHex(txHash),
-	};
+  return {
+    messageHash: bytesToHex(signedTx.getMessageToSignAsFeePayer(true)),
+    v: `0x${signedTx.feePayer_v.toString(16)}`,
+    r: `0x${signedTx.feePayer_r.toString(16).padStart(64, "0")}`,
+    s: `0x${signedTx.feePayer_s.toString(16).padStart(64, "0")}`,
+    rawTransaction: rawTx,
+    transactionHash: bytesToHex(txHash),
+  };
 };
 
 
@@ -70,123 +69,123 @@ export const signTransactionAsFeePayer = async (
  * ```
  */
 export const recoverTransactionWithKlaytnTx = (rawTransaction: HexString): Address => {
-	if (isNullish(rawTransaction)) throw new UndefinedRawTransactionError();
+  if (isNullish(rawTransaction)) { throw new UndefinedRawTransactionError(); }
 
-	const data = hexToBytes(rawTransaction);
-	let tx; 
+  const data = hexToBytes(rawTransaction);
+  let tx;
 
-	if ( KlaytnTxFactory.has(data[0]) ) {
-		tx = KlaytnTxFactory.fromRLP(rawTransaction).toObject();
-		
-		if ( !tx.from ) {
-			throw new Error('tx.from is not a property.');
-		} else if ( typeof tx.from == "string") {
-			return toChecksumAddress(tx.from);
-		} else {
-			throw new Error('tx.from is not a string type.');
-		}
-	}
-	
-	tx = TransactionFactory.fromSerializedData(data);
-	return toChecksumAddress(tx.getSenderAddress().toString());
+  if (KlaytnTxFactory.has(data[0])) {
+    tx = KlaytnTxFactory.fromRLP(rawTransaction).toObject();
+
+    if (!tx.from) {
+      throw new Error("tx.from is not a property.");
+    } else if (typeof tx.from == "string") {
+      return toChecksumAddress(tx.from);
+    } else {
+      throw new Error("tx.from is not a string type.");
+    }
+  }
+
+  tx = TransactionFactory.fromSerializedData(data);
+  return toChecksumAddress(tx.getSenderAddress().toString());
 };
 
 // We overrided web3/src/accounts.ts:initAccountsForContext
 // Below methods are bound to the context 'web3'.
 export const initAccountsForContext = (context: Web3Context<EthExecutionAPI>) => {
-	const signTransactionWithContext = async (transaction: Transaction, privateKey: Bytes) => {
-		let tx; 
-		
-		if (typeof transaction === "string") {
-			if (isHex(transaction)) {
+  const signTransactionWithContext = async (transaction: Transaction, privateKey: Bytes) => {
+    let tx;
+
+    if (typeof transaction === "string") {
+      if (isHex(transaction)) {
 			  tx = KlaytnTxFactory.fromRLP(transaction).toObject();
-			} else {
+      } else {
 			  throw new Error("String type input has to be RLP encoded Hex string.");
-			}
-		} else {
-			tx = transaction;
-		}	
+      }
+    } else {
+      tx = transaction;
+    }
 
-		let ttx = await prepareTransaction(tx, context, privateKey);
-		let priv = bytesToHex(privateKey);
-		return signTransaction(ttx, priv);
-	};
+    const ttx = await prepareTransaction(tx, context, privateKey);
+    const priv = bytesToHex(privateKey);
+    return signTransaction(ttx, priv);
+  };
 
-	// New added function for Klaytn
-	const signTransactionAsFeePayerWithContext = async (transaction: any, privateKey: Bytes): Promise<any> => {
-		let tx; 
+  // New added function for Klaytn
+  const signTransactionAsFeePayerWithContext = async (transaction: any, privateKey: Bytes): Promise<any> => {
+    let tx;
 
-		if (typeof transaction === "string") {
-			if (isHex(transaction)) {
-				tx = KlaytnTxFactory.fromRLP(transaction).toObject();
-			} else {
-				throw new Error("String type input has to be RLP encoded Hex string.");
-			}
-		} else {
-			tx = transaction;
-		}
+    if (typeof transaction === "string") {
+      if (isHex(transaction)) {
+        tx = KlaytnTxFactory.fromRLP(transaction).toObject();
+      } else {
+        throw new Error("String type input has to be RLP encoded Hex string.");
+      }
+    } else {
+      tx = transaction;
+    }
 
-		if (!tx.feePayer) {
-			tx.feePayer = privateKeyToAddress(privateKey);
-		}
+    if (!tx.feePayer) {
+      tx.feePayer = privateKeyToAddress(privateKey);
+    }
 
-		let ftx = await prepareTransaction(tx, context, privateKey);      
-		let priv = bytesToHex(privateKey);
-		return signTransactionAsFeePayer(ftx, priv);
-	};
+    const ftx = await prepareTransaction(tx, context, privateKey);
+    const priv = bytesToHex(privateKey);
+    return signTransactionAsFeePayer(ftx, priv);
+  };
 
-	const privateKeyToAccountWithContext = (privateKey: Uint8Array | string) => {
-		const account = privateKeyToAccount(privateKey);
+  const privateKeyToAccountWithContext = (privateKey: Uint8Array | string) => {
+    const account = privateKeyToAccount(privateKey);
 
-		return {
-			...account,
-			signTransaction: async (transaction: Transaction) =>
-				signTransactionWithContext(transaction, account.privateKey),
-		};
-	};
+    return {
+      ...account,
+      signTransaction: async (transaction: Transaction) =>
+        signTransactionWithContext(transaction, account.privateKey),
+    };
+  };
 
-	// TODO : we will support KeyStore V4. 
-	const decryptWithContext = async (
-		keystore: KeyStore | string,
-		password: string,
-		options?: Record<string, unknown>,
-	) => {
-		const account = await decrypt(keystore, password, (options?.nonStrict as boolean) ?? true);
+  // TODO : we will support KeyStore V4.
+  const decryptWithContext = async (
+    keystore: KeyStore | string,
+    password: string,
+    options?: Record<string, unknown>,
+  ) => {
+    const account = await decrypt(keystore, password, (options?.nonStrict as boolean) ?? true);
 
-		return {
-			...account,
-			signTransaction: async (transaction: Transaction) =>
-				signTransactionWithContext(transaction, account.privateKey),
-		};
-	};
+    return {
+      ...account,
+      signTransaction: async (transaction: Transaction) =>
+        signTransactionWithContext(transaction, account.privateKey),
+    };
+  };
 
-	const createWithContext = () => {
-		const account = create();
+  const createWithContext = () => {
+    const account = create();
 
-		return {
-			...account,
-			signTransaction: async (transaction: Transaction) =>
-				signTransactionWithContext(transaction, account.privateKey),
-		};
-	};
+    return {
+      ...account,
+      signTransaction: async (transaction: Transaction) =>
+        signTransactionWithContext(transaction, account.privateKey),
+    };
+  };
 
-	const wallet = new Wallet({
-		create: createWithContext,
-		privateKeyToAccount: privateKeyToAccountWithContext,
-		decrypt: decryptWithContext,
-	});
+  const wallet = new Wallet({
+    create: createWithContext,
+    privateKeyToAccount: privateKeyToAccountWithContext,
+    decrypt: decryptWithContext,
+  });
 
-	return {
-		signTransaction: signTransactionWithContext,
-		signTransactionAsFeePayer: signTransactionAsFeePayerWithContext,
-		create: createWithContext,
-		privateKeyToAccount: privateKeyToAccountWithContext,
-		decrypt: decryptWithContext,
-		recoverTransaction: recoverTransactionWithKlaytnTx,
-		hashMessage,
-		sign,
-		recover,
-		encrypt,
-		wallet,
-	};
+  return {
+    signTransaction: signTransactionWithContext,
+    signTransactionAsFeePayer: signTransactionAsFeePayerWithContext,
+    create: createWithContext,
+    privateKeyToAccount: privateKeyToAccountWithContext,
+    decrypt: decryptWithContext,
+    recoverTransaction: recoverTransactionWithKlaytnTx,
+    hashMessage,
+    sign,
+    recover,
+    encrypt,
+    wallet,
+  };
 };

@@ -3,9 +3,9 @@
 //
 //   gasLimit: Must be large enough
 
+const { KlaytnWeb3, TxType, AccountKeyType } = require("@klaytn/web3js-ext");
+const { secp256k1 } = require("ethereum-cryptography/secp256k1.js");
 const { Web3 } = require("web3");
-const { KlaytnWeb3, TxType, AccountKeyType } = require( "@klaytn/web3js-ext");
-const { secp256k1 } = require("ethereum-cryptography/secp256k1.js")
 
 //   create a new account for testing
 //   https://baobab.wallet.klaytn.foundation/
@@ -19,10 +19,10 @@ async function main() {
   const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
   const web3 = new KlaytnWeb3(provider);
 
-  const senderNewPub1 = "0x" + Buffer.from(secp256k1.getPublicKey( BigInt(senderNewPriv1), true)).toString('hex');
-  const senderNewPub2 = "0x" + Buffer.from(secp256k1.getPublicKey( BigInt(senderNewPriv2), true)).toString('hex');
-  const senderNewPub3 = "0x" + Buffer.from(secp256k1.getPublicKey( BigInt(senderNewPriv3), true)).toString('hex');
-  
+  const senderNewPub1 = "0x" + Buffer.from(secp256k1.getPublicKey(BigInt(senderNewPriv1), true)).toString("hex");
+  const senderNewPub2 = "0x" + Buffer.from(secp256k1.getPublicKey(BigInt(senderNewPriv2), true)).toString("hex");
+  const senderNewPub3 = "0x" + Buffer.from(secp256k1.getPublicKey(BigInt(senderNewPriv3), true)).toString("hex");
+
   let tx = {
     type: TxType.AccountUpdate,
     from: senderAddr,

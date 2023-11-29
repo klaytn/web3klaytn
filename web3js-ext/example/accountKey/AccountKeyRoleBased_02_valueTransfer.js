@@ -3,8 +3,8 @@
 //
 //   gasLimit: Must be large enough
 
+const { KlaytnWeb3, TxType, toPeb } = require("@klaytn/web3js-ext");
 const { Web3 } = require("web3");
-const { KlaytnWeb3, TxType, toPeb } = require( "@klaytn/web3js-ext");
 
 // the same address of sender in AccountKeyRoleBased_01_accountUpdate.js
 const receiverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
@@ -19,7 +19,7 @@ async function main() {
     type: TxType.ValueTransfer,
     gasLimit: 100000,
     to: receiverAddr,
-    value: toPeb('1', 'KLAY'),
+    value: toPeb("1", "KLAY"),
     from: senderAddr,
   };
 
@@ -28,7 +28,7 @@ async function main() {
   console.log(signTx);
 
   let sendResult = await web3.eth.sendSignedTransaction(signTx.rawTransaction);
-  console.log( sendResult );
+  console.log(sendResult);
 
   let receipt = await web3.eth.getTransactionReceipt(sendResult.transactionHash);
   console.log({ receipt });

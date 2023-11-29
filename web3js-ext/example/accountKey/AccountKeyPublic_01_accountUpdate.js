@@ -1,9 +1,9 @@
 // AccountKeyPublic Step 01 - account update
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeypublic
 
+const { KlaytnWeb3, TxType, AccountKeyType } = require("@klaytn/web3js-ext");
+const { secp256k1 } = require("ethereum-cryptography/secp256k1.js");
 const { Web3 } = require("web3");
-const { KlaytnWeb3, TxType, AccountKeyType } = require( "@klaytn/web3js-ext");
-const { secp256k1 } = require("ethereum-cryptography/secp256k1.js")
 
 // create a new account for testing
 // https://baobab.wallet.klaytn.foundation/
@@ -15,7 +15,7 @@ async function main() {
   const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
   const web3 = new KlaytnWeb3(provider);
 
-  let senderNewPub =  "0x" + Buffer.from(secp256k1.getPublicKey( BigInt(senderNewPriv), true)).toString('hex');
+  let senderNewPub = "0x" + Buffer.from(secp256k1.getPublicKey(BigInt(senderNewPriv), true)).toString("hex");
 
   let tx = {
     type: TxType.AccountUpdate,

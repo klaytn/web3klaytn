@@ -1,13 +1,13 @@
+import { RLP } from "@ethereumjs/rlp";
+import { keccak256 } from "ethereum-cryptography/keccak.js";
+import * as ethereumCryptography from "ethereum-cryptography/secp256k1.js";
+import _ from "lodash";
+import { Bytes, Numbers, Transaction as TransactionFields, Uint, Web3Context } from "web3";
+import { prepareTransactionForSigning } from "web3-eth";
 import { Transaction as LegacyTransaction, TypedTransaction, TxData, TxOptions, ECDSASignature } from "web3-eth-accounts";
 import { bytesToHex, hexToBytes, toHex, toNumber, numberToHex, toBigInt } from "web3-utils";
-import { keccak256 } from 'ethereum-cryptography/keccak.js';
-import { RLP } from '@ethereumjs/rlp';
-import { Bytes, Numbers, Transaction as TransactionFields, Uint, Web3Context } from "web3";
-import _ from "lodash";
-import { prepareTransactionForSigning } from "web3-eth";
 
 // eslint-disable-next-line import/extensions
-import * as ethereumCryptography from 'ethereum-cryptography/secp256k1.js';
 
 export const secp256k1 = ethereumCryptography.secp256k1 ?? ethereumCryptography;
 
@@ -28,8 +28,8 @@ export interface KlaytnTxData extends TxData {
 // See web3-types/src/eth_types.ts:TransactionBase and its child interfaces
 const web3jsAllowedTransactionKeys = [
   "value", "accessList", "common", "gas", "gasPrice", "type", "maxFeePerGas",
-	"maxPriorityFeePerGas", "data", "input", "nonce", "chain", "hardfork",
-	"chainId", "networkId", "gasLimit", "yParity", "v", "r", "s",
+  "maxPriorityFeePerGas", "data", "input", "nonce", "chain", "hardfork",
+  "chainId", "networkId", "gasLimit", "yParity", "v", "r", "s",
   "from", "to",
 ];
 
@@ -60,11 +60,10 @@ export function saveCustomFields(tx: any): any {
 export async function prepareTransaction(
   transaction: TransactionFields,
   context: Web3Context,
-  privateKey: Bytes): Promise<TypedTransaction>
-{  
+  privateKey: Bytes): Promise<TypedTransaction> {
   if (KlaytnTxFactory.has(transaction.type)) {
     transaction = _.clone(transaction);
-    let savedFields = saveCustomFields(transaction);
+    const savedFields = saveCustomFields(transaction);
 
     // prepareTransactionForSigning expects ANY value (not undefined)
     // because otherwise eth_estimateGas will fail with an RPC error '"0x"..*hexutil.Big'.
@@ -72,10 +71,10 @@ export async function prepareTransaction(
     // Therefore we fill with zero value if not defined.
     transaction.value ??= 0;
 
-    let tx = await prepareTransactionForSigning(
+    const tx = await prepareTransactionForSigning(
       transaction, context, privateKey, true, true);
 
-    let txData = { ...tx, ...savedFields };
+    const txData = { ...tx, ...savedFields };
 
     // Below fields might be
     // (1) not specified at the first place,
@@ -84,7 +83,7 @@ export async function prepareTransaction(
     txData.from ??= transaction.from;
     txData.chainId ??= tx.common.chainId();
 
-    let txOptions = (tx as any).txOptions;
+    const txOptions = (tx as any).txOptions;
 
     return new KlaytnTx(txData, txOptions);
   } else {
@@ -102,7 +101,6 @@ export async function prepareTransaction(
 // - _processSignature
 // - serialize
 export class KlaytnTx extends LegacyTransaction {
-
   // BaseTransaction._type is always 0. KlaytnTx._klaytnType is nonzero.
   private readonly _klaytnType: number;
   public readonly from?: string;
@@ -152,7 +150,7 @@ export class KlaytnTx extends LegacyTransaction {
     this.feePayerSignatures = txData.feePayerSignatures;
     this.feeRatio = txData.feeRatio;
 
-    let klaytnTxObject = {
+    const klaytnTxObject = {
       // Convert to type understood by CoreKlaytnTx.
       // TODO: add more fields for other TxTypes
       type:     toHex(this.type || 0),
@@ -165,17 +163,17 @@ export class KlaytnTx extends LegacyTransaction {
       data:     bytesToHex(this.data),
       input:    bytesToHex(this.data),
       chainId:  this.chainId ? toHex(this.chainId) : undefined,
-      humanReadable: false, 
+      humanReadable: false,
       codeFormat: 0x00,
       key: this.key,
       feePayer: this.feePayer,
       txSignatures: this.txSignatures,
       feePayerSignatures: this.feePayerSignatures,
-      feeRatio: this.feeRatio, 
-    }; 
+      feeRatio: this.feeRatio,
+    };
 
-    if ( txData.type == TxType.SmartContractDeploy ||
-      txData.type == TxType.FeeDelegatedSmartContractDeploy || 
+    if (txData.type == TxType.SmartContractDeploy ||
+      txData.type == TxType.FeeDelegatedSmartContractDeploy ||
       txData.type == TxType.FeeDelegatedSmartContractDeployWithRatio) {
       klaytnTxObject.to = "0x0000000000000000000000000000000000000000";
     }
@@ -183,7 +181,7 @@ export class KlaytnTx extends LegacyTransaction {
     // A readonly CoreKlaytnTx object
     this.klaytnTxData = KlaytnTxFactory.fromObject(klaytnTxObject);
 
-    if (this.v && this.r && this. s) {
+    if (this.v && this.r && this.s) {
       this.klaytnTxData.addSenderSig([
         Number(this.v),
         numberToHex(this.r),
@@ -233,23 +231,23 @@ export class KlaytnTx extends LegacyTransaction {
   }
 
   public signAsFeePayer(privateKey: Uint8Array): KlaytnTx {
-		if (privateKey.length !== 32) {
-			const msg = this._errorMsg('Private key must be 32 bytes in length.');
-			throw new Error(msg);
-		}
+    if (privateKey.length !== 32) {
+      const msg = this._errorMsg("Private key must be 32 bytes in length.");
+      throw new Error(msg);
+    }
 
-		const msgHash = this.getMessageToSignAsFeePayer(true);
+    const msgHash = this.getMessageToSignAsFeePayer(true);
     const signature = secp256k1.sign(msgHash, privateKey);
-		const signatureBytes = signature.toCompactRawBytes();
+    const signatureBytes = signature.toCompactRawBytes();
 
-		const r = signatureBytes.subarray(0, 32);
-		const s = signatureBytes.subarray(32, 64);
-		const v = BigInt(signature.recovery! + 27); 
+    const r = signatureBytes.subarray(0, 32);
+    const s = signatureBytes.subarray(32, 64);
+    const v = BigInt(signature.recovery! + 27);
 
-		const tx = this._processSignatureAsFeePayer(v, r, s);
+    const tx = this._processSignatureAsFeePayer(v, r, s);
 
-		return tx;
-	}
+    return tx;
+  }
 
   // Returns a new KlaytnTx by adding the signature
   protected _processSignature(v: bigint, r: Uint8Array, s: Uint8Array): KlaytnTx {
@@ -281,8 +279,7 @@ export class KlaytnTx extends LegacyTransaction {
 
   // Returns the raw transaction
   public serialize(): Uint8Array {
-
-    let tx = this.klaytnTxData; 
+    const tx = this.klaytnTxData;
 
     if (isFeePayerSigTxType(tx.type)) {
       return hexToBytes(tx.senderTxHashRLP());
@@ -292,8 +289,7 @@ export class KlaytnTx extends LegacyTransaction {
 
   // Returns the raw transaction
   public serializeAsFeePayer(): Uint8Array {
-
-    let tx = this.klaytnTxData; 
+    const tx = this.klaytnTxData;
 
     return hexToBytes(tx.txHashRLP());
   }

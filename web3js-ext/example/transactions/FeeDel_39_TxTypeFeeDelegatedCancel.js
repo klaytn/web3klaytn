@@ -6,8 +6,8 @@
 // 3) send ValueTransfer tx with the next nonce
 //    then you can see Cancel tx with the next nonce + 1
 
+const { KlaytnWeb3, TxType, parseTransaction } = require("@klaytn/web3js-ext");
 const { Web3 } = require("web3");
-const { KlaytnWeb3, TxType, parseTransaction } = require( "@klaytn/web3js-ext");
 
 const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153";
 const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
@@ -31,7 +31,7 @@ async function main() {
     to: recieverAddr,
     value: 1e12,
     from: senderAddr,
-    gas: 300000,  // intrinsic gas too low
+    gas: 300000, // intrinsic gas too low
     gasPrice: 100e9,
   };
 
@@ -48,7 +48,7 @@ async function main() {
     type: TxType.FeeDelegatedCancel,
     nonce: nextNonce + 1n,
     from: senderAddr,
-    gas: 300000,  // intrinsic gas too low
+    gas: 300000, // intrinsic gas too low
     gasPrice: 100e9,
   };
 
@@ -73,7 +73,7 @@ async function main() {
   console.log("sendResult", sendResult);
 
   let receipt = await web3.eth.getTransactionReceipt(sendResult.transactionHash);
-  console.log( receipt );
+  console.log(receipt);
 }
 
 main();

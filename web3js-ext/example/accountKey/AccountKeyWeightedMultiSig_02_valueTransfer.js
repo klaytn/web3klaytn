@@ -3,9 +3,9 @@
 //
 //   gasLimit: Must be large enough
 
+const { KlaytnWeb3, TxType, toPeb, parseTransaction } = require("@klaytn/web3js-ext");
+const { secp256k1 } = require("ethereum-cryptography/secp256k1.js");
 const { Web3 } = require("web3");
-const { KlaytnWeb3, TxType, toPeb, parseTransaction } = require( "@klaytn/web3js-ext");
-const { secp256k1 } = require("ethereum-cryptography/secp256k1.js")
 
 // the same address of sender in AccountKeyWeightedMultiSig_01_accountUpdate.js
 const senderAddr = "0x2bf611d14d330fd3688d10f2201321eacc8aa2ce";
@@ -22,7 +22,7 @@ async function main() {
     type: TxType.ValueTransfer,
     gasLimit: 100000,
     to: receiverAddr,
-    value: toPeb('1', 'KLAY'),
+    value: toPeb("1", "KLAY"),
     from: senderAddr,
   };
 
@@ -48,7 +48,7 @@ async function main() {
   console.log(tx);
 
   let sendResult = await web3.eth.sendSignedTransaction(signTx3.rawTransaction);
-  console.log( sendResult );
+  console.log(sendResult);
 
   let receipt = await web3.eth.getTransactionReceipt(sendResult.transactionHash);
   console.log({ receipt });
