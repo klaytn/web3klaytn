@@ -107,17 +107,26 @@ export interface KlaytnAccountsInterface {
 			options?: Record<string, unknown>,
 		) => Promise<KlaytnWeb3Account>;
 		signTransaction: (
-			transaction: Transaction | string,
+			transaction: KlaytnTransaction | string,
 			privateKey: Bytes,
 		) => ReturnType<typeof signTransaction>;
 
 		// Klaytn: additional methods
 		signTransactionAsFeePayer: (
-			transaction: Transaction | string,
+			transaction: KlaytnTransaction | string,
 			privateKey: Bytes,
 		) => ReturnType<typeof signTransaction>;
 }
 
+// The plain Transaction object supplied by the users.
+// Used as argument to prepareTransaction()
+export interface KlaytnTransaction extends Transaction {
+	// TODO: add fields
+	feePayer? : string,
+}
+
+// The plain Transaction object used internally.
+// Used as argument to KlaytnTx.fromTxData()
 export interface KlaytnTxData extends TxData {
   from?: string,
   chainId?: bigint,

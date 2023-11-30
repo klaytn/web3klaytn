@@ -53,7 +53,7 @@ export class KlaytnWeb3
     // Override web3.eth.accounts methods
     const accounts = context_accounts(this);
     this.eth.accounts = accounts;
-    this._accountProvider = accounts as any; // inevitable conflict due to signTransaction receiving string
+    this._accountProvider = accounts as any; // inevitable conflict in signTransaction types
     this._wallet = accounts.wallet;
 
     // Override web3.eth RPC method wrappers.
@@ -61,8 +61,7 @@ export class KlaytnWeb3
     // Note that most of the web3.eth methods should keep calling eth_ RPCs to Klaytn node,
     // except below ones.
     this.eth.getProtocolVersion = context_getProtocolVersion(this._web3);
-    // TODO: fix typing
-    this.eth.sendSignedTransaction = context_sendSignedTransaction(this._web3) as typeof this.eth.sendSignedTransaction;
+    this.eth.sendSignedTransaction = context_sendSignedTransaction(this._web3) as typeof this.eth.sendSignedTransaction; // TODO: fix typing
   }
 }
 

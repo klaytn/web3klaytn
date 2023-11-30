@@ -1,7 +1,6 @@
 import { KlaytnTxFactory } from "@klaytn/js-ext-core";
 import _ from "lodash";
 import { Web3Context } from "web3-core";
-import { TransactionSigningError} from "web3-errors";
 import {
   Web3Account,
   create,
@@ -14,16 +13,20 @@ import {
   signTransaction,
   sign,
   Wallet,
-  TypedTransaction,
-  SignTransactionResult,
 } from "web3-eth-accounts";
-import { HexString, EthExecutionAPI, Bytes, Transaction, KeyStore } from "web3-types";
-import { bytesToHex, hexToBytes, sha3Raw } from "web3-utils";
-import { isNullish } from "web3-validator";
+import { EthExecutionAPI, Bytes, KeyStore } from "web3-types";
+import { bytesToHex } from "web3-utils";
 
-import { prepareTransaction } from "./klaytn_tx";
-import { klaytnRecoverTransaction } from "./tx";
-import { KlaytnAccountsInterface, KlaytnWeb3Account } from "./types";
+import {
+  klaytnRecoverTransaction,
+  klaytnPrepareTransaction,
+  klaytnSignTransactionAsFeePayer,
+} from "./tx";
+import {
+  KlaytnAccountsInterface,
+  KlaytnTransaction,
+  KlaytnWeb3Account,
+} from "./types";
 
 
 // Create an web3.eth.accounts object bound to given context
@@ -51,11 +54,12 @@ export function context_accounts(context: Web3Context<EthExecutionAPI>): KlaytnA
     wallet: new Wallet({
       create: _create,
       privateKeyToAccount: _privateKeyToAccount,
-      decrypt: _decrypt as any, // inevitable conflict due to signTransaction receiving string
+      decrypt: _decrypt as any, // inevitable conflict in signTransaction types
     }),
   };
 }
 
+// Analogous to web3/src/accounts.ts:createWithContext
 export function context_create(context: Web3Context<EthExecutionAPI>) {
   return function (): KlaytnWeb3Account {
     const account = create();
@@ -63,6 +67,7 @@ export function context_create(context: Web3Context<EthExecutionAPI>) {
   };
 }
 
+// Analogous to web3/src/accounts.ts:privateKeyToAccountWithContext
 export function context_privateKeyToAccount(context: Web3Context<EthExecutionAPI>) {
   return function (privateKey: Uint8Array | string): KlaytnWeb3Account {
     const account = privateKeyToAccount(privateKey);
@@ -70,6 +75,7 @@ export function context_privateKeyToAccount(context: Web3Context<EthExecutionAPI
   };
 }
 
+// Analogous to web3/src/accounts.ts:decryptWithContext
 export function context_decrypt(context: Web3Context<EthExecutionAPI>) {
   return async function (
     keystore: KeyStore | string,
@@ -89,76 +95,44 @@ function wrapAccount(context: Web3Context<EthExecutionAPI>, account: Web3Account
   return {
     ...account,
     signTransaction:
-      (transaction: Transaction | string) => _signTransaction(transaction, account.privateKey),
+      (transaction: KlaytnTransaction | string) => _signTransaction(transaction, account.privateKey),
     signTransactionAsFeePayer:
-      (transaction: Transaction | string) => _signTransactionAsFeePayer(transaction, account.privateKey),
+      (transaction: KlaytnTransaction | string) => _signTransactionAsFeePayer(transaction, account.privateKey),
   };
 }
 
+// Analogous to web3/src/accounts.ts:signTransactionWithContext
 export function context_signTransaction(context: Web3Context<EthExecutionAPI>) {
-  return async (transaction: Transaction | string, privateKey: Bytes) => {
+  return async (transaction: KlaytnTransaction | string, privateKey: Bytes) => {
     const tx = resolveTransaction(transaction);
     const priv = bytesToHex(privateKey);
 
-    const preparedTx = await prepareTransaction(tx, context, privateKey);
+    const preparedTx = await klaytnPrepareTransaction(tx, context, privateKey);
     return signTransaction(preparedTx, priv);
   };
 }
 
+// Analogous to web3/src/accounts.ts:signTransactionWithContext
+// but instead calls klaytnSignTransactionAsFeePayer at the end.
 export function context_signTransactionAsFeePayer(context: Web3Context<EthExecutionAPI>) {
-  // TODO
-  return async (transaction: Transaction | string, privateKey: Bytes) => {
+  return async (transaction: KlaytnTransaction | string, privateKey: Bytes) => {
     const tx = resolveTransaction(transaction);
     const priv = bytesToHex(privateKey);
 
-    const preparedTx = await prepareTransaction(tx, context, privateKey);
-    return signTransaction(preparedTx, priv);
+    if (!tx.feePayer) {
+      tx.feePayer = privateKeyToAddress(privateKey);
+    }
+
+    const preparedTx = await klaytnPrepareTransaction(tx, context, privateKey);
+    return klaytnSignTransactionAsFeePayer(preparedTx, priv);
   };
 }
 
-function resolveTransaction(transaction: Transaction | string): Transaction {
+// Convert 'Transaction | string' type to 'Transaction' by decoding the RLP string.
+function resolveTransaction(transaction: KlaytnTransaction | string): KlaytnTransaction {
   if (_.isString(transaction)) {
     return KlaytnTxFactory.fromRLP(transaction).toObject();
   } else {
     return transaction;
   }
 }
-
-// TODO: move to tx.ts
-export const signTransactionAsFeePayer = async (
-  transaction: TypedTransaction,
-  privateKey: HexString,
-  // To make it compatible with rest of the API, have to keep it async
-  // eslint-disable-next-line @typescript-eslint/require-await
-): Promise<SignTransactionResult> => {
-  if (!(transaction as any).feePayer) {
-    (transaction as any).feePayer = privateKeyToAddress(privateKey);
-  }
-
-  // @ts-ignore
-  const signedTx = transaction.signAsFeePayer(hexToBytes(privateKey));
-  if (isNullish(signedTx.feePayer_v) || isNullish(signedTx.feePayer_r) || isNullish(signedTx.feePayer_s)) { throw new TransactionSigningError("Signer Error"); }
-
-  const validationErrors = signedTx.validate(true);
-
-  if (validationErrors.length > 0) {
-    let errorString = "Signer Error ";
-    for (const validationError of validationErrors) {
-      errorString += `${errorString} ${validationError}.`;
-    }
-    throw new TransactionSigningError(errorString);
-  }
-
-  // @ts-ignore
-  const rawTx = bytesToHex(signedTx.serializeAsFeePayer());
-  const txHash = sha3Raw(rawTx); // using keccak in web3-utils.sha3Raw instead of SHA3 (NIST Standard) as both are different
-
-  return {
-    messageHash: bytesToHex(signedTx.getMessageToSignAsFeePayer(true)),
-    v: `0x${signedTx.feePayer_v.toString(16)}`,
-    r: `0x${signedTx.feePayer_r.toString(16).padStart(64, "0")}`,
-    s: `0x${signedTx.feePayer_s.toString(16).padStart(64, "0")}`,
-    rawTransaction: rawTx,
-    transactionHash: bytesToHex(txHash),
-  };
-};

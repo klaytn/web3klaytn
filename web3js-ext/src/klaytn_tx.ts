@@ -1,10 +1,9 @@
 import { RLP } from "@ethereumjs/rlp";
+import { KlaytnTxFactory, TxType, isFeePayerSigTxType } from "@klaytn/js-ext-core";
 import { keccak256 } from "ethereum-cryptography/keccak.js";
 import * as ethereumCryptography from "ethereum-cryptography/secp256k1.js";
-import _ from "lodash";
-import { Bytes, Numbers, Transaction as TransactionFields, Uint, Web3Context } from "web3";
-import { prepareTransactionForSigning } from "web3-eth";
-import { Transaction as LegacyTransaction, TypedTransaction, TxData, TxOptions, ECDSASignature } from "web3-eth-accounts";
+import { Transaction as LegacyTransaction, TxOptions } from "web3-eth-accounts";
+import { Uint } from "web3-types";
 import { bytesToHex, hexToBytes, toHex, toNumber, numberToHex, toBigInt } from "web3-utils";
 
 // eslint-disable-next-line import/extensions
@@ -12,75 +11,6 @@ import { bytesToHex, hexToBytes, toHex, toNumber, numberToHex, toBigInt } from "
 export const secp256k1 = ethereumCryptography.secp256k1 ?? ethereumCryptography;
 
 import { KlaytnTxData } from "./types";
-
-import { KlaytnTxFactory, TxType, isFeePayerSigTxType } from "@klaytn/js-ext-core";
-
-// See web3-types/src/eth_types.ts:TransactionBase and its child interfaces
-const web3jsAllowedTransactionKeys = [
-  "value", "accessList", "common", "gas", "gasPrice", "type", "maxFeePerGas",
-  "maxPriorityFeePerGas", "data", "input", "nonce", "chain", "hardfork",
-  "chainId", "networkId", "gasLimit", "yParity", "v", "r", "s",
-  "from", "to",
-];
-
-// web3.js may strip or reject some Klaytn-specific transaction fields.
-// To prserve transaction fields around web3js function calls, use saveCustomFields.
-export function saveCustomFields(tx: any): any {
-  // Save fields that are not allowed in web3.js
-  const savedFields: any = {};
-  for (const key in tx) {
-    if (web3jsAllowedTransactionKeys.indexOf(key) === -1) {
-      savedFields[key] = _.get(tx, key);
-      _.unset(tx, key);
-    }
-  }
-
-  // Save txtype that is not supported in web3.js.
-  // and disguise as legacy (type 0) transaction
-  // because web3js-ext's KlaytnTx is based on web3js's LegacyTransaction.
-  if (KlaytnTxFactory.has(tx.type)) {
-    savedFields["type"] = tx.type;
-    tx.type = 0;
-  }
-
-  return savedFields;
-}
-
-// Fill required fields from the context
-export async function prepareTransaction(
-  transaction: TransactionFields,
-  context: Web3Context,
-  privateKey: Bytes): Promise<TypedTransaction> {
-  if (KlaytnTxFactory.has(transaction.type)) {
-    transaction = _.clone(transaction);
-    const savedFields = saveCustomFields(transaction);
-
-    // prepareTransactionForSigning expects ANY value (not undefined)
-    // because otherwise eth_estimateGas will fail with an RPC error '"0x"..*hexutil.Big'.
-    // however, some Klaytn tx types stipulates to NOT have value (e.g. TxTypeCancel, TxTypeAccountUpdate)
-    // Therefore we fill with zero value if not defined.
-    transaction.value ??= 0;
-
-    const tx = await prepareTransactionForSigning(
-      transaction, context, privateKey, true, true);
-
-    const txData = { ...tx, ...savedFields };
-
-    // Below fields might be
-    // (1) not specified at the first place,
-    // (2) or lost during prepareTransactionForSigning,
-    // (3) or not populated by prepareTransactionForSigning.
-    txData.from ??= transaction.from;
-    txData.chainId ??= tx.common.chainId();
-
-    const txOptions = (tx as any).txOptions;
-
-    return new KlaytnTx(txData, txOptions);
-  } else {
-    return await prepareTransactionForSigning(
-      transaction, context, privateKey, true, true);
-  }
-}
 
 // Mimics the LegacyTransaction.
 // See web3-eth-accounts/src/tx/legacyTransaction.ts
