@@ -1,3 +1,4 @@
+import { SignatureLike } from "@klaytn/js-ext-core";
 import Eth from "web3-eth";
 import {
   decodeLog,
@@ -16,6 +17,7 @@ import {
   sign,
   signTransaction,
   TxData,
+  TypedTransaction,
   Wallet,
   Web3Account,
 } from "web3-eth-accounts";
@@ -25,6 +27,8 @@ import { Iban } from "web3-eth-iban";
 import { Personal } from "web3-eth-personal";
 import { Net } from "web3-net";
 import { KeyStore, Bytes, Transaction, Uint } from "web3-types";
+
+import { KlaytnTx } from "./klaytn_tx";
 
 // Type analogous to web3-eth-accounts/src/types.ts:Web3Account
 // Designed for the "account object" returned by
@@ -121,21 +125,30 @@ export interface KlaytnAccountsInterface {
 // The plain Transaction object supplied by the users.
 // Used as argument to prepareTransaction()
 export interface KlaytnTransaction extends Transaction {
-	// TODO: add fields
-	feePayer? : string,
+	key?: any;
+	feePayer?: string;
+	txSignatures?: any;
+  feePayerSignatures?: any;
+	feeRatio?: number;
 }
 
 // The plain Transaction object used internally.
 // Used as argument to KlaytnTx.fromTxData()
 export interface KlaytnTxData extends TxData {
-  from?: string,
-  chainId?: bigint,
-  key? : any,
-  feePayer? : string,
-  feePayer_v? : bigint,
-  feePayer_r? : Uint8Array,
-  feePayer_s? : Uint8Array,
-  txSignatures? : any,
-  feePayerSignatures? : any,
-  feeRatio? : Uint,
+  from?: string;
+  chainId?: bigint;
+  key?: any;
+  feePayer?: string;
+  feePayer_v?: bigint;
+  feePayer_r?: bigint;
+  feePayer_s?: bigint;
+  txSignatures?: any;
+  feePayerSignatures?: any;
+  feeRatio?: number;
 }
+
+// The child classes of BaseTransaction.
+// Used inside signTransaction() and signTransactionAsFeePayer()
+export type KlaytnTypedTransaction =
+	| TypedTransaction // Type 0 (LegacyTransaction), Type 1, Type 2
+	| KlaytnTx; // Klaytn TxTypes

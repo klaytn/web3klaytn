@@ -39,8 +39,8 @@ klaytnPrepareTransaction  @ tx.ts
   | KlaytnTypedTransaction
   | - TypedTransaction
   |   - LegacyTransaction            (class Transaction extends BaseTransaction)  @ legacyTransaction.ts
-  |   - AccessListEIP2930Transaction (class ... extends BaseTransaction)          @ eip2930Transaction.ts
   |   - FeeMarketEIP1559Transaction  (class ... extends BaseTransaction)          @ eip1559Transaction.ts
+  |   - AccessListEIP2930Transaction (class ... extends BaseTransaction)          @ eip2930Transaction.ts
   | - KlaytnTx                       (class ... extends LegacyTransaction)        @ klaytn_tx.ts
   V
 klaytnSignTransaction            @ tx.ts
@@ -157,6 +157,7 @@ export async function klaytnPrepareTransaction(
     txData.from ??= transaction.from;
     txData.chainId ??= tx.common.chainId();
 
+    // Access the private field 'txOptions' of BaseTransaction.
     const txOptions = (tx as any).txOptions;
 
     return new KlaytnTx(txData, txOptions);

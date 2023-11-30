@@ -1,3 +1,4 @@
+import { SignatureLike } from "@klaytn/js-ext-core";
 import { assert } from "chai";
 import { describe, it } from "mocha";
 import { EthExecutionAPI, Web3, Web3BaseProvider } from "web3";
