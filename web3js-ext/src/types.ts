@@ -1,4 +1,3 @@
-import { SignatureLike } from "@klaytn/js-ext-core";
 import Eth from "web3-eth";
 import {
   decodeLog,
@@ -26,7 +25,7 @@ import { ENS } from "web3-eth-ens";
 import { Iban } from "web3-eth-iban";
 import { Personal } from "web3-eth-personal";
 import { Net } from "web3-net";
-import { KeyStore, Bytes, Transaction, Uint } from "web3-types";
+import { KeyStore, Bytes, Transaction } from "web3-types";
 
 import { KlaytnTx } from "./klaytn_tx";
 
@@ -50,7 +49,7 @@ export interface KlaytnWeb3Account extends Web3Account {
 	readonly encrypt: (password: string, options?: Record<string, unknown>) => Promise<KeyStore>;
 
 	// Klaytn: modified methods
-	readonly signTransaction: (tx: Transaction | string) => Promise<{
+	readonly signTransaction: (tx: KlaytnTransaction | string) => Promise<{
 		readonly messageHash: string;
 		readonly r: string;
 		readonly s: string;
@@ -60,7 +59,7 @@ export interface KlaytnWeb3Account extends Web3Account {
 	}>;
 
 	// Klaytn: additional methods
-	readonly signTransactionAsFeePayer: (tx: Transaction | string) => Promise<{
+	readonly signTransactionAsFeePayer: (tx: KlaytnTransaction | string) => Promise<{
 		readonly messageHash: string;
 		readonly r: string;
 		readonly s: string;
