@@ -33,7 +33,7 @@ async function backendSign( senderTxHashRLP ) {
   const feePayerPriv = "0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16fc000cff4";
 
   const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
-  const feePayerWallet = new Wallet(feePayerPriv, provider);
+  const feePayerWallet = new Wallet(feePayerAddr, feePayerPriv, provider);
 
   tx = feePayerWallet.decodeTxFromRLP(senderTxHashRLP);
   console.log(tx);
