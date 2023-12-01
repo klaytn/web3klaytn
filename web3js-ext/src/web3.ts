@@ -1,9 +1,13 @@
+import { AsyncNamespaceApi, rpcSendFunction, asyncOpenApi } from "@klaytn/js-ext-core";
+// @ts-ignore: package @klaytn/web3rpc has no .d.ts file.
+import { AdminApi, DebugApi, GovernanceApi, KlayApi, NetApi, PersonalApi, TxpoolApi } from "@klaytn/web3rpc";
 import { Web3 } from "web3";
 import {
   Web3Context,
   Web3ContextInitOptions,
   isSupportedProvider
 } from "web3-core";
+import { ResponseError, ProviderError } from "web3-errors";
 import { RegisteredSubscription } from "web3-eth";
 import {
   EthExecutionAPI,
@@ -28,6 +32,15 @@ export class KlaytnWeb3
   // Properties analogous to Web3 class
   public utils: typeof utils;
   public eth: KlaytnWeb3EthInterface;
+
+  // Additional RPC namespaces
+  public admin: AsyncNamespaceApi;
+  public debug: AsyncNamespaceApi;
+  public governance: AsyncNamespaceApi;
+  public klay: AsyncNamespaceApi;
+  public net: AsyncNamespaceApi;
+  public personal: AsyncNamespaceApi;
+  public txpool: AsyncNamespaceApi;
 
   // The inner Web3 instance that provides the base implementation.
   // KlaytnWeb3 will delegate most of its methods to this instance.
@@ -62,6 +75,38 @@ export class KlaytnWeb3
     // except below ones.
     this.eth.getProtocolVersion = context_getProtocolVersion(this._web3);
     this.eth.sendSignedTransaction = context_sendSignedTransaction(this._web3);
+
+    // Attach additional RPC namespaces.
+    const send = this.makeSendFunction();
+    this.admin = asyncOpenApi(send, AdminApi);
+    this.debug = asyncOpenApi(send, DebugApi);
+    this.governance = asyncOpenApi(send, GovernanceApi);
+    this.klay = asyncOpenApi(send, KlayApi);
+    this.net = asyncOpenApi(send, NetApi);
+    this.personal = asyncOpenApi(send, PersonalApi);
+    this.txpool = asyncOpenApi(send, TxpoolApi);
+  }
+
+  private makeSendFunction(): rpcSendFunction {
+    if (!this.provider) {
+      return async (_method: string, _params: any[]): Promise<any> => {
+        throw new ProviderError("no provider set");
+      };
+    }
+
+    return async (method: string, params: any[]): Promise<any> => {
+      const response = await this.provider?.request({
+        jsonrpc: "2.0",
+        id: "1",
+        method: method,
+        params: params,
+      });
+      if (response?.error) {
+        throw new ResponseError(response);
+      } else {
+        return response?.result;
+      }
+    };
   }
 }
 

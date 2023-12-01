@@ -87,9 +87,11 @@ describe("web3.eth", () => {
     P.mock_override("eth_chainId", () => "0x3e9");
     P.mock_override("net_version", () => "0x3e9");
 
+    // To test getProtocolVersion
     P.mock_override("eth_protocolVersion", () => "0x1111");
     P.mock_override("klay_protocolVersion", () => "0x2222");
 
+    // To test sendSignedTransaction
     P.mock_override("eth_call", () => {});
     P.mock_override("eth_blockNumber", () => "0x64");
     P.mock_override("eth_getBlockByNumber", ([num]) => {
@@ -97,7 +99,6 @@ describe("web3.eth", () => {
       b.number = Number(num);
       return b; // Return a dummy block with the requested number
     });
-
     function mockSendRawTransaction(params: any[]) {
       if (params[0] == rawTx0) { return rc0.transactionHash; }
       if (params[0] == rawTx8) { return rc8.transactionHash; }
@@ -111,6 +112,18 @@ describe("web3.eth", () => {
     P.mock_override("eth_sendRawTransaction", mockSendRawTransaction);
     P.mock_override("eth_getTransactionReceipt", mockGetTransactionReceipt);
     P.mock_override("klay_sendRawTransaction", mockSendRawTransaction);
+
+    // To test additional RPC namespaces
+    P.mock_override("admin_datadir", () => "/home/ubuntu/klaytn/data");
+    P.mock_override("debug_isPProfRunning", () => false);
+    P.mock_override("governance_idxCache", () => [0]);
+    P.mock_override("klay_blockNumber", () => "0x64");
+    P.mock_override("klay_getTransactionReceipt", mockGetTransactionReceipt);
+    P.mock_override("net_networkID", () => 1001);
+    P.mock_override("personal_listAccounts", () => ["0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"]);
+    P.mock_override("txpool_status", () => {
+      return { pending: 1, queued: 2 };
+    });
   });
 
   it("getProtocolVersion()", async () => {
@@ -119,7 +132,7 @@ describe("web3.eth", () => {
     assert.equal(await KW3.eth.getProtocolVersion(), "0x2222");
   });
 
-  it.only("sendSignedTransaction()", async () => {
+  it("sendSignedTransaction()", async () => {
     async function checkSend(W3: Web3, rawTx: string, receipt: Receipt) {
       let onSent: string = "";
       let onTxHash: string = "";
@@ -140,5 +153,16 @@ describe("web3.eth", () => {
     await checkSend(EW3, rawTx0, rc0);
     await checkSend(KW3, rawTx0, rc0);
     await checkSend(KW3, rawTx8, rc8);
+  });
+
+  it("additional RPC namespaces", async () => {
+    assert.deepEqual(await KW3.admin.datadir(), "/home/ubuntu/klaytn/data");
+    assert.deepEqual(await KW3.debug.isPProfRunning(), false);
+    assert.deepEqual(await KW3.governance.idxCache(), [0]);
+    assert.deepEqual(await KW3.klay.blockNumber(), "0x64");
+    assert.deepEqual(await KW3.klay.getTransactionReceipt(rc0.transactionHash), rc0); // example with nonzero params
+    assert.deepEqual(await KW3.net.networkID(), 1001);
+    assert.deepEqual(await KW3.personal.listAccounts(), ["0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"]);
+    assert.deepEqual(await KW3.txpool.status(), { pending: 1, queued: 2 });
   });
 });
