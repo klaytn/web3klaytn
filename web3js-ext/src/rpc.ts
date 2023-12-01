@@ -2,7 +2,7 @@ import { Web3Context } from "web3-core";
 import { SendTransactionOptions } from "web3-eth";
 import { Bytes, DEFAULT_RETURN_FORMAT, DataFormat } from "web3-types";
 
-import { klay_sendSignedTransaction } from "./send_transaction";
+import { klaytnSendSignedTransaction } from "./send_transaction";
 
 // Create a getProtocolVersion() function bound to given context
 // Should replace web3.eth.getProtocolVersion().
@@ -23,10 +23,10 @@ export function context_getProtocolVersion(context: Web3Context) {
 // Override it because eth_sendRawTransaction cannot accept Klaytn TxTypes.
 export function context_sendSignedTransaction(context: Web3Context) {
   // See web3-eth/src/web3_eth.ts:Web3Eth
-  return async<ReturnFormat extends DataFormat = typeof DEFAULT_RETURN_FORMAT> (
+  return function<ReturnFormat extends DataFormat = typeof DEFAULT_RETURN_FORMAT> (
     transaction: Bytes,
     returnFormat: ReturnFormat = DEFAULT_RETURN_FORMAT as ReturnFormat,
-    options?: SendTransactionOptions) => {
-    return klay_sendSignedTransaction(context, transaction, returnFormat, options);
+    options?: SendTransactionOptions) {
+    return klaytnSendSignedTransaction(context, transaction, returnFormat, options);
   };
 }

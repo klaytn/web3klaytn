@@ -29,7 +29,7 @@ type TimeoutT = ReturnType<typeof setTimeout>;
 // A wrapper around the sendRawTransaction RPC. There is no such RPC named "sendSignedTransaction".
 // See web3-eth/src/rpc_method_wrappers.ts:sendSignedTransaction
 // See web3-eth/src/utils/try_send_transaction.ts
-export function klay_sendSignedTransaction<
+export function klaytnSendSignedTransaction<
   ReturnFormat extends DataFormat,
   ResolveType = FormatType<TransactionReceipt, ReturnFormat>,
 >(

@@ -98,10 +98,19 @@ describe("web3.eth", () => {
       return b; // Return a dummy block with the requested number
     });
 
-    P.mock_override("eth_sendRawTransaction", () => rc0.transactionHash);
-    P.mock_override("eth_getTransactionReceipt", () => rc0);
-    P.mock_override("klay_sendRawTransaction", () => rc8.transactionHash);
-    P.mock_override("klay_getTransactionReceipt", () => rc8);
+    function mockSendRawTransaction(params: any[]) {
+      if (params[0] == rawTx0) { return rc0.transactionHash; }
+      if (params[0] == rawTx8) { return rc8.transactionHash; }
+      return null;
+    }
+    function mockGetTransactionReceipt(params: any[]) {
+      if (params[0] == rc0.transactionHash) { return rc0; }
+      if (params[0] == rc8.transactionHash) { return rc8; }
+      return null;
+    }
+    P.mock_override("eth_sendRawTransaction", mockSendRawTransaction);
+    P.mock_override("eth_getTransactionReceipt", mockGetTransactionReceipt);
+    P.mock_override("klay_sendRawTransaction", mockSendRawTransaction);
   });
 
   it("getProtocolVersion()", async () => {
@@ -129,5 +138,7 @@ describe("web3.eth", () => {
     }
 
     await checkSend(EW3, rawTx0, rc0);
+    await checkSend(KW3, rawTx0, rc0);
+    await checkSend(KW3, rawTx8, rc8);
   });
 });

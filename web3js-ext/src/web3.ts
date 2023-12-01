@@ -61,7 +61,7 @@ export class KlaytnWeb3
     // Note that most of the web3.eth methods should keep calling eth_ RPCs to Klaytn node,
     // except below ones.
     this.eth.getProtocolVersion = context_getProtocolVersion(this._web3);
-    this.eth.sendSignedTransaction = context_sendSignedTransaction(this._web3) as typeof this.eth.sendSignedTransaction; // TODO: fix typing
+    this.eth.sendSignedTransaction = context_sendSignedTransaction(this._web3);
   }
 }
 
