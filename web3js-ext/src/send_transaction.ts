@@ -1,14 +1,5 @@
+import { KlaytnTxFactory, getRpcTxObject } from "@klaytn/js-ext-core";
 import { Web3Context, Web3PromiEvent } from "web3-core";
-import {
-  Bytes, DataFormat, FormatType, TransactionCall, TransactionReceipt,
-  EthExecutionAPI, ETH_DATA_FORMAT, DEFAULT_RETURN_FORMAT, ContractAbi, AbiErrorFragment
-} from "web3-types";
-import { format, toHex, rejectIfTimeout, pollTillDefined } from "web3-utils";
-import {
-  SendSignedTransactionOptions, SendSignedTransactionEvents, sendSignedTransaction,
-  transactionReceiptSchema, getTransactionReceipt, call,
-  RevertReason, RevertReasonWithCustomError
-} from "web3-eth";
 import {
   ContractExecutionError,
   InvalidResponseError,
@@ -18,13 +9,19 @@ import {
   TransactionSendTimeoutError,
   TransactionPollingTimeoutError,
   Eip838ExecutionError,
-} from 'web3-errors';
+} from "web3-errors";
+import {
+  SendSignedTransactionOptions, SendSignedTransactionEvents, sendSignedTransaction,
+  transactionReceiptSchema, getTransactionReceipt, call,
+  RevertReason, RevertReasonWithCustomError
+} from "web3-eth";
 import { isAbiErrorFragment, decodeContractErrorData } from "web3-eth-abi";
-import _ from "lodash";
+import {
+  Bytes, DataFormat, FormatType, TransactionCall, TransactionReceipt,
+  EthExecutionAPI, ETH_DATA_FORMAT, DEFAULT_RETURN_FORMAT, ContractAbi, AbiErrorFragment
+} from "web3-types";
+import { format, rejectIfTimeout, pollTillDefined } from "web3-utils";
 
-import { KlaytnTxFactory } from "@klaytn/ethers-ext";
-
-import { saveCustomFields } from "./klaytn_tx";
 
 // Platform-independent NodeJS timeout types
 type TimeoutT = ReturnType<typeof setTimeout>;
@@ -32,7 +29,7 @@ type TimeoutT = ReturnType<typeof setTimeout>;
 // A wrapper around the sendRawTransaction RPC. There is no such RPC named "sendSignedTransaction".
 // See web3-eth/src/rpc_method_wrappers.ts:sendSignedTransaction
 // See web3-eth/src/utils/try_send_transaction.ts
-export function klay_sendSignedTransaction<
+export function klaytnSendSignedTransaction<
   ReturnFormat extends DataFormat,
   ResolveType = FormatType<TransactionReceipt, ReturnFormat>,
 >(
@@ -41,10 +38,9 @@ export function klay_sendSignedTransaction<
   returnFormat: ReturnFormat,
   options: SendSignedTransactionOptions<ResolveType> = { checkRevertBeforeSending: true },
 ): Web3PromiEvent<ResolveType, SendSignedTransactionEvents<ReturnFormat>> {
-
   // Short circuit if the transaction is an Ethereum transaction
   const signedTransactionFormattedHex = format(
-    { format: 'bytes' },
+    { format: "bytes" },
     signedTransaction,
     ETH_DATA_FORMAT,
   );
@@ -54,16 +50,15 @@ export function klay_sendSignedTransaction<
   }
 
   // Parse the signed KlaytnTx
-  // TODO: make something like encodeTxForRPC
   const unSerializedTransaction = KlaytnTxFactory.fromRLP(signedTransactionFormattedHex).toObject();
-  const unSerializedTransactionForCall = _.clone(unSerializedTransaction);
-  saveCustomFields(unSerializedTransactionForCall);
-  if (unSerializedTransactionForCall.value == "0x") {
-    unSerializedTransactionForCall.value = "0x0";
-  }  
-  if (unSerializedTransactionForCall.nonce == "0x") {
-    unSerializedTransactionForCall.nonce = "0x0";
-  }
+
+  // hot fix
+  // TODO : the code below will be deleted after deploying same logic in js-ext-core
+  if (unSerializedTransaction.nonce == "0x") { unSerializedTransaction.nonce = 0; }
+  if (unSerializedTransaction.value == "0x") { unSerializedTransaction.value = 0; }
+  if (unSerializedTransaction.to == "0x") { unSerializedTransaction.to = "0x0000000000000000000000000000000000000000"; }
+
+  const unSerializedTransactionForCall = getRpcTxObject(unSerializedTransaction);
 
   // Because modifying the rpc name to "klay_sendRawTransaction" is not trivial,
   // we resort to reimplement the whole logic.
@@ -87,21 +82,21 @@ export function klay_sendSignedTransaction<
           reason,
         );
 
-        if (promiEvent.listenerCount('error') > 0) {
-          promiEvent.emit('error', error);
+        if (promiEvent.listenerCount("error") > 0) {
+          promiEvent.emit("error", error);
         }
 
         return error;
       }
     }
     return null;
-  }
+  };
 
   const doSend = async (
     promiEvent: Web3PromiEvent<ResolveType, SendSignedTransactionEvents<ReturnFormat>>,
   ) => {
-    if (promiEvent.listenerCount('sending') > 0) {
-      promiEvent.emit('sending', signedTransactionFormattedHex);
+    if (promiEvent.listenerCount("sending") > 0) {
+      promiEvent.emit("sending", signedTransactionFormattedHex);
     }
 
     const transactionHash = await trySendTransaction(
@@ -109,20 +104,20 @@ export function klay_sendSignedTransaction<
       signedTransactionFormattedHex
     );
     const transactionHashFormatted = format(
-      { format: 'bytes32' },
+      { format: "bytes32" },
       transactionHash as Bytes,
       returnFormat
     );
 
-    if (promiEvent.listenerCount('sent') > 0) {
-      promiEvent.emit('sent', signedTransactionFormattedHex);
+    if (promiEvent.listenerCount("sent") > 0) {
+      promiEvent.emit("sent", signedTransactionFormattedHex);
     }
-    if (promiEvent.listenerCount('transactionHash') > 0) {
-      promiEvent.emit('transactionHash', transactionHashFormatted);
+    if (promiEvent.listenerCount("transactionHash") > 0) {
+      promiEvent.emit("transactionHash", transactionHashFormatted);
     }
 
     return transactionHash;
-  }
+  };
 
   const doWait = async (
     promiEvent: Web3PromiEvent<ResolveType, SendSignedTransactionEvents<ReturnFormat>>,
@@ -134,24 +129,24 @@ export function klay_sendSignedTransaction<
       web3Context,
       transactionHash,
       returnFormat,
-    )
+    );
     const transactionReceiptFormatted = format(
       transactionReceiptSchema,
       transactionReceipt,
       returnFormat,
     );
 
-    if (promiEvent.listenerCount('receipt') > 0) {
-      promiEvent.emit('receipt', transactionReceiptFormatted);
+    if (promiEvent.listenerCount("receipt") > 0) {
+      promiEvent.emit("receipt", transactionReceiptFormatted);
     }
 
-    if (promiEvent.listenerCount('confirmation') > 0) {
+    if (promiEvent.listenerCount("confirmation") > 0) {
       // Klaytn transactions are immediately confirmed.
-      promiEvent.emit('confirmation', {
-        confirmations: format({ format: 'uint' }, 1 as number, returnFormat),
+      promiEvent.emit("confirmation", {
+        confirmations: format({ format: "uint" }, 1 as number, returnFormat),
         receipt: transactionReceiptFormatted,
         latestBlockHash: format(
-          { format: 'bytes32' },
+          { format: "bytes32" },
           transactionReceipt.blockHash as Bytes,
           returnFormat,
         ),
@@ -173,16 +168,15 @@ export function klay_sendSignedTransaction<
         options?.contractAbi,
       );
 
-      if (promiEvent.listenerCount('error') > 0) {
-        promiEvent.emit('error', error);
+      if (promiEvent.listenerCount("error") > 0) {
+        promiEvent.emit("error", error);
       }
 
       reject(error);
     } else {
       resolve(transactionReceiptFormatted as unknown as ResolveType);
     }
-
-  }
+  };
 
   const doError = async (
     promiEvent: Web3PromiEvent<ResolveType, SendSignedTransactionEvents<ReturnFormat>>,
@@ -207,13 +201,13 @@ export function klay_sendSignedTransaction<
         _error instanceof TransactionRevertWithCustomError ||
         _error instanceof TransactionRevertedWithoutReasonError ||
         _error instanceof TransactionRevertInstructionError) &&
-      promiEvent.listenerCount('error') > 0
+      promiEvent.listenerCount("error") > 0
     ) {
-      promiEvent.emit('error', _error);
+      promiEvent.emit("error", _error);
     }
 
     reject(_error);
-  }
+  };
 
   const promiEvent = new Web3PromiEvent<ResolveType, SendSignedTransactionEvents<ReturnFormat>>(
     (resolve, reject) => {
@@ -224,14 +218,14 @@ export function klay_sendSignedTransaction<
             if (checkError) {
               reject(checkError);
               return;
-            } 
+            }
 
             const transactionHash = await doSend(promiEvent);
             await doWait(promiEvent, resolve, reject, transactionHash);
           } catch (error) {
             await doError(promiEvent, reject, error);
           }
-        })()
+        })();
       });
     });
   return promiEvent;
@@ -265,7 +259,7 @@ export async function trySendTransaction(
     return await Promise.race([
       sendRpc(),
       rejectOnSendTimeout,
-    ])
+    ]);
   } finally {
     clearTimeout(sendTimeoutId as TimeoutT);
   }
@@ -284,7 +278,7 @@ export async function waitForTransactionReceipt<ReturnFormat extends DataFormat>
     try {
       return getTransactionReceipt(web3Context, transactionHash, returnFormat);
     } catch (error) {
-      console.warn('An error happen while trying to get the transaction receipt', error);
+      console.warn("An error happen while trying to get the transaction receipt", error);
       return undefined;
     }
   }, pollingInterval);
@@ -338,7 +332,7 @@ export async function getTransactionError<ReturnFormat extends DataFormat>(
     error = new TransactionRevertedWithoutReasonError<
       FormatType<TransactionReceipt, ReturnFormat>
     >(transactionReceiptFormatted);
-  } else if (typeof _reason === 'string') {
+  } else if (typeof _reason === "string") {
     error = new TransactionRevertInstructionError<FormatType<TransactionReceipt, ReturnFormat>>(
       _reason,
       undefined,
@@ -374,57 +368,57 @@ export async function getTransactionError<ReturnFormat extends DataFormat>(
 
 // See web3-eth/src/utils/get_revert_reason.ts
 export const parseTransactionError = (error: unknown, contractAbi?: ContractAbi) => {
-	if (
-		error instanceof ContractExecutionError &&
+  if (
+    error instanceof ContractExecutionError &&
 		error.innerError instanceof Eip838ExecutionError
-	) {
-		if (contractAbi !== undefined) {
-			const errorsAbi = contractAbi.filter(abi =>
-				isAbiErrorFragment(abi),
-			) as unknown as AbiErrorFragment[];
-			decodeContractErrorData(errorsAbi, error.innerError);
+  ) {
+    if (contractAbi !== undefined) {
+      const errorsAbi = contractAbi.filter((abi) =>
+        isAbiErrorFragment(abi),
+      ) as unknown as AbiErrorFragment[];
+      decodeContractErrorData(errorsAbi, error.innerError);
 
-			return {
-				reason: error.innerError.message,
-				signature: error.innerError.data?.slice(0, 10),
-				data: error.innerError.data?.substring(10),
-				customErrorName: error.innerError.errorName,
-				customErrorDecodedSignature: error.innerError.errorSignature,
-				customErrorArguments: error.innerError.errorArgs,
-			} as RevertReasonWithCustomError;
-		}
+      return {
+        reason: error.innerError.message,
+        signature: error.innerError.data?.slice(0, 10),
+        data: error.innerError.data?.substring(10),
+        customErrorName: error.innerError.errorName,
+        customErrorDecodedSignature: error.innerError.errorSignature,
+        customErrorArguments: error.innerError.errorArgs,
+      } as RevertReasonWithCustomError;
+    }
 
-		return {
-			reason: error.innerError.message,
-			signature: error.innerError.data?.slice(0, 10),
-			data: error.innerError.data?.substring(10),
-		} as RevertReason;
-	}
+    return {
+      reason: error.innerError.message,
+      signature: error.innerError.data?.slice(0, 10),
+      data: error.innerError.data?.substring(10),
+    } as RevertReason;
+  }
 
-	if (
-		error instanceof InvalidResponseError &&
+  if (
+    error instanceof InvalidResponseError &&
 		!Array.isArray(error.innerError) &&
 		error.innerError !== undefined
-	) {
-		return error.innerError.message;
-	}
+  ) {
+    return error.innerError.message;
+  }
 
-	throw error;
+  throw error;
 };
 
 // See web3-eth/src/utils/get_revert_reason.ts
 export async function getRevertReason<
 	ReturnFormat extends DataFormat = typeof DEFAULT_RETURN_FORMAT,
 >(
-	web3Context: Web3Context<EthExecutionAPI>,
-	transaction: TransactionCall,
-	contractAbi?: ContractAbi,
-	returnFormat: ReturnFormat = DEFAULT_RETURN_FORMAT as ReturnFormat,
+  web3Context: Web3Context<EthExecutionAPI>,
+  transaction: TransactionCall,
+  contractAbi?: ContractAbi,
+  returnFormat: ReturnFormat = DEFAULT_RETURN_FORMAT as ReturnFormat,
 ): Promise<undefined | RevertReason | RevertReasonWithCustomError | string> {
-	try {
-		await call(web3Context, transaction, web3Context.defaultBlock, returnFormat);
-		return undefined;
-	} catch (error) {
-		return parseTransactionError(error, contractAbi);
-	}
+  try {
+    await call(web3Context, transaction, web3Context.defaultBlock, returnFormat);
+    return undefined;
+  } catch (error) {
+    return parseTransactionError(error, contractAbi);
+  }
 }
