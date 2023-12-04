@@ -7,15 +7,26 @@ import { HexStr } from "./data";
 const secp256k1 = new ec("secp256k1");
 
 // Returns a 33-byte compressed public key from
-// a compressed (33-byte) or uncompressed (65-byte) public key.
+// a compressed (33-byte), uncompressed (65-byte) public key,
+// or an object { x, y } (each 32-byte).
 export function getCompressedPublicKey(pub: any): string {
-  const hex = HexStr.from(pub);
-  if (HexStr.isHex(hex, 33) || HexStr.isHex(hex, 65)) {
-    const pub = secp256k1.keyFromPublic(hex.substring(2), "hex");
-    return "0x" + pub.getPublic(true, "hex");
-  } else {
-    throw new Error("Public key must be 33 or 65 bytes");
+  if (_.isString(pub)) { // Hex string
+    const hex = HexStr.from(HexStr.withHexPrefix(pub));
+    if (HexStr.isHex(hex, 33) || HexStr.isHex(hex, 65)) {
+      const serialized = HexStr.stripHexPrefix(hex);
+      const pubkey = secp256k1.keyFromPublic(serialized, "hex");
+      return "0x" + pubkey.getPublic(true, "hex");
+    }
   }
+
+  if (_.isString(pub.x) && _.isString(pub.y)) {
+    pub.x = HexStr.stripHexPrefix(pub.x);
+    pub.y = HexStr.stripHexPrefix(pub.y);
+    const pubkey = secp256k1.keyFromPublic(pub);
+    return "0x" + pubkey.getPublic(true, "hex");
+  }
+
+  throw new Error("Public key must be a hex string of 33 or 65 bytes, or an { x, y } object");
 }
 
 // List of signature tuples used in Klaytn transactions.

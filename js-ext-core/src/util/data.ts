@@ -30,5 +30,11 @@ export const HexStr = {
   },
   zeroPad(value: string, length: number): string {
     return bytes.hexZeroPad(value, length);
+  },
+  withHexPrefix(value: string): string {
+    return value.replace(/^(0x)?/, "0x");
+  },
+  stripHexPrefix(value: string): string {
+    return value.replace(/^(0x)?/, "");
   }
 };

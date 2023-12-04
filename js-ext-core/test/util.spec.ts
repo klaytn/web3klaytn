@@ -1,7 +1,6 @@
 import { BigNumber } from "@ethersproject/bignumber";
 import { formatUnits as formatEthUnits, parseUnits as parseEthUnits, formatEther, parseEther } from "@ethersproject/units";
 import { assert } from "chai";
-import {split} from "lodash";
 /* eslint-disable */
 // @ts-ignore: package @klaytn/web3rpc has no .d.ts file.
 //import { ApiClient, KlayApi } from "@klaytn/web3rpc";
@@ -13,6 +12,7 @@ import {
   isFeeDelegationTxType,
   isKlaytnTxType,
   isPartialFeeDelegationTxType,
+  getCompressedPublicKey,
   getSignatureTuple,
   getRpcTxObject,
   formatKlayUnits,
@@ -48,6 +48,23 @@ describe("util", () => {
     assert.isFalse(isBasicTxType(ty));
     assert.isFalse(isFeeDelegationTxType(ty));
     assert.isTrue(isPartialFeeDelegationTxType(ty));
+  });
+
+  it.only("getCompressedPublicKey", () => {
+    const testcases = [
+      { x: "dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd", y: "af06ca34ae8714cf3dae06bacdb78c7c2d4054bd38961d40853cd5f15955da79" },
+      { x: "0xdc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd", y: "0xaf06ca34ae8714cf3dae06bacdb78c7c2d4054bd38961d40853cd5f15955da79" },
+      "03dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd",
+      "0x03dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd",
+      "04dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cdaf06ca34ae8714cf3dae06bacdb78c7c2d4054bd38961d40853cd5f15955da79",
+      "0x04dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cdaf06ca34ae8714cf3dae06bacdb78c7c2d4054bd38961d40853cd5f15955da79",
+    ];
+    const compressed = "0x03dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd";
+
+    for (const tc of testcases) {
+      const pub = getCompressedPublicKey(tc);
+      assert.equal(pub, compressed);
+    }
   });
 
   it("getSignatureTuple", () => {
