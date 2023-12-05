@@ -1,5 +1,3 @@
-console.log("hello ethers_ext", ethers_ext.TxType.ValueTransfer);
-
 async function connect() {
   if (typeof window.klaytn !== "undefined") {
     try {
@@ -33,10 +31,10 @@ async function execute() {
 
     try {
       let tx = {
-        type: TxType.AccountUpdate,
+        type: ethers_ext.TxType.AccountUpdate,
         from: senderAddr,
         key: {
-          type: AccountKeyType.Public,
+          type: ethers_ext.AccountKeyType.Public,
           key: ethers.utils.computePublicKey(senderNewPriv, true),
         }
       };
