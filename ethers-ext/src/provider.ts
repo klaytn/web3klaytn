@@ -5,6 +5,8 @@ import { asyncOpenApi, AsyncNamespaceApi } from "@klaytn/js-ext-core";
 // @ts-ignore: package @klaytn/web3rpc has no .d.ts file.
 import { AdminApi, DebugApi, GovernanceApi, KlayApi, NetApi, PersonalApi, TxpoolApi } from "@klaytn/web3rpc";
 
+import {JsonRpcSigner} from "./signer";
+
 /* eslint-disable no-multi-spaces */
 export class JsonRpcProvider extends EthersJsonRpcProvider {
   // API methods other than eth_ namespaces
@@ -15,6 +17,9 @@ export class JsonRpcProvider extends EthersJsonRpcProvider {
   net:        AsyncNamespaceApi;
   personal:   AsyncNamespaceApi;
   txpool:     AsyncNamespaceApi;
+
+  // TODO : chekc the meaning for _constructorGuard
+  private _constructorGuard: any;
 
   constructor(url?: ConnectionInfo | string, network?: Networkish) {
     super(url, network);
@@ -30,5 +35,11 @@ export class JsonRpcProvider extends EthersJsonRpcProvider {
     this.net        = asyncOpenApi(send, NetApi);
     this.personal   = asyncOpenApi(send, PersonalApi);
     this.txpool     = asyncOpenApi(send, TxpoolApi);
+
+    // TODO : chekc the meaning for _constructorGuard
+    this._constructorGuard = {};
+    this.getSigner = function (addressOrIndex) {
+      return new JsonRpcSigner(this._constructorGuard, this, addressOrIndex);
+    };
   }
 }
