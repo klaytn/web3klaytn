@@ -2,7 +2,7 @@ generatorName: web3rpc-javascript
 outputDir: ./openapi
 inputSpec: ../../../rpc-specs/namespaces/all-except-eth.yaml
 projectName: "@klaytn/web3rpc"
-projectVersion: "0.9.7"
+projectVersion: "0.9.8"
 templateDir: ./template
 sortParamsByRequiredFlag: false
 globalProperties:
