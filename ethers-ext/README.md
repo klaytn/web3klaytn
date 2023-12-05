@@ -16,7 +16,8 @@ npm install --save @klaytn/ethers-ext
 
 ## Usage
 
-See examples.
+See [example](./example) and [test](./test).
+
 
 ## Build
 
@@ -24,13 +25,6 @@ See examples.
 
     ```
     npm install
-    ```
-
-- (optional) Import @klaytn/web3rpc from local file.
-  Use this method to use the latest version of the web3rpc.
-
-    ```
-    npm link ../web3rpc/sdk/client/javascript/openapi
     ```
 
 - Build the library
