@@ -1,7 +1,7 @@
 {
     "name": "@klaytn/web3js-ext",
     "version": "0.9.8-beta",
-    "main": "dist/src/index.js",
+    "main": "dist/index.js",
     "files": [
         "./dist",
         "./src"
@@ -39,5 +39,4 @@
         "ethereum-cryptography": "^2.1.2",
         "lodash": "^4.17.21"
     }
-    
 }
