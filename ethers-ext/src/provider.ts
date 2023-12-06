@@ -37,6 +37,7 @@ export class JsonRpcProvider extends EthersJsonRpcProvider {
 const _constructorGuard = {};
 export class Web3Provider extends EthersWeb3Provider {
   override getSigner(addressOrIndex?: string | number | undefined): JsonRpcSigner {
+    console.log("it's me")
     return new JsonRpcSigner(_constructorGuard, this, addressOrIndex);
   }
 }
