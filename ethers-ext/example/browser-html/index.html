@@ -7,13 +7,25 @@
   </head>
   <body>
     <body>
-      <button id="connectButton" onclick="connect()">Connect</button>
-      <button id="executeButton" onclick="execute()">Execute</button>
-      <text id="accounts"></text>
+      <p><button id="btnConnectMM" onclick="connectMM()">Connect MetaMask</button></p>
+      <p><button id="btnConnectKK" onclick="connectKK()">Connect Kaikas</button></p>
+      <hr/>
+      <p><button id="btnNetBaobab" onclick="switchBaobab()">Switch to Baobab</button></p>
+      <p><button id="btnNetLocal" onclick="switchLocal()">Switch to Localhost</button></p>
+      <hr/>
+      <p><button id="btnLegacy" onclick="sendLegacy()">Send Legacy tx</button></p>
+      <p><button id="btnVT" onclick="sendVT()">Send ValueTransfer tx</button></p>
+      <p><button id="btnFVT" onclick="sendFVT()">Sign FeeDelegatedValueTransfer tx</button></p>
+      <p><button id="btnSignMsg" onclick="signMsg()">Sign message</button></p>
+      <hr/>
+      <p>accounts: <text id="textAccounts"></text></p>
+      <p>signature: <text id="textSignature"></text></p>
+      <p>txhash: <text id="textTxhash"></text></p>
     </body>
 
-    <!-- TODO: import from npmjs cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js" integrity="sha512-FDcVY+g7vc5CXANbrTSg1K5qLyriCsGDYCE02Li1tXEYdNQPvLPHNE+rT2Mjei8N7fZbe0WLhw27j2SrGRpdMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script></script>
+    <!-- TODO: import from npmjs cdn "https://cdn.jsdelivr.net/npm/@klaytn/ethers-ext@0.9.8-beta/dist/ethers-ext.bundle.js" -->
     <script src="ethers-ext.bundle.js"></script>
     <script src="main.js"></script>
   </body>

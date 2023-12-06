@@ -94,5 +94,12 @@ module.exports = {
         "prefer-const": "off",
       }
     },
+    { // browser examples use browser globals
+      "filters": ["example/browser-html/*"],
+      "rules": {
+        "no-undef": "off",
+        "no-unused-vars": "off",
+      }
+    }
   ]
 };

@@ -1,90 +1,63 @@
-const browser = window.klaytn; 
-// const nameSpace = "klay";
+var provider = null;
 
-// const browser = window.ethereum;
-const nameSpace = "eth";
+// https://docs.ethers.org/v5/getting-started/#getting-started--connecting
+async function connect(injectedProvider) {
+  if (!injectedProvider) {
+    alert("Please install wallet");
+    return;
+  }
+  provider = new ethers.providers.Web3Provider(injectedProvider);
+  
+  await provider.send("eth_requestAccounts", []);
+  const accounts = await provider.listAccounts(); // internally eth_accounts
+  console.log("accounts", accounts);
+  $("#textAccounts").html(accounts);
+}
+async function connectMM() { await connect(window.ethereum); }
+async function connectKK() { await connect(window.klaytn); }
 
-async function connect() {
-  if (typeof browser !== "undefined") {
-    try {
-      await browser.request({method: nameSpace+"_requestAccounts"});
-    } catch (error) {
-      console.log(error);
-    }
-    document.getElementById("connectButton").innerHTML = "Connected";
-    const accounts = await browser.request({ method: nameSpace+"_accounts" });
-    document.getElementById("accounts").innerHTML = accounts;
-    console.log(accounts);
-  } else {
-    document.getElementById("connectButton").innerHTML =
-        "Please install Kaikas";
+// https://docs.metamask.io/wallet/how-to/add-network/
+// EIP-3085 wallet_addEthereumChain
+// EIP-3326 wallet_switchEthereumChain
+async function switchNetwork(networkSpec) {
+  console.log("switching to", networkSpec);
+  try {
+    await provider.send("wallet_switchEthereumChain", [{ chainId: networkSpec.chainId }]);
+  } catch (e) {
+    await provider.send("wallet_addEthereumChain", [networkSpec]);
   }
 }
+async function switchBaobab() {
+  await switchNetwork({
+    chainId: "0x3e9",
+    chainName: "Klaytn Baobab",
+    nativeCurrency: {
+      name: "KLAY",
+      symbol: "KLAY",
+      decimals: 18,
+    },
+    rpcUrls: ["https://public-en-baobab.klaytn.net"],
+    blockExplorerUrls: ["https://baobab.klaytnscope.com/"],
+  });
+}
+async function switchLocal() {
+  await switchNetwork({
+    chainId: "0x7a69",
+    chainName: "localhost 8545",
+    nativeCurrency: {
+      name: "KLAY",
+      symbol: "KLAY",
+      decimals: 18,
+    },
+    rpcUrls: ["http://localhost:8545"],
+    blockExplorerUrls: ["http://localhost:4000"],
+  });
+}
 
-async function execute() {
-  if (typeof browser !== "undefined") {
-    const provider = new ethers_ext.Web3Provider(browser);
-    const signer = provider.getSigner();
-
-    // 서명은 되지만 트랜잭션으로 전송되고 callback이 없어서 확인이 안됨
-    const message = 'Hello dapp';
-    const signature = await signer.signMessage(message);
-    console.log( signature );
-
-    const senderAddr = "0xe15cd70a41dfb05e7214004d7d054801b2a2f06b";
-    const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
-    const senderNewPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
-
-    try {
-    //   let tx = {
-    //     type: ethers_ext.TxType.AccountUpdate,
-    //     from: senderAddr,
-    //     key: {
-    //       type: ethers_ext.AccountKeyType.Public,
-    //       key: ethers.utils.computePublicKey(senderNewPriv, true),
-    //     }
-    //   };
-
-      // 1.
-      // const populatedTx = await signer.populateTransaction(tx);
-      // const signedTx = await signer.signTransaction(populatedTx);
-
-      // const sentTx = await this._sendRawTransaction(signedTx);
-      // console.log("sentTx", sentTx);
-
-      // 2.
-      // const sentTx = await signer.sendTransaction(tx);
-      // console.log("sentTx", sentTx);
-
-      // 3.
-    //   let params = [
-    //     {
-    //       from: "0x672e7a695066b131cE36842D978Ad9e251A2Df7E",
-    //       to: "0x672e7a695066b131cE36842D978Ad9e251A2Df7E",
-    //       gas: "0x76c0", // 30400
-    //       value: "0x0", // 2441406250
-    //     }
-    //   ];
-
-      
-    //   browser.request({
-    //       method: nameSpace+"_sendTransaction",
-    //       params: params,
-    //     })
-    //     .then((result) => {
-    //       // The result varies by RPC method.
-    //       // For example, this method returns a transaction hash hexadecimal string upon success.
-    //       console.log(result);
-    //     })
-    //     .catch((error) => {
-    //       // If the request fails, the Promise rejects with an error.
-    //       console.log(error);
-    //     });
-    } catch (error) {
-      console.log(error);
-    }
-  } else {
-    document.getElementById("executeButton").innerHTML =
-        "Please install Kaikas";
-  }
+async function signMsg() {
+  const signer = provider.getSigner();
+  const message = "Hello dapp";
+  const signature = await signer.signMessage(message);
+  console.log("signature", signature);
+  $("#textSignature").html(signature);
 }
