@@ -1,6 +1,6 @@
 {
     "name": "@klaytn/web3js-ext",
-    "version": "0.9.8-beta",
+    "version": "0.9.9-beta",
     "main": "dist/index.js",
     "files": [
         "./dist",
