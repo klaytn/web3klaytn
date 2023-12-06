@@ -6,7 +6,11 @@ async function connect(injectedProvider) {
     alert("Please install wallet");
     return;
   }
-  provider = new ethers.providers.Web3Provider(injectedProvider);
+  if (0) {
+    provider = new ethers.providers.Web3Provider(injectedProvider);
+  } else {
+    provider = new ethers_ext.Web3Provider(injectedProvider);
+  }
   
   await provider.send("eth_requestAccounts", []);
   const accounts = await provider.listAccounts(); // internally eth_accounts

@@ -1,11 +1,15 @@
 import { Provider, TransactionRequest, TransactionResponse } from "@ethersproject/abstract-provider";
-import { ExternallyOwnedAccount } from "@ethersproject/abstract-signer";
-import { JsonRpcProvider as EthersJsonRpcProvider, JsonRpcSigner as EthersJsonRpcSigner } from "@ethersproject/providers";
+import { Signer as EthersSigner, ExternallyOwnedAccount, TypedDataDomain, TypedDataField } from "@ethersproject/abstract-signer";
+import {
+  JsonRpcProvider as EthersJsonRpcProvider,
+  JsonRpcSigner as EthersJsonRpcSigner,
+} from "@ethersproject/providers";
 import { Wallet as EthersWallet } from "@ethersproject/wallet";
+import { defineReadOnly } from "@ethersproject/properties";
 import { poll } from "@ethersproject/web";
 import { KlaytnTxFactory, HexStr, isFeePayerSigTxType, parseTransaction } from "@klaytn/js-ext-core";
 import { BigNumber } from "ethers";
-import { Bytes, BytesLike, Deferrable, Logger, ProgressCallback, SigningKey, computeAddress, hexlify, keccak256, resolveProperties } from "ethers/lib/utils";
+import { Bytes, BytesLike, Deferrable, ProgressCallback, SigningKey, computeAddress, keccak256, resolveProperties, getAddress } from "ethers/lib/utils";
 import _ from "lodash";
 
 import { decryptKeystoreList, decryptKeystoreListSync } from "./keystore";
@@ -321,28 +325,80 @@ export class Wallet extends EthersWallet {
   }
 }
 
-export class JsonRpcSigner extends EthersJsonRpcSigner {
+// EthersJsonRpcSigner cannot be subclassed because of the constructorGuard.
+// Instead, we re-create the class by copying the implementation.
+export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
+  readonly provider: EthersJsonRpcProvider;
+  _index: number;
+  _address: string;
 
-  // TODO : implements all method
+  // Equivalent to EthersJsonRpcSigner.constructor, but without constructorGuard.
+  constructor(provider: EthersJsonRpcProvider, addressOrIndex?: string | number) {
+    super();
 
-  // constructor(provider: JsonRpcApiProvider, address: string) {
-  //   super(provider, address);
-  // }
+    this.provider = provider;
 
-  // override async populateTransaction(tx: TransactionRequest): Promise<TransactionLike<string>> {
-  //   // @ts-ignore
-  //   return await this.populateCall(tx);
-  // }
+    if (addressOrIndex == null) {
+      addressOrIndex = 0;
+    }
 
-  // override async sendUncheckedTransaction(_tx: TransactionRequest): Promise<string> {
-  // }
+    if (typeof(addressOrIndex) === "string") {
+      this._address = getAddress(addressOrIndex);
+      this._index = null as unknown as number;
+    } else if (typeof(addressOrIndex) === "number") {
+      this._address = null as unknown as string;
+      this._index = addressOrIndex;
+    } else {
+      throw new Error(`invalid address or index '${addressOrIndex}'`);
+    }
+  }
 
-  // override async sendTransaction(tx: TransactionRequest): Promise<TransactionResponse> {
-  // }
+  override async getAddress(): Promise<string> {
+    return Promise.resolve("");
+  }
 
-  // override async signTransaction(_tx: TransactionRequest): Promise<string> {
-  // }
+  override connect(provider: Provider): EthersJsonRpcSigner {
+    throw new Error("cannot alter JSON-RPC Signer connection");
+  }
 
-  // override async signMessage(_message: string | Uint8Array): Promise<string> {
-  // }
+  connectUnchecked(): EthersJsonRpcSigner {
+    return this;
+  }
+
+  override async signMessage(message: string | Bytes): Promise<string> {
+    return Promise.resolve("");
+  }
+
+  override checkTransaction(transaction: Deferrable<TransactionRequest>): Deferrable<TransactionRequest> {
+    return super.checkTransaction(transaction);
+  }
+
+  override async populateTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionRequest> {
+    return super.populateTransaction(transaction);
+  }
+
+  override async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
+    return Promise.resolve("");
+  }
+
+  override async sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
+    return Promise.resolve({} as TransactionResponse);
+  }
+
+  sendUncheckedTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
+    return Promise.resolve("");  
+  }
+
+  async _legacySignMessage(message: Bytes | string): Promise<string> {
+    throw new Error("Legacy eth_sign not supported");
+  }
+
+  async _signTypedData(domain: TypedDataDomain, types: Record<string, Array<TypedDataField>>, value: Record<string, any>): Promise<string> {
+    throw new Error("eth_signTypedData_v4 not supported");
+  }
+
+  async unlock(password: string): Promise<boolean> {
+    const address = await this.getAddress();
+    return this.provider.send("personal_unlockAccount", [ address.toLowerCase(), password, null ]);
+  }
 }

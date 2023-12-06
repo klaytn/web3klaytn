@@ -1,10 +1,15 @@
 import { Networkish } from "@ethersproject/networks";
-import { JsonRpcProvider as EthersJsonRpcProvider, Web3Provider as EthersWeb3Provider, JsonRpcSigner } from "@ethersproject/providers";
+import {
+  JsonRpcProvider as EthersJsonRpcProvider,
+  Web3Provider as EthersWeb3Provider,
+  JsonRpcSigner as EthersJsonRpcSigner } from "@ethersproject/providers";
 import { ConnectionInfo } from "@ethersproject/web";
 import { asyncOpenApi, AsyncNamespaceApi } from "@klaytn/js-ext-core";
 
 // @ts-ignore: package @klaytn/web3rpc has no .d.ts file.
 import { AdminApi, DebugApi, GovernanceApi, KlayApi, NetApi, PersonalApi, TxpoolApi } from "@klaytn/web3rpc";
+
+import { JsonRpcSigner as KlaytnJsonRpcSigner } from "./signer";
 
 /* eslint-disable no-multi-spaces */
 export class JsonRpcProvider extends EthersJsonRpcProvider {
@@ -36,8 +41,7 @@ export class JsonRpcProvider extends EthersJsonRpcProvider {
 
 const _constructorGuard = {};
 export class Web3Provider extends EthersWeb3Provider {
-  override getSigner(addressOrIndex?: string | number | undefined): JsonRpcSigner {
-    console.log("it's me")
-    return new JsonRpcSigner(_constructorGuard, this, addressOrIndex);
+  override getSigner(addressOrIndex?: string | number | undefined): EthersJsonRpcSigner {
+    return new KlaytnJsonRpcSigner(this, addressOrIndex);
   }
 }
