@@ -321,131 +321,28 @@ export class Wallet extends EthersWallet {
   }
 }
 
-const Primitive = "bigint,boolean,function,number,string,symbol".split(/,/g);
-function deepCopy<T = any>(value: T): T {
-  if (value == null || Primitive.indexOf(typeof(value)) >= 0) {
-    return value;
-  }
-
-  // Keep any Addressable
-  if (typeof((<any>value).getAddress) === "function") {
-    return value;
-  }
-
-  if (Array.isArray(value)) { return <any>(value.map(deepCopy)); }
-
-  if (typeof(value) === "object") {
-    return Object.keys(value).reduce((accum, key) => {
-      accum[key] = (<any>value)[key];
-      return accum;
-    }, <any>{ });
-  }
-
-  throw new Error(`should not happen: ${ value } (${ typeof(value) })`);
-}
-
 export class JsonRpcSigner extends EthersJsonRpcSigner {
-  // TODO : inclue JsonRpcApiProvider
+
+  // TODO : implements all method
+
   // constructor(provider: JsonRpcApiProvider, address: string) {
   //   super(provider, address);
   // }
 
-  async populateTransaction(tx: TransactionRequest): Promise<TransactionLike<string>> {
-    // @ts-ignore
-    return await this.populateCall(tx);
-  }
+  // override async populateTransaction(tx: TransactionRequest): Promise<TransactionLike<string>> {
+  //   // @ts-ignore
+  //   return await this.populateCall(tx);
+  // }
 
-  async sendUncheckedTransaction(_tx: TransactionRequest): Promise<string> {
-    const tx = deepCopy(_tx);
+  // override async sendUncheckedTransaction(_tx: TransactionRequest): Promise<string> {
+  // }
 
-    const promises: Array<Promise<void>> = [];
+  // override async sendTransaction(tx: TransactionRequest): Promise<TransactionResponse> {
+  // }
 
-    // Make sure the from matches the sender
-    if (tx.from) {
-      const _from = tx.from;
-      promises.push((async () => {
-        const from = await resolveAddress(_from, this.provider);
-        assertArgument(from != null && from.toLowerCase() === this.address.toLowerCase(),
-          "from address mismatch", "transaction", _tx);
-        tx.from = from;
-      })());
-    } else {
-      tx.from = this.address;
-    }
+  // override async signTransaction(_tx: TransactionRequest): Promise<string> {
+  // }
 
-    // The JSON-RPC for eth_sendTransaction uses 90000 gas; if the user
-    // wishes to use this, it is easy to specify explicitly, otherwise
-    // we look it up for them.
-    if (tx.gasLimit == null) {
-      promises.push((async () => {
-        tx.gasLimit = await this.provider.estimateGas({ ...tx, from: this.address});
-      })());
-    }
-
-    // The address may be an ENS name or Addressable
-    if (tx.to != null) {
-      const _to = tx.to;
-      promises.push((async () => {
-        tx.to = await resolveAddress(_to, this.provider);
-      })());
-    }
-
-    // Wait until all of our properties are filled in
-    if (promises.length) { await Promise.all(promises); }
-
-    const hexTx = this.provider.getRpcTransaction(tx);
-
-    return this.provider.send("klay_sendTransaction", [hexTx]);
-  }
-
-  async sendTransaction(tx: TransactionRequest): Promise<TransactionResponse> {
-    // This cannot be mined any earlier than any recent block
-    const blockNumber = await this.provider.getBlockNumber();
-
-    // Send the transaction
-    const hash = await this.sendUncheckedTransaction(tx);
-
-    // Unfortunately, JSON-RPC only provides and opaque transaction hash
-    // for a response, and we need the actual transaction, so we poll
-    // for it; it should show up very quickly
-    return await (new Promise((resolve, reject) => {
-      const timeouts = [1000, 100];
-      const checkTx = async () => {
-        // Try getting the transaction
-        const tx = await this.provider.getTransaction(hash);
-        if (tx != null) {
-          resolve(tx.replaceableTransaction(blockNumber));
-          return;
-        }
-
-        // Wait another 4 seconds
-        this.provider._setTimeout(() => { checkTx(); }, timeouts.pop() || 4000);
-      };
-      checkTx();
-    }));
-  }
-
-  async signTransaction(_tx: TransactionRequest): Promise<string> {
-    const tx = deepCopy(_tx);
-
-    // Make sure the from matches the sender
-    if (tx.from) {
-      const from = await resolveAddress(tx.from, this.provider);
-      assertArgument(from != null && from.toLowerCase() === this.address.toLowerCase(),
-        "from address mismatch", "transaction", _tx);
-      tx.from = from;
-    } else {
-      tx.from = this.address;
-    }
-
-    const hexTx = this.provider.getRpcTransaction(tx);
-    return await this.provider.send("klay_signTransaction", [hexTx]);
-  }
-
-
-  async signMessage(_message: string | Uint8Array): Promise<string> {
-    const message = ((typeof(_message) === "string") ? toUtf8Bytes(_message) : _message);
-    return await this.provider.send("personal_sign", [
-      hexlify(message), this.address.toLowerCase()]);
-  }
+  // override async signMessage(_message: string | Uint8Array): Promise<string> {
+  // }
 }

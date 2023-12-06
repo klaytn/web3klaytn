@@ -1,12 +1,18 @@
+// const browser = window.klaytn; 
+// const nameSpace = "klay";
+
+const browser = window.ethereum;
+const nameSpace = "eth";
+
 async function connect() {
-  if (typeof window.klaytn !== "undefined") {
+  if (typeof browser !== "undefined") {
     try {
-      await klaytn.request({method: "klay_requestAccounts"});
+      await browser.request({method: nameSpace+"_requestAccounts"});
     } catch (error) {
       console.log(error);
     }
     document.getElementById("connectButton").innerHTML = "Connected";
-    const accounts = await klaytn.request({ method: "klay_accounts" });
+    const accounts = await browser.request({ method: nameSpace+"_accounts" });
     document.getElementById("accounts").innerHTML = accounts;
     console.log(accounts);
   } else {
@@ -16,12 +22,12 @@ async function connect() {
 }
 
 async function execute() {
-  if (typeof window.klaytn !== "undefined") {
+  if (typeof browser !== "undefined") {
     const senderAddr = "0xe15cd70a41dfb05e7214004d7d054801b2a2f06b";
     const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
     const senderNewPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
 
-    const provider = new ethers.providers.Web3Provider(window.klaytn);
+    const provider = new ethers.providers.Web3Provider(browser);
     const signer = provider.getSigner();
 
     // 서명은 되지만 트랜잭션으로 전송되고 callback이 없어서 확인이 안됨
@@ -62,7 +68,7 @@ async function execute() {
 
       window.klaytn
         .request({
-          method: "klay_sendTransaction",
+          method: nameSpace+"_sendTransaction",
           params: params,
         })
         .then((result) => {
