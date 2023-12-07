@@ -15,7 +15,7 @@ class TestTraceCall(KlaytnBaseTesting):
             self.blockNumber,
             self.traceObject
         )
-        self.assertIsInstance(self.response["gas"], int)
+        self.assertIsInstance(self.response["gas"], str)
 
     def test_post_wrong_with_lack_paramaters(self):
         with self.assertRaises(ValueError):
