@@ -10,10 +10,12 @@ import java.io.IOException;
 public class DebugTraceBadBlockExample {
     private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
 
-    void debugTraceBadBlockExample() throws IOException {
-        String blockHash = "0x1d5ba00e313a81ae6d409d459c153327072665d9ea2f47608369722baf0cfbb6";
-
-        DebugTraceBadBlockResponse response = w3.debugTraceCall(blockHash, null).send();
+    void debugTraceCallExample() throws IOException {
+        Object tracerCallObject = {"to":"0x46eda75e7ca73cb1c2f83c3927211655420dbc44","data":"0x3fb5c1cb00000000000000000000000000000000000000000000000000000000000003e7"}
+        String blockNumber = "latest"
+        Object traceObject = {"tracer":"revertTracer"}
+        DebugTraceCallResponse response = w3.debugTraceCall(tracerCallObject, blockNumber, traceObject, null).send();
+        
         response.getResult();
     }
 }

@@ -10,7 +10,7 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.web3j.protocol.klaytn.core.method.response.DebugTraceBadBlockResponse;
+import org.web3j.protocol.klaytn.core.method.response.DebugTraceCallResponse;
 
 @DisplayName("Debug RPC Test")
 public class DebugTraceCallTest {
@@ -18,11 +18,12 @@ public class DebugTraceCallTest {
 
     @Disabled
     @Test
-    @DisplayName("RPC debug_traceBadBlock")
+    @DisplayName("RPC debug_traceCall")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        String blockHash = "0x1d5ba00e313a81ae6d409d459c153327072665d9ea2f47608369722baf0cfbb6";
-
-        DebugTraceBadBlockResponse response = w3.debugTraceBadBlock(blockHash, null).send();
+        Object tracerCallObject = {"to":"0x46eda75e7ca73cb1c2f83c3927211655420dbc44","data":"0x3fb5c1cb00000000000000000000000000000000000000000000000000000000000003e7"}
+        String blockNumber = "latest"
+        Object traceObject = {"tracer":"revertTracer"}
+        DebugTraceCallResponse response = w3.debugTraceCall(tracerCallObject, blockNumber, traceObject, null).send();
 
         assertNotNull(response);
         assertNull(response.getError());
