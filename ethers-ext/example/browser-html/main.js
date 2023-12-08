@@ -54,6 +54,10 @@ async function switchBaobab() {
     rpcUrls: ["https://public-en-baobab.klaytn.net"],
     blockExplorerUrls: ["https://baobab.klaytnscope.com/"],
   });
+
+  if (provider) { // re-connect after changing network.
+    await connect(provider.provider);
+  }
 }
 async function switchLocal() {
   await switchNetwork({
@@ -102,100 +106,22 @@ async function signMsg() {
     console.error(err);
     $("#textSignature").html(`Error: ${err.message}`);
   }
-
-/*
-
-  if (!currentInjectedProvider.isKaikas) {
-    try {
-      const from = accounts[0];
-      const msg = "0x61626364";
-      const sign = await ethereum.request({
-        method: 'personal_sign',
-        params: [msg, from],
-      });
-      $("#textSignature").html(sign);
-
-      const digest = ethers.utils.hashMessage("abcd");
-      console.log(digest);
-      const rec = ethers.utils.recoverAddress(digest, sign);
-      console.log(rec);
-
-    } catch (err) {
-      console.error(err);
-      $("#textSignature").html(`Error: ${err.message}`);
-    }
-  }
-  else if (currentInjectedProvider.isKaikas) {
-    try {
-      const from = accounts[0];
-      const msg = "0x61626364";
-      const sign = await klaytn.request({
-        method: 'eth_sign',
-        params: [from, msg],
-      });
-      $("#textSignature").html(sign);
-
-      var digest = ethers.utils.hashMessage("abcd"); // Ethereum prefix
-      var digest = ethers.utils.keccak256("0x61626364"); // no prefix
-
-      var message = "abcd";
-      var digest = ethers.utils.keccak256( // Klaytn prefix
-        ethers.utils.concat([
-          ethers.utils.toUtf8Bytes("\x19Klaytn Signed Message:\n"),
-          ethers.utils.toUtf8Bytes(String(message.length)),
-          ethers.utils.toUtf8Bytes(message),
-        ])
-      )
-      console.log(digest);
-      const rec = ethers.utils.recoverAddress(digest, sign);
-      console.log(rec);
-
-    } catch (err) {
-      console.error(err);
-      $("#textSignature").html(`Error: ${err.message}`);
-    }
-  }
-  */
 }
 
 async function sendLegacy() {
+  try {
+    const signer = provider.getSigner();
+    const address = await signer.getAddress();
 
-  if (activeWallet == "metamask") {
-    ethereum
-      .request({
-        method: 'eth_sendTransaction',
-        // The following sends an EIP-1559 transaction. Legacy transactions are also supported.
-        params: [
-          {
-            from: accounts[0], // The user's active address.
-            to: accounts[0], // same with sender for testing
-            value: 0,
-          },
-        ],
-      })
-      .then(function (txHash) {
-        console.log(txHash);
-        $("#textTxhash").html(txHash);
-      })
-      .catch((error) => console.error(error));
-  }
-  else if (activeWallet == "kaikas") {
-    klaytn
-      .request({
-        method: 'eth_sendTransaction',
-        // The following sends an EIP-1559 transaction. Legacy transactions are also supported.
-        params: [
-          {
-            from: accounts[0], // The user's active address.
-            to: accounts[0], // same with sender for testing
-            value: 0,
-          },
-        ],
-      })
-      .then(function (txHash) {
-        console.log(txHash);
-        $("#textTxhash").html(txHash);
-      })
-      .catch((error) => console.error(error));
+    const sentTx = await signer.sendTransaction({
+      from: address,
+      to: address,
+      value: 0,
+    });
+    console.log("sentTx", sentTx);
+    $("#textTxhash").html(sentTx.hash);
+  } catch (err) {
+    console.error(err);
+    $("#textTxhash").html(`Error: ${err.message}`);
   }
 }
