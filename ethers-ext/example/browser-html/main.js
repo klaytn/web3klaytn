@@ -71,9 +71,7 @@ async function switchLocal() {
 
 async function signMsg() {
   const isKaikas = provider.provider.isKaikas || false;
-
-  const { hexlify, toUtf8Bytes, keccak256, concat } = ethers.utils;
-
+  const { hexlify, toUtf8Bytes } = ethers.utils;
 
   try {
     if (isKaikas) {
@@ -85,15 +83,7 @@ async function signMsg() {
       console.log("signature", signature);
       $("#textSignature").html(signature);
 
-      // Similar to ethers.utils.hashMessage but uses Klaytn prefix
-      var digest = keccak256(
-        concat([
-          toUtf8Bytes("\x19Klaytn Signed Message:\n"),
-          toUtf8Bytes(String(message.length)),
-          toUtf8Bytes(message),
-        ])
-      );
-      const recoveredAddress = ethers.utils.recoverAddress(digest, signature);
+      const recoveredAddress = await provider.send("klay_recoverFromMessage", [await signer.getAddress(), hexMessage, signature, "latest"]);
       console.log("recoveredAddress", recoveredAddress);
       $("#textRecoveredAddress").html(recoveredAddress);
     } else {
