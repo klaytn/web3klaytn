@@ -1,4 +1,3 @@
-var activeWallet = null;
 var provider = null;
 var accounts = null;
 
@@ -8,28 +7,28 @@ async function connect(injectedProvider) {
     alert("Please install wallet");
     return;
   }
-  if (0) {
+  if (1) {
+    console.log("use ethers");
     provider = new ethers.providers.Web3Provider(injectedProvider);
   } else {
+    console.log("use ethers-ext");
     provider = new ethers_ext.Web3Provider(injectedProvider);
   }
-  
+
   await provider.send("eth_requestAccounts", []);
   accounts = await provider.listAccounts(); // internally eth_accounts
   console.log("accounts", accounts);
   $("#textAccounts").html(accounts);
 }
-async function connectMM() { 
-  activeWallet = "metamask";
+async function connectMM() {
   $("#textSignature").html("");
   $("#textTxhash").html("");
-  await connect(window.ethereum); 
+  await connect(window.ethereum);
 }
-async function connectKK() { 
-  activeWallet = "kaikas"; 
+async function connectKK() {
   $("#textSignature").html("");
   $("#textTxhash").html("");
-  await connect(window.klaytn); 
+  await connect(window.klaytn);
 }
 
 // https://docs.metamask.io/wallet/how-to/add-network/
@@ -71,13 +70,52 @@ async function switchLocal() {
 }
 
 async function signMsg() {
-  // const signer = provider.getSigner();
-  // const message = "Hello dapp";
-  // const signature = await signer.signMessage(message);
-  // console.log("signature", signature);
-  // $("#textSignature").html(signature);
+  const isKaikas = provider.provider.isKaikas || false;
 
-  if (activeWallet == "metamask") {
+  const { hexlify, toUtf8Bytes, keccak256, concat } = ethers.utils;
+
+
+  try {
+    if (isKaikas) {
+      const signer = provider.getSigner();
+      const message = "Hello dapp";
+      const hexMessage = hexlify(toUtf8Bytes(message));
+
+      const signature = await provider.send("eth_sign", [await signer.getAddress(), hexMessage]);
+      console.log("signature", signature);
+      $("#textSignature").html(signature);
+
+      // Similar to ethers.utils.hashMessage but uses Klaytn prefix
+      var digest = keccak256(
+        concat([
+          toUtf8Bytes("\x19Klaytn Signed Message:\n"),
+          toUtf8Bytes(String(message.length)),
+          toUtf8Bytes(message),
+        ])
+      );
+      const recoveredAddress = ethers.utils.recoverAddress(digest, signature);
+      console.log("recoveredAddress", recoveredAddress);
+      $("#textRecoveredAddress").html(recoveredAddress);
+    } else {
+      const signer = provider.getSigner();
+      const message = "Hello dapp";
+
+      const signature = await signer.signMessage(message);
+      console.log("signature", signature);
+      $("#textSignature").html(signature);
+
+      const recoveredAddress = ethers.utils.verifyMessage(message, signature);
+      console.log("recoveredAddress", recoveredAddress);
+      $("#textRecoveredAddress").html(recoveredAddress);
+    }
+  } catch (err) {
+    console.error(err);
+    $("#textSignature").html(`Error: ${err.message}`);
+  }
+
+/*
+
+  if (!currentInjectedProvider.isKaikas) {
     try {
       const from = accounts[0];
       const msg = "0x61626364";
@@ -86,12 +124,18 @@ async function signMsg() {
         params: [msg, from],
       });
       $("#textSignature").html(sign);
+
+      const digest = ethers.utils.hashMessage("abcd");
+      console.log(digest);
+      const rec = ethers.utils.recoverAddress(digest, sign);
+      console.log(rec);
+
     } catch (err) {
       console.error(err);
       $("#textSignature").html(`Error: ${err.message}`);
     }
   }
-  else if (activeWallet == "kaikas") {
+  else if (currentInjectedProvider.isKaikas) {
     try {
       const from = accounts[0];
       const msg = "0x61626364";
@@ -100,11 +144,28 @@ async function signMsg() {
         params: [from, msg],
       });
       $("#textSignature").html(sign);
+
+      var digest = ethers.utils.hashMessage("abcd"); // Ethereum prefix
+      var digest = ethers.utils.keccak256("0x61626364"); // no prefix
+
+      var message = "abcd";
+      var digest = ethers.utils.keccak256( // Klaytn prefix
+        ethers.utils.concat([
+          ethers.utils.toUtf8Bytes("\x19Klaytn Signed Message:\n"),
+          ethers.utils.toUtf8Bytes(String(message.length)),
+          ethers.utils.toUtf8Bytes(message),
+        ])
+      )
+      console.log(digest);
+      const rec = ethers.utils.recoverAddress(digest, sign);
+      console.log(rec);
+
     } catch (err) {
       console.error(err);
       $("#textSignature").html(`Error: ${err.message}`);
     }
   }
+  */
 }
 
 async function sendLegacy() {
@@ -122,8 +183,8 @@ async function sendLegacy() {
           },
         ],
       })
-      .then( function (txHash) {
-        console.log(txHash); 
+      .then(function (txHash) {
+        console.log(txHash);
         $("#textTxhash").html(txHash);
       })
       .catch((error) => console.error(error));
@@ -141,8 +202,8 @@ async function sendLegacy() {
           },
         ],
       })
-      .then( function (txHash) {
-        console.log(txHash); 
+      .then(function (txHash) {
+        console.log(txHash);
         $("#textTxhash").html(txHash);
       })
       .catch((error) => console.error(error));
