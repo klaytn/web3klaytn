@@ -7,7 +7,7 @@ async function connect(injectedProvider) {
     alert("Please install wallet");
     return;
   }
-  if (1) {
+  if (0) {
     console.log("use ethers");
     provider = new ethers.providers.Web3Provider(injectedProvider);
   } else {

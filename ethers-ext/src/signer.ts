@@ -1,18 +1,38 @@
 import { Provider, TransactionRequest, TransactionResponse } from "@ethersproject/abstract-provider";
-import { Signer as EthersSigner, ExternallyOwnedAccount, TypedDataDomain, TypedDataField } from "@ethersproject/abstract-signer";
+import {
+  Signer as EthersSigner,
+  ExternallyOwnedAccount,
+  TypedDataDomain,
+  TypedDataField,
+} from "@ethersproject/abstract-signer";
 import {
   JsonRpcProvider as EthersJsonRpcProvider,
   JsonRpcSigner as EthersJsonRpcSigner,
 } from "@ethersproject/providers";
 import { Wallet as EthersWallet } from "@ethersproject/wallet";
-import { defineReadOnly } from "@ethersproject/properties";
 import { poll } from "@ethersproject/web";
 import { KlaytnTxFactory, HexStr, isFeePayerSigTxType, parseTransaction } from "@klaytn/js-ext-core";
 import { BigNumber } from "ethers";
-import { Bytes, BytesLike, Deferrable, ProgressCallback, SigningKey, computeAddress, keccak256, resolveProperties, getAddress } from "ethers/lib/utils";
+import {
+  Bytes,
+  BytesLike,
+  Deferrable,
+  ProgressCallback,
+  SigningKey,
+  computeAddress,
+  hexlify,
+  keccak256,
+  resolveProperties,
+  getAddress,
+  toUtf8Bytes,
+} from "ethers/lib/utils";
+import { Logger } from "@ethersproject/logger";
 import _ from "lodash";
 
 import { decryptKeystoreList, decryptKeystoreListSync } from "./keystore";
+
+// To use the same error format as ethers.js
+const logger = new Logger("@klaytn/ethers-ext");
 
 // @ethersproject/abstract-signer/src.ts/index.ts:allowedTransactionKeys
 const ethersAllowedTransactionKeys: Array<string> = [
@@ -194,7 +214,7 @@ export class Wallet extends EthersWallet {
   }
 
   // @deprecated in favor of parseTransaction
-  decodeTxFromRLP(rlp :string): any {
+  decodeTxFromRLP(rlp: string): any {
     return parseTransaction(rlp);
   }
 
@@ -290,7 +310,7 @@ export class Wallet extends EthersWallet {
   async _chainIdFromTx(tx: any): Promise<number | undefined> {
     function extractFromSig(field: any[]): number | undefined {
       if (_.isArray(field) && field.length > 0 &&
-          _.isArray(field[0]) && field[0].length == 3) {
+        _.isArray(field[0]) && field[0].length == 3) {
         const v = BigNumber.from(field[0][0]).toNumber();
         return (v - 35) / 2;
       }
@@ -342,10 +362,10 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
       addressOrIndex = 0;
     }
 
-    if (typeof(addressOrIndex) === "string") {
+    if (typeof (addressOrIndex) === "string") {
       this._address = getAddress(addressOrIndex);
       this._index = null as unknown as number;
-    } else if (typeof(addressOrIndex) === "number") {
+    } else if (typeof (addressOrIndex) === "number") {
       this._address = null as unknown as string;
       this._index = addressOrIndex;
     } else {
@@ -354,7 +374,18 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
   }
 
   override async getAddress(): Promise<string> {
-    return Promise.resolve("");
+    if (this._address) {
+      return Promise.resolve(this._address);
+    }
+
+    return this.provider.send("eth_accounts", []).then((accounts) => {
+      if (accounts.length <= this._index) {
+        logger.throwError("unknown account #" + this._index, Logger.errors.UNSUPPORTED_OPERATION, {
+          operation: "getAddress"
+        });
+      }
+      return this.provider.formatter.address(accounts[this._index])
+    });
   }
 
   override connect(provider: Provider): EthersJsonRpcSigner {
@@ -366,7 +397,21 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
   }
 
   override async signMessage(message: string | Bytes): Promise<string> {
-    return Promise.resolve("");
+    const data = ((typeof (message) === "string") ? toUtf8Bytes(message) : message);
+    const address = await this.getAddress();
+    try {
+      return await this.provider.send("personal_sign", [hexlify(data), address.toLowerCase()]);
+    } catch (error) {
+      // @ts-ignore
+      if (typeof (error.message) === "string" && error.message.match(/user denied/i)) {
+        logger.throwError("user rejected signing", Logger.errors.ACTION_REJECTED, {
+          action: "signMessage",
+          from: address,
+          messageData: message
+        });
+      }
+      throw error;
+    }
   }
 
   override checkTransaction(transaction: Deferrable<TransactionRequest>): Deferrable<TransactionRequest> {
@@ -386,7 +431,7 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
   }
 
   sendUncheckedTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    return Promise.resolve("");  
+    return Promise.resolve("");
   }
 
   async _legacySignMessage(message: Bytes | string): Promise<string> {
@@ -399,6 +444,6 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
 
   async unlock(password: string): Promise<boolean> {
     const address = await this.getAddress();
-    return this.provider.send("personal_unlockAccount", [ address.toLowerCase(), password, null ]);
+    return this.provider.send("personal_unlockAccount", [address.toLowerCase(), password, null]);
   }
 }
