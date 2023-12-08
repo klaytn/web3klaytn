@@ -5,7 +5,9 @@ import {
   TypedDataDomain,
   TypedDataField,
 } from "@ethersproject/abstract-signer";
+import { Logger } from "@ethersproject/logger";
 import {
+  Web3Provider as EthersWeb3Provider,
   JsonRpcProvider as EthersJsonRpcProvider,
   JsonRpcSigner as EthersJsonRpcSigner,
 } from "@ethersproject/providers";
@@ -26,10 +28,10 @@ import {
   getAddress,
   toUtf8Bytes,
 } from "ethers/lib/utils";
-import { Logger } from "@ethersproject/logger";
 import _ from "lodash";
 
 import { decryptKeystoreList, decryptKeystoreListSync } from "./keystore";
+import { ExternalProvider as KlaytnExternalProvider } from "./provider";
 
 // To use the same error format as ethers.js
 const logger = new Logger("@klaytn/ethers-ext");
@@ -373,6 +375,15 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
     }
   }
 
+  isKaikas(): boolean {
+    if (this.provider instanceof EthersWeb3Provider) {
+      // The EIP-1193 provider, usually injected as window.ethereum or window.klaytn.
+      const injectedProvider = this.provider.provider as KlaytnExternalProvider;
+      return injectedProvider.isKaikas === true;
+    }
+    return false;
+  }
+
   override async getAddress(): Promise<string> {
     if (this._address) {
       return Promise.resolve(this._address);
@@ -384,7 +395,7 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
           operation: "getAddress"
         });
       }
-      return this.provider.formatter.address(accounts[this._index])
+      return this.provider.formatter.address(accounts[this._index]);
     });
   }
 

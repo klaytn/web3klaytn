@@ -2,10 +2,10 @@ import { Networkish } from "@ethersproject/networks";
 import {
   JsonRpcProvider as EthersJsonRpcProvider,
   Web3Provider as EthersWeb3Provider,
+  ExternalProvider as EthersExternalProvider,
   JsonRpcSigner as EthersJsonRpcSigner } from "@ethersproject/providers";
 import { ConnectionInfo } from "@ethersproject/web";
 import { asyncOpenApi, AsyncNamespaceApi } from "@klaytn/js-ext-core";
-
 // @ts-ignore: package @klaytn/web3rpc has no .d.ts file.
 import { AdminApi, DebugApi, GovernanceApi, KlayApi, NetApi, PersonalApi, TxpoolApi } from "@klaytn/web3rpc";
 
@@ -39,9 +39,12 @@ export class JsonRpcProvider extends EthersJsonRpcProvider {
   }
 }
 
-const _constructorGuard = {};
 export class Web3Provider extends EthersWeb3Provider {
   override getSigner(addressOrIndex?: string | number | undefined): EthersJsonRpcSigner {
     return new KlaytnJsonRpcSigner(this, addressOrIndex);
   }
+}
+
+export interface ExternalProvider extends EthersExternalProvider {
+  isKaikas?: boolean;  // Exists in window.klaytn that is injected by Kaikas
 }

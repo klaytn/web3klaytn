@@ -1,5 +1,4 @@
 import { keccak256 } from "@ethersproject/keccak256";
-import { parseTransaction } from "@klaytn/js-ext-core";
 import chai, { assert, expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { Wallet as EthersWallet } from "ethers";

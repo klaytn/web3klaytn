@@ -95,11 +95,15 @@ module.exports = {
       }
     },
     { // browser examples use browser globals
-      "filters": ["example/browser-html/*"],
+      "files": ["example/browser-html/*"],
       "rules": {
         "no-undef": "off",
         "no-unused-vars": "off",
+        "no-constant-condition": "off",
       }
-    }
-  ]
+    },
+  ],
+  "ignorePatterns": [
+    "example/browser-html/ethers-ext.bundle.js",
+  ],
 };
