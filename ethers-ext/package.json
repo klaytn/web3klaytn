@@ -23,8 +23,8 @@
     "ethers": "^5.7.2"
   },
   "devDependencies": {
-    "@klaytn/ethers-ext": "^0.9.7-beta",
-    "@types/chai": "^4.3.4",
+    "@klaytn/ethers-ext": "^0.9.8-beta",
+    "@types/chai": "^4.3.7",
     "@types/chai-as-promised": "^7.1.5",
     "@types/lodash": "^4.14.192",
     "@types/mocha": "^10.0.4",
@@ -42,8 +42,8 @@
     "webpack-visualizer-plugin2": "^1.1.0"
   },
   "dependencies": {
-    "@klaytn/js-ext-core": "^0.9.7-beta",
-    "@klaytn/web3rpc": "^0.9.7",
+    "@klaytn/js-ext-core": "^0.9.8-beta",
+    "@klaytn/web3rpc": "^0.9.8",
     "lodash": "^4.17.21"
   }
 }
