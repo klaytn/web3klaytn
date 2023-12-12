@@ -109,17 +109,31 @@ async function signMsg() {
 }
 
 async function sendLegacy() {
+  const isKaikas = provider.provider.isKaikas || false;
+  
   try {
-    const signer = provider.getSigner();
-    const address = await signer.getAddress();
+    if (isKaikas) {
+      const signer = provider.getSigner();
+      const address = await signer.getAddress();
 
-    const sentTx = await signer.sendTransaction({
-      from: address,
-      to: address,
-      value: 0,
-    });
-    console.log("sentTx", sentTx);
-    $("#textTxhash").html(sentTx.hash);
+      const sentTx = await signer.sendTransaction({
+        from: address,
+        to: address,
+        value: 0,
+      });
+      console.log("sentTx", sentTx);
+      $("#textTxhash").html(sentTx.hash);
+    } else {
+      const signer = provider.getSigner();
+      const address = await signer.getAddress();
+
+      const sentTx = await signer.sendTransaction({
+        to: address,
+        value: 0,
+      });
+      console.log("sentTx", sentTx);
+      $("#textTxhash").html(sentTx.hash);
+    }
   } catch (err) {
     console.error(err);
     $("#textTxhash").html(`Error: ${err.message}`);

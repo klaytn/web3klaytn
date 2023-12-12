@@ -28,6 +28,7 @@ import {
   getAddress,
   toUtf8Bytes,
 } from "ethers/lib/utils";
+import { shallowCopy } from "@ethersproject/properties";
 import _ from "lodash";
 
 import { decryptKeystoreList, decryptKeystoreListSync } from "./keystore";
@@ -438,11 +439,83 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
   }
 
   override async sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
-    return Promise.resolve({} as TransactionResponse);
+    // This cannot be mined any earlier than any recent block
+    const blockNumber = await this.provider._getInternalBlockNumber(100 + 2 * this.provider.pollingInterval);
+
+    // Send the transaction
+    const hash = await this.sendUncheckedTransaction(transaction);
+
+    try {
+      // Unfortunately, JSON-RPC only provides and opaque transaction hash
+      // for a response, and we need the actual transaction, so we poll
+      // for it; it should show up very quickly
+      return await poll(async () => {
+        const tx = await this.provider.getTransaction(hash);
+        if (tx === null) { return undefined; }
+        return this.provider._wrapTransaction(tx, hash, blockNumber);
+      }, { oncePoll: this.provider }) as any;
+    } catch (error) {
+      (<any>error).transactionHash = hash;
+      throw error;
+    }
   }
 
   sendUncheckedTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    return Promise.resolve("");
+    transaction = shallowCopy(transaction);
+
+    const fromAddress = this.getAddress().then((address) => {
+        if (address) { address = address.toLowerCase(); }
+        return address;
+    });
+
+    // The JSON-RPC for eth_sendTransaction uses 90000 gas; if the user
+    // wishes to use this, it is easy to specify explicitly, otherwise
+    // we look it up for them.
+    if (transaction.gasLimit == null) {
+        const estimate = shallowCopy(transaction);
+        estimate.from = fromAddress;
+        transaction.gasLimit = this.provider.estimateGas(estimate);
+    }
+
+    if (transaction.to != null) {
+        (transaction as any).to = Promise.resolve(transaction.to).then(async (to) => {
+            if (to == null) { return null; }
+            const address = await this.provider.resolveName(to);
+            if (address == null) {
+                logger.throwArgumentError("provided ENS name resolves to null", "tx.to", to);
+            }
+            return address;
+        });
+    }
+
+    return resolveProperties({
+        tx: resolveProperties(transaction),
+        sender: fromAddress
+    }).then(({ tx, sender }) => {
+
+        if (tx.from != null) {
+            if (tx.from.toLowerCase() !== sender) {
+                logger.throwArgumentError("from address mismatch", "transaction", transaction);
+            }
+        } else {
+            tx.from = sender;
+        }
+
+        const hexTx = (<any>this.provider.constructor).hexlifyTransaction(tx, { from: true });
+
+        return this.provider.send("eth_sendTransaction", [ hexTx ]).then((hash) => {
+            return hash;
+        }, (error) => {
+            if (typeof(error.message) === "string" && error.message.match(/user denied/i)) {
+                logger.throwError("user rejected transaction", Logger.errors.ACTION_REJECTED, {
+                    action: "sendTransaction",
+                    transaction: tx
+                });
+            }
+
+            //return checkError("sendTransaction", error, hexTx);
+        });
+    });
   }
 
   async _legacySignMessage(message: Bytes | string): Promise<string> {
@@ -458,3 +531,5 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
     return this.provider.send("personal_unlockAccount", [address.toLowerCase(), password, null]);
   }
 }
+
+
