@@ -28,7 +28,7 @@ import {
   getAddress,
   toUtf8Bytes,
 } from "ethers/lib/utils";
-import { shallowCopy } from "@ethersproject/properties";
+import { TxType } from "@klaytn/js-ext-core";
 import _ from "lodash";
 
 import { decryptKeystoreList, decryptKeystoreListSync } from "./keystore";
@@ -482,7 +482,10 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
     }
 
     const rpcTx = getRpcTxObject(tx);
-    return this.provider.send("eth_sendTransaction", [rpcTx]).then((hash) => {
+    rpcTx.type = _.snakeCase(TxType[tx.type || 0]).toUpperCase()
+    console.log('sending', rpcTx);
+
+    return this.provider.send("klay_sendTransaction", [rpcTx]).then((hash) => {
       return hash;
     }, (error) => {
       if (typeof (error.message) === "string" && error.message.match(/user denied/i)) {
