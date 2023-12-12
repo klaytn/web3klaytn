@@ -110,7 +110,7 @@ async function signMsg() {
 
 async function sendLegacy() {
   const isKaikas = provider.provider.isKaikas || false;
-  
+
   try {
     if (isKaikas) {
       const signer = provider.getSigner();
@@ -122,7 +122,9 @@ async function sendLegacy() {
         value: 0,
       });
       console.log("sentTx", sentTx);
-      $("#textTxhash").html(sentTx.hash);
+      const txhash = sentTx.hash;
+      const explorerUrl = "https://baobab.klaytnscope.com/tx/";
+      $("#textTxhash").html(`<a href="${explorerUrl}${txhash}" target="_blank">${txhash}</a>`);
     } else {
       const signer = provider.getSigner();
       const address = await signer.getAddress();
@@ -132,7 +134,9 @@ async function sendLegacy() {
         value: 0,
       });
       console.log("sentTx", sentTx);
-      $("#textTxhash").html(sentTx.hash);
+      const txhash = sentTx.hash;
+      const explorerUrl = "https://baobab.klaytnscope.com/tx/";
+      $("#textTxhash").html(`<a href="${explorerUrl}${txhash}" target="_blank">${txhash}</a>`);
     }
   } catch (err) {
     console.error(err);

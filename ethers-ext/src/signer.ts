@@ -13,7 +13,7 @@ import {
 } from "@ethersproject/providers";
 import { Wallet as EthersWallet } from "@ethersproject/wallet";
 import { poll } from "@ethersproject/web";
-import { KlaytnTxFactory, HexStr, isFeePayerSigTxType, parseTransaction } from "@klaytn/js-ext-core";
+import { KlaytnTxFactory, HexStr, isFeePayerSigTxType, parseTransaction, getRpcTxObject } from "@klaytn/js-ext-core";
 import { BigNumber } from "ethers";
 import {
   Bytes,
@@ -439,82 +439,60 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
   }
 
   override async sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
-    // This cannot be mined any earlier than any recent block
-    const blockNumber = await this.provider._getInternalBlockNumber(100 + 2 * this.provider.pollingInterval);
-
     // Send the transaction
-    const hash = await this.sendUncheckedTransaction(transaction);
+    const txhash = await this.sendUncheckedTransaction(transaction);
 
-    try {
-      // Unfortunately, JSON-RPC only provides and opaque transaction hash
-      // for a response, and we need the actual transaction, so we poll
-      // for it; it should show up very quickly
-      return await poll(async () => {
-        const tx = await this.provider.getTransaction(hash);
-        if (tx === null) { return undefined; }
-        return this.provider._wrapTransaction(tx, hash, blockNumber);
-      }, { oncePoll: this.provider }) as any;
-    } catch (error) {
-      (<any>error).transactionHash = hash;
-      throw error;
-    }
+    // Retry until the transaction shows up in the txpool
+    // Using poll() like in the ethers.JsonRpcProvider.sendTransaction
+    // https://github.com/ethers-io/ethers.js/blob/v5.7/packages/providers/src.ts/json-rpc-provider.ts#L283
+    const pollFunc = async () => {
+      const tx = await this.provider.getTransaction(txhash);
+      if (tx == null) {
+        return undefined; // retry
+      } else {
+        return tx; // success
+      }
+    };
+    return poll(pollFunc) as Promise<TransactionResponse>;
   }
 
-  sendUncheckedTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    transaction = shallowCopy(transaction);
+  async sendUncheckedTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
+    const tx = await getTransactionRequest(transaction);
 
-    const fromAddress = this.getAddress().then((address) => {
-        if (address) { address = address.toLowerCase(); }
-        return address;
-    });
-
-    // The JSON-RPC for eth_sendTransaction uses 90000 gas; if the user
-    // wishes to use this, it is easy to specify explicitly, otherwise
-    // we look it up for them.
-    if (transaction.gasLimit == null) {
-        const estimate = shallowCopy(transaction);
-        estimate.from = fromAddress;
-        transaction.gasLimit = this.provider.estimateGas(estimate);
+    if (!tx.from) {
+      tx.from = await this.getAddress();
     }
 
-    if (transaction.to != null) {
-        (transaction as any).to = Promise.resolve(transaction.to).then(async (to) => {
-            if (to == null) { return null; }
-            const address = await this.provider.resolveName(to);
-            if (address == null) {
-                logger.throwArgumentError("provided ENS name resolves to null", "tx.to", to);
-            }
-            return address;
-        });
+    if (!tx.gasLimit) {
+      tx.gasLimit = await this.provider.estimateGas(tx);
+    }
+    
+    if (tx.to) {
+      const toAddress = await this.provider.resolveName(tx.to);
+      if (toAddress == null) {
+        logger.throwArgumentError("provided ENS name resolves to null", "tx.to", tx.to);
+      } else {
+        tx.to = toAddress;
+      }
+    }
+    
+    const fromAddress = await this.getAddress();
+    if (tx.from && tx.from.toLowerCase() != fromAddress.toLowerCase()) {
+        logger.throwArgumentError("from address mismatch", "transaction", transaction);
     }
 
-    return resolveProperties({
-        tx: resolveProperties(transaction),
-        sender: fromAddress
-    }).then(({ tx, sender }) => {
-
-        if (tx.from != null) {
-            if (tx.from.toLowerCase() !== sender) {
-                logger.throwArgumentError("from address mismatch", "transaction", transaction);
-            }
-        } else {
-            tx.from = sender;
-        }
-
-        const hexTx = (<any>this.provider.constructor).hexlifyTransaction(tx, { from: true });
-
-        return this.provider.send("eth_sendTransaction", [ hexTx ]).then((hash) => {
-            return hash;
-        }, (error) => {
-            if (typeof(error.message) === "string" && error.message.match(/user denied/i)) {
-                logger.throwError("user rejected transaction", Logger.errors.ACTION_REJECTED, {
-                    action: "sendTransaction",
-                    transaction: tx
-                });
-            }
-
-            //return checkError("sendTransaction", error, hexTx);
+    const rpcTx = getRpcTxObject(tx);
+    return this.provider.send("eth_sendTransaction", [rpcTx]).then((hash) => {
+      return hash;
+    }, (error) => {
+      if (typeof (error.message) === "string" && error.message.match(/user denied/i)) {
+        logger.throwError("user rejected transaction", Logger.errors.ACTION_REJECTED, {
+          action: "sendTransaction",
+          transaction: tx
         });
+      }
+
+      //return checkError("sendTransaction", error, hexTx);
     });
   }
 
