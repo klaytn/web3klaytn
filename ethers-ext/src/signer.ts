@@ -435,7 +435,7 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
   }
 
   override async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    return Promise.resolve("");
+    return await this.provider.send("klay_signTransaction", [transaction]);
   }
 
   override async sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {

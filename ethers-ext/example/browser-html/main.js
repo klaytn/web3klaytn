@@ -174,5 +174,28 @@ async function sendVT() {
 
 
 async function sendFVT() {
+  const isKaikas = provider.provider.isKaikas || false;
 
+  if (!isKaikas) {
+    alert("not kaikas");
+    return;
+  }
+
+  try {
+    const signer = provider.getSigner();
+    const address = await signer.getAddress();
+
+    const signedTx = await signer.signTransaction({
+      type: 'FEE_DELEGATED_VALUE_TRANSFER',  // TODO: accept number 
+      from: address,
+      to: address,
+      value: '0x0',  // TODO : accept number 
+    })
+
+    console.log("signedTx", signedTx);
+    $("#textSignedTx").html(`${signedTx.rawTransaction}`);
+  } catch (err) {
+    console.error(err);
+    $("#textTxhash").html(`Error: ${err.message}`);
+  }
 }
