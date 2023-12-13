@@ -457,6 +457,15 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
   }
 
   async sendUncheckedTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
+    const type = transaction.type; 
+    if ( this.isKaikas() ) {
+      return this.sendUncheckedTransactionKlaytn(transaction) as Promise<string>; 
+    } else {
+      return this.sendUncheckedTransactionEth(transaction)as Promise<string>; ;
+    }
+  }
+
+  async sendUncheckedTransactionEth(transaction: Deferrable<TransactionRequest>): Promise<string> {
     const tx = await getTransactionRequest(transaction);
 
     if (!tx.from) {
@@ -481,6 +490,47 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
         logger.throwArgumentError("from address mismatch", "transaction", transaction);
     }
 
+    return this.provider.send("eth_sendTransaction", [tx]).then((hash) => {
+      return hash;
+    }, (error) => {
+      if (typeof (error.message) === "string" && error.message.match(/user denied/i)) {
+        logger.throwError("user rejected transaction", Logger.errors.ACTION_REJECTED, {
+          action: "sendTransaction",
+          transaction: tx
+        });
+      }
+
+      //return checkError("sendTransaction", error, hexTx);
+    });
+  }
+
+
+  async sendUncheckedTransactionKlaytn(transaction: Deferrable<TransactionRequest>): Promise<string> {
+    const tx = await getTransactionRequest(transaction);
+
+    if (!tx.from) {
+      tx.from = await this.getAddress();
+    }
+
+    if (!tx.gasLimit) {
+      tx.gasLimit = await this.provider.estimateGas(tx);
+    }
+    
+    if (tx.to) {
+      const toAddress = await this.provider.resolveName(tx.to);
+      if (toAddress == null) {
+        logger.throwArgumentError("provided ENS name resolves to null", "tx.to", tx.to);
+      } else {
+        tx.to = toAddress;
+      }
+    }
+    
+    const fromAddress = await this.getAddress();
+    if (tx.from && tx.from.toLowerCase() != fromAddress.toLowerCase()) {
+        logger.throwArgumentError("from address mismatch", "transaction", transaction);
+    }
+
+    // It must be changed to the following format like (TxType.ValueTransfer -> VALUE_TRANSFER)
     const rpcTx = getRpcTxObject(tx);
     rpcTx.type = _.snakeCase(TxType[tx.type || 0]).toUpperCase()
     console.log('sending', rpcTx);
@@ -495,7 +545,7 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
         });
       }
 
-      //return checkError("sendTransaction", error, hexTx);
+      // return checkError("sendTransaction", error, hexTx);
     });
   }
 

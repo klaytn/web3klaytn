@@ -155,51 +155,24 @@ async function sendVT() {
     const signer = provider.getSigner();
     const address = await signer.getAddress();
 
-    signer.sendTransaction({
+    const sentTx = await signer.sendTransaction({
       type: 8,
       from: address,
       to: address,
       value: 0,
     })
-    return;
-    let params = [
-      {
-        type: "VALUE_TRANSFER",
-        from: address,
-        to: address,
-        gas: '0x76c0', // 30400
-        value: '0x0', // 2441406250
-      }
-    ];
 
-    window.klaytn
-      .request({
-        method: 'klay_sendTransaction',
-        params:params,
-      })
-      .then((result) => {
-        // The result varies by RPC method.
-        // For example, this method returns a transaction hash hexadecimal string upon success.
-        console.log(result);
-      })
-      .catch((error) => {
-        // If the request fails, the Promise rejects with an error.
-        console.log(error);
-      });
-  //   const signer = provider.getSigner();
-  //   const address = await signer.getAddress();
-  //   const sentTx = await signer.sendTransaction({
-  //     from: address,
-  //     to: address,
-  //     value: 0,
-  //     type: 8,
-  //   });
-  //   console.log("sentTx", sentTx);
-  //   const txhash = sentTx.hash;
-  //   const explorerUrl = "https://baobab.klaytnscope.com/tx/";
-  //   $("#textTxhash").html(`<a href="${explorerUrl}${txhash}" target="_blank">${txhash}</a>`);
+    console.log("sentTx", sentTx);
+    const txhash = sentTx.hash;
+    const explorerUrl = "https://baobab.klaytnscope.com/tx/";
+    $("#textTxhash").html(`<a href="${explorerUrl}${txhash}" target="_blank">${txhash}</a>`);
   } catch (err) {
     console.error(err);
     $("#textTxhash").html(`Error: ${err.message}`);
   }
+}
+
+
+async function sendFVT() {
+
 }
