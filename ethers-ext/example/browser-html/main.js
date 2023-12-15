@@ -12,7 +12,7 @@ async function connect(injectedProvider) {
     provider = new ethers.providers.Web3Provider(injectedProvider);
   } else {
     console.log("use ethers-ext");
-    provider = new ethers_ext.Web3Provider(injectedProvider);
+    provider = new ethers_ext.providers.Web3Provider(injectedProvider);
   }
 
   await provider.send("eth_requestAccounts", []);
@@ -156,11 +156,11 @@ async function sendVT() {
     const address = await signer.getAddress();
 
     const sentTx = await signer.sendTransaction({
-      type: 8,
+      type: ethers_ext.TxType.ValueTransfer,
       from: address,
       to: address,
       value: 0,
-    })
+    });
 
     console.log("sentTx", sentTx);
     const txhash = sentTx.hash;
@@ -172,10 +172,8 @@ async function sendVT() {
   }
 }
 
-
 async function sendFVT() {
   const isKaikas = provider.provider.isKaikas || false;
-
   if (!isKaikas) {
     alert("not kaikas");
     return;
@@ -186,14 +184,25 @@ async function sendFVT() {
     const address = await signer.getAddress();
 
     const signedTx = await signer.signTransaction({
-      type: 'FEE_DELEGATED_VALUE_TRANSFER',  // TODO: accept number 
+      type: "FEE_DELEGATED_VALUE_TRANSFER", // TODO: accept number
       from: address,
       to: address,
-      value: '0x0',  // TODO : accept number 
-    })
+      value: "0x0", // TODO : accept number
+    });
 
     console.log("signedTx", signedTx);
-    $("#textSignedTx").html(`${signedTx.rawTransaction}`);
+    $("#textSignedTx").html(`${signedTx}`);
+
+    // Simulate fee payer behavior, which is usually in the backend.
+    const httpProvider = new ethers_ext.JsonRpcProvider("https://public-en-baobab.klaytn.net");
+    const feePayerPriv = "0xb3cf575dea0081563fe5482de2fe4425e025502b1f4ae7e02b2540ac0a5beda1";
+    const feePayerWallet = new ethers_ext.Wallet(feePayerPriv, httpProvider);
+
+    const sentTx = await feePayerWallet.sendTransactionAsFeePayer(signedTx);
+    console.log("sentTx", sentTx);
+    const txhash = sentTx.hash;
+    const explorerUrl = "https://baobab.klaytnscope.com/tx/";
+    $("#textTxhash").html(`<a href="${explorerUrl}${txhash}" target="_blank">${txhash}</a>`);
   } catch (err) {
     console.error(err);
     $("#textTxhash").html(`Error: ${err.message}`);

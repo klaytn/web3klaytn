@@ -5,6 +5,7 @@ import {
   TypedDataDomain,
   TypedDataField,
 } from "@ethersproject/abstract-signer";
+import { AddressZero } from "@ethersproject/constants";
 import { Logger } from "@ethersproject/logger";
 import {
   Web3Provider as EthersWeb3Provider,
@@ -13,7 +14,7 @@ import {
 } from "@ethersproject/providers";
 import { Wallet as EthersWallet } from "@ethersproject/wallet";
 import { poll } from "@ethersproject/web";
-import { KlaytnTxFactory, HexStr, isFeePayerSigTxType, parseTransaction, getRpcTxObject } from "@klaytn/js-ext-core";
+import { KlaytnTxFactory, HexStr, isFeePayerSigTxType, parseTransaction, getRpcTxObject, TxType, getSignatureTuple } from "@klaytn/js-ext-core";
 import { BigNumber } from "ethers";
 import {
   Bytes,
@@ -28,7 +29,6 @@ import {
   getAddress,
   toUtf8Bytes,
 } from "ethers/lib/utils";
-import { TxType } from "@klaytn/js-ext-core";
 import _ from "lodash";
 
 import { decryptKeystoreList, decryptKeystoreListSync } from "./keystore";
@@ -254,17 +254,48 @@ export class Wallet extends EthersWallet {
   async signTransactionAsFeePayer(transaction: Deferrable<TransactionRequest>): Promise<string> {
     const tx = await getTransactionRequest(transaction);
 
+    console.log("signfee BEFORE", tx);
+
     // Not a Klaytn TxType; not supported
     if (!KlaytnTxFactory.has(tx.type)) {
       throw new Error(`feePayer signature not supported for tx type ${tx.type}`);
     }
 
+    // feePayer
+    // TODO: define feePayer type in KlaytnTransactionRequest
+    // originally undefined => this.getAddress()
+    // originally 0x0000000 => this.getAddress() // returned from caver
+    // originally 0x1231331 => check if it matches this.getAddress()
+    const inputFeePayer = (tx as any).feePayer;
+    if (!inputFeePayer || inputFeePayer == AddressZero) {
+      (tx as any).feePayer = await this.getAddress();
+    } else {
+      if (inputFeePayer != await this.getAddress()) {
+        throw new Error(`feePayer address mismatch: ${inputFeePayer} != ${await this.getAddress()}`);
+      }
+    }
+
+    // feePayerSignatures
+    // TODO: define feePayerSignatures type in KlaytnTransactionRequest
+    // originally [ '0x01', '0x', '0x' ] => remove it
+    const inputFeePayerSignatures = (tx as any).feePayerSignatures;
+    if (_.isArray(inputFeePayerSignatures)) {
+      (tx as any).feePayerSignatures = _.filter(inputFeePayerSignatures, (sig) => {
+        try {
+          if (sig[0] == "0x01" && sig[1] == "0x" && sig[2] == "0x") {
+            return false;
+          }
+        } catch {
+          // Ignore other types of signatures. Let KlaytnTxFactory handle it.
+        }
+        return true;
+      });
+    }
+
     // Because RLP-encoded tx may not contain chainId, fill up here.
     tx.chainId ??= await this._chainIdFromTx(tx);
 
-    // Automatically populate 'feePayer' field, just like how 'from' field is populated.
-    // @ts-ignore: feePayer field does not exist in ethers.TransactionRequest type
-    tx.feePayer ??= await this.getAddress();
+    console.log("signfee AFTER", tx);
 
     const klaytnTx = KlaytnTxFactory.fromObject(tx);
     if (!isFeePayerSigTxType(klaytnTx.type)) {
@@ -315,7 +346,7 @@ export class Wallet extends EthersWallet {
       if (_.isArray(field) && field.length > 0 &&
         _.isArray(field[0]) && field[0].length == 3) {
         const v = BigNumber.from(field[0][0]).toNumber();
-        return (v - 35) / 2;
+        return (v + (v % 2) - 36) / 2;
       }
       return undefined;
     }
@@ -435,7 +466,23 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
   }
 
   override async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    return await this.provider.send("klay_signTransaction", [transaction]);
+    if (!this.isKaikas()) {
+      throw new Error("signTransaction is only supported in Kaikas");
+    }
+
+    let signedTx;
+    try {
+      signedTx = await this.provider.send("klay_signTransaction", [transaction]);
+    } catch (error: any) {
+      if (typeof (error.message) === "string" && error.message.match(/user denied/i)) {
+        logger.throwError("user rejected transaction", Logger.errors.ACTION_REJECTED, {
+          action: "signTransaction",
+          transaction: transaction
+        });
+      }
+    }
+
+    return signedTx.rawTransaction;
   }
 
   override async sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
@@ -457,11 +504,10 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
   }
 
   async sendUncheckedTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
-    const type = transaction.type; 
-    if ( this.isKaikas() ) {
-      return this.sendUncheckedTransactionKlaytn(transaction) as Promise<string>; 
+    if (this.isKaikas()) {
+      return this.sendUncheckedTransactionKlaytn(transaction) as Promise<string>;
     } else {
-      return this.sendUncheckedTransactionEth(transaction)as Promise<string>; ;
+      return this.sendUncheckedTransactionEth(transaction)as Promise<string>;
     }
   }
 
@@ -475,7 +521,7 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
     if (!tx.gasLimit) {
       tx.gasLimit = await this.provider.estimateGas(tx);
     }
-    
+
     if (tx.to) {
       const toAddress = await this.provider.resolveName(tx.to);
       if (toAddress == null) {
@@ -484,10 +530,10 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
         tx.to = toAddress;
       }
     }
-    
+
     const fromAddress = await this.getAddress();
     if (tx.from && tx.from.toLowerCase() != fromAddress.toLowerCase()) {
-        logger.throwArgumentError("from address mismatch", "transaction", transaction);
+      logger.throwArgumentError("from address mismatch", "transaction", transaction);
     }
 
     return this.provider.send("eth_sendTransaction", [tx]).then((hash) => {
@@ -500,7 +546,7 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
         });
       }
 
-      //return checkError("sendTransaction", error, hexTx);
+      // return checkError("sendTransaction", error, hexTx);
     });
   }
 
@@ -515,7 +561,7 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
     if (!tx.gasLimit) {
       tx.gasLimit = await this.provider.estimateGas(tx);
     }
-    
+
     if (tx.to) {
       const toAddress = await this.provider.resolveName(tx.to);
       if (toAddress == null) {
@@ -524,16 +570,16 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
         tx.to = toAddress;
       }
     }
-    
+
     const fromAddress = await this.getAddress();
     if (tx.from && tx.from.toLowerCase() != fromAddress.toLowerCase()) {
-        logger.throwArgumentError("from address mismatch", "transaction", transaction);
+      logger.throwArgumentError("from address mismatch", "transaction", transaction);
     }
 
     // It must be changed to the following format like (TxType.ValueTransfer -> VALUE_TRANSFER)
     const rpcTx = getRpcTxObject(tx);
-    rpcTx.type = _.snakeCase(TxType[tx.type || 0]).toUpperCase()
-    console.log('sending', rpcTx);
+    rpcTx.type = _.snakeCase(TxType[tx.type || 0]).toUpperCase();
+    console.log("sending", rpcTx);
 
     return this.provider.send("klay_sendTransaction", [rpcTx]).then((hash) => {
       return hash;
