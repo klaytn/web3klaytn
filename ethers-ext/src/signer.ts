@@ -133,7 +133,7 @@ export class Wallet extends EthersWallet {
     }
   }
 
-  getAddress(legacy?: boolean): Promise<string> {
+  override getAddress(legacy?: boolean): Promise<string> {
     if (legacy || !this.klaytnAddr) {
       return Promise.resolve(computeAddress(this.publicKey));
     } else {
@@ -155,7 +155,7 @@ export class Wallet extends EthersWallet {
   }
 
   // Fill legacy address for Ethereum TxTypes, and (possibly) decoupled address for Klaytn TxTypes.
-  checkTransaction(transaction: Deferrable<TransactionRequest>): Deferrable<TransactionRequest> {
+  override checkTransaction(transaction: Deferrable<TransactionRequest>): Deferrable<TransactionRequest> {
     const tx = _.clone(transaction);
 
     const legacy = !KlaytnTxFactory.has(tx.type);
@@ -176,7 +176,7 @@ export class Wallet extends EthersWallet {
     return tx;
   }
 
-  async populateTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionRequest> {
+  override async populateTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionRequest> {
     const tx = await getTransactionRequest(transaction);
 
     // Not a Klaytn TxType; fallback to ethers.Wallet
@@ -224,7 +224,7 @@ export class Wallet extends EthersWallet {
   // Sign as a sender
   // tx.sigs += Sign(tx.sigRLP(), wallet.privateKey)
   // return tx.txHashRLP() or tx.senderTxHashRLP();
-  async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
+  override async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
     const tx = await getTransactionRequest(transaction);
 
     // Not a Klaytn TxType; fallback to ethers.Wallet
@@ -309,7 +309,7 @@ export class Wallet extends EthersWallet {
     return klaytnTx.txHashRLP();
   }
 
-  async sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
+  override async sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
     this._checkProvider("sendTransaction");
 
     const populatedTx = await this.populateTransaction(transaction);

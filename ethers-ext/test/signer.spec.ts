@@ -166,7 +166,7 @@ describe("Wallet", () => {
     });
     it("as fee payer", async () => {
       for (let W of [KW, KWD]) {
-        await testOK_AsFeePayer(W, { type: 9, from: (await W.getAddress()), to, feePayer, value, nonce, gasPrice, gasLimit, chainId, txSignatures });
+        await testOK_AsFeePayer(W, { type: 9, from, to, feePayer: (await W.getAddress()), value, nonce, gasPrice, gasLimit, chainId, txSignatures });
       }
       for (let W of [KW, KWD]) {
         await testOK_AsFeePayer(W, senderTxHashRLP);
@@ -197,12 +197,12 @@ describe("Wallet", () => {
         await testOK(W, { type: 0, to, value });
       }
       for (let W of [KW, KWD]) {
-        // await testOK(W, { type: 9, to, feePayer, value });
+        await testOK(W, { type: 9, to, feePayer, value });
       }
     });
     it("as fee payer", async () => {
       for (let W of [KW, KWD]) {
-        await testOK_AsFeePayer(W, { type: 9, to, feePayer, value, nonce, gasPrice, gasLimit, chainId, txSignatures });
+        await testOK_AsFeePayer(W, { type: 9, to, feePayer: (await W.getAddress()), value, nonce, gasPrice, gasLimit, chainId, txSignatures });
       }
       for (let W of [KW, KWD]) {
         await testOK_AsFeePayer(W, senderTxHashRLP);

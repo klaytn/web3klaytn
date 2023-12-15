@@ -39,135 +39,121 @@ See [example](./example) and [test](./test).
     node example/rpc/rpc.js
     ```
 
-## Core classes
+## Class extension design
 
 ```mermaid
 classDiagram
-  FieldType ..|> FieldTypeBytes
-  FieldType ..|> FieldTypeSignatureTuples
-  FieldType ..|> FieldTypeAccountKey
-  FieldType ..|> etc
-  class FieldType {
-    <<interface>>
-    canonicalize(any): any
-    emptyValue(): any
-  }
-  class FieldTypeBytes {
-    canonicalize(any): string
-    emptyValue(): string
-  }
-  class FieldTypeSignatureTuples {
-    canonicalize( SignatureLike[]): SignatureTuple[]
-    emptyValue(): SignatureTuple[]
-  }
-  class FieldTypeAccountKey {
-    canonicalize(TypedAccountKey | string | any): string
-    emptyValue(): string
-  }
-```
+    namespace ethers {
+        class ethers_Signer["ethers.Signer"] {
+            provider
+            checkTransaction()
+            populateTransaction()
+            sendTransaction()
+        }
+        class ethers_Wallet["ethers.Wallet"] {
+            connect()
+            getAddress()
+            signMessage()
+            signTransaction()
+            static fromEncryptedJson()
+            static fromEncryptedJsonSync()
+        }
+        class ethers_JsonRpcSigner["ethers.JsonRpcSigner"] {
+            connect()
+            connectUnchecked()
+            getAddress()
+            signMessage()
+            signTransaction()
+            sendUncheckedTransaction()
+            _legacySignMessage()
+            _signTypedData()
+            override sendTransaction()
+        }
 
-```mermaid
-classDiagram
-  FieldSet <|-- KlaytnTx
-  KlaytnTx <|-- TxTypeValueTransfer
-  KlaytnTx <|-- TxTypeFeeDelegatedValueTransfer
-  KlaytnTx <|-- other TxTypes
-  FieldSet <|-- AccountKey
-  AccountKey <|-- AccountKeyLegacy
-  AccountKey <|-- AccountKeyPublic
-  AccountKey <|-- other AccountKey
-  class FieldSet {
-    type: number
-    typeName: string
-    fieldTypes: string -> FieldType
-    setFields(any)
-    setFieldsFromArray( string[], any[] )
-    getField( string ): any
-    getFields( string[] ): any[]
-    toObject(): any
-  }
-  class KlaytnTx {
-    sigRLP(): string
-    sigFeePayerRLP(): string
-    senderTxHashRLP(): string
-    txHashRLP(): string
-    addSenderSig(sig)
-    addFeePayerSig(sig)
-    setFieldsFromRLP(string): void
-  }
-  class AccountKey {
-    toRLP(): string
-  }
-```
+        class ethers_Provider["ethers.Provider"] {
+        }
+        class ethers_BaseProvider["ethers.BaseProvider"] {
+        }
+        class ethers_JsonRpcProvider["ethers.JsonRpcProvider"] {
+            getSigner()
+            send()
+        }
+        class ethers_Web3Provider["ethers.Web3Provider"] {
+            override send()
+        }
+        class ethers_ExternalProvider["ethers.ExternalProvider"] {
+            isMetaMask
+            request()
+        }
+    }
+    namespace ethers_ext {
+        class Wallet {
+            override getAddress()
+            override checkTransaction()
+            override populateTransaction()
+            override signTransaction()
+            override sendTransaction()
+            override static fromEncryptedJson()
+            override static fromEncryptedJsonSync()
+            signTransactionAsFeePayer()
+            sendTransactionAsFeePayer()
+            static fromEncryptedJsonList()
+            static fromEncryptedJsonListSync()
+        }
+        class JsonRpcSigner {
+            override connectUnchecked()
+            override getAddress()
+            override signMessage()
+            override checkTransaction()
+            override populateTransaction()
+            override signTransaction()
+            override _legacySignMessage()
+            override _signTypedData()
+            override sendTransaction()
+            override sendUncheckedTransaction()
+        }
 
-```mermaid
-classDiagram
-  FieldSetFactory <|.. KlaytnTxFactory
-  FieldSetFactory <|.. AccountKeyFactory
-  class FieldSetFactory {
-    private registry: [number] -> FieldSet
-    private requiredFields: string[]
-    add(typeof T)
-    has(type?): boolean
-    lookup(type?): typeof T
-    fromObject(any): T
-  }
-  class KlaytnTxFactory {
-    fromRLP(string): KlaytnTx
-  }
-  class AccountKeyFactory {
-  }
-```
+        class JsonRpcProvider {
+            admin
+            debug
+            governance
+            klay
+            net
+            personal
+            txpool
 
-## ethers extension classes
+            override getSigner()
+            override send()
+        }
+        class Web3Provider {
+            admin
+            debug
+            governance
+            klay
+            net
+            personal
+            txpool
 
-```mermaid
-classDiagram
-  ethers_Wallet <|-- KlaytnWallet
-  ethers_Signer <|-- ethers_Wallet
-  class ethers_Signer {
-    provider
-    abstract getAddress()
-    abstract signMessage()
-    abstract signTransaction()
-    sendTransaction()
-  }
-  class ethers_Wallet {
-    address
-    privateKey
-    getAddress()
-    signMessage()
-    signTransaction()
-    checkTransaction()
-    populateTransaction()
-    sendTransaction()
-  }
-  class KlaytnWallet {
-    signTransaction()
-    checkTransaction()
-    populateTransaction()
-    sendTransaction()
-  }
+            override getSigner()
+        }
+        class ExternalProvider {
+            isKaikas
+        }
+    }
 
-  ethers_Provider <|-- ethers_BaseProvider
-  ethers_BaseProvider <|-- ethers_JsonRpcProvider
-  ethers_JsonRpcProvider <|-- KlaytnJsonRpcProvider
-  class ethers_Provider {
-    abstract sendTransaction()
-    abstract call()
-    abstract estimateGas()
-  }
-  class ethers_BaseProvider {
-    sendTransaction()
-    waitForTransaction()
-  }
-  class ethers_JsonRpcProvider {
-    perform()
-    send()
-    prepareRequest() // "eth_sendRawTransaction"
-  }
-  class KlaytnJsonRpcProvider {
-    sendTransaction()
-    prepareRequest() // "klay_sendRawTransaction"
-  }
+    ethers_Signer <|-- ethers_Wallet
+    ethers_Signer <|-- ethers_JsonRpcSigner
+
+    ethers_Wallet <|-- Wallet
+    ethers_JsonRpcSigner <|-- JsonRpcSigner
+
+
+    ethers_Provider <|-- ethers_BaseProvider
+    ethers_BaseProvider <|-- ethers_JsonRpcProvider
+    ethers_JsonRpcProvider <|-- ethers_Web3Provider
+
+    ethers_JsonRpcProvider <|-- JsonRpcProvider
+    ethers_Web3Provider <|-- Web3Provider
+    ethers_ExternalProvider <|-- ExternalProvider
+
 ```
