@@ -4,9 +4,10 @@ Ethers.js Extension for Klaytn offers:
 
 - Drop-in replacement to `ethers.Wallet` that handles both Ethereum and Klaytn transactions
   involving AccountKey and TxTypes.
-- Drop-in replacement to `ethers.JsonRpcProvider` that provides Ethereum RPC as well as
+- Drop-in replacement to `ethers.JsonRpcProvider` that provides accesses to both Ethereum RPCs and
   Klaytn-specific RPCs.
-- AccountStore to manage Klaytn account keys.
+- Drop-in replacement to `ethers.Web3Provider` to work with both MetaMask (`window.ethereum`) and Kaikas (`window.klaytn`)
+- (WIP) AccountStore to manage Klaytn account keys.
 
 ## Install
 
@@ -39,7 +40,10 @@ See [example](./example) and [test](./test).
     node example/rpc/rpc.js
     ```
 
+
 ## Class extension design
+
+If diagram does not render, view it [here](https://mermaid.live/edit#pako:eNrVV02P0zAQ_SuVTyB1q35vW3FZtMsBqLSiICQIqmbtaTdqYgfbXTWU_nfcJLRx4jRZISHIpfXz84w9M36294QKhmRGaABK3fqwlhB6vGU-DiGqCCi2UD-iVK19ih-_hJ3hy4W_5ii_eiRtd9K2R77lRxy_SIonn5kuC6WPSDcfJXAFVPuCv3hZGCWibQAaL1AUclbRfaiY9GcIAtTnSadtx6Sp4BypLrpco75hTKJSpcmY5c8NDmt0dV1ahgbt09ZKivCOUxlHGtlb1Zy3iDltsvYj90NEi3mz4OaRyOBPPEkksr8SKZPwk8MLvGWAa6DxotrRMvEUR8huQUOxVzyhlKZkayqsIs73Wb2fQ_wbKUS3KlGvQWHZSB5taChLbdlWocORdZO-tCJcOWi00_BhUHacRx1ercA38XK30yg5BGVPxR6HN1_NUcMc1MbGJX7fotIO_we3Ri5xp8s6mWpL5RKrN8iJUqeRJ2IDsTyH9vIea1L7Nq-hfNUOKOqYQxBu1BvEe4jdZdmMWOH9va_0c7i1qmvpamUV1Mnoc8rlgrD-GyVVr8tn6h8LdIlXd3I4FL2gk8UsAgt9bkMMH7brgpQeZ8GBU7TxTQCxjXBzFbEvQUZchBExG9W7SIjA49WV4pbu5uqal-n_eNGldRUPhfKJ8A78DSiX8Kd_rMtv69XPqyv7alnHsm9bttHswEjoDmu2oCSskjVrwGmV-QlY14g8O9_hmrJzUHGDWAHJn_W8ftglP1ZBpgGyrOeopRwn9NJ1gJM2CVGG4DPzDkrqwCPGQogemZm_DFewDczTwOMHQ4WtFkfJJ7MVBArbZBsxo47Z0-mERsC_CGG1yWxPdmTWm_Y6_elg0r3u9Qe98bQ7apOYzMajznDS7Y-G3eFkOBiOpoc2-ZFY6HauB6Nhfzzp9Ue98XV_MmkTZL4Wcp693Y4_h18MVzCG)
 
 ```mermaid
 classDiagram
