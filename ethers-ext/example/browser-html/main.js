@@ -184,10 +184,10 @@ async function sendFVT() {
     const address = await signer.getAddress();
 
     const signedTx = await signer.signTransaction({
-      type: "FEE_DELEGATED_VALUE_TRANSFER", // TODO: accept number
+      type: ethers_ext.TxType.FeeDelegatedValueTransfer,
       from: address,
       to: address,
-      value: "0x0", // TODO : accept number
+      value: 0,
     });
 
     console.log("signedTx", signedTx);

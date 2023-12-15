@@ -2,8 +2,9 @@ import { BigNumber } from "@ethersproject/bignumber";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { SigningKey } from "@ethersproject/signing-key";
 import { computeAddress } from "@ethersproject/transactions";
-import { HexStr } from "@klaytn/js-ext-core";
 import { computePublicKey, getAddress } from "ethers/lib/utils";
+
+import { HexStr } from "@klaytn/js-ext-core";
 
 import { Wallet } from "./signer";
 
