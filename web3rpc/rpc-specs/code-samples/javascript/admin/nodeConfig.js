@@ -1,10 +1,11 @@
-const OpenSdk = require("opensdk-javascript");
+const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 
-(() => {
-    const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+(async () => {
+    let provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
 
-    sdk.admin.nodeConfig({}, (err, data, response) => {
-        console.log(data);
-    });
+    // The full list of JSON-RPC is available at:
+    // https://docs.klaytn.foundation/content/dapp/json-rpc/api-references
+    let data = await provider.admin.nodeConfig();
+    console.log("Node config", data);
 }
-)()
+)();
