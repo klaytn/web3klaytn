@@ -1,14 +1,10 @@
-const { Web3 } = require("web3");
-const { KlaytnWeb3 } = require( "../../dist/src");
-
-const { TxType, AccountKeyType, objectFromRLP } = require("../../../ethers-ext/dist/src");
-
-//
 // AccountKeyRoleBased Step 02 - value transfer
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeyrolebased
 //
 //   gasLimit: Must be large enough
-//
+
+const { KlaytnWeb3, TxType, toPeb } = require("@klaytn/web3js-ext");
+const { Web3 } = require("web3");
 
 // the same address of sender in AccountKeyRoleBased_01_accountUpdate.js
 const receiverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
@@ -23,8 +19,7 @@ async function main() {
     type: TxType.ValueTransfer,
     gasLimit: 100000,
     to: receiverAddr,
-    value: 1e9,
-    // value: convertToPeb('1', 'KLAY'),
+    value: toPeb("1", "KLAY"),
     from: senderAddr,
   };
 
@@ -32,9 +27,8 @@ async function main() {
   let signTx = await web3.eth.accounts.signTransaction(tx, account.privateKey);
   console.log(signTx);
 
-
   let sendResult = await web3.eth.sendSignedTransaction(signTx.rawTransaction);
-  console.log( sendResult );
+  console.log(sendResult);
 
   let receipt = await web3.eth.getTransactionReceipt(sendResult.transactionHash);
   console.log({ receipt });

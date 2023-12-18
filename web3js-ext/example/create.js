@@ -1,6 +1,5 @@
+const { KlaytnWeb3 } = require("@klaytn/web3js-ext");
 const { Web3 } = require("web3");
-const { KlaytnWeb3 } = require( "../dist/src");
-
 
 async function main() {
   let provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");

@@ -1,6 +1,6 @@
 {
   "name": "@klaytn/js-ext-core",
-  "version": "0.9.7-beta",
+  "version": "0.9.8-beta",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
