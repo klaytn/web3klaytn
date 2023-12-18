@@ -2,44 +2,47 @@
 
 Ethers.js Extension for Klaytn offers:
 
-- Drop-in replacement to `ethers.Wallet` that handles both Ethereum and Klaytn transactions
+- Drop-in replacement to `ethers.Wallet` that handles both Ethereum and Klaytn transaction types
   involving AccountKey and TxTypes.
 - Drop-in replacement to `ethers.JsonRpcProvider` that provides accesses to both Ethereum RPCs and
   Klaytn-specific RPCs.
 - Drop-in replacement to `ethers.Web3Provider` to work with both MetaMask (`window.ethereum`) and Kaikas (`window.klaytn`)
-- (WIP) AccountStore to manage Klaytn account keys.
 
 ## Install
 
-```
-npm install --save @klaytn/ethers-ext
+### Node.js
+
+- Install
+    ```sh
+    npm install --save @klaytn/ethers-ext
+    ```
+- ESM or TypeScript
+    ```ts
+    import { Wallet, JsonRpcProvider } from "@klaytn/ethers-ext";
+    const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+    const wallet = new Wallet("<private key>", provider);
+    ```
+- CommonJS
+    ```js
+    const { Wallet, JsonRpcProvider } = require("@klaytn/ethers-ext");
+    const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+    const wallet = new Wallet("<private key>", provider);
+    ```
+
+### Browser
+
+It is not recommended to use CDNs in production, But you can use below for quick prototyping.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@klaytn/ethers-ext@latest/dist/ethers-ext.bundle.js"></script>
+<script>
+const provider = new ethers_ext.providers.Web3Provider(window.klaytn);
+</script>
 ```
 
 ## Usage
 
 See [example](./example) and [test](./test).
-
-
-## Build
-
-- Install dependencies
-
-    ```
-    npm install
-    ```
-
-- Build the library
-
-    ```
-    npm run build
-    ```
-
-- Run examples
-
-    ```
-    node example/rpc/rpc.js
-    ```
-
 
 ## Class extension design
 
