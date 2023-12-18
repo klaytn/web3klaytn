@@ -1,8 +1,6 @@
-const OpenSdk = require("opensdk-javascript");
-
+const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-    const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
-
+let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
     const blockCount = '0x10'
     const lastBlock = 'latest'
     const rewardPercentiles = [0.1, 0.2, 0.3]

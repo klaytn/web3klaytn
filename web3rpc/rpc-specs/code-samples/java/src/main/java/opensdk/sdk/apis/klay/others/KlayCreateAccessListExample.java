@@ -1,6 +1,4 @@
-package opensdk.sdk.apis.klay.others;
 
-import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.KlayCallObject;
 import org.web3j.protocol.klaytn.core.method.response.KlayCreateAccessListResponse;
 import org.web3j.protocol.http.HttpService;
@@ -9,8 +7,7 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class KlayCreateAccessListExample {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
-
+    private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));
     void klayCreateAccessListExample() throws IOException {
         KlayCallObject object = new KlayCallObject();
         object.setFrom("0x3bc5885c2941c5cda454bdb4a8c88aa7f248e312");

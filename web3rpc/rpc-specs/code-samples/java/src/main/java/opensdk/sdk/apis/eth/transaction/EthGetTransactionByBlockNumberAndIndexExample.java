@@ -1,6 +1,4 @@
-package opensdk.sdk.apis.eth.transaction;
 
-import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.protocol.http.HttpService;
@@ -10,8 +8,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 
 public class EthGetTransactionByBlockNumberAndIndexExample {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.LOCAL_URL));
-    void ethGetTransactionByBlockNumberAndIndexExample() throws IOException {
+    private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));    void ethGetTransactionByBlockNumberAndIndexExample() throws IOException {
         EthTransaction response = w3
             .ethGetTransactionByBlockNumberAndIndex(
                 DefaultBlockParameter.valueOf(new BigInteger("27", 16)), 

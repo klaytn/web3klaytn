@@ -1,16 +1,13 @@
-package opensdk.sdk.apis.klay.others;
-
 import java.io.IOException;
 
-import opensdk.sdk.apis.constant.UrlConstants;
+
 import org.web3j.protocol.klaytn.core.method.response.KlayResendResponse;
 import org.web3j.protocol.klaytn.core.method.response.SendArgs;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 
 public class KlayResendExample {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
-
+    private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));
     void klayResendExample() throws IOException {
         SendArgs oldTrx = new SendArgs();
         oldTrx.setFrom("0x65b47be3457ff26f2911cf89fd079cef0475a2e6");

@@ -1,6 +1,4 @@
-package opensdk.sdk.apis.klay.miscellaneous;
 
-import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.klaytn.core.method.response.KlayRecoverFromMessageResponse;
@@ -8,8 +6,7 @@ import org.web3j.protocol.klaytn.core.method.response.KlayRecoverFromMessageResp
 import java.io.IOException;
 
 public class KlayRecoverFromMessageExample {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
-
+    private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));
     void klayRecoverFromMessage() throws IOException {
         String address = "0xA2a8854b1802D8Cd5De631E690817c253d6a9153";
         String message = "0xdeadbeef";

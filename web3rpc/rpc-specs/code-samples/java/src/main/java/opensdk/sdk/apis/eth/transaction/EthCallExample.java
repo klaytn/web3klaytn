@@ -1,6 +1,4 @@
-package opensdk.sdk.apis.eth.transaction;
 
-import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
@@ -10,8 +8,7 @@ import org.web3j.protocol.core.methods.response.EthCall;
 import java.io.IOException;
 
 public class EthCallExample {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.LOCAL_URL));
-
+    private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));
     void ethCallExample() throws IOException {
         EthCall cr = w3.ethCall(
                         Transaction.createEthCallTransaction(

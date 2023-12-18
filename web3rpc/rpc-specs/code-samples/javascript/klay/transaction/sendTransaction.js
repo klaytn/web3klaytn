@@ -1,8 +1,6 @@
-const OpenSdk = require("opensdk-javascript");
-
+const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-    const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
-
+let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
     const transactionObject = {
         "from": "0x487f2dfef230c2120b8cc55c5087b103146536ec",
         "to": "0x8c9f4468ae04fb3d79c80f6eacf0e4e1dd21deee",

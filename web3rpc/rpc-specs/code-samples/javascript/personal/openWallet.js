@@ -1,8 +1,6 @@
-const OpenSdk = require("opensdk-javascript");
-
+const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-    const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
-    
+let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");    
     const url = "keystore://"
     const passphrase = "gr8=B!0@uc$b"
 

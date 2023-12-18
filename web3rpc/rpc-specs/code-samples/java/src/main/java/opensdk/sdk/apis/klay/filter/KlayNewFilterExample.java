@@ -1,7 +1,5 @@
-package opensdk.sdk.apis.klay.filter;
-
 import java.util.List;
-import opensdk.sdk.apis.constant.UrlConstants;
+
 import org.web3j.protocol.klaytn.core.method.response.FilterOptions;
 import org.web3j.protocol.klaytn.core.method.response.KlayNewFilterResponse;
 import org.web3j.protocol.http.HttpService;
@@ -10,8 +8,7 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class KlayNewFilterExample {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
-    void klayNewFilterExample() throws IOException {
+    private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));    void klayNewFilterExample() throws IOException {
         FilterOptions filterOptions = new FilterOptions();
         filterOptions.setFromBlock("latest");
         filterOptions.setToBlock("latest");
