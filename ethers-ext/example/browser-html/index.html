@@ -3,29 +3,46 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title></title>
+    <title>@klaytn/ethers-ext in browser demo</title>
   </head>
   <body>
     <body>
       <p><button id="btnConnectMM" onclick="connectMM()">Connect MetaMask</button></p>
       <p><button id="btnConnectKK" onclick="connectKK()">Connect Kaikas</button></p>
       <hr/>
-      <p><button id="btnNetBaobab" onclick="switchBaobab()">Switch to Baobab</button></p>
-      <p><button id="btnNetLocal" onclick="switchLocal()">Switch to Localhost</button></p>
+      <p>
+        <button id="btnNetBaobab" onclick="switchBaobab()">Switch to Baobab</button>
+      </p>
       <hr/>
-      <p><button id="btnLegacy" onclick="sendLegacy()">Send Legacy tx</button></p>
-      <p><button id="btnVT" onclick="sendVT()">Send ValueTransfer tx</button></p>
-      <p><button id="btnFVT" onclick="sendFVT()">Sign FeeDelegatedValueTransfer tx</button></p>
-      
+      <p>For MetaMask and Kaikas</p>
       <p><button id="btnSignMsg" onclick="signMsg()">Sign message</button></p>
+      <p>
+        <button id="btnLegacyVT" onclick="sendLegacyVT()">Send Legacy or Dynamic Fee tx (send ETH/KLAY)</button>
+        <button id="btnLegacySC" onclick="sendLegacySC()">Send Legacy or Dynamic Fee tx (call contract)</button>
+      </p>
       <hr/>
-      <p>accounts: <text id="textAccounts"></text></p>
-      
-      <p>signed tx: <text id="textSignedTx"></text></p>
-      <p>txhash: <text id="textTxhash"></text></p>
-
-      <p>signature: <text id="textSignature"></text></p>
-      <p>signer adddress recovered from signature: <text id="textRecoveredAddress"></text></p>
+      <p>For Kaikas</p>
+      <p>
+        <button id="btnKlaytnVT" onclick="sendKlaytnVT()">Send ValueTransfer tx</button>
+        <button id="btnKlaytnSC" onclick="sendKlaytnSC()">Send SmartContractExecution tx</button>
+      </p>
+      <p>
+        <button id="btnFeeDelegatedVT" onclick="sendFeeDelegatedVT()">Sign and Send FeeDelegatedValueTransfer tx</button>
+        <button id="btnFeeDelegatedSC" onclick="sendFeeDelegatedSC()">Sign and Send FeeDelegatedSmartContractExecution tx</button>
+      </p>
+      <hr/>
+      <p>
+        <div>accounts: <text id="textAccounts"></text></div>
+        <div>chainId: <text id="textChainId"></text></div>
+      </p>
+      <p>
+        <div>message signature: <text id="textSignature"></text></div>
+        <div>recovered signer address: <text id="textRecoveredAddress"></text></div>
+      </p>
+      <p>
+        <div>signed tx: <text id="textSignedTx"></text></div>
+        <div>txhash: <text id="textTxhash"></text></div>
+      </p>
     </body>
 
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>

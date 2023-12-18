@@ -475,7 +475,6 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
     if (this.isKaikas()) {
       rpcTx.type = resolveTypeForKaikas(rpcTx.type);
     }
-    console.log(rpcTx);
 
     try {
       if (this.isKaikas()) {
