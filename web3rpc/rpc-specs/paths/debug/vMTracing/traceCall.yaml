@@ -1,0 +1,97 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /debug/traceCall:
+    post:
+      summary: "[Trace-traceCall]"
+      tags:
+        - debug
+      operationId: traceCall
+      description: |
+        The debug_traceCall allows tracing on a specific block if callArgs is provided.
+
+        **JSONRPC:** `debug_traceCall`
+
+      parameters:
+        - name: tracerCallObject
+          in: query
+          description: The transaction call object.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracerCallObject"
+        - name: blockNumber
+          in: query
+          description: Blocknumber or hash or tag of a block.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+        - name: traceObject
+          in: query
+          description: Tracing options.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracerObject"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/DebugTraceCallReq"
+
+      responses:
+        200:
+          description: The detail tracing infomation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+
+      x-codeSamples:
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/debug/vMTracing/traceCall.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/debug/vMTracing/DebugTraceCallExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+           $ref: "../../../code-samples/javascript/debug/vMTracing/traceCall.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/debug/vMTracing/traceCall.py"
+
+components:
+  schemas:
+    DebugTraceCallReq:
+      type: object
+      properties:
+        method:
+          type: string
+          default: debug_traceCall
+        params:
+          type: array
+          items:
+            anyOf:
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracerCallObject"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracerObject"
+            example: 
+              - {"to":"0x46eda75e7ca73cb1c2f83c3927211655420dbc44","data":"0x3fb5c1cb00000000000000000000000000000000000000000000000000000000000003e7"}
+              - "latest"
+              - {"tracer":"revertTracer"}

@@ -234,6 +234,9 @@ paths:
     $ref: ../web3rpc/rpc-specs/paths/eth/block/mining.yaml#/paths/~1eth~1mining
   /eth/block/syncing:
     $ref: ../web3rpc/rpc-specs/paths/eth/block/syncing.yaml#/paths/~1eth~1syncing
+  /eth/block/getBlockReceipt:
+    $ref: ../web3rpc/rpc-specs/paths/eth/block/getBlockReceipts.yaml#/paths/~1eth~1getBlockReceipts
+
 
   # eth/transaction
   /eth/transaction/call:
@@ -442,6 +445,9 @@ paths:
     $ref: ../web3rpc/rpc-specs/paths/debug/vMTracing/traceChain.yaml#/paths/~1debug~1traceChain
   /debug/vMTracing/traceTransaction:
     $ref: ../web3rpc/rpc-specs/paths/debug/vMTracing/traceTransaction.yaml#/paths/~1debug~1traceTransaction
+  /debug/vMTracing/traceCall:
+    $ref: ../web3rpc/rpc-specs/paths/debug/vMTracing/traceCall.yaml#/paths/~1debug~1traceCall
+
 
   # debug/vMStandardTracing:
   /debug/vMStandardTracing/standardTraceBadBlockToFile:
@@ -564,6 +570,8 @@ paths:
     $ref: ../web3rpc/rpc-specs/paths/admin/stopStateMigration.yaml#/paths/~1admin~1stopStateMigration
   /admin/stopWS:
     $ref: ../web3rpc/rpc-specs/paths/admin/stopWS.yaml#/paths/~1admin~1stopWS
+  /admin/nodeConfig:
+    $ref: ../web3rpc/rpc-specs/paths/admin/nodeConfig.yaml#/paths/~1admin~1nodeConfig
 
   # mainbridge:
   /mainbridge/convertChildChainBlockHashToParentChainTxHash:
