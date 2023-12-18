@@ -1,6 +1,21 @@
 {
   "name": "@klaytn/ethers-ext",
   "version": "0.9.8-beta",
+  "license": "MIT",
+  "description": "ethers.js extension for Klaytn blockchain",
+  "keywords": [
+      "ethereum",
+      "ethers",
+      "ethersjs",
+      "klaytn",
+      "klaytn sdk",
+      "klaytn api"
+  ],
+  "homepage": "https://github.com/klaytn/web3klaytn/tree/dev/ethers-ext",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/klaytn/web3klaytn"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -18,7 +33,6 @@
     "test": "mocha --timeout 10000 -r ts-node/register \"test/**/*.ts\"",
     "prepublishOnly": "npm run build"
   },
-  "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.3.7",
     "@types/chai-as-promised": "^7.1.5",
