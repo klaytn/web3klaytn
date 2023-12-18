@@ -26,11 +26,12 @@ import {
   HexStr,
   isKIP3Json,
   splitKeystoreKIP3,
+  getChainIdFromSignatureTuples,
 } from "../src";
 
 
 describe("util", () => {
-  it.only("const", () => {
+  it("const", () => {
     // Eth types are not Klaytn TxType
     assert.isFalse(isKlaytnTxType(0));
     assert.isFalse(isBasicTxType(0));
@@ -69,7 +70,7 @@ describe("util", () => {
     assert.equal(getKaikasTxType("SMART_CONTRACT_EXECUTION"), "SMART_CONTRACT_EXECUTION");
   });
 
-  it.only("getCompressedPublicKey", () => {
+  it("getCompressedPublicKey", () => {
     const testcases = [
       { x: "dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd", y: "af06ca34ae8714cf3dae06bacdb78c7c2d4054bd38961d40853cd5f15955da79" },
       { x: "0xdc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd", y: "0xaf06ca34ae8714cf3dae06bacdb78c7c2d4054bd38961d40853cd5f15955da79" },
@@ -107,9 +108,28 @@ describe("util", () => {
     ];
 
     for (const tc of testcases) {
-      let tuple = getSignatureTuple(tc as any);
+      let tuple = getSignatureTuple(tc);
       assert.deepEqual(tuple, canonical);
     }
+  });
+
+  it("getChainIdFromSignatureTuples", () => {
+    const oddV = [
+      [
+        "0x7f5",
+        "0xe77a78c4a972f883e05df3a143a3b42cb08b8c082c3f7582f89e27c7062b6d2a",
+        "0x506da8080866d5a9ae40197917d0a5268a7bb5d33a3093b780c8134b55777ccf",
+      ],
+    ];
+    const evenV = [
+      [
+        "0x7f6",
+        "0x3c72041cdb99c5d9902dd5784361e5fe91b205fa109db8b58097d8ed983e15f5",
+        "0x11716a098568b68eac778acf256bbbfececdff02478a620de696339ec86473a0",
+      ]
+    ];
+    assert.equal(getChainIdFromSignatureTuples(oddV), 1001);
+    assert.equal(getChainIdFromSignatureTuples(evenV), 1001);
   });
 
   it("getRpcTxObject", () => {

@@ -157,6 +157,7 @@ export function eip155sign(key: SigningKey, digest: string, chainId: number): Si
   return sig;
 }
 
+// TODO: replace with js-ext-core getChainIdFromSignatureTuples
 // Extract chainId from tx.txSignatures[] or tx.feePayerSignatures[].
 // It works because Klaytn TxType always follows EIP-155.
 function chainIdFromSig(signatures?: any[]): number | undefined {

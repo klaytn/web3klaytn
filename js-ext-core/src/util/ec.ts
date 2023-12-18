@@ -1,4 +1,4 @@
-import { splitSignature } from "@ethersproject/bytes";
+import { SignatureLike as EthersSignatureLike, Signature, splitSignature } from "@ethersproject/bytes";
 import { ec } from "elliptic";
 import _ from "lodash";
 
@@ -33,19 +33,11 @@ export function getCompressedPublicKey(pub: any): string {
 // All elements must be string for RLP encoding.
 export type SignatureTuple = [string, string, string];
 
-// Commonly used signature object.
-export interface SignatureObject {
-  r: string;
-  s: string;
-  v?: number;
-  recoveryParam?: number;
-}
-
 // All kinds of ECDSA signatures returned from various libraries.
 export type SignatureLike =
-  SignatureTuple |
-  SignatureObject |
-  string;
+  EthersSignatureLike | // { r, s, v } or { r, s, recoveryParam }
+  string | // compact signature
+  string[]; // [v, r, s]
 
 // If the sig is an array, the first element 'v' must be one of:
 // - pre-EIP-155 v: {27, 28}
@@ -65,18 +57,51 @@ export type SignatureLike =
 //   "0x75c2c3e5f7b0a182c767137c488649cd5104a5e747371fd922d618e328e5c508",
 // ]
 export function getSignatureTuple(sig: SignatureLike): SignatureTuple {
-  // For array, pass through splitSignature() for sanity check
-  if (_.isArray(sig) && sig.length == 3) {
+  // Pass through splitSignature() for sanity check
+  let obj: Signature;
+  if (_.isArray(sig)) {
+    if (sig.length != 3) {
+      throw new Error("Signature tuple must have 3 elements [v,r,s]");
+    }
     const numV = HexStr.toNumber(sig[0]);
-    sig = { v: numV, r: sig[1], s: sig[2] };
+    obj = splitSignature({ v: numV, r: sig[1], s: sig[2] });
+  } else {
+    obj = splitSignature(sig);
   }
-  const split = splitSignature(sig);
 
   // R and S must not have leading zeros
   // c.f. https://github.com/ethers-io/ethers.js/blob/v5/packages/transactions/src.ts/index.ts#L298
   return [
-    HexStr.fromNumber(split.v),
-    HexStr.stripZeros(split.r),
-    HexStr.stripZeros(split.s),
+    HexStr.fromNumber(obj.v),
+    HexStr.stripZeros(obj.r),
+    HexStr.stripZeros(obj.s),
   ];
+}
+
+// Extract chainId from tx.txSignatures[] or tx.feePayerSignatures[].
+// It works because Klaytn TxType signatures are always EIP-155.
+// Returns undefined if chainId cannot be extracted. Use other methods like RPC to get chainId.
+export function getChainIdFromSignatureTuples(signatures?: any[]): number | undefined {
+  if (!_.isArray(signatures) || signatures.length == 0) {
+    return undefined;
+  }
+
+  const signature = signatures[0];
+  if (!_.isArray(signature) || signature.length != 3) {
+    return undefined;
+  }
+
+  const strV = signature[0];
+  if (!HexStr.isHex(strV)) {
+    return undefined;
+  }
+
+  // v           = 2 * chainId + {35, 36}
+  // v + (v % 2) = 2 * chainId + 36
+  const v = HexStr.toNumber(strV);
+  if (v >= 35) {
+    return (v + (v % 2) - 36) / 2;
+  } else {
+    return undefined;
+  }
 }
