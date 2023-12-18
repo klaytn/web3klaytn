@@ -1,8 +1,8 @@
 import { TransactionRequest as EthersTransactionRequest } from "@ethersproject/abstract-provider";
 import { ExternallyOwnedAccount } from "@ethersproject/abstract-signer";
+import { BytesLike } from "@ethersproject/bytes";
 import { ExternalProvider as EthersExternalProvider } from "@ethersproject/providers";
 import { SigningKey } from "@ethersproject/signing-key";
-import { BytesLike } from "ethers";
 
 
 export interface TransactionRequest extends EthersTransactionRequest {

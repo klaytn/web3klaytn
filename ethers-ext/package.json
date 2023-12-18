@@ -19,11 +19,7 @@
     "prepublishOnly": "npm run build"
   },
   "license": "MIT",
-  "peerDependencies": {
-    "ethers": "^5.7.2"
-  },
   "devDependencies": {
-    "@klaytn/ethers-ext": "^0.9.8-beta",
     "@types/chai": "^4.3.7",
     "@types/chai-as-promised": "^7.1.5",
     "@types/lodash": "^4.14.192",
@@ -43,6 +39,24 @@
     "webpack-visualizer-plugin2": "^1.1.0"
   },
   "dependencies": {
+    "@ethersproject/abstract-provider": "^5.7.0",
+    "@ethersproject/abstract-signer": "^5.7.0",
+    "@ethersproject/address": "^5.7.0",
+    "@ethersproject/bignumber": "^5.7.0",
+    "@ethersproject/bytes": "^5.7.0",
+    "@ethersproject/constants": "^5.7.0",
+    "@ethersproject/hash": "^5.7.0",
+    "@ethersproject/json-wallets": "^5.7.0",
+    "@ethersproject/keccak256": "^5.7.0",
+    "@ethersproject/logger": "^5.7.0",
+    "@ethersproject/networks": "^5.7.1",
+    "@ethersproject/properties": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
+    "@ethersproject/signing-key": "^5.7.0",
+    "@ethersproject/strings": "^5.7.0",
+    "@ethersproject/transactions": "^5.7.0",
+    "@ethersproject/wallet": "^5.7.0",
+    "@ethersproject/web": "^5.7.1",
     "@klaytn/js-ext-core": "^0.9.8-beta",
     "@klaytn/web3rpc": "^0.9.8",
     "lodash": "^4.17.21"
