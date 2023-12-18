@@ -24,6 +24,7 @@ export async function getTransactionRequest(transactionOrRLP: Deferrable<Transac
   }
 }
 
+// TODO: replace with js-ext-core parseTxType
 export function resolveType(type?: number | string): number {
   if (!type) {
     return 0;
@@ -40,6 +41,7 @@ export function resolveType(type?: number | string): number {
   throw new Error(`Unrecognized tx type '${type}'. Must be a number.'`);
 }
 
+// TODO: replace with js-ext-core getKaikasTxType
 // Convert tx.type field to what Kaikas wants.
 // - If unspecified, keep it as-is. undefined => undefined
 // - Ethereum types are kept as-is. 0,1,2 => 0,1,2

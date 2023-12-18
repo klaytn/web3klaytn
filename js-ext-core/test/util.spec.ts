@@ -1,6 +1,7 @@
 import { BigNumber } from "@ethersproject/bignumber";
 import { formatUnits as formatEthUnits, parseUnits as parseEthUnits, formatEther, parseEther } from "@ethersproject/units";
 import { assert } from "chai";
+import { describe, it } from "mocha";
 /* eslint-disable */
 // @ts-ignore: package @klaytn/web3rpc has no .d.ts file.
 //import { ApiClient, KlayApi } from "@klaytn/web3rpc";
@@ -8,6 +9,8 @@ import { assert } from "chai";
 
 import {
   TxType,
+  parseTxType,
+  getKaikasTxType,
   isBasicTxType,
   isFeeDelegationTxType,
   isKlaytnTxType,
@@ -27,7 +30,7 @@ import {
 
 
 describe("util", () => {
-  it("TxType", () => {
+  it.only("const", () => {
     // Eth types are not Klaytn TxType
     assert.isFalse(isKlaytnTxType(0));
     assert.isFalse(isBasicTxType(0));
@@ -48,6 +51,22 @@ describe("util", () => {
     assert.isFalse(isBasicTxType(ty));
     assert.isFalse(isFeeDelegationTxType(ty));
     assert.isTrue(isPartialFeeDelegationTxType(ty));
+
+    assert.equal(parseTxType(), 0);
+    assert.equal(parseTxType(0), 0);
+    assert.equal(parseTxType(2), 2);
+    assert.equal(parseTxType(8), 8);
+    assert.equal(parseTxType("0x09"), 9);
+    assert.equal(parseTxType("FeeDelegatedValueTransferWithRatio"), 0x0a);
+    assert.equal(parseTxType("TxTypeValueTransferMemo"), 0x10);
+    assert.equal(parseTxType("SMART_CONTRACT_EXECUTION"), 0x30);
+
+    assert.equal(getKaikasTxType(), 0);
+    assert.equal(getKaikasTxType(0), 0);
+    assert.equal(getKaikasTxType(2), 2);
+    assert.equal(getKaikasTxType(8), "VALUE_TRANSFER");
+    assert.equal(getKaikasTxType("0x09"), "FEE_DELEGATED_VALUE_TRANSFER");
+    assert.equal(getKaikasTxType("SMART_CONTRACT_EXECUTION"), "SMART_CONTRACT_EXECUTION");
   });
 
   it.only("getCompressedPublicKey", () => {
@@ -221,7 +240,7 @@ describe("util", () => {
 
     //* // (3) Test mock
     const send = (_method: string, _params: any[]) => Promise.resolve("0x1234");
-    //*/
+    //* /
 
     // Uncomment to test with real OpenApi generated codes.
     /* // (1) @klaytn/web3rpc
@@ -234,14 +253,15 @@ describe("util", () => {
       constructor(apiClient: any) {
         this.apiClient = apiClient;
       }
+
       blockNumber(_opts: any, callback: any) {
-        const bodyParams = { method: 'klay_blockNumber', params: [] };
-        this.apiClient.callApi('/', 'POST', null, null, null, null, bodyParams,
-          [], ['application/json'], ['application/json'], {}, null, callback);
+        const bodyParams = { method: "klay_blockNumber", params: [] };
+        this.apiClient.callApi("/", "POST", null, null, null, null, bodyParams,
+          [], ["application/json"], ["application/json"], {}, null, callback);
       }
-    };
+    }
     const KlayApi = MockKlayApi as any;
-    //*/
+    //* /
 
     const klay = asyncOpenApi(send, KlayApi);
     const ret = await klay.blockNumber();
