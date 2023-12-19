@@ -38,9 +38,10 @@ module.exports = {
     "import/order": ["warn", {
       "alphabetize": { "order": "asc", "caseInsensitive": true },
       "pathGroups": [
-        { "pattern": "@klaytn/**", "group": "external", "position": "after" },
+        { "pattern": "@klaytn/**", "group": "parent", "position": "after" },
       ],
       "newlines-between": "always",
+      "pathGroupsExcludedImportTypes": ["@klaytn/**"],
     }],
     "import/no-unresolved": [
       "error", // eslint-plugin-import cannot resolve subpaths https://github.com/firebase/firebase-admin-node/discussions/1359
@@ -94,5 +95,16 @@ module.exports = {
         "prefer-const": "off",
       }
     },
-  ]
+    { // browser examples use browser globals
+      "files": ["example/browser-html/*"],
+      "rules": {
+        "no-undef": "off",
+        "no-unused-vars": "off",
+        "no-constant-condition": "off",
+      }
+    },
+  ],
+  "ignorePatterns": [
+    "example/browser-html/ethers-ext.bundle.js",
+  ],
 };

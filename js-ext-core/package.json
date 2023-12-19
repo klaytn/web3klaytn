@@ -33,6 +33,7 @@
     "@types/elliptic": "^6.4.16",
     "@types/jest": "^29.5.7",
     "@types/lodash": "^4.14.199",
+    "@types/mocha": "^10.0.6",
     "@types/node": "^20.8.10",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
     "chai": "^4.3.7",

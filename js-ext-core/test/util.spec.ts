@@ -1,6 +1,7 @@
 import { BigNumber } from "@ethersproject/bignumber";
 import { formatUnits as formatEthUnits, parseUnits as parseEthUnits, formatEther, parseEther } from "@ethersproject/units";
 import { assert } from "chai";
+import { describe, it } from "mocha";
 /* eslint-disable */
 // @ts-ignore: package @klaytn/web3rpc has no .d.ts file.
 //import { ApiClient, KlayApi } from "@klaytn/web3rpc";
@@ -8,6 +9,8 @@ import { assert } from "chai";
 
 import {
   TxType,
+  parseTxType,
+  getKaikasTxType,
   isBasicTxType,
   isFeeDelegationTxType,
   isKlaytnTxType,
@@ -23,11 +26,12 @@ import {
   HexStr,
   isKIP3Json,
   splitKeystoreKIP3,
+  getChainIdFromSignatureTuples,
 } from "../src";
 
 
 describe("util", () => {
-  it("TxType", () => {
+  it("const", () => {
     // Eth types are not Klaytn TxType
     assert.isFalse(isKlaytnTxType(0));
     assert.isFalse(isBasicTxType(0));
@@ -48,9 +52,25 @@ describe("util", () => {
     assert.isFalse(isBasicTxType(ty));
     assert.isFalse(isFeeDelegationTxType(ty));
     assert.isTrue(isPartialFeeDelegationTxType(ty));
+
+    assert.equal(parseTxType(), 0);
+    assert.equal(parseTxType(0), 0);
+    assert.equal(parseTxType(2), 2);
+    assert.equal(parseTxType(8), 8);
+    assert.equal(parseTxType("0x09"), 9);
+    assert.equal(parseTxType("FeeDelegatedValueTransferWithRatio"), 0x0a);
+    assert.equal(parseTxType("TxTypeValueTransferMemo"), 0x10);
+    assert.equal(parseTxType("SMART_CONTRACT_EXECUTION"), 0x30);
+
+    assert.equal(getKaikasTxType(), 0);
+    assert.equal(getKaikasTxType(0), 0);
+    assert.equal(getKaikasTxType(2), 2);
+    assert.equal(getKaikasTxType(8), "VALUE_TRANSFER");
+    assert.equal(getKaikasTxType("0x09"), "FEE_DELEGATED_VALUE_TRANSFER");
+    assert.equal(getKaikasTxType("SMART_CONTRACT_EXECUTION"), "SMART_CONTRACT_EXECUTION");
   });
 
-  it.only("getCompressedPublicKey", () => {
+  it("getCompressedPublicKey", () => {
     const testcases = [
       { x: "dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd", y: "af06ca34ae8714cf3dae06bacdb78c7c2d4054bd38961d40853cd5f15955da79" },
       { x: "0xdc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd", y: "0xaf06ca34ae8714cf3dae06bacdb78c7c2d4054bd38961d40853cd5f15955da79" },
@@ -88,9 +108,28 @@ describe("util", () => {
     ];
 
     for (const tc of testcases) {
-      let tuple = getSignatureTuple(tc as any);
+      let tuple = getSignatureTuple(tc);
       assert.deepEqual(tuple, canonical);
     }
+  });
+
+  it("getChainIdFromSignatureTuples", () => {
+    const oddV = [
+      [
+        "0x7f5",
+        "0xe77a78c4a972f883e05df3a143a3b42cb08b8c082c3f7582f89e27c7062b6d2a",
+        "0x506da8080866d5a9ae40197917d0a5268a7bb5d33a3093b780c8134b55777ccf",
+      ],
+    ];
+    const evenV = [
+      [
+        "0x7f6",
+        "0x3c72041cdb99c5d9902dd5784361e5fe91b205fa109db8b58097d8ed983e15f5",
+        "0x11716a098568b68eac778acf256bbbfececdff02478a620de696339ec86473a0",
+      ]
+    ];
+    assert.equal(getChainIdFromSignatureTuples(oddV), 1001);
+    assert.equal(getChainIdFromSignatureTuples(evenV), 1001);
   });
 
   it("getRpcTxObject", () => {
@@ -221,7 +260,7 @@ describe("util", () => {
 
     //* // (3) Test mock
     const send = (_method: string, _params: any[]) => Promise.resolve("0x1234");
-    //*/
+    //* /
 
     // Uncomment to test with real OpenApi generated codes.
     /* // (1) @klaytn/web3rpc
@@ -234,14 +273,15 @@ describe("util", () => {
       constructor(apiClient: any) {
         this.apiClient = apiClient;
       }
+
       blockNumber(_opts: any, callback: any) {
-        const bodyParams = { method: 'klay_blockNumber', params: [] };
-        this.apiClient.callApi('/', 'POST', null, null, null, null, bodyParams,
-          [], ['application/json'], ['application/json'], {}, null, callback);
+        const bodyParams = { method: "klay_blockNumber", params: [] };
+        this.apiClient.callApi("/", "POST", null, null, null, null, bodyParams,
+          [], ["application/json"], ["application/json"], {}, null, callback);
       }
-    };
+    }
     const KlayApi = MockKlayApi as any;
-    //*/
+    //* /
 
     const klay = asyncOpenApi(send, KlayApi);
     const ret = await klay.blockNumber();
