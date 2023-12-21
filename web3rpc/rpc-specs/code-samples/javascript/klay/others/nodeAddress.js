@@ -1,7 +1,7 @@
 const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");   
-    sdk.klay.nodeAddress({},(err, data, response) => {
+const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");   
+    provider.klay.nodeAddress({},(err, data, response) => {
         console.log(data);
     })
 }

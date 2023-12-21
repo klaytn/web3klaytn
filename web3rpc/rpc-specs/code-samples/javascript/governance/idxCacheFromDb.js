@@ -1,7 +1,7 @@
 const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
-    sdk.governance.idxCacheFromDb({}, (err, data, response) => {
+const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+    provider.governance.idxCacheFromDb({}, (err, data, response) => {
         console.log(data);
     });
 }

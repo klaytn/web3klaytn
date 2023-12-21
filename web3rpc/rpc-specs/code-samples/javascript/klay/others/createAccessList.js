@@ -1,6 +1,6 @@
 const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
 
     const callObject = {
         "from": "0x3bc5885c2941c5cda454bdb4a8c88aa7f248e312",
@@ -10,7 +10,7 @@ let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
         "data": "0x20965255"
     }
     const blockParameter = 'latest'
-    sdk.klay.createAccessList(callObject, { blockParameter }, (err, data, response) => {
+    provider.klay.createAccessList(callObject, { blockParameter }, (err, data, response) => {
         console.log(data);
     });
 }

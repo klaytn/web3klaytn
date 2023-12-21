@@ -1,6 +1,6 @@
 const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
 
     const tx = {
         "from": "0x413ba0e5f6f00664598b5c80042b1308f4ff1408",
@@ -9,7 +9,7 @@ let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
     };
     const passphrase = "helloWorld";
 
-    sdk.personal.sendTransaction(tx, passphrase, {}, (err, data, response) => {
+    provider.personal.sendTransaction(tx, passphrase, {}, (err, data, response) => {
         console.log(data);
     });
 }

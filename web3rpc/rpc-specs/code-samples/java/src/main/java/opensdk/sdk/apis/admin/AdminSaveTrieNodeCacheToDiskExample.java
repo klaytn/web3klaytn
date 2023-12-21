@@ -1,4 +1,3 @@
-let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
 import org.web3j.protocol.klaytn.core.method.response.AdminSaveTrieNodeCacheToDiskResponse;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;

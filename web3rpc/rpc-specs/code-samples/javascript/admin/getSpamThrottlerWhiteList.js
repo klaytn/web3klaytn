@@ -1,7 +1,7 @@
 const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
-    sdk.admin.getSpamThrottlerWhiteList({}, (err, data, response) => {
+const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+    provider.admin.getSpamThrottlerWhiteList({}, (err, data, response) => {
         console.log(data);
     });
 }

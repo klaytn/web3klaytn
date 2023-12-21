@@ -1,6 +1,6 @@
 const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
 
     const transactionData = {
         "from": "0x413ba0e5f6f00664598b5c80042b1308f4ff1408",
@@ -11,7 +11,7 @@ let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
     };
     const password = "helloWorld";
 
-    sdk.personal.signTransaction(transactionData, password, {}, (err, data, response) => {
+    provider.personal.signTransaction(transactionData, password, {}, (err, data, response) => {
         console.log(data);
     });
 }

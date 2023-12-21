@@ -1,6 +1,6 @@
 const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
     const callObject = {
         "from": "0x3f71029af4e252b25b9ab999f77182f0cd3bc085",
         "to": "0x87ac99835e67168d4f9a40580f8f5c33550ba88b",
@@ -9,7 +9,7 @@ let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
         "value": "0x0",
         "input": "0x8ada066e"
     }
-    sdk.klay.estimateGas(callObject, {}, (err, data, response) => {
+    provider.klay.estimateGas(callObject, {}, (err, data, response) => {
         console.log(data);
     });
 }

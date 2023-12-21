@@ -1,6 +1,6 @@
 const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
 
     const txObject = {
         "typeInt": 18,
@@ -20,7 +20,7 @@ let sdk = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
         }]
     }
 
-    sdk.klay.sendTransactionAsFeePayer(txObject, {}, (err, data, response) => {
+    provider.klay.sendTransactionAsFeePayer(txObject, {}, (err, data, response) => {
         console.log(data);
     });
 }
