@@ -1,6 +1,6 @@
 import { Networkish } from "@ethersproject/networks";
 import { JsonRpcProvider as EthersProvider } from "@ethersproject/providers";
-import { ConnectionInfo } from "ethers/lib/utils";
+import { ConnectionInfo } from "@ethersproject/web";
 import _ from "lodash";
 
 import { JsonRpcProvider as KlaytnProvider } from "../src";

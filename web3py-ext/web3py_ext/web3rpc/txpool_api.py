@@ -7,6 +7,7 @@ from web3.method import (
 )
 from typing import (
     Callable,
+    Awaitable,
     Any,
 )
 from web3.geth import GethAdmin, GethPersonal, GethTxPool
@@ -38,4 +39,33 @@ class TxpoolApi(Module):
 
     def status(self, *args) -> Any:
         return self._status(*args)
+    
+
+class AsyncTxpoolApi(Module):
+    is_async = True
+    namespace = "txpool"
+    
+    
+    _content: Method[Callable[..., Awaitable[Any]]] = Method(
+        namespace + "_content", mungers=[default_root_munger]
+    )
+
+    async def content(self, *args) -> Any:
+        return await self._content(*args)
+    
+    
+    _inspect: Method[Callable[..., Awaitable[Any]]] = Method(
+        namespace + "_inspect", mungers=[default_root_munger]
+    )
+
+    async def inspect(self, *args) -> Any:
+        return await self._inspect(*args)
+    
+    
+    _status: Method[Callable[..., Awaitable[Any]]] = Method(
+        namespace + "_status", mungers=[default_root_munger]
+    )
+
+    async def status(self, *args) -> Any:
+        return await self._status(*args)
     
