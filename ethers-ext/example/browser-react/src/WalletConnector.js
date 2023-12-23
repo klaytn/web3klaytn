@@ -66,18 +66,18 @@ export function connectKK() {
   return accounts;
 }
 
-// // https://docs.metamask.io/wallet/how-to/add-network/
-// // EIP-3085 wallet_addEthereumChain
+// https://docs.metamask.io/wallet/how-to/add-network/
+// EIP-3085 wallet_addEthereumChain
 // // EIP-3326 wallet_switchEthereumChain
-// async function switchNetwork(networkSpec) {
-//   console.log("switching to", networkSpec);
-//   try {
-//     await provider.send("wallet_switchEthereumChain", [{ chainId: networkSpec.chainId }]);
-//   } catch (e) {
-//     await provider.send("wallet_addEthereumChain", [networkSpec]);
-//   }
-// }
-// async function switchBaobab() {
+export async function switchNetwork(networkSpec) {
+  console.log("switching to", networkSpec);
+  try {
+    await provider.send("wallet_switchEthereumChain", [{ chainId: networkSpec.chainId }]);
+  } catch (e) {
+    await provider.send("wallet_addEthereumChain", [networkSpec]);
+  }
+}
+export async function switchBaobab() {
 //   await switchNetwork({
 //     chainId: "0x3e9",
 //     chainName: "Klaytn Baobab",
@@ -89,7 +89,7 @@ export function connectKK() {
 //     rpcUrls: ["https://public-en-baobab.klaytn.net"],
 //     blockExplorerUrls: ["https://baobab.klaytnscope.com/"],
 //   });
-// }
+}
 
 // async function signMsg() {
 //   try {

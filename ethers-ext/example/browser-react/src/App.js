@@ -8,7 +8,7 @@ class App extends Component {
     super(props);
     this.state = {
       header: {
-        currentNetwork: 'Baobab',
+        currentNetwork: '',
         currentAccount: '',
       },
     }
@@ -21,6 +21,11 @@ class App extends Component {
         <Header 
           network={this.state.header.currentNetwork}
           account={this.state.header.currentAccount}
+          onChangeNetwork={function(network){
+            this.setState({header:{
+              currentNetwork: network
+            }});
+          }.bind(this)}
           onChangeAccount={function(accounts){
             this.setState({header:{
               currentNetwork: 'Baobab',

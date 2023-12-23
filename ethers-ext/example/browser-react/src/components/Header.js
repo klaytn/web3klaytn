@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connectMM, connectKK } from '../WalletConnector'
+import { connectMM, connectKK, switchBaobab } from '../WalletConnector'
 
 
 class Header extends Component {
@@ -7,7 +7,11 @@ class Header extends Component {
       return (
         <header>
             <p>{this.props.network}</p>
-            <button id="btnNetBaobab" onClick="switchBaobab()">Switch to Baobab</button>
+            <button id="btnNetBaobab" onClick={function(e){
+              e.preventDefault();
+              switchBaobab(); 
+              this.props.onChangeNetwork('Baobab');
+            }.bind(this)}>Switch to Baobab</button>
             <hr/>
             <p>{this.props.account}</p>
             <button id="btnConnectMM" onClick={function(e){
