@@ -1,10 +1,11 @@
 const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
-    const address = "0x0000000000000000000000000000000000000000"
+  const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+  const address = "0x0000000000000000000000000000000000000000";
 
-    provider.debug.startCollectingTrieStats(address, {}, (err, data, response) => {
-        console.log(data);
+  provider.debug
+    .startCollectingTrieStats(address, {}, (err, data, response) => {})
+    .then((data) => {
+      console.log(data);
     });
-}
-)()
+})();

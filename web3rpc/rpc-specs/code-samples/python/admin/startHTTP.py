@@ -9,6 +9,6 @@ cors = ""
 apis = "klay"
 
 w3 = Web3(Web3.HTTPProvider(host))
-admin_response = w3.admin.start_http(adminHost, port, cors, apis)
+admin_response = w3.geth.admin.start_http(adminHost, port, cors, apis)
 
 print(admin_response)

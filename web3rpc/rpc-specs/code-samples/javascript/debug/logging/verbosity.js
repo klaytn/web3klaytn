@@ -1,10 +1,11 @@
 const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");    
-    const level = 3;
+  const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+  const level = 3;
 
-    provider.debug.verbosity(level, {}, (err, data, response) => {
-        console.log(data);
+  provider.debug
+    .verbosity(level, {}, (err, data, response) => {})
+    .then((data) => {
+      console.log(data);
     });
-}
-)()
+})();

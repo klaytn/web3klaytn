@@ -1,8 +1,12 @@
 const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 
-( () => {
-const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");    provider.eth.blockNumber({},(err,data,response)=>{
-        console.log(data);
+(() => {
+  const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+  provider
+    .getBlockNumber({}, (err, data, response) => {
+      console.log(data);
+    })
+    .then((data) => {
+      console.log(data);
     });
-}
-)()
+})();

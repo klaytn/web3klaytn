@@ -1,11 +1,17 @@
 const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
-    const firstBlock = 123400489;
-    const lastBlock = 123416489;
+  const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+  const firstBlock = 123400489;
+  const lastBlock = 123416489;
 
-    provider.governance.getRewardsAccumulated(firstBlock, lastBlock, {}, (err, data, response) => {
-        console.log(data);
+  provider.governance
+    .getRewardsAccumulated(
+      firstBlock,
+      lastBlock,
+      {},
+      (err, data, response) => {},
+    )
+    .then((data) => {
+      console.log(data);
     });
-}
-)()
+})();

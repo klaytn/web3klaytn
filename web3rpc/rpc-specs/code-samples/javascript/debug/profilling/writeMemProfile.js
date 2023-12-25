@@ -1,10 +1,11 @@
 const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");    
-    const file = "mem.profile";
+  const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+  const file = "mem.profile";
 
-    provider.debug.writeMemProfile(file, {}, (err, data, response) => {
-        console.log(data);
+  provider.debug
+    .writeMemProfile(file, {}, (err, data, response) => {})
+    .then((data) => {
+      console.log(data);
     });
-}
-)()
+})();
