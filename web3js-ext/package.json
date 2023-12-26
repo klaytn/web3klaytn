@@ -23,7 +23,9 @@
         "./src"
     ],
     "scripts": {
-        "build": "tsc",
+        "build": "npm run build:esm && npm run build:bundle",
+        "build:esm": "tsc",
+        "build:bundle": "webpack --mode production",
         "watch": "tsc -w",
         "lint": "npm run lint:check",
         "lint:check": "eslint example src test --cache --quiet",
@@ -43,8 +45,11 @@
         "eslint": "^8.45.0",
         "eslint-plugin-import": "^2.27.5",
         "mocha": "^10.2.0",
+        "ts-loader": "^9.5.1",
         "ts-node": "^10.9.1",
-        "typescript": "^5.0.4"
+        "typescript": "^5.0.4",
+        "webpack": "^5.89.0",
+        "webpack-cli": "^5.1.4"
     },
     "dependencies": {
         "@klaytn/js-ext-core": "^0.9.9-beta",
