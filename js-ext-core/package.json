@@ -42,7 +42,8 @@
     "eslint-plugin-import": "^2.27.5",
     "mocha": "^10.2.0",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "web3-utils": "^4.1.0"
   },
   "dependencies": {
     "@ethersproject/address": "^5.7.0",

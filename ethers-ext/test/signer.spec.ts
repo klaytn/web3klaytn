@@ -1,8 +1,8 @@
 import { AddressZero } from "@ethersproject/constants";
 import { keccak256 } from "@ethersproject/keccak256";
+import { Wallet as EthersWallet } from "@ethersproject/wallet";
 import chai, { assert, expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { Wallet as EthersWallet } from "@ethersproject/wallet";
 import _ from "lodash";
 import { describe, it } from "mocha";
 

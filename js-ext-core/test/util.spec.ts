@@ -2,6 +2,7 @@ import { BigNumber } from "@ethersproject/bignumber";
 import { formatUnits as formatEthUnits, parseUnits as parseEthUnits, formatEther, parseEther } from "@ethersproject/units";
 import { assert } from "chai";
 import { describe, it } from "mocha";
+import { toWei, fromWei } from "web3-utils";
 /* eslint-disable */
 // @ts-ignore: package @klaytn/web3rpc has no .d.ts file.
 //import { ApiClient, KlayApi } from "@klaytn/web3rpc";
@@ -22,6 +23,8 @@ import {
   formatKlay,
   parseKlayUnits,
   parseKlay,
+  toPeb,
+  fromPeb,
   asyncOpenApi,
   HexStr,
   isKIP3Json,
@@ -165,47 +168,106 @@ describe("util", () => {
     });
   });
 
-  describe("formatUnits", () => {
+  describe("peb to unit (formatKlayUnits, formatKlay, fromPeb)", () => {
     it("klay units", () => {
       // unit names are case-insensitive.
       const peb = BigNumber.from("1000000000000000000"); // 1e18 peb
 
       assert.equal(formatKlayUnits(peb, "ston"), "1000000000.0"); // = 1e9 ston
       assert.equal(formatKlayUnits(peb, "gpeb"), "1000000000.0"); // = 1e9 gpeb
+      assert.equal(fromPeb(peb, "ston"), "1000000000.0");
 
       assert.equal(formatKlayUnits(peb, "klay"), "1.0"); // = 1 KLAY
       assert.equal(formatKlayUnits(peb, "KLAY"), "1.0"); // = 1 KLAY
-      assert.equal(formatKlay(peb), "1.0");
+      assert.equal(fromPeb(peb, "klay"), "1.0");
 
+      assert.equal(formatKlay(peb), "1.0"); // unit=KLAY by default
+      assert.equal(fromPeb(peb), "1.0");
+
+      // mKLAY and MKLAY are case sensitive
       assert.equal(formatKlayUnits(peb, "mKLAY"), "1000.0"); // = 1e3 mKLAY
       assert.equal(formatKlayUnits(peb, "MKLAY"), "0.000001"); // = 1e-6 MKLAY
+      assert.equal(fromPeb(peb, "mKLAY"), "1000.0");
+      assert.equal(fromPeb(peb, "MKLAY"), "0.000001");
     });
 
-    it("eth units", () => {
-      const wei = BigNumber.from("1000000000000000000"); // 1e18 wei
-      assert.equal(formatKlayUnits(wei, "gwei"), formatEthUnits(wei, "gwei"));
-      assert.equal(formatKlayUnits(wei, "ether"), formatEthUnits(wei, "ether"));
-      assert.equal(formatKlay(wei), formatEther(wei));
+    // Make sure {formatKlayUnits, formatKlay} can safely replace {formatUnits, formatEther}.
+    it("for eth units, equivalent to ethers.utils.formatUnits", () => {
+      {
+        const wei = BigNumber.from("1000000000000000000"); // 1e18 wei in BigNumber
+        assert.equal(formatKlayUnits(wei, "gwei"), formatEthUnits(wei, "gwei"));
+        assert.equal(formatKlayUnits(wei, "ether"), formatEthUnits(wei, "ether"));
+        assert.equal(formatKlay(wei), formatEther(wei));
+      }
+      {
+        const wei = "25000000000"; // 25e9 wei in String
+        assert.equal(formatKlayUnits(wei, "gwei"), formatEthUnits(wei, "gwei"));
+        assert.equal(formatKlayUnits(wei, "ether"), formatEthUnits(wei, "ether"));
+        assert.equal(formatKlay(wei), formatEther(wei));
+      }
+    });
+
+    // Make sure {fromPeb} can safely replace {fromWei}.
+    it("for eth units, equivalent to web3.utils.fromWei", () => {
+      // fromWei and fromPeb are slightly different in decimal representation
+      // but the number is the same.
+      {
+        const wei = "1000000000000000000"; // 1e18 wei
+
+        assert.equal(fromWei(wei, "gwei"), "1000000000");
+        assert.equal(fromPeb(wei, "gwei"), "1000000000.0");
+
+        assert.equal(fromWei(wei, "ether"), "1");
+        assert.equal(fromPeb(wei, "ether"), "1.0");
+        assert.equal(fromPeb(wei), "1.0");
+      }
+      {
+        const wei = "25000000000"; // 25e9 wei
+
+        assert.equal(fromWei(wei, "gwei"), "25");
+        assert.equal(fromPeb(wei, "gwei"), "25.0");
+
+        assert.equal(fromWei(wei, "ether"), "0.000000025");
+        assert.equal(fromPeb(wei, "ether"), "0.000000025");
+        assert.equal(fromPeb(wei), "0.000000025");
+      }
     });
   });
 
-  describe("parseUnits", () => {
+  describe("unit to peb (parseKlayUnits, parseUnits, toPeb)", () => {
     it("klay units", () => {
       assert.equal(parseKlayUnits("25.0", "ston").toString(), "25000000000"); // 25 ston = 25e9 peb
       assert.equal(parseKlayUnits("25.0", "gpeb").toString(), "25000000000"); // 25 gpeb = 25e9 peb
+      assert.equal(toPeb("25.0", "ston"), "25000000000");
 
       assert.equal(parseKlayUnits("123.456", "klay").toString(), "123456000000000000000"); // 123.456 KLAY = 123.456e18 peb
       assert.equal(parseKlayUnits("123.456", "KLAY").toString(), "123456000000000000000"); // 123.456 KLAY = 123.456e18 peb
-      assert.equal(parseKlay("123.456").toString(), "123456000000000000000");
+      assert.equal(toPeb("123.456", "klay"), "123456000000000000000");
 
+      assert.equal(parseKlay("123.456").toString(), "123456000000000000000");// unit=KLAY by default
+      assert.equal(toPeb("123.456"), "123456000000000000000");
+
+      // mKLAY and MKLAY are case sensitive
       assert.equal(parseKlayUnits("1000.0", "mKLAY").toString(), "1000000000000000000"); // 1000 mKLAY = 1e18 peb
       assert.equal(parseKlayUnits("5", "MKLAY").toString(), "5000000000000000000000000"); // 5 MKLAY = 5e24 peb
+      assert.equal(toPeb("1000.0", "mKLAY"), "1000000000000000000");
+      assert.equal(toPeb("5", "MKLAY"), "5000000000000000000000000");
     });
 
-    it("eth units", () => {
-      assert.equal(parseKlayUnits("77", "gwei").toString(), parseEthUnits("77", "gwei").toString());
-      assert.equal(parseKlayUnits("77", "ether").toString(), parseEthUnits("77", "ether").toString());
-      assert.equal(parseKlay("77").toString(), parseEther("77").toString());
+    it("for eth units, equivalent to ethers.utils.parseUnits", () => {
+      const eth = "123.456";
+      assert.equal(parseKlayUnits(eth, "gwei").toString(), parseEthUnits(eth, "gwei").toString());
+      assert.equal(parseKlayUnits(eth, "ether").toString(), parseEthUnits(eth, "ether").toString());
+      assert.equal(parseKlay(eth).toString(), parseEther(eth).toString());
+      assert.equal(parseKlayUnits(eth).toString(), "123456000000000000000");
+    });
+
+    it("for eth units, equivalent to web3.utils.toPeb", () => {
+      const eth = "123.456";
+      assert.equal(toPeb(eth, "gwei"), toWei(eth, "gwei"));
+      assert.equal(toPeb(eth, "ether"), toWei(eth, "ether"));
+      assert.equal(toPeb(eth), toWei(eth, "ether"));
+      assert.equal(toPeb(eth), "123456000000000000000");
     });
   });
 
