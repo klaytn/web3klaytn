@@ -6,10 +6,20 @@ import { HexStr } from "./data";
 
 const secp256k1 = new ec("secp256k1");
 
+// Returns a 33-byte compressed public key from a private key.
+export function getPublicKeyFromPrivate(privateKey: string): string {
+  const key = secp256k1.keyFromPrivate(HexStr.stripHexPrefix(privateKey), "hex");
+  return getCompressedPublicKey(key.getPublic(true, "hex"));
+}
+
 // Returns a 33-byte compressed public key from
 // a compressed (33-byte), uncompressed (65-byte) public key,
 // or an object { x, y } (each 32-byte).
 export function getCompressedPublicKey(pub: any): string {
+  if (pub instanceof Uint8Array) {
+    pub = HexStr.from(pub);
+  }
+
   if (_.isString(pub)) { // Hex string
     const hex = HexStr.from(HexStr.withHexPrefix(pub));
     if (HexStr.isHex(hex, 33) || HexStr.isHex(hex, 65)) {

@@ -16,6 +16,7 @@ import {
   isFeeDelegationTxType,
   isKlaytnTxType,
   isPartialFeeDelegationTxType,
+  getPublicKeyFromPrivate,
   getCompressedPublicKey,
   getSignatureTuple,
   getRpcTxObject,
@@ -71,6 +72,12 @@ describe("util", () => {
     assert.equal(getKaikasTxType(8), "VALUE_TRANSFER");
     assert.equal(getKaikasTxType("0x09"), "FEE_DELEGATED_VALUE_TRANSFER");
     assert.equal(getKaikasTxType("SMART_CONTRACT_EXECUTION"), "SMART_CONTRACT_EXECUTION");
+  });
+
+  it("getPublicKeyFromPrivate", () => {
+    const priv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
+    const pub = "0x03dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd";
+    assert.equal(getPublicKeyFromPrivate(priv), pub);
   });
 
   it("getCompressedPublicKey", () => {
