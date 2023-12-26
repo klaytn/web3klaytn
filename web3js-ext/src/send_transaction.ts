@@ -22,9 +22,9 @@ import {
 } from "web3-types";
 import { format, rejectIfTimeout, pollTillDefined } from "web3-utils";
 
-
 // Platform-independent NodeJS timeout types
 type TimeoutT = ReturnType<typeof setTimeout>;
+
 
 // A wrapper around the sendRawTransaction RPC. There is no such RPC named "sendSignedTransaction".
 // See web3-eth/src/rpc_method_wrappers.ts:sendSignedTransaction
