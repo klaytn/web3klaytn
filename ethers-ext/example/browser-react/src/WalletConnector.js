@@ -1,5 +1,5 @@
 // import { Providers } from '@klaytn/ethers-ext'
-// import ethers from 'ethers'
+import { ethers } from 'ethers'
 
 var provider = null;
 var accounts = null;
@@ -21,14 +21,14 @@ async function connect(injectedProvider) {
 
   // Wrap the window.{ethereum,klaytn} object with Web3Provider.
 //   provider = new Providers.Web3Provider(injectedProvider);
-//   // Uncomment to use the original ethers.js Web3Provider:
-//   // provider = new ethers.providers.Web3Provider(injectedProvider);
+  // Uncomment to use the original ethers.js Web3Provider:
+  provider = new ethers.providers.Web3Provider(injectedProvider);
 
-//   // Detect user network
-//   // https://docs.metamask.io/wallet/how-to/connect/detect-network/
-//   const chainId = await provider.send("eth_chainId");
-//   console.log("chainId", chainId);
-// //   $("#textChainId").html(chainId);
+  // Detect user network
+  // https://docs.metamask.io/wallet/how-to/connect/detect-network/
+  const chainId = await provider.send("eth_chainId");
+  console.log("chainId", chainId);
+    //   $("#textChainId").html(chainId);
 
 //   injectedProvider.on("networkChanged", (chainId) => {
 //     console.log("chainId changed", chainId);
@@ -36,33 +36,29 @@ async function connect(injectedProvider) {
 //     provider = new ethers_ext.providers.Web3Provider(injectedProvider);
 //   });
 
-//   // Detect user account
-//   // https://docs.metamask.io/wallet/how-to/connect/access-accounts/
+  // Detect user account
+  // https://docs.metamask.io/wallet/how-to/connect/access-accounts/
 //   await provider.send("eth_requestAccounts");
 
-//   const accounts = await provider.listAccounts(); // internally eth_accounts
+  const accounts = await provider.listAccounts(); // internally eth_accounts
 
-  const accounts = ["0xa9eF4a5BfB21e92C06da23Ed79294DaB11F5A6df"]; 
+//   const accounts = ["0xa9eF4a5BfB21e92C06da23Ed79294DaB11F5A6df"]; 
   console.log("accounts", accounts);
   return accounts;
 
-  injectedProvider.on("accountsChanged", async (accounts) => {
-    console.log("accounts changed", accounts);
-    // $("#textAccounts").html(accounts);
-  });
+//   injectedProvider.on("accountsChanged", async (accounts) => {
+//     console.log("accounts changed", accounts);
+//     // $("#textAccounts").html(accounts);
+//   });
 }
-// export async function connectMM() {
-//   return await connect(window.ethereum);
-export function connectMM() {
-  const accounts = ["0xa9eF4a5BfB21e92C06da23Ed79294DaB11F5A6df"]; 
-  console.log("accounts", accounts);
+
+export async function connectMM() {
+  const accounts = await connect(window.ethereum);
   return accounts;
 }
-// export async function connectKK() {
-//   await connect(window.klaytn);
-export function connectKK() {
-  const accounts = ["0xtest"]; 
-  console.log("accounts", accounts);
+
+export async function connectKK() {
+  const accounts = await connect(window.klaytn);
   return accounts;
 }
 
