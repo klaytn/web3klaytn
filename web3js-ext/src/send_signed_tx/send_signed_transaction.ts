@@ -17,11 +17,14 @@ along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
 // Taken from web3-eth/src/rpc_method_wrapper.ts:sendSignedTransaction
 // https://github.com/web3/web3.js/blob/v4.3.0/packages/web3-eth/src/rpc_method_wrappers.ts
 
+import { isKlaytnTxType } from "@klaytn/js-ext-core/util";
+import { bytesToHex } from "ethereum-cryptography/utils";
 import { Web3Context, Web3PromiEvent } from "web3-core";
 import {
   SendSignedTransactionOptions,
   SendSignedTransactionEvents,
   transactionReceiptSchema,
+  sendSignedTransaction as ethSendSignedTransaction,
 } from "web3-eth";
 import { TransactionFactory } from "web3-eth-accounts";
 import { ethRpcMethods } from "web3-rpc-methods";
@@ -34,7 +37,7 @@ import {
   TransactionReceipt,
   TransactionCall,
 } from "web3-types";
-import { format, hexToBytes, bytesToUint8Array } from "web3-utils";
+import { format, hexToBytes, hexToNumber, bytesToUint8Array } from "web3-utils";
 
 import { SendTxHelper } from "./send_tx_helper";
 import { trySendTransaction } from "./try_send_transaction";
@@ -49,8 +52,20 @@ export function sendSignedTransaction<
   returnFormat: ReturnFormat,
   options: SendSignedTransactionOptions<ResolveType> = { checkRevertBeforeSending: true },
 ): Web3PromiEvent<ResolveType, SendSignedTransactionEvents<ReturnFormat>> {
-  // TODO - Promise returned in function argument where a void return was expected
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  // Convert to hex string
+  if (signedTransaction instanceof Uint8Array) {
+    signedTransaction = bytesToHex(signedTransaction);
+  }
+  if (signedTransaction.length < 4 || !signedTransaction.startsWith("0x")) {
+    throw new Error(`Invalid signed transaction '${signedTransaction}'`);
+  }
+
+  // If not Klaytn TxType, fall back to web3-eth's original implementation
+  if (!isKlaytnTxType(hexToNumber(signedTransaction.substring(0, 4)) as number)) {
+    return ethSendSignedTransaction(web3Context, signedTransaction, returnFormat, options);
+  }
+
+  // Following is modified from web3-eth's original implementation
   const promiEvent = new Web3PromiEvent<ResolveType, SendSignedTransactionEvents<ReturnFormat>>(
     (resolve, reject) => {
       setImmediate(() => {

@@ -2,7 +2,8 @@ import { Web3Context } from "web3-core";
 import { SendTransactionOptions } from "web3-eth";
 import { Bytes, DEFAULT_RETURN_FORMAT, DataFormat } from "web3-types";
 
-import { klaytnSendSignedTransaction } from "./send_transaction";
+// import { klaytnSendSignedTransaction } from "./send_transaction";
+import { sendSignedTransaction as klaytnSendSignedTransaction } from "./send_signed_tx";
 
 // Create a getProtocolVersion() function bound to given context
 // Should replace web3.eth.getProtocolVersion().
