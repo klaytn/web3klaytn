@@ -1,10 +1,11 @@
-const OpenSdk = require("opensdk-javascript");
-
+const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-    const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
-
-    sdk.admin.datadir({}, (err, data, response) => {
-        console.log(data);
+  const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+  provider.admin
+    .datadir({}, (err, data, response) => {
+      console.log(data);
+    })
+    .then(() => {
+      console.log(data);
     });
-}
-)()
+})();

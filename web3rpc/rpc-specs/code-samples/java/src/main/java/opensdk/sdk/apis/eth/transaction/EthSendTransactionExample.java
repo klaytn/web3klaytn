@@ -1,6 +1,4 @@
-package opensdk.sdk.apis.eth.transaction;
 
-import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
@@ -10,8 +8,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 
 public class EthSendTransactionExample {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
-
+    private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));
     void ethSendTransactionExample() throws IOException {
         // TransactionArgs tx = new TransactionArgs();
         // tx.setFrom("0x487f2dfef230c2120b8cc55c5087b103146536ec");

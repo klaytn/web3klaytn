@@ -1,6 +1,3 @@
-package opensdk.sdk.apis.eth.filter;
-
-import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
@@ -10,8 +7,8 @@ import org.web3j.protocol.core.methods.response.EthLog;
 import java.io.IOException;
 
 public class EthGetLogsExample {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.SERVER_URL));
-    void ethGetLogsExample() throws IOException {
+      private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));    
+      void ethGetLogsExample() throws IOException {
         EthFilter filterOption = new EthFilter(
             DefaultBlockParameter.valueOf("latest"),
             DefaultBlockParameter.valueOf("latest"),

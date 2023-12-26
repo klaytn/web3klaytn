@@ -1,12 +1,11 @@
-const OpenSdk = require("opensdk-javascript");
-
+const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-    const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+  const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+  const quantity = "0xd32fd16b6906e67f6e2b65dcf48fc272";
 
-    const quantity = '0xd32fd16b6906e67f6e2b65dcf48fc272'
-
-    sdk.klay.uninstallFilter(quantity, {}, (err, data, response) => {
-        console.log(data);
+  provider.klay
+    .uninstallFilter(quantity, {}, (err, data, response) => {})
+    .then((data) => {
+      console.log(data);
     });
-}
-)()
+})();

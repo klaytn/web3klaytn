@@ -1,6 +1,4 @@
-package opensdk.sdk.apis.eth.gas;
 
-import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.response.EthFeeHistory;
 import org.web3j.protocol.http.HttpService;
@@ -9,7 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class EthFeeHistoryExample {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.LOCAL_URL));
+    private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));    
     void ethFeeHistoryExample() throws IOException {
         EthFeeHistory br = w3.ethFeeHistory(
             16,

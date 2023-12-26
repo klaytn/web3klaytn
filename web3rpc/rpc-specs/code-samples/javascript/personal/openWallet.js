@@ -1,13 +1,12 @@
-const OpenSdk = require("opensdk-javascript");
-
+const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-    const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
-    
-    const url = "keystore://"
-    const passphrase = "gr8=B!0@uc$b"
+  const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+  const url = "keystore://";
+  const passphrase = "gr8=B!0@uc$b";
 
-    sdk.personal.openWallet(url, passphrase, {}, (err, data, response) => {
-        console.log(data);
+  provider.personal
+    .openWalconst(url, passphrase, {}, (err, data, response) => {})
+    .then((data) => {
+      console.log(data);
     });
-}
-)()
+})();

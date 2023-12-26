@@ -1,13 +1,12 @@
-const OpenSdk = require("opensdk-javascript");
-
+const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-    const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
-    
-    const file = "block.profile";
-    const seconds = 10;
+  const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+  const file = "block.profile";
+  const seconds = 10;
 
-    sdk.debug.blockProfile(file, seconds, {}, (err, data, response) => {
-        console.log(data);
+  provider.debug
+    .blockProfile(file, seconds, {}, (err, data, response) => {})
+    .then((data) => {
+      console.log(data);
     });
-}
-)()
+})();

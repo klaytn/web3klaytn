@@ -1,12 +1,11 @@
-const OpenSdk = require("opensdk-javascript");
-
+const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-    const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
-    
-    const rate = 2;
+  const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+  const rate = 2;
 
-    sdk.debug.setMutexProfileFraction(rate, {}, (err, data, response) => {
-        console.log(data);
+  provider.debug
+    .setMutexProfileFraction(rate, {}, (err, data, response) => {})
+    .then((data) => {
+      console.log(data);
     });
-}
-)()
+})();

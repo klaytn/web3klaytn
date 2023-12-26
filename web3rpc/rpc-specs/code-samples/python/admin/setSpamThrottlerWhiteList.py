@@ -6,6 +6,6 @@ host = "https://api.baobab.klaytn.net:8651"
 address = ["0xfdeedbb2fe5b48d5b49e435ba00e0358740d0cf5"]
 
 w3 = Web3(Web3.HTTPProvider(host))
-admin_response = w3.admin.set_spam_throttler_white_list(address)
+admin_response = w3.geth.admin.set_spam_throttler_white_list(address)
 
 print(admin_response)

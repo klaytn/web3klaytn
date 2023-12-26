@@ -1,6 +1,4 @@
-package opensdk.sdk.apis.eth.transaction;
 
-import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.core.methods.request.Transaction;
@@ -9,8 +7,7 @@ import java.io.IOException;
 
 public class EthEstimateGasExample {
 
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.LOCAL_URL));
-
+    private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));
     void ethEstimateGasExample() throws IOException {
         EthEstimateGas cr = w3.ethEstimateGas(
             Transaction.createEthCallTransaction(

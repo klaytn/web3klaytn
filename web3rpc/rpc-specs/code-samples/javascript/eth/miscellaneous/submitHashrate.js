@@ -1,13 +1,13 @@
-const OpenSdk = require("opensdk-javascript");
-
+const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-    const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+  const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+  const hashrate = "0x5";
+  const id =
+    "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef";
 
-    const hashrate = '0x5'
-    const id = '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
-
-    sdk.eth.submitHashrate(hashrate, id, {}, (err, data, response) => {
-        console.log(data);
+  provider.eth
+    .submitHashrate(hashrate, id, {}, (err, data, response) => {})
+    .then((data) => {
+      console.log(data);
     });
-}
-)()
+})();
