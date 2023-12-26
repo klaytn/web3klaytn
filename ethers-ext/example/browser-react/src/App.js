@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Status from "./components/Status"
 import AccountInfo from "./components/AccountInfo"
 import AccountSend from "./components/AccountSend"
-import './Wallet.css';
+import './App.css';
 
-class Wallet extends Component {
+class App extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -17,7 +17,7 @@ class Wallet extends Component {
   render() {
     console.log('App render');
     return (
-      <div className="Wallet">
+      <div className="App">
         <Status 
           network={this.state.status.currentNetwork}
           account={this.state.status.currentAccount}
@@ -43,4 +43,4 @@ class Wallet extends Component {
   }
 }
 
-export default Wallet;
+export default App;
