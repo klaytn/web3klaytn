@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
-// import Status from "./components/Status"
-// import AccountInfo from "./components/AccountInfo"
-// import Send from "./components/Send"
 import { ethers } from 'ethers'
 import './App.css';
+import { recoverAddress } from '@ethersproject/transactions';
 
 var provider = null;
 var mode = "disconnected"; 
 var _this = null; 
+
+function isKaikas() {
+  return provider && provider.provider.isKaikas;
+}
 
 async function connect(injectedProvider, appThis ) {
   if (!injectedProvider) {
@@ -37,7 +39,7 @@ async function connect(injectedProvider, appThis ) {
 
   await getCurrentAccountBalance();
 
-  mode = "read";
+  mode = "main";
 
   _this.updateState( _this.state.status );
 
@@ -65,6 +67,34 @@ async function getCurrentAccountBalance(){
     console.log("balance", _this.state.status.balance);
     _this.updateState( _this.state.status );
   }  
+}
+
+async function signMsg(message) {
+  try {
+    _this.state.sig.message = message; 
+
+    if (isKaikas()) {
+      const { hexlify, toUtf8Bytes } = ethers.utils;
+      const signer = provider.getSigner();
+      const hexMessage = hexlify(toUtf8Bytes(message));
+
+      const signature  = await provider.send("eth_sign", [await signer.getAddress(), hexMessage]);
+      _this.state.sig.signature = signature;
+
+      const recoveredAddress = await provider.send("klay_recoverFromMessage", [await signer.getAddress(), hexMessage, signature, "latest"]);
+      _this.state.sig.recoveredAddress = recoveredAddress;
+    } else {
+      const signer = provider.getSigner();
+
+      const signature = await signer.signMessage(message);
+      _this.state.sig.signature = signature;
+      
+      const recoveredAddress = ethers.utils.verifyMessage(message, signature);
+      _this.state.sig.recoveredAddress = recoveredAddress;
+    }
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 async function doSendTx(makeTxRequest) {
@@ -101,6 +131,11 @@ class App extends Component {
         account: '',
         balance: '',
       },
+      sig: {
+        message: 'Hello world',
+        signature: '',
+        recoveredAddress: ''
+      }
     }
   }
   updateState( _status ){
@@ -112,10 +147,17 @@ class App extends Component {
         <p>Balance: {this.state.status.balance}
         </p>
       );
-    } else if(mode === 'read'){
+    } else if(mode === 'main'){
       return (
         <div>
           Balance: {this.state.status.balance}
+          <p>
+            <button id="btnDoSign" onClick={function(e){
+              e.preventDefault();
+              mode = "doSign";
+              this.updateState( this.state.status );
+            }.bind(this)}>Sign</button>
+          </p>
           <p>
             <button id="btnSendLegacy" onClick={function(e){
               e.preventDefault();
@@ -125,13 +167,38 @@ class App extends Component {
           </p>
         </div>
       );
+    } else if ( mode === 'doSign') {
+      return (
+        <div>
+          <p>
+            <button id="btnBack" onClick={function(e){
+              e.preventDefault();
+              mode = "main";
+              this.updateState( this.state.status );
+            }.bind(this)}>Go to main</button>
+          </p>
+          <br/>
+          <form action="/doSign" method="post"
+            onSubmit={async function(e){
+              e.preventDefault();
+              await signMsg(e.target.message.value);
+              this.updateState( this.state.status );
+            }.bind(this)}
+          >
+            <p>Message: <input type="text" name="message" value={this.state.sig.message}></input></p>
+            <p>Signature: <input type="textarea" name="signature" value={this.state.sig.signature}></input></p>
+            <p>RecoveredAddress: <input type="textarea" name="recoveredAddress" value={this.state.sig.recoveredAddress}></input></p>
+            <p><input type="submit"></input></p>
+          </form>
+        </div>
+      ); 
     } else if ( mode === 'sendLegacy') {
       return (
         <form action="/sendLegacy" method="post"
           onSubmit={async function(e){
             e.preventDefault();
             await sendLegacyVT(e.target.to.value);
-            mode = "read";
+            mode = "main";
             await getCurrentAccountBalance(); 
           }}
         >
