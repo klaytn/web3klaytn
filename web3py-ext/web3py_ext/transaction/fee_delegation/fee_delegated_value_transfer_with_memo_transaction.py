@@ -356,7 +356,7 @@ class FeeDelegatedValueTransferWithMemoTransaction(_TypedTransactionImplementati
 
         # when signing at first time
         transaction_with_signatures = transaction_without_signature_fields
-        if 'feePayerSignatures' not in transaction_without_signature_fields:
+        if 'feePayerSignatures' not in transaction_without_signature_fields or transaction_with_signatures['feePayerSignatures'][0]['v'] == 1:
             transaction_with_signatures = merge(transaction_without_signature_fields, {'feePayerSignatures':[]})
         
         transaction_with_signatures['feePayerSignatures'].append(vrs)
