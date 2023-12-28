@@ -12,7 +12,7 @@ servers:
 paths:
   /klay/getChainConfig:
     post:
-      operationId: getChainConfig
+      operationId: .getChainConfig
       summary: "[Configuration-getChainConfig]"
       description: |
         Returns the configuration of the chain.
