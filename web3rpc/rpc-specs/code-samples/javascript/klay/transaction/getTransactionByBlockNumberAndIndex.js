@@ -1,15 +1,18 @@
-const OpenSdk = require("opensdk-javascript");
-
+const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-    const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+  const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
 
+  const blockNumber = 118593751;
+  const transactionIndexPosition = "0x0";
 
-    const blockNumber = 118593751
-    const transactionIndexPosition = '0x0'
-
-    sdk.klay.getTransactionByBlockNumberAndIndex(blockNumber, transactionIndexPosition, {}, (err, data, response) => {
-        console.log(data);
+  provider.klay
+    .getTransactionByBlockNumberAndIndex(
+      blockNumber,
+      transactionIndexPosition,
+      {},
+      (err, data, response) => {},
+    )
+    .then((data) => {
+      console.log(data);
     });
-
-}
-)()
+})();

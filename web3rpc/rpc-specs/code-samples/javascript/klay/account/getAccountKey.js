@@ -1,14 +1,12 @@
-const OpenSdk = require("opensdk-javascript");
-
+const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-    const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+  const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+  const address = "0xa36a5fdc679ecaabe057556ccec2f3558068bdc8";
+  const blockNumberOrHash = "latest";
 
-    const address = '0xa36a5fdc679ecaabe057556ccec2f3558068bdc8'
-    const blockNumberOrHash = 'latest'
-
-    sdk.klay.getAccountKey(address, blockNumberOrHash, {}, (err, data, response) => {
-        console.log(data);
+  provider.klay
+    .getAccountKey(address, blockNumberOrHash, {}, (err, data, response) => {})
+    .then((data) => {
+      console.log(data);
     });
-
-}
-)()
+})();

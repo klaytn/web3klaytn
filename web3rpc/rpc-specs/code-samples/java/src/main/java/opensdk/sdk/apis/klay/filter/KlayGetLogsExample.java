@@ -1,6 +1,4 @@
-package opensdk.sdk.apis.klay.filter;
 
-import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.FilterOptions;
 import org.web3j.protocol.klaytn.core.method.response.KlayGetLogsResponse;
 import org.web3j.protocol.http.HttpService;
@@ -9,8 +7,7 @@ import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class KlayGetLogsExample {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
-
+    private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));
     void klayGetLogsExample() throws IOException {
         FilterOptions options = new FilterOptions();
         options.setFromBlock("latest");

@@ -1,3 +1,7 @@
+import _ from "lodash";
+
+import { HexStr } from "./data";
+
 // Klaytn Type Enumeration
 export enum TxType {
   // Basic
@@ -25,19 +29,68 @@ export enum TxType {
   FeeDelegatedCancelWithRatio = 0x3a,
 }
 
-export function isKlaytnTxType(type: number): boolean {
-  return (type in TxType);
+// Parse Klaytn TxType in various formats including number (8),
+// hex string (0x08), camel case string ("ValueTransfer"), and snake case string ("VALUE_TRANSFER").
+export function parseTxType(type?: number | string): number {
+  if (type == undefined) {
+    return 0;
+  }
+
+  if (_.isNumber(type)) {
+    return type;
+  }
+
+  if (_.isString(type) && type.length > 0) {
+    // Try the hex string, e.g. "0x08"
+    if (HexStr.isHex(type)) {
+      return HexStr.toNumber(type);
+    }
+    // Try camel case string, e.g. "ValueTransfer", "TxTypeValueTransfer"
+    // or snake case string, e.g. "VALUE_TRANSFER"
+    let name = type;
+    if (name.startsWith("TxType")) {
+      name = name.substring(6);
+    }
+    name = _.upperFirst(_.camelCase(name));
+    if (_.has(TxType, name)) {
+      return _.get(TxType, name);
+    }
+  }
+
+  throw new Error(`Unrecognized tx type '${type}'. Expected a number.'`);
 }
-export function isBasicTxType(type: number): boolean {
-  return (type in TxType) && ((type & 0x3) == 0x0);
+
+// Convert Klaytn TxType to what Kaikas wallet (https://docs.kaikas.io/) understands.
+// Pass-through undefined and non-Klaytn TxTypes.
+// Convert Klaytn TxTypes to upper and snake case string (e.g. "VALUE_TRANSFER").
+export function getKaikasTxType(type?: number | string): number | string | undefined {
+  const num = parseTxType(type);
+  if (!isKlaytnTxType(num)) {
+    return num;
+  } else {
+    const name = TxType[num];
+    return _.snakeCase(name).toUpperCase();
+  }
 }
-export function isFeeDelegationTxType(type: number): boolean {
-  return (type in TxType) && ((type & 0x3) == 0x1);
+
+// Returns true for Klaytn TxType.
+export function isKlaytnTxType(type?: number): boolean {
+  return !!type && (type in TxType);
 }
-export function isPartialFeeDelegationTxType(type: number): boolean {
-  return (type in TxType) && ((type & 0x3) == 0x2);
+// Returns true for Klaytn Basic (i.e. not fee delegated) TxType.
+export function isBasicTxType(type?: number): boolean {
+  return !!type && (type in TxType) && ((type & 0x3) == 0x0);
 }
-export function isFeePayerSigTxType(type: number): boolean {
+// Returns true for Klaytn Fee Delegated TxType.
+export function isFeeDelegationTxType(type?: number): boolean {
+  return !!type && (type in TxType) && ((type & 0x3) == 0x1);
+}
+// Returns true for Klaytn Partial Fee Delegated (i.e. with ratio) TxType.
+export function isPartialFeeDelegationTxType(type?: number): boolean {
+  return !!type && (type in TxType) && ((type & 0x3) == 0x2);
+}
+// Returns true for Klaytn TxType with feePayer feature (i.e. fee delegation or partial fee delegation).
+export function isFeePayerSigTxType(type?: number): boolean {
   return isFeeDelegationTxType(type) || isPartialFeeDelegationTxType(type);
 }
 
@@ -51,13 +104,14 @@ export enum AccountKeyType {
   RoleBased = 0x05
 }
 
-export function isKlaytnAccountKeyType(type: number): boolean {
-  return (type in AccountKeyType);
+// Returns true for Klaytn AccountKeyType.
+export function isKlaytnAccountKeyType(type?: number): boolean {
+  return !!type && (type in AccountKeyType);
 }
-// Returns true if it can be embedded in an AccountKeyRoleBased
-export function isEmbeddableAccountKeyType(type: number): boolean {
-  // any of AccountKeyNil, AccountKeyLegacy, AccountKeyPublic, AccountKeyFail, and AccountKeyWeightedMultiSig.
-  return (type in AccountKeyType) && (type != AccountKeyType.RoleBased);
+// Returns true for AccountKeyTypes that can be embedded in an AccountKeyRoleBased
+// (i.e. AccountKeyNil, AccountKeyLegacy, AccountKeyPublic, AccountKeyFail, and AccountKeyWeightedMultiSig)
+export function isEmbeddableAccountKeyType(type?: number): boolean {
+  return !!type && (type in AccountKeyType) && (type != AccountKeyType.RoleBased);
 }
 
 export const CodeFormatEVM = 0x00;

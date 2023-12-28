@@ -1,16 +1,13 @@
-package opensdk.sdk.apis.eth.others;
-
 import java.io.IOException;
 import java.math.BigInteger;
-import opensdk.sdk.apis.constant.UrlConstants;
+
 //import org.web3j.protocol.klaytn.core.method.response.EthResendResponse;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.core.methods.request.Transaction;
 
 public class EthResendExample {
-  private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
-
+    private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));
   void ethResendExample() throws IOException {
     String gasPrice = "0xba43b7500";
     String gasLimit = "0xe8d4a50fff";

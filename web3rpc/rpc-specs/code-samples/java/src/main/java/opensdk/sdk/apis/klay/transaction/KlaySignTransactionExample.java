@@ -1,6 +1,4 @@
-package opensdk.sdk.apis.klay.transaction;
 
-import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.KlaySignTransactionResponse;
 import org.web3j.protocol.klaytn.core.method.response.KlaytnTransactionTypes;
 import org.web3j.protocol.http.HttpService;
@@ -9,8 +7,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public class KlaySignTransactionExample {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
-    void klaySignTransactionExample() throws IOException, ExecutionException, InterruptedException {
+    private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));    void klaySignTransactionExample() throws IOException, ExecutionException, InterruptedException {
         KlaytnTransactionTypes type = new KlaytnTransactionTypes();
         String address = "0x487f2dfef230c2120b8cc55c5087b103146536ec";
         String nonce = "0x20";

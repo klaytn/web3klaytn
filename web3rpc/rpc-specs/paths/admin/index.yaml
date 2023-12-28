@@ -65,3 +65,5 @@ paths:
     $ref: ./getSpamThrottlerCandidateList.yaml#/paths/~1admin~1getSpamThrottlerCandidateList
   /admin/spamThrottlerConfig:
     $ref: ./spamThrottlerConfig.yaml#/paths/~1admin~1spamThrottlerConfig
+  /admin/nodeConfig:
+    $ref: ./nodeConfig.yaml#/paths/~1admin~1nodeConfig

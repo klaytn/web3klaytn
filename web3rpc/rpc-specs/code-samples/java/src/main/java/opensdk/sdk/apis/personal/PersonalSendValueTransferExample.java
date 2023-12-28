@@ -1,6 +1,4 @@
-package opensdk.sdk.apis.personal;
 
-import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.klaytn.core.method.response.PersonalSendValueTransferResponse;
 import org.web3j.protocol.klaytn.core.method.response.TransactionObject;
 import org.web3j.protocol.http.HttpService;
@@ -10,8 +8,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public class PersonalSendValueTransferExample {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.TEST_URL));
-
+    private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));
     void personalSendValueTransferExample() throws IOException, ExecutionException, InterruptedException {
         TransactionObject transactionObject = new TransactionObject();
         transactionObject.setFrom("0x1d4e05bb72677cb8fa576149c945b57d13f855e4");

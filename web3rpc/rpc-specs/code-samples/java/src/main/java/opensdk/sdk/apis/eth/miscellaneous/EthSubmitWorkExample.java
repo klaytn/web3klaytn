@@ -1,13 +1,11 @@
-package opensdk.sdk.apis.eth.miscellaneous;
 
-import opensdk.sdk.apis.constant.UrlConstants;
 import org.web3j.protocol.core.methods.response.EthSubmitWork;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import java.io.IOException;
 
 public class EthSubmitWorkExample {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.LOCAL_URL));
+    private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));    
     void ethSubmitWorkExample() throws IOException {
         EthSubmitWork response = w3.ethSubmitWork(
             "0x0000000000000001", 

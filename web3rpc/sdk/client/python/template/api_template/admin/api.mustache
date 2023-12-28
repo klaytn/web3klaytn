@@ -7,10 +7,10 @@ from web3.method import (
 )
 from typing import (
     Callable,
+    Awaitable,
     Any,
 )
-from web3.geth import GethAdmin, GethPersonal
-from web3.net import Net
+from web3.geth import GethAdmin, AsyncGethAdmin
 
 class {{classname}}(GethAdmin):
     namespace = "{{#lambda.lowercase}}{{{baseName}}}{{/lambda.lowercase}}"
@@ -23,5 +23,20 @@ class {{classname}}(GethAdmin):
 
     def {{operationId}}(self, *args) -> Any:
         return self._{{operationId}}(*args)
+    {{/vendorExtensions.x-delegate-to}}{{/operation}}
+    {{/operations}}
+
+class Async{{classname}}(AsyncGethAdmin):
+    is_async = True
+    namespace = "{{#lambda.lowercase}}{{{baseName}}}{{/lambda.lowercase}}"
+    {{#operations}}
+    {{#operation}}{{^vendorExtensions.x-delegate-to}}
+    
+    _{{operationId}}: Method[Callable[..., Awaitable[Any]]] = Method(
+        namespace + "_{{#lambda.camelcase}}{{operationId}}{{/lambda.camelcase}}", mungers=[default_root_munger]
+    )
+
+    async def {{operationId}}(self, *args) -> Any:
+        return await self._{{operationId}}(*args)
     {{/vendorExtensions.x-delegate-to}}{{/operation}}
     {{/operations}}

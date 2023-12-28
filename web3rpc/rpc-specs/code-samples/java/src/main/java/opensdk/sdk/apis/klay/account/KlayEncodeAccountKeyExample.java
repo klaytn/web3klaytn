@@ -1,8 +1,6 @@
-package opensdk.sdk.apis.klay.account;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import opensdk.sdk.apis.constant.UrlConstants;
+
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.klaytn.core.method.response.KlayEncodeAccountKeyResponse;
@@ -11,8 +9,7 @@ import java.io.IOException;
 
 public class KlayEncodeAccountKeyExample {
 
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.LOCAL_URL));
-
+    private Web3j w3 = Web3j.build(new HttpService("https://public-en-baobab.klaytn.net"));
     void klayEncodeAccountKeyExample() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectNode node = objectMapper.createObjectNode();

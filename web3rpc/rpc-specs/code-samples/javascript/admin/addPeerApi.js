@@ -1,12 +1,14 @@
-const OpenSdk = require("opensdk-javascript");
-
+const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 (() => {
-    const sdk = new OpenSdk(new OpenSdk.ApiClient("https://api.baobab.klaytn.net:8651"));
+  const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+  const url =
+    "kni://a979fb575495b8d6db44f750317d0f4622bf4c2aa3365d6af7c284339968eef29b69ad0dce72a4d8db5ebb4968de0e3bec910127f134779fbcb0cb6d3331163c@10.0.0.1:32323";
 
-    const url = 'kni://a979fb575495b8d6db44f750317d0f4622bf4c2aa3365d6af7c284339968eef29b69ad0dce72a4d8db5ebb4968de0e3bec910127f134779fbcb0cb6d3331163c@10.0.0.1:32323'
-
-    sdk.admin.addPeer(url, {}, (err, data, response) => {
-        console.log(data);
+  provider.admin
+    .addPeer(url, {}, (err, data, response) => {
+      console.log(data);
+    })
+    .then((data) => {
+      console.log(data);
     });
-}
-)()
+})();

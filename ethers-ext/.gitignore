@@ -44,3 +44,6 @@ yarn.lock
 
 # eslint
 .eslintcache
+
+# TypeDoc
+docs

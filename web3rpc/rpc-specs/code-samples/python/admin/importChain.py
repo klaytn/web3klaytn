@@ -6,6 +6,6 @@ host = "https://api.baobab.klaytn.net:8651"
 fileName = "/tmp/chain.txt"
 
 w3 = Web3(Web3.HTTPProvider(host))
-admin_response = w3.admin.import_chain(fileName)
+admin_response = w3.geth.admin.import_chain(fileName)
 
 print(admin_response)

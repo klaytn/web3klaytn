@@ -3,7 +3,6 @@ import org.web3j.crypto.KlayCredentials;
 import org.web3j.crypto.KlayRawTransaction;
 import org.web3j.crypto.KlaySignatureData;
 import org.web3j.utils.BytesUtils;
-import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Sign;
 import org.web3j.crypto.transaction.type.AbstractTxType;
 import org.web3j.crypto.transaction.type.TxTypeFeeDelegate;
@@ -20,6 +19,7 @@ import java.util.Set;
 public class FeePayer {
 
     final static String EMPTY_FEE_PAYER_ADDRESS = "0x";
+    final static String ZERO_FEE_PAYER_ADDRESS = "0x0000000000000000000000000000000000000000";
     private KlayCredentials credentials;
     private long chainId;
 
@@ -43,7 +43,7 @@ public class FeePayer {
         List<RlpType> feePayerSignatureList = new ArrayList<>();
 
         String feePayer = txType.getFeePayer();
-        if (!feePayer.equals(EMPTY_FEE_PAYER_ADDRESS)) {
+        if (!feePayer.equals(EMPTY_FEE_PAYER_ADDRESS) && !feePayer.equals(ZERO_FEE_PAYER_ADDRESS)) {
             for (KlaySignatureData feePayerSignatureData : txType.getFeePayerSignatureData()) {
                 feePayerSignatureList.add(feePayerSignatureData.toRlpList());
             }

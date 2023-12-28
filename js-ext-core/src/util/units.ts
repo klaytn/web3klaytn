@@ -92,12 +92,14 @@ export const formatUnits = formatKlayUnits;
 export const parseUnits = parseKlayUnits;
 
 
-// Equivalent to web3.utils.fromWei
-export function fromPeb(number: any, unitName?: string | BigNumberish): string {
-  return formatKlayUnits(number, unitName);
+// Equivalent to web3.utils.fromWei.
+// Convert [value]peb to [unit].
+export function fromPeb(value: BigNumberish, unitName?: string | BigNumberish): string {
+  return formatKlayUnits(value, unitName);
 }
 
-// Equivalent to web3.utils.toWei
-export function toPeb(value: string, unitName?: string | BigNumberish): string { 
-  return parseKlayUnits(value, unitName).toString(); 
+// Equivalent to web3.utils.toWei.
+// Convert [value][unit] to peb.
+export function toPeb(value: string, unitName?: string | BigNumberish): string {
+  return parseKlayUnits(value, unitName).toString();
 }

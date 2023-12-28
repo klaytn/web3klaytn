@@ -1,5 +1,6 @@
 import { BigNumber } from "@ethersproject/bignumber";
 import { assert } from "chai";
+import { describe, it } from "mocha";
 
 import {
   TxType, isKlaytnTxType, isBasicTxType, isFeeDelegationTxType, isPartialFeeDelegationTxType, isFeePayerSigTxType,
@@ -9,7 +10,7 @@ import {
   splitKeystoreKIP3, isKIP3Json,
   asyncOpenApi, rpcSendFunction,
   getRpcTxObject,
-  formatKlayUnits, formatKlay, parseKlayUnits, parseKlay,
+  formatKlayUnits, formatKlay, parseKlayUnits, parseKlay, toPeb, fromPeb,
 } from "../src";
 
 // Test that js-ext-core utils are properly exported.
@@ -85,9 +86,15 @@ describe("utils", () => {
   it("units", () => {
     const peb = BigNumber.from("1000000000000000000");
     assert.equal(formatKlayUnits(peb, "ston"), "1000000000.0");
+    assert.equal(fromPeb(peb, "ston"), "1000000000.0");
+
     assert.equal(formatKlay(peb), "1.0");
+    assert.equal(fromPeb(peb), "1.0");
 
     assert.equal(parseKlayUnits("25.0", "ston").toString(), "25000000000");
+    assert.equal(toPeb("25.0", "ston"), "25000000000");
+
     assert.equal(parseKlay("123.456").toString(), "123456000000000000000");
+    assert.equal(toPeb("123.456"), "123456000000000000000");
   });
 });

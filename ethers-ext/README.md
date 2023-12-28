@@ -2,172 +2,165 @@
 
 Ethers.js Extension for Klaytn offers:
 
-- Drop-in replacement to `ethers.Wallet` that handles both Ethereum and Klaytn transactions
+- Drop-in replacement to `ethers.Wallet` that handles both Ethereum and Klaytn transaction types
   involving AccountKey and TxTypes.
-- Drop-in replacement to `ethers.JsonRpcProvider` that provides Ethereum RPC as well as
+- Drop-in replacement to `ethers.JsonRpcProvider` that provides accesses to both Ethereum RPCs and
   Klaytn-specific RPCs.
-- AccountStore to manage Klaytn account keys.
+- Drop-in replacement to `ethers.Web3Provider` to work with both MetaMask (`window.ethereum`) and Kaikas (`window.klaytn`)
 
 ## Install
 
-```
-npm install --save @klaytn/ethers-ext
+### Node.js
+
+- Install
+    ```sh
+    npm install --save @klaytn/ethers-ext
+    ```
+- ESM or TypeScript
+    ```ts
+    import { Wallet, JsonRpcProvider } from "@klaytn/ethers-ext";
+    const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+    const wallet = new Wallet("<private key>", provider);
+    ```
+- CommonJS
+    ```js
+    const { Wallet, JsonRpcProvider } = require("@klaytn/ethers-ext");
+    const provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
+    const wallet = new Wallet("<private key>", provider);
+    ```
+
+### Browser
+
+It is not recommended to use CDNs in production, But you can use below for quick prototyping.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@klaytn/ethers-ext@latest/dist/ethers-ext.bundle.js"></script>
+<script>
+const provider = new ethers_ext.providers.Web3Provider(window.klaytn);
+</script>
 ```
 
 ## Usage
 
 See [example](./example) and [test](./test).
 
+## Class extension design
 
-## Build
-
-- Install dependencies
-
-    ```
-    npm install
-    ```
-
-- Build the library
-
-    ```
-    npm run build
-    ```
-
-- Run examples
-
-    ```
-    node example/rpc/rpc.js
-    ```
-
-## Core classes
+If diagram does not render, view it [here](https://mermaid.live/edit#pako:eNrVV02P0zAQ_SuVTyB1q35vW3FZtMsBqLSiICQIqmbtaTdqYgfbXTWU_nfcJLRx4jRZISHIpfXz84w9M36294QKhmRGaABK3fqwlhB6vGU-DiGqCCi2UD-iVK19ih-_hJ3hy4W_5ii_eiRtd9K2R77lRxy_SIonn5kuC6WPSDcfJXAFVPuCv3hZGCWibQAaL1AUclbRfaiY9GcIAtTnSadtx6Sp4BypLrpco75hTKJSpcmY5c8NDmt0dV1ahgbt09ZKivCOUxlHGtlb1Zy3iDltsvYj90NEi3mz4OaRyOBPPEkksr8SKZPwk8MLvGWAa6DxotrRMvEUR8huQUOxVzyhlKZkayqsIs73Wb2fQ_wbKUS3KlGvQWHZSB5taChLbdlWocORdZO-tCJcOWi00_BhUHacRx1ercA38XK30yg5BGVPxR6HN1_NUcMc1MbGJX7fotIO_we3Ri5xp8s6mWpL5RKrN8iJUqeRJ2IDsTyH9vIea1L7Nq-hfNUOKOqYQxBu1BvEe4jdZdmMWOH9va_0c7i1qmvpamUV1Mnoc8rlgrD-GyVVr8tn6h8LdIlXd3I4FL2gk8UsAgt9bkMMH7brgpQeZ8GBU7TxTQCxjXBzFbEvQUZchBExG9W7SIjA49WV4pbu5uqal-n_eNGldRUPhfKJ8A78DSiX8Kd_rMtv69XPqyv7alnHsm9bttHswEjoDmu2oCSskjVrwGmV-QlY14g8O9_hmrJzUHGDWAHJn_W8ftglP1ZBpgGyrOeopRwn9NJ1gJM2CVGG4DPzDkrqwCPGQogemZm_DFewDczTwOMHQ4WtFkfJJ7MVBArbZBsxo47Z0-mERsC_CGG1yWxPdmTWm_Y6_elg0r3u9Qe98bQ7apOYzMajznDS7Y-G3eFkOBiOpoc2-ZFY6HauB6Nhfzzp9Ue98XV_MmkTZL4Wcp693Y4_h18MVzCG)
 
 ```mermaid
 classDiagram
-  FieldType ..|> FieldTypeBytes
-  FieldType ..|> FieldTypeSignatureTuples
-  FieldType ..|> FieldTypeAccountKey
-  FieldType ..|> etc
-  class FieldType {
-    <<interface>>
-    canonicalize(any): any
-    emptyValue(): any
-  }
-  class FieldTypeBytes {
-    canonicalize(any): string
-    emptyValue(): string
-  }
-  class FieldTypeSignatureTuples {
-    canonicalize( SignatureLike[]): SignatureTuple[]
-    emptyValue(): SignatureTuple[]
-  }
-  class FieldTypeAccountKey {
-    canonicalize(TypedAccountKey | string | any): string
-    emptyValue(): string
-  }
-```
+    namespace ethers {
+        class ethers_Signer["ethers.Signer"] {
+            provider
+            checkTransaction()
+            populateTransaction()
+            sendTransaction()
+        }
+        class ethers_Wallet["ethers.Wallet"] {
+            connect()
+            getAddress()
+            signMessage()
+            signTransaction()
+            static fromEncryptedJson()
+            static fromEncryptedJsonSync()
+        }
+        class ethers_JsonRpcSigner["ethers.JsonRpcSigner"] {
+            connect()
+            connectUnchecked()
+            getAddress()
+            signMessage()
+            signTransaction()
+            sendUncheckedTransaction()
+            _legacySignMessage()
+            _signTypedData()
+            override sendTransaction()
+        }
 
-```mermaid
-classDiagram
-  FieldSet <|-- KlaytnTx
-  KlaytnTx <|-- TxTypeValueTransfer
-  KlaytnTx <|-- TxTypeFeeDelegatedValueTransfer
-  KlaytnTx <|-- other TxTypes
-  FieldSet <|-- AccountKey
-  AccountKey <|-- AccountKeyLegacy
-  AccountKey <|-- AccountKeyPublic
-  AccountKey <|-- other AccountKey
-  class FieldSet {
-    type: number
-    typeName: string
-    fieldTypes: string -> FieldType
-    setFields(any)
-    setFieldsFromArray( string[], any[] )
-    getField( string ): any
-    getFields( string[] ): any[]
-    toObject(): any
-  }
-  class KlaytnTx {
-    sigRLP(): string
-    sigFeePayerRLP(): string
-    senderTxHashRLP(): string
-    txHashRLP(): string
-    addSenderSig(sig)
-    addFeePayerSig(sig)
-    setFieldsFromRLP(string): void
-  }
-  class AccountKey {
-    toRLP(): string
-  }
-```
+        class ethers_Provider["ethers.Provider"] {
+        }
+        class ethers_BaseProvider["ethers.BaseProvider"] {
+        }
+        class ethers_JsonRpcProvider["ethers.JsonRpcProvider"] {
+            getSigner()
+            send()
+        }
+        class ethers_Web3Provider["ethers.Web3Provider"] {
+            override send()
+        }
+        class ethers_ExternalProvider["ethers.ExternalProvider"] {
+            isMetaMask
+            request()
+        }
+    }
+    namespace ethers_ext {
+        class Wallet {
+            override getAddress()
+            override checkTransaction()
+            override populateTransaction()
+            override signTransaction()
+            override sendTransaction()
+            override static fromEncryptedJson()
+            override static fromEncryptedJsonSync()
+            signTransactionAsFeePayer()
+            sendTransactionAsFeePayer()
+            static fromEncryptedJsonList()
+            static fromEncryptedJsonListSync()
+        }
+        class JsonRpcSigner {
+            override connectUnchecked()
+            override getAddress()
+            override signMessage()
+            override checkTransaction()
+            override populateTransaction()
+            override signTransaction()
+            override _legacySignMessage()
+            override _signTypedData()
+            override sendTransaction()
+            override sendUncheckedTransaction()
+        }
 
-```mermaid
-classDiagram
-  FieldSetFactory <|.. KlaytnTxFactory
-  FieldSetFactory <|.. AccountKeyFactory
-  class FieldSetFactory {
-    private registry: [number] -> FieldSet
-    private requiredFields: string[]
-    add(typeof T)
-    has(type?): boolean
-    lookup(type?): typeof T
-    fromObject(any): T
-  }
-  class KlaytnTxFactory {
-    fromRLP(string): KlaytnTx
-  }
-  class AccountKeyFactory {
-  }
-```
+        class JsonRpcProvider {
+            admin
+            debug
+            governance
+            klay
+            net
+            personal
+            txpool
 
-## ethers extension classes
+            override getSigner()
+            override send()
+        }
+        class Web3Provider {
+            admin
+            debug
+            governance
+            klay
+            net
+            personal
+            txpool
 
-```mermaid
-classDiagram
-  ethers_Wallet <|-- KlaytnWallet
-  ethers_Signer <|-- ethers_Wallet
-  class ethers_Signer {
-    provider
-    abstract getAddress()
-    abstract signMessage()
-    abstract signTransaction()
-    sendTransaction()
-  }
-  class ethers_Wallet {
-    address
-    privateKey
-    getAddress()
-    signMessage()
-    signTransaction()
-    checkTransaction()
-    populateTransaction()
-    sendTransaction()
-  }
-  class KlaytnWallet {
-    signTransaction()
-    checkTransaction()
-    populateTransaction()
-    sendTransaction()
-  }
+            override getSigner()
+        }
+        class ExternalProvider {
+            isKaikas
+        }
+    }
 
-  ethers_Provider <|-- ethers_BaseProvider
-  ethers_BaseProvider <|-- ethers_JsonRpcProvider
-  ethers_JsonRpcProvider <|-- KlaytnJsonRpcProvider
-  class ethers_Provider {
-    abstract sendTransaction()
-    abstract call()
-    abstract estimateGas()
-  }
-  class ethers_BaseProvider {
-    sendTransaction()
-    waitForTransaction()
-  }
-  class ethers_JsonRpcProvider {
-    perform()
-    send()
-    prepareRequest() // "eth_sendRawTransaction"
-  }
-  class KlaytnJsonRpcProvider {
-    sendTransaction()
-    prepareRequest() // "klay_sendRawTransaction"
-  }
+    ethers_Signer <|-- ethers_Wallet
+    ethers_Signer <|-- ethers_JsonRpcSigner
+
+    ethers_Wallet <|-- Wallet
+    ethers_JsonRpcSigner <|-- JsonRpcSigner
+
+
+    ethers_Provider <|-- ethers_BaseProvider
+    ethers_BaseProvider <|-- ethers_JsonRpcProvider
+    ethers_JsonRpcProvider <|-- ethers_Web3Provider
+
+    ethers_JsonRpcProvider <|-- JsonRpcProvider
+    ethers_Web3Provider <|-- Web3Provider
+    ethers_ExternalProvider <|-- ExternalProvider
+
 ```

@@ -64,17 +64,19 @@ BaseWeb3.from_peb = types.MethodType(from_peb, BaseWeb3)
 
 # APIs
 from web3.eth.eth import Eth
+from web3.eth.async_eth import AsyncEth
 from web3.geth import Geth, GethAdmin, GethMiner, GethPersonal, GethTxPool
+from web3.geth import AsyncGeth, AsyncGethTxPool
 from web3.net import Net
 from web3.testing import Testing
 from web3.tracing import Tracing
 from web3.module import Module
-from web3py_ext.web3rpc.klay_api import KlayApi
-from web3py_ext.web3rpc.net_api import NetApi
-from web3py_ext.web3rpc.admin_api import AdminApi
-from web3py_ext.web3rpc.debug_api import DebugApi
-from web3py_ext.web3rpc.governance_api import GovernanceApi
-from web3py_ext.web3rpc.personal_api import PersonalApi
+from web3py_ext.web3rpc.klay_api import KlayApi, AsyncKlayApi
+from web3py_ext.web3rpc.net_api import NetApi, AsyncNetApi
+from web3py_ext.web3rpc.admin_api import AdminApi, AsyncAdminApi
+from web3py_ext.web3rpc.debug_api import DebugApi, AsyncDebugApi
+from web3py_ext.web3rpc.governance_api import GovernanceApi, AsyncGovernanceApi
+from web3py_ext.web3rpc.personal_api import PersonalApi, AsyncPersonalApi
 from web3py_ext.web3rpc.txpool_api import TxpoolApi
 import web3
 def extended_get_default_modules():
@@ -87,7 +89,7 @@ def extended_get_default_modules():
                 "admin": AdminApi,
                 "miner": GethMiner,
                 "personal": PersonalApi,
-                "txpool": TxpoolApi,
+                "txpool": GethTxPool,
             },
         ),
         "tracing": Tracing,
@@ -96,4 +98,22 @@ def extended_get_default_modules():
         "governance": GovernanceApi,
         "debug": DebugApi,
     }
+def extended_get_async_default_modules():
+    return {
+        "eth": AsyncEth,
+        "net": AsyncNetApi,
+        "geth": (
+            AsyncGeth,
+            {
+                "admin": AsyncAdminApi,
+                "personal": AsyncPersonalApi,
+                "txpool": AsyncGethTxPool,
+            },
+        ),
+        "klay": AsyncKlayApi,
+        "governance": AsyncGovernanceApi,
+        "debug": AsyncDebugApi,
+    }
+
 web3.main.get_default_modules = extended_get_default_modules
+web3.main.get_async_default_modules = extended_get_async_default_modules
