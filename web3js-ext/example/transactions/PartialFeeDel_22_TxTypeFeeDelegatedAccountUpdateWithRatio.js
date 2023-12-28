@@ -13,8 +13,7 @@
 //             You should see the source code for the info (e.g. VTwithMemo intrinsic gas is 21000 + len(memo)*100 )
 //             https://github.com/klaytn/klaytn/blob/dev/blockchain/types/tx_internal_data_value_transfer_memo.go#L239
 
-const { KlaytnWeb3, TxType, AccountKeyType, parseTransaction } = require("@klaytn/web3js-ext");
-const { secp256k1 } = require("ethereum-cryptography/secp256k1.js");
+const { KlaytnWeb3, TxType, AccountKeyType, getPublicKeyFromPrivate } = require("@klaytn/web3js-ext");
 const { Web3 } = require("web3");
 
 // create new account for testing
@@ -29,7 +28,7 @@ async function main() {
   const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
   const web3 = new KlaytnWeb3(provider);
 
-  const publicKey = "0x" + Buffer.from(secp256k1.getPublicKey(BigInt(senderNewPriv), true)).toString("hex");
+  const publicKey = getPublicKeyFromPrivate(senderNewPriv);
   console.log(publicKey);
 
   let tx = {
