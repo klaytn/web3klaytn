@@ -1,5 +1,4 @@
 import { Provider, TransactionResponse } from "@ethersproject/abstract-provider";
-import { BigNumber } from "@ethersproject/bignumber";
 import { Signature } from "@ethersproject/bytes";
 import { AddressZero } from "@ethersproject/constants";
 import { Logger } from "@ethersproject/logger";
@@ -8,12 +7,11 @@ import { SigningKey } from "@ethersproject/signing-key";
 import { poll } from "@ethersproject/web";
 import _ from "lodash";
 
-import { HexStr, TxType, isKlaytnTxType, parseTransaction } from "@klaytn/js-ext-core";
+import { getChainIdFromSignatureTuples, parseTransaction } from "@klaytn/js-ext-core";
 
 import { TransactionRequest } from "./types";
 
 const logger = new Logger("@klaytn/ethers-ext");
-
 
 // Normalize transaction request in Object or RLP format
 export async function getTransactionRequest(transactionOrRLP: Deferrable<TransactionRequest> | string): Promise<TransactionRequest> {
@@ -22,60 +20,6 @@ export async function getTransactionRequest(transactionOrRLP: Deferrable<Transac
   } else {
     return resolveProperties(transactionOrRLP);
   }
-}
-
-// TODO: replace with js-ext-core parseTxType
-export function resolveType(type?: number | string): number {
-  if (!type) {
-    return 0;
-  }
-  if (_.isNumber(type)) {
-    return type;
-  }
-  if (_.isString(type)) {
-    // Try the hex string, e.g. "0x08"
-    if (HexStr.isHex(type)) {
-      return HexStr.toNumber(type);
-    }
-  }
-  throw new Error(`Unrecognized tx type '${type}'. Must be a number.'`);
-}
-
-// TODO: replace with js-ext-core getKaikasTxType
-// Convert tx.type field to what Kaikas wants.
-// - If unspecified, keep it as-is. undefined => undefined
-// - Ethereum types are kept as-is. 0,1,2 => 0,1,2
-// - Klaytn types are converted to string. 8 => "VALUE_TRANSFER"
-export function resolveTypeForKaikas(type?: string | number): string | number | undefined {
-  // Skip type == 0 or undefined
-  if (!type) {
-    return undefined;
-  }
-
-  if (_.isString(type)) {
-    if (HexStr.isHex(type)) {
-      // Try the hex string, e.g. "0x08"
-      return resolveTypeForKaikas(HexStr.toNumber(type));
-    } else {
-      // Pass-through if type is already string. Let Kaikas handle it.
-      return type;
-    }
-  }
-
-  if (_.isNumber(type)) {
-    if (!isKlaytnTxType(type)) {
-      // Pass-through Ethereum TxTypes as number
-      return type;
-    }
-
-    const camelName: string | undefined = TxType[type];
-    if (camelName) {
-      // "ValueTransfer" => "VALUE_TRANSFER"
-      return _.snakeCase(camelName).toUpperCase();
-    }
-  }
-
-  throw new Error(`Unrecognized tx type '${type}'.`);
 }
 
 // Below populateX() methods are partial replacements to:
@@ -157,27 +101,11 @@ export function eip155sign(key: SigningKey, digest: string, chainId: number): Si
   return sig;
 }
 
-// TODO: replace with js-ext-core getChainIdFromSignatureTuples
-// Extract chainId from tx.txSignatures[] or tx.feePayerSignatures[].
-// It works because Klaytn TxType always follows EIP-155.
-function chainIdFromSig(signatures?: any[]): number | undefined {
-  if (_.isArray(signatures) && signatures.length > 0) {
-    const signature = signatures[0];
-    if (_.isArray(signature) && signature.length == 3) {
-      const v = BigNumber.from(signature[0]).toNumber();
-      if (v >= 35) {
-        return (v + (v % 2) - 36) / 2;
-      }
-    }
-  }
-  return undefined;
-}
-
 export async function populateChainId(tx: TransactionRequest, provider: Provider) {
   if (!tx.chainId) {
     tx.chainId = (
-      chainIdFromSig(tx.txSignatures) ??
-      chainIdFromSig(tx.feePayerSignatures) ??
+      getChainIdFromSignatureTuples(tx.txSignatures) ??
+      getChainIdFromSignatureTuples(tx.feePayerSignatures) ??
       (await provider.getNetwork()).chainId);
   }
 }
