@@ -16,10 +16,8 @@
         "prepublishOnly": "npm run build"
     },
     "license": "MIT",
-    "peerDependencies": {
-        "web3": "^4.1.0"
-    },
     "devDependencies": {
+        "@klaytn/web3js-ext": "file:./",
         "@types/chai": "^4.3.4",
         "@types/chai-as-promised": "^7.1.5",
         "@types/lodash": "^4.14.192",
@@ -34,10 +32,10 @@
         "typescript": "^5.0.4"
     },
     "dependencies": {
-        "@klaytn/js-ext-core": "^0.9.7-beta",
-        "@klaytn/web3rpc": "^0.9.7",
+        "@klaytn/js-ext-core": "^0.9.9-beta",
+        "@klaytn/web3rpc": "^0.9.9",
         "ethereum-cryptography": "^2.1.2",
-        "lodash": "^4.17.21"
+        "lodash": "^4.17.21",
+        "web3": "^4.1.0"
     }
 }
-
