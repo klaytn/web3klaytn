@@ -9,3 +9,9 @@ export interface Account {
   success?: boolean
   error?: any
 }
+
+export interface Signature {
+  message?: string
+  signature?: string
+  recoveredAddress?: string
+}
