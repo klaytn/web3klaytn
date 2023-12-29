@@ -19,7 +19,7 @@ function LegacyVT({ account }: Props) {
         setTxURL( sentTxURL? sentTxURL: 'doSendTx returns null');
     }
     return (
-        <div> 
+        <div className="menu-component"> 
             <form action="/sendLegacy" method="post"
                 onSubmit={async function(e){
                     e.preventDefault();

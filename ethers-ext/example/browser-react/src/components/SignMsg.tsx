@@ -1,9 +1,7 @@
 import { useState } from 'react';
-
 import { ethers } from 'ethers'
 // import { Web3Provider } from '@klaytn/ethers-ext'
 import { Web3Provider } from '@ethersproject/providers';
-
 import { Account, Signature } from '../types';
 import { isKaikas } from '../Util';
 
@@ -58,18 +56,20 @@ function SignMsg({ account }: Props) {
   }
 
   return (
-    <form action="/doSign" method="post"
-      onSubmit={async function(e){
-        e.preventDefault();
-        // @ts-ignore
-        await signMsg(e.target.message.value);
-      }}
-    >
-      <p>Message: <input type="text" name="message" value={signature.message}></input></p>
-      <p>Signature: <input type="textarea" name="signature" value={signature.signature}></input></p>
-      <p>RecoveredAddress: <input type="textarea" name="recoveredAddress" value={signature.recoveredAddress}></input></p>
-      <p><input type="submit"></input></p>
-    </form>
+    <div className="menu-component">
+      <form action="/doSign" method="post"
+        onSubmit={async function(e){
+          e.preventDefault();
+          // @ts-ignore
+          await signMsg(e.target.message.value);
+        }}
+      >
+        <p>Message: <input type="text" name="message" value={signature.message}></input></p>
+        <p>Signature: <input type="textarea" name="signature" value={signature.signature}></input></p>
+        <p>RecoveredAddress: <input type="textarea" name="recoveredAddress" value={signature.recoveredAddress}></input></p>
+        <p><input type="submit"></input></p>
+      </form>
+    </div>
   );
 };
 

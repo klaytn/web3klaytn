@@ -1,8 +1,8 @@
-import { Account } from '../types';
-
 import { ethers } from 'ethers'
 // import { Web3Provider } from '@klaytn/ethers-ext'
 import { Web3Provider } from '@ethersproject/providers';
+import { Account } from '../types';
+import { isKaikas } from '../Util';
 
 type Props = {
   account: Account;
@@ -12,11 +12,6 @@ type Props = {
 function Connect({ account, setAccount }: Props) {
 
   var provider: Web3Provider;
-
-  function isKaikas() {
-    // @ts-ignore
-    return provider && provider.provider.isKaikas;
-  }
   
   async function connect(injectedProvider: any, appThis: undefined ) {
     if (!injectedProvider) {
@@ -42,8 +37,8 @@ function Connect({ account, setAccount }: Props) {
   
     setAccount({
       provider: provider,
-      isKaikas: isKaikas(),
-      isMetaMask: !isKaikas(),
+      isKaikas: isKaikas(account),
+      isMetaMask: !isKaikas(account),
       chainId: chainId,
       address: accounts[0]
     });
@@ -53,8 +48,8 @@ function Connect({ account, setAccount }: Props) {
       // provider = new ethers_ext.providers.Web3Provider(injectedProvider);
       setAccount({
         provider: provider,
-        isKaikas: isKaikas(),
-        isMetaMask: !isKaikas(),
+        isKaikas: isKaikas(account),
+        isMetaMask: !isKaikas(account),
         chainId: _chainId,
         address: accounts[0]
       });
@@ -64,8 +59,8 @@ function Connect({ account, setAccount }: Props) {
       console.log("accounts changed", _accounts);
       setAccount({
         provider: provider,
-        isKaikas: isKaikas(),
-        isMetaMask: !isKaikas(),
+        isKaikas: isKaikas(account),
+        isMetaMask: !isKaikas(account),
         chainId: chainId,
         address: _accounts[0]
       });
