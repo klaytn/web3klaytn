@@ -7,18 +7,18 @@ import { ethers } from 'ethers'
 import { Account } from "./types";
 import Connect from './components/Connect';
 import SignMsg from './components/SignMsg';
-import SendLegacyVT from './components/SendLegacyVT';
-import SendLegacySC from './components/SendLegacySC';
+import LegacyVT from './components/LegacyVT';
+import LegacySC from './components/LegacySC';
 
 enum Menu {
   None,
   SignMsg,
-  SendLegacyVT,
-  SendLegacySC, 
-  sendKlaytnVT,
-  sendKlaytnSC,
-  sendFeeDelegatedVT,
-  sendFeeDelegatedSC, 
+  LegacyVT,
+  LegacySC, 
+  KlaytnVT,
+  KlaytnSC,
+  FeeDelegatedVT,
+  FeeDelegatedSC, 
 }
 
 function App() {
@@ -29,20 +29,22 @@ function App() {
     <div className="App">
       <Connect account={account} setAccount={setAccount} />
       <div>{ account.address }</div>
-
       <hr/>
-      <h3>Sign Message</h3>
-      <button onClick={() => setMenu(Menu.SignMsg)}>Expand</button>
-      { menu === Menu.SignMsg ? <SignMsg account={account} /> : null }
+      { account.address ? (
+        <div> 
+          <h3>Sign Message</h3>
+          <button onClick={() => setMenu(Menu.SignMsg)}>Expand</button>
+          { menu === Menu.SignMsg ? <SignMsg account={account} /> : null }
 
-      <h3>Send KLAY/ETH</h3>
-      <button onClick={() => setMenu(Menu.SendLegacyVT)}>Expand</button>
-      { menu === Menu.SendLegacyVT ? <SendLegacyVT account={account} /> : null }
+          <h3>Send KLAY/ETH</h3>
+          <button onClick={() => setMenu(Menu.LegacyVT)}>Expand</button>
+          { menu === Menu.LegacyVT ? <LegacyVT account={account} /> : null }
 
-      <h3>Call SmartContract</h3>
-      <button onClick={() => setMenu(Menu.SendLegacySC)}>Expand</button>
-      { menu === Menu.SendLegacySC ? <SendLegacySC account={account} /> : null }
-
+          <h3>Call SmartContract</h3>
+          <button onClick={() => setMenu(Menu.LegacySC)}>Expand</button>
+          { menu === Menu.LegacySC ? <LegacySC account={account} /> : null }
+        </div>
+      ) : null }
     </div>
   );
 }

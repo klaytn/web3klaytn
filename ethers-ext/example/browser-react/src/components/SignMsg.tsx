@@ -5,19 +5,14 @@ import { ethers } from 'ethers'
 import { Web3Provider } from '@ethersproject/providers';
 
 import { Account, Signature } from '../types';
+import { isKaikas } from '../Util';
 
 type Props = {
   account: Account;
 };
 
 function SignMsg({ account }: Props) {
-
   var [signature, setSignature] = useState<Signature>({});
-
-  function isKaikas() {
-    // @ts-ignore
-    return account.provider && account.provider.provider.isKaikas;
-  }
 
   async function signMsg(_message: string) {
     try {
@@ -26,8 +21,7 @@ function SignMsg({ account }: Props) {
   
       const provider = account.provider; 
       
-      if (isKaikas()) {
-        
+      if (isKaikas(account)) {        
         const { hexlify, toUtf8Bytes } = ethers.utils;
 
         // TODO : getSigner not working
