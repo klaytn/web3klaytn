@@ -6,9 +6,11 @@ import { ethers } from 'ethers'
 
 import { Account } from "./types";
 import Connect from './components/Connect';
+import AccountInfo from './components/AccountInfo'
 import SignMsg from './components/SignMsg';
 import LegacyVT from './components/LegacyVT';
 import LegacySC from './components/LegacySC';
+import KlaytnVT from './components/KlaytnVT';
 
 enum Menu {
   None,
@@ -28,7 +30,7 @@ function App() {
   return (
     <div className="App">
       <Connect account={account} setAccount={setAccount} />
-      <div>{ account.address }</div>
+      <AccountInfo account={account} setAccount={setAccount} />
       <hr/>
       { account.address ? (
         <div> 
@@ -43,6 +45,13 @@ function App() {
           <h3>Call SmartContract</h3>
           <button onClick={() => setMenu(Menu.LegacySC)}>Expand</button>
           { menu === Menu.LegacySC ? <LegacySC account={account} /> : null }
+        </div>
+      ) : null }
+      { account.isKaikas ? (
+        <div>
+          <h3>Send ValueTransfer tx</h3>
+          <button onClick={() => setMenu(Menu.KlaytnVT)}>Expand</button>
+          { menu === Menu.KlaytnVT ? <KlaytnVT account={account} /> : null }
         </div>
       ) : null }
     </div>

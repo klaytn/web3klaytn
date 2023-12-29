@@ -23,7 +23,8 @@ function Connect({ account, setAccount }: Props) {
     //   provider = new Providers.Web3Provider(injectedProvider);
     // Uncomment to use the original ethers.js Web3Provider:
     provider = new ethers.providers.Web3Provider(injectedProvider);
-  
+    account.provider = provider; 
+
     // Detect user network
     // https://docs.metamask.io/wallet/how-to/connect/detect-network/
     const chainId = await provider.send("eth_chainId", []);
