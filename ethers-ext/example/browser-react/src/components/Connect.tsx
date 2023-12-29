@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
-// import { Web3Provider } from '@klaytn/ethers-ext'
-import { Web3Provider } from '@ethersproject/providers';
+import { Web3Provider } from '@klaytn/ethers-ext'
+// import { Web3Provider } from '@ethersproject/providers';
 import { Account } from '../types';
 import { isKaikas } from '../Util';
 
@@ -20,9 +20,9 @@ function Connect({ account, setAccount }: Props) {
     }
   
     // Wrap the window.{ethereum,klaytn} object with Web3Provider.
-    //   provider = new Providers.Web3Provider(injectedProvider);
-    // Uncomment to use the original ethers.js Web3Provider:
-    provider = new ethers.providers.Web3Provider(injectedProvider);
+    provider = new Web3Provider(injectedProvider);
+    // // Uncomment to use the original ethers.js Web3Provider:
+    // provider = new ethers.providers.Web3Provider(injectedProvider);
     account.provider = provider; 
 
     // Detect user network

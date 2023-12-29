@@ -30,6 +30,7 @@ function App() {
   return (
     <div className="App">
       <Connect account={account} setAccount={setAccount} />
+      <hr/>
       <AccountInfo account={account} setAccount={setAccount} />
       <hr/>
       { account.address ? (
