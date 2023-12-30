@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import './App.css';
 
-import { ethers } from 'ethers'
-// import { Web3Provider } from '@klaytn/ethers-ext'
-
 import { Account } from "./types";
 import Connect from './components/Connect';
 import AccountInfo from './components/AccountInfo'

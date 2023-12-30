@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Account } from '../types';
-import { doSendTx } from '../Util';
-// import { ethers_ext } from '@klaytn/ethers-ext';
+import { doSendTx } from '../util';
 
 type Props = {
   account: Account;

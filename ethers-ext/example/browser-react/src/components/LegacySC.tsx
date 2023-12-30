@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Account } from '../types';
-import { doSendTx } from '../Util';
+import { doSendTx } from '../util';
 
 type Props = {
   account: Account;
