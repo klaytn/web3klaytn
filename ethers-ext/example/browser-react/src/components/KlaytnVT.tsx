@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Account } from '../types';
 import { doSendTx } from '../util';
+import { TxType } from '@klaytn/js-ext-core';
 
 type Props = {
   account: Account;
@@ -12,8 +13,7 @@ function KlaytnVT({ account }: Props) {
     async function sendKlaytnVT(address: string) {
         const sentTxURL = await doSendTx( account, async (address: string) => {
             return {
-                // type: ethers_ext.TxType.ValueTransfer, // 0x08
-                type: 0x08,
+                type: TxType.ValueTransfer, // 0x08
                 to: address, // send to myself
                 value: 0,
             };
