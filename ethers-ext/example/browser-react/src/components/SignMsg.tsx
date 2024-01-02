@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { ethers } from 'ethers'
-// import { Web3Provider } from '@klaytn/ethers-ext'
-import { Web3Provider } from '@ethersproject/providers';
 import { Account, Signature } from '../types';
 import { isKaikas } from '../util';
 

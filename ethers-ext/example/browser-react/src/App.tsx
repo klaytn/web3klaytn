@@ -9,6 +9,7 @@ import LegacyVT from './components/LegacyVT';
 import LegacySC from './components/LegacySC';
 import KlaytnVT from './components/KlaytnVT';
 import KlaytnSC from './components/KlaytnSC';
+import KlaytnFeeDelVT from './components/KlaytnFeeDelVT';
 
 enum Menu {
   None,
@@ -17,8 +18,8 @@ enum Menu {
   LegacySC, 
   KlaytnVT,
   KlaytnSC,
-  FeeDelegatedVT,
-  FeeDelegatedSC, 
+  KlaytnFeeDelVT,
+  KlaytnFeeDelSC, 
 }
 
 function App() {
@@ -56,7 +57,10 @@ function App() {
           <h3>Send SmartContractExecution tx</h3>
           <button onClick={() => setMenu(Menu.KlaytnSC)}>Expand</button>
           { menu === Menu.KlaytnSC ? <KlaytnSC account={account} /> : null }
-      </div>
+          <h3>Sign and Send FeeDelegatedValueTransfer tx</h3>
+          <button onClick={() => setMenu(Menu.KlaytnFeeDelVT)}>Expand</button>
+          { menu === Menu.KlaytnFeeDelVT ? <KlaytnFeeDelVT account={account} /> : null }
+        </div>
       ) : null }
     </div>
   );

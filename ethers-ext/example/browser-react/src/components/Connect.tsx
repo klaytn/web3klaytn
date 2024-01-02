@@ -1,6 +1,4 @@
 import { Web3Provider } from '@klaytn/ethers-ext'
-import { ethers } from 'ethers'
-// import { Web3Provider } from '@ethersproject/providers';
 import { Account } from '../types';
 import { isKaikas } from '../util';
 
