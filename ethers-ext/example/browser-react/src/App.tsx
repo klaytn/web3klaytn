@@ -8,6 +8,7 @@ import SignMsg from './components/SignMsg';
 import LegacyVT from './components/LegacyVT';
 import LegacySC from './components/LegacySC';
 import KlaytnVT from './components/KlaytnVT';
+import KlaytnSC from './components/KlaytnSC';
 
 enum Menu {
   None,
@@ -47,10 +48,15 @@ function App() {
       ) : null }
       { account.isKaikas ? (
         <div>
+          <hr/>
+          <h3>Klaytn Features</h3>
           <h3>Send ValueTransfer tx</h3>
           <button onClick={() => setMenu(Menu.KlaytnVT)}>Expand</button>
           { menu === Menu.KlaytnVT ? <KlaytnVT account={account} /> : null }
-        </div>
+          <h3>Send SmartContractExecution tx</h3>
+          <button onClick={() => setMenu(Menu.KlaytnSC)}>Expand</button>
+          { menu === Menu.KlaytnSC ? <KlaytnSC account={account} /> : null }
+      </div>
       ) : null }
     </div>
   );
