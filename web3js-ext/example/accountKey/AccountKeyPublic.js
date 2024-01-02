@@ -5,7 +5,7 @@ const { KlaytnWeb3, TxType, AccountKeyType, toPeb, getPublicKeyFromPrivate } = r
 const { Web3 } = require("web3");
 
 // Using senderPriv == senderNewPriv to execute this example repeatedly.
-// But you should use AccountKeyPublic to register a different private key.
+// But you might want to register a different private key.
 const senderAddr = "0xfb60ded0ae96fe04eed6450aead860aa9d57128e";
 const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
 const senderNewPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
