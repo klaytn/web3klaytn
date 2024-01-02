@@ -29,7 +29,7 @@ function KlaytnFeeDelVT({ account }: Props) {
                     await sendKlaytnFeeDelVT(e.target.to.value);
                 }}
             >
-                <p>Type: <input type="text" name="type" value="0x08"></input></p>
+                <p>Type: <input type="text" name="type" value="0x09"></input></p>
                 <p>To: <input type="text" name="to" value={account.address}></input></p>
                 <p>Value: <input type="text" name="amount" value="0"></input></p>
                 <p><input type="submit"></input></p>

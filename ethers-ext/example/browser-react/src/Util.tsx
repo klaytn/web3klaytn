@@ -43,7 +43,6 @@ async function doSendTxAsFeePayer(signedTx: string) {
 
 export async function doSignTx(account: Account, makeTxRequest: any) {
     try {
-        debugger
       const signer = account.provider?.getSigner();
       // @ts-ignore
       const address = await signer.getAddress();
