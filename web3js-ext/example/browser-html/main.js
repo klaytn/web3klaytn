@@ -16,10 +16,10 @@ async function connect(injectedProvider) {
   }
 
   // Wrap the window.{ethereum,klaytn} object with Web3.
-  if (1) {
+  if (0) {
     web3 = new Web3(injectedProvider); // from web3@4.3.0/+esm
   } else {
-    web3 = new web3_ext.Web3(injectedProvider); // from web3js-ext.bundle.js
+    web3 = new web3_ext.KlaytnWeb3(injectedProvider); // from web3js-ext.bundle.js
   }
 
   // Detect user network
@@ -158,7 +158,7 @@ async function sendLegacySC() {
 async function sendKlaytnVT() {
   doSendTx(async (address) => {
     return {
-      type: ethers_ext.TxType.ValueTransfer, // 0x08
+      type: web3_ext.TxType.ValueTransfer, // 0x08
       from: address,
       to: address, // send to myself
       value: 0,
@@ -168,7 +168,7 @@ async function sendKlaytnVT() {
 async function sendKlaytnSC() {
   doSendTx(async (address) => {
     return {
-      type: ethers_ext.TxType.SmartContractExecution, // 0x30
+      type: web3_ext.TxType.SmartContractExecution, // 0x30
       from: address,
       to: contractAddress,
       data: contractCalldata,
