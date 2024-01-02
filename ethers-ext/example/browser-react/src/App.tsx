@@ -48,7 +48,8 @@ function App() {
           { menu === Menu.LegacySC ? <LegacySC account={account} /> : null }
         </div>
       ) : null }
-      { account.isKaikas ? (
+      { /* ValueTransfer tx only supported in Kaiskas */
+        account.isKaikas ? (
         <div>
           <hr/>
           <h3>Klaytn Features</h3>
