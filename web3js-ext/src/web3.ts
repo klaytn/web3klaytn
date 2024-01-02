@@ -15,7 +15,7 @@ import {
 } from "web3-types";
 import * as utils from "web3-utils";
 
-import { context_accounts } from "./account";
+import { context_accounts } from "./accounts";
 import {
   context_getProtocolVersion,
   context_sendSignedTransaction,
