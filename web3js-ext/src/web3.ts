@@ -16,7 +16,10 @@ import {
 import * as utils from "web3-utils";
 
 import { context_accounts } from "./account";
-import { context_getProtocolVersion, context_sendSignedTransaction } from "./rpc";
+import {
+  context_getProtocolVersion,
+  context_sendSignedTransaction,
+} from "./eth";
 import { KlaytnWeb3EthInterface } from "./types";
 
 
