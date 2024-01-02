@@ -20,24 +20,148 @@ along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
 import { getRpcTxObject, isKlaytnTxType, parseTransaction } from "@klaytn/js-ext-core";
 import { Web3Context, Web3PromiEvent } from "web3-core";
 import {
+  SendTransactionEvents,
+  SendTransactionOptions,
   SendSignedTransactionEvents,
   SendSignedTransactionOptions,
-  transactionReceiptSchema,
   sendSignedTransaction as ethSendSignedTransaction,
+  transactionReceiptSchema,
+  formatTransaction,
 } from "web3-eth";
 import {
+  ETH_DATA_FORMAT,
   FormatType,
   DataFormat,
   EthExecutionAPI,
   Bytes,
+  HexString,
   TransactionReceipt,
+  TransactionCall,
+  Transaction,
+  TransactionWithFromLocalWalletIndex,
+  TransactionWithToLocalWalletIndex,
+  TransactionWithFromAndToLocalWalletIndex,
+  Web3BaseWalletAccount,
 } from "web3-types";
-import { format, bytesToHex, hexToNumber } from "web3-utils";
+import { format, bytesToHex, bytesToUint8Array, hexToBytes, hexToNumber } from "web3-utils";
+import { isNullish } from "web3-validator";
 
 import { SendTxHelper } from "./utils/send_tx_helper";
+import { getTransactionFromOrToAttr } from "./utils/transaction_builder";
 import { trySendTransaction } from "./utils/try_send_transaction";
 import { waitForTransactionReceipt } from "./utils/wait_for_transaction_receipt";
 
+
+export function sendTransaction<
+  ReturnFormat extends DataFormat,
+  ResolveType = FormatType<TransactionReceipt, ReturnFormat>,
+>(
+  web3Context: Web3Context<EthExecutionAPI>,
+  transaction:
+    | Transaction
+    | TransactionWithFromLocalWalletIndex
+    | TransactionWithToLocalWalletIndex
+    | TransactionWithFromAndToLocalWalletIndex,
+  returnFormat: ReturnFormat,
+  options: SendTransactionOptions<ResolveType> = { checkRevertBeforeSending: true },
+): Web3PromiEvent<ResolveType, SendTransactionEvents<ReturnFormat>> {
+  const promiEvent = new Web3PromiEvent<ResolveType, SendTransactionEvents<ReturnFormat>>(
+    (resolve, reject) => {
+      setImmediate(() => {
+        (async () => {
+          const sendTxHelper = new SendTxHelper<ReturnFormat, ResolveType>({
+            web3Context,
+            promiEvent,
+            options,
+            returnFormat,
+          });
+
+          let transactionFormatted:
+            | Transaction
+            | TransactionWithFromLocalWalletIndex
+            | TransactionWithToLocalWalletIndex
+            | TransactionWithFromAndToLocalWalletIndex = formatTransaction(
+              {
+                ...transaction,
+                from: getTransactionFromOrToAttr("from", web3Context, transaction),
+                to: getTransactionFromOrToAttr("to", web3Context, transaction),
+              },
+              ETH_DATA_FORMAT,
+            );
+
+          try {
+            transactionFormatted = await sendTxHelper.populateGasPrice({
+              transaction,
+              transactionFormatted,
+            });
+
+            await sendTxHelper.checkRevertBeforeSending(
+              transactionFormatted as TransactionCall,
+            );
+
+            sendTxHelper.emitSending(transactionFormatted);
+
+            let wallet: Web3BaseWalletAccount | undefined;
+
+            if (web3Context.wallet && !isNullish(transactionFormatted.from)) {
+              wallet = web3Context.wallet.get(
+                (transactionFormatted as Transaction).from as string,
+              );
+            }
+
+            const transactionHash: HexString = await sendTxHelper.signAndSend({
+              wallet,
+              tx: transactionFormatted,
+            });
+
+            const transactionHashFormatted = format(
+              { format: "bytes32" },
+              transactionHash as Bytes,
+              returnFormat,
+            );
+            sendTxHelper.emitSent(transactionFormatted);
+            sendTxHelper.emitTransactionHash(
+              transactionHashFormatted as string & Uint8Array,
+            );
+
+            const transactionReceipt = await waitForTransactionReceipt(
+              web3Context,
+              transactionHash,
+              returnFormat,
+            );
+
+            const transactionReceiptFormatted = sendTxHelper.getReceiptWithEvents(
+              format(transactionReceiptSchema, transactionReceipt, returnFormat),
+            );
+
+            sendTxHelper.emitReceipt(transactionReceiptFormatted);
+
+            resolve(
+              await sendTxHelper.handleResolve({
+                receipt: transactionReceiptFormatted,
+                tx: transactionFormatted as TransactionCall,
+              }),
+            );
+
+            sendTxHelper.emitConfirmation({
+              receipt: transactionReceiptFormatted,
+              transactionHash,
+            });
+          } catch (error) {
+            reject(
+              await sendTxHelper.handleError({
+                error,
+                tx: transactionFormatted as TransactionCall,
+              }),
+            );
+          }
+        })() as unknown;
+      });
+    },
+  );
+
+  return promiEvent;
+}
 
 // sendSignedTransaction sends a signed raw transaction.
 //
