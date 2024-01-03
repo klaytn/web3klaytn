@@ -27,6 +27,7 @@ import {
   SendSignedTransactionOptions,
   sendSignedTransaction as ethSendSignedTransaction,
   transactionReceiptSchema,
+  formatTransaction,
 } from "web3-eth";
 import {
   ETH_DATA_FORMAT,
@@ -35,8 +36,9 @@ import {
   EthExecutionAPI,
   Bytes,
   HexString,
+  HexStringBytes,
+  SignedTransactionInfoAPI,
   TransactionReceipt,
-  TransactionCall,
   Transaction,
   TransactionWithFromLocalWalletIndex,
   TransactionWithToLocalWalletIndex,
@@ -45,7 +47,7 @@ import {
   Web3BaseProvider,
 } from "web3-types";
 import { format, bytesToHex, hexToNumber } from "web3-utils";
-import { isNullish } from "web3-validator";
+import { isNullish, isString } from "web3-validator";
 
 import { _parseTxType, bufferedGasLimit } from "../accounts/sign";
 import { KlaytnTransaction } from "../types";
@@ -324,6 +326,33 @@ export function sendSignedTransaction<
   );
 
   return promiEvent;
+}
+
+export async function signTransaction<ReturnFormat extends DataFormat>(
+  web3Context: Web3Context<EthExecutionAPI>,
+  transaction: Transaction,
+  returnFormat: ReturnFormat,
+) {
+  const response = await ethRpcMethods.signTransaction(
+    web3Context.requestManager,
+    formatTransaction(transaction, ETH_DATA_FORMAT),
+  );
+  // Some clients only return the encoded signed transaction (e.g. Ganache)
+  // while clients such as Geth return the desired SignedTransactionInfoAPI object
+  return isString(response as HexStringBytes)
+    ? decodeSignedTransaction(response as HexStringBytes, returnFormat, {
+      fillInputAndData: true,
+    })
+    : {
+      raw: format(
+        { format: "bytes" },
+        (response as SignedTransactionInfoAPI).raw,
+        returnFormat,
+      ),
+      tx: formatTransaction((response as SignedTransactionInfoAPI).tx, returnFormat, {
+        fillInputAndData: true,
+      }),
+    };
 }
 
 // Convert Bytes(string | Uint8Array) to hex string
