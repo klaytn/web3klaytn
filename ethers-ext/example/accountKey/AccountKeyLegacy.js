@@ -1,10 +1,9 @@
 // AccountKeyLegacy
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeylegacy
 
-const { sign } = require("crypto");
+const { ethers } = require("ethers");
 
 const { Wallet } = require("@klaytn/ethers-ext");
-const { ethers } = require("ethers");
 
 const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153";
 const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
@@ -14,20 +13,20 @@ const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.
 const wallet = new Wallet(senderPriv, provider);
 
 async function sendTx() {
-  let tx = {
+  const tx = {
     from: senderAddr,
     to: recieverAddr,
     value: 0,
   };
 
-  let sentTx = await wallet.sendTransaction(tx);
+  const sentTx = await wallet.sendTransaction(tx);
   console.log("sentTx", sentTx);
 
-  let rc = await sentTx.wait();
-  console.log("receipt", rc);
+  const receipt = await sentTx.wait();
+  console.log("receipt", receipt);
 }
 
-async function verifyMsg() {
+async function recoverMsg() {
   const msg = "hello";
   const msghex = ethers.utils.hexlify(ethers.utils.toUtf8Bytes(msg));
   const sig = await wallet.signMessage(msg);
@@ -42,6 +41,6 @@ async function verifyMsg() {
 
 async function main() {
   await sendTx();
-  await verifyMsg();
+  await recoverMsg();
 }
 main().catch(console.error);

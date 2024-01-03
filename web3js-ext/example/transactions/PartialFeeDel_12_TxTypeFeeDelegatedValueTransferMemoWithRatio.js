@@ -1,8 +1,5 @@
-//
 // TxTypeFeeDelegatedValueTransferMemoWithRatio
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/partial-fee-delegation#txtypefeedelegatedvaluetransfermemowithratio
-//
-//   nonce: In signTransactionAsFeePayer, must not be omitted, because feePayer's nonce is filled when populating
 
 const { KlaytnWeb3, TxType, toPeb, parseTransaction } = require("@klaytn/web3js-ext");
 const { Web3 } = require("web3");
@@ -13,43 +10,35 @@ const feePayerAddr = "0xcb0eb737dfda52756495a5e08a9b37aab3b271da";
 const feePayerPriv = "0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16fc000cff4";
 const recieverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
 
-
 async function main() {
   const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
   const web3 = new KlaytnWeb3(provider);
+  const senderAccount = web3.eth.accounts.privateKeyToAccount(senderPriv);
 
   let tx = {
     type: TxType.FeeDelegatedValueTransferMemoWithRatio,
+    from: senderAddr,
     to: recieverAddr,
     value: toPeb("0.01"),
-    from: senderAddr,
-    input: "0x1234567890",
-    gas: 300000,
-    gasPrice: 100e9,
-    feeRatio: 30,
+    data: "0x1234567890",
+    gasLimit: 50000,
+    feeRatio: 20,
   };
 
-  // sender
-  const sender = web3.eth.accounts.privateKeyToAccount(senderPriv);
-  let senderTx = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
-  console.log(senderTx);
+  const signResult1 = await senderAccount.signTransaction(tx);
+  console.log("senderRawTx", signResult1.rawTransaction);
+  console.log("senderTx", parseTransaction(signResult1.rawTransaction));
 
-  // tx = parseTransaction(senderTx.rawTransaction);
-  // console.log(tx);
+  // Next step is usually done in the backend by the service provider.
+  // But for the sake of demonstration, feePayer signature is done here.
 
-  // fee payer
-  const feePayer = web3.eth.accounts.privateKeyToAccount(feePayerPriv, provider);
-  let signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayer.privateKey);
-  console.log(signResult);
+  const feePayerAccount = web3.eth.accounts.privateKeyToAccount(feePayerPriv);
+  const signResult2 = await feePayerAccount.signTransactionAsFeePayer(signResult1.rawTransaction);
+  console.log("rawTx", signResult2.rawTransaction);
+  console.log("tx", parseTransaction(signResult2.rawTransaction));
 
-  // tx = parseTransaction(signResult.rawTransaction);
-  // console.log(tx);
-
-  let sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
-  let txhash = sendResult.transactionHash;
-
-  let receipt = await web3.eth.getTransactionReceipt(txhash);
-  console.log({ receipt });
+  const receipt = await web3.eth.sendSignedTransaction(signResult2.rawTransaction);
+  console.log("receipt", receipt);
 }
 
 main();

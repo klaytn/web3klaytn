@@ -13,38 +13,31 @@ const recieverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
 async function main() {
   const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
   const web3 = new KlaytnWeb3(provider);
+  const senderAccount = web3.eth.accounts.privateKeyToAccount(senderPriv);
 
   let tx = {
     type: TxType.FeeDelegatedValueTransferMemo,
+    from: senderAddr,
     to: recieverAddr,
     value: toPeb("0.01"),
-    from: senderAddr,
-    input: "0x1234567890",
-    gas: 250000, // intrinsic gas too low
-    gasPrice: 25e9,
+    data: "0x1234567890",
+    gasLimit: 50000,
   };
 
-  // sender
-  const sender = web3.eth.accounts.privateKeyToAccount(senderPriv);
-  let senderTx = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
-  console.log(senderTx);
+  const signResult1 = await senderAccount.signTransaction(tx);
+  console.log("senderRawTx", signResult1.rawTransaction);
+  console.log("senderTx", parseTransaction(signResult1.rawTransaction));
 
-  // tx = parseTransaction(senderTx.rawTransaction);
-  // console.log(tx);
+  // Next step is usually done in the backend by the service provider.
+  // But for the sake of demonstration, feePayer signature is done here.
 
-  // fee payer
-  const feePayer = web3.eth.accounts.privateKeyToAccount(feePayerPriv, provider);
-  let signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayer.privateKey);
-  console.log(signResult);
+  const feePayerAccount = web3.eth.accounts.privateKeyToAccount(feePayerPriv);
+  const signResult2 = await feePayerAccount.signTransactionAsFeePayer(signResult1.rawTransaction);
+  console.log("rawTx", signResult2.rawTransaction);
+  console.log("tx", parseTransaction(signResult2.rawTransaction));
 
-  // tx = parseTransaction(signResult.rawTransaction);
-  // console.log(tx);
-
-  let sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
-  let txhash = sendResult.transactionHash;
-
-  let receipt = await web3.eth.getTransactionReceipt(txhash);
-  console.log({ receipt });
+  const receipt = await web3.eth.sendSignedTransaction(signResult2.rawTransaction);
+  console.log("receipt", receipt);
 }
 
 main();

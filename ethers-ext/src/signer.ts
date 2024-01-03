@@ -29,13 +29,14 @@ import {
   getRpcTxObject,
   isKlaytnTxType,
   isFeePayerSigTxType,
+  parseTxType,
+  getKaikasTxType,
 } from "@klaytn/js-ext-core";
 
 import { decryptKeystoreList, decryptKeystoreListSync } from "./keystore";
 import {
   eip155sign,
   getTransactionRequest,
-  resolveType,
   populateFrom,
   populateFromSync,
   populateTo,
@@ -44,7 +45,6 @@ import {
   populateGasPrice,
   populateChainId,
   populateFeePayerAndSignatures,
-  resolveTypeForKaikas,
   pollTransactionInPool,
 } from "./txutil";
 import { PrivateKeyLike, ExternalProvider } from "./types";
@@ -133,7 +133,7 @@ export class Wallet extends EthersWallet {
   override checkTransaction(transaction: Deferrable<TransactionRequest>): Deferrable<TransactionRequest> {
     const tx = _.clone(transaction);
 
-    const useLegacyFrom = !isKlaytnTxType(resolveType(tx.type as number));
+    const useLegacyFrom = !isKlaytnTxType(parseTxType(tx.type as number));
     const expectedFrom = this.getAddress(useLegacyFrom);
     populateFromSync(tx, expectedFrom);
 
@@ -149,7 +149,7 @@ export class Wallet extends EthersWallet {
     const tx = await getTransactionRequest(transaction);
 
     // Not a Klaytn TxType; fallback to ethers.Signer.populateTransaction()
-    if (!isKlaytnTxType(resolveType(tx.type))) {
+    if (!isKlaytnTxType(parseTxType(tx.type))) {
       return super.populateTransaction(tx);
     }
 
@@ -174,7 +174,7 @@ export class Wallet extends EthersWallet {
     const tx = await getTransactionRequest(transaction);
 
     // Not a Klaytn TxType; fallback to ethers.Wallet.signTransaction()
-    if (!isKlaytnTxType(resolveType(tx.type))) {
+    if (!isKlaytnTxType(parseTxType(tx.type))) {
       return super.signTransaction(tx);
     }
 
@@ -201,7 +201,7 @@ export class Wallet extends EthersWallet {
     const tx = await getTransactionRequest(transactionOrRLP);
 
     // Not a Klaytn FeePayerSig TxType; not supported
-    if (!isFeePayerSigTxType(resolveType(tx.type))) {
+    if (!isFeePayerSigTxType(parseTxType(tx.type))) {
       throw new Error(`signTransactionAsFeePayer not supported for tx type ${tx.type}`);
     }
 
@@ -222,7 +222,7 @@ export class Wallet extends EthersWallet {
 
   override async sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
     const tx = await getTransactionRequest(transaction);
-    if (!isKlaytnTxType(resolveType(tx.type))) {
+    if (!isKlaytnTxType(parseTxType(tx.type))) {
       return super.sendTransaction(tx);
     }
 
@@ -235,7 +235,7 @@ export class Wallet extends EthersWallet {
     const tx = await getTransactionRequest(transactionOrRLP);
 
     // Not a Klaytn FeePayerSig TxType; not supported
-    if (!isFeePayerSigTxType(resolveType(tx.type))) {
+    if (!isFeePayerSigTxType(parseTxType(tx.type))) {
       throw new Error(`sendTransactionAsFeePayer not supported for tx type ${tx.type}`);
     }
 
@@ -419,7 +419,7 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
     const tx = await getTransactionRequest(transaction);
 
     // Not a Klaytn TxType; fallback to ethers.Signer.populateTransaction()
-    if (!isKlaytnTxType(resolveType(tx.type))) {
+    if (!isKlaytnTxType(parseTxType(tx.type))) {
       return super.populateTransaction(tx);
     }
 
@@ -447,7 +447,7 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
 
     const rpcTx = getRpcTxObject(tx);
     if (this.isKaikas()) {
-      rpcTx.type = resolveTypeForKaikas(rpcTx.type);
+      rpcTx.type = getKaikasTxType(rpcTx.type);
     }
 
     try {
@@ -473,7 +473,7 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
 
     const rpcTx = getRpcTxObject(tx);
     if (this.isKaikas()) {
-      rpcTx.type = resolveTypeForKaikas(rpcTx.type);
+      rpcTx.type = getKaikasTxType(rpcTx.type);
     }
 
     try {
