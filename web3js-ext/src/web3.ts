@@ -20,6 +20,7 @@ import {
   context_getProtocolVersion,
   context_sendSignedTransaction,
   context_sendTransaction,
+  context_signTransaction,
 } from "./eth";
 import { KlaytnWeb3EthInterface } from "./types";
 
@@ -78,6 +79,7 @@ export class KlaytnWeb3
     this.eth.getProtocolVersion = context_getProtocolVersion(this._web3);
     this.eth.sendTransaction = context_sendTransaction(this._web3);
     this.eth.sendSignedTransaction = context_sendSignedTransaction(this._web3);
+    this.eth.signTransaction = context_signTransaction(this._web3);
 
     // Attach additional RPC namespaces.
     const send = this.makeSendFunction();

@@ -16,7 +16,7 @@ import {
 } from "web3-types";
 
 import { getProtocolVersion } from "./rpc";
-import { sendTransaction, sendSignedTransaction } from "./send";
+import { sendTransaction, sendSignedTransaction, signTransaction } from "./send";
 
 // Analogous to: web3-eth/src/web3_eth.ts:Web3Eth.getProtocolVersion()
 // Replaces: web3.eth.getProtocolVersion()
@@ -56,5 +56,19 @@ export function context_sendSignedTransaction(context: Web3Context) {
     returnFormat: ReturnFormat = DEFAULT_RETURN_FORMAT as ReturnFormat,
     options?: SendTransactionOptions) {
     return sendSignedTransaction(context, transaction, returnFormat, options);
+  };
+}
+
+// Analogous to: web3-eth/src/web3_eth.ts:Web3Eth.signTransaction()
+// Replaces: web3.eth.signTransaction()
+// Because: eth_signTransaction cannot accept Klaytn TxTypes.
+// For Klaytn TxTypes, call klay_signTransaction instead.
+// Optionally converts tx.type field to Kaikas-friendly.
+export function context_signTransaction(context: Web3Context) {
+  return function<ReturnFormat extends DataFormat = typeof DEFAULT_RETURN_FORMAT> (
+    transaction: Transaction,
+    returnFormat: ReturnFormat = DEFAULT_RETURN_FORMAT as ReturnFormat,
+  ) {
+    return signTransaction(context, transaction, returnFormat);
   };
 }

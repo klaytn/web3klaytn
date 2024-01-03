@@ -179,28 +179,31 @@ async function sendKlaytnSC() {
 // This operation is usually done in the backend by the dApp operator.
 // We do it here with hardcoded private key for demonstration purpose.
 async function doSendTxAsFeePayer(signedTx) {
-  const httpProvider = new ethers_ext.JsonRpcProvider("https://public-en-baobab.klaytn.net");
+  const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
+  const web3 = new web3_ext.KlaytnWeb3(provider);
   const feePayerPriv = "0xb3cf575dea0081563fe5482de2fe4425e025502b1f4ae7e02b2540ac0a5beda1";
-  const feePayerWallet = new ethers_ext.Wallet(feePayerPriv, httpProvider);
+  const feePayerAccount = web3.eth.accounts.privateKeyToAccount(feePayerPriv);
 
-  const sentTx = await feePayerWallet.sendTransactionAsFeePayer(signedTx);
-  console.log("sentTx", sentTx);
-  const txhash = sentTx.hash;
+  const signResult = await feePayerAccount.signTransactionAsFeePayer(signedTx);
+  console.log("signResult", signResult);
+
+  const receipt = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
+  console.log("receipt", receipt);
+  const txhash = receipt.transactionHash;
   const explorerUrl = "https://baobab.klaytnscope.com/tx/";
   $("#textTxhash").html(`<a href="${explorerUrl}${txhash}" target="_blank">${txhash}</a>`);
 }
 
 async function doSignTx(makeTxRequest) {
   try {
-    const signer = provider.getSigner();
-    const address = await signer.getAddress();
-    const txRequest = await makeTxRequest(address);
+    const accounts = await web3.eth.getAccounts();
+    const txRequest = await makeTxRequest(accounts[0]);
 
-    const signedTx = await signer.signTransaction(txRequest);
+    const signedTx = await web3.eth.signTransaction(txRequest);
     console.log("signedTx", signedTx);
-    $("#textSignedTx").html(`${signedTx}`);
+    $("#textSignedTx").html(`${signedTx.raw}`);
 
-    await doSendTxAsFeePayer(signedTx);
+    await doSendTxAsFeePayer(signedTx.raw);
   } catch (err) {
     console.error(err);
     $("#textTxhash").html(`Error: ${err.message}`);
@@ -209,16 +212,18 @@ async function doSignTx(makeTxRequest) {
 async function sendFeeDelegatedVT() {
   doSignTx(async (address) => {
     return {
-      type: ethers_ext.TxType.FeeDelegatedValueTransfer, // 0x09
+      type: web3_ext.TxType.FeeDelegatedValueTransfer, // 0x09
+      from: address,
       to: address, // send to myself
       value: 0,
     };
   });
 }
 async function sendFeeDelegatedSC() {
-  doSignTx(async () => {
+  doSignTx(async (address) => {
     return {
-      type: ethers_ext.TxType.FeeDelegatedSmartContractExecution, // 0x09
+      type: web3_ext.TxType.FeeDelegatedSmartContractExecution, // 0x09
+      from: address,
       to: contractAddress,
       data: contractCalldata,
     };
