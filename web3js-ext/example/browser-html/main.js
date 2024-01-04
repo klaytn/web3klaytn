@@ -15,12 +15,10 @@ async function connect(injectedProvider) {
     return;
   }
 
-  // Wrap the window.{ethereum,klaytn} object with Web3.
-  if (0) {
-    web3 = new Web3(injectedProvider); // from web3@4.3.0/+esm
-  } else {
-    web3 = new web3_ext.KlaytnWeb3(injectedProvider); // from web3js-ext.bundle.js
-  }
+  // Wrap the window.{ethereum,klaytn} object with Web3 from web3js-ext.bundle.js
+  web3 = new web3_ext.KlaytnWeb3(injectedProvider);
+  // Uncomment to use the original Web3
+  // web3 = new Web3(injectedProvider);
 
   // Detect user network
   const chainId = await web3.eth.getChainId();

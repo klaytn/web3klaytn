@@ -7,15 +7,16 @@ src/
   accounts/     # Components for web3.eth.accounts.*
     index.ts      # web3.eth.accounts
     create.ts     # web3.eth.accounts.{create,privateKeyToAccount,decrypt,decryptList}
+    klaytn_tx.ts  # KlaytnTypedTransaction class
     recover.ts    # web3.eth.accounts.{recoverTransaction}
     sign.ts       # web3.eth.accounts.{signTransaction,signTransactinAsFeePayer}
-    klaytn_tx.ts  # KlaytnTypedTransaction class
     wallet.ts     # web3.eth.accounts.{wallet}
   eth/          # Components for web3.eth.*
     index.ts      # web3.eth
-    send.ts       # web3.eth.{sendTransaction,sendTransactionAsFeePayer,sendSignedTransaction}
+    send.ts       # web3.eth.{sendTransaction,sendSignedTransaction}
+    sign.ts       # web3.eth.{signTransaction}
     rpc.ts        # web3.eth.{getProtocolVersion}
-    utils/        # Code taken from web3-eth/src/utils/
+    utils/        # Util functions taken from web3-eth/src/utils/
   index.ts
   types.ts      # Types and interfaces
   web3.ts       # The Web3 class

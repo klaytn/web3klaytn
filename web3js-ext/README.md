@@ -2,8 +2,7 @@
 
 Web3.js Extension for Klaytn offers:
 
-- Drop-in replacement to `new Web3(...)` that supports both Ethereum and Klaytn transaction types involving AccountKey and TxTypes.
-- The `Web3` object holds wrappers to Klaytn-specific RPCs as in `web3.klay.blockNumber()`
+- Drop-in replacement to `new Web3(...)` that supports both Ethereum and Klaytn transaction types involving AccountKey and TxTypes. See [Modifications to the Web3 object](#modifications-to-the-web3-object) section for details
 
 ## Install
 

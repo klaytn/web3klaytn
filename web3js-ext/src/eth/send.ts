@@ -352,7 +352,6 @@ export async function signTransaction<ReturnFormat extends DataFormat>(
       tx.gasLimit = tx.gas;
     } else {
       const gasLimitHex = await estimateGas(web3Context, tx, "latest", ETH_DATA_FORMAT);
-      console.log("estimate", tx, gasLimitHex);
       const gasLimitNum = Number(gasLimitHex);
       const bufferedNum = bufferedGasLimit(gasLimitNum);
       tx.gasLimit = format({ format: "uint" }, bufferedNum, ETH_DATA_FORMAT);
@@ -369,7 +368,6 @@ export async function signTransaction<ReturnFormat extends DataFormat>(
   if (isKaikas(web3Context.provider)) {
     transactionFormatted.type = getKaikasTxType(transactionFormatted.type);
   }
-  console.log("signing", transactionFormatted);
 
   // The result may be:
   // - a string
@@ -406,7 +404,6 @@ export async function signTransaction<ReturnFormat extends DataFormat>(
 
 function getTransactionSignedAPI(rawTransaction: string): TransactionSignedAPI {
   const tx = parseTransaction(rawTransaction);
-  console.log("tx", tx);
 
   return {
     type: HexStr.fromNumber(tx.type || 0),
