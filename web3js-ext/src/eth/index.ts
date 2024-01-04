@@ -16,7 +16,8 @@ import {
 } from "web3-types";
 
 import { getProtocolVersion } from "./rpc";
-import { sendTransaction, sendSignedTransaction, signTransaction } from "./send";
+import { sendTransaction, sendSignedTransaction } from "./send";
+import { signTransaction } from "./sign";
 
 // Analogous to: web3-eth/src/web3_eth.ts:Web3Eth.getProtocolVersion()
 // Replaces: web3.eth.getProtocolVersion()
