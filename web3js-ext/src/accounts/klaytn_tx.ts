@@ -5,7 +5,7 @@ import * as ethereumCryptography from "ethereum-cryptography/secp256k1.js";
 import { Transaction as LegacyTransaction, TxOptions, ECDSASignature } from "web3-eth-accounts";
 import { bytesToHex, hexToBytes, toHex, toNumber, numberToHex, toBigInt } from "web3-utils";
 
-import { KlaytnTxData } from "./types";
+import { KlaytnTxData } from "../types";
 
 export const secp256k1 = ethereumCryptography.secp256k1 ?? ethereumCryptography;
 
@@ -13,7 +13,7 @@ export const secp256k1 = ethereumCryptography.secp256k1 ?? ethereumCryptography;
 // Mimics the LegacyTransaction.
 // See web3-eth-accounts/src/tx/legacyTransaction.ts
 // and web3-eth-accounts/src/tx/baseTransaction.ts
-export class KlaytnTx extends LegacyTransaction {
+export class KlaytnTypedTransaction extends LegacyTransaction {
   // Override 'type' field (actually a getter) because LegacyTransaction.type is always 0.
   private readonly _klaytnType: number;
   public override get type(): number {
@@ -142,21 +142,21 @@ export class KlaytnTx extends LegacyTransaction {
   }
 
   // Return a new KlaytnTx object with the (v,r,s) signature added.
-  public sign(privateKey: Uint8Array): KlaytnTx {
+  public sign(privateKey: Uint8Array): KlaytnTypedTransaction {
     if (privateKey.length !== 32) {
       const msg = this._errorMsg("Private key must be 32 bytes in length.");
       throw new Error(msg);
     }
     if (!this.chainId) {
       // shouldn't reach here because chainId is required in every Klaytn TxType.
-      // The chainId should have been supplied by user or filled at klaytnPrepareTransaction().
+      // The chainId should have been supplied by user or filled at prepareTransaction().
       throw new Error("Missing 'chainId' field");
     }
 
     const msgHash = this.getMessageToSign(true);
     const { r, s, v } = this._eip155sign(msgHash, privateKey, this.chainId);
 
-    return new KlaytnTx({
+    return new KlaytnTypedTransaction({
       ...this,
       type: this.type, // The '...this' expression does not include this.type because 'type()' a getter.
       v: v,
@@ -167,21 +167,21 @@ export class KlaytnTx extends LegacyTransaction {
 
   // Analogous to sign(), but uses *AsFeePayer methods.
   // See web3-eth-accounts/src/tx/baseTransaction.ts:sign()
-  public signAsFeePayer(privateKey: Uint8Array): KlaytnTx {
+  public signAsFeePayer(privateKey: Uint8Array): KlaytnTypedTransaction {
     if (privateKey.length !== 32) {
       const msg = this._errorMsg("Private key must be 32 bytes in length.");
       throw new Error(msg);
     }
     if (!this.chainId) {
       // shouldn't reach here because chainId is required in every Klaytn TxType.
-      // The chainId should have been supplied by user or filled at klaytnPrepareTransaction().
+      // The chainId should have been supplied by user or filled at prepareTransaction().
       throw new Error("Missing 'chainId' field");
     }
 
     const msgHash = this.getMessageToSignAsFeePayer(true);
     const { v, r, s } = this._eip155sign(msgHash, privateKey, this.chainId);
 
-    return new KlaytnTx({
+    return new KlaytnTypedTransaction({
       ...this,
       type: this.type, // The '...this' expression does not include this.type because 'type()' is a getter.
       feePayer_v: v,

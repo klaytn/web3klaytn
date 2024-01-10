@@ -15,8 +15,13 @@ import {
 } from "web3-types";
 import * as utils from "web3-utils";
 
-import { context_accounts } from "./account";
-import { context_getProtocolVersion, context_sendSignedTransaction } from "./rpc";
+import { context_accounts } from "./accounts";
+import {
+  context_getProtocolVersion,
+  context_sendSignedTransaction,
+  context_sendTransaction,
+  context_signTransaction,
+} from "./eth";
 import { KlaytnWeb3EthInterface } from "./types";
 
 
@@ -69,12 +74,12 @@ export class KlaytnWeb3
     this._accountProvider = accounts as any; // inevitable conflict in signTransaction types
     this._wallet = accounts.wallet;
 
-    // Override web3.eth RPC method wrappers.
-    // See web3-eth/src/web3_eth.ts:Web3Eth
-    // Note that most of the web3.eth methods should keep calling eth_ RPCs to Klaytn node,
-    // except below ones.
+    // Override web3.eth RPC method wrappers. See web3-eth/src/web3_eth.ts:Web3Eth
+    // Note that other web3.eth methods should just calling eth_ RPCs to Klaytn node.
     this.eth.getProtocolVersion = context_getProtocolVersion(this._web3);
+    this.eth.sendTransaction = context_sendTransaction(this._web3);
     this.eth.sendSignedTransaction = context_sendSignedTransaction(this._web3);
+    this.eth.signTransaction = context_signTransaction(this._web3);
 
     // Attach additional RPC namespaces.
     const send = this.makeSendFunction();
