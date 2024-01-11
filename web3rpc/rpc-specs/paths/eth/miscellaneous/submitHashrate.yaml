@@ -88,12 +88,14 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - title: Hashrate
+            properties:
+              Hashrate:
+                title: Hashrate
                 description: A hexadecimal string representation (32 bytes) of the hash rate.
                 type: string
                 format: 32-byte DATA
-              - title: Id
+              ID:
+                title: Id
                 description: A random hexadecimal(32 bytes) ID identifying the client.
                 type: string
                 format: 32-byte DATA

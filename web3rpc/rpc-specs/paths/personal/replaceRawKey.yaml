@@ -98,14 +98,17 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - type: string
+            properties:
+              Keydata:
+                type: string
                 title: Keydata
                 description: The unencrypted private key (hex string without leading '0x') or a Klaytn wallet key.
-              - type: string
+              OldPassphrase:
+                type: string
                 title: OldPassphrase
                 description: The passphrase to decrypt the old private key.
-              - type: string
+              NewPassphrase:
+                type: string
                 title: NewPassphrase
                 description: The passphrase to encrypt the new private key.
           example: ["0xcd87934ee007b7a458fa00dc0314fff8b2bd43b3071f46c820c379e483b4fd8e", "df4=B@0@xe$d", "gr8=B!0@uc$b"]

@@ -96,14 +96,17 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - type: string
+            properties:
+              URL:
+                type: string
                 title: Url
                 description: Wallet url
-              - type: string
+              Path:
+                type: string
                 title: Path
                 description: derivation path
-              - type: boolean
+              Pin:
+                type: boolean
                 title: Pin
                 description: optionally pinning
           example: [ "url", "path", true]

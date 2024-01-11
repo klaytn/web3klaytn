@@ -87,6 +87,7 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+            properties:
+              BlockNumberOrHashOrTag:  
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
           example: ["latest"]

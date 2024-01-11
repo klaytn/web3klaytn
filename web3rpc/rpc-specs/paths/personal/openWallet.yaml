@@ -94,11 +94,13 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - type: string
+            properties:
+              URL:
+                type: string
                 title: Url
                 description: Wallet url
-              - type: string
+              Passphrase:
+                type: string
                 title: Passphrase
                 description: passphrase for wallet
           example: ["keystore://", "gr8=B!0@uc$b"]

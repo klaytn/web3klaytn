@@ -87,12 +87,14 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - title: BlockHash
+            properties:
+              BlockHash:
+                title: BlockHash
                 type: string
                 format: hex
                 description: Hex representation of a Keccak 256 hash
-              - title: Index
+              Index:
+                title: Index
                 description: Hex representation of a uint
                 type: string
                 format: hex

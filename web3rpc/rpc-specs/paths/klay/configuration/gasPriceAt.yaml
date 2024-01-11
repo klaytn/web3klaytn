@@ -91,7 +91,9 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/IntegerBlockNumber"
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/HexadecimalBlockNumber"
+            properties:
+              BlockNumberOrHex:
+                oneOf:
+                  - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/IntegerBlockNumber"
+                  - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/HexadecimalBlockNumber"
           example:  ["0x64"]

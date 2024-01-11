@@ -87,12 +87,14 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - title: BlockHash
+            properties:
+              BlockHash:
+                title: BlockHash
                 description: Hash of a block.
                 type: string
                 format: 32-byte DATA
-              - title: IsTransactionObjects
+              IsTransactionObjects:
+                title: IsTransactionObjects
                 description: If true, it returns the full transaction objects, if false only the hashes of the transactions.
                 type: boolean
           example: ["0xb8deae63002d2b6aa33247c8ef545383ee0fd2282ac9b49dbbb74114389ddb5c", true]

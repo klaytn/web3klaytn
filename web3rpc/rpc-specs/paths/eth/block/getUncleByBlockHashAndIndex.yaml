@@ -86,12 +86,14 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - title: BlockHash
+            properties:
+              BlockHash:
+                title: BlockHash
                 description: Hash of a block.
                 type: string
                 format: 32-byte DATA
-              - title: UncleIndex
+              UncleIndex:
+                title: UncleIndex
                 description: The uncle's index position.
                 type: string
                 format: hex

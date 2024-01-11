@@ -81,8 +81,9 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+            properties:
+              BlockNumberOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
           example:  ["0x1b4"]
 
     KlayGetCommitteeResp:

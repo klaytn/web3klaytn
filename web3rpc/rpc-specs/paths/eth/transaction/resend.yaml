@@ -98,13 +98,16 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "#/components/schemas/SendArgs"
-              - title: GasPrice
+            properties:
+              SendArgs:
+                $ref: "#/components/schemas/SendArgs"
+              GasPrice:
+                title: GasPrice
                 description: Hex representation of the integer
                 type: string
                 format: hex
-              - title: GasLimit
+              GasLimit:
+                title: GasLimit
                 description: Hex representation of a uint64
                 type: string
                 format: hex

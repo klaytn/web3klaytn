@@ -88,16 +88,18 @@ components:
         params:
           type: array
           items:
-            anyOf:
-            - type: string
-              format: 32-byte DATA
-              title: BlockHash
-              description: Hash of a block.
-            - type: string
-              format: hex
-              title: TransactionIndexPosition
-              description: Integer of the transaction index position.
-          example: ["0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68", "0x0"]
+            properties:
+              BlockHash:
+                type: string
+                format: 32-byte DATA
+                title: BlockHash
+                description: Hash of a block.
+              TransactionIndex:
+                type: string
+                format: hex
+                title: TransactionIndexPosition
+                description: Integer of the transaction index position.
+            example: ["0x451cafae98d61b7458b5cef54402830941432278184453e3ca490eb687317e68", "0x0"]
 
     KlayGetTransactionByBlockHashAndIndexResp:
       type: object

@@ -87,12 +87,14 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - title: Address
+            properties:
+              Address:
+                title: Address
                 type: string
                 format: 20-byte DATA
                 description: Address to check for balance.
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+              BlockNumberOrHashOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
           example:  ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]
 
     EthGetBalanceResp:

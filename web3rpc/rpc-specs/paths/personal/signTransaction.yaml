@@ -88,9 +88,11 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../components/schemas/common/KlaytnTransactionTypes.yaml#/components/schemas/KlaytnTransactionTypes"
-              - type: string
+            properties:
+              KlaytnTransactionType:
+                $ref: "../../components/schemas/common/KlaytnTransactionTypes.yaml#/components/schemas/KlaytnTransactionTypes"
+              Password:  
+                type: string
                 title: Password
                 description: password
           example: [{"from":"0x77982323172e5b6182539d3522d5a33a944206d4", "to":"0xcd6bfdb523a4d030890d28bf1eb6ef36307c9aaa", "value":"0x10000", "gas":"0x1000000", "nonce":"0x2", "gasPrice":"0x25000000000"}]

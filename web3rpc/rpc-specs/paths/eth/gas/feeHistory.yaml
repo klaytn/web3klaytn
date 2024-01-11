@@ -89,13 +89,16 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - title: BlockCount
+            properties:
+              BlockCount:
+                title: BlockCount
                 type: string
                 format: Hexadecimal
                 description: Number of blocks in the requested range expressed as a hexidecimal number. Between 1 (0x1) and 1024 (0x400) blocks can be requested in a single query. Less than requested may be returned if not all blocks are available.
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/RewardPercentiles"
+              BlockNumberOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              RewardPercentiles:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/RewardPercentiles"
           example: [ "0x10", "latest", [ 0.1, 0.2, 0.3 ] ]
 
     EthFeeHistoryResp:

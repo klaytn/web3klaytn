@@ -82,12 +82,14 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - title: Hash
+            properties:
+              Hash:
+                title: Hash
                 type: string
                 description: Hash of a block.
                 format: 32-byte DATA
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/StandardTracingOptions"
+              StandardTracingOptions:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/StandardTracingOptions"
           example: ["0x485fff444481ee28debe50639f312f44e0a09342161a8906a99cf325cc2512a4"]
 
     DebugStandardTraceBlockToFileResp:

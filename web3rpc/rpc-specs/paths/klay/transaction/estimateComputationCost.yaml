@@ -91,10 +91,14 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - allOf:
-                 - title: CallObject
-                 - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/KlayCallObject"
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+            properties:
+              CallObject:
+                title: CallObject
+                description: A transaction call object. Please see caver.rpc.klay.call parameters.
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/KlayCallObject"
+              BlockNumberOrHashOrTag:
+                title: blockParameter
+                description: (optional) A block number, blockhash or the block tag string (latest or earliest). If omitted, latest will be used.
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
           example: [{"from":"0x73718c4980728857f3aa5148e9d1b471efa3a7dd", "to":"0x069942a3ca0dabf495dba872533134205764bc9c", "value":"0x0", "input":"0x2a31efc7000000000000000000000000000000000000000000000000000000000000271000000000000000000000000000000000000000000000000000000000000000420000000000000000000000000000000000000000000000000000000000003039"}, "latest"]
 

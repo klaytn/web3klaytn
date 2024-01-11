@@ -82,9 +82,11 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "#/components/schemas/EthTransactionArgs"
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+            properties:
+              EthTransactionArgs:
+                $ref: "#/components/schemas/EthTransactionArgs"
+              BlockNumberOrHashOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
           example: [
             {
               "from": "0x3bc5885c2941c5cda454bdb4a8c88aa7f248e312",

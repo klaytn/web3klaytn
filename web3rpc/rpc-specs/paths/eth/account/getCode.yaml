@@ -86,9 +86,11 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+            properties:
+              Address:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+              BlockNumberOrHashOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
           example:  ["0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b", "0x2"]
 
     EthGetCodeResp:

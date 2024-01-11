@@ -92,11 +92,13 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - type: integer
+            properties:
+              StartBlockNum:
+                type: integer
                 title: StartBlockNum
                 description: The first block number of the range to check
-              - type: integer
+              EndBlockNum:
+                type: integer
                 title: EndBlockNum
                 description: (optional) The last block number of the range
           example: [128]

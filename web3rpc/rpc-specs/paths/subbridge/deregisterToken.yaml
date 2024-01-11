@@ -97,20 +97,24 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - title: ChildAccount
+            properties:
+              ChildAccount:
+                title: ChildAccount
                 type: string
                 format: 20-byte DATA
                 description: Address of bridge contract on child chain.
-              - title: ParentAccount
+              ParentAccount:
+                title: ParentAccount
                 type: string
                 format: 20-byte DATA
                 description: Address of bridge contract on parent chain.
-              - title: TokenChildAccount
+              TokenChildAccount:
+                title: TokenChildAccount
                 type: string
                 format: 20-byte DATA
                 description: Address of token contract on child chain.
-              - title: TokenParentAccount
+              TokenParentAccount:
+                title: TokenParentAccount
                 type: string
                 format: 20-byte DATA
                 description: Address of token contract on parent chain.

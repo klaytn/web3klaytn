@@ -93,10 +93,13 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockCount"
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/RewardPercentiles"
+            properties:
+              BlockCount:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockCount"
+              BlockNumberOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              rewardPercentiles:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/RewardPercentiles"
           example:  ["0x10", "latest", [0.1, 0.2, 0.3]]
 
     KlayFeeHistoryResp:

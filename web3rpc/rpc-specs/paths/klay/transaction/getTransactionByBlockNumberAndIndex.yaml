@@ -88,9 +88,11 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              - type: string
+            properties:
+              BlockNumberOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              TranssactionIndex:
+                type: string
                 format: hex
                 title: TransactionIndex
                 description: The transaction index position.
