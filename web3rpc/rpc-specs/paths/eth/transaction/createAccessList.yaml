@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/createAccessList:
     post:
-      summary: "[Transaction-createAccessList]"
+      summary: "[Transaction] eth_createAccessList"
       tags:
         - eth
       operationId: createAccessList

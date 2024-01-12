@@ -13,7 +13,7 @@ paths:
   /klay/getCommittee:
     post:
       operationId: getCommittee
-      summary: "[Block-getCommittee]"
+      summary: "[Block] klay_getCommittee"
       description: |
         Returns a list of all validators in the committee at the specified block. If the parameter is not set, returns a list of all validators in the committee at the latest block.
 

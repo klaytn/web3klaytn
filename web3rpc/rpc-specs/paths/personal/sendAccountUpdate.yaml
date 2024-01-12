@@ -13,7 +13,7 @@ paths:
   /personal/sendAccountUpdate:
     post:
       operationId: sendAccountUpdate
-      summary: "[sendAccountUpdate]"
+      summary: "sendAccountUpdate"
       description: |
         Validates the given passphrase and submits a TxTypeAccountUpdate transaction. The transaction object must have fields from and key. Other fields such as gas, gasPrice, and nonce are se internally if unspecified. If the passphrase is able to decrypt the private key belonging to tx.from and the transaction is verified, the transaction is signed and submitted onto the network. The account is not unlocked globally in the node and cannot be used in other RPC calls.
 

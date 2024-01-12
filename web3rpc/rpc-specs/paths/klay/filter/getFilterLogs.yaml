@@ -13,7 +13,7 @@ paths:
   /klay/getFilterLogs:
     post:
       operationId: getFilterLogs
-      summary: "[Filter-getFilterLogs]"
+      summary: "[Filter] klay_getFilterLogs"
       description: |
         Returns an array of all logs matching filter with given id, which has been obtained using klay_newFilter.Note that filter ids returned by other filter creation functions, such as klay_newBlockFilter or klay_newPendingTransactionFilter, cannot be used with this function.
 

@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getTransactionReceipt:
     post:
-      summary: "[Transaction-getTransactionReceipt]"
+      summary: "[Transaction] eth_getTransactionReceipt"
       tags:
         - eth
       operationId: getTransactionReceipt

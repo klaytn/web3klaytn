@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/fillTransaction:
     post:
-      summary: "[Transaction-fillTransaction]"
+      summary: "[Transaction] eth_fillTransaction"
       tags:
         - eth
       operationId: fillTransaction

@@ -13,7 +13,7 @@ paths:
   /eth/getRawTransactionByHash:
     post:
       operationId: getRawTransactionByHash
-      summary: "[Transaction-getRawTransactionByHash]"
+      summary: "[Transaction] eth_getRawTransactionByHash"
       description: |
         GetRawTransactionByHash returns the bytes of the transaction for the given hash.
 

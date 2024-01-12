@@ -13,7 +13,7 @@ paths:
   /governance/idxCache:
     post:
       operationId: idxCache
-      summary: "[idxCache]"
+      summary: "idxCache"
       description: |
         The idxCache property returns an array of current idxCache in the memory cache. idxCache contains the block numbers where governance change happened. The cache can have up to 1000 block numbers in memory by default.
 

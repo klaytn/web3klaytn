@@ -13,7 +13,7 @@ paths:
   /klay/getBlockTransactionCountByNumber:
     post:
       operationId: getBlockTransactionCountByNumber
-      summary: "[Block-getBlockTransactionCountByNumber]"
+      summary: "[Block] klay_getBlockTransactionCountByNumber"
       description: |
         Returns the number of transactions in a block matching the given block number.
         

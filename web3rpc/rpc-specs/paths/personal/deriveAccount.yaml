@@ -13,7 +13,7 @@ paths:
   /personal/deriveAccount:
     post:
       operationId: deriveAccount
-      summary: "[deriveAccount]"
+      summary: "deriveAccount"
       description: |
         Requests a HD wallet to derive a new account, optionally pinning it for later reuse.
 

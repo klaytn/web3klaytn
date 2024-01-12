@@ -13,7 +13,7 @@ paths:
   /klay/feeHistory:
     post:
       operationId: feeHistory
-      summary: "[Gas-feeHistory]"
+      summary: "[Gas] klay_feeHistory"
       description: |
         Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.
 

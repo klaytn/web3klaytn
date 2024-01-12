@@ -12,7 +12,7 @@ servers:
 paths:
   /subbridge/registerBridge:
     post:
-      summary: "[registerBridge]"
+      summary: "registerBridge"
       tags:
         - subbridge
       operationId: registerBridge

@@ -13,7 +13,7 @@ paths:
   /eth/getLogs:
     post:
       operationId: getLogs
-      summary: "[Filter-getLogs]"
+      summary: "[Filter] eth_getLogs"
       description: |
         Returns an array of all logs matching a given filter object.
         

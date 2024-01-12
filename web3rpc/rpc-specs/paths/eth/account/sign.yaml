@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/sign:
     post:
-      summary: "[Account-sign]"
+      summary: "[Account] eth_sign"
       tags:
         - eth
       operationId: sign

@@ -12,7 +12,7 @@ servers:
 paths:
   /subbridge/anchoring:
     post:
-      summary: "[anchoring]"
+      summary: "anchoring"
       tags:
         - subbridge
       operationId: anchoring

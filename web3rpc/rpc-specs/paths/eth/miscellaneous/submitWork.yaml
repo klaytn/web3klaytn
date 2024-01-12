@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/submitWork:
     post:
-      summary: "[Miscellaneous-submitWork]"
+      summary: "[Miscellaneous] eth_submitWork"
       tags:
         - eth
       operationId: submitWork

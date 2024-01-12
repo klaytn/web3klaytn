@@ -13,7 +13,7 @@ paths:
   /klay/getRawTransactionByBlockHashAndIndex:
     post:
       operationId: getRawTransactionByBlockHashAndIndex
-      summary: "[Transaction-getRawTransactionByBlockHashAndIndex]"
+      summary: "[Transaction] klay_getRawTransactionByBlockHashAndIndex"
       description: |
         GetRawTransactionByBlockHashAndIndex returns the bytes of the transaction for the given block hash and index.
         

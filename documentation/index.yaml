@@ -190,6 +190,10 @@ paths:
     $ref: ../web3rpc/rpc-specs/paths/klay/miscellaneous/getStakingInfo.yaml#/paths/~1klay~1getStakingInfo
   /klay/miscellaneous/nodeAddress:
     $ref: ../web3rpc/rpc-specs/paths/klay/miscellaneous/nodeAddress.yaml#/paths/~1klay~1nodeAddress
+  /klay/miscellaneous/recoverFromTransaction:
+    $ref: ../web3rpc/rpc-specs/paths/klay/miscellaneous/nodeAddress.yaml#/paths/~1klay~1recoverFromTransaction
+  /klay/miscellaneous/recoverFromMessage:
+    $ref: ../web3rpc/rpc-specs/paths/klay/miscellaneous/nodeAddress.yaml#/paths/~1klay~1recoverFromMessage
   /klay/miscellaneous/sha3:
     $ref: ../web3rpc/rpc-specs/paths/klay/miscellaneous/sha3.yaml#/paths/~1klay~1sha3
 

@@ -12,7 +12,7 @@ servers:
 paths:
   /mainbridge/convertChildChainBlockHashToParentChainTxHash:
     post:
-      summary: "[convertChildChainBlockHashToParentChainTxHash]"
+      summary: "convertChildChainBlockHashToParentChainTxHash"
       tags:
         - mainbridge
       operationId: convertChildChainBlockHashToParentChainTxHash

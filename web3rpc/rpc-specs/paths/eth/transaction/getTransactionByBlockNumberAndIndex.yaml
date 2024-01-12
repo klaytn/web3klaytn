@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getTransactionByBlockNumberAndIndex:
     post:
-      summary: "[Transaction-getTransactionByBlockNumberAndIndex]"
+      summary: "[Transaction] eth_getTransactionByBlockNumberAndIndex"
       tags:
         - eth
       operationId: getTransactionByBlockNumberAndIndex

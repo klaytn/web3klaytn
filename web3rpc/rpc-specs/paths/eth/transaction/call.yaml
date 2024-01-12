@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/call:
     post:
-      summary: "[Transaction-call]"
+      summary: "[Transaction] eth_call"
       tags:
         - eth
       operationId: call

@@ -13,7 +13,7 @@ paths:
   /personal/ecRecover:
     post:
       operationId: ecRecover
-      summary: "[ecRecover]"
+      summary: "ecRecover"
       description: |
         ecRecover returns the address associated with the private key that was used to calculate the signature in personal_sign.
 

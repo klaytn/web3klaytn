@@ -13,7 +13,7 @@ paths:
   /personal/replaceRawKey:
     post:
       operationId: replaceRawKey
-      summary: "[replaceRawKey]"
+      summary: "replaceRawKey"
       description: |
         Replaces the encrypted key file in the key store with the given unencrypted private key (hex string without leading '0x') or a Klaytn wallet key, encrypting it with the new passphrase. It also receives the old passphrase to decrypt the old private key before replacement. If it is failed to decrypt, or can not find the matching account, it throws an error.
         

@@ -13,7 +13,7 @@ paths:
   /klay/getTransactionByBlockNumberAndIndex:
     post:
       operationId: getTransactionByBlockNumberAndIndex
-      summary: "[Transaction-getTransactionByBlockNumberAndIndex]"
+      summary: "[Transaction] klay_getTransactionByBlockNumberAndIndex"
       description: |
         Returns information about a transaction by block number and transaction index position. This API works only on RPC call, not on JavaScript console.
 

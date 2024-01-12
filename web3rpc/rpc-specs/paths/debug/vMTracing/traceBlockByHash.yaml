@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/traceBlockByHash:
     post:
-      summary: "[Trace-traceBlockByHash]"
+      summary: "[Trace] traceBlockByHash"
       tags:
         - debug
       operationId: traceBlockByHash

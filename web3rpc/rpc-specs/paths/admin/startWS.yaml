@@ -13,7 +13,7 @@ paths:
   /admin/startWS:
     post:
       operationId: startWS
-      summary: "[startWS]"
+      summary: "startWS"
       description: |
         The startWS is an administrative method that starts an WebSocket based JSON RPC API webserver to handle client requests.
         

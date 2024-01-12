@@ -12,7 +12,7 @@ servers:
 paths:
   /subbridge/getReceiptFromParentChain:
     post:
-      summary: "[getReceiptFromParentChain]"
+      summary: "getReceiptFromParentChain"
       tags:
         - subbridge
       operationId: getReceiptFromParentChain

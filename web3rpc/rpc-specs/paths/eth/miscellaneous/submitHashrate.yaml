@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/submitHashrate:
     post:
-      summary: "[Miscellaneous-submitHashrate]"
+      summary: "[Miscellaneous] eth_submitHashrate"
       tags:
         - eth
       operationId: submitHashrate

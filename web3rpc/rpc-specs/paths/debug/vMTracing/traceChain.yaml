@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/traceChain:
     post:
-      summary: "[Trace-traceChain]"
+      summary: "[Trace] traceChain"
       tags:
         - debug
       operationId: traceChain

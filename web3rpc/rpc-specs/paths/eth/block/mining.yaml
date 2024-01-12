@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/mining:
     post:
-      summary: "[Block-mining]"
+      summary: "[Block] eth_mining"
       tags:
         - eth
       operationId: mining

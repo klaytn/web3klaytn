@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/feeHistory:
     post:
-      summary: "[Gas-feeHistory]"
+      summary: "[Gas] eth_feeHistory"
       tags:
         - eth
       operationId: feeHistory

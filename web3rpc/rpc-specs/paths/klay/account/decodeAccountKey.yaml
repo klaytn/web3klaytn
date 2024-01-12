@@ -13,7 +13,7 @@ paths:
   /klay/decodeAccountKey:
     post:
       operationId: decodeAccountKey
-      summary: "[Account-decodeAccountKey]"
+      summary: "[Account] klay_decodeAccountKey"
       description: |
         Decodes an RLP encoded account key.
 

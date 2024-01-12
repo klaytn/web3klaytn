@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/sendRawTransaction:
     post:
-      summary: "[Transaction-sendRawTransaction]"
+      summary: "[Transaction] eth_sendRawTransaction"
       tags:
         - eth
       operationId: sendRawTransaction

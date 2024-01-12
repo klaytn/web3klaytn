@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getTransactionByHash:
     post:
-      summary: "[Transaction-getTransactionByHash]"
+      summary: "[Transaction] eth_getTransactionByHash"
       tags:
         - eth
       operationId: getTransactionByHash

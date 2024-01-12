@@ -13,7 +13,7 @@ paths:
   /eth/newBlockFilter:
     post:
       operationId: newBlockFilter
-      summary: "[Filter-newBlockFilter]"
+      summary: "[Filter] eth_newBlockFilter"
       description: |
         Creates a filter in the node, to notify when a new block arrives. To check if the state has changed, call eth_getFilterChanges.
 

@@ -13,7 +13,7 @@ paths:
   /personal/unlockAccount:
     post:
       operationId: unlockAccount
-      summary: "[unlockAccount]"
+      summary: "unlockAccount"
       description: |
         Decrypts the key with the given address from the key store.
         

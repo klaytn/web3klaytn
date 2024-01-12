@@ -13,7 +13,7 @@ paths:
   /personal/openWallet:
     post:
       operationId: openWallet
-      summary: "[openWallet]"
+      summary: "openWallet"
       description: |
         Initiates a hardware wallet opening procedure, establishing a USB connection and attempting to authenticate via the provided passphrase.
 

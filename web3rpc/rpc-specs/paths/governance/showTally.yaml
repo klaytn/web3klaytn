@@ -13,7 +13,7 @@ paths:
   /governance/showTally:
     post:
       operationId: showTally
-      summary: "[showTally]"
+      summary: "showTally"
       description: |
         The showTally property provides the current tally of governance votes. It shows the aggregated approval rate in percentage. When it goes over 50%, the vote passes.
 

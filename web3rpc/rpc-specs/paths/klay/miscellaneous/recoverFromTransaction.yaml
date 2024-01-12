@@ -13,7 +13,7 @@ paths:
   /klay/recoverFromTransaction:
     post:
       operationId: recoverFromTransaction
-      summary: "[Miscellaneous-recoverFromTransaction]"
+      summary: "[Miscellaneous] klay_recoverFromTransaction"
       description: |
         Using this API, users can recover from transaction data.
 

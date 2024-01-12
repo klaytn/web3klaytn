@@ -13,7 +13,7 @@ paths:
   /eth/newFilter:
     post:
       operationId: newFilter
-      summary: "[Filter-newFilter]"
+      summary: "[Filter] eth_newFilter"
       description: |
         Creates a filter object, based on filter options, to notify when the state changes (logs).
         - To check if the state has changed, call eth_getFilterChanges.

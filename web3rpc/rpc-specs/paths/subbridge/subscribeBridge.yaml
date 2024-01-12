@@ -12,7 +12,7 @@ servers:
 paths:
   /subbridge/subscribeBridge:
     post:
-      summary: "[subscribeBridge]"
+      summary: "subscribeBridge"
       tags:
         - subbridge
       operationId: subscribeBridge

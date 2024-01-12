@@ -13,7 +13,7 @@ paths:
   /klay/isParallelDBWrite:
     post:
       operationId: isParallelDBWrite
-      summary: "[Configuration-isParallelDBWrite]"
+      summary: "[Configuration] klay_isParallelDBWrite"
       description: |
         Returns true if the node is writing blockchain data in parallel manner. It is enabled by default.
 

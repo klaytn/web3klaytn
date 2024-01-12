@@ -15,7 +15,7 @@ paths:
       tags:
         - klay
       operationId: getRewards
-      summary: "[Block-getRewards]"
+      summary: "[Block] klay_getRewards"
       description: |
         Returns the reward distribution result about a block by block number, including the rewardees and their shares. If the parameter is not set, it returns the reward distribution at the latest block.
 

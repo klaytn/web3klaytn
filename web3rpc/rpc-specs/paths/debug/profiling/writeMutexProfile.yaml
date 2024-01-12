@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/writeMutexProfile:
     post:
-      summary: "[Profiling-writeMutexProfile]"
+      summary: "[Profiling] writeMutexProfile"
       tags:
         - debug
       operationId: writeMutexProfile

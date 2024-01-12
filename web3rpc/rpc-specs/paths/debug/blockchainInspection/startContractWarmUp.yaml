@@ -13,7 +13,7 @@ paths:
   /debug/startContractWarmUp:
     post:
       operationId: startContractWarmUp
-      summary: "[Inspection-startContractWarmUp]"
+      summary: "[Inspection] startContractWarmUp"
       description: |
         The startContractWarmUp iterates the latest storage trie of the given contract address to warm-up the trie cache. The iteration will be automatically stopped if 90% of the trie cache is full. The method returns an error if it fails in starting a warm-up or the given address is not a contract address, or null if it successfully has started it.
 

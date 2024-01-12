@@ -13,7 +13,7 @@ paths:
   /governance/itemsAt:
     post:
       operationId: itemsAt
-      summary: "[itemsAt]"
+      summary: "itemsAt"
       description: |
         The itemsAt returns governance items at specific block.
 

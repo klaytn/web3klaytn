@@ -13,7 +13,7 @@ paths:
   /txpool/status:
     post:
       operationId: status
-      summary: "[status]"
+      summary: "status"
       description: |
         The status inspection property can be queried for the number of transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
         

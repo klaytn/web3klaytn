@@ -13,7 +13,7 @@ paths:
   /debug/stopPProf:
     post:
       operationId: stopPProf
-      summary: "[Profiling-stopPProf]"
+      summary: "[Profiling] stopPProf"
       description: |
         Stops the pprof HTTP server.
         

@@ -13,7 +13,7 @@ paths:
   /personal/sendTransaction:
     post:
       operationId: sendTransaction
-      summary: "[sendTransaction]"
+      summary: "sendTransaction"
       description: |
         Validates the given passphrase and submits a TxTypeLegacy transaction. The transaction object must have from and to except the case of contract deployment. to should be omitted if the transaction deploys a smart contract. If value is not specified, it will be set to zero internally. Other fields such as gas, gasPrice, and nonce are set to appropriate values internally if unspecified. If the passphrase is able to decrypt the private key belonging to tx.from and the transaction is verified, the transaction is signed and submitted onto the network. The account is not unlocked globally in the node and cannot be used in other RPC calls.
 

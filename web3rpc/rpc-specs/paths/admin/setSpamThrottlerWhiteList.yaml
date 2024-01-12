@@ -13,7 +13,7 @@ paths:
   /admin/setSpamThrottlerWhiteList:
     post:
       operationId: setSpamThrottlerWhiteList
-      summary: "[setSpamThrottlerWhiteList]"
+      summary: "setSpamThrottlerWhiteList"
       description: |
         Set spam throttler white list
 

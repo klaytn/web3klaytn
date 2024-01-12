@@ -13,7 +13,7 @@ paths:
   /klay/getRawTransactionByHash:
     post:
       operationId: getRawTransactionByHash
-      summary: "[Transaction-getRawTransactionByHash]"
+      summary: "[Transaction] klay_getRawTransactionByHash"
       description: |
         GetRawTransactionByHash returns the bytes of the transaction for the given hash.
 

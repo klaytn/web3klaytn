@@ -13,7 +13,7 @@ paths:
   /debug/freeOSMemory:
     post:
       operationId: freeOSMemory
-      summary: "[freeOSMemory]"
+      summary: "[freeOSMemory"
       description: |
         Returns unused memory to the OS.
         

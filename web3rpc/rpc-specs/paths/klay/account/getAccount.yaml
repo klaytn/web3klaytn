@@ -13,7 +13,7 @@ paths:
   /klay/getAccount:
     post:
       operationId: getAccount
-      summary: "[Account-getAccount]"
+      summary: "[Account] klay_getAccount"
       description: |
         Returns the account information of a given address. There are two different account types in Klaytn: Externally Owned Account (EOA) and Smart Contract Account. See Klaytn Accounts.
 
