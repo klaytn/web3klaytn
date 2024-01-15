@@ -13,7 +13,7 @@ paths:
   /personal/signTransaction:
     post:
       operationId: signTransaction
-      summary: "signTransaction"
+      summary: "personal_signTransaction"
       description: |
         Sets default configuration and signs the given transaction.
 

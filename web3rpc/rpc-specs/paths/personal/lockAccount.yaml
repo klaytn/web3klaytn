@@ -13,7 +13,7 @@ paths:
   /personal/lockAccount:
     post:
       operationId: lockAccount
-      summary: "lockAccount"
+      summary: "personal_lockAccount"
       description: |
         Removes the private key with a given address from memory. The account can no longer be used to send transactions.
 

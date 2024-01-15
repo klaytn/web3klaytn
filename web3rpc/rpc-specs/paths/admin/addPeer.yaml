@@ -13,7 +13,7 @@ paths:
   /admin/addPeer:
     post:
       operationId: addPeer
-      summary: "addPeer"
+      summary: "admin_addPeer"
       description: |
         The addPeer is an administrative method that requests adding a new remote node to the list of tracked static nodes. The node will try to maintain connectivity to these nodes at all times, reconnecting every once in a while if the remote connection goes down.
 

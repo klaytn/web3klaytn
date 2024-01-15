@@ -13,7 +13,7 @@ paths:
   /personal/importRawKey:
     post:
       operationId: importRawKey
-      summary: "importRawKey"
+      summary: "personal_importRawKey"
       description: |
         Imports the given unencrypted private key (hex string without leading '0x') or a Klaytn wallet key into the key store, encrypting it with the passphrase.
         

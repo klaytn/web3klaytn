@@ -13,7 +13,7 @@ paths:
   /txpool/content:
     post:
       operationId: content
-      summary: "content"
+      summary: "txpool_content"
       description: |
         The content inspection property can be queried to list the exact details of all the transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
         

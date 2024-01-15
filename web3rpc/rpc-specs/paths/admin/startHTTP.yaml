@@ -13,7 +13,7 @@ paths:
   /admin/startHTTP:
     post:
       operationId: startHTTP
-      summary: "startHTTP"
+      summary: "admin_startHTTP"
       description: |
         The startHTTP is an administrative method that starts an HTTP based JSON RPC API webserver to handle client requests.
 

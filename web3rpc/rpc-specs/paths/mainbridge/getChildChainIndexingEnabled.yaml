@@ -12,7 +12,7 @@ servers:
 paths:
   /mainbridge/getChildChainIndexingEnabled:
     post:
-      summary: "getChildChainIndexingEnabled"
+      summary: "mainbridge_getChildChainIndexingEnabled"
       tags:
         - mainbridge
       operationId: getChildChainIndexingEnabled

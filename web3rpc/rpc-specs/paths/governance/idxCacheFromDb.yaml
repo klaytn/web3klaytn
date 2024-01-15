@@ -13,7 +13,7 @@ paths:
   /governance/idxCacheFromDb:
     post:
       operationId: idxCacheFromDb
-      summary: "idxCacheFromDb"
+      summary: "governance_idxCacheFromDb"
       description: |
         The idxCacheFromDb returns an array that contains all block numbers on which a governance change ever happened. The result of idxCacheFromDb is the same or longer than that of idxCache
 

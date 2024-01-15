@@ -13,7 +13,7 @@ paths:
   /personal/listWallets:
     post:
       operationId: listWallets
-      summary: "listWallets"
+      summary: "personal_listWallets"
       description: |
         Returns a list of wallets this node manages.
 

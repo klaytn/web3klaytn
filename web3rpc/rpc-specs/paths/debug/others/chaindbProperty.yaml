@@ -13,7 +13,7 @@ paths:
   /debug/chaindbProperty:
     post:
       operationId: chaindbProperty
-      summary: "[Inspection] chaindbProperty"
+      summary: "[Inspection] debug_chaindbProperty"
       description: |
         ChaindbProperty returns leveldb properties of the key-value database.
 

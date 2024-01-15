@@ -12,7 +12,7 @@ servers:
 paths:
   /subbridge/removePeer:
     post:
-      summary: "removePeer"
+      summary: "subbridge_removePeer"
       tags:
         - subbridge
       operationId: removePeer

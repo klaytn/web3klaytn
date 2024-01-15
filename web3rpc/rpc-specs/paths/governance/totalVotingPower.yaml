@@ -13,7 +13,7 @@ paths:
   /governance/totalVotingPower:
     post:
       operationId: totalVotingPower
-      summary: "totalVotingPower"
+      summary: "governance_totalVotingPower"
       description: |
         The totalVotingPower property provides the sum of all voting power that CNs have. Each CN has 1.0 ~ 2.0 voting power. In "none", "single" governance mode, totalVotingPower don't provide any information.
 

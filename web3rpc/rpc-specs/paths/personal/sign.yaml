@@ -13,7 +13,7 @@ paths:
   /personal/sign:
     post:
       operationId: sign
-      summary: "sign"
+      summary: "personal_sign"
       description: |
         The sign method calculates a Klaytn-specific signature with: sign(keccak256("\x19Klaytn Signed Message:\n" + len(message) + message)))
         

@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/isPProfRunning:
     post:
-      summary: "[Profiling] isPProfRunning"
+      summary: "[Profiling] debug_isPProfRunning"
       tags:
         - debug
       operationId: isPProfRunning
