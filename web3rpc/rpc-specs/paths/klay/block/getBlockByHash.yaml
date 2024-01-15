@@ -13,7 +13,7 @@ paths:
   /klay/getBlockByHash:
     post:
       operationId: getBlockByHash
-      summary: "[Block-getBlockByHash]"
+      summary: "[Block] klay_getBlockByHash"
       description: |
         Returns information about a block by hash. This API works only on RPC call, not on JavaScript console.
         
@@ -87,12 +87,14 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - type: string
+            properties:
+              BlockHash:
+                type: string
                 title: HashOfBlock
                 format: 32-byte DATA
                 description: Hash of a block.
-              - type: boolean
+              ReturnTransactionObject:
+                type: boolean
                 title: ReturnTransactionObject
                 description: If true it returns the full transaction objects, if false only the hashes of the transactions.
           example:  ["0xba647d41423faeebe8a7c64737d284fc2eba6f0388a3e1ebf6243db509ec1577", true]

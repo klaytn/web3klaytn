@@ -13,7 +13,7 @@ paths:
   /klay/getRawTransactionByBlockHashAndIndex:
     post:
       operationId: getRawTransactionByBlockHashAndIndex
-      summary: "[Transaction-getRawTransactionByBlockHashAndIndex]"
+      summary: "[Transaction] klay_getRawTransactionByBlockHashAndIndex"
       description: |
         GetRawTransactionByBlockHashAndIndex returns the bytes of the transaction for the given block hash and index.
         
@@ -87,12 +87,14 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - title: BlockHash
+            properties:
+              BlockHash:
+                title: BlockHash
                 type: string
                 format: hex
                 description: Hex representation of a Keccak 256 hash
-              - title: Index
+              Index:
+                title: Index
                 description: Hex representation of a uint
                 type: string
                 format: hex

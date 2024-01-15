@@ -13,7 +13,7 @@ paths:
   /admin/startSpamThrottler:
     post:
       operationId: startSpamThrottler
-      summary: "[startSpamThrottler]"
+      summary: "startSpamThrottler"
       description: |
         Start spam throttler
 

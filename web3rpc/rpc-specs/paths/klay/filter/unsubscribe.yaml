@@ -13,7 +13,7 @@ paths:
   /klay/unsubscribe:
     post:
       operationId: unsubscribe
-      summary: "[Filter-unsubscribe]"
+      summary: "[Filter] klay_unsubscribe"
       description: |
         Cancels the subscription with a specific subscription id by using either RPC Pub/Sub over WebSockets or filters over HTTP. Only the connection that created a subscription can unsubscribe from it.
         

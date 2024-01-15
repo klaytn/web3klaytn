@@ -13,7 +13,7 @@ paths:
   /admin/spamThrottlerConfig:
     post:
       operationId: spamThrottlerConfig
-      summary: "[spamThrottlerConfig]"
+      summary: "spamThrottlerConfig"
       description: |
         Get spam throttler config
 

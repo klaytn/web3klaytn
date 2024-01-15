@@ -13,7 +13,7 @@ paths:
   /klay/getCommitteeSize:
     post:
       operationId: getCommitteeSize
-      summary: "[Block-getCommitteeSize]"
+      summary: "[Block] klay_getCommitteeSize"
       description: |
         Returns the size of the committee at the specified block. If the parameter is not set, returns the size of the committee at the latest block.
 
@@ -85,6 +85,7 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+            properties:
+              BlockNumberOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
           example:  ["0x1b4"]

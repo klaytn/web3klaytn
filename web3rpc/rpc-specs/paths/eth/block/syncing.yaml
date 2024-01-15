@@ -13,7 +13,7 @@ paths:
   /eth/syncing:
     post:
       operationId: syncing
-      summary: "[Block-syncing]"
+      summary: "[Block] eth_syncing"
       description: |
         Returns an object with data about the sync status or false.
 

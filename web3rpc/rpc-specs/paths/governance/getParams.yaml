@@ -13,7 +13,7 @@ paths:
   /governance/getParams:
     post:
       operationId: getParams
-      summary: "[getParams]"
+      summary: "getParams"
       description: |
         The getParams returns governance items at specific block.
 

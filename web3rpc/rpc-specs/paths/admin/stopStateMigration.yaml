@@ -13,7 +13,7 @@ paths:
   /admin/stopStateMigration:
     post:
       operationId: stopStateMigration
-      summary: "[stopStateMigration]"
+      summary: "stopStateMigration"
       description: |
         The stopStateMigration is an administrative method that stops the currently running state migration. This method takes no parameters and returns null or an error whether the state migration was stopped or not.       
        

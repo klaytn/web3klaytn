@@ -12,7 +12,7 @@ servers:
 paths:
   /subbridge/listBridge:
     post:
-      summary: "[listBridge]"
+      summary: "listBridge"
       tags:
         - subbridge
       operationId: listBridge

@@ -13,7 +13,7 @@ paths:
   /klay/getRawTransactionByBlockNumberAndIndex:
     post:
       operationId: getRawTransactionByBlockNumberAndIndex
-      summary: "[Transaction-getRawTransactionByBlockNumberAndIndex]"
+      summary: "[Transaction] klay_getRawTransactionByBlockNumberAndIndex"
       tags:
         - klay
       description: |
@@ -86,9 +86,11 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
-              - type: string
+            properties:
+              BlockNumberOrHashOrTag:  
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+              TransactionIndex:
+                type: string
                 format: hex
                 title: TransactionIndex
                 description: The transaction index position.

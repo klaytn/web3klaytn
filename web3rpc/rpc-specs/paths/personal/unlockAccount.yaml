@@ -13,7 +13,7 @@ paths:
   /personal/unlockAccount:
     post:
       operationId: unlockAccount
-      summary: "[unlockAccount]"
+      summary: "unlockAccount"
       description: |
         Decrypts the key with the given address from the key store.
         
@@ -104,14 +104,17 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - type: string
+            properties:
+              Address:
+                type: string
                 title: Address
                 description: The account address to unlock.
-              - type: string
+              Passphrase:
+                type: string
                 title: Passphrase
                 description: the passphrase used for the encryption.
-              - type: integer
+              Duration:
+                type: integer
                 title: Duration
                 default: 300
                 description: (optional) the unlock duration (default to 300 seconds).

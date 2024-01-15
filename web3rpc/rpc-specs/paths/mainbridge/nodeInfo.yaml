@@ -12,7 +12,7 @@ servers:
 paths:
   /mainbridge/nodeInfo:
     post:
-      summary: "[nodeInfo]"
+      summary: "nodeInfo"
       tags:
         - mainbridge
       operationId: nodeInfo

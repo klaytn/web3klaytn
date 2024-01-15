@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/traceBlockFromFile:
     post:
-      summary: "[Trace-traceBlockFromFile]"
+      summary: "[Trace] traceBlockFromFile"
       tags:
         - debug
       operationId: traceBlockFromFile
@@ -84,11 +84,13 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - title: FileName
+            properties:
+              FileName:
+                title: FileName
                 type: string
                 description: The file name which contains the RLP of the block.
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracingOptions"
+              TracingOptions:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/TracingOptions"
           example: ["block.rlp"]
 
     DebugTraceBlockFromFileResp:

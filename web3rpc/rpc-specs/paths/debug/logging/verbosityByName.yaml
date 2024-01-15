@@ -13,7 +13,7 @@ paths:
   /debug/verbosityByName:
     post:
       operationId: verbosityByName
-      summary: "[Logging-verbosityByName]"
+      summary: "[Logging] verbosityByName"
       description: |
         Sets the verbosity of log module with given name. Please note that VerbosityByName only works with zapLogger.
 

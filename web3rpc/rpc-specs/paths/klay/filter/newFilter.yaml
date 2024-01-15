@@ -13,7 +13,7 @@ paths:
   /klay/newFilter:
     post:
       operationId: newFilter
-      summary: "[Filter-newFilter]"
+      summary: "[Filter] klay_newFilter"
       description: |
         Creates a filter object, based on filter options, to notify when the state changes (logs).
         - To check if the state has changed, call klay_getFilterChanges.

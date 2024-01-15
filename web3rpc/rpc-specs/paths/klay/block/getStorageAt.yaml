@@ -13,7 +13,7 @@ paths:
   /klay/getStorageAt:
     post:
       operationId: getStorageAt
-      summary: "[Block-getStorageAt]"
+      summary: "[Block] klay_getStorageAt"
       description: |
         Returns the value from a storage position at a given address.
 
@@ -101,14 +101,17 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - type: string
+            properties:
+              StorageAddress:
+                type: string
                 title: StorageAddress
                 format: 20-byte DATA
                 description: Address of the storage.
-              - type: string
+              Position:
+                type: string
                 title: Position
                 format: hex
                 description: Integer of the position in the storage.
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+              BlockNumberOrHashOrTag: 
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
           example:  ["0x295a70b2de5e3953354a6a8344e616ed314d7251", "0x0", "latest"]

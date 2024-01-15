@@ -13,7 +13,7 @@ paths:
   /governance/myVotingPower:
     post:
       operationId: myVotingPower
-      summary: "[myVotingPower]"
+      summary: "myVotingPower"
       description: |
         The myVotingPower property provides the voting power of the node. The voting power can be 1.0 ~ 2.0. In "none", "single" governance mode, totalVotingPower don't provide any information.
 

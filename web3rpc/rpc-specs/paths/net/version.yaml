@@ -13,7 +13,7 @@ paths:
   /net/version:
     post:
       operationId: version
-      summary: "[version]"
+      summary: "version"
       description: |
         Return the current klaytn protocol version.
         

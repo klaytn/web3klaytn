@@ -13,7 +13,7 @@ paths:
   /debug/getBadBlocks:
     post:
       operationId: getBadBlocks
-      summary: "[Inspection-getBadBlocks]"
+      summary: "[Inspection] getBadBlocks"
       description: |
         Returns a list of the last 'bad blocks' that the client has seen on the network.
 

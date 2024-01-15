@@ -13,7 +13,7 @@ paths:
   /debug/getModifiedAccountsByHash:
     post:
       operationId: getModifiedAccountsByHash
-      summary: "[Inspection-getModifiedAccountsByHash]"
+      summary: "[Inspection] getModifiedAccountsByHash"
       description: |
         Returns all accounts that have changed between the two blocks specified by their block hashes. Changes made in endBlockHash are included, but changes made in startBlockHash are not. If endBlockHash is not given, it returns the accounts modified in the startBlockHash. A change is defined as a difference in nonce, balance, code hash, or storage hash.
 
@@ -95,12 +95,14 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - type: string
+            properties:
+              StartBlockHash:
+                type: string
                 format: 32-byte DATA
                 title: StartBlockHash
                 description: The first block number of the range to check.
-              - type: string
+              EndBlockHash:
+                type: string
                 format: 32-byte DATA
                 title: EndBlockHash
                 description: (optional) The last block number of the range.

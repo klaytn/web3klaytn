@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/signTransaction:
     post:
-      summary: "[Transaction-signTransaction]"
+      summary: "[Transaction] eth_signTransaction"
       tags:
         - eth
       operationId: signTransaction

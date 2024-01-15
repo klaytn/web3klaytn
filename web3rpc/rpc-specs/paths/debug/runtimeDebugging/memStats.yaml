@@ -13,7 +13,7 @@ paths:
   /debug/memStats:
     post:
       operationId: memStats
-      summary: "[memStats]"
+      summary: "[memStats"
       description: |
         Returns detailed runtime memory statistics.
 

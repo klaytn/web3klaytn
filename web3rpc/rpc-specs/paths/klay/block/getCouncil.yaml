@@ -13,7 +13,7 @@ paths:
   /klay/getCouncil:
     post:
       operationId: getCouncil
-      summary: "[Block-getCouncil]"
+      summary: "[Block] klay_getCouncil"
       description: |
         Returns a list of all validators of the council at the specified block. If the parameter is not set, returns a list of all validators of the council at the latest block.
 
@@ -84,8 +84,9 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+            properties:
+              BlockNumberOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
           example:  ["0x1b4"]
 
     KlayGetCouncilResp:

@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/startCPUProfile:
     post:
-      summary: "[Profiling-startCPUProfile]"
+      summary: "[Profiling] startCPUProfile"
       tags:
         - debug
       operationId: startCPUProfile

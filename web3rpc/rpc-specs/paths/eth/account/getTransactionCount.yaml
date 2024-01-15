@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getTransactionCount:
     post:
-      summary: "[Account-getTransactionCount]"
+      summary: "[Account] eth_getTransactionCount"
       tags:
         - eth
       operationId: getTransactionCount
@@ -84,9 +84,11 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+            properties:
+              Address:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/Address"
+              BlockNumberOrHashOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
           example: ["0xc94770007dda54cF92009BFF0dE90c06F603a09f","latest"]
 
     EthGetTransactionCountResp:

@@ -13,7 +13,7 @@ paths:
   /debug/setGCPercent:
     post:
       operationId: setGCPercent
-      summary: "[setGCPercent]"
+      summary: "[setGCPercent"
       description: |
         Sets the garbage collection target percentage. It returns the previous setting. A negative value disables GC.
         

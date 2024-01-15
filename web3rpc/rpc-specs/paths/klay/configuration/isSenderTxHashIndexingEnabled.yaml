@@ -13,7 +13,7 @@ paths:
   /klay/isSenderTxHashIndexingEnabled:
     post:
       operationId: isSenderTxHashIndexingEnabled
-      summary: "[Configuration-isSenderTxHashIndexingEnabled]"
+      summary: "[Configuration] klay_isSenderTxHashIndexingEnabled"
       description: |
         Returns true if the node is indexing sender transaction hash to transaction hash mapping information. It is disabled by default and can be enabled by --sendertxhashindexing.
 

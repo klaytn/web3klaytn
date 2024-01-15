@@ -5,6 +5,22 @@ apis:
     root: ./index.yaml
     labels:
       - v1.0.0
+  klay@v1.0.0:
+    root: ./klay.yaml
+    labels:
+      - v1.0.0
+  eth@v1.0.0:
+    root: ./eth.yaml
+    labels:
+      - v1.0.0
+  debug@v1.0.0:
+    root: ./debug.yaml
+    labels:
+      - v1.0.0
+  etc@v1.0.0:
+    root: ./etc.yaml
+    labels:
+      - v1.0.0
 extends:
   - recommended
 features.openapi:

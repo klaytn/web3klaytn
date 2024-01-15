@@ -13,7 +13,7 @@ paths:
   /personal/sign:
     post:
       operationId: sign
-      summary: "[sign]"
+      summary: "sign"
       description: |
         The sign method calculates a Klaytn-specific signature with: sign(keccak256("\x19Klaytn Signed Message:\n" + len(message) + message)))
         
@@ -100,14 +100,17 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - type: string
+            properties:
+              Message:
+                type: string
                 title: Message
                 description: A message to sign.
-              - type: string
+              Account:
+                type: string
                 title: Account
                 description: The account address.
-              - type: string
+              Password:
+                type: string
                 title: Password
                 description: The pass phrase used for signing.
           example: ["0xdead", "0x9b2055d370f73ec7d8a03e965129118dc8f5bf83", "gr8=B!0@uc$b"]

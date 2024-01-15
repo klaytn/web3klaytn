@@ -13,7 +13,7 @@ paths:
   /klay/getHeaderByNumber:
     post:
       operationId: getHeaderByNumber
-      summary: "[Block-getHeaderByNumber]"
+      summary: "[Block] klay_getHeaderByNumber"
       description: |
         Returns information about a header by number. This API works only on RPC call, not on JavaScript console.
 
@@ -81,8 +81,9 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+            properties:
+              BlockNumberOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
           example:  ["0x1b4"]
 
     KlayGetHeaderByNumberResp:

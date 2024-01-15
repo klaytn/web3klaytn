@@ -13,7 +13,7 @@ paths:
   /eth/getRawTransactionByBlockHashAndIndex:
     post:
       operationId: getRawTransactionByBlockHashAndIndex
-      summary: "[Transaction-getRawTransactionByBlockHashAndIndex]"
+      summary: "[Transaction] eth_getRawTransactionByBlockHashAndIndex"
       description: |
         GetRawTransactionByBlockHashAndIndex returns the bytes of the transaction for the given block hash and index.
         
@@ -88,13 +88,15 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - title: BlockHash
+            properties:
+              BlockHash:
+                title: BlockHash
+                description: Hash of a block.
                 type: string
-                format: hex
-                description: Hex representation of a Keccak 256 hash
-              - title: Index
-                description: Hex representation of a uint
+                format: 32-byte DATA
+              TransactionIndex:
+                title: TransactionIndexPosition
+                description: Integer of the transaction index position.
                 type: string
                 format: hex
           example:  ["0x29b6cd965c7d9a53a6f068da259dce1d3810ba79fff8eebac5d4da14754e67e6","0x20965255"]

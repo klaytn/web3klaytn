@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getWork:
     post:
-      summary: "[Miscellaneous-getWork]"
+      summary: "[Miscellaneous] eth_getWork"
       tags:
         - eth
       operationId: getWork

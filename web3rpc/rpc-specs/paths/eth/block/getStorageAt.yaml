@@ -13,7 +13,7 @@ paths:
   /eth/getStorageAt:
     post:
       operationId: getStorageAt
-      summary: "[Block-getStorageAt]"
+      summary: "[Block] eth_getStorageAt"
       description: |
         Returns the value from a storage position at a given address
 
@@ -93,16 +93,19 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - type: string
+            properties:
+              Address:
+                type: string
                 title: Address
                 description: Address of the storage.
                 format: 20-byte DATA
-              - type: string
+              Quantity:
+                type: string
                 title: Quantity
                 description: Integer of the position in the storage.
                 format: hex
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+              BlockNumberOrHashOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
           example:
             ["0x295a70b2de5e3953354a6a8344e616ed314d7251", "0x0", "latest"]
 

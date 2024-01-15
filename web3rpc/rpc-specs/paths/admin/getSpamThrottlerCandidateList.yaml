@@ -13,7 +13,7 @@ paths:
   /admin/getSpamThrottlerCandidateList:
     post:
       operationId: getSpamThrottlerCandidateList
-      summary: "[getSpamThrottlerCandidateList]"
+      summary: "getSpamThrottlerCandidateList"
       description: |
         Get spam throttler candidate list
 

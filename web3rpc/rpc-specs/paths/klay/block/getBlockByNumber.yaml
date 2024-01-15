@@ -13,7 +13,7 @@ paths:
   /klay/getBlockByNumber:
     post:
       operationId: getBlockByNumber
-      summary: "[Block-getBlockByNumber]"
+      summary: "[Block] klay_getBlockByNumber"
       description: |
         Returns information about a block by block number. This API works only on RPC call, not on JavaScript console.
 
@@ -87,12 +87,14 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              - type: boolean
+            properties:
+              BlockNumberOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              Boolean:
+                type: boolean
                 title: Boolean
                 description: If true it returns the full transaction objects, if false only the hashes of the transactions.
-          example:  ["0x3111a0577f322e8fb54f78d9982a26ae7ca0f722", "latest"]
+          example:  ["0x1b4", true]
 
     KlayGetBlockByNumberResp:
       type: object

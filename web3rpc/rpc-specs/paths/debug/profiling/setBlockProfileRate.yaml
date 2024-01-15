@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/setBlockProfileRate:
     post:
-      summary: "[Profiling-setBlockProfileRate]"
+      summary: "[Profiling] setBlockProfileRate"
       tags:
         - debug
       operationId: setBlockProfileRate
