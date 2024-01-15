@@ -10,10 +10,10 @@
   },
   "scripts": {
     "dev": "redocly preview-docs",
-    "start": "redocly preview-docs ./web3klaytn.yaml",
+    "start": "redocly preview-docs ./web3rpc.yaml",
     "build": "redocly bundle",
-    "split": "redocly split web3klaytn.yaml --outDir bundled",
-    "test": "redocly lint web3klaytn.yaml",
+    "split": "redocly split web3rpc.yaml --outDir bundled",
+    "test": "redocly lint web3rpc.yaml",
     "remove_query_param": "node scripts.js"
   }
 }
