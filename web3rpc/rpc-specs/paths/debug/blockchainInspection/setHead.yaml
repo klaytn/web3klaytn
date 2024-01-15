@@ -13,7 +13,7 @@ paths:
   /debug/setHead:
     post:
       operationId: setHead
-      summary: "[Inspection] setHead"
+      summary: "[Inspection] debug_setHead"
       description: |
         Sets the current head of the local chain by block number.
 

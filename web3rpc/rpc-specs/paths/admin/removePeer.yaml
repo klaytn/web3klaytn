@@ -13,7 +13,7 @@ paths:
   /admin/removePeer:
     post:
       operationId: removePeer
-      summary: "removePeer"
+      summary: "admin_removePeer"
       description: |
         The removePeer is an administrative method that requests removing a node from the list of tracked static nodes.
        

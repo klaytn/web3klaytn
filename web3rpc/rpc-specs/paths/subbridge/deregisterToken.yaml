@@ -12,7 +12,7 @@ servers:
 paths:
   /subbridge/deregisterToken:
     post:
-      summary: "deregisterToken"
+      summary: "subbridge_deregisterToken"
       tags:
         - subbridge
       operationId: deregisterToken

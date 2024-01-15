@@ -12,7 +12,7 @@ servers:
 paths:
   /subbridge/registerToken:
     post:
-      summary: "registerToken"
+      summary: "subbridge_registerToken"
       tags:
         - subbridge
       operationId: registerToken

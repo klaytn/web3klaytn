@@ -13,7 +13,7 @@ paths:
   /admin/peers:
     post:
       operationId: peers
-      summary: "peers"
+      summary: "admin_peers"
       description: |
         The peers administrative property can be queried for all the information known about the connected remote nodes at the networking granularity. These include general information about the nodes themselves as participants of the devp2p P2P overlay protocol, as well as specialized information added by each of the running application protocols.        
         

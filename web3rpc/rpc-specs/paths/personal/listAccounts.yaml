@@ -13,7 +13,7 @@ paths:
   /personal/listAccounts:
     post:
       operationId: listAccounts
-      summary: "listAccounts"
+      summary: "personal_listAccounts"
       description: |
         Returns all the Klaytn account addresses of all keys in the key store.
 

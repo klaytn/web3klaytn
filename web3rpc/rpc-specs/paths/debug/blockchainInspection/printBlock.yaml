@@ -13,7 +13,7 @@ paths:
   /debug/printBlock:
     post:
       operationId: printBlock
-      summary: "[Inspection] printBlock"
+      summary: "[Inspection] debug_printBlock"
       description: |
         Retrieves a block and returns its pretty printed form.
 

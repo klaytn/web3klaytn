@@ -12,7 +12,7 @@ servers:
 paths:
   /subbridge/convertRequestTxHashToHandleTxHash:
     post:
-      summary: "convertRequestTxHashToHandleTxHash"
+      summary: "subbridge_convertRequestTxHashToHandleTxHash"
       tags:
         - subbridge
       operationId: convertRequestTxHashToHandleTxHash

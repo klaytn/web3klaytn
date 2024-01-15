@@ -12,7 +12,7 @@ servers:
 paths:
   /subbridge/addPeer:
     post:
-      summary: "addPeer"
+      summary: "subbridge_addPeer"
       tags:
         - subbridge
       operationId: addPeer

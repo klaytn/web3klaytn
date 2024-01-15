@@ -13,7 +13,7 @@ paths:
   /admin/stateMigrationStatus:
     post:
       operationId: stateMigrationStatus
-      summary: "stateMigrationStatus"
+      summary: "admin_stateMigrationStatus"
       description: |
         The stateMigrationStatus is an administrative method that returns the status information of the state migration. This method takes no parameters and returns the status of the currently running state migration.
         

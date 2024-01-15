@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/traceBlockByNumberRange:
     post:
-      summary: "[Trace] traceBlockByNumberRange"
+      summary: "[Trace] debug_traceBlockByNumberRange"
       tags:
         - debug
       operationId: traceBlockByNumberRange

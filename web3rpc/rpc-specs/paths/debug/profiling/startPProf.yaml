@@ -13,7 +13,7 @@ paths:
   /debug/startPProf:
     post:
       operationId: startPProf
-      summary: "[Profiling] startPProf"
+      summary: "[Profiling] debug_startPProf"
       description: |
         Starts the pprof HTTP server. The running pprof server can be accessed by (when the default configuration, i.e., localhost:6060, is used):
          * http://localhost:6060/debug/pprof (for the pprof results)

@@ -13,7 +13,7 @@ paths:
   /personal/newAccount:
     post:
       operationId: newAccount
-      summary: "newAccount"
+      summary: "personal_newAccount"
       description: |
         Generates a new private key and stores it in the key store directory. The key file is encrypted with the given passphrase. Returns the address of the new account.
 

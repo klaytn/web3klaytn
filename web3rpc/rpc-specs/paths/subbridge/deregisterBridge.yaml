@@ -12,7 +12,7 @@ servers:
 paths:
   /subbridge/deregisterBridge:
     post:
-      summary: "deregisterBridge"
+      summary: "subbridge_deregisterBridge"
       tags:
         - subbridge
       operationId: deregisterBridge
