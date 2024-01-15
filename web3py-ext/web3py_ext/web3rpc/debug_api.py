@@ -393,6 +393,14 @@ class DebugApi(Module):
         return self._trace_block_from_file(*args)
     
     
+    _trace_call: Method[Callable[..., Any]] = Method(
+        namespace + "_traceCall", mungers=[default_root_munger]
+    )
+
+    def trace_call(self, *args) -> Any:
+        return self._trace_call(*args)
+    
+    
     _trace_chain: Method[Callable[..., Any]] = Method(
         namespace + "_traceChain", mungers=[default_root_munger]
     )
@@ -844,6 +852,14 @@ class AsyncDebugApi(Module):
 
     async def trace_block_from_file(self, *args) -> Any:
         return await self._trace_block_from_file(*args)
+    
+    
+    _trace_call: Method[Callable[..., Awaitable[Any]]] = Method(
+        namespace + "_traceCall", mungers=[default_root_munger]
+    )
+
+    async def trace_call(self, *args) -> Any:
+        return await self._trace_call(*args)
     
     
     _trace_chain: Method[Callable[..., Awaitable[Any]]] = Method(

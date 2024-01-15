@@ -1,6 +1,6 @@
 {
     "name": "@klaytn/web3js-ext",
-    "version": "0.9.9-beta",
+    "version": "1.0.0",
     "license": "MIT",
     "description": "web3.js extension for Klaytn blockchain",
     "keywords": [
