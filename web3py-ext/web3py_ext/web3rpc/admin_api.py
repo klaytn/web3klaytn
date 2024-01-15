@@ -72,6 +72,14 @@ class AdminApi(GethAdmin):
         return self._import_chain_from_string(*args)
     
     
+    _node_config: Method[Callable[..., Any]] = Method(
+        namespace + "_nodeConfig".replace("Ws", "WS"), mungers=[default_root_munger]
+    )
+
+    def node_config(self, *args) -> Any:
+        return self._node_config(*args)
+    
+    
     _node_info: Method[Callable[..., Any]] = Method(
         namespace + "_nodeInfo".replace("Ws", "WS"), mungers=[default_root_munger]
     )
@@ -251,6 +259,14 @@ class AsyncAdminApi(AsyncGethAdmin):
 
     async def import_chain_from_string(self, *args) -> Any:
         return await self._import_chain_from_string(*args)
+    
+    
+    _node_config: Method[Callable[..., Awaitable[Any]]] = Method(
+        namespace + "_nodeConfig", mungers=[default_root_munger]
+    )
+
+    async def node_config(self, *args) -> Any:
+        return await self._node_config(*args)
     
     
     _node_info: Method[Callable[..., Awaitable[Any]]] = Method(
