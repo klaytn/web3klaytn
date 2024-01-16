@@ -1,0 +1,189 @@
+openapi: "3.0.2"
+info:
+  title: web3rpc
+  version: "0.9.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+x-tagGroups:
+  - name: namespaces
+    tags:
+      - klay
+servers:
+  - url: http://localhost:8551
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+
+
+
+  # klay/account
+  /klay/account/accountCreated:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/account/accountCreated.yaml#/paths/~1klay~1accountCreated
+  /klay/account/accounts:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/account/accounts.yaml#/paths/~1klay~1accounts
+  /klay/account/decodeAccountKey:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/account/decodeAccountKey.yaml#/paths/~1klay~1decodeAccountKey
+  /klay/account/encodeAccountKey:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/account/encodeAccountKey.yaml#/paths/~1klay~1encodeAccountKey
+  /klay/account/getAccount:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/account/getAccount.yaml#/paths/~1klay~1getAccount
+  /klay/account/getAccountKey:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/account/getAccountKey.yaml#/paths/~1klay~1getAccountKey
+  /klay/account/getBalance:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/account/getBalance.yaml#/paths/~1klay~1getBalance
+  /klay/account/getCode:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/account/getCode.yaml#/paths/~1klay~1getCode
+  /klay/account/getTransactionCount:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/account/getTransactionCount.yaml#/paths/~1klay~1getTransactionCount
+  /klay/account/isContractAccount:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/account/isContractAccount.yaml#/paths/~1klay~1isContractAccount
+  /klay/account/sign:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/account/sign.yaml#/paths/~1klay~1sign
+
+  # klay/block
+  /klay/block/blockNumber:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/blockNumber.yaml#/paths/~1klay~1blockNumber
+  /klay/block/getBlockByHash:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getBlockByHash.yaml#/paths/~1klay~1getBlockByHash
+  /klay/block/getBlockByNumber:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getBlockByNumber.yaml#/paths/~1klay~1getBlockByNumber
+  /klay/block/getBlockReceipts:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getBlockReceipts.yaml#/paths/~1klay~1getBlockReceipts
+  /klay/block/getBlockTransactionCountByHash:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getBlockTransactionCountByHash.yaml#/paths/~1klay~1getBlockTransactionCountByHash
+  /klay/block/getBlockTransactionCountByNumber:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getBlockTransactionCountByNumber.yaml#/paths/~1klay~1getBlockTransactionCountByNumber
+  /klay/block/getBlockWithConsensusInfoByHash:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getBlockWithConsensusInfoByHash.yaml#/paths/~1klay~1getBlockWithConsensusInfoByHash
+  /klay/block/getBlockWithConsensusInfoByNumber:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getBlockWithConsensusInfoByNumber.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumber
+  /klay/block/getBlockWithConsensusInfoByNumberRange:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getBlockWithConsensusInfoByNumberRange.yaml#/paths/~1klay~1getBlockWithConsensusInfoByNumberRange
+  /klay/block/getCommittee:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getCommittee.yaml#/paths/~1klay~1getCommittee
+  /klay/block/getCommitteeSize:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getCommitteeSize.yaml#/paths/~1klay~1getCommitteeSize
+  /klay/block/getCouncil:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getCouncil.yaml#/paths/~1klay~1getCouncil
+  /klay/block/getCouncilSize:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getCouncilSize.yaml#/paths/~1klay~1getCouncilSize
+  /klay/block/getHeaderByHash:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getHeaderByHash.yaml#/paths/~1klay~1getHeaderByHash
+  /klay/block/getHeaderByNumber:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getHeaderByNumber.yaml#/paths/~1klay~1getHeaderByNumber
+  /klay/block/getRewards:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getRewards.yaml#/paths/~1klay~1getRewards
+  /klay/block/getStorageAt:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/getStorageAt.yaml#/paths/~1klay~1getStorageAt
+  /klay/block/syncing:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/block/syncing.yaml#/paths/~1klay~1syncing
+
+  # klay/transaction
+  /klay/transaction/call:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/call.yaml#/paths/~1klay~1call
+  /klay/transaction/createAccessList:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/createAccessList.yaml#/paths/~1klay~1createAccessList
+  /klay/transaction/estimateComputationCost:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/estimateComputationCost.yaml#/paths/~1klay~1estimateComputationCost
+  /klay/transaction/estimateGas:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/estimateGas.yaml#/paths/~1klay~1estimateGas
+  /klay/transaction/getDecodedAnchoringTransactionByHash:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/getDecodedAnchoringTransactionByHash.yaml#/paths/~1klay~1getDecodedAnchoringTransactionByHash
+  /klay/transaction/getRawTransactionByBlockHashAndIndex:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockHashAndIndex
+  /klay/transaction/getRawTransactionByBlockNumberAndIndex:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockNumberAndIndex
+  /klay/transaction/getRawTransactionByHash:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
+  /klay/transaction/getTransactionByBlockHashAndIndex:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/getTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getTransactionByBlockHashAndIndex
+  /klay/transaction/getTransactionByBlockNumberAndIndex:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/getTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getTransactionByBlockNumberAndIndex
+  /klay/transaction/getTransactionByHash:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/getTransactionByHash.yaml#/paths/~1klay~1getTransactionByHash
+  /klay/transaction/getTransactionBySenderTxHash:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/getTransactionBySenderTxHash.yaml#/paths/~1klay~1getTransactionBySenderTxHash
+  /klay/transaction/getTransactionReceipt:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/getTransactionReceipt.yaml#/paths/~1klay~1getTransactionReceipt
+  /klay/transaction/getTransactionReceiptBySenderTxHash:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/getTransactionReceiptBySenderTxHash.yaml#/paths/~1klay~1getTransactionReceiptBySenderTxHash
+  /klay/transaction/pendingTransactions:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/pendingTransactions.yaml#/paths/~1klay~1pendingTransactions
+  /klay/transaction/resend:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/resend.yaml#/paths/~1klay~1resend
+  /klay/transaction/sendRawTransaction:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/sendRawTransaction.yaml#/paths/~1klay~1sendRawTransaction
+  /klay/transaction/sendTransaction:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/sendTransaction.yaml#/paths/~1klay~1sendTransaction
+  /klay/transaction/sendTransactionAsFeePayer:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/sendTransactionAsFeePayer.yaml#/paths/~1klay~1sendTransactionAsFeePayer
+  /klay/transaction/signTransaction:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/signTransaction.yaml#/paths/~1klay~1signTransaction
+  /klay/transaction/signTransactionAsFeePayer:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/transaction/signTransactionAsFeePayer.yaml#/paths/~1klay~1signTransactionAsFeePayer
+
+  # klay/configuration
+  /klay/configuration/chainID:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/configuration/chainID.yaml#/paths/~1klay~1chainID
+  /klay/configuration/clientVersion:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/configuration/clientVersion.yaml#/paths/~1klay~1clientVersion
+  /klay/configuration/gasPrice:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/configuration/gasPrice.yaml#/paths/~1klay~1gasPrice
+  /klay/configuration/gasPriceAt:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/configuration/gasPriceAt.yaml#/paths/~1klay~1gasPriceAt
+  /klay/configuration/getChainConfig:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/configuration/getChainConfig.yaml#/paths/~1klay~1getChainConfig
+  /klay/configuration/isParallelDBWrite:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/configuration/isParallelDBWrite.yaml#/paths/~1klay~1isParallelDBWrite
+  /klay/configuration/isSenderTxHashIndexingEnabled:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/configuration/isSenderTxHashIndexingEnabled.yaml#/paths/~1klay~1isSenderTxHashIndexingEnabled
+  /klay/configuration/protocolVersion:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/configuration/protocolVersion.yaml#/paths/~1klay~1protocolVersion
+  /klay/configuration/rewardbase:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/configuration/rewardBase.yaml#/paths/~1klay~1rewardbase
+
+  # klay/filter
+  /klay/filter/getFilterChanges:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/filter/getFilterChanges.yaml#/paths/~1klay~1getFilterChanges
+  /klay/filter/getFilterLogs:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/filter/getFilterLogs.yaml#/paths/~1klay~1getFilterLogs
+  /klay/filter/getLogs:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/filter/getLogs.yaml#/paths/~1klay~1getLogs
+  /klay/filter/newBlockFilter:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/filter/newBlockFilter.yaml#/paths/~1klay~1newBlockFilter
+  /klay/filter/newFilter:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/filter/newFilter.yaml#/paths/~1klay~1newFilter
+  /klay/filter/newPendingTransactionFilter:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/filter/newPendingTransactionFilter.yaml#/paths/~1klay~1newPendingTransactionFilter
+  /klay/filter/subscribe:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/filter/subscribe.yaml#/paths/~1klay~1subscribe
+  /klay/filter/uninstallFilter:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/filter/uninstallFilter.yaml#/paths/~1klay~1uninstallFilter
+  /klay/filter/unsubscribe:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/filter/unsubscribe.yaml#/paths/~1klay~1unsubscribe
+
+  # klay/gas
+  /klay/gas/feeHistory:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/gas/feeHistory.yaml#/paths/~1klay~1feeHistory
+  /klay/gas/lowerBoundGasPrice:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/gas/lowerBoundGasPrice.yaml#/paths/~1klay~1lowerBoundGasPrice
+  /klay/gas/maxPriorityFeePerGas:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/gas/maxPriorityFeePerGas.yaml#/paths/~1klay~1maxPriorityFeePerGas
+  /klay/gas/upperBoundGasPrice:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/gas/upperBoundGasPrice.yaml#/paths/~1klay~1upperBoundGasPrice
+
+  # klay/miscellaneous
+  /klay/miscellaneous/getStakingInfo:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/getStakingInfo.yaml#/paths/~1klay~1getStakingInfo
+  /klay/miscellaneous/nodeAddress:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/nodeAddress.yaml#/paths/~1klay~1nodeAddress
+  /klay/miscellaneous/recoverFromTransaction:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/recoverFromTransaction.yaml#/paths/~1klay~1recoverFromTransaction
+  /klay/miscellaneous/recoverFromMessage:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/recoverFromMessage.yaml#/paths/~1klay~1recoverFromMessage
+  /klay/miscellaneous/sha3:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/sha3.yaml#/paths/~1klay~1sha3

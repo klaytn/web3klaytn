@@ -13,7 +13,7 @@ paths:
   /debug/metrics:
     post:
       operationId: metrics
-      summary: "[metrics"
+      summary: "[runtimeDebug] debug_metrics"
       description: |
         Retrieves all the known system metrics collected by the node.
         
@@ -82,7 +82,7 @@ components:
           items: 
             title: Raw
             type: boolean
-          example: [true] debug_
+          example: [true]
 
     MetricsResp:
       type: object

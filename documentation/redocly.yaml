@@ -6,19 +6,43 @@ apis:
     labels:
       - v1.0.0
   klay@v1.0.0:
-    root: ./klay.yaml
+    root: ./namespaces/klay.yaml
     labels:
       - v1.0.0
   eth@v1.0.0:
-    root: ./eth.yaml
+    root: ./namespaces/eth.yaml
     labels:
       - v1.0.0
   debug@v1.0.0:
-    root: ./debug.yaml
+    root: ./namespaces/debug.yaml
     labels:
       - v1.0.0
-  etc@v1.0.0:
-    root: ./etc.yaml
+  net@v1.0.0:
+    root: ./namespaces/net.yaml
+    labels:
+      - v1.0.0
+  txpool@v1.0.0:
+    root: ./namespaces/txpool.yaml
+    labels:
+      - v1.0.0
+  personal@v1.0.0:
+    root: ./namespaces/personal.yaml
+    labels:
+      - v1.0.0
+  admin@v1.0.0:
+    root: ./namespaces/admin.yaml
+    labels:
+      - v1.0.0
+  governance@v1.0.0:
+    root: ./namespaces/governance.yaml
+    labels:
+      - v1.0.0
+  mainbridge@v1.0.0:
+    root: ./namespaces/mainbridge.yaml
+    labels:
+      - v1.0.0
+  subbridge@v1.0.0:
+    root: ./namespaces/subbridge.yaml
     labels:
       - v1.0.0
 extends:
