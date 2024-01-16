@@ -113,15 +113,11 @@ bin/**.jar
 **/coverage
 
 # OpenAPI generated
-**/web3rpc.yaml
-**/web3rpc-klay.yaml
-**/web3rpc-eth.yaml
-**/web3rpc-debug.yaml
-**/web3rpc-etc.yaml
+**/web3rpc*.yaml
 
 .DS_Store
 
-**/namespaces/*.yaml
+**/rpc-specs/namespaces/*.yaml
 /sdk/client/javascript/**/*.bat
 /web3rpc/*.bat
 /ethers-ext/example/*.priv

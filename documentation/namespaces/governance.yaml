@@ -1,0 +1,49 @@
+openapi: "3.0.2"
+info:
+  title: web3rpc
+  version: "0.9.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+x-tagGroups:
+  - name: namespaces
+    tags:
+      - governance
+servers:
+  - url: http://localhost:8551
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+
+  # governance
+  /governance/chainConfig:
+    $ref: ../../web3rpc/rpc-specs/paths/governance/chainConfig.yaml#/paths/~1governance~1chainConfig
+  /governance/getStakingInfo:
+    $ref: ../../web3rpc/rpc-specs/paths/governance/getStakingInfo.yaml#/paths/~1governance~1getStakingInfo
+  /governance/idxCache:
+    $ref: ../../web3rpc/rpc-specs/paths/governance/idxCache.yaml#/paths/~1governance~1idxCache
+  /governance/idxCacheFromDb:
+    $ref: ../../web3rpc/rpc-specs/paths/governance/idxCacheFromDb.yaml#/paths/~1governance~1idxCacheFromDb
+  /governance/itemCacheFromDb:
+    $ref: ../../web3rpc/rpc-specs/paths/governance/itemCacheFromDb.yaml#/paths/~1governance~1itemCacheFromDb
+  /governance/itemsAt:
+    $ref: ../../web3rpc/rpc-specs/paths/governance/itemsAt.yaml#/paths/~1governance~1itemsAt
+  /governance/myVotes:
+    $ref: ../../web3rpc/rpc-specs/paths/governance/myVotes.yaml#/paths/~1governance~1myVotes
+  /governance/myVotingPower:
+    $ref: ../../web3rpc/rpc-specs/paths/governance/myVotingPower.yaml#/paths/~1governance~1myVotingPower
+  /governance/nodeAddress:
+    $ref: ../../web3rpc/rpc-specs/paths/governance/nodeAddress.yaml#/paths/~1governance~1nodeAddress
+  /governance/pendingChanges:
+    $ref: ../../web3rpc/rpc-specs/paths/governance/pendingChanges.yaml#/paths/~1governance~1pendingChanges
+  /governance/showTally:
+    $ref: ../../web3rpc/rpc-specs/paths/governance/showTally.yaml#/paths/~1governance~1showTally
+  /governance/totalVotingPower:
+    $ref: ../../web3rpc/rpc-specs/paths/governance/totalVotingPower.yaml#/paths/~1governance~1totalVotingPower
+  /governance/vote:
+    $ref: ../../web3rpc/rpc-specs/paths/governance/vote.yaml#/paths/~1governance~1vote
+  /governance/votes:
+    $ref: ../../web3rpc/rpc-specs/paths/governance/votes.yaml#/paths/~1governance~1votes

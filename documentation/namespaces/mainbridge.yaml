@@ -1,0 +1,27 @@
+openapi: "3.0.2"
+info:
+  title: web3rpc
+  version: "0.9.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+x-tagGroups:
+  - name: namespaces
+    tags:
+      - mainbridge
+servers:
+  - url: http://localhost:8551
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+
+  # mainbridge:
+  /mainbridge/convertChildChainBlockHashToParentChainTxHash:
+    $ref: ../../web3rpc/rpc-specs/paths/mainbridge/convertChildChainBlockHashToParentChainTxHash.yaml#/paths/~1mainbridge~1convertChildChainBlockHashToParentChainTxHash
+  /mainbridge/getChildChainIndexingEnabled:
+    $ref: ../../web3rpc/rpc-specs/paths/mainbridge/getChildChainIndexingEnabled.yaml#/paths/~1mainbridge~1getChildChainIndexingEnabled
+  /mainbridge/nodeInfo:
+    $ref: ../../web3rpc/rpc-specs/paths/mainbridge/nodeInfo.yaml#/paths/~1mainbridge~1nodeInfo

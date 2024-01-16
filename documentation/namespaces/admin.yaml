@@ -1,0 +1,71 @@
+openapi: "3.0.2"
+info:
+  title: web3rpc
+  version: "0.9.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+x-tagGroups:
+  - name: namespaces
+    tags:
+      - admin
+servers:
+  - url: http://localhost:8551
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+
+  # admin
+  /admin/addPeer:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/addPeer.yaml#/paths/~1admin~1addPeer
+  /admin/datadir:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/datadir.yaml#/paths/~1admin~1datadir
+  /admin/exportChain:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/exportChain.yaml#/paths/~1admin~1exportChain
+  /admin/getSpamThrottlerCandidateList:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/getSpamThrottlerCandidateList.yaml#/paths/~1admin~1getSpamThrottlerCandidateList
+  /admin/getSpamThrottlerThrottleList:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/getSpamThrottlerThrottleList.yaml#/paths/~1admin~1getSpamThrottlerThrottleList
+  /admin/getSpamThrottlerWhiteList:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/getSpamThrottlerWhiteList.yaml#/paths/~1admin~1getSpamThrottlerWhiteList
+  /admin/importChain:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/importChain.yaml#/paths/~1admin~1importChain
+  /admin/importChainFromString:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/importChainFromString.yaml#/paths/~1admin~1importChainFromString
+  /admin/nodeInfo:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/nodeInfo.yaml#/paths/~1admin~1nodeInfo
+  /admin/peers:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/peers.yaml#/paths/~1admin~1peers
+  /admin/removePeer:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/removePeer.yaml#/paths/~1admin~1removePeer
+  /admin/saveTrieNodeCacheToDisk:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/saveTrieNodeCacheToDisk.yaml#/paths/~1admin~1saveTrieNodeCacheToDisk
+  /admin/setMaxSubscriptionPerWSConn:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/setMaxSubscriptionPerWSConn.yaml#/paths/~1admin~1setMaxSubscriptionPerWSConn
+  /admin/setSpamThrottlerWhiteList:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/setSpamThrottlerWhiteList.yaml#/paths/~1admin~1setSpamThrottlerWhiteList
+  /admin/spamThrottlerConfig:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/spamThrottlerConfig.yaml#/paths/~1admin~1spamThrottlerConfig
+  /admin/startHTTP:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/startHTTP.yaml#/paths/~1admin~1startHTTP
+  /admin/startSpamThrottler:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/startSpamThrottler.yaml#/paths/~1admin~1startSpamThrottler
+  /admin/startStateMigration:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/startStateMigration.yaml#/paths/~1admin~1startStateMigration
+  /admin/startWS:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/startWS.yaml#/paths/~1admin~1startWS
+  /admin/stateMigrationStatus:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/stateMigrationStatus.yaml#/paths/~1admin~1stateMigrationStatus
+  /admin/stopHTTP:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/stopHTTP.yaml#/paths/~1admin~1stopHTTP
+  /admin/stopSpamThrottler:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/stopSpamThrottler.yaml#/paths/~1admin~1stopSpamThrottler
+  /admin/stopStateMigration:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/stopStateMigration.yaml#/paths/~1admin~1stopStateMigration
+  /admin/stopWS:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/stopWS.yaml#/paths/~1admin~1stopWS
+  /admin/nodeConfig:
+    $ref: ../../web3rpc/rpc-specs/paths/admin/nodeConfig.yaml#/paths/~1admin~1nodeConfig
