@@ -1,0 +1,51 @@
+openapi: "3.0.2"
+info:
+  title: web3rpc
+  version: "0.9.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+x-tagGroups:
+  - name: namespaces
+    tags:
+      - personal
+servers:
+  - url: http://localhost:8551
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+
+  # personal
+  /personal/deriveAccount:
+    $ref: ../../web3rpc/rpc-specs/paths/personal/deriveAccount.yaml#/paths/~1personal~1deriveAccount
+  /personal/ecRecover:
+    $ref: ../../web3rpc/rpc-specs/paths/personal/ecRecover.yaml#/paths/~1personal~1ecRecover
+  /personal/importRawKey:
+    $ref: ../../web3rpc/rpc-specs/paths/personal/importRawKey.yaml#/paths/~1personal~1importRawKey
+  /personal/listAccounts:
+    $ref: ../../web3rpc/rpc-specs/paths/personal/listAccounts.yaml#/paths/~1personal~1listAccounts
+  /personal/listWallets:
+    $ref: ../../web3rpc/rpc-specs/paths/personal/listWallets.yaml#/paths/~1personal~1listWallets
+  /personal/lockAccount:
+    $ref: ../../web3rpc/rpc-specs/paths/personal/lockAccount.yaml#/paths/~1personal~1lockAccount
+  /personal/newAccount:
+    $ref: ../../web3rpc/rpc-specs/paths/personal/newAccount.yaml#/paths/~1personal~1newAccount
+  /personal/openWallet:
+    $ref: ../../web3rpc/rpc-specs/paths/personal/openWallet.yaml#/paths/~1personal~1openWallet
+  /personal/replaceRawKey:
+    $ref: ../../web3rpc/rpc-specs/paths/personal/replaceRawKey.yaml#/paths/~1personal~1replaceRawKey
+  /personal/sendAccountUpdate:
+    $ref: ../../web3rpc/rpc-specs/paths/personal/sendAccountUpdate.yaml#/paths/~1personal~1sendAccountUpdate
+  /personal/sendTransaction:
+    $ref: ../../web3rpc/rpc-specs/paths/personal/sendTransaction.yaml#/paths/~1personal~1sendTransaction
+  /personal/sendValueTransfer:
+    $ref: ../../web3rpc/rpc-specs/paths/personal/sendValueTransfer.yaml#/paths/~1personal~1sendValueTransfer
+  /personal/sign:
+    $ref: ../../web3rpc/rpc-specs/paths/personal/sign.yaml#/paths/~1personal~1sign
+  /personal/signTransaction:
+    $ref: ../../web3rpc/rpc-specs/paths/personal/signTransaction.yaml#/paths/~1personal~1signTransaction
+  /personal/unlockAccount:
+    $ref: ../../web3rpc/rpc-specs/paths/personal/unlockAccount.yaml#/paths/~1personal~1unlockAccount
