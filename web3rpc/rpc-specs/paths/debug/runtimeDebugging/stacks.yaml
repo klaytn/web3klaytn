@@ -13,7 +13,7 @@ paths:
   /debug/stacks:
     post:
       operationId: stacks
-      summary: "[stacks"
+      summary: "[runtimeDebug] debug_stacks"
       description: |
         Returns a printed representation of the stacks of all goroutines.
         
