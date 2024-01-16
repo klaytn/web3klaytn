@@ -13,7 +13,7 @@ paths:
   /admin/nodeConfig:
     post:
       operationId: nodeConfig
-      summary: "[nodeConfig]"
+      summary: "admin_nodeConfig"
       description: |
         A series of node configurations
 

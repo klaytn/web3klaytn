@@ -13,7 +13,7 @@ paths:
   /governance/getStakingInfo:
     post:
       operationId: getStakingInfo
-      summary: "[getStakingInfo]"
+      summary: "governance_getStakingInfo"
       description: |
         The getStakingInfo returns staking information at a specific block. The result includes the following information.
         - BlockNum: The block number at which the staking information is given.

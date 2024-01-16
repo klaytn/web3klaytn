@@ -13,7 +13,7 @@ paths:
   /eth/getBlockByNumber:
     post:
       operationId: getBlockByNumber
-      summary: "[Block-getBlockByNumber]"
+      summary: "[Block] eth_getBlockByNumber"
       description: |
         Returns information about a block by block number.
 
@@ -87,9 +87,11 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              - type: boolean
+            properties:
+              BlockNumberOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              IsTransactionObjects:
+                type: boolean
                 title: IsTransactionObjects
                 description: If true it returns the full transaction objects, if false only the hashes of the transactions.
           example:  ["0xd0054e", false]

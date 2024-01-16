@@ -11,25 +11,22 @@ const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c5974
 async function main() {
   const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
   const web3 = new KlaytnWeb3(provider);
+  const senderAccount = web3.eth.accounts.privateKeyToAccount(senderPriv);
 
-  const sender = web3.eth.accounts.privateKeyToAccount(senderPriv);
-
-  let tx = {
+  const tx = {
     type: TxType.ValueTransferMemo,
+    from: senderAddr,
     to: recieverAddr,
     value: toPeb("0.01"),
-    from: senderAddr,
-    input: "0x1234567890",
+    gasLimit: 50000,
+    data: "0x1234567890",
   };
 
-  let signResult = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
-  console.log({ signResult });
+  const signResult = await senderAccount.signTransaction(tx);
+  console.log("rawTx", signResult.rawTransaction);
 
-  let sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
-  let txhash = sendResult.transactionHash;
-
-  let receipt = await web3.eth.getTransactionReceipt(txhash);
-  console.log({ receipt });
+  const receipt = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
+  console.log("receipt", receipt);
 }
 
 main();

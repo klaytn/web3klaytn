@@ -13,7 +13,7 @@ paths:
   /admin/importChain:
     post:
       operationId: importChain
-      summary: "[importChain]"
+      summary: "admin_importChain"
       description: |
         The importChain is an administrative method that imports an exported chain from a file into a node. This method imports only blocks that haven't existed in a Klaytn node. This method does not delete any data of the existing chain.
        

@@ -13,7 +13,7 @@ paths:
   /klay/getBlockWithConsensusInfoByHash:
     post:
       operationId: getBlockWithConsensusInfoByHash
-      summary: "[Block-getBlockWithConsensusInfoByHash]"
+      summary: "[Block] klay_getBlockWithConsensusInfoByHash"
       description: |
         Returns a block with consensus information that matches the given hash.
 

@@ -13,7 +13,7 @@ paths:
   /klay/sign:
     post:
       operationId: sign
-      summary: "[Account-sign]"
+      summary: "[Account] klay_sign"
       description: |
         The sign method calculates a Klaytn-specific signature with:
 
@@ -104,12 +104,14 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - type: string
+            properties:
+              Account:
+                type: string
                 title: Account
                 format: 20-byte DATA
                 description: Address
-              - type: string
+              Message:
+                type: string
                 title: Message
                 format: N-byte DATA
                 description: Message to sign

@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/writeMemProfile:
     post:
-      summary: "[Profiling-writeMemProfile]"
+      summary: "[Profiling] debug_writeMemProfile"
       tags:
         - debug
       operationId: writeMemProfile

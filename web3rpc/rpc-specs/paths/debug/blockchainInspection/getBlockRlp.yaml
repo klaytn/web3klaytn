@@ -13,7 +13,7 @@ paths:
   /debug/getBlockRlp:
     post:
       operationId: getBlockRlp
-      summary: "[Inspection-getBlockRlp]"
+      summary: "[Inspection] debug_getBlockRlp"
       description: |
         Retrieves and returns the RLP-encoded block by the block number.
 
@@ -87,6 +87,7 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+            properties:
+              BlockNumberOrHashOrTag:  
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
           example: ["latest"]

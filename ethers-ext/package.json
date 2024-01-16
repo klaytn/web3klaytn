@@ -1,6 +1,6 @@
 {
   "name": "@klaytn/ethers-ext",
-  "version": "0.9.9-beta",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "ethers.js extension for Klaytn blockchain",
   "keywords": [
@@ -34,23 +34,25 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.7",
+    "@klaytn/ethers-ext": "file:./",
     "@types/chai-as-promised": "^7.1.5",
+    "@types/chai": "^4.3.7",
     "@types/lodash": "^4.14.192",
     "@types/mocha": "^10.0.4",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
-    "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
-    "eslint": "^8.45.0",
+    "chai": "^4.3.7",
     "eslint-plugin-import": "^2.27.5",
+    "eslint": "^8.45.0",
+    "ethers": "^5.7.0",
     "mocha": "^10.2.0",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.1",
     "typedoc": "^0.25.4",
     "typescript": "^5.0.4",
-    "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
-    "webpack-visualizer-plugin2": "^1.1.0"
+    "webpack-visualizer-plugin2": "^1.1.0",
+    "webpack": "^5.89.0"
   },
   "dependencies": {
     "@ethersproject/abstract-provider": "^5.7.0",
@@ -71,8 +73,8 @@
     "@ethersproject/transactions": "^5.7.0",
     "@ethersproject/wallet": "^5.7.0",
     "@ethersproject/web": "^5.7.1",
-    "@klaytn/js-ext-core": "^0.9.8-beta",
-    "@klaytn/web3rpc": "^0.9.8",
+    "@klaytn/js-ext-core": "^0.9.9-beta",
+    "@klaytn/web3rpc": "^0.9.9",
     "lodash": "^4.17.21"
   }
 }

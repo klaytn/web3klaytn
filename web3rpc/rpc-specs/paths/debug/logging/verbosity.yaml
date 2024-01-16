@@ -13,7 +13,7 @@ paths:
   /debug/verbosity:
     post:
       operationId: verbosity
-      summary: "[Logging-verbosity]"
+      summary: "[Logging] debug_verbosity"
       description: |
         Sets the logging verbosity ceiling. Log messages with level up to and including the given level will be printed.
 

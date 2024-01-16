@@ -13,7 +13,7 @@ paths:
   /klay/feeHistory:
     post:
       operationId: feeHistory
-      summary: "[Gas-feeHistory]"
+      summary: "[Gas] klay_feeHistory"
       description: |
         Returns base fee per gas and transaction effective priority fee per gas history for the requested block range if available.
 
@@ -93,10 +93,13 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockCount"
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/RewardPercentiles"
+            properties:
+              BlockCount:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockCount"
+              BlockNumberOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              rewardPercentiles:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/RewardPercentiles"
           example:  ["0x10", "latest", [0.1, 0.2, 0.3]]
 
     KlayFeeHistoryResp:

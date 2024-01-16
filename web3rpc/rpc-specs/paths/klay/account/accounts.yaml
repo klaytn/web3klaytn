@@ -13,7 +13,7 @@ paths:
   /klay/accounts:
     post:
       operationId: accounts
-      summary: "[Account-accounts]"
+      summary: "[Account] klay_accounts"
       description: |
         Returns a list of addresses owned by client.
         

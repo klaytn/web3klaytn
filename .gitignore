@@ -114,6 +114,10 @@ bin/**.jar
 
 # OpenAPI generated
 **/web3rpc.yaml
+**/web3rpc-klay.yaml
+**/web3rpc-eth.yaml
+**/web3rpc-debug.yaml
+**/web3rpc-etc.yaml
 
 .DS_Store
 

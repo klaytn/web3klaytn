@@ -13,7 +13,7 @@ paths:
   /debug/memStats:
     post:
       operationId: memStats
-      summary: "[memStats]"
+      summary: "[memStats"
       description: |
         Returns detailed runtime memory statistics.
 
@@ -181,7 +181,7 @@ components:
                 type: array
                 items:
                   type: string
-                description: PauseNs is a circular buffer of recent GC stop-the-world pause times in nanoseconds. The most recent pause is at PauseNs[(NumGC+255)%256]. In general, PauseNs[N%256] records the time paused in the most recent N%256th GC cycle. There may be multiple pauses per GC cycle; this is the sum of all pauses during a cycle.
+                description: PauseNs is a circular buffer of recent GC stop-the-world pause times in nanoseconds. The most recent pause is at PauseNs[(NumGC+255)%256]. In general, PauseNs[N%256] debug_records the time paused in the most recent N%256th GC cycle. There may be multiple pauses per GC cycle; this is the sum of all pauses during a cycle.
               PauseEnd:
                 type: array
                 items:
@@ -204,7 +204,7 @@ components:
                 description: DebugGC is currently unused.
               BySize:
                 type: array
-                description: BySize reports per-size class allocation statistics. BySize[N] gives statistics for allocations of size S where BySize[N-1].Size < S ≤ BySize[N].Size. This does not report allocations larger than BySize[60].Size.
+                description: BySize reports per-size class allocation statistics. BySize[N] debug_gives statistics for allocations of size S where BySize[N-1].Size < S ≤ BySize[N].Size. This does not report allocations larger than BySize[60].Size.
                 items:
                   type: object
                   properties:

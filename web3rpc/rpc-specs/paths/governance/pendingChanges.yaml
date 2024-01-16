@@ -13,7 +13,7 @@ paths:
   /governance/pendingChanges:
     post:
       operationId: pendingChanges
-      summary: "[pendingChanges]"
+      summary: "governance_pendingChanges"
       description: |
         The pendingChanges returns the list of items that have received enough number of votes but not yet finalized. At the end of the current epoch, these changes will be finalized and the result will be in effect from the epoch after next epoch.
 

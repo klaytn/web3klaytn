@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getUncleByBlockNumberAndIndex:
     post:
-      summary: "[Block-getUncleByBlockNumberAndIndex]"
+      summary: "[Block] eth_getUncleByBlockNumberAndIndex"
       tags:
         - eth
       operationId: getUncleByBlockNumberAndIndex
@@ -85,9 +85,11 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              - title: UncleIndex
+            properties:
+              BlockNumberOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              UncleIndex:  
+                title: UncleIndex
                 description: The uncle's index position.
                 type: string
                 format: hex

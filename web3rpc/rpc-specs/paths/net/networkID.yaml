@@ -13,7 +13,7 @@ paths:
   /net/networkID:
     post:
       operationId: networkID
-      summary: "[networkID]"
+      summary: "net_networkID"
       description: |
         Returns the network identifier (network ID).
         

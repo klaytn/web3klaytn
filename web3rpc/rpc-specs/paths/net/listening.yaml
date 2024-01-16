@@ -13,7 +13,7 @@ paths:
   /net/listening:
     post:
       operationId: listening
-      summary: "[listening]"
+      summary: "net_listening"
       description: |
         Returns true if the client is actively listening for network connections.
         

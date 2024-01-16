@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/blockProfile:
     post:
-      summary: "[Profiling-blockProfile]"
+      summary: "[Profiling] debug_blockProfile"
       tags:
         - debug
       operationId: blockProfile
@@ -82,11 +82,13 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - title: File
+            properties:
+              File:
+                title: File
                 type: string
                 description: The filename for the profiling output.
-              - title: Seconds
+              Seconds:
+                title: Seconds
                 type: integer
                 description: The profiling duration in seconds.
           example: ["block.profile", 10]

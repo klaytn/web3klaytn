@@ -13,7 +13,7 @@ paths:
   /debug/gcStats:
     post:
       operationId: gcStats
-      summary: "[gcStats]"
+      summary: "[gcStats"
       description: |
         Returns GC statistics.
 

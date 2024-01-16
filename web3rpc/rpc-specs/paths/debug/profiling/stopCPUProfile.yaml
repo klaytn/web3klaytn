@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/stopCPUProfile:
     post:
-      summary: "[Profiling-stopCPUProfile]"
+      summary: "[Profiling] debug_stopCPUProfile"
       tags:
         - debug
       operationId: stopCPUProfile

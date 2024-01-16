@@ -13,7 +13,7 @@ paths:
   /eth/newPendingTransactionFilter:
     post:
       operationId: newPendingTransactionFilter
-      summary: "[Filter-newPendingTransactionFilter]"
+      summary: "[Filter] eth_newPendingTransactionFilter"
       description: |
         Creates a filter in the node, to notify when a new block arrives. To check if the state has changed, call eth_getFilterChanges.
 

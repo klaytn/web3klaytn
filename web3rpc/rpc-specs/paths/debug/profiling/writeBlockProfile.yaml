@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/writeBlockProfile:
     post:
-      summary: "[Profiling-writeBlockProfile]"
+      summary: "[Profiling] debug_writeBlockProfile"
       tags:
         - debug
       operationId: writeBlockProfile

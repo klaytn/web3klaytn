@@ -1,9 +1,5 @@
 // TxTypeFeeDelegatedSmartContractExecution
 // https://docs.klaytn.foundation/content/klaytn/design/transactions/fee-delegation#txtypefeedelegatedsmartcontractexecution
-//
-//   to : deployed contract address
-//   value: Must be 0, if not payable
-//   input: Refer https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-encodeabi
 
 const { KlaytnWeb3, TxType, parseTransaction } = require("@klaytn/web3js-ext");
 const { Web3 } = require("web3");
@@ -13,68 +9,53 @@ const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c5974
 const feePayerAddr = "0xcb0eb737dfda52756495a5e08a9b37aab3b271da";
 const feePayerPriv = "0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16fc000cff4";
 const contractAddr = "0xD7fA6634bDDe0B2A9d491388e2fdeD0fa25D2067";
+const contractAbi = [
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "newNumber",
+        "type": "uint256"
+      }
+    ],
+    "name": "setNumber",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+];
 
 async function main() {
   const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
   const web3 = new KlaytnWeb3(provider);
+  const senderAccount = web3.eth.accounts.privateKeyToAccount(senderPriv);
 
-  const CONTRACT_ADDRESS = contractAddr;
-  const CONTRACT_ABI = [
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "newNumber",
-          "type": "uint256"
-        }
-      ],
-      "name": "setNumber",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "increment",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }
-  ];
-  const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-  const param = contract.methods.setNumber(0x123).encodeABI();
+  // https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-encodeabi
+  const contract = new web3.eth.Contract(contractAbi, contractAddr);
+  const data = contract.methods.setNumber(0x123).encodeABI();
 
-  let tx = {
+  const tx = {
     type: TxType.FeeDelegatedSmartContractExecution,
-    to: CONTRACT_ADDRESS,
-    value: 0,
     from: senderAddr,
-    input: param,
-    gas: 400000, // intrinsic gas too low
-    gasPrice: 100e9,
+    to: contractAddr,
+    gasLimit: 50000,
+    data: data,
   };
 
-  // sender
-  const sender = web3.eth.accounts.privateKeyToAccount(senderPriv);
-  let senderTx = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
-  console.log(senderTx);
+  const signResult1 = await senderAccount.signTransaction(tx);
+  console.log("senderRawTx", signResult1.rawTransaction);
+  console.log("senderTx", parseTransaction(signResult1.rawTransaction));
 
-  // tx = parseTransaction(senderTx.rawTransaction);
-  // console.log(tx);
+  // Next step is usually done in the backend by the service provider.
+  // But for the sake of demonstration, feePayer signature is done here.
 
-  // fee payer
-  const feePayer = web3.eth.accounts.privateKeyToAccount(feePayerPriv, provider);
-  let signResult = await web3.eth.accounts.signTransactionAsFeePayer(senderTx.rawTransaction, feePayer.privateKey);
-  console.log(signResult);
+  const feePayerAccount = web3.eth.accounts.privateKeyToAccount(feePayerPriv);
+  const signResult2 = await feePayerAccount.signTransactionAsFeePayer(signResult1.rawTransaction);
+  console.log("rawTx", signResult2.rawTransaction);
+  console.log("tx", parseTransaction(signResult2.rawTransaction));
 
-  // tx = parseTransaction(signResult.rawTransaction);
-  // console.log(tx);
-
-  let sendResult = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
-  let txhash = sendResult.transactionHash;
-
-  let receipt = await web3.eth.getTransactionReceipt(txhash);
-  console.log({ receipt });
+  const receipt = await web3.eth.sendSignedTransaction(signResult2.rawTransaction);
+  console.log("receipt", receipt);
 }
 
 main();

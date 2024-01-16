@@ -13,7 +13,7 @@ paths:
   /klay/upperBoundGasPrice:
     post:
       operationId: upperBoundGasPrice
-      summary: "[Gas-upperBoundGasPrice]"
+      summary: "[Gas] klay_upperBoundGasPrice"
       description: |
         Returns upper bound gas price.
 

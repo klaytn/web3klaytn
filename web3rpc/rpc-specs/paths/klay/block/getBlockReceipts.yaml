@@ -13,7 +13,7 @@ paths:
   /klay/getBlockReceipts:
     post:
       operationId: getBlockReceipts
-      summary: "[Block-getBlockReceipts]"
+      summary: "[Block] klay_getBlockReceipts"
       description: |
         Returns receipts included in a block identified by block hash.
 

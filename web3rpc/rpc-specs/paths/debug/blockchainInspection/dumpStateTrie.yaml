@@ -13,7 +13,7 @@ paths:
   /debug/dumpStateTrie:
     post:
       operationId: dumpStateTrie
-      summary: "[Inspection-dumpStateTrie]"
+      summary: "[Inspection] debug_dumpStateTrie"
       description: |
         Retrieves all state/storage tries of the given state root.
 

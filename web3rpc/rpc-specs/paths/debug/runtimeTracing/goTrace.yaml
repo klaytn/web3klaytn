@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/goTrace:
     post:
-      summary: "[RuntimeTrace-goTrace]"
+      summary: "[RuntimeTrace] debug_goTrace"
       tags:
         - debug
       operationId: goTrace
@@ -82,11 +82,13 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - title: File
+            properties:
+              File:
+                title: File
                 type: string
                 description: The filename for the trace output.
-              - title: Seconds
+              Seconds:
+                title: Seconds
                 type: integer
                 description: The tracing duration in seconds.
           example: ["go.trace",5]

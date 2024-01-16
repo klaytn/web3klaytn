@@ -12,7 +12,7 @@ servers:
 paths:
   /debug/standardTraceBadBlockToFile:
     post:
-      summary: "[StandardTrace-standardTraceBadBlockToFile]"
+      summary: "[StandardTrace] debug_standardTraceBadBlockToFile"
       tags:
         - debug
       operationId: standardTraceBadBlockToFile
@@ -82,12 +82,14 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - title: Hash
+            properties:
+              Hash:
+                title: Hash
                 description: Hash of a block.
                 type: string
                 format: 32-byte DATA
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/StandardTracingOptions"
+              StandardTracingOptions:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/StandardTracingOptions"
           example: ["0x1d5ba00e313a81ae6d409d459c153327072665d9ea2f47608369722baf0cfbb6"]
 
     DebugStandardTraceBadBlockToFileResp:

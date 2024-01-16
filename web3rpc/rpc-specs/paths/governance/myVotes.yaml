@@ -13,7 +13,7 @@ paths:
   /governance/myVotes:
     post:
       operationId: myVotes
-      summary: "[myVotes]"
+      summary: "governance_myVotes"
       description: |
         The myVotes property provides my vote information in the epoch. Each vote is stored in a block when the user's node generates a new block. After current epoch ends, this information is cleared.
 

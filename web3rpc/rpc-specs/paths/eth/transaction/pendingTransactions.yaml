@@ -13,7 +13,7 @@ paths:
   /eth/pendingTransactions:
     post:
       operationId: pendingTransactions
-      summary: "[Transaction-pendingTransactions]"
+      summary: "[Transaction] eth_pendingTransactions"
       tags:
         - eth
       description: |

@@ -13,7 +13,7 @@ paths:
   /txpool/inspect:
     post:
       operationId: inspect
-      summary: "[inspect]"
+      summary: "txpool_inspect"
       description: |
         The inspect inspection property can be queried to list a textual summary of all the transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only. This is a method specifically tailored to developers to quickly see the transactions in the pool and find any potential issues.
         

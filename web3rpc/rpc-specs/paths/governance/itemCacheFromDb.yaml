@@ -13,7 +13,7 @@ paths:
   /governance/itemCacheFromDb:
     post:
       operationId: itemCacheFromDb
-      summary: "[itemCacheFromDb]"
+      summary: "governance_itemCacheFromDb"
       description: |
         The itemCacheFromDb returns the governance information stored in the given block. If no changes were stored in the given block, the function returns null.
 

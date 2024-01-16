@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/coinbase:
     post:
-      summary: "[Configuration-coinbase]"
+      summary: "[Configuration] eth_coinbase"
       tags:
         - eth
       operationId: coinbase

@@ -13,7 +13,7 @@ paths:
   /klay/estimateGas:
     post:
       operationId: estimateGas
-      summary: "[Transaction-estimateGas]"
+      summary: "[Transaction] klay_estimateGas"
       tags:
         - klay
       description: |

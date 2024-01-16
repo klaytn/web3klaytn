@@ -13,7 +13,7 @@ paths:
   /klay/gasPrice:
     post:
       operationId: gasPrice
-      summary: "[Configuration-gasPrice]"
+      summary: "[Configuration] klay_gasPrice"
       description: |
         Returns a suggestion for a gas price in peb.
         

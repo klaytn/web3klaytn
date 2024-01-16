@@ -13,7 +13,7 @@ paths:
   /klay/getCommittee:
     post:
       operationId: getCommittee
-      summary: "[Block-getCommittee]"
+      summary: "[Block] klay_getCommittee"
       description: |
         Returns a list of all validators in the committee at the specified block. If the parameter is not set, returns a list of all validators in the committee at the latest block.
 
@@ -81,8 +81,9 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+            properties:
+              BlockNumberOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
           example:  ["0x1b4"]
 
     KlayGetCommitteeResp:

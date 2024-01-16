@@ -12,7 +12,7 @@ servers:
 paths:
   /subbridge/nodeInfo:
     post:
-      summary: "[nodeInfo]"
+      summary: "subbridge_nodeInfo"
       tags:
         - subbridge
       operationId: nodeInfo

@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getProof:
     post:
-      summary: "[Others-getProof]"
+      summary: "[Others] eth_getProof"
       tags:
         - eth
       operationId: getProof
@@ -127,7 +127,7 @@ components:
             nonce:
               type: string
               format: hex
-              description: nonce of the account. See eth-getTransactionCount
+              description: nonce of the account. See eth_getTransactionCount
             storageHash:
               type: string
               format: DATA

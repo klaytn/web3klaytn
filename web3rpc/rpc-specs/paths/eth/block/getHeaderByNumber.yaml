@@ -12,7 +12,7 @@ servers:
 paths:
   /eth/getHeaderByNumber:
     post:
-      summary: "[Block-getHeaderByNumber]"
+      summary: "[Block] eth_getHeaderByNumber"
       tags:
         - eth
       operationId: getHeaderByNumber

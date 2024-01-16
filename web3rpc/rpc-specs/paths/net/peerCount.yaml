@@ -13,7 +13,7 @@ paths:
   /net/peerCount:
     post:
       operationId: peerCount
-      summary: "[peerCount]"
+      summary: "net_peerCount"
       description: |
         Returns the number of peers currently connected to the client.
         

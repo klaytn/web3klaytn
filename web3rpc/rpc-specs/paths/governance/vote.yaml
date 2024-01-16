@@ -13,7 +13,7 @@ paths:
   /governance/vote:
     post:
       operationId: vote
-      summary: "[vote]"
+      summary: "governance_vote"
       description: |
         The vote method submits a new vote. If the node has the right to vote based on governance mode, the vote can be placed. If not, an error message will be returned and the vote will be ignored.
 

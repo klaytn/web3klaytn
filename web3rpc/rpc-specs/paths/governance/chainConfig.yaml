@@ -13,7 +13,7 @@ paths:
   /governance/chainConfig:
     post:
       operationId: chainConfig
-      summary: "[chainConfig]"
+      summary: "governance_chainConfig"
       description: |
         The chainConfig property provides the latest chain configuration. This is equivalent to chainConfigAt() with an empty parameter.
 

@@ -13,7 +13,7 @@ paths:
   /klay/call:
     post:
       operationId: call
-      summary: "[Transaction-call]"
+      summary: "[Transaction] klay_call"
       tags:
         - klay
       description: |

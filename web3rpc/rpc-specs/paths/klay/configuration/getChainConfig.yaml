@@ -13,7 +13,7 @@ paths:
   /klay/getChainConfig:
     post:
       operationId: .getChainConfig
-      summary: "[Configuration-getChainConfig]"
+      summary: "[Configuration] klay_getChainConfig"
       description: |
         Returns the configuration of the chain.
 

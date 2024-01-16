@@ -13,7 +13,7 @@ paths:
   /eth/getRawTransactionByBlockNumberAndIndex:
     post:
       operationId: getRawTransactionByBlockNumberAndIndex
-      summary: "[Transaction-getRawTransactionByBlockNumberAndIndex]"
+      summary: "[Transaction] eth_getRawTransactionByBlockNumberAndIndex"
       tags:
         - eth
       description: |
@@ -85,12 +85,14 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-              - type: string
+            properties:
+              BlockNumberOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+              TransactionIndex:
+                title: TransactionIndexPosition
+                description: Integer of the transaction index position.
+                type: string
                 format: hex
-                title: Index
-                description: Hex representation of a uint.
           example:  [118593751, "0x0"]
 
     EthGetRawTransactionByBlockNumberAndIndexResp:

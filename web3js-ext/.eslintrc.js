@@ -94,5 +94,16 @@ module.exports = {
         "prefer-const": "off",
       }
     },
-  ]
+    { // browser examples use browser globals
+      "files": ["example/browser-html/*"],
+      "rules": {
+        "no-undef": "off",
+        "no-unused-vars": "off",
+        "no-constant-condition": "off",
+      }
+    },
+  ],
+  "ignorePatterns": [
+    "example/browser-html/web3js-ext.bundle.js",
+  ],
 };

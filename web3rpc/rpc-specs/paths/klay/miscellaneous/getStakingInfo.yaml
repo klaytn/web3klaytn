@@ -13,7 +13,7 @@ paths:
   /klay/getStakingInfo:
     post:
       operationId: getStakingInfo
-      summary: "[Miscellaneous-getStakingInfo]"
+      summary: "[Miscellaneous] klay_getStakingInfo"
       tags:
         - klay
       description: |
@@ -90,8 +90,9 @@ components:
         params:
           type: array
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+            properties:
+              BlockNumberOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
           example:  ["latest"]
 
     KlayGetStakingInfoResp:

@@ -13,7 +13,7 @@ paths:
   /debug/chaindbCompact:
     post:
       operationId: chaindbCompact
-      summary: "[Inspection-chaindbCompact]"
+      summary: "[Inspection] debug_chaindbCompact"
       description: |
         ChaindbCompact flattens the entire key-value database into a single level, removing all unused slots and merging all keys.
 

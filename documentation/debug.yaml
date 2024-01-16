@@ -1,0 +1,119 @@
+openapi: "3.0.2"
+info:
+  title: web3rpc
+  version: "0.9.0"
+  contact:
+    name: API support
+    url: https://forum.klaytn.foundation/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+x-tagGroups:
+  - name: namespaces
+    tags:
+      - debug
+servers:
+  - url: http://localhost:8551
+  - url: https://api.baobab.klaytn.net:8651
+  - url: https://public-en-cypress.klaytn.net
+paths:
+
+  /debug/blockchainInspection/chaindbCompact:
+    $ref: ../web3rpc/rpc-specs/paths/debug/others/chaindbCompact.yaml#/paths/~1debug~1chaindbCompact
+  /debug/blockchainInspection/chaindbProperty:
+    $ref: ../web3rpc/rpc-specs/paths/debug/others/chaindbProperty.yaml#/paths/~1debug~1chaindbProperty
+  /debug/blockchainInspection/dumpBlock:
+    $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/dumpBlock.yaml#/paths/~1debug~1dumpBlock
+  /debug/blockchainInspection/dumpStateTrie:
+    $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/dumpStateTrie.yaml#/paths/~1debug~1dumpStateTrie
+  /debug/blockchainInspection/getBadBlocks:
+    $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/getBadBlocks.yaml#/paths/~1debug~1getBadBlocks
+  /debug/blockchainInspection/getBlockRlp:
+    $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/getBlockRlp.yaml#/paths/~1debug~1getBlockRlp
+  /debug/blockchainInspection/getModifiedAccountsByHash:
+    $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/getModifiedAccountsByHash.yaml#/paths/~1debug~1getModifiedAccountsByHash
+  /debug/blockchainInspection/getModifiedAccountsByNumber:
+    $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/getModifiedAccountsByNumber.yaml#/paths/~1debug~1getModifiedAccountsByNumber
+  /debug/blockchainInspection/getModifiedStorageNodesByNumber:
+    $ref: ../web3rpc/rpc-specs/paths/debug/others/getModifiedStorageNodesByNumber.yaml#/paths/~1debug~1getModifiedStorageNodesByNumber
+  /debug/blockchainInspection/preimage:
+    $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/preimage.yaml#/paths/~1debug~1preimage
+  /debug/blockchainInspection/printBlock:
+    $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/printBlock.yaml#/paths/~1debug~1printBlock
+  /debug/blockchainInspection/seedHash:
+    $ref: ../web3rpc/rpc-specs/paths/debug/others/seedHash.yaml#/paths/~1debug~1seedHash
+  /debug/blockchainInspection/setHead:
+    $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/setHead.yaml#/paths/~1debug~1setHead
+  /debug/blockchainInspection/startCollectingTrieStats:
+    $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/startCollectingTrieStats.yaml#/paths/~1debug~1startCollectingTrieStats
+  /debug/blockchainInspection/startContractWarmUp:
+    $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/startContractWarmUp.yaml#/paths/~1debug~1startContractWarmUp
+  /debug/blockchainInspection/startWarmUp:
+    $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/startWarmUp.yaml#/paths/~1debug~1startWarmUp
+  /debug/blockchainInspection/stopWarmUp:
+    $ref: ../web3rpc/rpc-specs/paths/debug/blockchainInspection/stopWarmUp.yaml#/paths/~1debug~1stopWarmUp
+  /debug/blockchainInspection/storageRangeAt:
+    $ref: ../web3rpc/rpc-specs/paths/debug/others/storageRangeAt.yaml#/paths/~1debug~1storageRangeAt
+
+  # debug/vMTracing:
+  /debug/vMTracing/traceBadBlock:
+    $ref: ../web3rpc/rpc-specs/paths/debug/vMTracing/traceBadBlock.yaml#/paths/~1debug~1traceBadBlock
+  /debug/vMTracing/traceBlock:
+    $ref: ../web3rpc/rpc-specs/paths/debug/vMTracing/traceBlock.yaml#/paths/~1debug~1traceBlock
+  /debug/vMTracing/traceBlockByHash:
+    $ref: ../web3rpc/rpc-specs/paths/debug/vMTracing/traceBlockByHash.yaml#/paths/~1debug~1traceBlockByHash
+  /debug/vMTracing/traceBlockByNumber:
+    $ref: ../web3rpc/rpc-specs/paths/debug/vMTracing/traceBlockByNumber.yaml#/paths/~1debug~1traceBlockByNumber
+  /debug/vMTracing/traceBlockByNumberRange:
+    $ref: ../web3rpc/rpc-specs/paths/debug/vMTracing/traceBlockByNumberRange.yaml#/paths/~1debug~1traceBlockByNumberRange
+  /debug/vMTracing/traceBlockFromFile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/vMTracing/traceBlockFromFile.yaml#/paths/~1debug~1traceBlockFromFile
+  /debug/vMTracing/traceChain:
+    $ref: ../web3rpc/rpc-specs/paths/debug/vMTracing/traceChain.yaml#/paths/~1debug~1traceChain
+  /debug/vMTracing/traceTransaction:
+    $ref: ../web3rpc/rpc-specs/paths/debug/vMTracing/traceTransaction.yaml#/paths/~1debug~1traceTransaction
+  /debug/vMTracing/traceCall:
+    $ref: ../web3rpc/rpc-specs/paths/debug/vMTracing/traceCall.yaml#/paths/~1debug~1traceCall
+
+
+  # debug/vMStandardTracing:
+  /debug/vMStandardTracing/standardTraceBadBlockToFile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/vMStandardTracing/standardTraceBadBlockToFile.yaml#/paths/~1debug~1standardTraceBadBlockToFile
+  /debug/vMStandardTracing/standardTraceBlockToFile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/vMStandardTracing/standardTraceBlockToFile.yaml#/paths/~1debug~1standardTraceBlockToFile
+
+  # debug/runtimeTracing:
+  /debug/runtimeTracing/goTrace:
+    $ref: ../web3rpc/rpc-specs/paths/debug/runtimeTracing/goTrace.yaml#/paths/~1debug~1goTrace
+  /debug/runtimeTracing/startGoTrace:
+    $ref: ../web3rpc/rpc-specs/paths/debug/runtimeTracing/startGoTrace.yaml#/paths/~1debug~1startGoTrace
+  /debug/runtimeTracing/stopGoTrace:
+    $ref: ../web3rpc/rpc-specs/paths/debug/runtimeTracing/stopGoTrace.yaml#/paths/~1debug~1stopGoTrace
+
+  # debug/profiling:
+  /debug/profiling/blockProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/blockProfile.yaml#/paths/~1debug~1blockProfile
+  /debug/profiling/cpuProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/cpuProfile.yaml#/paths/~1debug~1cpuProfile
+  /debug/profiling/isPProfRunning:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/isPProfRunning.yaml#/paths/~1debug~1isPProfRunning
+  /debug/profiling/mutexProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/mutexProfile.yaml#/paths/~1debug~1mutexProfile
+  /debug/profiling/setBlockProfileRate:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/setBlockProfileRate.yaml#/paths/~1debug~1setBlockProfileRate
+  /debug/profiling/setMutexProfileFraction:
+    $ref: ../web3rpc/rpc-specs/paths/debug/others/setMutexProfileFraction.yaml#/paths/~1debug~1setMutexProfileFraction
+  /debug/profiling/startCPUProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/startCPUProfile.yaml#/paths/~1debug~1startCPUProfile
+  /debug/profiling/startPProf:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/startPProf.yaml#/paths/~1debug~1startPProf
+  /debug/profiling/stopCPUProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/stopCPUProfile.yaml#/paths/~1debug~1stopCPUProfile
+  /debug/profiling/stopPProf:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/stopPProf.yaml#/paths/~1debug~1stopPProf
+  /debug/profiling/writeBlockProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/writeBlockProfile.yaml#/paths/~1debug~1writeBlockProfile
+  /debug/profiling/writeMemProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/writeMemProfile.yaml#/paths/~1debug~1writeMemProfile
+  /debug/profiling/writeMutexProfile:
+    $ref: ../web3rpc/rpc-specs/paths/debug/profiling/writeMutexProfile.yaml#/paths/~1debug~1writeMutexProfile

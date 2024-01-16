@@ -13,7 +13,7 @@ paths:
   /klay/forkStatus:
     post:
       operationId: forkStatus
-      summary: "[Configuration-forkStatus]"
+      summary: "[Configuration] klay_forkStatus"
       description: |
         Using this API, users can easily query the fork status with negligible management costs.
 

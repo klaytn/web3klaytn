@@ -13,7 +13,7 @@ paths:
   /net/peerCountByType:
     post:
       operationId: peerCountByType
-      summary: "[peerCountByType]"
+      summary: "net_peerCountByType"
       description: |
         Returns the number of connected nodes by type and the total number of connected nodes with key/value pairs.
 

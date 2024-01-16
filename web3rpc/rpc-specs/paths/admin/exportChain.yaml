@@ -13,7 +13,7 @@ paths:
   /admin/exportChain:
     post:
       operationId: exportChain
-      summary: "[exportChain]"
+      summary: "admin_exportChain"
       description: |
         The exportChain is an administrative method that exports the blockchain to a file.
 

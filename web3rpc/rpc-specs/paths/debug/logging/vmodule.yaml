@@ -13,7 +13,7 @@ paths:
   /debug/vmodule:
     post:
       operationId: vmodule
-      summary: "[Logging-vmodule]"
+      summary: "[Logging] debug_vmodule"
       description: |
         Sets the logging verbosity pattern.
         
