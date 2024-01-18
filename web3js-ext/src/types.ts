@@ -121,6 +121,11 @@ export interface KlaytnAccountsInterface {
 			transaction: KlaytnTransaction | string,
 			privateKey: Bytes,
 		) => ReturnType<typeof signTransaction>;
+		decryptList: (
+			keystore: string,
+			password: string,
+			options?: Record<string, unknown>,
+		) => Promise<KlaytnWeb3Account[]>;
 }
 
 // The plain Transaction object supplied by the users.
