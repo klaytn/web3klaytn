@@ -8,10 +8,9 @@ type Props = {
 };
 
 function Connect({ account, setAccount }: Props) {
-
-  var provider: Web3Provider;
-  
   async function connect(injectedProvider: any, appThis: undefined ) {
+    var provider: Web3Provider;
+
     if (!injectedProvider) {
       alert("Please install wallet");
       return;

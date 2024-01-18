@@ -1,5 +1,5 @@
 import { ethers } from 'ethers'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Account } from '../types';
 
 type Props = {
@@ -8,25 +8,21 @@ type Props = {
 };
 
 function AccountInfo({ account, setAccount }: Props) {
-
-  const signer = account.provider?.getSigner();
   var [balance, setBalance] = useState("");
-  // var refreshIntervalId; 
 
   async function getBalance(){
-    // @ts-ignore
-    const _bal = await signer.getBalance()
-    const _balance = ethers.utils.formatEther( _bal ); 
-    console.log("balance", _balance);
-    setBalance( _balance ); 
+    if (!account.provider) {
+      return;
+    }
+    const signer = await account.provider.getSigner();    
+    const balance = await signer.getBalance();
+    setBalance(ethers.utils.formatEther(balance));
   };
-  getBalance();
-  // TODO: invertal is not cleared.
-  // if (refreshIntervalId != null) {
-  //   clearInterval(refreshIntervalId);
-  // }
-  // refreshIntervalId = setInterval(getBalance, 3000);
-  
+
+  useEffect(() => {
+    setInterval(getBalance, 3000);
+  }, []);
+
   return (
     <div>
         <p><b>Address</b>:{account.address}</p>

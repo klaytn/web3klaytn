@@ -48,7 +48,7 @@ function App() {
           { menu === Menu.LegacySC ? <LegacySC account={account} /> : null }
         </div>
       ) : null }
-      { /* ValueTransfer tx only supported in Kaiskas */
+      { /* ValueTransfer tx is not supported in MetaMask */
         account.isKaikas ? (
         <div>
           <hr/>
