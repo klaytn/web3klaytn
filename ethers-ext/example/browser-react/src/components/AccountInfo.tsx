@@ -10,23 +10,29 @@ type Props = {
 function AccountInfo({ account, setAccount }: Props) {
   var [balance, setBalance] = useState("");
 
-  async function getBalance(){
-    if (!account.provider) {
-      return;
-    }
-    const signer = await account.provider.getSigner();    
-    const balance = await signer.getBalance();
-    setBalance(ethers.utils.formatEther(balance));
-  };
-
   useEffect(() => {
+    const _account = account;
+    const getBalance = async function () {
+      debugger
+      if (!_account.provider) {
+        return;
+      }
+      
+      const signer = await _account.provider.getSigner();   
+      console.log( signer ) 
+      const balance = await signer.getBalance();
+      console.log( balance ) 
+      setBalance(ethers.utils.formatEther(balance));
+    };
+
+    // TODO : have to debug for not referencing account.provider
     setInterval(getBalance, 3000);
-  }, []);
+  }, [account]);
 
   return (
     <div>
         <p><b>Address</b>:{account.address}</p>
-        <p><b>Balance</b>: {balance}</p>
+        <p><b>Balance</b>:{balance}</p>
         <p>
           <b>Connected Wallet</b>:
           { account.isMetaMask ? "Metamask" : null }

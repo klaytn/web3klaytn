@@ -1,23 +1,19 @@
 import { JsonRpcProvider, Wallet } from '@klaytn/ethers-ext'
 import { Account } from "./types";
 
-const explorerUrl = "https://baobab.klaytnscope.com/tx/";
-
 export function isKaikas(account: Account) {
     // @ts-ignore
     return account.provider && account.provider.provider.isKaikas;
   }
 
-export async function doSendTx(account: Account, makeTxRequest: any) {
+export async function doSendTx(account: Account, txRequest: any): Promise<any> {
     try {
         const provider = account.provider;
         // @ts-ignore
         const signer = provider.getSigner();
-        const address = await signer.getAddress();
-        const txRequest = await makeTxRequest(address);
         const sentTx = await signer.sendTransaction(txRequest);
         
-        return explorerUrl+sentTx.hash;
+        return getTxhashUrl( 1001, sentTx.hash);
     } catch (err) {
         console.error(err);
     }
@@ -34,7 +30,7 @@ async function doSendTxAsFeePayer(signedTx: string) {
         const sentTx = await feePayerWallet.sendTransactionAsFeePayer(signedTx);
         console.log("sentTx", sentTx);
         
-        return explorerUrl+sentTx.hash;
+        return getTxhashUrl( 1001, sentTx.hash);
     } catch (err) {
         console.error(err);
     }
@@ -55,4 +51,13 @@ export async function doSignTx(account: Account, makeTxRequest: any) {
     } catch (err) {
       console.error(err);
     }
+}
+
+export function getTxhashUrl(chainId: number, txhash: string): string {
+    if ( chainId === 1001 ) {
+        return "https://baobab.klaytnscope.com/tx/" + txhash; 
+    } else if ( chainId === 8271 ) {
+        return "https://klaytnscope.com/tx/" + txhash; 
+    } 
+    return "Can not support your chainId";
 }
