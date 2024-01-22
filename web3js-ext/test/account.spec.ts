@@ -148,7 +148,7 @@ describe("web3.eth.accounts", () => {
     }
     async function checkKlaytnWallet(W3: KlaytnWeb3) {
       await checkWallet(W3);
-      checkKlaytnAccountObject(W3.eth.accounts.wallet.at(0) as KlaytnWeb3Account); // TODO: fix type
+      checkKlaytnAccountObject(W3.eth.accounts.wallet.at(0)!);
     }
 
     await checkWallet(EW3);

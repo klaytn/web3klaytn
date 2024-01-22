@@ -101,9 +101,9 @@ export interface KlaytnAccountsInterface {
 		sign: typeof sign;
 		recover: typeof recover;
 		encrypt: typeof encrypt;
-		wallet: Wallet;
 
 		// Klaytn: modified methods
+		wallet: Wallet<KlaytnWeb3Account>;
 		create: () => KlaytnWeb3Account;
 		privateKeyToAccount: (privateKey: Uint8Array | string) => KlaytnWeb3Account;
 		decrypt: (

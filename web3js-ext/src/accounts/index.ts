@@ -1,5 +1,5 @@
 import { Web3Context } from "web3-core";
-import { encrypt, hashMessage, recover, sign, Wallet } from "web3-eth-accounts";
+import { encrypt, hashMessage, recover, sign } from "web3-eth-accounts";
 import { EthExecutionAPI } from "web3-types";
 
 import { KlaytnAccountsInterface } from "../types";
@@ -7,6 +7,7 @@ import { KlaytnAccountsInterface } from "../types";
 import { context_create, context_privateKeyToAccount, context_decrypt, context_decryptList } from "./create";
 import { recoverTransaction } from "./recover";
 import { context_signTransaction, context_signTransactionAsFeePayer } from "./sign";
+import { Wallet } from "./wallet";
 
 
 // Analogous to: web3/src/accounts.ts:initAccountsForContext
