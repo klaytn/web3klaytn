@@ -8,6 +8,10 @@ export function isKaikas(account: Account) {
 
 export async function doSendTx(account: Account, txRequest: any): Promise<any> {
     try {
+        if (!account.provider) {
+            throw new Error("wallet not connected")
+        }
+
         const provider = account.provider;
         // @ts-ignore
         const signer = provider.getSigner();
