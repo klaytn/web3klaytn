@@ -1,7 +1,15 @@
 import { assert } from "chai";
+import { describe, it } from "mocha";
 
-import { AccountKeyFactory, AccountKeyFail, AccountKeyLegacy, AccountKeyNil, AccountKeyPublic, AccountKeyRoleBased, AccountKeyWeightedMultiSig } from "../src";
-
+import {
+  AccountKeyFactory,
+  AccountKeyNil,
+  AccountKeyLegacy,
+  AccountKeyPublic,
+  AccountKeyFail,
+  AccountKeyWeightedMultiSig,
+  AccountKeyRoleBased,
+} from "../src";
 
 describe("AccountKeyFactory", () => {
   it("AccountKeyNil", () => {

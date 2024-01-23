@@ -25,3 +25,30 @@ class _AccountKeyFactory extends FieldSetFactory<AccountKey> {
   }
 }
 export const AccountKeyFactory = new _AccountKeyFactory();
+
+export interface ParsedAccountKeyNil { type: AccountKeyType.Nil; }
+export interface ParsedAccountKeyLegacy { type: AccountKeyType.Legacy; }
+export interface ParsedAccountKeyPublic { type: AccountKeyType.Public; key: string; }
+export interface ParsedAccountKeyFail { type: AccountKeyType.Fail; }
+export interface ParsedAccountKeyWeightedMultiSig {
+  type: AccountKeyType.WeightedMultiSig;
+  threshold: number;
+  keys: { weight: number, key: string }[];
+}
+export type ParsedAccountKeyEmbeddable =
+  | ParsedAccountKeyNil
+  | ParsedAccountKeyLegacy
+  | ParsedAccountKeyPublic
+  | ParsedAccountKeyFail
+  | ParsedAccountKeyWeightedMultiSig;
+export interface ParsedAccountKeyRoleBased {
+  type: AccountKeyType.RoleBased;
+  keys: ParsedAccountKeyEmbeddable[];
+}
+export type ParsedAccountKey =
+  | ParsedAccountKeyEmbeddable
+  | ParsedAccountKeyRoleBased;
+
+export function parseAccountKey(rlp: string): ParsedAccountKey {
+  return { type: 0 };
+}
