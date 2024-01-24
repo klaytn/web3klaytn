@@ -12,9 +12,8 @@ export async function doSendTx(account: Account, txRequest: any): Promise<any> {
             throw new Error("wallet not connected")
         }
 
-        const provider = account.provider;
         // @ts-ignore
-        const signer = provider.getSigner();
+        const signer = account.provider.getSigner();
         if ( txRequest.from ){
             const address = await signer.getAddress();
             txRequest.from = address; 
@@ -22,6 +21,29 @@ export async function doSendTx(account: Account, txRequest: any): Promise<any> {
         const sentTx = await signer.sendTransaction(txRequest);
         
         return getTxhashUrl( 1001, sentTx.hash);
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+export async function doSignTx(account: Account, txRequest: any): Promise<any> {
+    try {
+        if (!account.provider) {
+            throw new Error("wallet not connected")
+        }
+
+        // @ts-ignore
+        const signer = account.provider.getSigner();
+        if ( txRequest.from ){
+            const address = await signer.getAddress();
+            txRequest.from = address; 
+        }
+        
+        // @ts-ignore
+        const signedTx = await signer.signTransaction(txRequest);
+        console.log("signedTx", signedTx);
+        
+        return await doSendTxAsFeePayer(signedTx);
     } catch (err) {
         console.error(err);
     }
@@ -41,23 +63,6 @@ async function doSendTxAsFeePayer(signedTx: string) {
         return getTxhashUrl( 1001, sentTx.hash);
     } catch (err) {
         console.error(err);
-    }
-}
-
-
-export async function doSignTx(account: Account, makeTxRequest: any) {
-    try {
-      const signer = account.provider?.getSigner();
-      // @ts-ignore
-      const address = await signer.getAddress();
-      const txRequest = await makeTxRequest(address);
-      // @ts-ignore
-      const signedTx = await signer.signTransaction(txRequest);
-      console.log("signedTx", signedTx);
-      
-      return await doSendTxAsFeePayer(signedTx);
-    } catch (err) {
-      console.error(err);
     }
 }
 

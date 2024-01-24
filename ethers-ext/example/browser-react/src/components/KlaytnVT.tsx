@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Account } from '../types';
-import { doSendTx, getTxhashUrl } from '../util';
+import { doSendTx } from '../util';
 import { TxType, parseKlay } from '@klaytn/js-ext-core';
 
 type Props = {
@@ -37,7 +37,7 @@ function KlaytnVT({ account }: Props) {
                 <p>Value: <input type="text" name="amount" value="0"></input></p>
                 <p><input type="submit"></input></p>
             </form>
-            { txhash? <a target="_blank" href={getTxhashUrl(1001, txhash)} rel="noreferrer">{txhash}</a> : null }
+            { txhash? <a target="_blank" href={txhash} rel="noreferrer">{txhash}</a> : null }
             { error? <text><b style={{ color: "red" }}>{error}</b></text> : null }
         </div>
     );
