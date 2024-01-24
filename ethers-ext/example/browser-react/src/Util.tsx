@@ -15,6 +15,10 @@ export async function doSendTx(account: Account, txRequest: any): Promise<any> {
         const provider = account.provider;
         // @ts-ignore
         const signer = provider.getSigner();
+        if ( txRequest.from ){
+            const address = await signer.getAddress();
+            txRequest.from = address; 
+        }
         const sentTx = await signer.sendTransaction(txRequest);
         
         return getTxhashUrl( 1001, sentTx.hash);

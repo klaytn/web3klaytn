@@ -1,5 +1,3 @@
-import { ethers } from 'ethers'
-import { useState, useEffect } from 'react';
 import { Account } from '../types';
 
 type Props = {
@@ -8,31 +6,15 @@ type Props = {
 };
 
 function AccountInfo({ account, setAccount }: Props) {
-  var [balance, setBalance] = useState("");
-
-  useEffect(() => {
-    const _account = account;
-    const getBalance = async function () {
-      debugger
-      if (!_account.provider) {
-        return;
-      }
-      
-      const signer = await _account.provider.getSigner();   
-      console.log( signer ) 
-      const balance = await signer.getBalance();
-      console.log( balance ) 
-      setBalance(ethers.utils.formatEther(balance));
-    };
-
-    // TODO : have to debug for not referencing account.provider
-    setInterval(getBalance, 3000);
-  }, [account]);
-
   return (
     <div>
         <p><b>Address</b>:{account.address}</p>
-        <p><b>Balance</b>:{balance}</p>
+
+        {/* 
+          // Balance is wrong value in Kaikas
+          // e.g. window.klaytn.request({method:"klay_getBalance",params:["0x672e7a695066b131cE36842D978Ad9e251A2Df7E"]})
+          <p><b>Balance</b>:{balance}</p> 
+        */}
         <p>
           <b>Connected Wallet</b>:
           { account.isMetaMask ? "Metamask" : null }

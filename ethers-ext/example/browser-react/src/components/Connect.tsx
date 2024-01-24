@@ -71,7 +71,6 @@ function Connect({ account, setAccount }: Props) {
   }
 
   async function connectKK() {
-    debugger
     // @ts-ignore
     await connect( window.klaytn );
   }
