@@ -5,19 +5,7 @@ import { AccessList, parse as parseEthTransaction } from "@ethersproject/transac
 import _ from "lodash";
 
 import { FieldSet, FieldSetFactory, Fields } from "../field";
-import { HexStr, getSignatureTuple, SignatureLike, isKlaytnTxType, isFeePayerSigTxType, RLP, TxType } from "../util";
-
-function getTypePrefix(rlp: string) {
-  if (!HexStr.isHex(rlp)) {
-    throw new Error("Not an RLP encoded string");
-  }
-
-  if (rlp.length < 4) {
-    throw new Error("RLP encoded string too short");
-  }
-
-  return HexStr.toNumber(rlp.substring(0, 4)); // 0xNN
-}
+import { HexStr, getTypePrefix, getSignatureTuple, SignatureLike, isKlaytnTxType, isFeePayerSigTxType, RLP, TxType } from "../util";
 
 export abstract class KlaytnTx extends FieldSet {
   // A Klaytn Tx has 4 kinds of RLP encoding:
@@ -59,10 +47,6 @@ export abstract class KlaytnTx extends FieldSet {
 
   // //////////////////////////////////////////////////////////
   // Child classes CANNOT override below methods
-
-  throwTypeError(msg: string): never {
-    throw new Error(`${msg} for '${this.typeName}' (type ${HexStr.fromNumber(this.type)})`);
-  }
 
   // Add a signature
   addSenderSig(sig: SignatureLike) {

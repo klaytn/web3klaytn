@@ -38,3 +38,15 @@ export const HexStr = {
     return value.replace(/^(0x)?/, "");
   }
 };
+
+export function getTypePrefix(rlp: string) {
+  if (!HexStr.isHex(rlp)) {
+    throw new Error("Not an RLP encoded string");
+  }
+
+  if (rlp.length < 4) {
+    throw new Error("RLP encoded string too short");
+  }
+
+  return HexStr.toNumber(rlp.substring(0, 4)); // 0xNN
+}
