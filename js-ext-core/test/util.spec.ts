@@ -58,6 +58,8 @@ describe("util", () => {
     assert.isTrue(isPartialFeeDelegationTxType(ty));
 
     assert.equal(parseTxType(), 0);
+    assert.equal(parseTxType(null), 0);
+    assert.equal(parseTxType(BigInt(1)), 1);
     assert.equal(parseTxType(0), 0);
     assert.equal(parseTxType(2), 2);
     assert.equal(parseTxType(8), 8);
@@ -67,6 +69,8 @@ describe("util", () => {
     assert.equal(parseTxType("SMART_CONTRACT_EXECUTION"), 0x30);
 
     assert.equal(getKaikasTxType(), 0);
+    assert.equal(getKaikasTxType(null), 0);
+    assert.equal(getKaikasTxType(BigInt(1)), 1);
     assert.equal(getKaikasTxType(0), 0);
     assert.equal(getKaikasTxType(2), 2);
     assert.equal(getKaikasTxType(8), "VALUE_TRANSFER");
