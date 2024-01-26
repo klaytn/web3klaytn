@@ -101,9 +101,9 @@ export interface KlaytnAccountsInterface {
 		sign: typeof sign;
 		recover: typeof recover;
 		encrypt: typeof encrypt;
-		wallet: Wallet;
 
 		// Klaytn: modified methods
+		wallet: Wallet<KlaytnWeb3Account>;
 		create: () => KlaytnWeb3Account;
 		privateKeyToAccount: (privateKey: Uint8Array | string) => KlaytnWeb3Account;
 		decrypt: (
@@ -121,6 +121,11 @@ export interface KlaytnAccountsInterface {
 			transaction: KlaytnTransaction | string,
 			privateKey: Bytes,
 		) => ReturnType<typeof signTransaction>;
+		decryptList: (
+			keystore: string,
+			password: string,
+			options?: Record<string, unknown>,
+		) => Promise<KlaytnWeb3Account[]>;
 }
 
 // The plain Transaction object supplied by the users.

@@ -1,12 +1,13 @@
 import { Web3Context } from "web3-core";
-import { encrypt, hashMessage, recover, sign, Wallet } from "web3-eth-accounts";
+import { encrypt, hashMessage, recover, sign } from "web3-eth-accounts";
 import { EthExecutionAPI } from "web3-types";
 
 import { KlaytnAccountsInterface } from "../types";
 
-import { context_create, context_privateKeyToAccount, context_decrypt } from "./create";
+import { context_create, context_privateKeyToAccount, context_decrypt, context_decryptList } from "./create";
 import { recoverTransaction } from "./recover";
 import { context_signTransaction, context_signTransactionAsFeePayer } from "./sign";
+import { Wallet } from "./wallet";
 
 
 // Analogous to: web3/src/accounts.ts:initAccountsForContext
@@ -17,6 +18,7 @@ export function context_accounts(context: Web3Context<EthExecutionAPI>): KlaytnA
   const _create = context_create(context);
   const _privateKeyToAccount = context_privateKeyToAccount(context);
   const _decrypt = context_decrypt(context);
+  const _decryptList = context_decryptList(context);
 
   return {
     recoverTransaction,
@@ -28,6 +30,7 @@ export function context_accounts(context: Web3Context<EthExecutionAPI>): KlaytnA
     create: _create,
     privateKeyToAccount: _privateKeyToAccount,
     decrypt: _decrypt,
+    decryptList: _decryptList,
     signTransaction: _signTransaction,
     signTransactionAsFeePayer: _signTransactionAsFeePayer,
 
