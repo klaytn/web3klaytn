@@ -16,11 +16,11 @@ enum Menu {
   None,
   SignMsg,
   LegacyVT,
-  LegacySC, 
+  LegacySC,
   KlaytnVT,
   KlaytnSC,
   KlaytnFeeDelVT,
-  KlaytnFeeDelSC, 
+  KlaytnFeeDelSC,
 }
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
       <AccountInfo account={account} setAccount={setAccount} />
       <hr/>
       { account.address ? (
-        <div> 
+        <div>
           <h3>Sign Message</h3>
           <button onClick={() => setMenu(Menu.SignMsg)}>Expand</button>
           { menu === Menu.SignMsg ? <SignMsg account={account} /> : null }
