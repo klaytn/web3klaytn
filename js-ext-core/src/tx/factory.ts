@@ -184,6 +184,8 @@ export interface ParsedTransaction {
 
   // Klaytn tx types
   key?: any;
+  humanReadable?: boolean;
+  codeFormat?: number;
   feePayer?: string;
   txSignatures?: any;
   feePayerSignatures?: any;
@@ -216,8 +218,8 @@ export function parseTransaction(rlp: string): ParsedTransaction {
     try {
       const parsedTx: ParsedTransaction = {
         hash:               keccak256(rlp),
-        to:                 tx.to ? getAddress(tx.to) : undefined,
-        from:               tx.from ? getAddress(tx.from) : undefined,
+        to:                 tx.to ? HexStr.toAddress(tx.to) : undefined,
+        from:               tx.from ? HexStr.toAddress(tx.from) : undefined,
         nonce:              HexStr.toNumber(tx.nonce),
         gasLimit:           hexValue(tx.gasLimit),
         gasPrice:           hexValue(tx.gasPrice),
@@ -227,7 +229,9 @@ export function parseTransaction(rlp: string): ParsedTransaction {
         type:               tx.type ? HexStr.toNumber(tx.type) : null,
         accessList:         tx.accessList,
         key:                tx.key,
-        feePayer:           tx.feePayer ? getAddress(tx.feePayer) : undefined,
+        humanReadable:      tx.humanReadable ? HexStr.toBoolean(tx.humanReadable) : undefined,
+        codeFormat:         tx.codeFormat ? HexStr.toNumber(tx.codeFormat) : undefined,
+        feePayer:           tx.feePayer ? HexStr.toAddress(tx.feePayer) : undefined,
         txSignatures:       tx.txSignatures,
         feePayerSignatures: tx.feePayerSignatures,
         feeRatio:           tx.feeRatio ? HexStr.toNumber(tx.feeRatio) : undefined,
