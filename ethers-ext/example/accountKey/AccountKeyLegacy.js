@@ -1,5 +1,5 @@
 // AccountKeyLegacy
-// https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeylegacy
+// https://docs.klaytn.foundation/docs/learn/accounts/
 
 const { ethers } = require("ethers");
 
@@ -9,7 +9,7 @@ const senderAddr = "0x24e8efd18d65bcb6b3ba15a4698c0b0d69d13ff7";
 const senderPriv = "0x4a72b3d09c3d5e28e8652e0111f9c4ce252e8299aad95bb219a38eb0a3f4da49";
 const recieverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
 
-const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
+const provider = new ethers.providers.JsonRpcProvider("https://archive-en.baobab.klaytn.net");
 const wallet = new Wallet(senderPriv, provider);
 
 async function sendTx() {
@@ -20,7 +20,7 @@ async function sendTx() {
   };
 
   const sentTx = await wallet.sendTransaction(tx);
-  console.log("sentTx", sentTx);
+  console.log("sentTx", sentTx.hash);
 
   const receipt = await sentTx.wait();
   console.log("receipt", receipt);

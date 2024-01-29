@@ -1,5 +1,5 @@
 // AccountKeyPublic
-// https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeypublic
+// https://docs.klaytn.foundation/docs/learn/accounts/
 
 const { ethers } = require("ethers");
 
@@ -12,12 +12,13 @@ const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c5974
 const senderNewPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
 const recieverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
 
-const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
-const wallet = new Wallet(senderAddr, senderPriv, provider);
-const newWallet = new Wallet(senderAddr, senderNewPriv, provider);
+const provider = new ethers.providers.JsonRpcProvider("https://archive-en.baobab.klaytn.net");
+const wallet = new Wallet(senderAddr, senderPriv, provider); // decoupled account
+const newWallet = new Wallet(senderAddr, senderNewPriv, provider); // decoupled account
 
 async function updateAccount() {
-  let senderNewPub = ethers.utils.computePublicKey(senderNewPriv, true);
+  const senderNewPub = ethers.utils.computePublicKey(senderNewPriv, true);
+  console.log("pub", senderNewPub);
 
   const tx = {
     type: TxType.AccountUpdate,
@@ -29,14 +30,14 @@ async function updateAccount() {
   };
 
   const sentTx = await wallet.sendTransaction(tx);
-  console.log("sentTx", sentTx);
+  console.log("sentTx", sentTx.hash);
 
   const receipt = await sentTx.wait();
   console.log("receipt", receipt);
 }
 
 async function sendTx() {
-  let tx = {
+  let tx = { // use Klaytn TxType to send transaction from Klaytn typed account
     type: TxType.ValueTransfer,
     from: senderAddr,
     to: recieverAddr,
@@ -44,7 +45,7 @@ async function sendTx() {
   };
 
   const sentTx = await newWallet.sendTransaction(tx);
-  console.log("sentTx", sentTx);
+  console.log("sentTx", sentTx.hash);
 
   const receipt = await sentTx.wait();
   console.log("receipt", receipt);
