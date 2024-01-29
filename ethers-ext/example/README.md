@@ -7,5 +7,5 @@
 - [contracts](./contracts) Smart contract usage
 - [rpc_provider](./rpc_provider.js) JSON-RPC wrappers
 - [transactions](./transactions) Klaytn transaction types
-- [util](./util) Utility functions
+- [util](./util.js) Utility functions
 
