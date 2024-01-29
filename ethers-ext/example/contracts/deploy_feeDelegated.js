@@ -42,7 +42,7 @@ async function main() {
 
   // Build transaction using the deploy data
   const data = factory.getDeployTransaction(100).data;
-  let tx = {
+  const tx = {
     type: TxType.FeeDelegatedSmartContractDeploy,
     from: senderAddr,
     data: data,
@@ -53,8 +53,8 @@ async function main() {
   };
 
   // Sign transaction by sender
-  tx = await senderWallet.populateTransaction(tx);
-  const senderTxHashRLP = await senderWallet.signTransaction(tx);
+  const populatedTx = await senderWallet.populateTransaction(tx);
+  const senderTxHashRLP = await senderWallet.signTransaction(populatedTx);
   console.log("senderTxHashRLP", senderTxHashRLP);
 
   // Sign and send transaction by fee payer
