@@ -1,6 +1,6 @@
 const ethers = require("ethers");
 
-const provider = new ethers.providers.JsonRpcProvider("https://archive-en.baobab.klaytn.net");
+const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
 
 /* compiled in remix.ethereum.org (compiler: 0.8.18, optimizer: false)
 // SPDX-License-Identifier: UNLICENSED

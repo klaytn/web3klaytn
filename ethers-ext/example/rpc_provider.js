@@ -1,7 +1,7 @@
 const { JsonRpcProvider } = require("@klaytn/ethers-ext");
 
 async function main() {
-  let provider = new JsonRpcProvider("https://archive-en.baobab.klaytn.net/");
+  let provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net/");
 
   // The full list of JSON-RPC is available at:
   // https://docs.klaytn.foundation/content/dapp/json-rpc/api-references
