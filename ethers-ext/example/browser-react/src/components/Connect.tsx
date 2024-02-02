@@ -1,6 +1,6 @@
 import { Web3Provider } from '@klaytn/ethers-ext'
 import { Account } from '../types';
-import { isKaikas } from '../util';
+import { baobabNetworkSpec, switchNetwork } from '../util';
 
 type Props = {
   account: Account;
@@ -8,57 +8,58 @@ type Props = {
 };
 
 function Connect({ account, setAccount }: Props) {
-  async function connect(injectedProvider: any, appThis: undefined ) {
-    var provider: Web3Provider;
-
+  async function connect(injectedProvider: any) {
     if (!injectedProvider) {
       alert("Please install wallet");
       return;
     }
-  
+
     // Wrap the window.{ethereum,klaytn} object with Web3Provider.
-    provider = new Web3Provider(injectedProvider);
+    const provider = new Web3Provider(injectedProvider);
     // // Uncomment to use the original ethers.js Web3Provider:
     // provider = new ethers.providers.Web3Provider(injectedProvider);
-    account.provider = provider; 
+
+    const isMetaMask = injectedProvider.isMetaMask;
+    const isKaikas = injectedProvider.isKaikas;
 
     // Detect user network
     // https://docs.metamask.io/wallet/how-to/connect/detect-network/
     const chainId = await provider.send("eth_chainId", []);
     console.log("chainId", chainId);
-  
+
     // Detect user account
     // https://docs.metamask.io/wallet/how-to/connect/access-accounts/
     const accounts = await provider.send("eth_requestAccounts", []);
-    // const accounts = await provider.listAccounts(); // internally eth_accounts
     console.log("accounts", accounts);
-  
+
+    // Default to Baobab network
+    await switchNetwork(provider, baobabNetworkSpec);
+
     setAccount({
       provider: provider,
-      isKaikas: isKaikas(account),
-      isMetaMask: !isKaikas(account),
+      isKaikas: isKaikas,
+      isMetaMask: isMetaMask,
       chainId: chainId,
       address: accounts[0]
     });
-  
+
     injectedProvider.on("networkChanged", (_chainId: any) => {
       console.log("chainId changed", _chainId);
-      // provider = new ethers_ext.providers.Web3Provider(injectedProvider);
       setAccount({
-        provider: provider,
-        isKaikas: isKaikas(account),
-        isMetaMask: !isKaikas(account),
+        provider: new Web3Provider(injectedProvider),
+        isKaikas: isKaikas,
+        isMetaMask: isMetaMask,
         chainId: _chainId,
         address: accounts[0]
       });
     });
-  
+
     injectedProvider.on("accountsChanged", async (_accounts: any[]) => {
       console.log("accounts changed", _accounts);
       setAccount({
-        provider: provider,
-        isKaikas: isKaikas(account),
-        isMetaMask: !isKaikas(account),
+        provider: new Web3Provider(injectedProvider),
+        isKaikas: isKaikas,
+        isMetaMask: isMetaMask,
         chainId: chainId,
         address: _accounts[0]
       });
@@ -66,17 +67,23 @@ function Connect({ account, setAccount }: Props) {
   }
 
   async function connectMM() {
-    // @ts-ignore
-    await connect( window.ethereum );
+    if (!window.ethereum) {
+      alert("Please install MetaMask");
+    } else {
+      await connect(window.ethereum);
+    }
   }
 
   async function connectKK() {
-    // @ts-ignore
-    await connect( window.klaytn );
+    if (!window.klaytn) {
+      alert("Please install Kaikas");
+    } else {
+      await connect(window.klaytn);
+    }
   }
 
   return (
-    <div> 
+    <div>
       <button onClick={connectMM}>Connect MetaMask</button>
       <button onClick={connectKK}>Connect Kaikas</button>
     </div>

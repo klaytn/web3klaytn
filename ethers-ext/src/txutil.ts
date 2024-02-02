@@ -30,7 +30,7 @@ export async function getTransactionRequest(transactionOrRLP: Deferrable<Transac
 // populateFromSync is a synchronous method so it can be used in checkTransaction().
 export function populateFromSync(tx: Deferrable<TransactionRequest>, expectedFrom: string | Promise<string>) {
   // See @ethersproject/abstract-signer/src/index.ts:Signer.checkTransaction()
-  if (!tx.from) {
+  if (!tx.from || tx.from == "0x") {
     tx.from = expectedFrom;
   } else {
     tx.from = Promise.all([
@@ -51,7 +51,7 @@ export async function populateFrom(tx: TransactionRequest, expectedFrom: string)
 }
 
 export async function populateTo(tx: TransactionRequest, provider: Provider) {
-  if (!tx.to) {
+  if (!tx.to || tx.to == "0x") {
     tx.to = AddressZero;
   } else {
     const address = await provider.resolveName(tx.to);

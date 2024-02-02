@@ -1,5 +1,5 @@
 // AccountKeyLegacy
-// https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeylegacy
+// https://docs.klaytn.foundation/docs/learn/accounts/
 
 const { ethers } = require("ethers");
 
@@ -20,7 +20,7 @@ async function sendTx() {
   };
 
   const sentTx = await wallet.sendTransaction(tx);
-  console.log("sentTx", sentTx);
+  console.log("sentTx", sentTx.hash);
 
   const receipt = await sentTx.wait();
   console.log("receipt", receipt);

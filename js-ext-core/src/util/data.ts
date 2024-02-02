@@ -1,7 +1,9 @@
 // Data type utilities
 
+import { getAddress } from "@ethersproject/address";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import * as bytes from "@ethersproject/bytes";
+import { AddressZero } from "@ethersproject/constants";
 import * as rlp from "@ethersproject/rlp";
 
 export const RLP = {
@@ -36,7 +38,23 @@ export const HexStr = {
   },
   stripHexPrefix(value: string): string {
     return value.replace(/^(0x)?/, "");
-  }
+  },
+  toAddress(value?: string | null): string {
+    if (!value || value == "0x") {
+      return AddressZero;
+    } else {
+      return getAddress(value);
+    }
+  },
+  toBoolean(value: string): boolean {
+    if (value == "0x") {
+      return false;
+    } else if (value == "0x01") {
+      return true;
+    } else {
+      throw new Error(`Invalid RLP boolean: '${value}'`);
+    }
+  },
 };
 
 export function getTypePrefix(rlp: string) {

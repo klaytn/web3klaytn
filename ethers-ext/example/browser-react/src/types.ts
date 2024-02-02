@@ -1,17 +1,11 @@
-import ethers from "ethers";
+import { Web3Provider } from "@klaytn/ethers-ext"
 
 export interface Account {
-  provider?: ethers.providers.Web3Provider
+  provider?: Web3Provider
   isKaikas?: boolean
   isMetaMask?: boolean
   chainId?: number
   address?: string
   success?: boolean
   error?: any
-}
-
-export interface Signature {
-  message?: string
-  signature?: string
-  recoveredAddress?: string
 }
