@@ -1,8 +1,7 @@
 // AccountKeyPublic
-// https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeypublic
+// https://docs.klaytn.foundation/docs/learn/accounts/
 
-const { KlaytnWeb3, TxType, AccountKeyType, toPeb, getPublicKeyFromPrivate } = require("@klaytn/web3js-ext");
-const { Web3 } = require("web3");
+const { Web3, TxType, AccountKeyType, toPeb, getPublicKeyFromPrivate } = require("@klaytn/web3js-ext");
 
 // Using senderPriv == senderNewPriv to execute this example repeatedly.
 // But you might want to register a different private key.
@@ -12,7 +11,7 @@ const senderNewPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c5
 const receiverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
 
 const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
-const web3 = new KlaytnWeb3(provider);
+const web3 = new Web3(provider);
 const senderAccount = web3.eth.accounts.privateKeyToAccount(senderPriv);
 const senderNewAccount = web3.eth.accounts.privateKeyToAccount(senderPriv);
 
@@ -30,7 +29,7 @@ async function updateAccount() {
   };
 
   const signResult = await senderAccount.signTransaction(tx);
-  console.log("rawTx", signResult.rawTransaction);
+  console.log("signedTx", signResult.transactionHash);
 
   const receipt = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
   console.log("receipt", receipt);
@@ -45,7 +44,7 @@ async function sendTx() {
   };
 
   const signResult = await senderNewAccount.signTransaction(tx);
-  console.log("rawTx", signResult.rawTransaction);
+  console.log("signedTx", signResult.transactionHash);
 
   const receipt = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
   console.log("receipt", receipt);
