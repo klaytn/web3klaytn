@@ -1,12 +1,7 @@
 // TxTypeAccountUpdate
-// https://docs.klaytn.foundation/content/klaytn/design/transactions/basic#txtypeaccountupdate
-//
-// - from: address of sender to be updated
-// - key: Klaytn account key. See example/accountKey/*.js and Klaytn Docs
-//   https://docs.klaytn.foundation/content/klaytn/design/accounts#account-key
+// https://docs.klaytn.foundation/docs/learn/transactions/
 
-const { KlaytnWeb3, TxType, AccountKeyType, getPublicKeyFromPrivate } = require("@klaytn/web3js-ext");
-const { Web3 } = require("web3");
+const { Web3, TxType, AccountKeyType, getPublicKeyFromPrivate } = require("@klaytn/web3js-ext");
 
 // Using senderPriv == senderNewPriv to execute this example repeatedly.
 // But you might want to register a different private key.
@@ -14,11 +9,11 @@ const senderAddr = "0xe15cd70a41dfb05e7214004d7d054801b2a2f06b";
 const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
 const senderNewPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
 
-async function main() {
-  const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
-  const web3 = new KlaytnWeb3(provider);
-  const senderAccount = web3.eth.accounts.privateKeyToAccount(senderPriv);
+const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
+const web3 = new Web3(provider);
+const senderAccount = web3.eth.accounts.privateKeyToAccount(senderPriv);
 
+async function main() {
   const publicKey = getPublicKeyFromPrivate(senderNewPriv);
   console.log({ publicKey });
 
@@ -32,7 +27,7 @@ async function main() {
   };
 
   const signResult = await senderAccount.signTransaction(tx);
-  console.log("rawTx", signResult.rawTransaction);
+  console.log("signedTx", signResult.transactionHash);
 
   const receipt = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
   console.log("receipt", receipt);
