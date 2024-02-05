@@ -1,12 +1,11 @@
 // Finding the sender address from a raw transaction RLP
 
-const { KlaytnWeb3 } = require("@klaytn/web3js-ext");
-const { Web3 } = require("web3");
+const { Web3 } = require("@klaytn/web3js-ext");
+
+const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
+const web3 = new Web3(provider);
 
 async function main() {
-  const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
-  const web3 = new KlaytnWeb3(provider);
-
   // Ethereum TxType
   const rawTx1 = "0xf869808504e3b29200831e848094f0109fc8df283027b6285cc889f5aa624eac1f55843b9aca008025a0c9cf86333bcb065d140032ecaab5d9281bde80f21b9687b3e94161de42d51895a0727a108a0b8d101465414033c3f705a9c7b826e596766046ee1183dbc8aeaa68";
   const senderAddr1 = await web3.eth.accounts.recoverTransaction(rawTx1);

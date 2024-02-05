@@ -1,13 +1,12 @@
-const { KlaytnWeb3 } = require("@klaytn/web3js-ext");
-const { Web3 } = require("web3");
+const { Web3 } = require("@klaytn/web3js-ext");
 
 const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153";
 const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
 
-async function main() {
-  let provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
-  let web3 = new KlaytnWeb3(provider);
+const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
+const web3 = new Web3(provider);
 
+async function main() {
   // Access the shared wallet object web3.eth.accounts.wallet.
 
   // Create random
