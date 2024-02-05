@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.web3j.example.transaction;
+package org.web3j.example.transactions;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -22,12 +22,13 @@ import org.web3j.example.keySample;
 /**
  * 
  */
-public class ValueTransferExample implements keySample {
+public class ValueTransferMemoExample implements keySample {
     /**
      * 
      */
 
     public static void run() throws IOException {
+
         Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
         KlayCredentials credentials = KlayCredentials.create(keySample.LEGACY_KEY_privkey);
 
@@ -41,7 +42,10 @@ public class ValueTransferExample implements keySample {
                 .getTransactionCount();
         BigInteger value = BigInteger.valueOf(100);
 
-        TxType.Type type = Type.VALUE_TRANSFER;
+        String data = "Klaytn Web3j";
+        byte[] payload = data.getBytes();
+
+        TxType.Type type = Type.VALUE_TRANSFER_MEMO;
 
         KlayRawTransaction raw = KlayRawTransaction.createTransaction(
                 type,
@@ -50,7 +54,8 @@ public class ValueTransferExample implements keySample {
                 GAS_LIMIT,
                 to,
                 value,
-                from);
+                from,
+                payload);
 
         byte[] signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, credentials);
         String hexValue = Numeric.toHexString(signedMessage);

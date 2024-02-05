@@ -1,4 +1,4 @@
-package org.web3j.example.transaction;
+package org.web3j.example.transactions;
 
 
 import org.web3j.example.keySample;

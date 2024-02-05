@@ -1,15 +1,14 @@
-package org.web3j.example.transaction;
+package org.web3j.example.transactions;
 
 
 import org.web3j.example.keySample;
 import java.io.IOException;
 import java.math.BigInteger;
-
 import org.web3j.crypto.KlayCredentials;
 import org.web3j.crypto.KlayRawTransaction;
 import org.web3j.crypto.KlayTransactionEncoder;
 import org.web3j.crypto.transaction.type.TxType;
-import org.web3j.crypto.transaction.type.TxTypeValueTransfer;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedSmartContractExecutionWithRatio;
 import org.web3j.crypto.transaction.type.TxType.Type;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthChainId;
@@ -19,7 +18,13 @@ import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.utils.Numeric;
 import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
 
-public class FeeDelegatedValueTransferMemoWithRatioExample implements keySample {
+/**
+ * 
+ */
+public class FeeDelegatedSmartContractExecutionWithRatio implements keySample {
+        /**
+         * 
+         */
 
         public static void run() throws IOException {
                 Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
@@ -29,17 +34,17 @@ public class FeeDelegatedValueTransferMemoWithRatioExample implements keySample 
                 BigInteger GAS_PRICE = BigInteger.valueOf(50000000000L);
                 BigInteger GAS_LIMIT = BigInteger.valueOf(6721950);
                 String from = credentials.getAddress();
-                EthChainId EthchainId = web3j.ethChainId().send();
-                long chainId = EthchainId.getChainId().longValue();
-                String to = "0x000000000000000000000000000000000000dead";
                 BigInteger nonce = web3j.ethGetTransactionCount(from, DefaultBlockParameterName.LATEST).send()
                                 .getTransactionCount();
-                BigInteger value = BigInteger.valueOf(100);
+                String data = "0xcfae3217";
+                EthChainId EthchainId = web3j.ethChainId().send();
+                long chainId = EthchainId.getChainId().longValue();
+                String to = "0xc58294ecde8fdb288fd845e7a43a56564b597bdb";
+                byte[] payload = Numeric.hexStringToByteArray(data);
                 BigInteger feeRatio = BigInteger.valueOf(30);
-                String data = "Klaytn Web3j";
-                byte[] payload = data.getBytes();
+                BigInteger value = BigInteger.ZERO;
 
-                TxType.Type type = Type.FEE_DELEGATED_VALUE_TRANSFER_WITH_RATIO;
+                TxType.Type type = Type.FEE_DELEGATED_SMART_CONTRACT_EXECUTION_WITH_RATIO;
 
                 KlayRawTransaction raw = KlayRawTransaction.createTransaction(
                                 type,
@@ -57,7 +62,6 @@ public class FeeDelegatedValueTransferMemoWithRatioExample implements keySample 
 
                 // Sign same message as Fee payer
                 signedMessage = KlayTransactionEncoder.signMessageAsFeePayer(raw, chainId, credentials_feepayer);
-
                 String hexValue = Numeric.toHexString(signedMessage);
                 EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
                 System.out.println("TxHash : \n " + transactionResponse.getResult());
@@ -71,9 +75,9 @@ public class FeeDelegatedValueTransferMemoWithRatioExample implements keySample 
                 System.out.println("receipt : \n" + receipt);
                 web3j.shutdown();
 
-                TxTypeValueTransfer rawTransaction = TxTypeValueTransfer.decodeFromRawTransaction(hexValue);
+                TxTypeFeeDelegatedSmartContractExecutionWithRatio rawTransaction = TxTypeFeeDelegatedSmartContractExecutionWithRatio
+                                .decodeFromRawTransaction(signedMessage);
                 System.out.println("TxType : " + rawTransaction.getKlayType());
-
         }
 
 }

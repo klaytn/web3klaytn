@@ -1,7 +1,8 @@
-package org.web3j.example.transaction;
+/**
+ * 
+ */
+package org.web3j.example.transactions;
 
-
-import org.web3j.example.keySample;
 import java.io.IOException;
 import java.math.BigInteger;
 import org.web3j.crypto.KlayCredentials;
@@ -11,6 +12,7 @@ import org.web3j.crypto.transaction.account.AccountKeyPublic;
 import org.web3j.crypto.transaction.type.TxType;
 import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedAccountUpdate;
 import org.web3j.crypto.transaction.type.TxType.Type;
+import org.web3j.example.keySample;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthChainId;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
@@ -22,7 +24,7 @@ import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
 /**
  * 
  */
-public class FeeDelegatedAccountUpdateExample implements keySample {
+public class FeeDelegatedAccountUpdateWithRatioExample implements keySample {
 
         public static void run(KlayCredentials credentials) throws IOException {
 
@@ -36,12 +38,12 @@ public class FeeDelegatedAccountUpdateExample implements keySample {
                 long chainId = EthchainId.getChainId().longValue();
                 BigInteger nonce = web3j.ethGetTransactionCount(from, DefaultBlockParameterName.LATEST).send()
                                 .getTransactionCount();
-
+                BigInteger feeRatio = BigInteger.valueOf(30);
                 BigInteger newPubkey = new_credentials.getEcKeyPair().getPublicKey();
 
                 AccountKeyPublic accountkey = AccountKeyPublic.create(newPubkey);
 
-                TxType.Type type = Type.FEE_DELEGATED_ACCOUNT_UPDATE;
+                TxType.Type type = Type.FEE_DELEGATED_ACCOUNT_UPDATE_WITH_RATIO;
 
                 KlayRawTransaction raw = KlayRawTransaction.createTransaction(
                                 type,
@@ -49,7 +51,8 @@ public class FeeDelegatedAccountUpdateExample implements keySample {
                                 GAS_PRICE,
                                 GAS_LIMIT,
                                 from,
-                                accountkey);
+                                accountkey,
+                                feeRatio);
 
                 // Sign as sender
                 byte[] signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, credentials);

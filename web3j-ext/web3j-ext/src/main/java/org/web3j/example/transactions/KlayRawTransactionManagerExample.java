@@ -1,29 +1,24 @@
-package org.web3j.example.transaction;
+/**
+ * 
+ */
+package org.web3j.example.transactions;
 
-
-import org.web3j.example.keySample;
 import java.io.IOException;
 import java.math.BigInteger;
 import org.web3j.crypto.KlayCredentials;
-import org.web3j.crypto.KlayRawTransaction;
-import org.web3j.crypto.KlayTransactionEncoder;
 import org.web3j.crypto.transaction.type.TxType;
-import org.web3j.crypto.transaction.type.TxTypeCancel;
 import org.web3j.crypto.transaction.type.TxType.Type;
-import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.example.keySample;
 import org.web3j.protocol.core.methods.response.EthChainId;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
-import org.web3j.utils.Numeric;
 import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
+import org.web3j.tx.KlayRawTransactionManager;
 
-/**
- * 
- */
-public class CancelExample implements keySample {
+public class KlayRawTransactionManagerExample implements keySample {
     /**
-     * 
+     *
      */
 
     public static void run() throws IOException {
@@ -33,24 +28,17 @@ public class CancelExample implements keySample {
 
         BigInteger GAS_PRICE = BigInteger.valueOf(50000000000L);
         BigInteger GAS_LIMIT = BigInteger.valueOf(6721950);
-        String from = keySample.LEGACY_KEY_address;
+        String from = credentials.getAddress();
         EthChainId EthchainId = web3j.ethChainId().send();
         long chainId = EthchainId.getChainId().longValue();
-        BigInteger nonce = web3j.ethGetTransactionCount(from, DefaultBlockParameterName.LATEST).send()
-                .getTransactionCount();
+        String to = "0x000000000000000000000000000000000000dead";
+        BigInteger value = BigInteger.valueOf(100);
 
-        TxType.Type type = Type.CANCEL;
+        TxType.Type type = Type.VALUE_TRANSFER;
 
-        KlayRawTransaction raw = KlayRawTransaction.createTransaction(
-                type,
-                nonce,
-                GAS_PRICE,
-                GAS_LIMIT,
+        KlayRawTransactionManager manager = new KlayRawTransactionManager(web3j, credentials, chainId);
+        EthSendTransaction transactionResponse = manager.sendKlayTransaction(type, GAS_PRICE, GAS_LIMIT, to, value,
                 from);
-
-        byte[] signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, credentials);
-        String hexValue = Numeric.toHexString(signedMessage);
-        EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
         System.out.println("TxHash : \n " + transactionResponse.getResult());
         String txHash = transactionResponse.getResult();
         try {
@@ -61,11 +49,5 @@ public class CancelExample implements keySample {
         TransactionReceipt receipt = web3j.klayGetTransactionReceipt(txHash).send().getResult();
         System.out.println("receipt : \n" + receipt);
         web3j.shutdown();
-
-        TxTypeCancel rawTransaction = TxTypeCancel.decodeFromRawTransaction(signedMessage);
-
-        System.out.println("TxType : " + rawTransaction.getKlayType());
-
     }
-
 }

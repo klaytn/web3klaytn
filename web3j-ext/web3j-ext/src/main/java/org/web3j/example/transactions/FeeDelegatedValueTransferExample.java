@@ -1,17 +1,16 @@
-/**
- * 
- */
-package org.web3j.example.transaction;
+package org.web3j.example.transactions;
 
+
+import org.web3j.example.keySample;
 import java.io.IOException;
 import java.math.BigInteger;
+
 import org.web3j.crypto.KlayCredentials;
 import org.web3j.crypto.KlayRawTransaction;
 import org.web3j.crypto.KlayTransactionEncoder;
 import org.web3j.crypto.transaction.type.TxType;
-import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedCancel;
+import org.web3j.crypto.transaction.type.TxTypeValueTransfer;
 import org.web3j.crypto.transaction.type.TxType.Type;
-import org.web3j.example.keySample;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthChainId;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
@@ -20,16 +19,9 @@ import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.utils.Numeric;
 import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
 
-/**
- * 
- */
-public class FeeDelegatedCancelExample implements keySample {
-    /**
-     * 
-     */
+public class FeeDelegatedValueTransferExample implements keySample {
 
     public static void run() throws IOException {
-
         Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
         KlayCredentials credentials = KlayCredentials.create(keySample.LEGACY_KEY_privkey);
         KlayCredentials credentials_feepayer = KlayCredentials.create(keySample.LEGACY_KEY_FEEPAYER_privkey);
@@ -39,16 +31,20 @@ public class FeeDelegatedCancelExample implements keySample {
         String from = credentials.getAddress();
         EthChainId EthchainId = web3j.ethChainId().send();
         long chainId = EthchainId.getChainId().longValue();
+        String to = "0x000000000000000000000000000000000000dead";
         BigInteger nonce = web3j.ethGetTransactionCount(from, DefaultBlockParameterName.LATEST).send()
                 .getTransactionCount();
+        BigInteger value = BigInteger.valueOf(100);
 
-        TxType.Type type = Type.FEE_DELEGATED_CANCEL;
+        TxType.Type type = Type.FEE_DELEGATED_VALUE_TRANSFER;
 
         KlayRawTransaction raw = KlayRawTransaction.createTransaction(
                 type,
                 nonce,
                 GAS_PRICE,
                 GAS_LIMIT,
+                to,
+                value,
                 from);
 
         // Sign as sender
@@ -70,9 +66,7 @@ public class FeeDelegatedCancelExample implements keySample {
         System.out.println("receipt : \n" + receipt);
         web3j.shutdown();
 
-        TxTypeFeeDelegatedCancel rawTransaction = TxTypeFeeDelegatedCancel.decodeFromRawTransaction(signedMessage);
-
+        TxTypeValueTransfer rawTransaction = TxTypeValueTransfer.decodeFromRawTransaction(hexValue);
         System.out.println("TxType : " + rawTransaction.getKlayType());
     }
-
 }
