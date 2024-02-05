@@ -21,6 +21,8 @@ dependencies {
     implementation "org.web3j:core:4.9.8"
 }
 ````
+## Usage
+See [example](./web3j-ext/src/main/java/org/web3j/example).
 
 ## Quickstart
 For basic web3j usage, you can learn through [Web3j tutorial](https://docs.web3j.io/4.10.0/quickstart/) .
