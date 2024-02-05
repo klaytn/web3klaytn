@@ -1,38 +1,7 @@
-# Web3j extension for Klaytn
-
-## Requirements
-### Setting Java
-- Use java version: 11 <= v <= 18
-- Visit https://adoptopenjdk.net/ site
-- Download OpenJDK
- 
-## Install Web3j Klaytn extension
-
-To add the [Gradle Library](https://docs.gradle.org/current/userguide/getting_started.html) to your project:
-```shell
-
-repositories { 
-    mavenCentral() 
-}
-
-dependencies {
-    implementation "foundation.klaytn:web3j-ext:v0.9.3"
-    implementation "foundation.klaytn:web3rpc-java:v0.9.0"
-    implementation "org.web3j:core:4.9.8"
-}
-````
-## Usage
-See [example](./web3j-ext/src/main/java/org/web3j/example).
-
-## Quickstart
-For basic web3j usage, you can learn through [Web3j tutorial](https://docs.web3j.io/4.10.0/quickstart/) .
-
-### Send Fee Delegated Transaction on Baobab Test network
-If you want to know more about the concept of fee delegated transaction supported by Klaytn network, please refer to [Klaytn docs](https://docs.klaytn.foundation/content/klaytn/design/transactions).
-
-Check FeeDelegatedValueTransferExample.java file in web3j-ext [examples](https://github.com/klaytn/web3klaytn/tree/dev/web3j-ext/web3j-ext/src/main/java/org/web3j/example).
-```file
-package org.web3j.example;
+/**
+ * 
+ */
+package org.web3j.example.transactions;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -49,14 +18,19 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.utils.Numeric;
 import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
+import org.web3j.example.keySample;
 
-
-public class FeeDelegatedValueTransferExample implements keySample {
+/**
+ * 
+ */
+public class ValueTransferExample implements keySample {
+    /**
+     * 
+     */
 
     public static void run() throws IOException {
         Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
         KlayCredentials credentials = KlayCredentials.create(keySample.LEGACY_KEY_privkey);
-        KlayCredentials credentials_feepayer = KlayCredentials.create(keySample.LEGACY_KEY_FEEPAYER_privkey);
 
         BigInteger GAS_PRICE = BigInteger.valueOf(50000000000L);
         BigInteger GAS_LIMIT = BigInteger.valueOf(6721950);
@@ -68,7 +42,7 @@ public class FeeDelegatedValueTransferExample implements keySample {
                 .getTransactionCount();
         BigInteger value = BigInteger.valueOf(100);
 
-        TxType.Type type = Type.FEE_DELEGATED_VALUE_TRANSFER;
+        TxType.Type type = Type.VALUE_TRANSFER;
 
         KlayRawTransaction raw = KlayRawTransaction.createTransaction(
                 type,
@@ -79,39 +53,22 @@ public class FeeDelegatedValueTransferExample implements keySample {
                 value,
                 from);
 
-        // Sign as sender
         byte[] signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, credentials);
-
-        // Sign same message as Fee payer
-        signedMessage = KlayTransactionEncoder.signMessageAsFeePayer(raw, chainId, credentials_feepayer);
-
         String hexValue = Numeric.toHexString(signedMessage);
         EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
         System.out.println("TxHash : \n " + transactionResponse.getResult());
         String txHash = transactionResponse.getResult();
         try {
             Thread.sleep(2000);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
         TransactionReceipt receipt = web3j.klayGetTransactionReceipt(txHash).send().getResult();
-        System.out.print("receipt : \n" + receipt);                
+        System.out.println("receipt : \n" + receipt);
         web3j.shutdown();
 
-        TxTypeValueTransfer rawTransaction = TxTypeValueTransfer.decodeFromRawTransaction(hexValue);
+        TxTypeValueTransfer rawTransaction = TxTypeValueTransfer.decodeFromRawTransaction(signedMessage);
+        System.out.println("TxType : " + rawTransaction.getKlayType());
     }
+
 }
-````
-
-Run examples
-
-```file
-import org.web3j.example.FeeDelegatedValueTransferExample;
-
-public class quickstart {
-        public static void main(String[] args) throws Exception {
-        	FeeDelegatedValueTransferExample.run();
-        }
-}
-````

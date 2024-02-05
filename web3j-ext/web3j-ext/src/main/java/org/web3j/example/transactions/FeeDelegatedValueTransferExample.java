@@ -1,41 +1,9 @@
-# Web3j extension for Klaytn
+package org.web3j.example.transactions;
 
-## Requirements
-### Setting Java
-- Use java version: 11 <= v <= 18
-- Visit https://adoptopenjdk.net/ site
-- Download OpenJDK
- 
-## Install Web3j Klaytn extension
-
-To add the [Gradle Library](https://docs.gradle.org/current/userguide/getting_started.html) to your project:
-```shell
-
-repositories { 
-    mavenCentral() 
-}
-
-dependencies {
-    implementation "foundation.klaytn:web3j-ext:v0.9.3"
-    implementation "foundation.klaytn:web3rpc-java:v0.9.0"
-    implementation "org.web3j:core:4.9.8"
-}
-````
-## Usage
-See [example](./web3j-ext/src/main/java/org/web3j/example).
-
-## Quickstart
-For basic web3j usage, you can learn through [Web3j tutorial](https://docs.web3j.io/4.10.0/quickstart/) .
-
-### Send Fee Delegated Transaction on Baobab Test network
-If you want to know more about the concept of fee delegated transaction supported by Klaytn network, please refer to [Klaytn docs](https://docs.klaytn.foundation/content/klaytn/design/transactions).
-
-Check FeeDelegatedValueTransferExample.java file in web3j-ext [examples](https://github.com/klaytn/web3klaytn/tree/dev/web3j-ext/web3j-ext/src/main/java/org/web3j/example).
-```file
-package org.web3j.example;
-
+import org.web3j.example.keySample;
 import java.io.IOException;
 import java.math.BigInteger;
+
 import org.web3j.crypto.KlayCredentials;
 import org.web3j.crypto.KlayRawTransaction;
 import org.web3j.crypto.KlayTransactionEncoder;
@@ -49,7 +17,6 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.utils.Numeric;
 import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
-
 
 public class FeeDelegatedValueTransferExample implements keySample {
 
@@ -91,27 +58,14 @@ public class FeeDelegatedValueTransferExample implements keySample {
         String txHash = transactionResponse.getResult();
         try {
             Thread.sleep(2000);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
         TransactionReceipt receipt = web3j.klayGetTransactionReceipt(txHash).send().getResult();
-        System.out.print("receipt : \n" + receipt);                
+        System.out.println("receipt : \n" + receipt);
         web3j.shutdown();
 
         TxTypeValueTransfer rawTransaction = TxTypeValueTransfer.decodeFromRawTransaction(hexValue);
+        System.out.println("TxType : " + rawTransaction.getKlayType());
     }
 }
-````
-
-Run examples
-
-```file
-import org.web3j.example.FeeDelegatedValueTransferExample;
-
-public class quickstart {
-        public static void main(String[] args) throws Exception {
-        	FeeDelegatedValueTransferExample.run();
-        }
-}
-````
