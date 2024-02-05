@@ -1,54 +1,48 @@
 // TxTypeFeeDelegatedAccountUpdateWithRatio
-// https://docs.klaytn.foundation/content/klaytn/design/transactions/partial-fee-delegation#txtypefeedelegatedaccountupdatewithratio
-//
-//   nonce: In signTransactionAsFeePayer, must not be omitted, because feePayer's nonce is filled when populating
-//   gasLimit: Must be large enough
-//             If SDK users (wallet or dapp devs) want to add some margin, they can always
-//               1) As in this example, fill in enough values by referring to the results of your previous transactions.
-//               2) Manually call eth_estimateGas or klay_estimateGas and multiply by a factor.
-//                  Edit the populatedTx (e.g. tx.gas = tx.gas * 1.8)
-//
-//             Learn how Klaytn Tx intrinsic gas are calculated - which is unlikely because there's no documentation for it.
-//             You should see the source code for the info (e.g. VTwithMemo intrinsic gas is 21000 + len(memo)*100 )
-//             https://github.com/klaytn/klaytn/blob/dev/blockchain/types/tx_internal_data_value_transfer_memo.go#L239
+// https://docs.klaytn.foundation/docs/learn/transactions/
 
-const { Wallet, TxType, AccountKeyType } = require("@klaytn/ethers-ext");
 const ethers = require("ethers");
 
-// create new account for testing in https://baobab.wallet.klaytn.foundation/
-const senderAddr = "0x0adc9d67eef6d0f02e17543386be40ed451f7667";
-const senderPriv = "0xf8cc7c3813ad23817466b1802ee805ee417001fcce9376ab8728c92dd8ea0a6b";
-const senderNewPriv = "0xf8cc7c3813ad23817466b1802ee805ee417001fcce9376ab8728c92dd8ea0a6b";
+const { Wallet, TxType, AccountKeyType } = require("@klaytn/ethers-ext");
+
+// Using senderPriv == senderNewPriv to execute this example repeatedly.
+// But you might want to register a different private key.
+const senderAddr = "0xe15cd70a41dfb05e7214004d7d054801b2a2f06b";
+const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
+const senderNewPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
 const feePayerAddr = "0xcb0eb737dfda52756495a5e08a9b37aab3b271da";
 const feePayerPriv = "0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16fc000cff4";
 
-async function main() {
-  const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
-  const senderWallet = new Wallet(senderAddr, senderPriv, provider);
-  const feePayerWallet = new Wallet(feePayerPriv, provider);
+const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
+const senderWallet = new Wallet(senderAddr, senderPriv, provider); // decoupled account
+const feePayerWallet = new Wallet(feePayerPriv, provider);
 
-  let tx = {
+async function main() {
+  const pub = ethers.utils.computePublicKey(senderNewPriv, true);
+  console.log("pub", pub);
+
+  const tx = {
     type: TxType.FeeDelegatedAccountUpdateWithRatio,
     from: senderAddr,
     key: {
       type: AccountKeyType.Public,
-      key: ethers.utils.computePublicKey(senderNewPriv, true)
+      key: pub,
     },
-    feeRatio: 40,
-    gasLimit: 60000,
+    feeRatio: 30,
+    gasLimit: 100_000,
   };
 
-  tx = await senderWallet.populateTransaction(tx);
-  console.log(tx);
-
-  const senderTxHashRLP = await senderWallet.signTransaction(tx);
+  // Sign transaction by sender
+  const populatedTx = await senderWallet.populateTransaction(tx);
+  const senderTxHashRLP = await senderWallet.signTransaction(populatedTx);
   console.log("senderTxHashRLP", senderTxHashRLP);
 
+  // Sign and send transaction by fee payer
   const sentTx = await feePayerWallet.sendTransactionAsFeePayer(senderTxHashRLP);
-  console.log("sentTx", sentTx);
+  console.log("sentTx", sentTx.hash);
 
-  const rc = await sentTx.wait();
-  console.log("receipt", rc);
+  const receipt = await sentTx.wait();
+  console.log("receipt", receipt);
 }
 
 main();

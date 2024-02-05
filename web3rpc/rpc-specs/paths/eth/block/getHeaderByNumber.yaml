@@ -79,9 +79,10 @@ components:
           type: array
           description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter.
           items:
-            anyOf:
-              - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
-          example: [ "0x1b4" ]
+            properties:
+              blockNumberOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+                example: [ "0x1b4" ]
 
     EthGetHeaderByNumberResp:
       title: EthGetHeaderByNumberResp

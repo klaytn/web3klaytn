@@ -1,20 +1,11 @@
-import { parse as parseEthTransaction, Transaction as EthersTransaction } from "@ethersproject/transactions";
+import { getAddress } from "@ethersproject/address";
+import { hexValue } from "@ethersproject/bytes";
+import { keccak256 } from "@ethersproject/keccak256";
+import { AccessList, parse as parseEthTransaction } from "@ethersproject/transactions";
 import _ from "lodash";
 
 import { FieldSet, FieldSetFactory, Fields } from "../field";
-import { HexStr, getSignatureTuple, SignatureLike, isKlaytnTxType, isFeePayerSigTxType, RLP, TxType } from "../util";
-
-function getTypePrefix(rlp: string) {
-  if (!HexStr.isHex(rlp)) {
-    throw new Error("Not an RLP encoded string");
-  }
-
-  if (rlp.length < 4) {
-    throw new Error("RLP encoded string too short");
-  }
-
-  return HexStr.toNumber(rlp.substring(0, 4)); // 0xNN
-}
+import { HexStr, getTypePrefix, getSignatureTuple, SignatureLike, isKlaytnTxType, isFeePayerSigTxType, RLP, TxType } from "../util";
 
 export abstract class KlaytnTx extends FieldSet {
   // A Klaytn Tx has 4 kinds of RLP encoding:
@@ -56,10 +47,6 @@ export abstract class KlaytnTx extends FieldSet {
 
   // //////////////////////////////////////////////////////////
   // Child classes CANNOT override below methods
-
-  throwTypeError(msg: string): never {
-    throw new Error(`${msg} for '${this.typeName}' (type ${HexStr.fromNumber(this.type)})`);
-  }
 
   // Add a signature
   addSenderSig(sig: SignatureLike) {
@@ -144,8 +131,8 @@ class _KlaytnTxFactory extends FieldSetFactory<KlaytnTx> {
     }
     // In TxTypeSmartContractDeploy, force 'to' = 0x for compatibility
     if (HexStr.fromNumber(fields.type) == HexStr.fromNumber(TxType.SmartContractDeploy) ||
-        HexStr.fromNumber(fields.type) == HexStr.fromNumber(TxType.FeeDelegatedSmartContractDeploy) ||
-        HexStr.fromNumber(fields.type) == HexStr.fromNumber(TxType.FeeDelegatedSmartContractDeployWithRatio)) {
+      HexStr.fromNumber(fields.type) == HexStr.fromNumber(TxType.FeeDelegatedSmartContractDeploy) ||
+      HexStr.fromNumber(fields.type) == HexStr.fromNumber(TxType.FeeDelegatedSmartContractDeployWithRatio)) {
       fields.to = "0x";
     }
     return super.fromObject(fields);
@@ -165,11 +152,101 @@ class _KlaytnTxFactory extends FieldSetFactory<KlaytnTx> {
 }
 export const KlaytnTxFactory = new _KlaytnTxFactory();
 
-export function parseTransaction(rlp: string): EthersTransaction {
+// Similar to ethers.js 'Transaction', but does not use BigNumber.
+// All numbers are hexlified without leading zeros, suitable for RPC calls.
+export interface ParsedTransaction {
+  hash?: string;
+
+  to?: string;
+  from?: string;
+  nonce: number;
+
+  gasLimit: string;
+  gasPrice?: string;
+
+  data: string;
+  value: string;
+  chainId?: number;
+
+  r?: string;
+  s?: string;
+  v?: number;
+
+  // Typed-Transaction features
+  type?: number | null;
+
+  // EIP-2930; Type 1 & EIP-1559; Type 2
+  accessList?: AccessList;
+
+  // EIP-1559; Type 2
+  maxPriorityFeePerGas?: string;
+  maxFeePerGas?: string;
+
+  // Klaytn tx types
+  key?: any;
+  humanReadable?: boolean;
+  codeFormat?: number;
+  feePayer?: string;
+  txSignatures?: any;
+  feePayerSignatures?: any;
+  feeRatio?: number;
+}
+
+/* eslint-disable no-multi-spaces */
+export function parseTransaction(rlp: string): ParsedTransaction {
   const type = getTypePrefix(rlp);
   if (!isKlaytnTxType(type)) {
-    return parseEthTransaction(rlp);
+    const tx = parseEthTransaction(rlp);
+    const parsedTx: ParsedTransaction = {
+      ...tx,
+      // Convert BigNumber to hex string
+      gasLimit:             hexValue(tx.gasLimit),
+      gasPrice:             tx.gasPrice ? hexValue(tx.gasPrice) : undefined,
+      value:                hexValue(tx.value),
+      maxPriorityFeePerGas: tx.maxPriorityFeePerGas ? hexValue(tx.maxPriorityFeePerGas) : undefined,
+      maxFeePerGas:         tx.maxFeePerGas ? hexValue(tx.maxFeePerGas) : undefined,
+    };
+    // Clean up 'explicit undefined' fields
+    _.forOwn(parsedTx, (value, key) => {
+      if (value === undefined) {
+        delete (parsedTx as any)[key];
+      }
+    });
+    return parsedTx;
   } else {
-    return KlaytnTxFactory.fromRLP(rlp).toObject() as EthersTransaction;
+    const tx = KlaytnTxFactory.fromRLP(rlp).toObject();
+    try {
+      const parsedTx: ParsedTransaction = {
+        hash:               keccak256(rlp),
+        to:                 tx.to ? HexStr.toAddress(tx.to) : undefined,
+        from:               tx.from ? HexStr.toAddress(tx.from) : undefined,
+        nonce:              HexStr.toNumber(tx.nonce),
+        gasLimit:           hexValue(tx.gasLimit),
+        gasPrice:           hexValue(tx.gasPrice),
+        data:               tx.data ?? "0x",
+        value:              hexValue(tx.value ?? 0),
+        chainId:            tx.chainId ? HexStr.toNumber(tx.chainId) : undefined,
+        type:               tx.type ? HexStr.toNumber(tx.type) : null,
+        accessList:         tx.accessList,
+        key:                tx.key,
+        humanReadable:      tx.humanReadable ? HexStr.toBoolean(tx.humanReadable) : undefined,
+        codeFormat:         tx.codeFormat ? HexStr.toNumber(tx.codeFormat) : undefined,
+        feePayer:           tx.feePayer ? HexStr.toAddress(tx.feePayer) : undefined,
+        txSignatures:       tx.txSignatures,
+        feePayerSignatures: tx.feePayerSignatures,
+        feeRatio:           tx.feeRatio ? HexStr.toNumber(tx.feeRatio) : undefined,
+      };
+      // Clean up 'explicit undefined' fields
+      _.forOwn(parsedTx, (value, key) => {
+        if (value === undefined) {
+          delete (parsedTx as any)[key];
+        }
+      });
+      return parsedTx;
+    } catch (e) {
+      // In case conversion fails, return the original tx object.
+      return tx as any;
+    }
   }
 }
+/* eslint-enable no-multi-spaces */

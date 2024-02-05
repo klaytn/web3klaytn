@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import { FieldTypeAccountKeyList, FieldTypeCompressedPubKey, FieldTypeUint32, FieldTypeUint8, FieldTypeWeightedPublicKeys } from "../field";
 import { AccountKeyType, HexStr, RLP } from "../util";
 
@@ -14,6 +16,13 @@ export class AccountKeyNil extends AccountKey {
   toRLP(): string {
     return "0x80";
   }
+
+  setFieldsFromRLP(rlp: string): void {
+    if (rlp !== "0x80") {
+      this.throwTypeError(`Invalid RLP string '${rlp}'`);
+    }
+    this.setFields({ type: AccountKeyType.Nil });
+  }
 }
 
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeylegacy
@@ -26,6 +35,13 @@ export class AccountKeyLegacy extends AccountKey {
 
   toRLP(): string {
     return "0x01c0";
+  }
+
+  setFieldsFromRLP(rlp: string): void {
+    if (rlp !== "0x01c0") {
+      this.throwTypeError(`Invalid RLP string '${rlp}'`);
+    }
+    this.setFields({ type: AccountKeyType.Legacy });
   }
 }
 
@@ -43,6 +59,17 @@ export class AccountKeyPublic extends AccountKey {
     const inner = this.getField("key");
     return HexStr.concat("0x02", RLP.encode(inner));
   }
+
+  setFieldsFromRLP(rlp: string): void {
+    const type = HexStr.toNumber(rlp.substring(0, 4));
+    if (type !== this.type) {
+      this.throwTypeError(`Invalid type '${type}`);
+    }
+
+    const withoutType = "0x" + String(rlp).substring(4); // Strip type byte
+    const key = RLP.decode(withoutType);
+    this.setFields({ type, key });
+  }
 }
 
 // https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeyfail
@@ -55,6 +82,13 @@ export class AccountKeyFail extends AccountKey {
 
   toRLP(): string {
     return "0x03c0";
+  }
+
+  setFieldsFromRLP(rlp: string): void {
+    if (rlp !== "0x03c0") {
+      this.throwTypeError(`Invalid RLP string '${rlp}'`);
+    }
+    this.setFields({ type: AccountKeyType.Fail });
   }
 }
 
@@ -73,6 +107,20 @@ export class AccountKeyWeightedMultiSig extends AccountKey {
     const inner = this.getFields(["threshold", "keys"]);
     return HexStr.concat("0x04", RLP.encode(inner));
   }
+
+  setFieldsFromRLP(rlp: string): void {
+    const type = HexStr.toNumber(rlp.substring(0, 4));
+    if (type !== this.type) {
+      this.throwTypeError(`Invalid type '${type}`);
+    }
+
+    const withoutType = "0x" + String(rlp).substring(4); // Strip type byte
+    const decoded = RLP.decode(withoutType);
+    if (decoded.length != 2) {
+      this.throwTypeError(`Invalid RLP string '${rlp}'`);
+    }
+    this.setFields({ type, threshold: decoded[0], keys: decoded[1] });
+  }
 }
 
 
@@ -90,5 +138,16 @@ export class AccountKeyRoleBased extends AccountKey {
   toRLP(): string {
     const inner = this.getField("keys");
     return HexStr.concat("0x05", RLP.encode(inner));
+  }
+
+  setFieldsFromRLP(rlp: string): void {
+    const type = HexStr.toNumber(rlp.substring(0, 4));
+    if (type !== this.type) {
+      this.throwTypeError(`Invalid type '${type}`);
+    }
+
+    const withoutType = "0x" + String(rlp).substring(4); // Strip type byte
+    const decoded = RLP.decode(withoutType);
+    this.setFields({ type, keys: decoded });
   }
 }

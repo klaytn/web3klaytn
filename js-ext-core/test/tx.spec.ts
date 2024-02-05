@@ -1,6 +1,7 @@
 import { BigNumber } from "@ethersproject/bignumber";
 import { assert } from "chai";
 import _ from "lodash";
+import { describe, it } from "mocha";
 
 import {
   KlaytnTx,
@@ -25,7 +26,8 @@ import {
   TxTypeFeeDelegatedAccountUpdateWithRatio,
   TxTypeFeeDelegatedCancelWithRatio,
   isFeePayerSigTxType,
-  parseTransaction
+  parseTransaction,
+  ParsedTransaction,
 } from "../src";
 
 interface TestCase {
@@ -728,26 +730,91 @@ describe("KlaytnTxFactory", () => {
   });
 
   describe("parseTransaction", () => {
-    it("eth txtype", () => {
-      // let wallet = ethers.Wallet.createRandom();
-      // wallet.signTransaction({ to: wallet.address, value: 0x1234 });
-      const rlp = "0xf85f808080944f097405c6486cfd00d2daae9bec709590832eb3821234801ca0ba1fa1a6de839161a29db9f6733aab8d789eeb65ffa139b245d09e65398b75e3a00f46258a9f2f358041de590156396a9426f98d9a3bdbd22ed91c609b2359075d";
-      const obj = {
-        nonce: 0,
-        gasPrice: BigNumber.from(0),
-        gasLimit: BigNumber.from(0),
-        to: "0x4F097405C6486Cfd00d2dAae9bEC709590832eb3",
-        value: BigNumber.from(0x1234),
+    it("eth txtype 0", () => {
+      const rlp = "0xf8660f850ba43b740082520894c40b6909eb7085590e1c26cb3becc25368e249e980808207f5a0c5b24df459fb25cc688cd440d0ba768d930c56a2fe4913d7269e6cd1d404b7c7a06d4c94c64f534deb678e9e543f12a7f429df6d9ca24900c6df321dbe2d19c08f";
+      const obj: ParsedTransaction = {
+        hash: "0x7ab72ef9651ce0e76957a9abdc6fced3ff41979be7b544edcc033be236d5c28b",
+        to: "0xC40B6909EB7085590E1c26Cb3beCC25368e249E9",
+        from: "0x24e8eFD18D65bCb6b3Ba15a4698c0b0d69d13fF7",
+        nonce: 15,
+        gasLimit: "0x5208",
+        gasPrice: "0xba43b7400",
         data: "0x",
-        chainId: 0,
-        v: 28,
-        r: "0xba1fa1a6de839161a29db9f6733aab8d789eeb65ffa139b245d09e65398b75e3",
-        s: "0x0f46258a9f2f358041de590156396a9426f98d9a3bdbd22ed91c609b2359075d",
-        from: "0x4F097405C6486Cfd00d2dAae9bEC709590832eb3",
-        hash: "0xa0a675580c5ad468f51ba3029b2769a8fbaf6af6a97d802f49d3c8ab897d2372",
-        type: null
+        value: "0x0",
+        chainId: 1001,
+        v: 2037,
+        r: "0xc5b24df459fb25cc688cd440d0ba768d930c56a2fe4913d7269e6cd1d404b7c7",
+        s: "0x6d4c94c64f534deb678e9e543f12a7f429df6d9ca24900c6df321dbe2d19c08f",
+        type: null,
       };
       assert.deepEqual(parseTransaction(rlp), obj);
+    });
+    it("eth txtype 2", () => {
+      const rlp = "0x02f86d8203e9108459682f00850bfda3a30082520894c40b6909eb7085590e1c26cb3becc25368e249e98080c080a0f93a2e0d9959a14fc4e25ecffeea736ebad5cd0ce7d81ec2b138d81cc04258cda03410492583970bbbb8400416ff24b264bbdd21b873edbca762c329a7abdea1bd";
+      const obj: ParsedTransaction = {
+        hash: "0x4db90de769dc4f0ba1646b7ee966626f140b253d62ae59d64bafa38763c43b68",
+        to: "0xC40B6909EB7085590E1c26Cb3beCC25368e249E9",
+        from: "0x24e8eFD18D65bCb6b3Ba15a4698c0b0d69d13fF7",
+        nonce: 16,
+        gasLimit: "0x5208",
+        data: "0x",
+        value: "0x0",
+        chainId: 1001,
+        v: 0,
+        r: "0xf93a2e0d9959a14fc4e25ecffeea736ebad5cd0ce7d81ec2b138d81cc04258cd",
+        s: "0x3410492583970bbbb8400416ff24b264bbdd21b873edbca762c329a7abdea1bd",
+        type: 2,
+        accessList: [],
+        maxPriorityFeePerGas: "0x59682f00",
+        maxFeePerGas: "0xbfda3a300",
+      };
+      assert.deepEqual(parseTransaction(rlp), obj);
+    });
+    it("klay txtype FeeDelegatedSmartContractExecutionWithRatio", () => {
+      const rlp = "0x32f90105820311850ba43b7400830186a094cc18ec0261aadbe5fb5a7854449fc26b4f4286538094a2a8854b1802d8cd5de631e690817c253d6a9153a43fb5c1cb00000000000000000000000000000000000000000000000000000000000001231ef847f8458207f6a0febadbd36257942ae52cd03f1fd4159c1db0c407282d671ebf5074338561985ca042eef5fddc90bdbdbb6022884ac97c7fe8057717a33d3b3d98ca6c0d62bca41d94cb0eb737dfda52756495a5e08a9b37aab3b271daf847f8458207f6a06a37d31cfb23fcf3454a3a7a09f61336fac83c82efc4c466c1ac62e6d2a2a7e3a04871cff5a34fc3c3901ef98b86e8fbc43196ec18ebd0351466a3f5e51d2d7034";
+      const obj: ParsedTransaction = {
+        hash: "0xdce9d767b48ae92f11d9513572d6f9fc97720f72e11ea6829b7cd9cf5c5f2495",
+        to: "0xcc18eC0261AADbe5fB5a7854449FC26b4F428653",
+        from: "0xA2a8854b1802D8Cd5De631E690817c253d6a9153",
+        nonce: 785,
+        gasLimit: "0x186a0",
+        gasPrice: "0xba43b7400",
+        data: "0x3fb5c1cb0000000000000000000000000000000000000000000000000000000000000123",
+        value: "0x0",
+        type: 0x32,
+        feePayer: "0xCb0eb737dfda52756495A5e08A9b37AAB3b271dA",
+        txSignatures: [
+          ["0x07f6", "0xfebadbd36257942ae52cd03f1fd4159c1db0c407282d671ebf5074338561985c", "0x42eef5fddc90bdbdbb6022884ac97c7fe8057717a33d3b3d98ca6c0d62bca41d"]
+        ],
+        feePayerSignatures: [ // only in fee payer tx types
+          ["0x07f6", "0x6a37d31cfb23fcf3454a3a7a09f61336fac83c82efc4c466c1ac62e6d2a2a7e3", "0x4871cff5a34fc3c3901ef98b86e8fbc43196ec18ebd0351466a3f5e51d2d7034"]
+        ],
+        feeRatio: 30, // only in partial fee delegated tx types
+      };
+      assert.deepEqual(parseTransaction(rlp), obj);
+      // check that obj has all the necessary fields to construct a transaction
+      assert.equal(KlaytnTxFactory.fromRLP(rlp).txHashRLP(), rlp);
+    });
+    it("klay txtype AccountUpdate", () => {
+      const rlp = "0x20f88c56850ba43b740082cd1494e15cd70a41dfb05e7214004d7d054801b2a2f06ba302a103dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cdf847f8458207f5a0f33df326ed3e517a44f807a22dec8cc934f0957816759dde86665cd0cece4383a0694b19871c5485d513ed61c04d47d1c481010c706030d2733590c0944b496707";
+      const obj: ParsedTransaction = {
+        hash: "0x5121f718806349e42e5bead813bd0d15664e3a3437f844ae49c70be7bdbd1d0a",
+        // no 'to' field
+        from: "0xe15Cd70A41dfb05e7214004d7D054801b2a2f06b",
+        nonce: 86,
+        gasLimit: "0xcd14",
+        gasPrice: "0xba43b7400",
+        data: "0x", // no 'data' field, return '0x' instead
+        value: "0x0", // no 'value' field, return '0x0' instead
+        type: 0x20,
+        key: "0x02a103dc9dccbd788c00fa98f7f4082f2f714e799bc0c29d63f04d48b54fe6250453cd",
+        txSignatures: [
+          ["0x07f5", "0xf33df326ed3e517a44f807a22dec8cc934f0957816759dde86665cd0cece4383", "0x694b19871c5485d513ed61c04d47d1c481010c706030d2733590c0944b496707"],
+        ]
+      };
+      assert.deepEqual(parseTransaction(rlp), obj);
+      // check that obj has all the necessary fields to construct a transaction
+      assert.equal(KlaytnTxFactory.fromRLP(rlp).txHashRLP(), rlp);
     });
   });
 });

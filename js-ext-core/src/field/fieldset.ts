@@ -93,6 +93,10 @@ export abstract class FieldSet {
   public toObject(): Fields {
     return this.fields;
   }
+
+  throwTypeError(msg: string): never {
+    throw new Error(`${msg} for '${this.typeName}' (type ${HexStr.fromNumber(this.type)})`);
+  }
 }
 
 // Instantiable child class of TypedFields

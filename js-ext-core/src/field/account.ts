@@ -20,6 +20,7 @@ export const FieldTypeCompressedPubKey = new class implements FieldType {
 export type WeightedPublicKey = [string, string];
 
 // Accepted types: An array of tuples [weight: number|string, publicKey: string]
+//                 An array of objects { weight: number|string, publicKey: string }
 // Canonical type: An array of hexlified tuples [weight: string, publicKey: string]
 // Example canonical value:
 // [
@@ -27,21 +28,27 @@ export type WeightedPublicKey = [string, string];
 //   ["0x02", "0x0212d45f1cc56fbd6cd8fc877ab63b5092ac77db907a8a42c41dad3e98d7c64dfb"],
 // ]
 export const FieldTypeWeightedPublicKeys = new class implements FieldType {
-  _assert(value: any, pred: boolean) {
-    if (!pred) {
-      throw new Error(`Malformed WeightedPublicKeys '${value}'`);
-    }
-  }
-
   canonicalize(value: any): WeightedPublicKey[] {
-    this._assert(value, _.isArray(value));
+    if (!_.isArray(value)) {
+      throw new Error("Malformed WeightedPublicKeys");
+    }
 
-    return _.map(value, (tuple: any) => {
-      this._assert(value, _.isArray(tuple) && tuple.length == 2);
-
-      const threshold = HexStr.fromNumber(tuple[0]);
-      const publicKey = getCompressedPublicKey(tuple[1]);
-      return [threshold, publicKey];
+    return _.map(value, (tupleOrObject: any) => {
+      if (_.isArray(tupleOrObject) && tupleOrObject.length == 2) {
+        const tuple = tupleOrObject;
+        return [
+          HexStr.fromNumber(tuple[0]),
+          getCompressedPublicKey(tuple[1])
+        ];
+      } else if (_.has(tupleOrObject, "weight") && _.has(tupleOrObject, "key")) {
+        const object = tupleOrObject;
+        return [
+          HexStr.fromNumber(object.weight),
+          getCompressedPublicKey(object.key)
+        ];
+      } else {
+        throw new Error("Malformed WeightedPublicKeys");
+      }
     });
   }
 
@@ -49,6 +56,7 @@ export const FieldTypeWeightedPublicKeys = new class implements FieldType {
 };
 
 // Accepted types: An array of AccountKeys in JS object format
+//                 An array of AccountKeys in RLP format
 // Canonical type: An array of AccountKeys in RLP format
 // Example canonical value:
 // [
@@ -57,22 +65,21 @@ export const FieldTypeWeightedPublicKeys = new class implements FieldType {
 //   "0x02a102c8785266510368d9372badd4c7f4a94b692e82ba74e0b5e26b34558b0f081447",
 // ]
 export const FieldTypeAccountKeyList = new class implements FieldType {
-  _assert(value: any, pred: boolean) {
-    if (!pred) {
-      throw new Error(`Malformed RoleBasedKeys '${value}'`);
-    }
-  }
-
   canonicalize(value: any): string[] {
-    this._assert(value, _.isArray(value));
+    if (!_.isArray(value)) {
+      throw new Error("Malformed RoleBasedKeys");
+    }
 
     return _.map(value, (elem: any) => {
-      const accountKey = AccountKeyFactory.fromObject(elem);
-
-      if (!isEmbeddableAccountKeyType(accountKey.type)) {
-        throw new Error(`AccountKeyType ${accountKey.type} cannot be inside an AccountKeyRoleBased`);
+      if (_.isString(elem) && HexStr.isHex(elem)) { // pass RLP format
+        return elem;
+      } else { // encode JS object format
+        const accountKey = AccountKeyFactory.fromObject(elem);
+        if (!isEmbeddableAccountKeyType(accountKey.type)) {
+          throw new Error(`AccountKeyType ${accountKey.type} cannot be inside an AccountKeyRoleBased`);
+        }
+        return accountKey.toRLP();
       }
-      return accountKey.toRLP();
     });
   }
 

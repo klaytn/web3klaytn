@@ -1,12 +1,12 @@
 // AccountKeyRoleBased
-// https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeyrolebased
+// https://docs.klaytn.foundation/docs/learn/accounts/
 
 const { ethers } = require("ethers");
 
 const { Wallet, TxType, AccountKeyType, parseKlay } = require("@klaytn/ethers-ext");
 
 const senderAddr = "0x5bd2fb3c21564c023a4a735935a2b7a238c4ccea";
-// const senderPriv = "0x9ba8cb8f60044058a9e6f815c5c42d3a216f47044c61a1750b6d29ddc7f34bda";
+const senderPriv = "0x9ba8cb8f60044058a9e6f815c5c42d3a216f47044c61a1750b6d29ddc7f34bda";
 const senderRoleTransactionPriv = "0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac";
 const senderRoleAccountUpdatePriv = "0x9ba8cb8f60044058a9e6f815c5c42d3a216f47044c61a1750b6d29ddc7f34bda";
 const senderRoleFeePayerPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
@@ -37,14 +37,14 @@ async function updateAccount() {
   };
 
   const sentTx = await updaterWallet.sendTransaction(tx);
-  console.log("sentTx", sentTx);
+  console.log("sentTx", sentTx.hash);
 
   const receipt = await sentTx.wait();
   console.log("receipt", receipt);
 }
 
 async function sendTx() {
-  let tx = {
+  let tx = { // use Klaytn TxType to send transaction from Klaytn typed account
     type: TxType.ValueTransfer,
     from: senderAddr,
     to: recieverAddr,
@@ -53,7 +53,7 @@ async function sendTx() {
   };
 
   const sentTx = await txWallet.sendTransaction(tx);
-  console.log("sentTx", sentTx);
+  console.log("sentTx", sentTx.hash);
 
   const receipt = await sentTx.wait();
   console.log("receipt", receipt);

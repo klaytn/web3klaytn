@@ -58,11 +58,10 @@ See [DESIGN](./DESIGN.md) for source code organization.
   account.signTransaction(obj or rlp)
   account.signTransactionAsFeePayer(obj or rlp)
   ```
-- (TODO) Following functions can handle the [KIP-3 Klaytn keystore format v4](https://kips.klaytn.foundation/KIPs/kip-3)
+- Following functions can handle the [KIP-3 Klaytn keystore format v4](https://kips.klaytn.foundation/KIPs/kip-3)
   ```js
   web3.eth.accounts.decrypt(keystore)
   web3.eth.accounts.decryptList(keystore)
-  web3.eth.accounts.wallet.decrypt(keystore)
   ```
 
 ### Eth RPC wrappers

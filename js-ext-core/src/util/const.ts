@@ -31,9 +31,15 @@ export enum TxType {
 
 // Parse Klaytn TxType in various formats including number (8),
 // hex string (0x08), camel case string ("ValueTransfer"), and snake case string ("VALUE_TRANSFER").
-export function parseTxType(type?: number | string): number {
-  if (type == undefined) {
-    return 0;
+type TxTypeLike = number | bigint | string | null | undefined;
+
+export function parseTxType(type?: TxTypeLike): number {
+  if (type === undefined || type === null) {
+    type = 0;
+  }
+
+  if (typeof type === "bigint") {
+    type = Number(type);
   }
 
   if (_.isNumber(type)) {
@@ -63,7 +69,7 @@ export function parseTxType(type?: number | string): number {
 // Convert Klaytn TxType to what Kaikas wallet (https://docs.kaikas.io/) understands.
 // Pass-through undefined and non-Klaytn TxTypes.
 // Convert Klaytn TxTypes to upper and snake case string (e.g. "VALUE_TRANSFER").
-export function getKaikasTxType(type?: number | string): number | string | undefined {
+export function getKaikasTxType(type?: TxTypeLike): number | string | undefined {
   const num = parseTxType(type);
   if (!isKlaytnTxType(num)) {
     return num;
