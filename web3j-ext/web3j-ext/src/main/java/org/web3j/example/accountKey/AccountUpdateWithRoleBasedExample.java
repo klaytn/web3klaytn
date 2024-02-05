@@ -24,9 +24,8 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
 
-
 public class AccountUpdateWithRoleBasedExample {
-    
+
     public static void run(KlayCredentials credentials) throws IOException {
 
         Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
@@ -43,21 +42,26 @@ public class AccountUpdateWithRoleBasedExample {
                 .getTransactionCount();
 
         BigInteger newPubkey1 = new_credentials1.getEcKeyPair().getPublicKey();
-        WeightedPublicKey weightedAccountKey1 = WeightedPublicKey.create(BigInteger.ONE, AccountKeyPublic.create(newPubkey1));
+        WeightedPublicKey weightedAccountKey1 = WeightedPublicKey.create(BigInteger.ONE,
+                AccountKeyPublic.create(newPubkey1));
         BigInteger newPubkey2 = new_credentials2.getEcKeyPair().getPublicKey();
-        WeightedPublicKey weightedAccountKey2 = WeightedPublicKey.create(BigInteger.ONE, AccountKeyPublic.create(newPubkey2));
+        WeightedPublicKey weightedAccountKey2 = WeightedPublicKey.create(BigInteger.ONE,
+                AccountKeyPublic.create(newPubkey2));
         BigInteger newPubkey3 = new_credentials3.getEcKeyPair().getPublicKey();
-        WeightedPublicKey weightedAccountKey3 = WeightedPublicKey.create(BigInteger.ONE, AccountKeyPublic.create(newPubkey3));
+        WeightedPublicKey weightedAccountKey3 = WeightedPublicKey.create(BigInteger.ONE,
+                AccountKeyPublic.create(newPubkey3));
 
-        // make list with weightedAccountKey1, weightedAccountKey2, weightedAccountKey3 
-        List<WeightedPublicKey> weightedAccountKeyList = List.of(weightedAccountKey1, weightedAccountKey2, weightedAccountKey3);
+        // make list with weightedAccountKey1, weightedAccountKey2, weightedAccountKey3
+        List<WeightedPublicKey> weightedAccountKeyList = List.of(weightedAccountKey1, weightedAccountKey2,
+                weightedAccountKey3);
 
-        AccountKeyWeightedMultiSig accountTransactionkey = AccountKeyWeightedMultiSig.create(BigInteger.TWO, weightedAccountKeyList);
+        AccountKeyWeightedMultiSig accountTransactionkey = AccountKeyWeightedMultiSig.create(BigInteger.TWO,
+                weightedAccountKeyList);
         AccountKeyPublic accountUpdateKey = AccountKeyPublic.create(newPubkey1);
         AccountKeyPublic accountFeePayerKey = AccountKeyPublic.create(newPubkey1);
 
         List<AccountKey> accountKeys = List.of(accountTransactionkey, accountUpdateKey, accountFeePayerKey);
-        
+
         AccountKeyRoleBased accountkey = AccountKeyRoleBased.create(accountKeys);
 
         TxType.Type type = Type.ACCOUNT_UPDATE;

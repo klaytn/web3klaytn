@@ -1,4 +1,4 @@
-package org.web3j.example;
+package org.web3j.example.contracts;
 
 import io.reactivex.Flowable;
 import io.reactivex.functions.Function;

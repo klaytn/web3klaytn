@@ -3,7 +3,6 @@
  */
 package org.web3j.example.accountKey;
 
-
 import org.web3j.example.keySample;
 import java.io.IOException;
 import org.web3j.crypto.KlayCredentials;

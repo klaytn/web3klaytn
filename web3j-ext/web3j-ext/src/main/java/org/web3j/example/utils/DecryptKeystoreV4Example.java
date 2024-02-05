@@ -10,6 +10,7 @@ import org.web3j.crypto.KlayCredentials;
 import java.io.IOException;
 import java.util.List;
 import org.web3j.example.keySample;
+
 public class DecryptKeystoreV4Example implements keySample {
 
     public static void run() throws Exception {
@@ -33,7 +34,8 @@ public class DecryptKeystoreV4Example implements keySample {
                 for (KlayCredentials credentials : credentialsList) {
                     String address = credentials.getAddress();
                     String privateKey = credentials.getEcKeyPair().getPrivateKey().toString(16);
-                    System.out.println("\tKlayCrendential : " + "Address: " + address + ", Private Key: 0x" + privateKey);
+                    System.out
+                            .println("\tKlayCrendential : " + "Address: " + address + ", Private Key: 0x" + privateKey);
                 }
             }
         }
