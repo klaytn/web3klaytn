@@ -1,29 +1,23 @@
-// TxTypeAccountUpdate
+// Legacy
 // https://docs.klaytn.foundation/docs/learn/transactions/
 
-const { Web3, TxType, AccountKeyType, getPublicKeyFromPrivate } = require("@klaytn/web3js-ext");
+const { Web3, TxType, toPeb } = require("@klaytn/web3js-ext");
 
-// Using senderPriv == senderNewPriv to execute this example repeatedly.
-// But you might want to register a different private key.
-const senderAddr = "0xe15cd70a41dfb05e7214004d7d054801b2a2f06b";
+const recieverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
+const senderAddr = "0xa2a8854b1802d8cd5de631e690817c253d6a9153";
 const senderPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
-const senderNewPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
 
 const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
 const web3 = new Web3(provider);
 const senderAccount = web3.eth.accounts.privateKeyToAccount(senderPriv);
 
 async function main() {
-  const publicKey = getPublicKeyFromPrivate(senderNewPriv);
-  console.log({ publicKey });
-
   const tx = {
-    type: TxType.AccountUpdate,
+    // empty type will automatically be set to type 0 or 2
+    // depending on the gasPrice, maxFeePerGas, maxPriorityFeePerGas fields.
     from: senderAddr,
-    key: {
-      type: AccountKeyType.Public,
-      key: publicKey,
-    }
+    to: recieverAddr,
+    value: toPeb("0.01"),
   };
 
   const signResult = await senderAccount.signTransaction(tx);

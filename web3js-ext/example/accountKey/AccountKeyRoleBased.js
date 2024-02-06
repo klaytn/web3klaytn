@@ -1,8 +1,7 @@
 // AccountKeyRoleBased
-// https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeyrolebased
+// https://docs.klaytn.foundation/docs/learn/accounts/
 
-const { KlaytnWeb3, TxType, AccountKeyType, toPeb, getPublicKeyFromPrivate } = require("@klaytn/web3js-ext");
-const { Web3 } = require("web3");
+const { Web3, TxType, AccountKeyType, toPeb, getPublicKeyFromPrivate } = require("@klaytn/web3js-ext");
 
 const senderAddr = "0x334b4d3c775c45c59de54e9f0408cba25a1aece7";
 const senderRoleTransactionPriv = "0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac";
@@ -11,7 +10,7 @@ const senderRoleFeePayerPriv = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4c
 const receiverAddr = "0xc40b6909eb7085590e1c26cb3becc25368e249e9";
 
 const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
-const web3 = new KlaytnWeb3(provider);
+const web3 = new Web3(provider);
 const updaterAccount = web3.eth.accounts.privateKeyToAccount(senderRoleAccountUpdatePriv);
 const txAccount = web3.eth.accounts.privateKeyToAccount(senderRoleTransactionPriv);
 
@@ -36,7 +35,7 @@ async function updateAccount() {
   };
 
   const signResult = await updaterAccount.signTransaction(tx);
-  console.log("rawTx", signResult.rawTransaction);
+  console.log("signedTx", signResult.transactionHash);
 
   const receipt = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
   console.log("receipt", receipt);
@@ -52,7 +51,7 @@ async function sendTx() {
   };
 
   const signResult = await txAccount.signTransaction(tx);
-  console.log("rawTx", signResult.rawTransaction);
+  console.log("signedTx", signResult.transactionHash);
 
   const receipt = await web3.eth.sendSignedTransaction(signResult.rawTransaction);
   console.log("receipt", receipt);
