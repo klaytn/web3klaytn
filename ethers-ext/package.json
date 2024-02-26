@@ -1,6 +1,6 @@
 {
   "name": "@klaytn/ethers-ext",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "ethers.js extension for Klaytn blockchain",
   "keywords": [
