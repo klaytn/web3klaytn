@@ -19,6 +19,10 @@ paths:
       description: |
         Returns the preimage for a sha3 hash, if known.
 
+        :::note
+        State-migrated databases may not contain preimages.
+        :::
+
         **JSONRPC:** `debug_preimage`
 
       parameters:
