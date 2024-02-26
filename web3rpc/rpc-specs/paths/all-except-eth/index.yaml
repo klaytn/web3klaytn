@@ -203,7 +203,8 @@ paths:
     $ref: ../klay/miscellaneous/recoverFromTransaction.yaml#/paths/~1klay~1recoverFromTransaction
   /klay/recoverFromMessage:
     $ref: ../klay/miscellaneous/recoverFromMessage.yaml#/paths/~1klay~1recoverFromMessage
-
+  /klay/getProof:
+    $ref: ../klay/miscellaneous/getProof.yaml#/paths/~1klay~1getProof
   # net
   /net/listening:
     $ref: ../net/listening.yaml#/paths/~1net~1listening
