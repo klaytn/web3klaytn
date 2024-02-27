@@ -1,0 +1,112 @@
+name: "SDK Test build on dev branch"
+
+on:
+  workflow_run:
+    workflows: ["testing"]
+    branches: [dev]
+    types:
+      - completed
+
+jobs:
+  build:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: nrwl/nx-set-shas@v3
+        id: last_successful_commit_pr
+        with:
+            main-branch-name: "dev"
+            workflow-id: "build-test.yml"
+            last-successful-event: "pull-request"
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: generate code and namespace
+        shell: bash
+        run: |
+          cd web3rpc/codegen && gradle wrapper && gradle wrapper clean :deployJar && cd - &&\
+          cd web3rpc/rpc-specs && npm install && bash -x generate-namespace.sh && cd 
+
+      - name: Verify Changed files
+        uses: tj-actions/changed-files@v39
+        id: verify-changed-files
+        with:
+          base_sha: ${{ steps.last_successful_commit_pr.outputs.base }}
+          files_yaml: | 
+            ethers-ext:  
+              - "ethers-ext/package.json"
+            web3js-ext:  
+              - "web3js-ext/package.json"
+            web3j-ext:
+              - "web3j-ext/web3j-ext/build.gradle"
+            web3py-ext:
+              - "web3py-ext/setup.py"
+            web3rpc:
+              - "web3rpc/rpc-specs/**"
+            js-ext-core: 
+              - "js-ext-core/package.json"
+
+      - name: generate web3rpc-python 
+        if: steps.verify-changed-files.outputs.web3py-ext_any_changed == 'true'
+        shell: bash
+        run: |
+          cd web3rpc/sdk/client/python && bash -x python-generate.sh && cd -
+
+      - name: generate web3py-ext sdk
+        if: steps.verify-changed-files.outputs.web3py-ext_any_changed == 'true'     
+        shell: bash
+        run: |
+          cd web3py-ext &&\
+          python -m pip install build wheel twine &&\
+          ls -ls &&\
+          python setup.py bdist_wheel &&\
+          cd -
+
+      - name: generate ethers-ext sdk
+        if: steps.verify-changed-files.outputs.ethers-ext_any_changed == 'true' 
+        shell: bash
+        run: |
+          cd ethers-ext && npm install && npm run build && cd -
+            
+      - name: generate web3rpc-javascript sdk
+        if: steps.verify-changed-files.outputs.web3rpc_any_changed == 'true' 
+        shell: bash
+        run: |
+          cd web3rpc/sdk/client/javascript && bash -x javascript-generate.sh && cd -
+
+      - name: generate web3rpc-java sdk
+        if: steps.verify-changed-files.outputs.web3rpc_any_changed  == 'true' 
+        shell: bash
+        run: |
+          cd web3rpc/sdk/client/java && bash -x java-generate.sh  && cd -
+
+      - name: generate js-ext-core sdk
+        if: steps.verify-changed-files.outputs.js-ext-core_any_changed == 'true' 
+        shell: bash
+        run: |
+          cd js-ext-core && npm install && npm run build && cd -
+
+      - name: generate web3js-ext 
+        if: steps.verify-changed-files.outputs.web3js-ext_any_changed == 'true' 
+        shell: bash
+        run: |
+          cd web3js-ext && npm install && npm run build && cd -
+
