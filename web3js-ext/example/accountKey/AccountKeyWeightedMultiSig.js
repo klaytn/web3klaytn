@@ -1,11 +1,7 @@
 // AccountKeyWeightedMultiSig
-// https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeyweightedmultisig
+// https://docs.klaytn.foundation/docs/learn/accounts/
 
-const { KlaytnWeb3, TxType, AccountKeyType, toPeb, getPublicKeyFromPrivate } = require("@klaytn/web3js-ext");
-const { Web3 } = require("web3");
-
-const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
-const web3 = new KlaytnWeb3(provider);
+const { Web3, TxType, AccountKeyType, toPeb, getPublicKeyFromPrivate } = require("@klaytn/web3js-ext");
 
 const senderAddr = "0x2bf611d14d330fd3688d10f2201321eacc8aa2ce";
 const senderPriv1 = "0x31fadf868e68fd2e3f7a1c528023c9a86a45db850e9d6b82c1a82d4c75b469d1";
@@ -13,6 +9,8 @@ const senderPriv2 = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597
 const senderPriv3 = "0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac";
 const receiverAddr = "0x2bf611d14d330fd3688d10f2201321eacc8aa2ce";
 
+const provider = new Web3.providers.HttpProvider("https://public-en-baobab.klaytn.net");
+const web3 = new Web3(provider);
 const senderAccount1 = web3.eth.accounts.privateKeyToAccount(senderPriv1);
 const senderAccount2 = web3.eth.accounts.privateKeyToAccount(senderPriv2);
 const senderAccount3 = web3.eth.accounts.privateKeyToAccount(senderPriv3);
@@ -34,6 +32,10 @@ async function updateAccount() {
         [1, pub1],
         [1, pub2],
         [1, pub3],
+        // TODO: use { weight, key } format after @klaytn/js-ext-core v1.0.1
+        // { weight: 1, key: pub1 },
+        // { weight: 1, key: pub2 },
+        // { weight: 1, key: pub3 },
       ]
     }
   };
@@ -49,9 +51,9 @@ async function updateAccount() {
   const signResult2 = await senderAccount2.signTransaction(signResult1.rawTransaction);
   console.log("rawTx2", signResult2.rawTransaction);
 
-  // sign 3: Rest of the signers sign from the rawTx
+  // sign 3: Last signer sign from the rawTx then send it
   const signResult3 = await senderAccount3.signTransaction(signResult2.rawTransaction);
-  console.log("rawTx3", signResult3.rawTransaction);
+  console.log("signedTx3", signResult3.transactionHash);
 
   const receipt = await web3.eth.sendSignedTransaction(signResult3.rawTransaction);
   console.log("receipt", receipt);
@@ -77,9 +79,9 @@ async function sendTx() {
   const signResult2 = await senderAccount2.signTransaction(signResult1.rawTransaction);
   console.log("rawTx2", signResult2.rawTransaction);
 
-  // sign 3: Rest of the signers sign from the rawTx
+  // sign 3: Last signer sign from the rawTx then send it
   const signResult3 = await senderAccount3.signTransaction(signResult2.rawTransaction);
-  console.log("rawTx3", signResult3.rawTransaction);
+  console.log("signedTx3", signResult3.transactionHash);
 
   const receipt = await web3.eth.sendSignedTransaction(signResult3.rawTransaction);
   console.log("receipt", receipt);

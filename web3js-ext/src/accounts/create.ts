@@ -1,7 +1,10 @@
+import _ from "lodash";
 import { Web3Context } from "web3-core";
 import { Web3Account, create, decrypt, privateKeyToAccount } from "web3-eth-accounts";
 import { EthExecutionAPI, KeyStore } from "web3-types";
+import { toChecksumAddress } from "web3-utils";
 
+import { isKIP3Json, splitKeystoreKIP3 } from "..";
 import { KlaytnTransaction, KlaytnWeb3Account } from "../types";
 
 import { context_signTransaction, context_signTransactionAsFeePayer } from "./sign";
@@ -29,9 +32,57 @@ export function context_decrypt(context: Web3Context<EthExecutionAPI>) {
     password: string,
     options?: Record<string, unknown>,
   ): Promise<KlaytnWeb3Account> {
-    const account = await decrypt(keystore, password, (options?.nonStrict as boolean) ?? true);
-    return wrapAccount(context, account);
+    if (!_.isString(keystore)) {
+      keystore = JSON.stringify(keystore);
+    }
+    if (isKIP3Json(keystore)) {
+      const accounts = await decryptKIP3(keystore, password, options);
+      return wrapAccount(context, accounts[0]);
+    } else {
+      const account = await decrypt(keystore, password, (options?.nonStrict as boolean) ?? true);
+      return wrapAccount(context, account);
+    }
   };
+}
+
+export function context_decryptList(context: Web3Context<EthExecutionAPI>) {
+  return async function (
+    keystore: KeyStore | string,
+    password: string,
+    options?: Record<string, unknown>,
+  ): Promise<KlaytnWeb3Account[]> {
+    if (!_.isString(keystore)) {
+      keystore = JSON.stringify(keystore);
+    }
+    if (isKIP3Json(keystore)) {
+      const accounts = await decryptKIP3(keystore, password, options);
+      return _.map(accounts, (account) => wrapAccount(context, account));
+    } else {
+      const account = await decrypt(keystore, password, (options?.nonStrict as boolean) ?? true);
+      return [wrapAccount(context, account)];
+    }
+  };
+}
+
+async function decryptKIP3(
+  keystore: KeyStore | string,
+  password: string,
+  options?: Record<string, unknown>,
+): Promise<Web3Account[]> {
+  if (!_.isString(keystore)) {
+    keystore = JSON.stringify(keystore);
+  }
+  const address = JSON.parse(keystore).address;
+  const jsonList = splitKeystoreKIP3(keystore, false);
+
+  const accounts: Web3Account[] = [];
+  for (const json of jsonList) {
+    const account = await decrypt(json, password, (options?.nonStrict as boolean) ?? true);
+    account.address = toChecksumAddress(address); // the address may not coincide with private keys, get directly from the json.
+    accounts.push(account);
+  }
+
+  return accounts;
 }
 
 // common components of create, privateKeyToAccount, decrypt.

@@ -1,12 +1,12 @@
 // AccountKeyWeightedMultiSig
-// https://docs.klaytn.foundation/content/klaytn/design/accounts#accountkeyweightedmultisig
+// https://docs.klaytn.foundation/docs/learn/accounts/
 
 const { ethers } = require("ethers");
 
 const { Wallet, TxType, AccountKeyType, parseKlay } = require("@klaytn/ethers-ext");
 
 const senderAddr = "0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e";
-// const senderPriv = "0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a";
+const senderPriv = "0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a";
 const senderNewPriv1 = "0xa32c30608667d43be2d652bede413f12a649dd1be93440878e7f712d51a6768a";
 const senderNewPriv2 = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
 const senderNewPriv3 = "0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac";
@@ -34,11 +34,15 @@ async function updateAccount() {
         [1, pub1],
         [1, pub2],
         [1, pub3],
+        // TODO: use { weight, key } format after @klaytn/js-ext-core v1.0.1
+        // { weight: 1, key: pub1 },
+        // { weight: 1, key: pub2 },
+        // { weight: 1, key: pub3 },
       ]
     }
   };
 
-  // The example senderAddr actually requires only 2 signature,
+  // The example senderAddr actually requires only 2 signature (threshold = 2),
   // but we use 3 signatures to show different ways to sign a transaction.
 
   // sign 1: First signer sign from the tx object
@@ -52,14 +56,14 @@ async function updateAccount() {
 
   // sign 3: Last signer sign and send from the rawTx
   const sentTx3 = await wallet3.sendTransaction(rawTx2);
-  console.log("sentTx3", sentTx3);
+  console.log("sentTx3", sentTx3.hash);
 
   const receipt = await sentTx3.wait();
   console.log("receipt", receipt);
 }
 
 async function sendTx() {
-  let tx = {
+  let tx = { // use Klaytn TxType to send transaction from Klaytn typed account
     type: TxType.ValueTransfer,
     from: senderAddr,
     to: recieverAddr,
@@ -67,7 +71,7 @@ async function sendTx() {
     gasLimit: 100000,
   };
 
-  // The example senderAddr actually requires only 2 signature,
+  // The example senderAddr actually requires only 2 signature (threshold = 2),
   // but we use 3 signatures to show different ways to sign a transaction.
 
   // sign 1: First signer sign from the tx object
@@ -81,7 +85,7 @@ async function sendTx() {
 
   // sign 3: Last signer sign and send from the rawTx
   const sentTx3 = await wallet3.sendTransaction(rawTx2);
-  console.log("sentTx3", sentTx3);
+  console.log("sentTx3", sentTx3.hash);
 
   const receipt = await sentTx3.wait();
   console.log("receipt", receipt);
