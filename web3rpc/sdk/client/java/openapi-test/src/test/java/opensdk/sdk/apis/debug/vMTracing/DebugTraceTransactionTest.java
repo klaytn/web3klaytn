@@ -15,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("Debug RPC Test")
 public class DebugTraceTransactionTest {
-    private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
+    private Web3j w3 = Web3j.build(new HttpService("http://localhost:8551"));
 
     @Test
     @DisplayName("RPC debug_traceTransaction")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        String txHash = "0x21b2919b89278ca786226f10edbaadced7381dbd73df546a4823547aaebffa58";
+        String txHash = "0xa4c5d58408d2c0454f14ce9cc538b916385621bbc1c26abe2e28b80bdcb889b1";
         TracingOptions options = new TracingOptions();
         options.setTrace(TracingOptions.TraceEnum.FASTCALLTRACER);
 
