@@ -4,7 +4,7 @@ from web3 import Web3
 from eth_account import Account
 from web3py_ext.transaction.transaction import (
     fill_transaction,
-    TX_TYPE_SMART_CONTRACT_EXECUTION
+    TxType
 )
 
 w3 = Web3(Web3.HTTPProvider('https://public-en-baobab.klaytn.net'))
@@ -21,7 +21,7 @@ def contract_interaction_with_klaytn_type():
     
     # with smart contract execution type
     tx = c.functions.increment().build_transaction({
-        "type":TX_TYPE_SMART_CONTRACT_EXECUTION,
+        "type":TxType.SMART_CONTRACT_EXECUTION,
         "from":user.address,
     })
     tx = fill_transaction(tx, w3)
@@ -30,6 +30,6 @@ def contract_interaction_with_klaytn_type():
     print("receipt: ", w3.eth.wait_for_transaction_receipt(tx_hash))
 
     # view after write transaction
-    print('\nnumber before: ', c.functions.number().call())
+    print('\nnumber after: ', c.functions.number().call())
 
 contract_interaction_with_klaytn_type()

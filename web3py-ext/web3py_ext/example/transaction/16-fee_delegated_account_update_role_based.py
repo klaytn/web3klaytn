@@ -3,10 +3,11 @@ from web3py_ext import extend
 from web3 import Web3
 from eth_account import Account
 from web3py_ext.klaytn_account.utils import compressed_key
+from web3py_ext.klaytn_account.account_key import KeyType
 from web3py_ext.transaction.transaction import (
     empty_tx,
     fill_transaction,
-    TX_TYPE_FEE_DELEGATED_ACCOUNT_UPDATE
+    TxType
 )
 from web3py_ext.utils.klaytn_utils import (
     to_pretty,
@@ -23,22 +24,22 @@ def web3_fee_delegated_account_update_multisig():
     fee_payer_key = Account.from_key('0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8')
     fee_delegator = Account.from_key('0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8')
 
-    account_update_tx = empty_tx(TX_TYPE_FEE_DELEGATED_ACCOUNT_UPDATE)
+    account_update_tx = empty_tx(TxType.FEE_DELEGATED_ACCOUNT_UPDATE)
     account_update_tx = merge(account_update_tx, {
         'from' : to_checksum_address("0x5bd2fb3c21564c023a4a735935a2b7a238c4ccea"),
         'key' : {
-            "type": 5,
+            "type": KeyType.ROLE_BASED,
             "keys": {
                 "roleTransactionKey": {
-                    "type":2,
+                    "type":KeyType.PUBLIC,
                     "key": compressed_key(transaction_key)
                 },
                 "roleAccountUpdateKey": {
-                    "type":2,
+                    "type": KeyType.PUBLIC,
                     "key": compressed_key(update_key)
                 },
                 "roleFeePayerKey": {
-                    "type": 2,
+                    "type": KeyType.PUBLIC,
                     "key": compressed_key(fee_payer_key)
                 }
             }

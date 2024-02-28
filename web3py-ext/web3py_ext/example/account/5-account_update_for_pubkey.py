@@ -3,10 +3,11 @@ from web3py_ext import extend
 from web3 import Web3
 from eth_account import Account
 from web3py_ext.klaytn_account.utils import compressed_key
+from web3py_ext.klaytn_account.account_key import KeyType
 from web3py_ext.transaction.transaction import (
     empty_tx,
     fill_transaction,
-    TX_TYPE_ACCOUNT_UPDATE
+    TxType
 )
 from web3py_ext.utils.klaytn_utils import (
     to_pretty,
@@ -14,18 +15,17 @@ from web3py_ext.utils.klaytn_utils import (
 )
 from cytoolz import merge
 
-# w3 = Web3(Web3.HTTPProvider('https://public-en-baobab.klaytn.net'))
-w3 = Web3(Web3.HTTPProvider('http://localhost:8551'))
+w3 = Web3(Web3.HTTPProvider('https://public-en-baobab.klaytn.net'))
 
 def web3_account_update_pubkey():
     user1 = Account.from_key('0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac')
     user2 = Account.from_key('0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8')
 
-    account_update_tx = empty_tx(TX_TYPE_ACCOUNT_UPDATE)
+    account_update_tx = empty_tx(TxType.ACCOUNT_UPDATE)
     account_update_tx = merge(account_update_tx, {
         'from' : user1.address,
         'key' : {
-            'type': 2,
+            'type': KeyType.PUBLIC,
             'key' : compressed_key(user2)
         }
     })

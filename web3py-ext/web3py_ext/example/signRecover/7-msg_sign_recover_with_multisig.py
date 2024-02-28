@@ -7,7 +7,7 @@ from web3py_ext import extend
 
 w3 = Web3(Web3.HTTPProvider('https://public-en-baobab.klaytn.net'))
 
-def web3_legacy_value_transfer_sign_recover():
+def web3_multisig_value_transfer_sign_recover():
     user = Account.from_key_pair(
         # multisig account address
         '0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e',
@@ -23,4 +23,4 @@ def web3_legacy_value_transfer_sign_recover():
     recovered = w3.klay.recover_from_message(user.address, message, signature.signature.hex(), "latest")
     print("\nsender", user.address, "\nrecovered", recovered) # recovered is an original address of the member key
 
-web3_legacy_value_transfer_sign_recover()
+web3_multisig_value_transfer_sign_recover()

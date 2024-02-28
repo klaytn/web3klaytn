@@ -6,7 +6,7 @@ from web3py_ext.klaytn_account import account_key
 
 def multisig_rlp_encode_decode():
     multisig_key = {
-        'type': 4,
+        'type': account_key.KeyType.MULTISIG,
         'threshold': 2,
         'keys': [
             {

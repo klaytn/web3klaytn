@@ -1,6 +1,5 @@
 #-*- coding:utf-8 -*-
 from eth_account import Account
-from web3 import Web3
 from eth_account.messages import encode_defunct
 from eth_utils.curried import to_hex
 from web3py_ext import extend

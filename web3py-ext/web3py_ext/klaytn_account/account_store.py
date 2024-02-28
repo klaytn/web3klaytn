@@ -17,10 +17,8 @@ from eth_typing.encoding import HexStr
 from web3py_ext.klaytn_account.utils import (
     compressed_key,
     address_from_private_key,
-    compressed_key_from_xy,
     compressed_key_and_address_from_xy,
 )
-from web3py_ext.utils.klaytn_utils import to_pretty
 
 # Account key type in klaytn
 ACCOUNT_KEY_NIL = 0
