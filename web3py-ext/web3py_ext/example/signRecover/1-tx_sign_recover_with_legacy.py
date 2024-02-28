@@ -17,6 +17,11 @@ def web3_tx_sign_recover_legacy():
     }
     value_transfer_tx = fill_transaction(value_transfer_tx, w3)
     signed_tx = Account.sign_transaction(value_transfer_tx, user.key)
+    
+    tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+    print('tx hash: ', tx_hash, 'receipt: ', tx_receipt)
+
     recovered_tx = Account.recover_transaction(signed_tx.rawTransaction)
     print("\nsender", user.address, "\nrecovered", recovered_tx)
 

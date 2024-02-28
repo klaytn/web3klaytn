@@ -9,7 +9,7 @@ from web3py_ext.klaytn_account import account_key
 def pubkey_rlp_encode_decode():
     user1 = Account.from_key('0x8234bdf5e900c9e43401399ae3836340f31dcff52843baf8432f06cca9e3f396')
     pubkey = {
-        'type': 2,
+        'type': account_key.KeyType.PUBLIC,
         'key' : compressed_key(user1)
     }
     encoded_pubkey_account_key = account_key.AccountKey.serialize(pubkey)
