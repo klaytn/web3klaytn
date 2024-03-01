@@ -15,7 +15,7 @@ paths:
       summary: "mainbridge_addPeer"
       tags:
         - mainbridge
-      operationId: addPeer_1
+      operationId: addPeerFromUrl
       description: |
          Adds a new remote node to the peer list. The node will try to maintain connectivity to these nodes at all times, reconnecting every once in a while if the remote connection goes down. The method accepts a single argument, the kni URL of the remote peer to start tracking and returns a BOOL indicating whether the peer was accepted for tracking or some error occurred.
 

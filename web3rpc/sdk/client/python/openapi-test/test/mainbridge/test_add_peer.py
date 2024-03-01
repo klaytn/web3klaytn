@@ -9,7 +9,7 @@ class TestAddPeer(KlaytnBaseTesting):
        
 
     def test_post(self):
-        self.response = self.w3.mainbridge.mb_add_peer(
+        self.response = self.w3.mainbridge.add_peer_from_url(
             self.peerUrl
         )
 
