@@ -53,3 +53,19 @@ paths:
     $ref: ../../web3rpc/rpc-specs/paths/subbridge/txPendingCount.yaml#/paths/~1subbridge~1txPendingCount
   /subbridge/unsubscribeBridge:
     $ref: ../../web3rpc/rpc-specs/paths/subbridge/unsubscribeBridge.yaml#/paths/~1subbridge~1unsubscribeBridge
+  /subbridge/childOperator:
+    $ref: ../../web3rpc/rpc-specs/paths/subbridge/childOperator.yaml#/paths/~1subbridge~1childOperator
+  /subbridge/childOperatorBalance:
+    $ref: ../../web3rpc/rpc-specs/paths/subbridge/childOperatorBalance.yaml#/paths/~1subbridge~1childOperatorBalance
+  /subbridge/childOperatorNonce:
+    $ref: ../../web3rpc/rpc-specs/paths/subbridge/childOperatorNonce.yaml#/paths/~1subbridge~1childOperatorNonce
+  /subbridge/latestAnchoredBlockNumber:
+    $ref: ../../web3rpc/rpc-specs/paths/subbridge/latestAnchoredBlockNumber.yaml#/paths/~1subbridge~1latestAnchoredBlockNumber
+  /subbridge/parentOperator:
+    $ref: ../../web3rpc/rpc-specs/paths/subbridge/parentOperator.yaml#/paths/~1subbridge~1parentOperator
+  /subbridge/parentOperatorBalance:
+    $ref: ../../web3rpc/rpc-specs/paths/subbridge/parentOperatorBalance.yaml#/paths/~1subbridge~1parentOperatorBalance
+   /subbridge/parentOperatorNonce:
+    $ref: ../../web3rpc/rpc-specs/paths/subbridge/parentOperatorNonce.yaml#/paths/~1subbridge~1parentOperatorNonce
+   /subbridge/sendChainTxslimit:
+    $ref: ../../web3rpc/rpc-specs/paths/subbridge/sendChainTxslimit.yaml#/paths/~1subbridge~1sendChainTxslimit

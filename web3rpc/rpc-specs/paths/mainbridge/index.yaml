@@ -23,3 +23,7 @@ paths:
     $ref: ./nodeInfo.yaml#/paths/~1mainbridge~1nodeInfo
   /mainbridge/convertChildChainBlockHashToParentChainTxHash:
     $ref: ./convertChildChainBlockHashToParentChainTxHash.yaml#/paths/~1mainbridge~1convertChildChainBlockHashToParentChainTxHash
+  /mainbridge/addPeer:
+    $ref: ./addPeer.yaml#/paths/~1mainbridge~1addPeer
+  /mainbridge/removePeer:
+    $ref: ./removePeer.yaml#/paths/~1mainbridge~1removePeer

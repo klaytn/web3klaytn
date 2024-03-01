@@ -1,0 +1,87 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /mainbridge/addPeer:
+    post:
+      summary: "mainbridge_addPeer"
+      tags:
+        - mainbridge
+      operationId: addPeer_1
+      description: |
+         Adds a new remote node to the peer list. The node will try to maintain connectivity to these nodes at all times, reconnecting every once in a while if the remote connection goes down. The method accepts a single argument, the kni URL of the remote peer to start tracking and returns a BOOL indicating whether the peer was accepted for tracking or some error occurred.
+
+          **JSONRPC:** `mainbridge_addPeer`
+      parameters:
+        - name: url
+          required: true
+          schema:
+            type: string
+          description: Peer's kni URL.
+          in: query
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/MainbridgeaddPeerReq"
+
+      responses:
+        200:
+          description: Returns bridge node information including the KNI (Klaytn Network Identifier) of the node.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/MainbridgeaddPeerResp"
+
+      x-codeSamples:
+        # - lang: "curl"
+        #   label: "Curl"
+        #   source:
+        #     $ref: "../../code-samples/curl/mainbridge/addPeer.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../code-samples/javascript/mainbridge/AddPeerApi.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../../code-samples/python/eth/miscellaneous/addPeer.py"
+
+components:
+  schemas:
+    MainbridgeaddPeerReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'mainbridge_addPeer'
+        params:
+          type: array
+          example: ['kni://a979fb...1163c@10.0.0.1:50505']
+          items:
+            type: string
+    MainbridgeaddPeerResp:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true

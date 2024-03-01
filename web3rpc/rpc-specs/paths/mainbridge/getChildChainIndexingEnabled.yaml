@@ -74,4 +74,4 @@ components:
         result:
           type: boolean
           description: true if the indexing was enabled, false otherwise.
-          example: "0x0"
+          example: true

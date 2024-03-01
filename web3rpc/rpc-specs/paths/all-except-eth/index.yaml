@@ -476,45 +476,64 @@ paths:
     $ref: ../admin/nodeConfig.yaml#/paths/~1admin~1nodeConfig
     
   # mainbridge:
-  # /mainbridge/convertChildChainBlockHashToParentChainTxHash:
-  #   $ref: ../mainbridge/convertChildChainBlockHashToParentChainTxHash.yaml#/paths/~1mainbridge~1convertChildChainBlockHashToParentChainTxHash
-  # /mainbridge/getChildChainIndexingEnabled:
-  #   $ref: ../mainbridge/getChildChainIndexingEnabled.yaml#/paths/~1mainbridge~1getChildChainIndexingEnabled
-  # /mainbridge/nodeInfo:
-  #   $ref: ../mainbridge/nodeInfo.yaml#/paths/~1mainbridge~1nodeInfo
-
+  /mainbridge/convertChildChainBlockHashToParentChainTxHash:
+    $ref: ../mainbridge/convertChildChainBlockHashToParentChainTxHash.yaml#/paths/~1mainbridge~1convertChildChainBlockHashToParentChainTxHash
+  /mainbridge/getChildChainIndexingEnabled:
+    $ref: ../mainbridge/getChildChainIndexingEnabled.yaml#/paths/~1mainbridge~1getChildChainIndexingEnabled
+  /mainbridge/nodeInfo:
+    $ref: ../mainbridge/nodeInfo.yaml#/paths/~1mainbridge~1nodeInfo
+  /mainbridge/addPeer:
+    $ref: ../mainbridge/addPeer.yaml#/paths/~1mainbridge~1addPeer
+  /mainbridge/removePeer:
+    $ref: ../mainbridge/removePeer.yaml#/paths/~1mainbridge~1removePeer
   # subbridge:
-  # /subbridge/addPeer:
-  #   $ref: ../subbridge/addPeer.yaml#/paths/~1subbridge~1addPeer
-  # /subbridge/anchoring:
-  #   $ref: ../subbridge/anchoring.yaml#/paths/~1subbridge~1anchoring
-  # /subbridge/convertRequestTxHashToHandleTxHash:
-  #   $ref: ../subbridge/convertRequestTxHashToHandleTxHash.yaml#/paths/~1subbridge~1convertRequestTxHashToHandleTxHash  
-  # /subbridge/deployBridge:
-  #   $ref: ../subbridge/deployBridge.yaml#/paths/~1subbridge~1deployBridge
-  # /subbridge/deregisterBridge:
-  #   $ref: ../subbridge/deregisterBridge.yaml#/paths/~1subbridge~1deregisterBridge
-  # /subbridge/deregisterToken:
-  #   $ref: ../subbridge/deregisterToken.yaml#/paths/~1subbridge~1deregisterToken
-  # /subbridge/getBridgeInFormation:
-  #   $ref: ../subbridge/getBridgeInformation.yaml#/paths/~1subbridge~1getBridgeInformation
-  # /subbridge/getReceiptFromParentChain:
-  #   $ref: ../subbridge/getReceiptFromParentChain.yaml#/paths/~1subbridge~1getReceiptFromParentChain
-  # /subbridge/listBridge:
-  #   $ref: ../subbridge/listBridge.yaml#/paths/~1subbridge~1listBridge
-  # /subbridge/nodeInfo:
-  #   $ref: ../subbridge/nodeInfo.yaml#/paths/~1subbridge~1nodeInfo
-  # /subbridge/registerBridge:
-  #   $ref: ../subbridge/registerBridge.yaml#/paths/~1subbridge~1registerBridge
-  # /subbridge/registerToken:
-  #   $ref: ../subbridge/registerToken.yaml#/paths/~1subbridge~1registerToken
-  # /subbridge/removePeer:
-  #   $ref: ../subbridge/removePeer.yaml#/paths/~1subbridge~1removePeer
-  # /subbridge/subscribeBridge:
-  #   $ref: ../subbridge/subscribeBridge.yaml#/paths/~1subbridge~1subscribeBridge
-  # /subbridge/txPending:
-  #   $ref: ../subbridge/txPending.yaml#/paths/~1subbridge~1txPending
-  # /subbridge/txPendingCount:
-  #   $ref: ../subbridge/txPendingCount.yaml#/paths/~1subbridge~1txPendingCount
-  # /subbridge/unsubscribeBridge:
-  #   $ref: ../subbridge/unsubscribeBridge.yaml#/paths/~1subbridge~1unsubscribeBridge
+  /subbridge/addPeer:
+    $ref: ../subbridge/addPeer.yaml#/paths/~1subbridge~1addPeer
+  /subbridge/anchoring:
+    $ref: ../subbridge/anchoring.yaml#/paths/~1subbridge~1anchoring
+  /subbridge/convertRequestTxHashToHandleTxHash:
+    $ref: ../subbridge/convertRequestTxHashToHandleTxHash.yaml#/paths/~1subbridge~1convertRequestTxHashToHandleTxHash  
+  /subbridge/deployBridge:
+    $ref: ../subbridge/deployBridge.yaml#/paths/~1subbridge~1deployBridge
+  /subbridge/deregisterBridge:
+    $ref: ../subbridge/deregisterBridge.yaml#/paths/~1subbridge~1deregisterBridge
+  /subbridge/deregisterToken:
+    $ref: ../subbridge/deregisterToken.yaml#/paths/~1subbridge~1deregisterToken
+  /subbridge/getBridgeInFormation:
+    $ref: ../subbridge/getBridgeInformation.yaml#/paths/~1subbridge~1getBridgeInformation
+  /subbridge/getReceiptFromParentChain:
+    $ref: ../subbridge/getReceiptFromParentChain.yaml#/paths/~1subbridge~1getReceiptFromParentChain
+  /subbridge/listBridge:
+    $ref: ../subbridge/listBridge.yaml#/paths/~1subbridge~1listBridge
+  /subbridge/nodeInfo:
+    $ref: ../subbridge/nodeInfo.yaml#/paths/~1subbridge~1nodeInfo
+  /subbridge/registerBridge:
+    $ref: ../subbridge/registerBridge.yaml#/paths/~1subbridge~1registerBridge
+  /subbridge/registerToken:
+    $ref: ../subbridge/registerToken.yaml#/paths/~1subbridge~1registerToken
+  /subbridge/removePeer:
+    $ref: ../subbridge/removePeer.yaml#/paths/~1subbridge~1removePeer
+  /subbridge/subscribeBridge:
+    $ref: ../subbridge/subscribeBridge.yaml#/paths/~1subbridge~1subscribeBridge
+  /subbridge/txPending:
+    $ref: ../subbridge/txPending.yaml#/paths/~1subbridge~1txPending
+  /subbridge/txPendingCount:
+    $ref: ../subbridge/txPendingCount.yaml#/paths/~1subbridge~1txPendingCount
+  /subbridge/unsubscribeBridge:
+    $ref: ../subbridge/unsubscribeBridge.yaml#/paths/~1subbridge~1unsubscribeBridge
+  /subbridge/childOperator:
+    $ref: ../subbridge/childOperator.yaml#/paths/~1subbridge~1childOperator
+  /subbridge/childOperatorBalance:
+    $ref: ../subbridge/childOperatorBalance.yaml#/paths/~1subbridge~1childOperatorBalance
+  /subbridge/childOperatorNonce:
+    $ref: ../subbridge/childOperatorNonce.yaml#/paths/~1subbridge~1childOperatorNonce
+  /subbridge/latestAnchoredBlockNumber:
+    $ref: ../subbridge/latestAnchoredBlockNumber.yaml#/paths/~1subbridge~1latestAnchoredBlockNumber
+  /subbridge/parentOperator:
+    $ref: ../subbridge/parentOperator.yaml#/paths/~1subbridge~1parentOperator
+  /subbridge/parentOperatorBalance:
+    $ref: ../subbridge/parentOperatorBalance.yaml#/paths/~1subbridge~1parentOperatorBalance
+  /subbridge/parentOperatorNonce:
+    $ref: ../subbridge/parentOperatorNonce.yaml#/paths/~1subbridge~1parentOperatorNonce
+  /subbridge/sendChainTxslimit:
+    $ref: ../subbridge/sendChainTxslimit.yaml#/paths/~1subbridge~1sendChainTxslimit
