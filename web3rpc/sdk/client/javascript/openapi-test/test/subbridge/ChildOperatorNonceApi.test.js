@@ -4,14 +4,16 @@ const { RPC } = require("../constant");
 
 const sdk = new OpenSdk(new OpenSdk.ApiClient(RPC));
 
-describe("mainbridge_ API", () => {
-  test("should return mainbridge_", (done) => {
+describe("subbridge_ childOperatorNonceAPI", () => {
+  test("should return subbridge_childOperatorNonce", (done) => {
     let callbackOne = function (error, data, response) {
       expect(error).toBeNull();
       expect(data).toBeDefined();
+      expect(typeof data === "number").toBeTruthy();
+
       done();
     };
 
-    sdk.mainbridge.getNodeInfo({}, callbackOne);
+    sdk.subbridge.childOperatorNonce({}, callbackOne);
   });
 });

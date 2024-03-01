@@ -10,7 +10,7 @@ class TestRemovePeer(KlaytnBaseTesting):
        
 
     def test_post(self):
-        self.response = self.w3.mainbridge.mb_remove_peer(
+        self.response = self.w3.mainbridge.remove_peer_from_url(
             self.peerUrl
         )
 

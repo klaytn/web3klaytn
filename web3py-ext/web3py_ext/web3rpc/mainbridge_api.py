@@ -17,12 +17,12 @@ class MainbridgeApi(Module):
     namespace = "mainbridge"
     
     
-    _add_peer1: Method[Callable[..., Any]] = Method(
-        namespace + "_addPeer1", mungers=[default_root_munger]
+    _add_peer_from_url: Method[Callable[..., Any]] = Method(
+        namespace + "_addPeerFromUrl", mungers=[default_root_munger]
     )
 
-    def add_peer1(self, *args) -> Any:
-        return self._add_peer1(*args)
+    def add_peer_from_url(self, *args) -> Any:
+        return self._add_peer_from_url(*args)
     
     
     _convert_child_chain_block_hash_to_parent_chain_tx_hash: Method[Callable[..., Any]] = Method(
@@ -41,20 +41,20 @@ class MainbridgeApi(Module):
         return self._get_child_chain_indexing_enabled(*args)
     
     
-    _node_info1: Method[Callable[..., Any]] = Method(
-        namespace + "_nodeInfo1", mungers=[default_root_munger]
+    _get_node_info: Method[Callable[..., Any]] = Method(
+        namespace + "_getNodeInfo", mungers=[default_root_munger]
     )
 
-    def node_info1(self, *args) -> Any:
-        return self._node_info1(*args)
+    def get_node_info(self, *args) -> Any:
+        return self._get_node_info(*args)
     
     
-    _remove_peer1: Method[Callable[..., Any]] = Method(
-        namespace + "_removePeer1", mungers=[default_root_munger]
+    _remove_peer_from_url: Method[Callable[..., Any]] = Method(
+        namespace + "_removePeerFromUrl", mungers=[default_root_munger]
     )
 
-    def remove_peer1(self, *args) -> Any:
-        return self._remove_peer1(*args)
+    def remove_peer_from_url(self, *args) -> Any:
+        return self._remove_peer_from_url(*args)
     
 
 class AsyncMainbridgeApi(Module):
@@ -62,12 +62,12 @@ class AsyncMainbridgeApi(Module):
     namespace = "mainbridge"
     
     
-    _add_peer1: Method[Callable[..., Awaitable[Any]]] = Method(
-        namespace + "_addPeer1", mungers=[default_root_munger]
+    _add_peer_from_url: Method[Callable[..., Awaitable[Any]]] = Method(
+        namespace + "_addPeerFromUrl", mungers=[default_root_munger]
     )
 
-    async def add_peer1(self, *args) -> Any:
-        return await self._add_peer1(*args)
+    async def add_peer_from_url(self, *args) -> Any:
+        return await self._add_peer_from_url(*args)
     
     
     _convert_child_chain_block_hash_to_parent_chain_tx_hash: Method[Callable[..., Awaitable[Any]]] = Method(
@@ -86,18 +86,18 @@ class AsyncMainbridgeApi(Module):
         return await self._get_child_chain_indexing_enabled(*args)
     
     
-    _node_info1: Method[Callable[..., Awaitable[Any]]] = Method(
-        namespace + "_nodeInfo1", mungers=[default_root_munger]
+    _get_node_info: Method[Callable[..., Awaitable[Any]]] = Method(
+        namespace + "_getNodeInfo", mungers=[default_root_munger]
     )
 
-    async def node_info1(self, *args) -> Any:
-        return await self._node_info1(*args)
+    async def get_node_info(self, *args) -> Any:
+        return await self._get_node_info(*args)
     
     
-    _remove_peer1: Method[Callable[..., Awaitable[Any]]] = Method(
-        namespace + "_removePeer1", mungers=[default_root_munger]
+    _remove_peer_from_url: Method[Callable[..., Awaitable[Any]]] = Method(
+        namespace + "_removePeerFromUrl", mungers=[default_root_munger]
     )
 
-    async def remove_peer1(self, *args) -> Any:
-        return await self._remove_peer1(*args)
+    async def remove_peer_from_url(self, *args) -> Any:
+        return await self._remove_peer_from_url(*args)
     

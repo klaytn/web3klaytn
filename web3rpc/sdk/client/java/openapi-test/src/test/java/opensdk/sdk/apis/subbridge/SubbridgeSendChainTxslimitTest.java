@@ -11,14 +11,14 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Eth RPC Test")
-public class MainbridgeNodeInfoTest {
+@DisplayName("Klay RPC Test")
+public class SubbridgeSendChainTxslimitTest {
     private Web3j w3 = Web3j.build(new HttpService(UrlConstants.RPC));
 
     @Test
     @DisplayName("RPC main_bridge")
     void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-        NetListening response = w3.mainbridgeGetNodeInfo().send();
+        NetListening response = w3.subbridgeSendChainTxslimit().send();
         assertNotNull(response);
         assertNull(response.getError());
         assertNotNull(response.getResult());

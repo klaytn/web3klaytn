@@ -1,12 +1,11 @@
 from base.testing import KlaytnBaseTesting
 
 
-class TestNodeInfo(KlaytnBaseTesting):
+class TestSendChainTxslimit (KlaytnBaseTesting):
 
     def setUp(self) -> None:
         super().setUp()
        
 
     def test_post(self):
-        self.response = self.w3.mainbridge.get_node_info(
-        )
+        self.response = self.w3.subbridge.send_chain_txslimit()
