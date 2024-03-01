@@ -1,8 +1,7 @@
-from typing import Any, Dict, Tuple
+from typing import Any, Dict
 from cytoolz import (
     dissoc,
 )
-from hexbytes import HexBytes
 import rlp
 from rlp.sedes import (
     big_endian_int,
@@ -194,3 +193,10 @@ class AccountKeyRoleBased(object):
                 'roleFeePayerKey' : AccountKey.deserialize(keys[2]),
             },
         }
+
+class KeyType(object):
+    LEGACY = AccountKeyLegacy.key_type # 1
+    PUBLIC = AccountKeyPublic.key_type # 2
+    FAIL = AccountKeyFail.key_type # 3
+    MULTISIG = AccountKeyWeightedMultisig.key_type # 4
+    ROLE_BASED = AccountKeyRoleBased.key_type # 5

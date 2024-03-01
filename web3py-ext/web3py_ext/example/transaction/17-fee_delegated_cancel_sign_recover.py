@@ -6,7 +6,7 @@ from eth_account import Account
 from web3py_ext.transaction.transaction import (
     empty_tx,
     fill_transaction,
-    TX_TYPE_FEE_DELEGATED_CANCEL
+    TxType
 )
 from web3py_ext.utils.klaytn_utils import to_pretty
 from cytoolz import merge
@@ -17,7 +17,7 @@ def web3_fee_delegated_cancel_sign_recover():
     user = Account.from_key('0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8')
     fee_delegator = Account.from_key('0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16fc000cff4')
 
-    cancel_tx = empty_tx(TX_TYPE_FEE_DELEGATED_CANCEL)
+    cancel_tx = empty_tx(TxType.FEE_DELEGATED_CANCEL)
     cancel_tx = merge(cancel_tx, {
         'from' : user.address,
     })

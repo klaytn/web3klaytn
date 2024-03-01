@@ -5,7 +5,7 @@ from eth_account import Account
 from web3py_ext.transaction.transaction import (
     empty_tx,
     fill_transaction,
-    TX_TYPE_VALUE_TRANSFER
+    TxType
 )
 from web3py_ext.utils.klaytn_utils import (
     to_pretty,
@@ -30,7 +30,7 @@ def example_scenario_multisig_value_transfer():
         '0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac'
         )
     
-    value_transfer_tx = empty_tx(TX_TYPE_VALUE_TRANSFER)
+    value_transfer_tx = empty_tx(TxType.VALUE_TRANSFER)
     value_transfer_tx = merge(value_transfer_tx, {
         'from' : multisig_addr,
         'to' : multisig_addr, # to self

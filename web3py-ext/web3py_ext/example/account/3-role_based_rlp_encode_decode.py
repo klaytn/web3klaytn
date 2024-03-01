@@ -5,10 +5,10 @@ from web3py_ext.klaytn_account import account_key
 
 def role_based_rlp_encode_decode():
     role_based_account_key = {
-        "type": 5,
+        "type": account_key.KeyType.ROLE_BASED,
         "keys": {
             "roleTransactionKey": {
-                "type": 4,
+                "type": account_key.KeyType.MULTISIG,
                 "threshold": 1,
                 "keys": [
                     {
@@ -18,7 +18,7 @@ def role_based_rlp_encode_decode():
                 ]
             },
             "roleAccountUpdateKey": {
-                "type": 4,
+                "type": account_key.KeyType.MULTISIG,
                 "threshold": 1,
                 "keys": [
                     {
@@ -28,7 +28,7 @@ def role_based_rlp_encode_decode():
                 ]
             },
             "roleFeePayerKey": {
-                "type": 4,
+                "type": account_key.KeyType.MULTISIG,
                 "threshold": 1,
                 "keys": [
                     {

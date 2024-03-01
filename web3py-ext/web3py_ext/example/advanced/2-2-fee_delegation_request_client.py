@@ -6,7 +6,7 @@ from eth_account import Account
 from web3py_ext.transaction.transaction import (
     empty_tx,
     fill_transaction,
-    TX_TYPE_FEE_DELEGATED_VALUE_TRANSFER
+    TxType
 )
 from cytoolz import merge
 
@@ -16,7 +16,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
     client_socket.connect(('', 5555))
 
     user = Account.from_key('0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8')
-    fee_delegated_value_transfer_tx = empty_tx(TX_TYPE_FEE_DELEGATED_VALUE_TRANSFER)
+    fee_delegated_value_transfer_tx = empty_tx(TxType.FEE_DELEGATED_VALUE_TRANSFER)
     fee_delegated_value_transfer_tx = merge(fee_delegated_value_transfer_tx, {
         'from' : user.address,
         'to' : user.address, # to self
