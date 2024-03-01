@@ -3,10 +3,11 @@ from web3py_ext import extend
 from web3 import Web3
 from eth_account import Account
 from web3py_ext.klaytn_account.utils import compressed_key
+from web3py_ext.klaytn_account.account_key import KeyType
 from web3py_ext.transaction.transaction import (
     empty_tx,
     fill_transaction,
-    TX_TYPE_FEE_DELEGATED_ACCOUNT_UPDATE
+    TxType
 )
 from web3py_ext.utils.klaytn_utils import (
     to_pretty,
@@ -25,11 +26,11 @@ def web3_fee_delegated_account_update_multisig():
     user3 = Account.from_key('0x797d16ee04c7cec1cf1d4a536fd2dfed81af48d477df1f8409d75f50d91499f6')
     fee_delegator = Account.from_key('0x2380a434b66b5b3ff095632b098055e52fa85ca34517ff8ec504b428f4a81f76')
 
-    account_update_tx = empty_tx(TX_TYPE_FEE_DELEGATED_ACCOUNT_UPDATE)
+    account_update_tx = empty_tx(TxType.FEE_DELEGATED_ACCOUNT_UPDATE)
     account_update_tx = merge(account_update_tx, {
         'from' : user1.address,
         'key' : {
-            'type': 4,
+            'type': KeyType.MULTISIG,
             'threshold': 2,
             'keys': [
                 {
@@ -69,9 +70,8 @@ def web3_fee_delegated_account_update_multisig():
     decoded_tx = Account.decode_transaction(feepayer_signed_tx.rawTransaction)
     print("\ndecoded transaction:", to_pretty(decoded_tx))
 
-    # temp test
-    # tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
-    # tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-    # print('tx hash: ', tx_hash, 'receipt: ', tx_receipt) 
+    tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+    print('tx hash: ', tx_hash, 'receipt: ', tx_receipt) 
 
 web3_fee_delegated_account_update_multisig()

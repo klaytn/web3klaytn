@@ -6,7 +6,7 @@ from eth_account import Account
 from web3py_ext.transaction.transaction import (
     empty_tx,
     fill_transaction,
-    TX_TYPE_SMART_CONTRACT_EXECUTION
+    TxType
 )
 from web3py_ext.utils.klaytn_utils import to_pretty
 from cytoolz import merge
@@ -14,9 +14,9 @@ from cytoolz import merge
 w3 = Web3(Web3.HTTPProvider('https://public-en-baobab.klaytn.net'))
 
 def web3_smart_contract_execution_sign_recover():
-    user = Account.from_key('0x8b0164c3a59d2b1a00a9934f85ae77c14e21094132c34cc3daacd9e632c90807') 
+    user = Account.from_key('0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8') 
 
-    smart_contract_execution_tx = empty_tx(TX_TYPE_SMART_CONTRACT_EXECUTION)
+    smart_contract_execution_tx = empty_tx(TxType.SMART_CONTRACT_EXECUTION)
     smart_contract_execution_tx = merge(smart_contract_execution_tx, {
         'from' : user.address,
         'to' : '0x108bF12b50c9ef65525F0495C721aEc55015e111', # already deployed contract for test before

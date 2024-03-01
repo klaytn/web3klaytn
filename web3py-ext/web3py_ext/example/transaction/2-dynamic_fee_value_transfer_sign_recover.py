@@ -5,7 +5,7 @@ from eth_account import Account
 from web3py_ext.transaction.transaction import (
     empty_tx,
     fill_transaction,
-    TX_TYPE_ETHEREUM_DYNAMIC_FEE
+    TxType
 )
 from web3py_ext.utils.klaytn_utils import to_pretty
 from cytoolz import merge
@@ -15,7 +15,7 @@ w3 = Web3(Web3.HTTPProvider('https://public-en-baobab.klaytn.net'))
 def web3_dynamic_fee_value_transfer_sign_recover():
     user = Account.from_key('0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8')
 
-    value_transfer_tx = empty_tx(TX_TYPE_ETHEREUM_DYNAMIC_FEE)
+    value_transfer_tx = empty_tx(TxType.ETHEREUM_DYNAMIC_FEE)
     value_transfer_tx = merge(value_transfer_tx, {
         'from' : user.address,
         'to' : user.address,

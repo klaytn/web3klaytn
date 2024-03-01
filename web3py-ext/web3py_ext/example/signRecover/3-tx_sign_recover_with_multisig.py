@@ -5,7 +5,7 @@ from eth_account import Account
 from web3py_ext.transaction.transaction import (
     empty_tx,
     fill_transaction,
-    TX_TYPE_VALUE_TRANSFER
+    TxType
 )
 from cytoolz import merge
 
@@ -25,7 +25,7 @@ def web3_tx_sign_recover_multisig():
         '0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac'
     )
 
-    value_transfer_tx = empty_tx(TX_TYPE_VALUE_TRANSFER)
+    value_transfer_tx = empty_tx(TxType.VALUE_TRANSFER)
     value_transfer_tx = merge(value_transfer_tx, {
         'from' : user1.address,
         'to' : user1.address,
@@ -35,6 +35,10 @@ def web3_tx_sign_recover_multisig():
     signed_tx = Account.sign_transaction(value_transfer_tx, user1.key)
     signed_tx = Account.sign_transaction(signed_tx.rawTransaction, user2.key)
     signed_tx = Account.sign_transaction(signed_tx.rawTransaction, user3.key)
+
+    tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+    print('tx hash: ', tx_hash, 'receipt: ', tx_receipt)
     
     recovered = w3.klay.recover_from_transaction(signed_tx.rawTransaction.hex(), "latest")
     print("\nsender", user1.address, "\nrecovered", recovered)
