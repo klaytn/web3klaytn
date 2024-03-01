@@ -20,6 +20,8 @@ sh ./scripts/personal/python-personal-generate.sh ${CURRENT_FILE_DIR}
 sh ./scripts/debug/python-debug-generate.sh ${CURRENT_FILE_DIR}
 sh ./scripts/governance/python-governance-generate.sh ${CURRENT_FILE_DIR}
 sh ./scripts/admin/python-admin-generate.sh ${CURRENT_FILE_DIR}
+sh ./scripts/mainbridge/python-mainbridge-generate.sh ${CURRENT_FILE_DIR}
+sh ./scripts/subbridge/python-subbridge-generate.sh ${CURRENT_FILE_DIR}
 
 #cp .openapi-generator-ignore "${CURRENT_FILE_DIR}/openapi"
 

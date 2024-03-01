@@ -48,3 +48,19 @@ paths:
   /subbridge/removePeer:
     $ref: ./removePeer.yaml#/paths/~1subbridge~1removePeer
 
+  /subbridge/childOperator:
+    $ref: ./childOperator.yaml#/paths/~1subbridge~1childOperator
+  /subbridge/childOperatorBalance:
+    $ref: ./childOperatorBalance.yaml#/paths/~1subbridge~1childOperatorBalance
+  /subbridge/childOperatorNonce:
+    $ref: ./childOperatorNonce.yaml#/paths/~1subbridge~1childOperatorNonce
+  /subbridge/latestAnchoredBlockNumber:
+    $ref: ./latestAnchoredBlockNumber.yaml#/paths/~1subbridge~1latestAnchoredBlockNumber
+  /subbridge/parentOperator:
+    $ref: ./parentOperator.yaml#/paths/~1subbridge~1parentOperator
+  /subbridge/parentOperatorBalance:
+    $ref: ./parentOperatorBalance.yaml#/paths/~1subbridge~1parentOperatorBalance
+  /subbridge/parentOperatorNonce:
+    $ref: ./parentOperatorNonce.yaml#/paths/~1subbridge~1parentOperatorNonce
+  /subbridge/sendChainTxslimit:
+    $ref: ./sendChainTxslimit.yaml#/paths/~1subbridge~1sendChainTxslimit
