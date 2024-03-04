@@ -480,15 +480,15 @@ paths:
     $ref: ../mainbridge/convertChildChainBlockHashToParentChainTxHash.yaml#/paths/~1mainbridge~1convertChildChainBlockHashToParentChainTxHash
   /mainbridge/getChildChainIndexingEnabled:
     $ref: ../mainbridge/getChildChainIndexingEnabled.yaml#/paths/~1mainbridge~1getChildChainIndexingEnabled
-  /mainbridge/nodeInfo:
-    $ref: ../mainbridge/nodeInfo.yaml#/paths/~1mainbridge~1nodeInfo
-  /mainbridge/addPeer:
-    $ref: ../mainbridge/addPeer.yaml#/paths/~1mainbridge~1addPeer
-  /mainbridge/removePeer:
-    $ref: ../mainbridge/removePeer.yaml#/paths/~1mainbridge~1removePeer
+  # /mainbridge/nodeInfo:
+  #   $ref: ../mainbridge/nodeInfo.yaml#/paths/~1mainbridge~1nodeInfo
+  # /mainbridge/addPeer:
+  #   $ref: ../mainbridge/addPeer.yaml#/paths/~1mainbridge~1addPeer
+  # /mainbridge/removePeer:
+  #   $ref: ../mainbridge/removePeer.yaml#/paths/~1mainbridge~1removePeer
   # subbridge:
-  /subbridge/addPeer:
-    $ref: ../subbridge/addPeer.yaml#/paths/~1subbridge~1addPeer
+  # /subbridge/addPeer:
+  #   $ref: ../subbridge/addPeer.yaml#/paths/~1subbridge~1addPeer
   /subbridge/anchoring:
     $ref: ../subbridge/anchoring.yaml#/paths/~1subbridge~1anchoring
   /subbridge/convertRequestTxHashToHandleTxHash:
@@ -505,14 +505,14 @@ paths:
     $ref: ../subbridge/getReceiptFromParentChain.yaml#/paths/~1subbridge~1getReceiptFromParentChain
   /subbridge/listBridge:
     $ref: ../subbridge/listBridge.yaml#/paths/~1subbridge~1listBridge
-  /subbridge/nodeInfo:
-    $ref: ../subbridge/nodeInfo.yaml#/paths/~1subbridge~1nodeInfo
+  # /subbridge/nodeInfo:
+  #   $ref: ../subbridge/nodeInfo.yaml#/paths/~1subbridge~1nodeInfo
   /subbridge/registerBridge:
     $ref: ../subbridge/registerBridge.yaml#/paths/~1subbridge~1registerBridge
   /subbridge/registerToken:
     $ref: ../subbridge/registerToken.yaml#/paths/~1subbridge~1registerToken
-  /subbridge/removePeer:
-    $ref: ../subbridge/removePeer.yaml#/paths/~1subbridge~1removePeer
+  # /subbridge/removePeer:
+  #   $ref: ../subbridge/removePeer.yaml#/paths/~1subbridge~1removePeer
   /subbridge/subscribeBridge:
     $ref: ../subbridge/subscribeBridge.yaml#/paths/~1subbridge~1subscribeBridge
   /subbridge/txPending:
