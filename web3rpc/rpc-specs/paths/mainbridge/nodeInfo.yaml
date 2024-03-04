@@ -15,7 +15,7 @@ paths:
       summary: "mainbridge_nodeInfo"
       tags:
         - mainbridge
-      operationId: getNodeInfo
+      operationId: nodeInfo
       description: |
         Returns bridge node information including the KNI (Klaytn Network Identifier) of the node. A mainbridge node can connect to a subbrige node via the KNI.
 
