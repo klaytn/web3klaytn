@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/sha3:
+  /klay/miscellaneous/sha3:
     post:
       operationId: sha3
       summary: "[Miscellaneous] klay_sha3"

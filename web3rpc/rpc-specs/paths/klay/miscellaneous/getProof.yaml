@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getProof:
+  /klay/miscellaneous/getProof:
     post:
       summary: "[Others] klay_getProof"
       tags:

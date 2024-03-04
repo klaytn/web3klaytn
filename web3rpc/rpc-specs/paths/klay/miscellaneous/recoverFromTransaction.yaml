@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/recoverFromTransaction:
+  /klay/miscellaneous/recoverFromTransaction:
     post:
       operationId: recoverFromTransaction
       summary: "[Miscellaneous] klay_recoverFromTransaction"
