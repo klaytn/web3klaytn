@@ -178,14 +178,14 @@ paths:
 
   # klay/miscellaneous
   /klay/miscellaneous/getStakingInfo:
-    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/getStakingInfo.yaml#/paths/~1klay~1getStakingInfo
+    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/getStakingInfo.yaml#/paths/~1klay~1miscellaneous~1getStakingInfo
   /klay/miscellaneous/nodeAddress:
-    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/nodeAddress.yaml#/paths/~1klay~1nodeAddress
+    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/nodeAddress.yaml#/paths/~1klay~1miscellaneous~1nodeAddress
   /klay/miscellaneous/recoverFromTransaction:
-    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/recoverFromTransaction.yaml#/paths/~1klay~1recoverFromTransaction
+    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/recoverFromTransaction.yaml#/paths/~1klay~1miscellaneous~1recoverFromTransaction
   /klay/miscellaneous/recoverFromMessage:
-    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/recoverFromMessage.yaml#/paths/~1klay~1recoverFromMessage
+    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/recoverFromMessage.yaml#/paths/~1klay~1miscellaneous~1recoverFromMessage
   /klay/miscellaneous/sha3:
-    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/sha3.yaml#/paths/~1klay~1sha3
+    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/sha3.yaml#/paths/~1klay~1miscellaneous~1sha3
   /klay/miscellaneous/getProof:
-    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/getProof.yaml#/paths/~1klay~1getProof
+    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/getProof.yaml#/paths/~1klay~1miscellaneous~1getProof
