@@ -15,7 +15,7 @@ paths:
       summary: "subbridge_addPeer"
       tags:
         - subbridge
-      operationId: addPeerNode
+      operationId: addPeer
       description: |
         Returns true if adding a mainbridge peer is done successfully.
         

@@ -12,6 +12,6 @@ describe("mainbridge_ API", () => {
       done();
     };
 
-    sdk.mainbridge.getNodeInfo({}, callbackOne);
+    sdk.mainbridge.nodeInfo({}, callbackOne);
   });
 });

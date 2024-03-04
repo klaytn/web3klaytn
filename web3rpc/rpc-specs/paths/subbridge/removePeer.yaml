@@ -15,7 +15,7 @@ paths:
       summary: "subbridge_removePeer"
       tags:
         - subbridge
-      operationId: removePeerNode
+      operationId: removePeer
       description: |
         Returns true if removing the peer is done successfully.
         
