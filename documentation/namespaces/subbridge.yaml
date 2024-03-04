@@ -65,7 +65,7 @@ paths:
     $ref: ../../web3rpc/rpc-specs/paths/subbridge/parentOperator.yaml#/paths/~1subbridge~1parentOperator
   /subbridge/parentOperatorBalance:
     $ref: ../../web3rpc/rpc-specs/paths/subbridge/parentOperatorBalance.yaml#/paths/~1subbridge~1parentOperatorBalance
-   /subbridge/parentOperatorNonce:
+  /subbridge/parentOperatorNonce:
     $ref: ../../web3rpc/rpc-specs/paths/subbridge/parentOperatorNonce.yaml#/paths/~1subbridge~1parentOperatorNonce
-   /subbridge/sendChainTxslimit:
+  /subbridge/sendChainTxslimit:
     $ref: ../../web3rpc/rpc-specs/paths/subbridge/sendChainTxslimit.yaml#/paths/~1subbridge~1sendChainTxslimit
