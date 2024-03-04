@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/nodeAddress:
+  /klay/miscellaneous/nodeAddress:
     post:
       operationId: nodeAddress
       summary: "[Miscellaneous] klay_nodeAddress"

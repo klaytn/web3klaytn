@@ -187,5 +187,5 @@ paths:
     $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/recoverFromMessage.yaml#/paths/~1klay~1recoverFromMessage
   /klay/miscellaneous/sha3:
     $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/sha3.yaml#/paths/~1klay~1sha3
-  /klay/getProof:
+  /klay/miscellaneous/getProof:
     $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/getProof.yaml#/paths/~1klay~1getProof

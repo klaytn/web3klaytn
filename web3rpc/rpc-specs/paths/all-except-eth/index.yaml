@@ -193,17 +193,17 @@ paths:
     $ref: ../klay/gas/upperBoundGasPrice.yaml#/paths/~1klay~1upperBoundGasPrice
 
   # klay/miscellaneous
-  /klay/getStakingInfo:
+  /klay/miscellaneous/getStakingInfo:
     $ref: ../klay/miscellaneous/getStakingInfo.yaml#/paths/~1klay~1getStakingInfo
   /klay/miscellaneous/sha3:
     $ref: ../klay/miscellaneous/sha3.yaml#/paths/~1klay~1sha3
-  /klay/nodeAddress:
+  /klay/miscellaneous/nodeAddress:
     $ref: ../klay/miscellaneous/nodeAddress.yaml#/paths/~1klay~1nodeAddress
-  /klay/recoverFromTransaction:
+  /klay/miscellaneous/recoverFromTransaction:
     $ref: ../klay/miscellaneous/recoverFromTransaction.yaml#/paths/~1klay~1recoverFromTransaction
-  /klay/recoverFromMessage:
+  /klay/miscellaneous/recoverFromMessage:
     $ref: ../klay/miscellaneous/recoverFromMessage.yaml#/paths/~1klay~1recoverFromMessage
-  /klay/getProof:
+  /klay/miscellaneous/getProof:
     $ref: ../klay/miscellaneous/getProof.yaml#/paths/~1klay~1getProof
   # net
   /net/listening:
