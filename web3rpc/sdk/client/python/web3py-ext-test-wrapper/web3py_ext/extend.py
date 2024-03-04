@@ -13,6 +13,8 @@ from web3.net import Net
 from web3.testing import Testing
 from web3.tracing import Tracing
 from web3.module import Module
+from web3rpc_python_mainbridge import MainbridgeApi
+from web3rpc_python_subbridge import SubbridgeApi
 import web3
 def extended_get_default_modules():
     return {
@@ -32,6 +34,8 @@ def extended_get_default_modules():
         "testing": Testing,
         "klay": KlayApi,
         "governance": GovernanceApi,
-        "debug": DebugApi
+        "debug": DebugApi,
+        "mainbridge": MainbridgeApi,
+        "subbridge": SubbridgeApi
     }
 web3.main.get_default_modules = extended_get_default_modules

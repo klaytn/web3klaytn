@@ -321,6 +321,14 @@ class KlayApi(Module):
         return self._get_logs(*args)
     
     
+    _get_proof: Method[Callable[..., Any]] = Method(
+        namespace + "_getProof", mungers=[default_root_munger]
+    )
+
+    def get_proof(self, *args) -> Any:
+        return self._get_proof(*args)
+    
+    
     _get_raw_transaction_by_block_hash_and_index: Method[Callable[..., Any]] = Method(
         namespace + "_getRawTransactionByBlockHashAndIndex", mungers=[default_root_munger]
     )
@@ -948,6 +956,14 @@ class AsyncKlayApi(Module):
 
     async def get_logs(self, *args) -> Any:
         return await self._get_logs(*args)
+    
+    
+    _get_proof: Method[Callable[..., Awaitable[Any]]] = Method(
+        namespace + "_getProof", mungers=[default_root_munger]
+    )
+
+    async def get_proof(self, *args) -> Any:
+        return await self._get_proof(*args)
     
     
     _get_raw_transaction_by_block_hash_and_index: Method[Callable[..., Awaitable[Any]]] = Method(

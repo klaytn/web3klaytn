@@ -185,3 +185,5 @@ paths:
     $ref: ./miscellaneous/recoverFromTransaction.yaml#/paths/~1klay~1recoverFromTransaction
   /klay/recoverFromMessage:
     $ref: ./miscellaneous/recoverFromMessage.yaml#/paths/~1klay~1recoverFromMessage
+  /klay/getProof:
+    $ref: ./miscellaneous/getProof.yaml#/paths/~1klay~1getProof

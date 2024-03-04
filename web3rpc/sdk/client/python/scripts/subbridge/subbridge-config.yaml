@@ -1,0 +1,18 @@
+generatorName: web3rpc-python
+outputDir: ./openapi/subbridge
+inputSpec: ../../../rpc-specs/namespaces/subbridge-openapi.yaml
+projectName: web3rpc-python-subbridge
+packageName: web3rpc_python_subbridge
+templateDir: ./template
+sortParamsByRequiredFlag: false
+globalProperties:
+  apiDocs: false
+  modelDocs: false
+  modelTests: false
+  apiTests: true
+inlineSchemaNameMappings:
+  accountCreated_default_response: AccountCreatedResponse
+  getRewards_default_response: GetRewardsResponse
+  ethAccounts_default_response: EthAccountsDefaultResponse
+  ethBlockNumber_default_response: EthBlockNumberDefaultResponse
+  ethCall_default_response: EthCallDefaultResponse

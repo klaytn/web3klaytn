@@ -25,3 +25,7 @@ paths:
     $ref: ../../web3rpc/rpc-specs/paths/mainbridge/getChildChainIndexingEnabled.yaml#/paths/~1mainbridge~1getChildChainIndexingEnabled
   /mainbridge/nodeInfo:
     $ref: ../../web3rpc/rpc-specs/paths/mainbridge/nodeInfo.yaml#/paths/~1mainbridge~1nodeInfo
+  /mainbridge/addPeer:
+    $ref: ../../web3rpc/rpc-specs/paths/mainbridge/addPeer.yaml#/paths/~1mainbridge~1addPeer
+  /mainbridge/removePeer:
+    $ref: ../../web3rpc/rpc-specs/paths/mainbridge/removePeer.yaml#/paths/~1mainbridge~1removePeer

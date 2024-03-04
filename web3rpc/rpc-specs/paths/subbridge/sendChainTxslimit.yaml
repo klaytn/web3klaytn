@@ -1,0 +1,77 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /subbridge/sendChainTxslimit:
+    post:
+      summary: "subbridge_sendChainTxslimit"
+      tags:
+        - subbridge
+      operationId: sendChainTxslimit
+      description: |
+        sendChainTxslimit gets the maximum number of pending transactions to pick up for sending at once.
+
+        **JSONRPC:** `subbridge_sendChainTxslimit`
+
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/sendChainTxslimitReq"
+
+      responses:
+        200:
+          description: the maximum number of pending transactions to pickup for sending at once.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/sendChainTxslimitResp"
+
+      x-codeSamples:
+        # - lang: "curl"
+        #   label: "Curl"
+        #   source:
+        #     $ref: "../../code-samples/curl/subbridge/sendChainTxslimit.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../../code-samples/javascript/eth/miscellaneous/txPending.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../../code-samples/python/eth/miscellaneous/txPending.py"
+
+components:
+  schemas:
+    sendChainTxslimitReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'subbridge_sendChainTxslimit'
+    sendChainTxslimitResp:
+      type: object
+      properties:
+        result:
+          type: number
+          description: the maximum number of pending transactions to pickup for sending at once.
+          example: 100
