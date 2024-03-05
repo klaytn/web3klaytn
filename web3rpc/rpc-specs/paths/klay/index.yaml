@@ -166,13 +166,13 @@ paths:
 
   # klay/miscellaneous
   /klay/miscellaneous/sha3:
-    $ref: ./miscellaneous/sha3.yaml#/paths/~1klay~1sha3
+    $ref: ./miscellaneous/sha3.yaml#/paths/~1klay~1miscellaneous~1sha3
   /klay/createAccessList:
     $ref: ./transaction/createAccessList.yaml#/paths/~1klay~1createAccessList
   /klay/getRawTransactionByBlockHashAndIndex:
     $ref: ./transaction/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockHashAndIndex
   /klay/miscellaneous/nodeAddress:
-    $ref: ./miscellaneous/nodeAddress.yaml#/paths/~1klay~1nodeAddress
+    $ref: ./miscellaneous/nodeAddress.yaml#/paths/~1klay~1miscellaneous~1nodeAddress
   /klay/getRawTransactionByHash:
     $ref: ./transaction/getRawTransactionByHash.yaml#/paths/~1klay~1getRawTransactionByHash
   /klay/resend:
@@ -180,10 +180,10 @@ paths:
   /klay/getRawTransactionByBlockNumberAndIndex:
     $ref: ./transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1klay~1getRawTransactionByBlockNumberAndIndex
   /klay/miscellaneous/getStakingInfo:
-    $ref: ./miscellaneous/getStakingInfo.yaml#/paths/~1klay~1getStakingInfo
+    $ref: ./miscellaneous/getStakingInfo.yaml#/paths/~1klay~1miscellaneous~1getStakingInfo
   /klay/miscellaneous/recoverFromTransaction:
-    $ref: ./miscellaneous/recoverFromTransaction.yaml#/paths/~1klay~1recoverFromTransaction
+    $ref: ./miscellaneous/recoverFromTransaction.yaml#/paths/~1klay~1miscellaneous~1recoverFromTransaction
   /klay/miscellaneous/recoverFromMessage:
-    $ref: ./miscellaneous/recoverFromMessage.yaml#/paths/~1klay~1recoverFromMessage
+    $ref: ./miscellaneous/recoverFromMessage.yaml#/paths/~1klay~1miscellaneous~1recoverFromMessage
   /klay/miscellaneous/getProof:
-    $ref: ./miscellaneous/getProof.yaml#/paths/~1klay~1getProof
+    $ref: ./miscellaneous/getProof.yaml#/paths/~1klay~1miscellaneous~1getProof

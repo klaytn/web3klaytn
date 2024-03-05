@@ -194,17 +194,17 @@ paths:
 
   # klay/miscellaneous
   /klay/miscellaneous/getStakingInfo:
-    $ref: ../klay/miscellaneous/getStakingInfo.yaml#/paths/~1klay~1getStakingInfo
+    $ref: ../klay/miscellaneous/getStakingInfo.yaml#/paths/~1klay~1miscellaneous~1getStakingInfo
   /klay/miscellaneous/sha3:
-    $ref: ../klay/miscellaneous/sha3.yaml#/paths/~1klay~1sha3
+    $ref: ../klay/miscellaneous/sha3.yaml#/paths/~1klay~1miscellaneous~1sha3
   /klay/miscellaneous/nodeAddress:
-    $ref: ../klay/miscellaneous/nodeAddress.yaml#/paths/~1klay~1nodeAddress
+    $ref: ../klay/miscellaneous/nodeAddress.yaml#/paths/~1klay~1miscellaneous~1nodeAddress
   /klay/miscellaneous/recoverFromTransaction:
-    $ref: ../klay/miscellaneous/recoverFromTransaction.yaml#/paths/~1klay~1recoverFromTransaction
+    $ref: ../klay/miscellaneous/recoverFromTransaction.yaml#/paths/~1klay~1miscellaneous~1recoverFromTransaction
   /klay/miscellaneous/recoverFromMessage:
-    $ref: ../klay/miscellaneous/recoverFromMessage.yaml#/paths/~1klay~1recoverFromMessage
+    $ref: ../klay/miscellaneous/recoverFromMessage.yaml#/paths/~1klay~1miscellaneous~1recoverFromMessage
   /klay/miscellaneous/getProof:
-    $ref: ../klay/miscellaneous/getProof.yaml#/paths/~1klay~1getProof
+    $ref: ../klay/miscellaneous/getProof.yaml#/paths/~1klay~1miscellaneous~1getProof
   # net
   /net/listening:
     $ref: ../net/listening.yaml#/paths/~1net~1listening
