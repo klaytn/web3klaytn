@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/memStats:
+  /debug/runtimeDebugging/memStats:
     post:
       operationId: memStats
       summary: "[runtimeDebug] debug_memStats"

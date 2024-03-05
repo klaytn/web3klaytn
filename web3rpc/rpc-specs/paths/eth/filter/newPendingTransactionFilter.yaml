@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/newPendingTransactionFilter:
+  /eth/filter/newPendingTransactionFilter:
     post:
       operationId: newPendingTransactionFilter
       summary: "[Filter] eth_newPendingTransactionFilter"

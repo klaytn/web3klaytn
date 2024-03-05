@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/estimateGas:
+  /klay/transaction/estimateGas:
     post:
       operationId: estimateGas
       summary: "[Transaction] klay_estimateGas"

@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/standardTraceBadBlockToFile:
+  /debug/vMStandardTracing/standardTraceBadBlockToFile:
     post:
       summary: "[StandardTrace] debug_standardTraceBadBlockToFile"
       tags:

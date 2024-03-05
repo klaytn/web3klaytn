@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/resend:
+  /klay/transaction/resend:
     post:
       operationId: resend
       summary: "[Transaction] klay_resend"

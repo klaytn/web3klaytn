@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/maxPriorityFeePerGas:
+  /klay/gas/maxPriorityFeePerGas:
     post:
       operationId: maxPriorityFeePerGas
       summary: "[Gas] klay_maxPriorityFeePerGas"

@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/rewardbase:
+  /klay/configuration/rewardbase:
     post:
       operationId: rewardbase
       summary: "[Configuration] klay_rewardbase"

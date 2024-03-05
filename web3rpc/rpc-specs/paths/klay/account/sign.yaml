@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/sign:
+  /klay/account/sign:
     post:
       operationId: sign
       summary: "[Account] klay_sign"

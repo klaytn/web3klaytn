@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/signTransactionAsFeePayer:
+  /klay/transaction/signTransactionAsFeePayer:
     post:
       operationId: signTransactionAsFeePayer
       summary: "[Transaction] klay_signTransactionAsFeePayer"

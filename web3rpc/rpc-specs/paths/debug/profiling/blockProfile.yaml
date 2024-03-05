@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/blockProfile:
+  /debug/profiling/blockProfile:
     post:
       summary: "[Profiling] debug_blockProfile"
       tags:

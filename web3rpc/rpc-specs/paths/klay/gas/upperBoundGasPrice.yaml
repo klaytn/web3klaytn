@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/upperBoundGasPrice:
+  /klay/gas/upperBoundGasPrice:
     post:
       operationId: upperBoundGasPrice
       summary: "[Gas] klay_upperBoundGasPrice"

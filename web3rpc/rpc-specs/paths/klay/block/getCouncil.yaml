@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getCouncil:
+  /klay/block/getCouncil:
     post:
       operationId: getCouncil
       summary: "[Block] klay_getCouncil"

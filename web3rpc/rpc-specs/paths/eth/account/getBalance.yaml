@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/getBalance:
+  /eth/account/getBalance:
     post:
       operationId: getBalance
       summary: "[Account] eth_getBalance"
