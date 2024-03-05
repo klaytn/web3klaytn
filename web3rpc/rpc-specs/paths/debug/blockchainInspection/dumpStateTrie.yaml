@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/dumpStateTrie:
+  /debug/blockchainInspection/dumpStateTrie:
     post:
       operationId: dumpStateTrie
       summary: "[Inspection] debug_dumpStateTrie"

@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getTransactionByBlockNumberAndIndex:
+  /klay/transaction/getTransactionByBlockNumberAndIndex:
     post:
       operationId: getTransactionByBlockNumberAndIndex
       summary: "[Transaction] klay_getTransactionByBlockNumberAndIndex"

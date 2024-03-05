@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/isContractAccount:
+  /klay/account/isContractAccount:
     post:
       operationId: isContractAccount
       summary: "[Account] klay_isContractAccount"

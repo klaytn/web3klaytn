@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/getBlockRlp:
+  /debug/blockchainInspection/getBlockRlp:
     post:
       operationId: getBlockRlp
       summary: "[Inspection] debug_getBlockRlp"

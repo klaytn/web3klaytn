@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getBlockWithConsensusInfoByHash:
+  /klay/block/getBlockWithConsensusInfoByHash:
     post:
       operationId: getBlockWithConsensusInfoByHash
       summary: "[Block] klay_getBlockWithConsensusInfoByHash"
