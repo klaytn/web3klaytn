@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getHeaderByNumber:
+  /klay/block/getHeaderByNumber:
     post:
       operationId: getHeaderByNumber
       summary: "[Block] klay_getHeaderByNumber"

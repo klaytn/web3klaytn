@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/createAccessList:
+  /klay/transaction/createAccessList:
     post:
       operationId: createAccessList
       summary: "[Transaction] klay_createAccessList"

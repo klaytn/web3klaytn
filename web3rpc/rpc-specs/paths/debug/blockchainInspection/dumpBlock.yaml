@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/dumpBlock:
+  /debug/blockchainInspection/dumpBlock:
     post:
       operationId: dumpBlock
       summary: "[Inspection] debug_dumpBlock"

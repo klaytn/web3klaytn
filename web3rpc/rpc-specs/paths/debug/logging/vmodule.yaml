@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/vmodule:
+  /debug/logging/vmodule:
     post:
       operationId: vmodule
       summary: "[Logging] debug_vmodule"

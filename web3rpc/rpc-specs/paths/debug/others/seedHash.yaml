@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/seedHash:
+  /debug/others/seedHash:
     post:
       operationId: seedHash
       summary: "[Inspection] debug_seedHash"

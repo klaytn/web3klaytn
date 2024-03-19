@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/getUncleByBlockHashAndIndex:
+  /eth/block/getUncleByBlockHashAndIndex:
     post:
       summary: "[Block] eth_getUncleByBlockHashAndIndex"
       tags:

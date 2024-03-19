@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getDecodedAnchoringTransactionByHash:
+  /klay/transaction/getDecodedAnchoringTransactionByHash:
     post:
       operationId: getDecodedAnchoringTransactionByHash
       summary: "[Transaction] klay_getDecodedAnchoringTransactionByHash"

@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/getTransactionByHash:
+  /eth/transaction/getTransactionByHash:
     post:
       summary: "[Transaction] eth_getTransactionByHash"
       tags:

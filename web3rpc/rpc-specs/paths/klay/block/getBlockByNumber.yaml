@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getBlockByNumber:
+  /klay/block/getBlockByNumber:
     post:
       operationId: getBlockByNumber
       summary: "[Block] klay_getBlockByNumber"

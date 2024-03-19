@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/gcStats:
+  /debug/runtimeDebugging/gcStats:
     post:
       operationId: gcStats
       summary: "[runtimeDebug] debug_gcStats"

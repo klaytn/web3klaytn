@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getFilterLogs:
+  /klay/filter/getFilterLogs:
     post:
       operationId: getFilterLogs
       summary: "[Filter] klay_getFilterLogs"

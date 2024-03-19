@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getChainConfig:
+  /klay/configuration/getChainConfig:
     post:
       operationId: .getChainConfig
       summary: "[Configuration] klay_getChainConfig"

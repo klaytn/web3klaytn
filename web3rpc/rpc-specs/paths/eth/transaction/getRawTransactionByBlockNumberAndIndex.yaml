@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/getRawTransactionByBlockNumberAndIndex:
+  /eth/transaction/getRawTransactionByBlockNumberAndIndex:
     post:
       operationId: getRawTransactionByBlockNumberAndIndex
       summary: "[Transaction] eth_getRawTransactionByBlockNumberAndIndex"

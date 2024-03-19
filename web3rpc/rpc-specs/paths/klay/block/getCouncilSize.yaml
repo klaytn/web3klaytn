@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getCouncilSize:
+  /klay/block/getCouncilSize:
     post:
       operationId: getCouncilSize
       summary: "[Block] klay_getCouncilSize"

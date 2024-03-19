@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/protocolVersion:
+  /eth/config/protocolVersion:
     post:
       operationId: protocolVersion
       summary: "[Configuration] eth_protocolVersion"

@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/uninstallFilter:
+  /klay/filter/uninstallFilter:
     post:
       operationId: uninstallFilter
       summary: "[Filter] klay_uninstallFilter"

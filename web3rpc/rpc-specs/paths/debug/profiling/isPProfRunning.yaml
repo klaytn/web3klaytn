@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/isPProfRunning:
+  /debug/profiling/isPProfRunning:
     post:
       summary: "[Profiling] debug_isPProfRunning"
       tags:

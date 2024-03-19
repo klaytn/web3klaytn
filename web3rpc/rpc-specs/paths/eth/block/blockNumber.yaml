@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/blockNumber:
+  /eth/block/blockNumber:
     post:
       operationId: blockNumber
       summary: "[Block] eth_blockNumber"

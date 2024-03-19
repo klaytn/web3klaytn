@@ -18,130 +18,130 @@ tags:
 paths:
   # debug/logging:
   /debug/logging/setVMLogTarget:
-    $ref: ./logging/setVMLogTarget.yaml#/paths/~1debug~1setVMLogTarget
+    $ref: ./logging/setVMLogTarget.yaml#/paths/~1debug~1logging~1setVMLogTarget
   /debug/logging/verbosity:
-    $ref: ./logging/verbosity.yaml#/paths/~1debug~1verbosity
+    $ref: ./logging/verbosity.yaml#/paths/~1debug~1logging~1verbosity
   /debug/logging/verbosityByName:
-    $ref: ./logging/verbosityByName.yaml#/paths/~1debug~1verbosityByName
+    $ref: ./logging/verbosityByName.yaml#/paths/~1debug~1logging~1verbosityByName
   /debug/logging/verbosityByID:
-    $ref: ./logging/verbosityByID.yaml#/paths/~1debug~1verbosityByID
+    $ref: ./logging/verbosityByID.yaml#/paths/~1debug~1logging~1verbosityByID
   /debug/logging/vmodule:
-    $ref: ./logging/vmodule.yaml#/paths/~1debug~1vmodule
+    $ref: ./logging/vmodule.yaml#/paths/~1debug~1logging~1vmodule
   /debug/logging/backtraceAt:
-    $ref: ./logging/backtraceAt.yaml#/paths/~1debug~1backtraceAt
+    $ref: ./logging/backtraceAt.yaml#/paths/~1debug~1logging~1backtraceAt
 
   # debug/blockchainInspection:
   /debug/blockchainInspection/preimage:
-    $ref: ./blockchainInspection/preimage.yaml#/paths/~1debug~1preimage
+    $ref: ./blockchainInspection/preimage.yaml#/paths/~1debug~1blockchainInspection~1preimage
   /debug/blockchainInspection/dumpBlock:
-    $ref: ./blockchainInspection/dumpBlock.yaml#/paths/~1debug~1dumpBlock
+    $ref: ./blockchainInspection/dumpBlock.yaml#/paths/~1debug~1blockchainInspection~1dumpBlock
   /debug/blockchainInspection/dumpStateTrie:
-    $ref: ./blockchainInspection/dumpStateTrie.yaml#/paths/~1debug~1dumpStateTrie
+    $ref: ./blockchainInspection/dumpStateTrie.yaml#/paths/~1debug~1blockchainInspection~1dumpStateTrie
   /debug/blockchainInspection/getBlockRlp:
-    $ref: ./blockchainInspection/getBlockRlp.yaml#/paths/~1debug~1getBlockRlp
+    $ref: ./blockchainInspection/getBlockRlp.yaml#/paths/~1debug~1blockchainInspection~1getBlockRlp
   /debug/blockchainInspection/getModifiedAccountsByNumber:
-    $ref: ./blockchainInspection/getModifiedAccountsByNumber.yaml#/paths/~1debug~1getModifiedAccountsByNumber
+    $ref: ./blockchainInspection/getModifiedAccountsByNumber.yaml#/paths/~1debug~1blockchainInspection~1getModifiedAccountsByNumber
   /debug/blockchainInspection/getModifiedAccountsByHash:
-    $ref: ./blockchainInspection/getModifiedAccountsByHash.yaml#/paths/~1debug~1getModifiedAccountsByHash
+    $ref: ./blockchainInspection/getModifiedAccountsByHash.yaml#/paths/~1debug~1blockchainInspection~1getModifiedAccountsByHash
   /debug/blockchainInspection/getBadBlocks:
-    $ref: ./blockchainInspection/getBadBlocks.yaml#/paths/~1debug~1getBadBlocks
+    $ref: ./blockchainInspection/getBadBlocks.yaml#/paths/~1debug~1blockchainInspection~1getBadBlocks
   /debug/blockchainInspection/printBlock:
-    $ref: ./blockchainInspection/printBlock.yaml#/paths/~1debug~1printBlock
+    $ref: ./blockchainInspection/printBlock.yaml#/paths/~1debug~1blockchainInspection~1printBlock
   /debug/blockchainInspection/setHead:
-    $ref: ./blockchainInspection/setHead.yaml#/paths/~1debug~1setHead
+    $ref: ./blockchainInspection/setHead.yaml#/paths/~1debug~1blockchainInspection~1setHead
   /debug/blockchainInspection/startWarmUp:
-    $ref: ./blockchainInspection/startWarmUp.yaml#/paths/~1debug~1startWarmUp
+    $ref: ./blockchainInspection/startWarmUp.yaml#/paths/~1debug~1blockchainInspection~1startWarmUp
   /debug/blockchainInspection/startContractWarmUp:
-    $ref: ./blockchainInspection/startContractWarmUp.yaml#/paths/~1debug~1startContractWarmUp
+    $ref: ./blockchainInspection/startContractWarmUp.yaml#/paths/~1debug~1blockchainInspection~1startContractWarmUp
   /debug/blockchainInspection/stopWarmUp:
-    $ref: ./blockchainInspection/stopWarmUp.yaml#/paths/~1debug~1stopWarmUp
+    $ref: ./blockchainInspection/stopWarmUp.yaml#/paths/~1debug~1blockchainInspection~1stopWarmUp
   /debug/blockchainInspection/startCollectingTrieStats:
-    $ref: ./blockchainInspection/startCollectingTrieStats.yaml#/paths/~1debug~1startCollectingTrieStats
+    $ref: ./blockchainInspection/startCollectingTrieStats.yaml#/paths/~1debug~1blockchainInspection~1startCollectingTrieStats
 
   #debug/others
-  /debug/getModifiedStorageNodesByNumber:
-    $ref: ./others/getModifiedStorageNodesByNumber.yaml#/paths/~1debug~1getModifiedStorageNodesByNumber
-  /debug/chaindbCompact:
-    $ref: ./others/chaindbCompact.yaml#/paths/~1debug~1chaindbCompact
-  /debug/chaindbProperty:
-    $ref: ./others/chaindbProperty.yaml#/paths/~1debug~1chaindbProperty
-  /debug/storageRangeAt:
-    $ref: ./others/storageRangeAt.yaml#/paths/~1debug~1storageRangeAt
-  /debug/seedHash:
-    $ref: ./others/seedHash.yaml#/paths/~1debug~1seedHash
-  /debug/setMutexProfileFraction:
-    $ref: ./others/setMutexProfileFraction.yaml#/paths/~1debug~1setMutexProfileFraction
+  /debug/others/getModifiedStorageNodesByNumber:
+    $ref: ./others/getModifiedStorageNodesByNumber.yaml#/paths/~1debug~1others~1getModifiedStorageNodesByNumber
+  /debug/others/chaindbCompact:
+    $ref: ./others/chaindbCompact.yaml#/paths/~1debug~1others~1chaindbCompact
+  /debug/others/chaindbProperty:
+    $ref: ./others/chaindbProperty.yaml#/paths/~1debug~1others~1chaindbProperty
+  /debug/others/storageRangeAt:
+    $ref: ./others/storageRangeAt.yaml#/paths/~1debug~1others~1storageRangeAt
+  /debug/others/seedHash:
+    $ref: ./others/seedHash.yaml#/paths/~1debug~1others~1seedHash
+  /debug/others/setMutexProfileFraction:
+    $ref: ./others/setMutexProfileFraction.yaml#/paths/~1debug~1others~1setMutexProfileFraction
 
   # debug/vMTracing:
   /debug/vMTracing/traceTransaction:
-    $ref: ./vMTracing/traceTransaction.yaml#/paths/~1debug~1traceTransaction
+    $ref: ./vMTracing/traceTransaction.yaml#/paths/~1debug~1vMTracing~1traceTransaction
   /debug/vMTracing/traceBlockByHash:
-    $ref: ./vMTracing/traceBlockByHash.yaml#/paths/~1debug~1traceBlockByHash
+    $ref: ./vMTracing/traceBlockByHash.yaml#/paths/~1debug~1vMTracing~1traceBlockByHash
   /debug/vMTracing/traceBlockByNumberRange:
-    $ref: ./vMTracing/traceBlockByNumberRange.yaml#/paths/~1debug~1traceBlockByNumberRange
+    $ref: ./vMTracing/traceBlockByNumberRange.yaml#/paths/~1debug~1vMTracing~1traceBlockByNumberRange
   /debug/vMTracing/traceBlockByNumber:
-    $ref: ./vMTracing/traceBlockByNumber.yaml#/paths/~1debug~1traceBlockByNumber
+    $ref: ./vMTracing/traceBlockByNumber.yaml#/paths/~1debug~1vMTracing~1traceBlockByNumber
   /debug/vMTracing/traceBlockFromFile:
-    $ref: ./vMTracing/traceBlockFromFile.yaml#/paths/~1debug~1traceBlockFromFile
+    $ref: ./vMTracing/traceBlockFromFile.yaml#/paths/~1debug~1vMTracing~1traceBlockFromFile
   /debug/vMTracing/traceBadBlock:
-    $ref: ./vMTracing/traceBadBlock.yaml#/paths/~1debug~1traceBadBlock
+    $ref: ./vMTracing/traceBadBlock.yaml#/paths/~1debug~1vMTracing~1traceBadBlock
   /debug/vMTracing/traceBlock:
-    $ref: ./vMTracing/traceBlock.yaml#/paths/~1debug~1traceBlock
+    $ref: ./vMTracing/traceBlock.yaml#/paths/~1debug~1vMTracing~1traceBlock
   /debug/vMTracing/traceChain:
-    $ref: ./vMTracing/traceChain.yaml#/paths/~1debug~1traceChain
+    $ref: ./vMTracing/traceChain.yaml#/paths/~1debug~1vMTracing~1traceChain
   /debug/vMTracing/traceCall:
-    $ref: ./vMTracing/traceCall.yaml#/paths/~1debug~1traceCall
+    $ref: ./vMTracing/traceCall.yaml#/paths/~1debug~1vMTracing~1traceCall
 
   # debug/vMStandardTracing:
   /debug/vMStandardTracing/standardTraceBlockToFile:
-    $ref: ./vMStandardTracing/standardTraceBlockToFile.yaml#/paths/~1debug~1standardTraceBlockToFile
+    $ref: ./vMStandardTracing/standardTraceBlockToFile.yaml#/paths/~1debug~1vMStandardTracing~1standardTraceBlockToFile
   /debug/vMStandardTracing/standardTraceBadBlockToFile:
-    $ref: ./vMStandardTracing/standardTraceBadBlockToFile.yaml#/paths/~1debug~1standardTraceBadBlockToFile
+    $ref: ./vMStandardTracing/standardTraceBadBlockToFile.yaml#/paths/~1debug~1vMStandardTracing~1standardTraceBadBlockToFile
 
   # debug/runtimeDebugging:
   /debug/runtimeDebugging/gcStats:
-    $ref: ./runtimeDebugging/gcStats.yaml#/paths/~1debug~1gcStats
+    $ref: ./runtimeDebugging/gcStats.yaml#/paths/~1debug~1runtimeDebugging~1gcStats
   /debug/runtimeDebugging/metrics:
-    $ref: ./runtimeDebugging/metrics.yaml#/paths/~1debug~1metrics
+    $ref: ./runtimeDebugging/metrics.yaml#/paths/~1debug~1runtimeDebugging~1metrics
   /debug/runtimeDebugging/stacks:
-    $ref: ./runtimeDebugging/stacks.yaml#/paths/~1debug~1stacks
+    $ref: ./runtimeDebugging/stacks.yaml#/paths/~1debug~1runtimeDebugging~1stacks
   /debug/runtimeDebugging/freeOSMemory:
-    $ref: ./runtimeDebugging/freeOSMemory.yaml#/paths/~1debug~1freeOSMemory
+    $ref: ./runtimeDebugging/freeOSMemory.yaml#/paths/~1debug~1runtimeDebugging~1freeOSMemory
   /debug/runtimeDebugging/setGCPercent:
-    $ref: ./runtimeDebugging/setGCPercent.yaml#/paths/~1debug~1setGCPercent
+    $ref: ./runtimeDebugging/setGCPercent.yaml#/paths/~1debug~1runtimeDebugging~1setGCPercent
   /debug/runtimeDebugging/memStats:
-    $ref: ./runtimeDebugging/memStats.yaml#/paths/~1debug~1memStats
+    $ref: ./runtimeDebugging/memStats.yaml#/paths/~1debug~1runtimeDebugging~1memStats
 
   # debug/profiling:
   /debug/profiling/startPProf:
-    $ref: ./profiling/startPProf.yaml#/paths/~1debug~1startPProf
+    $ref: ./profiling/startPProf.yaml#/paths/~1debug~1profiling~1startPProf
   /debug/profiling/stopPProf:
-    $ref: ./profiling/stopPProf.yaml#/paths/~1debug~1stopPProf
+    $ref: ./profiling/stopPProf.yaml#/paths/~1debug~1profiling~1stopPProf
   /debug/profiling/blockProfile:
-    $ref: ./profiling/blockProfile.yaml#/paths/~1debug~1blockProfile
+    $ref: ./profiling/blockProfile.yaml#/paths/~1debug~1profiling~1blockProfile
   /debug/profiling/cpuProfile:
-    $ref: ./profiling/cpuProfile.yaml#/paths/~1debug~1cpuProfile
+    $ref: ./profiling/cpuProfile.yaml#/paths/~1debug~1profiling~1cpuProfile
   /debug/profiling/mutexProfile:
-    $ref: ./profiling/mutexProfile.yaml#/paths/~1debug~1mutexProfile
+    $ref: ./profiling/mutexProfile.yaml#/paths/~1debug~1profiling~1mutexProfile
   /debug/profiling/setBlockProfileRate:
-    $ref: ./profiling/setBlockProfileRate.yaml#/paths/~1debug~1setBlockProfileRate
+    $ref: ./profiling/setBlockProfileRate.yaml#/paths/~1debug~1profiling~1setBlockProfileRate
   /debug/profiling/startCPUProfile:
-    $ref: ./profiling/startCPUProfile.yaml#/paths/~1debug~1startCPUProfile
+    $ref: ./profiling/startCPUProfile.yaml#/paths/~1debug~1profiling~1startCPUProfile
   /debug/profiling/stopCPUProfile:
-    $ref: ./profiling/stopCPUProfile.yaml#/paths/~1debug~1stopCPUProfile
+    $ref: ./profiling/stopCPUProfile.yaml#/paths/~1debug~1profiling~1stopCPUProfile
   /debug/profiling/writeBlockProfile:
-    $ref: ./profiling/writeBlockProfile.yaml#/paths/~1debug~1writeBlockProfile
+    $ref: ./profiling/writeBlockProfile.yaml#/paths/~1debug~1profiling~1writeBlockProfile
   /debug/profiling/writeMemProfile:
-    $ref: ./profiling/writeMemProfile.yaml#/paths/~1debug~1writeMemProfile
+    $ref: ./profiling/writeMemProfile.yaml#/paths/~1debug~1profiling~1writeMemProfile
   /debug/profiling/writeMutexProfile:
-    $ref: ./profiling/writeMutexProfile.yaml#/paths/~1debug~1writeMutexProfile
+    $ref: ./profiling/writeMutexProfile.yaml#/paths/~1debug~1profiling~1writeMutexProfile
   /debug/profiling/isPProfRunning:
-    $ref: ./profiling/isPProfRunning.yaml#/paths/~1debug~1isPProfRunning
+    $ref: ./profiling/isPProfRunning.yaml#/paths/~1debug~1profiling~1isPProfRunning
 
   # debug/runtimeTracing:
   /debug/runtimeTracing/goTrace:
-    $ref: ./runtimeTracing/goTrace.yaml#/paths/~1debug~1goTrace
+    $ref: ./runtimeTracing/goTrace.yaml#/paths/~1debug~1runtimeTracing~1goTrace
   /debug/runtimeTracing/startGoTrace:
-    $ref: ./runtimeTracing/startGoTrace.yaml#/paths/~1debug~1startGoTrace
+    $ref: ./runtimeTracing/startGoTrace.yaml#/paths/~1debug~1runtimeTracing~1startGoTrace
   /debug/runtimeTracing/stopGoTrace:
-    $ref: ./runtimeTracing/stopGoTrace.yaml#/paths/~1debug~1stopGoTrace
+    $ref: ./runtimeTracing/stopGoTrace.yaml#/paths/~1debug~1runtimeTracing~1stopGoTrace

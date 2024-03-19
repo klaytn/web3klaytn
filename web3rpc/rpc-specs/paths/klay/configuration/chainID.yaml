@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/chainID:
+  /klay/configuration/chainID:
     post:
       operationId: chainID
       summary: "[Configuration] klay_chainID"

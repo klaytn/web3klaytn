@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/submitHashrate:
+  /eth/miscellaneous/submitHashrate:
     post:
       summary: "[Miscellaneous] eth_submitHashrate"
       tags:

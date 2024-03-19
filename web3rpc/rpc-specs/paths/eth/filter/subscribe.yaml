@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/subscribe:
+  /eth/filter/subscribe:
     post:
       operationId: subscribe
       summary: "[Filter] eth_subscribe"

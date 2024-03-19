@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/backtraceAt:
+  /debug/logging/backtraceAt:
     post:
       operationId: backtraceAt
       summary: "[Logging] debug_backtraceAt"

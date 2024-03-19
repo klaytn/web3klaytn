@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/feeHistory:
+  /klay/gas/feeHistory:
     post:
       operationId: feeHistory
       summary: "[Gas] klay_feeHistory"

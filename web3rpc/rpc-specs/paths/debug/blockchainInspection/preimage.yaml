@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/preimage:
+  /debug/blockchainInspection/preimage:
     post:
       summary: "[Inspection] debug_preimage"
       tags:

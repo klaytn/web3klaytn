@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/startPProf:
+  /debug/profiling/startPProf:
     post:
       operationId: startPProf
       summary: "[Profiling] debug_startPProf"

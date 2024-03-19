@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/accounts:
+  /klay/account/accounts:
     post:
       operationId: accounts
       summary: "[Account] klay_accounts"

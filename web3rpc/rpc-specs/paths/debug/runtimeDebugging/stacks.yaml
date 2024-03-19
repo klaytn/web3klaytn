@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/stacks:
+  /debug/runtimeDebugging/stacks:
     post:
       operationId: stacks
       summary: "[runtimeDebug] debug_stacks"

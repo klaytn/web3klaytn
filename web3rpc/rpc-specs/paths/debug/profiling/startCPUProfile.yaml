@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/startCPUProfile:
+  /debug/profiling/startCPUProfile:
     post:
       summary: "[Profiling] debug_startCPUProfile"
       tags:

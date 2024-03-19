@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/verbosityByName:
+  /debug/logging/verbosityByName:
     post:
       operationId: verbosityByName
       summary: "[Logging] debug_verbosityByName"

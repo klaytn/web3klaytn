@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/syncing:
+  /klay/block/syncing:
     post:
       operationId: syncing
       summary: "[Block] klay_syncing"

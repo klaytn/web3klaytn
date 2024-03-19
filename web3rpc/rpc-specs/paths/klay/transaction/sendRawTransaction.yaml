@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/sendRawTransaction:
+  /klay/transaction/sendRawTransaction:
     post:
       operationId: sendRawTransaction
       summary: "[Transaction] klay_sendRawTransaction"

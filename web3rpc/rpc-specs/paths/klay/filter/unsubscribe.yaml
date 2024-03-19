@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/unsubscribe:
+  /klay/filter/unsubscribe:
     post:
       operationId: unsubscribe
       summary: "[Filter] klay_unsubscribe"

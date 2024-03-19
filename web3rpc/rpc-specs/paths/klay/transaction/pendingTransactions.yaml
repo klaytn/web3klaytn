@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/pendingTransactions:
+  /klay/transaction/pendingTransactions:
     post:
       operationId: pendingTransactions
       summary: "[Transaction] klay_pendingTransactions"

@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/setMutexProfileFraction:
+  /debug/others/setMutexProfileFraction:
     post:
       operationId: setMutexProfileFraction
       summary: "[Profiling] debug_setMutexProfileFraction"

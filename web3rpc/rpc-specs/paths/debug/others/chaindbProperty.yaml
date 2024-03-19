@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/chaindbProperty:
+  /debug/others/chaindbProperty:
     post:
       operationId: chaindbProperty
       summary: "[Inspection] debug_chaindbProperty"

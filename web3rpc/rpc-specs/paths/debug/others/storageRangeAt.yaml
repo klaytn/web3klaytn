@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/storageRangeAt:
+  /debug/others/storageRangeAt:
     post:
       operationId: storageRangeAt
       summary: "[Inspection] debug_storageRangeAt"

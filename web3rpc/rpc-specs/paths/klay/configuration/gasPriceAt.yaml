@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/gasPriceAt:
+  /klay/configuration/gasPriceAt:
     post:
       operationId: gasPriceAt
       summary: "[Configuration] klay_gasPriceAt"

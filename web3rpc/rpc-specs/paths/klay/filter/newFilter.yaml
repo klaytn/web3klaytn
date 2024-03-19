@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/newFilter:
+  /klay/filter/newFilter:
     post:
       operationId: newFilter
       summary: "[Filter] klay_newFilter"

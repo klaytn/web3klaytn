@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/setGCPercent:
+  /debug/runtimeDebugging/setGCPercent:
     post:
       operationId: setGCPercent
       summary: "[runtimeDebug] debug_setGCPercent"
