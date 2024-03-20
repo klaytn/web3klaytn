@@ -8,7 +8,7 @@ import org.web3j.crypto.KlayCredentials;
 import org.web3j.crypto.KlayRawTransaction;
 import org.web3j.crypto.KlayTransactionEncoder;
 import org.web3j.crypto.transaction.type.TxType;
-import org.web3j.crypto.transaction.type.TxTypeValueTransfer;
+import org.web3j.crypto.transaction.type.TxTypeFeeDelegatedValueTransferMemo;
 import org.web3j.crypto.transaction.type.TxType.Type;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthChainId;
@@ -68,7 +68,7 @@ public class FeeDelegatedValueTransferMemoExample {
 		System.out.println("receipt : \n" + receipt);
 		web3j.shutdown();
 
-		TxTypeValueTransfer rawTransaction = TxTypeValueTransfer.decodeFromRawTransaction(hexValue);
+		TxTypeFeeDelegatedValueTransferMemo rawTransaction = TxTypeFeeDelegatedValueTransferMemo.decodeFromRawTransaction(hexValue);
 		System.out.println("TxType : " + rawTransaction.getKlayType());
 
 	}
