@@ -18,9 +18,12 @@ def web3_role_based_value_transfer_sign_recover():
     msghash = encode_defunct(hexstr=message)
     signature = Account.sign_message(msghash, user.key)
 
-    print(signature.signature.hex())
-    print(len(signature.signature.hex()))
-    recovered = w3.klay.recover_from_message(user.address, message, signature.signature.hex(), "latest")
-    print("\nsender", user.address, "\nrecovered", recovered) # recovered is an original address of the member key
+    recovered = w3.klay.recover_from_message(
+        user.address, 
+        message, signature.signature.hex(), 
+        "latest"
+    )
+    # recovered is an original address of the member key
+    print("\nsender", user.address, "\nrecovered", recovered)
 
 web3_role_based_value_transfer_sign_recover()
