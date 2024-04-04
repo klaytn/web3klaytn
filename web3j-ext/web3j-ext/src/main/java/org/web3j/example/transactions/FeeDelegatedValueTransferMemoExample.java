@@ -1,5 +1,7 @@
 package org.web3j.example.transactions;
 
+import org.web3j.tx.response.PollingTransactionReceiptProcessor;
+import org.web3j.tx.response.TransactionReceiptProcessor;
 import org.web3j.example.keySample;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -20,7 +22,7 @@ import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
 
 public class FeeDelegatedValueTransferMemoExample {
 
-	public static void run() throws IOException {
+	public static void run() throws Exception {
 		Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
 		KlayCredentials credentials = KlayCredentials.create(keySample.LEGACY_KEY_privkey);
 		KlayCredentials credentials_feepayer = KlayCredentials.create(keySample.LEGACY_KEY_FEEPAYER_privkey);
@@ -65,10 +67,11 @@ public class FeeDelegatedValueTransferMemoExample {
 			System.out.println(e);
 		}
 		TransactionReceipt receipt = web3j.klayGetTransactionReceipt(txHash).send().getResult();
-		System.out.println("receipt : \n" + receipt);
+		System.out.println("Receipt from klay_getTransactionReceipt : \n" + receipt);
 		web3j.shutdown();
 
-		TxTypeFeeDelegatedValueTransferMemo rawTransaction = TxTypeFeeDelegatedValueTransferMemo.decodeFromRawTransaction(hexValue);
+		TxTypeFeeDelegatedValueTransferMemo rawTransaction = TxTypeFeeDelegatedValueTransferMemo
+				.decodeFromRawTransaction(hexValue);
 		System.out.println("TxType : " + rawTransaction.getKlayType());
 
 	}

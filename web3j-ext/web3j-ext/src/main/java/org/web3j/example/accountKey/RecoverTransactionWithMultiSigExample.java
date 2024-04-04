@@ -1,5 +1,7 @@
 package org.web3j.example.accountKey;
 
+import org.web3j.tx.response.PollingTransactionReceiptProcessor;
+import org.web3j.tx.response.TransactionReceiptProcessor;
 import org.web3j.example.keySample;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -15,6 +17,7 @@ import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.klaytn.core.method.response.KlayRecoverFromTransactionResponse;
 import org.web3j.utils.Numeric;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
+
 /**
  * 
  */
@@ -23,7 +26,7 @@ public class RecoverTransactionWithMultiSigExample implements keySample {
          * 
          */
 
-        public static void run() throws IOException {
+        public static void run() throws Exception {
                 Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
                 KlayCredentials credentials1 = KlayCredentials.create(keySample.MULTI_KEY_privkey1,
                                 keySample.MULTI_KEY_address);
@@ -60,7 +63,7 @@ public class RecoverTransactionWithMultiSigExample implements keySample {
                 String hexValue = Numeric.toHexString(signedMessage);
                 EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
                 System.out.println("TxHash : \n " + transactionResponse.getResult());
-                
+
                 String blockNumber = "latest";
                 KlayRecoverFromTransactionResponse response = web3j.klayRecoverFromTransaction(hexValue, blockNumber)
                                 .send();

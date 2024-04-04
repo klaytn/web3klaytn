@@ -5,7 +5,7 @@
 - Use java version: 11 <= v <= 18
 - Visit https://adoptopenjdk.net/ site
 - Download OpenJDK
- 
+
 ## Install Web3j Klaytn extension
 
 To add the [Gradle Library](https://docs.gradle.org/current/userguide/getting_started.html) to your project:
@@ -53,7 +53,7 @@ import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
 
 public class FeeDelegatedValueTransferExample implements keySample {
 
-    public static void run() throws IOException {
+    public static void run() throws Exception {
         Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
         KlayCredentials credentials = KlayCredentials.create(keySample.LEGACY_KEY_privkey);
         KlayCredentials credentials_feepayer = KlayCredentials.create(keySample.LEGACY_KEY_FEEPAYER_privkey);
@@ -89,17 +89,22 @@ public class FeeDelegatedValueTransferExample implements keySample {
         EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
         System.out.println("TxHash : \n " + transactionResponse.getResult());
         String txHash = transactionResponse.getResult();
-        try {
-            Thread.sleep(2000);
-        }
-        catch(Exception e) {
-            System.out.println(e);
-        }
+
+        int DEFAULT_POLLING_ATTEMPTS_PER_TX_HASH = 40;
+        int DEFAULT_BLOCK_TIME = 1 * 1000;
+        long DEFAULT_POLLING_FREQUENCY = DEFAULT_BLOCK_TIME;
+        TransactionReceiptProcessor transactionReceiptProcessor = new PollingTransactionReceiptProcessor(web3j,
+                DEFAULT_POLLING_FREQUENCY, DEFAULT_POLLING_ATTEMPTS_PER_TX_HASH);
+        org.web3j.protocol.core.methods.response.TransactionReceipt ethReceipt = transactionReceiptProcessor
+                .waitForTransactionReceipt(txHash);
+        System.out.println("Receipt from eth_getTransactionReceipt : \n" + ethReceipt);
         TransactionReceipt receipt = web3j.klayGetTransactionReceipt(txHash).send().getResult();
-        System.out.print("receipt : \n" + receipt);                
+        System.out.println("Receipt from klay_getTransactionReceipt : \n" + receipt);
         web3j.shutdown();
 
-        TxTypeValueTransfer rawTransaction = TxTypeValueTransfer.decodeFromRawTransaction(hexValue);
+        TxTypeFeeDelegatedValueTransfer rawTransaction = TxTypeFeeDelegatedValueTransfer
+                .decodeFromRawTransaction(hexValue);
+        System.out.println("TxType : " + rawTransaction.getKlayType());
     }
 }
 ````
@@ -111,7 +116,7 @@ import org.web3j.example.FeeDelegatedValueTransferExample;
 
 public class quickstart {
         public static void main(String[] args) throws Exception {
-        	FeeDelegatedValueTransferExample.run();
+            FeeDelegatedValueTransferExample.run();
         }
 }
 ````
