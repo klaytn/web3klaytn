@@ -14,19 +14,19 @@ import org.web3j.protocol.klaytn.core.method.response.KlayRecoverFromMessageResp
 /**
  * 
  */
-public class RecoverMessageWithMultiSigExample implements keySample {
+public class SignMsgWithRoleBasedExample implements keySample {
         /**
          * 
          */
 
         public static void run() throws Exception {
                 Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
-                KlayCredentials credentials1 = KlayCredentials.create(keySample.MULTI_KEY_privkey1,
-                                keySample.MULTI_KEY_address);
-                KlayCredentials credentials2 = KlayCredentials.create(keySample.MULTI_KEY_privkey2,
-                                keySample.MULTI_KEY_address);
-                KlayCredentials credentials3 = KlayCredentials.create(keySample.MULTI_KEY_privkey3,
-                                keySample.MULTI_KEY_address);
+                KlayCredentials credentials1 = KlayCredentials.create(keySample.ROLEBASED_KEY_transactionkey,
+                                keySample.ROLEBASED_KEY_address);
+                KlayCredentials credentials2 = KlayCredentials.create(keySample.ROLEBASED_KEY_updatekey,
+                                keySample.ROLEBASED_KEY_address);
+                KlayCredentials credentials3 = KlayCredentials.create(keySample.ROLEBASED_KEY_feepayer,
+                                keySample.ROLEBASED_KEY_address);
                 String from = credentials1.getAddress();
                 String message = "0xdeadbeef";
                 String blockNumber = "latest";
@@ -52,9 +52,9 @@ public class RecoverMessageWithMultiSigExample implements keySample {
                                 .klayRecoverFromMessage(from, message, result3, blockNumber)
                                 .send();
                 System.out.println("Original address : " + from);
-                System.out.println("Result address for key 1 : " + response1.getResult());
-                System.out.println("Result address for key 2 : " + response2.getResult());
-                System.out.println("Result address for key 3 : " + response3.getResult());
+                System.out.println("Result address for transaction key : " + response1.getResult());
+                System.out.println("Result address for update key : " + response2.getResult());
+                System.out.println("Result address for feepayer key : " + response3.getResult());
 
                 web3j.shutdown();
 

@@ -14,7 +14,7 @@ import org.web3j.protocol.klaytn.core.method.response.KlayRecoverFromMessageResp
 /**
  * 
  */
-public class RecoverMessageWithLegacyExample implements keySample {
+public class SignMsgWithLegacyExample implements keySample {
     /**
      * 
      */
