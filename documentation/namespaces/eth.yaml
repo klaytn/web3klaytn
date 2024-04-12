@@ -18,6 +18,18 @@ servers:
   - url: https://public-en-cypress.klaytn.net
 paths:
 
+  # eth/account
+  /eth/account/getBalance:
+    $ref: ../../web3rpc/rpc-specs/paths/eth/account/getBalance.yaml#/paths/~1eth~1getBalance
+  /eth/account/getCode:
+    $ref: ../../web3rpc/rpc-specs/paths/eth/account/getCode.yaml#/paths/~1eth~1getCode
+  /eth/account/accounts:
+    $ref: ../../web3rpc/rpc-specs/paths/eth/account/accounts.yaml#/paths/~1eth~1accounts
+  /eth/account/getTransactionCount:
+    $ref: ../../web3rpc/rpc-specs/paths/eth/account/getTransactionCount.yaml#/paths/~1eth~1getTransactionCount
+  /eth/account/sign:
+    $ref: ../../web3rpc/rpc-specs/paths/eth/account/sign.yaml#/paths/~1eth~1sign
+
   # eth/block
   /eth/block/blockNumber:
     $ref: ../../web3rpc/rpc-specs/paths/eth/block/blockNumber.yaml#/paths/~1eth~1blockNumber
