@@ -44,10 +44,10 @@ public class AccountUpdateWithMultiSigExample {
                 BigInteger newPubkey1 = credential1.getEcKeyPair().getPublicKey();
                 WeightedPublicKey weightedAccountKey1 = WeightedPublicKey.create(BigInteger.ONE,
                                 AccountKeyPublic.create(newPubkey1));
-                BigInteger newPubkey2 = credential1.getEcKeyPair().getPublicKey();
+                BigInteger newPubkey2 = credential2.getEcKeyPair().getPublicKey();
                 WeightedPublicKey weightedAccountKey2 = WeightedPublicKey.create(BigInteger.ONE,
                                 AccountKeyPublic.create(newPubkey2));
-                BigInteger newPubkey3 = credential1.getEcKeyPair().getPublicKey();
+                BigInteger newPubkey3 = credential3.getEcKeyPair().getPublicKey();
                 WeightedPublicKey weightedAccountKey3 = WeightedPublicKey.create(BigInteger.ONE,
                                 AccountKeyPublic.create(newPubkey3));
 
