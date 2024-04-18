@@ -22,11 +22,10 @@ import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
 
 public class AccountUpdateWithPubKeyExample {
 
-        public static void run(KlayCredentials credentials) throws Exception {
+        public static void run() throws Exception {
 
+                KlayCredentials credentials = KlayCredentials.create(keySample.PUBLIC_KEY_privkey, keySample.PUBLIC_KEY_address);
                 Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
-                KlayCredentials new_credentials = KlayCredentials.create(keySample.PUBLIC_KEY_privkey,
-                                keySample.PUBLIC_KEY_address);
 
                 BigInteger GAS_PRICE = BigInteger.valueOf(50000000000L);
                 BigInteger GAS_LIMIT = BigInteger.valueOf(6721950);
@@ -36,7 +35,7 @@ public class AccountUpdateWithPubKeyExample {
                 BigInteger nonce = web3j.ethGetTransactionCount(from, DefaultBlockParameterName.LATEST).send()
                                 .getTransactionCount();
 
-                BigInteger newPubkey = new_credentials.getEcKeyPair().getPublicKey();
+                BigInteger newPubkey = credentials.getEcKeyPair().getPublicKey();
 
                 AccountKeyPublic accountkey = AccountKeyPublic.create(newPubkey);
 

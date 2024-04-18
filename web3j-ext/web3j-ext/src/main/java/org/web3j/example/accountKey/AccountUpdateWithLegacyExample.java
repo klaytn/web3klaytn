@@ -22,8 +22,9 @@ import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
 
 public class AccountUpdateWithLegacyExample {
 
-        public static void run(KlayCredentials credentials) throws Exception {
+        public static void run() throws Exception {
 
+                KlayCredentials credentials = KlayCredentials.create(keySample.LEGACY_KEY_privkey);
                 Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
 
                 BigInteger GAS_PRICE = BigInteger.valueOf(50000000000L);

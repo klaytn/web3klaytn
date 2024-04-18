@@ -26,28 +26,28 @@ import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
 
 public class AccountUpdateWithMultiSigExample {
 
-        public static void run(KlayCredentials credentials) throws Exception {
+        public static void run() throws Exception {
 
                 Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
-                KlayCredentials new_credentials1 = KlayCredentials.create(keySample.MULTI_KEY_privkey1);
-                KlayCredentials new_credentials2 = KlayCredentials.create(keySample.MULTI_KEY_privkey2);
-                KlayCredentials new_credentials3 = KlayCredentials.create(keySample.MULTI_KEY_privkey3);
+                KlayCredentials credential1 = KlayCredentials.create(keySample.MULTI_KEY_privkey1, keySample.MULTI_KEY_address);
+                KlayCredentials credential2 = KlayCredentials.create(keySample.MULTI_KEY_privkey2, keySample.MULTI_KEY_address);
+                KlayCredentials credential3 = KlayCredentials.create(keySample.MULTI_KEY_privkey3, keySample.MULTI_KEY_address);
 
                 BigInteger GAS_PRICE = BigInteger.valueOf(50000000000L);
                 BigInteger GAS_LIMIT = BigInteger.valueOf(6721950);
-                String from = credentials.getAddress();
+                String from = credential1.getAddress();
                 EthChainId EthchainId = web3j.ethChainId().send();
                 long chainId = EthchainId.getChainId().longValue();
                 BigInteger nonce = web3j.ethGetTransactionCount(from, DefaultBlockParameterName.LATEST).send()
                                 .getTransactionCount();
 
-                BigInteger newPubkey1 = new_credentials1.getEcKeyPair().getPublicKey();
+                BigInteger newPubkey1 = credential1.getEcKeyPair().getPublicKey();
                 WeightedPublicKey weightedAccountKey1 = WeightedPublicKey.create(BigInteger.ONE,
                                 AccountKeyPublic.create(newPubkey1));
-                BigInteger newPubkey2 = new_credentials1.getEcKeyPair().getPublicKey();
+                BigInteger newPubkey2 = credential1.getEcKeyPair().getPublicKey();
                 WeightedPublicKey weightedAccountKey2 = WeightedPublicKey.create(BigInteger.ONE,
                                 AccountKeyPublic.create(newPubkey2));
-                BigInteger newPubkey3 = new_credentials1.getEcKeyPair().getPublicKey();
+                BigInteger newPubkey3 = credential1.getEcKeyPair().getPublicKey();
                 WeightedPublicKey weightedAccountKey3 = WeightedPublicKey.create(BigInteger.ONE,
                                 AccountKeyPublic.create(newPubkey3));
 
@@ -68,7 +68,8 @@ public class AccountUpdateWithMultiSigExample {
                                 from,
                                 accountkey);
 
-                byte[] signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, credentials);
+                byte[] signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, credential1);
+                signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, credential2);
                 String hexValue = Numeric.toHexString(signedMessage);
                 EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
                 System.out.println("TxHash : \n " + transactionResponse.getResult());

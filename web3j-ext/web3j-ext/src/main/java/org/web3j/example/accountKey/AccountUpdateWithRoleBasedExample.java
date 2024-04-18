@@ -28,42 +28,30 @@ import org.web3j.protocol.klaytn.core.method.response.TransactionReceipt;
 
 public class AccountUpdateWithRoleBasedExample {
 
-        public static void run(KlayCredentials credentials) throws Exception {
+        public static void run() throws Exception {
 
                 Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
-                KlayCredentials new_credentials1 = KlayCredentials.create(keySample.MULTI_KEY_privkey1);
-                KlayCredentials new_credentials2 = KlayCredentials.create(keySample.MULTI_KEY_privkey2);
-                KlayCredentials new_credentials3 = KlayCredentials.create(keySample.MULTI_KEY_privkey3);
+                KlayCredentials credential1 = KlayCredentials.create(keySample.ROLEBASED_KEY_transactionkey, keySample.ROLEBASED_KEY_address);
+                KlayCredentials credential2 = KlayCredentials.create(keySample.ROLEBASED_KEY_updatekey, keySample.ROLEBASED_KEY_address);
+                KlayCredentials credential3 = KlayCredentials.create(keySample.ROLEBASED_KEY_feepayer, keySample.ROLEBASED_KEY_address);
 
                 BigInteger GAS_PRICE = BigInteger.valueOf(50000000000L);
                 BigInteger GAS_LIMIT = BigInteger.valueOf(6721950);
-                String from = credentials.getAddress();
+                String from = credential1.getAddress();
                 EthChainId EthchainId = web3j.ethChainId().send();
                 long chainId = EthchainId.getChainId().longValue();
                 BigInteger nonce = web3j.ethGetTransactionCount(from, DefaultBlockParameterName.LATEST).send()
                                 .getTransactionCount();
 
-                BigInteger newPubkey1 = new_credentials1.getEcKeyPair().getPublicKey();
-                WeightedPublicKey weightedAccountKey1 = WeightedPublicKey.create(BigInteger.ONE,
-                                AccountKeyPublic.create(newPubkey1));
-                BigInteger newPubkey2 = new_credentials2.getEcKeyPair().getPublicKey();
-                WeightedPublicKey weightedAccountKey2 = WeightedPublicKey.create(BigInteger.ONE,
-                                AccountKeyPublic.create(newPubkey2));
-                BigInteger newPubkey3 = new_credentials3.getEcKeyPair().getPublicKey();
-                WeightedPublicKey weightedAccountKey3 = WeightedPublicKey.create(BigInteger.ONE,
-                                AccountKeyPublic.create(newPubkey3));
+                BigInteger newPubkey1 = credential1.getEcKeyPair().getPublicKey();
+                BigInteger newPubkey2 = credential2.getEcKeyPair().getPublicKey();
+                BigInteger newPubkey3 = credential3.getEcKeyPair().getPublicKey();
 
-                // make list with weightedAccountKey1, weightedAccountKey2, weightedAccountKey3
-                List<WeightedPublicKey> weightedAccountKeyList = List.of(weightedAccountKey1, weightedAccountKey2,
-                                weightedAccountKey3);
-
-                AccountKeyWeightedMultiSig accountTransactionkey = AccountKeyWeightedMultiSig.create(BigInteger.TWO,
-                                weightedAccountKeyList);
-                AccountKeyPublic accountUpdateKey = AccountKeyPublic.create(newPubkey1);
-                AccountKeyPublic accountFeePayerKey = AccountKeyPublic.create(newPubkey1);
+                AccountKeyPublic accountTransactionkey = AccountKeyPublic.create(newPubkey1);
+                AccountKeyPublic accountUpdateKey = AccountKeyPublic.create(newPubkey2);
+                AccountKeyPublic accountFeePayerKey = AccountKeyPublic.create(newPubkey3);
 
                 List<AccountKey> accountKeys = List.of(accountTransactionkey, accountUpdateKey, accountFeePayerKey);
-
                 AccountKeyRoleBased accountkey = AccountKeyRoleBased.create(accountKeys);
 
                 TxType.Type type = Type.ACCOUNT_UPDATE;
@@ -76,7 +64,7 @@ public class AccountUpdateWithRoleBasedExample {
                                 from,
                                 accountkey);
 
-                byte[] signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, credentials);
+                byte[] signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, credential2);
                 String hexValue = Numeric.toHexString(signedMessage);
                 EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
                 System.out.println("TxHash : \n " + transactionResponse.getResult());
