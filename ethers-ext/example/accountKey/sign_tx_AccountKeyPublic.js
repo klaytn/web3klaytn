@@ -31,11 +31,8 @@ async function main() {
   const receipt = await sentTx.wait();
   console.log("receipt", receipt);
 
-  console.log(newWallet.address);
-
   const addr = await provider.send("klay_recoverFromTransaction", [rawTx, "latest"]);
   console.log("recoveredAddr rpc", addr, addr.toLowerCase() === senderAddr.toLowerCase());
-  // console.log("recoveredAddr rpc", addr, addr.toLowerCase() === newWallet.address.toLowerCase());
 }
 
 main().catch(console.error);
