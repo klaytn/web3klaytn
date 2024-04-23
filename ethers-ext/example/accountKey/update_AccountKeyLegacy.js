@@ -5,8 +5,8 @@ const { ethers } = require("ethers");
 
 const { Wallet, TxType, AccountKeyType} = require("@klaytn/ethers-ext");
 
-// Using senderPriv == senderNewPriv to execute this example repeatedly.
-// But you might want to register a different private key.
+// Using legacy AccountKey to execute this example repeatedly.
+// But you might want to register a different Accountkey.
 const senderAddr = "0xecbf243ac167a3b5097fef758e07881582a89027";
 const senderPriv = "0xc696ccd259792f2ffb87e0012e4a37ae3526a3224686225af679e3aaa2aeab0d";
 

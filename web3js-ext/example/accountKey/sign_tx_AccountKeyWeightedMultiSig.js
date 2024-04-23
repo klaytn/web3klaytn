@@ -41,6 +41,10 @@ async function main() {
 
   const receipt = await web3.eth.sendSignedTransaction(signResult3.rawTransaction);
   console.log("receipt", receipt);
+
+  const sig = signResult3.signature;
+  const addr2 = await web3.klay.recoverFromTransaction(senderAddr, sig, "latest");
+  console.log("recoveredAddr rpc", addr2, addr2.toLowerCase() === senderAddr);
 }
 
 main().catch(console.error);
