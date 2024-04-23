@@ -25,7 +25,7 @@ def web3_account_update_legacy():
         'from' : user.address,
         'key' : {
             'type': KeyType.LEGACY,
-            'key': compressed_key(user)
+            'key': {},
         }
     })
     account_update_tx = fill_transaction(account_update_tx, w3)
