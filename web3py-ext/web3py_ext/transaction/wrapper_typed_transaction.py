@@ -2,6 +2,7 @@ from typing import (
     Any,
     Callable,
     Dict,
+    List,
     Union,
 )
 from cytoolz import (
@@ -29,9 +30,7 @@ from eth_account._utils.typed_transactions import (
     TypedTransaction,
     AccessListTransaction,
     DynamicFeeTransaction,
-    HexBytes,
-    set_transaction_type_if_needed,
-    is_int_or_prefixed_hexstr,
+    BlobTransaction,
 )
 from eth_utils.curried import (
     hexstr_if_str,
@@ -84,7 +83,7 @@ The currently supported Transaction Types are:
     * EIP-2930's AccessListTransaction : is translated as Klaytn Extended EIP-2930
     * EIP-1559's DynamicFeeTransaction : is translated as Klaytn Extended EIP-1559
 """
-def from_dict(cls, dictionary: Dict[str, Any]) -> "TypedTransaction":
+def from_dict(cls, dictionary: Dict[str, Any], blobs: List[bytes] = None) -> "TypedTransaction":
     """
     Builds a TypedTransaction from a dictionary.
     Verifies the dictionary is well formed.
@@ -99,6 +98,8 @@ def from_dict(cls, dictionary: Dict[str, Any]) -> "TypedTransaction":
         transaction = AccessListTransaction
     elif transaction_type == DynamicFeeTransaction.transaction_type:
         transaction = DynamicFeeTransaction
+    elif transaction_type == BlobTransaction.transaction_type:
+        transaction = BlobTransaction
     elif transaction_type == ValueTransferTransaction.transaction_type:
         transaction = ValueTransferTransaction
     elif transaction_type == ValueTransferWithMemoTransaction.transaction_type:
@@ -148,6 +149,9 @@ def from_bytes(cls, encoded_transaction: HexBytes) -> "TypedTransaction":
     elif encoded_transaction[0] == DynamicFeeTransaction.transaction_type:
         transaction_type = DynamicFeeTransaction.transaction_type
         transaction = DynamicFeeTransaction.from_bytes(encoded_transaction)
+    elif encoded_transaction[0] == BlobTransaction.transaction_type:
+        transaction_type = BlobTransaction.transaction_type
+        transaction = BlobTransaction.from_bytes(encoded_transaction)
     elif encoded_transaction[0] == ValueTransferTransaction.transaction_type:
         transaction_type = ValueTransferTransaction.transaction_type
         transaction = ValueTransferTransaction.from_bytes(encoded_transaction)

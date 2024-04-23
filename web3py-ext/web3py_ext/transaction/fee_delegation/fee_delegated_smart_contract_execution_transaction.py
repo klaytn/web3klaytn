@@ -56,7 +56,7 @@ from eth_account._utils.validation import (
     is_int_or_prefixed_hexstr,
 )
 
-from eth_account._utils.typed_transactions import (
+from eth_account._utils.typed_transactions.typed_transaction import (
     _TypedTransactionImplementation
 )
 from eth_account._utils.signing import (
