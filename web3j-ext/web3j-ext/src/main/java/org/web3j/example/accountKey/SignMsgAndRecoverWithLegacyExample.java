@@ -14,15 +14,14 @@ import org.web3j.protocol.klaytn.core.method.response.KlayRecoverFromMessageResp
 /**
  * 
  */
-public class SignMsgWithPubkeyExample implements keySample {
+public class SignMsgAndRecoverWithLegacyExample implements keySample {
     /**
      * 
      */
 
     public static void run() throws Exception {
         Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
-        KlayCredentials credentials1 = KlayCredentials.create(keySample.PUBLIC_KEY_privkey,
-                keySample.PUBLIC_KEY_address);
+        KlayCredentials credentials1 = KlayCredentials.create(keySample.LEGACY_KEY_privkey);
         String from = credentials1.getAddress();
         String message = "0xdeadbeef";
         String blockNumber = "latest";

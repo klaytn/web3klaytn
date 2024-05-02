@@ -21,7 +21,7 @@ import org.web3j.protocol.core.methods.response.EthSendTransaction;
 /**
  * 
  */
-public class SignTxWithLegacyExample implements keySample {
+public class SignTxAndRecoverWithLegacyExample implements keySample {
     /**
      * 
      */

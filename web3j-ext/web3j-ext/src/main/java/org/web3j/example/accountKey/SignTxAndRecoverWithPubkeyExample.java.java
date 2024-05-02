@@ -21,7 +21,7 @@ import org.web3j.protocol.core.methods.response.EthSendTransaction;
 /**
  * 
  */
-public class SignTxWithPubkeyExample implements keySample {
+public class SignTxAndRecoverWithPubkeyExample implements keySample {
         /**
          * 
          */
