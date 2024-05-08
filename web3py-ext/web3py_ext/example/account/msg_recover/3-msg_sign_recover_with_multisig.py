@@ -7,18 +7,23 @@ from web3py_ext import extend
 
 w3 = Web3(Web3.HTTPProvider('https://public-en-baobab.klaytn.net'))
 
-def web3_public_value_transfer_sign_recover():
+def web3_multisig_value_transfer_sign_recover():
     user = Account.from_key_pair(
-        '0xe15cd70a41dfb05e7214004d7d054801b2a2f06b',
-        '0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8'
+        # multisig account address
+        '0x82c6a8d94993d49cfd0c1d30f0f8caa65782cc7e',
+        # a member key of multisig account
+        '0xc9668ccd35fc20587aa37a48838b48ccc13cf14dd74c8999dd6a480212d5f7ac'
     )
     message = to_hex(text="I♥KLAYTN")
     msghash = encode_defunct(hexstr=message)
     signature = Account.sign_message(msghash, user.key)
 
-    print(signature.signature.hex())
-    print(len(signature.signature.hex()))
-    recovered = w3.klay.recover_from_message(user.address, message, signature.signature.hex(), "latest")
+    recovered = w3.klay.recover_from_message(
+        user.address, 
+        message, signature.signature.hex(), 
+        "latest"
+    )
+    # recovered is an original address of the member key
     print("\nsender", user.address, "\nrecovered", recovered)
 
-web3_public_value_transfer_sign_recover()
+web3_multisig_value_transfer_sign_recover()

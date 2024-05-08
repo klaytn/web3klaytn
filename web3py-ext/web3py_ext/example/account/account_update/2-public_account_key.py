@@ -33,16 +33,9 @@ def web3_account_update_pubkey():
     print(to_pretty(account_update_tx))
 
     # sign the klaytn specific transaction type with web3py
-    signed_tx = Account.sign_transaction(account_update_tx, user1.key)
+    signed_tx = Account.sign_transaction(account_update_tx, user2.key)
     print('\nrawTransaction:', bytes_to_hex_str(signed_tx.rawTransaction))
 
-    recovered_tx = Account.recover_transaction(signed_tx.rawTransaction)
-    print("\nrecovered sender address: ", recovered_tx)
-
-    decoded_tx = Account.decode_transaction(signed_tx.rawTransaction)
-    print("\ndecoded transaction:", to_pretty(decoded_tx))
-
-    # temp test
     tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
     print('tx hash: ', tx_hash, 'receipt: ', tx_receipt) 
