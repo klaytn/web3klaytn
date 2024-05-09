@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/metrics:
+  /debug/runtimeDebugging/metrics:
     post:
       operationId: metrics
       summary: "[runtimeDebug] debug_metrics"

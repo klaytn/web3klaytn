@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/traceCall:
+  /debug/vMTracing/traceCall:
     post:
       summary: "[Trace] debug_traceCall"
       tags:

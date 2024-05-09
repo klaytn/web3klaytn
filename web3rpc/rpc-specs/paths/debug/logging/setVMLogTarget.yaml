@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/setVMLogTarget:
+  /debug/logging/setVMLogTarget:
     post:
       summary: "[Logging] debug_setVMLogTarget"
       tags:

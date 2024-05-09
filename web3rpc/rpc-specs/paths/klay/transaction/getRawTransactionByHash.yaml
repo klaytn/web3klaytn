@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getRawTransactionByHash:
+  /klay/transaction/getRawTransactionByHash:
     post:
       operationId: getRawTransactionByHash
       summary: "[Transaction] klay_getRawTransactionByHash"

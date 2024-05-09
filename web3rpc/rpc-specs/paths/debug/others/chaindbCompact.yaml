@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/chaindbCompact:
+  /debug/others/chaindbCompact:
     post:
       operationId: chaindbCompact
       summary: "[Inspection] debug_chaindbCompact"

@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/getCode:
+  /eth/account/getCode:
     post:
       operationId: getCode
       summary: "[Account] eth_getCode"

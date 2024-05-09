@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/forkStatus:
+  /klay/configuration/forkStatus:
     post:
       operationId: forkStatus
       summary: "[Configuration] klay_forkStatus"

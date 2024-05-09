@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/getModifiedStorageNodesByNumber:
+  /debug/others/getModifiedStorageNodesByNumber:
     post:
       operationId: getModifiedStorageNodesByNumber
       summary: "[Inspection] debug_getModifiedStorageNodesByNumber"

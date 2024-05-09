@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/sendTransaction:
+  /eth/transaction/sendTransaction:
     post:
       summary: "[Transaction] eth_sendTransaction"
       tags:

@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/subscribe:
+  /klay/filter/subscribe:
     post:
       operationId: subscribe
       summary: "[Filter] klay_subscribe"

@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getTransactionCount:
+  /klay/account/getTransactionCount:
     post:
       operationId: getTransactionCount
       summary: "[Account] klay_getTransactionCount"

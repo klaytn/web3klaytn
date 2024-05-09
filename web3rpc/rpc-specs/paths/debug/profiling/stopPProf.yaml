@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/stopPProf:
+  /debug/profiling/stopPProf:
     post:
       operationId: stopPProf
       summary: "[Profiling] debug_stopPProf"

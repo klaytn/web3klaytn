@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/startContractWarmUp:
+  /debug/blockchainInspection/startContractWarmUp:
     post:
       operationId: startContractWarmUp
       summary: "[Inspection] debug_startContractWarmUp"

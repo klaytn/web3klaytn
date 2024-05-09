@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/setBlockProfileRate:
+  /debug/profiling/setBlockProfileRate:
     post:
       summary: "[Profiling] debug_setBlockProfileRate"
       tags:

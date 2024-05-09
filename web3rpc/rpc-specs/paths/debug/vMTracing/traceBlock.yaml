@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/traceBlock:
+  /debug/vMTracing/traceBlock:
     post:
       summary: "[Trace] debug_traceBlock"
       tags:
