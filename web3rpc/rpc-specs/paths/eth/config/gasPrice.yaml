@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/gasPrice:
+  /eth/config/gasPrice:
     post:
       summary: "[Configuration] eth_gasPrice"
       tags:

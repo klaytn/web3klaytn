@@ -118,6 +118,8 @@ describe("AccountKeyFactory", () => {
       const object = _.clone(tc.object);
 
       const key = AccountKeyFactory.fromObject(object);
+      // In some typescript version, the following error “Cannot assign an abstract constructor type to a non-abstract constructor type.” occurs in the line below.
+      // @ts-ignore
       assert.instanceOf(key, tc.clazz);
       assert.deepEqual(key.toObject(), tc.canonical);
       assert.deepEqual(key.toRLP(), tc.rlp);

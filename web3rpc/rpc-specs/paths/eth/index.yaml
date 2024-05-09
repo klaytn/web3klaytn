@@ -18,130 +18,130 @@ servers:
 paths:
   # eth/account
   /eth/account/accounts:
-    $ref: ./account/accounts.yaml#/paths/~1eth~1accounts
+    $ref: ./account/accounts.yaml#/paths/~1eth~1account~1accounts
   /eth/account/getBalance:
-    $ref: ./account/getBalance.yaml#/paths/~1eth~1getBalance
+    $ref: ./account/getBalance.yaml#/paths/~1eth~1account~1getBalance
   /eth/account/getCode:
-    $ref: ./account/getCode.yaml#/paths/~1eth~1getCode
+    $ref: ./account/getCode.yaml#/paths/~1eth~1account~1getCode
   /eth/account/sign:
-    $ref: ./account/sign.yaml#/paths/~1eth~1sign
+    $ref: ./account/sign.yaml#/paths/~1eth~1account~1sign
   /eth/account/getTransactionCount:
-    $ref: ./account/getTransactionCount.yaml#/paths/~1eth~1getTransactionCount
+    $ref: ./account/getTransactionCount.yaml#/paths/~1eth~1account~1getTransactionCount
 
   # eth/block
   /eth/block/blockNumber:
-    $ref: ./block/blockNumber.yaml#/paths/~1eth~1blockNumber
+    $ref: ./block/blockNumber.yaml#/paths/~1eth~1block~1blockNumber
   /eth/block/getBlockByHash:
-    $ref: ./block/getBlockByHash.yaml#/paths/~1eth~1getBlockByHash
+    $ref: ./block/getBlockByHash.yaml#/paths/~1eth~1block~1getBlockByHash
   /eth/block/getBlockByNumber:
-    $ref: ./block/getBlockByNumber.yaml#/paths/~1eth~1getBlockByNumber
+    $ref: ./block/getBlockByNumber.yaml#/paths/~1eth~1block~1getBlockByNumber
   /eth/block/getBlockTransactionCountByHash:
-    $ref: ./block/getBlockTransactionCountByHash.yaml#/paths/~1eth~1getBlockTransactionCountByHash
+    $ref: ./block/getBlockTransactionCountByHash.yaml#/paths/~1eth~1block~1getBlockTransactionCountByHash
   /eth/block/getHeaderByNumber:
-    $ref: ./block/getHeaderByNumber.yaml#/paths/~1eth~1getHeaderByNumber
+    $ref: ./block/getHeaderByNumber.yaml#/paths/~1eth~1block~1getHeaderByNumber
   /eth/block/getHeaderByHash:
-    $ref: ./block/getHeaderByHash.yaml#/paths/~1eth~1getHeaderByHash
+    $ref: ./block/getHeaderByHash.yaml#/paths/~1eth~1block~1getHeaderByHash
   /eth/block/getStorageAt:
-    $ref: ./block/getStorageAt.yaml#/paths/~1eth~1getStorageAt
+    $ref: ./block/getStorageAt.yaml#/paths/~1eth~1block~1getStorageAt
   /eth/block/getUncleCountByBlockHash:
-    $ref: ./block/getUncleCountByBlockHash.yaml#/paths/~1eth~1getUncleCountByBlockHash
+    $ref: ./block/getUncleCountByBlockHash.yaml#/paths/~1eth~1block~1getUncleCountByBlockHash
   /eth/block/getUncleByBlockHashAndIndex:
-    $ref: ./block/getUncleByBlockHashAndIndex.yaml#/paths/~1eth~1getUncleByBlockHashAndIndex
+    $ref: ./block/getUncleByBlockHashAndIndex.yaml#/paths/~1eth~1block~1getUncleByBlockHashAndIndex
   /eth/block/getUncleByBlockNumberAndIndex:
-    $ref: ./block/getUncleByBlockNumberAndIndex.yaml#/paths/~1eth~1getUncleByBlockNumberAndIndex
+    $ref: ./block/getUncleByBlockNumberAndIndex.yaml#/paths/~1eth~1block~1getUncleByBlockNumberAndIndex
   /eth/block/getUncleCountByBlockNumber:
-    $ref: ./block/getUncleCountByBlockNumber.yaml#/paths/~1eth~1getUncleCountByBlockNumber
+    $ref: ./block/getUncleCountByBlockNumber.yaml#/paths/~1eth~1block~1getUncleCountByBlockNumber
   /eth/block/syncing:
-    $ref: ./block/syncing.yaml#/paths/~1eth~1syncing
+    $ref: ./block/syncing.yaml#/paths/~1eth~1block~1syncing
   /eth/block/mining:
-    $ref: ./block/mining.yaml#/paths/~1eth~1mining
+    $ref: ./block/mining.yaml#/paths/~1eth~1block~1mining
   /eth/block/getBlockTransactionCountByNumber:
-    $ref: ./block/getBlockTransactionCountByNumber.yaml#/paths/~1eth~1getBlockTransactionCountByNumber
+    $ref: ./block/getBlockTransactionCountByNumber.yaml#/paths/~1eth~1block~1getBlockTransactionCountByNumber
   /eth/block/getBlockReceipt:
-    $ref: ./block/getBlockReceipts.yaml#/paths/~1eth~1getBlockReceipts
+    $ref: ./block/getBlockReceipts.yaml#/paths/~1eth~1block~1getBlockReceipts
   # eth/transaction
   /eth/transaction/call:
-    $ref: ./transaction/call.yaml#/paths/~1eth~1call
+    $ref: ./transaction/call.yaml#/paths/~1eth~1transaction~1call
   /eth/transaction/getTransactionByBlockHashAndIndex:
-    $ref: ./transaction/getTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getTransactionByBlockHashAndIndex
+    $ref: ./transaction/getTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1transaction~1getTransactionByBlockHashAndIndex
   /eth/transaction/getTransactionByBlockNumberAndIndex:
-    $ref: ./transaction/getTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getTransactionByBlockNumberAndIndex
+    $ref: ./transaction/getTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1transaction~1getTransactionByBlockNumberAndIndex
   /eth/transaction/getTransactionByHash:
-    $ref: ./transaction/getTransactionByHash.yaml#/paths/~1eth~1getTransactionByHash
+    $ref: ./transaction/getTransactionByHash.yaml#/paths/~1eth~1transaction~1getTransactionByHash
   /eth/transaction/getTransactionReceipt:
-    $ref: ./transaction/getTransactionReceipt.yaml#/paths/~1eth~1getTransactionReceipt
+    $ref: ./transaction/getTransactionReceipt.yaml#/paths/~1eth~1transaction~1getTransactionReceipt
   /eth/transaction/sendRawTransaction:
-    $ref: ./transaction/sendRawTransaction.yaml#/paths/~1eth~1sendRawTransaction
+    $ref: ./transaction/sendRawTransaction.yaml#/paths/~1eth~1transaction~1sendRawTransaction
   /eth/transaction/sendTransaction:
-    $ref: ./transaction/sendTransaction.yaml#/paths/~1eth~1sendTransaction
+    $ref: ./transaction/sendTransaction.yaml#/paths/~1eth~1transaction~1sendTransaction
   /eth/transaction/signTransaction:
-    $ref: ./transaction/signTransaction.yaml#/paths/~1eth~1signTransaction
+    $ref: ./transaction/signTransaction.yaml#/paths/~1eth~1transaction~1signTransaction
 
   /eth/transaction/pendingTransactions:
-    $ref: ./transaction/pendingTransactions.yaml#/paths/~1eth~1pendingTransactions
+    $ref: ./transaction/pendingTransactions.yaml#/paths/~1eth~1transaction~1pendingTransactions
   /eth/transaction/fillTransaction:
-    $ref: ./transaction/fillTransaction.yaml#/paths/~1eth~1fillTransaction
-
+    $ref: ./transaction/fillTransaction.yaml#/paths/~1eth~1transaction~1fillTransaction
+  /eth/createAccessList:
+    $ref: ./transaction/createAccessList.yaml#/paths/~1eth~1transaction~1createAccessList
+  /eth/getRawTransactionByBlockHashAndIndex:
+    $ref: ./transaction/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1transaction~1getRawTransactionByBlockHashAndIndex
+  /eth/getRawTransactionByBlockNumberAndIndex:
+    $ref: ./transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1transaction~1getRawTransactionByBlockNumberAndIndex
+  /eth/getRawTransactionByHash:
+    $ref: ./transaction/getRawTransactionByHash.yaml#/paths/~1eth~1transaction~1getRawTransactionByHash
+  /eth/transaction/resend:
+    $ref: ./transaction/resend.yaml#/paths/~1eth~1transaction~1resend
   # eth/config
   /eth/config/chainID:
-    $ref: ./config/chainId.yaml#/paths/~1eth~1chainId
+    $ref: ./config/chainId.yaml#/paths/~1eth~1config~1chainId
   /eth/config/gasPrice:
-    $ref: ./config/gasPrice.yaml#/paths/~1eth~1gasPrice
+    $ref: ./config/gasPrice.yaml#/paths/~1eth~1config~1gasPrice
   /eth/config/coinbase:
-    $ref: ./config/coinbase.yaml#/paths/~1eth~1coinbase
+    $ref: ./config/coinbase.yaml#/paths/~1eth~1config~1coinbase
   /eth/config/etherbase:
-    $ref: ./config/etherbase.yaml#/paths/~1eth~1etherbase
+    $ref: ./config/etherbase.yaml#/paths/~1eth~1config~1etherbase
   /eth/config/protocolVersion:
-    $ref: ./config/protocolVersion.yaml#/paths/~1eth~1protocolVersion
+    $ref: ./config/protocolVersion.yaml#/paths/~1eth~1config~1protocolVersion
 
   # eth/gas
   /eth/gas/feeHistory:
-    $ref: ./gas/feeHistory.yaml#/paths/~1eth~1feeHistory
+    $ref: ./gas/feeHistory.yaml#/paths/~1eth~1gas~1feeHistory
   /eth/gas/estimateGas:
-    $ref: ./transaction/estimateGas.yaml#/paths/~1eth~1estimateGas
+    $ref: ./transaction/estimateGas.yaml#/paths/~1eth~1transaction~1estimateGas
   /eth/gas/maxPriorityFeePerGas:
-    $ref: ./gas/maxPriorityFeePerGas.yaml#/paths/~1eth~1maxPriorityFeePerGas
+    $ref: ./gas/maxPriorityFeePerGas.yaml#/paths/~1eth~1gas~1maxPriorityFeePerGas
 
   # eth/filter
   /eth/filter/getFilterLogs:
-    $ref: ./filter/getFilterLogs.yaml#/paths/~1eth~1getFilterLogs
+    $ref: ./filter/getFilterLogs.yaml#/paths/~1eth~1filter~1getFilterLogs
   /eth/filter/getFilterChanges:
-    $ref: ./filter/getFilterChanges.yaml#/paths/~1eth~1getFilterChanges
+    $ref: ./filter/getFilterChanges.yaml#/paths/~1eth~1filter~1getFilterChanges
   /eth/filter/uninstallFilter:
-    $ref: ./filter/uninstallFilter.yaml#/paths/~1eth~1uninstallFilter
+    $ref: ./filter/uninstallFilter.yaml#/paths/~1eth~1filter~1uninstallFilter
   /eth/filter/getLogs:
-    $ref: ./filter/getLogs.yaml#/paths/~1eth~1getLogs
+    $ref: ./filter/getLogs.yaml#/paths/~1eth~1filter~1getLogs
   /eth/filter/subscribe:
-    $ref: ./filter/subscribe.yaml#/paths/~1eth~1subscribe
+    $ref: ./filter/subscribe.yaml#/paths/~1eth~1filter~1subscribe
   /eth/filter/unsubscribe:
-    $ref: ./filter/unsubscribe.yaml#/paths/~1eth~1unsubscribe
+    $ref: ./filter/unsubscribe.yaml#/paths/~1eth~1filter~1unsubscribe
 
   # eth/miscellaneous:
   /eth/miscellaneous/submitWork:
-    $ref: ./miscellaneous/submitWork.yaml#/paths/~1eth~1submitWork
+    $ref: ./miscellaneous/submitWork.yaml#/paths/~1eth~1miscellaneous~1submitWork
   /eth/filter/newBlockFilter:
-    $ref: ./filter/newBlockFilter.yaml#/paths/~1eth~1newBlockFilter
+    $ref: ./filter/newBlockFilter.yaml#/paths/~1eth~1filter~1newBlockFilter
   /eth/filter/newFilter:
-    $ref: ./filter/newFilter.yaml#/paths/~1eth~1newFilter
+    $ref: ./filter/newFilter.yaml#/paths/~1eth~1filter~1newFilter
   /eth/filter/newPendingTransactionFilter:
-    $ref: ./filter/newPendingTransactionFilter.yaml#/paths/~1eth~1newPendingTransactionFilter
+    $ref: ./filter/newPendingTransactionFilter.yaml#/paths/~1eth~1filter~1newPendingTransactionFilter
   /eth/miscellaneous/hashrate:
-    $ref: ./miscellaneous/hashrate.yaml#/paths/~1eth~1hashrate
+    $ref: ./miscellaneous/hashrate.yaml#/paths/~1eth~1miscellaneous~1hashrate
   # /eth/miscellaneous/getHashrate:
   #   $ref: ./miscellaneous/getHashrate.yaml#/paths/~1eth~1getHashrate
   # /eth/miscellaneous/getWork:
   #   $ref: ./miscellaneous/getWork.yaml#/paths/~1eth~1getWork
   /eth/miscellaneous/submitHashrate:
-    $ref: ./miscellaneous/submitHashrate.yaml#/paths/~1eth~1submitHashrate
-  /eth/createAccessList:
-    $ref: ./transaction/createAccessList.yaml#/paths/~1eth~1createAccessList
-  /eth/getRawTransactionByBlockHashAndIndex:
-    $ref: ./transaction/getRawTransactionByBlockHashAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockHashAndIndex
-  /eth/getRawTransactionByBlockNumberAndIndex:
-    $ref: ./transaction/getRawTransactionByBlockNumberAndIndex.yaml#/paths/~1eth~1getRawTransactionByBlockNumberAndIndex
-  /eth/getRawTransactionByHash:
-    $ref: ./transaction/getRawTransactionByHash.yaml#/paths/~1eth~1getRawTransactionByHash
-  /eth/getProof:
-    $ref: ./miscellaneous/getProof.yaml#/paths/~1eth~1getProof
-  /eth/resend:
-    $ref: ./transaction/resend.yaml#/paths/~1eth~1resend
+    $ref: ./miscellaneous/submitHashrate.yaml#/paths/~1eth~1miscellaneous~1submitHashrate
+  /eth/miscellaneous/getProof:
+    $ref: ./miscellaneous/getProof.yaml#/paths/~1eth~1miscellaneous~1getProof
+ 

@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/estimateComputationCost:
+  /klay/transaction/estimateComputationCost:
     post:
       operationId: estimateComputationCost
       summary: "[Transaction] klay_estimateComputationCost"

@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/decodeAccountKey:
+  /klay/account/decodeAccountKey:
     post:
       operationId: decodeAccountKey
       summary: "[Account] klay_decodeAccountKey"

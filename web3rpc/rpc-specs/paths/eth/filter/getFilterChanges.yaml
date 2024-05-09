@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/getFilterChanges:
+  /eth/filter/getFilterChanges:
     post:
       operationId: getFilterChanges
       summary: "[Filter] eth_getFilterChanges"

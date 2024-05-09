@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getTransactionReceipt:
+  /klay/transaction/getTransactionReceipt:
     post:
       operationId: getTransactionReceipt
       summary: "[Transaction] klay_getTransactionReceipt"

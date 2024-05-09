@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/printBlock:
+  /debug/blockchainInspection/printBlock:
     post:
       operationId: printBlock
       summary: "[Inspection] debug_printBlock"

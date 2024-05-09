@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/getBadBlocks:
+  /debug/blockchainInspection/getBadBlocks:
     post:
       operationId: getBadBlocks
       summary: "[Inspection] debug_getBadBlocks"
