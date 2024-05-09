@@ -659,6 +659,8 @@ describe("KlaytnTxFactory", () => {
 
         // Object -> RLP
         const tx = KlaytnTxFactory.fromObject(object);
+        // In some typescript version, the following error “Cannot assign an abstract constructor type to a non-abstract constructor type.” occurs in the line below.
+        // @ts-ignore
         assert.instanceOf(tx, tc.clazz);
         assert.deepEqual(tx.toObject(), canonical);
         assert.equal(tx.sigRLP(), tc.sigRLP);
@@ -667,6 +669,8 @@ describe("KlaytnTxFactory", () => {
 
         // (signed) RLP -> Object
         const tx2 = KlaytnTxFactory.fromRLP(tc.senderTxHashRLP as string) as KlaytnTx;
+        // In some typescript version, the following error “Cannot assign an abstract constructor type to a non-abstract constructor type.” occurs in the line below.
+        // @ts-ignore
         assert.instanceOf(tx2, tc.clazz);
         assert.equal(tx2.senderTxHashRLP(), tx.senderTxHashRLP());
       });
@@ -680,6 +684,8 @@ describe("KlaytnTxFactory", () => {
 
         // Object -> RLP
         const tx = KlaytnTxFactory.fromObject(object);
+        // In some typescript version, the following error “Cannot assign an abstract constructor type to a non-abstract constructor type.” occurs in the line below.
+        // @ts-ignore
         assert.instanceOf(tx, tc.clazz);
         assert.deepEqual(tx.toObject(), canonical);
         assert.equal(tx.sigRLP(), tc.sigRLP);
@@ -691,6 +697,8 @@ describe("KlaytnTxFactory", () => {
 
         // (signed) RLP -> Object
         const tx2 = KlaytnTxFactory.fromRLP(tc.txHashRLP) as KlaytnTx;
+        // In some typescript version, the following error “Cannot assign an abstract constructor type to a non-abstract constructor type.” occurs in the line below.
+        // @ts-ignore
         assert.instanceOf(tx2, tc.clazz);
         assert.equal(tx2.txHashRLP(), tc.txHashRLP);
       });
