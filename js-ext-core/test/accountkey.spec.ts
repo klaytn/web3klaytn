@@ -118,6 +118,7 @@ describe("AccountKeyFactory", () => {
       const object = _.clone(tc.object);
 
       const key = AccountKeyFactory.fromObject(object);
+      // @ts-ignore
       assert.instanceOf(key, tc.clazz);
       assert.deepEqual(key.toObject(), tc.canonical);
       assert.deepEqual(key.toRLP(), tc.rlp);
