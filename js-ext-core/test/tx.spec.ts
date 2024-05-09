@@ -639,6 +639,8 @@ describe("KlaytnTxFactory", () => {
 
         // Object -> RLP
         const tx = KlaytnTxFactory.fromObject(object);
+        // In some typescript version, the following error “Cannot assign an abstract constructor type to a non-abstract constructor type.” occurs in the line below.
+        // @ts-ignore
         assert.instanceOf(tx, tc.clazz);
         assert.deepEqual(tx.toObject(), canonical);
         assert.equal(tx.sigRLP(), tc.sigRLP);
