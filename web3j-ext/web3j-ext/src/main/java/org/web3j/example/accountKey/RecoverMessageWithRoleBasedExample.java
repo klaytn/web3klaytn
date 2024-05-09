@@ -14,7 +14,8 @@ import org.web3j.protocol.klaytn.core.method.response.KlayRecoverFromMessageResp
  */
 public class RecoverMessageWithRoleBasedExample implements keySample {
         /**
-         * 
+
+        * 
          */
 
         public static void run() throws IOException {
