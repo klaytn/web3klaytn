@@ -1,8 +1,7 @@
-/**
- * 
- */
 package org.web3j.example.accountKey;
 
+import org.web3j.tx.response.PollingTransactionReceiptProcessor;
+import org.web3j.tx.response.TransactionReceiptProcessor;
 import org.web3j.example.keySample;
 import java.io.IOException;
 import org.web3j.crypto.KlayCredentials;
@@ -15,12 +14,12 @@ import org.web3j.protocol.klaytn.core.method.response.KlayRecoverFromMessageResp
 /**
  * 
  */
-public class RecoverMessageWithLegacyExample implements keySample {
+public class SignMsgAndRecoverWithLegacyExample implements keySample {
     /**
      * 
      */
 
-    public static void run() throws IOException {
+    public static void run() throws Exception {
         Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
         KlayCredentials credentials1 = KlayCredentials.create(keySample.LEGACY_KEY_privkey);
         String from = credentials1.getAddress();

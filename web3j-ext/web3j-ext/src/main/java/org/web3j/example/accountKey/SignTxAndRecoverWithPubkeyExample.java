@@ -1,5 +1,7 @@
 package org.web3j.example.accountKey;
 
+import org.web3j.tx.response.PollingTransactionReceiptProcessor;
+import org.web3j.tx.response.TransactionReceiptProcessor;
 import org.web3j.example.keySample;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -14,16 +16,17 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
 import org.web3j.protocol.klaytn.core.method.response.KlayRecoverFromTransactionResponse;
 import org.web3j.utils.Numeric;
+import org.web3j.protocol.core.methods.response.EthSendTransaction;
 
 /**
  * 
  */
-public class RecoverTransactionWithPubkeyExample implements keySample {
+public class SignTxAndRecoverWithPubkeyExample implements keySample {
         /**
          * 
          */
 
-        public static void run() throws IOException {
+        public static void run() throws Exception {
                 Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
                 KlayCredentials credentials1 = KlayCredentials.create(keySample.PUBLIC_KEY_privkey,
                                 keySample.PUBLIC_KEY_address);
@@ -50,10 +53,11 @@ public class RecoverTransactionWithPubkeyExample implements keySample {
                                 from);
 
                 byte[] signedMessage = KlayTransactionEncoder.signMessage(raw, chainId, credentials1);
-
                 String hexValue = Numeric.toHexString(signedMessage);
-                String blockNumber = "latest";
+                EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
+                System.out.println("TxHash : \n " + transactionResponse.getResult());
 
+                String blockNumber = "latest";
                 KlayRecoverFromTransactionResponse response = web3j.klayRecoverFromTransaction(hexValue, blockNumber)
                                 .send();
                 System.out.println("Original address : " + from);

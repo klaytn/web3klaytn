@@ -1,5 +1,7 @@
 package org.web3j.example.transactions;
 
+import org.web3j.tx.response.PollingTransactionReceiptProcessor;
+import org.web3j.tx.response.TransactionReceiptProcessor;
 import org.web3j.example.keySample;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -24,7 +26,7 @@ public class FeeDelegatedSmartContractDeployWithRatioExample implements keySampl
         /**
          *   
         */
-        public void run() throws IOException {
+        public void run() throws Exception {
 
                 Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
                 KlayCredentials credentials = KlayCredentials.create(keySample.LEGACY_KEY_privkey);
@@ -68,13 +70,16 @@ public class FeeDelegatedSmartContractDeployWithRatioExample implements keySampl
                 EthSendTransaction transactionResponse = web3j.ethSendRawTransaction(hexValue).send();
                 System.out.println("TxHash : \n " + transactionResponse.getResult());
                 String txHash = transactionResponse.getResult();
-                try {
-                        Thread.sleep(2000);
-                } catch (Exception e) {
-                        System.out.println(e);
-                }
+                int DEFAULT_POLLING_ATTEMPTS_PER_TX_HASH = 40;
+                int DEFAULT_BLOCK_TIME = 1 * 1000;
+                long DEFAULT_POLLING_FREQUENCY = DEFAULT_BLOCK_TIME;
+                TransactionReceiptProcessor transactionReceiptProcessor = new PollingTransactionReceiptProcessor(web3j,
+                                DEFAULT_POLLING_FREQUENCY, DEFAULT_POLLING_ATTEMPTS_PER_TX_HASH);
+                org.web3j.protocol.core.methods.response.TransactionReceipt ethReceipt = transactionReceiptProcessor
+                                .waitForTransactionReceipt(txHash);
+                System.out.println("Receipt from eth_getTransactionReceipt : \n" + ethReceipt);
                 TransactionReceipt receipt = web3j.klayGetTransactionReceipt(txHash).send().getResult();
-                System.out.println("receipt : \n" + receipt);
+                System.out.println("Receipt from klay_getTransactionReceipt : \n" + receipt);
                 web3j.shutdown();
 
                 TxTypeFeeDelegatedSmartContractDeployWithRatio rawTransaction = TxTypeFeeDelegatedSmartContractDeployWithRatio
