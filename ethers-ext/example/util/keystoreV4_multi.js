@@ -65,7 +65,7 @@ const encryptedKey = `{
   ]
 }`;
 const password = "password";
-const address = "0x17226c9B4e130551c258Eb7B1Cdc927c13998cd6";
+// const address = "0x17226c9B4e130551c258Eb7B1Cdc927c13998cd6";
 const keys = [
   "0x278c3d035328daf04ab2597da96dd2d8868fd61a8837030f7d8a85f27b7f1bad",
   "0xa06d13800719307ea7e2503ea441c2ea49279d0d600a2eec2887b50928869676", "0xc32f4007ffad303db99dee0d79a720e1d70c4b2babf8e33cb28170a16bac467d",
@@ -76,7 +76,6 @@ async function main() {
 
   console.log("decrypted address");
   console.log(account[0].klaytnAddr);
-  console.log(address);
 
   var privateKeyList = [];
   for (const i in keys) {
@@ -84,7 +83,6 @@ async function main() {
   }
   console.log("\ndecrypted privateKeyList");
   console.log(privateKeyList);
-  console.log(keys);
 }
 
 main();

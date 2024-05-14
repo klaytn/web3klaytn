@@ -21,19 +21,17 @@ const encryptedKey = `{
   "version":4
 }`;
 const password = "password";
-const address = "0xEc5eAa07b4d3CbAfe7bf437a1Ea9A898209F617c";
-const key = "0x4062512193ef1dab8ccf3e3d7a4862e3c740bdf11d852954ed48bc73643e354f";
+// const address = "0xEc5eAa07b4d3CbAfe7bf437a1Ea9A898209F617c";
+// const key = "0x4062512193ef1dab8ccf3e3d7a4862e3c740bdf11d852954ed48bc73643e354f";
 
 async function main() {
   const account = Wallet.fromEncryptedJsonSync(encryptedKey, password);
 
   console.log("decrypted address");
   console.log(account.address);
-  console.log(address);
 
   console.log("\ndecrypted privateKey");
   console.log(account.privateKey);
-  console.log(key);
 }
 
 main();
