@@ -28,8 +28,14 @@ const key = "0x1b33a48f58d8c85ab142a7375fcf18714d88271f6647cfa6b54f1be66b05a762"
 
 async function main() {
   const account = Wallet.fromEncryptedJsonSync(encryptedKey, password);
-  console.log("decrypted address", account.address.toLowerCase() === address.toLowerCase());
-  console.log("decrypted privateKey", account.privateKey.toLocaleLowerCase() === key.toLocaleLowerCase());
+
+  console.log("decrypted address");
+  console.log(account.address);
+  console.log(address);
+
+  console.log("\ndecrypted privateKey");
+  console.log(account.privateKey);
+  console.log(key);
 }
 
 main();

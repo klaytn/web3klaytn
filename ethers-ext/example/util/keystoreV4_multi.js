@@ -73,13 +73,18 @@ const keys = [
 
 async function main() {
   const account = Wallet.fromEncryptedJsonListSync(encryptedKey, password);
-  console.log("decrypted address", account[0].klaytnAddr.toLowerCase() === address.toLowerCase());
+
+  console.log("decrypted address");
+  console.log(account[0].klaytnAddr);
+  console.log(address);
 
   var privateKeyList = [];
   for (const i in keys) {
     privateKeyList.push(account[i].privateKey);
   }
-  console.log("decrypted privateKeyList", JSON.stringify(privateKeyList) === JSON.stringify(keys));
+  console.log("\ndecrypted privateKeyList");
+  console.log(privateKeyList);
+  console.log(keys);
 }
 
 main();
