@@ -1,5 +1,5 @@
 const {
-  decryptKeystoreListSync
+  Wallet
 } = require("@klaytn/ethers-ext");
 
 // Klaytn V4 with one key. kcn account new --lightkdf
@@ -26,7 +26,7 @@ const address = "0xEc5eAa07b4d3CbAfe7bf437a1Ea9A898209F617c";
 const key = "0x4062512193ef1dab8ccf3e3d7a4862e3c740bdf11d852954ed48bc73643e354f";
 
 async function main() {
-  const account = decryptKeystoreListSync(encryptedKey, password);
+  const account = Wallet.fromEncryptedJsonSync(encryptedKey, password);
   console.log("decrypted address", account.address.toLowerCase() === address.toLowerCase());
   console.log("decrypted privateKey", account.privateKey.toLocaleLowerCase() === key.toLocaleLowerCase());
 }
