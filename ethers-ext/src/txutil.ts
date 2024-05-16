@@ -141,7 +141,9 @@ export function eip155sign(
   chainId: number
 ): KlaytnSignature {
   const sig = key.sign(digest);
-  return { r: sig.r, s: sig.s, v: 2038 };
+  const recoveryParam = sig.v === 27 ? 0 : 1;
+  const v = recoveryParam + +chainId * 2 + 35;
+  return { r: sig.r, s: sig.s, v };
 }
 
 export async function populateChainId(
