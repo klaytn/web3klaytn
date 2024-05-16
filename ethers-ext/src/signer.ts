@@ -1,25 +1,28 @@
 import {
-  Signer as EthersSigner,
+  AbstractSigner as EthersSigner,
+  SigningKey,
+  TransactionLike,
   TypedDataDomain,
   TypedDataField,
-} from "@ethersproject/abstract-signer";
+  TypedDataEncoder,
+} from "ethers";
 import { getAddress } from "@ethersproject/address";
 import { Bytes, hexlify } from "@ethersproject/bytes";
-import { _TypedDataEncoder } from "@ethersproject/hash";
+// import { _TypedDataEncoder } from "@ethersproject/hash";
 import { ProgressCallback } from "@ethersproject/json-wallets";
 import { keccak256 } from "@ethersproject/keccak256";
 import { Logger } from "@ethersproject/logger";
 import { Deferrable } from "@ethersproject/properties";
 import {
-  Web3Provider as EthersWeb3Provider,
+  BrowserProvider as EthersWeb3Provider,
   JsonRpcProvider as EthersJsonRpcProvider,
   JsonRpcSigner as EthersJsonRpcSigner,
   Provider,
   TransactionRequest,
   TransactionResponse,
-} from "@ethersproject/providers";
+} from "ethers";
 import { toUtf8Bytes } from "@ethersproject/strings";
-import { Wallet as EthersWallet } from "@ethersproject/wallet";
+import { Wallet as EthersWallet } from "ethers";
 import _ from "lodash";
 
 import {
@@ -49,30 +52,68 @@ import {
 } from "./txutil";
 import { PrivateKeyLike, ExternalProvider } from "./types";
 
-
 const logger = new Logger("@klaytn/ethers-ext");
+export interface KlaytnSignature {
+  r: string;
 
+  s: string;
+  _vs?: string;
+
+  recoveryParam?: number;
+  v: number;
+
+  yParityAndS?: string;
+  compact?: string;
+}
 export class Wallet extends EthersWallet {
   // Override Wallet factories accepting keystores to support both v3 and v4 (KIP-3) formats
-  static override async fromEncryptedJson(json: string, password: string | Bytes, progress?: ProgressCallback): Promise<Wallet> {
-    const { address, privateKey } = await decryptKeystoreList(json, password, progress);
+  static override async fromEncryptedJson(
+    json: string,
+    password: string | Uint8Array,
+    progress?: ProgressCallback
+  ): Promise<Wallet> {
+    const { address, privateKey } = await decryptKeystoreList(
+      json,
+      password,
+      progress
+    );
     return new Wallet(address, privateKey);
   }
 
-  static override fromEncryptedJsonSync(json: string, password: string | Bytes): Wallet {
+  static override fromEncryptedJsonSync(
+    json: string,
+    password: string | Uint8Array
+  ): Wallet {
     const { address, privateKey } = decryptKeystoreListSync(json, password);
     return new Wallet(address, privateKey);
   }
 
   // New Wallet[] factories accepting keystores supporting v4 (KIP-3) format
-  static async fromEncryptedJsonList(json: string, password: string | Bytes, progress?: ProgressCallback): Promise<Wallet[]> {
-    const { address, privateKeyList } = await decryptKeystoreList(json, password, progress);
-    return _.map(privateKeyList, (privateKey) => new Wallet(address, privateKey));
+  static async fromEncryptedJsonList(
+    json: string,
+    password: string | Uint8Array,
+    progress?: ProgressCallback
+  ): Promise<Wallet[]> {
+    const { address, privateKeyList } = await decryptKeystoreList(
+      json,
+      password,
+      progress
+    );
+    return _.map(
+      privateKeyList,
+      (privateKey) => new Wallet(address, privateKey)
+    );
   }
 
-  static fromEncryptedJsonListSync(json: string, password: string | Bytes): Wallet[] {
+  static fromEncryptedJsonListSync(
+    json: string,
+    password: string | Uint8Array
+  ): Wallet[] {
     const { address, privateKeyList } = decryptKeystoreListSync(json, password);
-    return _.map(privateKeyList, (privateKey) => new Wallet(address, privateKey));
+    return _.map(
+      privateKeyList,
+      (privateKey) => new Wallet(address, privateKey)
+    );
   }
 
   // Decoupled account address. Defined only if specified in constructor.
@@ -81,20 +122,21 @@ export class Wallet extends EthersWallet {
   // new KlaytnWallet(privateKey, provider?) or
   // new KlaytnWallet(address, privateKey, provider?)
   constructor(
-    addressOrPrivateKey: string | PrivateKeyLike,
-    privateKeyOrProvider?: PrivateKeyLike | Provider,
-    provider?: Provider) {
+    addressOrPrivateKey: string | SigningKey,
+    privateKeyOrProvider?: SigningKey | Provider | string,
+    provider?: Provider
+  ) {
     if (HexStr.isHex(addressOrPrivateKey, 20)) {
       // First argument is an address. new KlaytnWallet(address, privateKey, provider?)
       const _address = HexStr.from(addressOrPrivateKey);
-      const _privateKey = privateKeyOrProvider as PrivateKeyLike;
+      const _privateKey = privateKeyOrProvider as SigningKey;
       const _provider = provider;
 
       super(_privateKey, _provider);
       this.klaytnAddr = _address;
     } else {
       // First argument is a private key. new KlaytnWallet(privateKey, provider?)
-      const _privateKey = addressOrPrivateKey as PrivateKeyLike;
+      const _privateKey = addressOrPrivateKey as SigningKey;
       const _provider = privateKeyOrProvider as Provider;
 
       super(_privateKey, _provider);
@@ -130,7 +172,9 @@ export class Wallet extends EthersWallet {
   }
 
   // Fill 'from' if not set. Check 'from' against the private key or decoupled address.
-  override checkTransaction(transaction: Deferrable<TransactionRequest>): Deferrable<TransactionRequest> {
+  checkTransaction(
+    transaction: Deferrable<TransactionRequest>
+  ): Deferrable<TransactionRequest> {
     const tx = _.clone(transaction);
 
     const useLegacyFrom = !isKlaytnTxType(parseTxType(tx.type as number));
@@ -140,19 +184,23 @@ export class Wallet extends EthersWallet {
     return tx;
   }
 
-  async populateTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionRequest> {
+  async populateTransaction(
+    transaction: Deferrable<TransactionRequest>
+  ): Promise<TransactionLike<string>> {
     return this._populateTransaction(transaction, false);
   }
 
   // If asFeePayer is true, skip the 'from' address check.
-  private async _populateTransaction(transaction: Deferrable<TransactionRequest>, asFeePayer: boolean): Promise<TransactionRequest> {
+  private async _populateTransaction(
+    transaction: Deferrable<TransactionRequest>,
+    asFeePayer: boolean
+  ): Promise<TransactionLike<string>> {
     const tx = await getTransactionRequest(transaction);
 
     // Not a Klaytn TxType; fallback to ethers.Signer.populateTransaction()
-    if (!isKlaytnTxType(parseTxType(tx.type))) {
+    if (!isKlaytnTxType(parseTxType(tx.type as any))) {
       return super.populateTransaction(tx);
     }
-
     // If the current Wallet acts as feePayer, then tx.from is unrelated to this.getAddress().
     // Skip the check, and does not fill up here. If tx.from was empty, then an error is generated
     // at signTransaction(), not here.
@@ -170,11 +218,13 @@ export class Wallet extends EthersWallet {
   // Sign as a sender
   // tx.sigs += Sign(tx.sigRLP(), wallet.privateKey)
   // return tx.txHashRLP() or tx.senderTxHashRLP();
-  override async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
+  override async signTransaction(
+    transaction: Deferrable<TransactionRequest>
+  ): Promise<string> {
     const tx = await getTransactionRequest(transaction);
 
     // Not a Klaytn TxType; fallback to ethers.Wallet.signTransaction()
-    if (!isKlaytnTxType(parseTxType(tx.type))) {
+    if (!isKlaytnTxType(parseTxType(tx.type as any))) {
       return super.signTransaction(tx);
     }
 
@@ -184,7 +234,11 @@ export class Wallet extends EthersWallet {
 
     const klaytnTx = KlaytnTxFactory.fromObject(tx);
     const sigHash = keccak256(klaytnTx.sigRLP());
-    const sig = eip155sign(this._signingKey(), sigHash, chainId);
+    const sig = eip155sign(
+      this.signingKey,
+      sigHash,
+      Number(chainId.toString())
+    );
     klaytnTx.addSenderSig(sig);
 
     if (isFeePayerSigTxType(klaytnTx.type)) {
@@ -197,12 +251,16 @@ export class Wallet extends EthersWallet {
   // Sign as a fee payer
   // tx.feepayerSigs += Sign(tx.sigFeePayerRLP(), wallet.privateKey)
   // return tx.txHashRLP();
-  async signTransactionAsFeePayer(transactionOrRLP: Deferrable<TransactionRequest> | string): Promise<string> {
+  async signTransactionAsFeePayer(
+    transactionOrRLP: Deferrable<TransactionRequest> | string
+  ): Promise<string> {
     const tx = await getTransactionRequest(transactionOrRLP);
 
     // Not a Klaytn FeePayerSig TxType; not supported
-    if (!isFeePayerSigTxType(parseTxType(tx.type))) {
-      throw new Error(`signTransactionAsFeePayer not supported for tx type ${tx.type}`);
+    if (!isFeePayerSigTxType(parseTxType(tx.type as any))) {
+      throw new Error(
+        `signTransactionAsFeePayer not supported for tx type ${tx.type}`
+      );
     }
 
     // Because RLP-encoded tx may contain dummy fee payer fields, fix here.
@@ -214,15 +272,18 @@ export class Wallet extends EthersWallet {
     const klaytnTx = KlaytnTxFactory.fromObject(tx);
 
     const sigFeePayerHash = keccak256(klaytnTx.sigFeePayerRLP());
-    const sig = eip155sign(this._signingKey(), sigFeePayerHash, chainId);
+    const sig = eip155sign(this.signingKey, sigFeePayerHash, Number(chainId));
     klaytnTx.addFeePayerSig(sig);
 
     return klaytnTx.txHashRLP();
   }
 
-  override async sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
+  async sendTransaction(
+    transaction: Deferrable<TransactionRequest>
+  ): Promise<TransactionResponse> {
     const tx = await getTransactionRequest(transaction);
-    if (!isKlaytnTxType(parseTxType(tx.type))) {
+
+    if (!isKlaytnTxType(parseTxType(tx.type as any))) {
       return super.sendTransaction(tx);
     }
 
@@ -231,12 +292,16 @@ export class Wallet extends EthersWallet {
     return await this._sendKlaytnRawTransaction(signedTx);
   }
 
-  async sendTransactionAsFeePayer(transactionOrRLP: Deferrable<TransactionRequest> | string): Promise<TransactionResponse> {
+  async sendTransactionAsFeePayer(
+    transactionOrRLP: Deferrable<TransactionRequest> | string
+  ): Promise<TransactionResponse> {
     const tx = await getTransactionRequest(transactionOrRLP);
 
     // Not a Klaytn FeePayerSig TxType; not supported
-    if (!isFeePayerSigTxType(parseTxType(tx.type))) {
-      throw new Error(`sendTransactionAsFeePayer not supported for tx type ${tx.type}`);
+    if (!isFeePayerSigTxType(parseTxType(tx.type as any))) {
+      throw new Error(
+        `sendTransactionAsFeePayer not supported for tx type ${tx.type}`
+      );
     }
 
     const populatedTx = await this._populateTransaction(tx, true);
@@ -244,28 +309,39 @@ export class Wallet extends EthersWallet {
     return await this._sendKlaytnRawTransaction(signedTx);
   }
 
-  async _sendKlaytnRawTransaction(signedTx: string): Promise<TransactionResponse> {
+  async _sendKlaytnRawTransaction(
+    signedTx: string
+  ): Promise<TransactionResponse> {
     if (!(this.provider instanceof EthersJsonRpcProvider)) {
-      throw new Error("Provider is not JsonRpcProvider: cannot send klay_sendRawTransaction");
+      throw new Error(
+        "Provider is not JsonRpcProvider: cannot send klay_sendRawTransaction"
+      );
     } else {
-      const txhash = await this.provider.send("klay_sendRawTransaction", [signedTx]);
+      console.log("klay");
+
+      const txhash = await this.provider.send("klay_sendRawTransaction", [
+        signedTx,
+      ]);
       return await pollTransactionInPool(txhash, this.provider);
     }
   }
 }
 
-
 // EthersJsonRpcSigner cannot be subclassed because of the constructorGuard.
 // Instead, we re-create the class by copying the implementation.
-export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
+export class JsonRpcSigner extends EthersJsonRpcSigner {
+  // implements EthersJsonRpcSigner
   readonly provider: EthersJsonRpcProvider;
   _index: number;
   _address: string;
 
   // Equivalent to EthersJsonRpcSigner.constructor, but without constructorGuard.
   // @ethersproject/providers/src.ts/json-rpc-provider.ts:JsonRpcSigner.constructor
-  constructor(provider: EthersJsonRpcProvider, addressOrIndex?: string | number) {
-    super();
+  constructor(
+    provider: EthersJsonRpcProvider,
+    addressOrIndex?: string | number
+  ) {
+    super(provider, "");
 
     this.provider = provider;
 
@@ -273,10 +349,10 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
       addressOrIndex = 0;
     }
 
-    if (typeof (addressOrIndex) === "string") {
+    if (typeof addressOrIndex === "string") {
       this._address = getAddress(addressOrIndex);
       this._index = null as unknown as number;
-    } else if (typeof (addressOrIndex) === "number") {
+    } else if (typeof addressOrIndex === "number") {
       this._address = null as unknown as string;
       this._index = addressOrIndex;
     } else {
@@ -301,24 +377,35 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
 
     return this.provider.send("eth_accounts", []).then((accounts) => {
       if (accounts.length <= this._index) {
-        logger.throwError("unknown account #" + this._index, Logger.errors.UNSUPPORTED_OPERATION, {
-          operation: "getAddress"
-        });
+        logger.throwError(
+          "unknown account #" + this._index,
+          Logger.errors.UNSUPPORTED_OPERATION,
+          {
+            operation: "getAddress",
+          }
+        );
       }
-      return this.provider.formatter.address(accounts[this._index]);
+      return this.provider._getAddress(accounts[this._index]);
     });
   }
 
   // @ethersproject/providers/src.ts/json-rpc-provider.ts:JsonRpcSigner.connect
   override connect(_provider: Provider): EthersJsonRpcSigner {
-    return logger.throwError("cannot alter JSON-RPC Signer connection", Logger.errors.UNSUPPORTED_OPERATION, {
-      operation: "connect"
-    });
+    return logger.throwError(
+      "cannot alter JSON-RPC Signer connection",
+      Logger.errors.UNSUPPORTED_OPERATION,
+      {
+        operation: "connect",
+      }
+    );
   }
 
   // @ethersproject/providers/src.ts/json-rpc-provider.ts:JsonRpcSigner.connectUnchecked
   connectUnchecked(): EthersJsonRpcSigner {
-    return new UncheckedJsonRpcSigner(this.provider, this._address || this._index);
+    return new UncheckedJsonRpcSigner(
+      this.provider,
+      this._address || this._index
+    );
   }
 
   // If underlying EIP-1193 provider is Kaikas, return the KIP-97 signed message in which
@@ -331,17 +418,23 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
   //
   // @ethersproject/providers/src.ts/json-rpc-provider.ts:JsonRpcSigner.signMessage
   override async signMessage(message: string | Bytes): Promise<string> {
-    const data = ((typeof (message) === "string") ? toUtf8Bytes(message) : message);
+    const data = typeof message === "string" ? toUtf8Bytes(message) : message;
     const address = await this.getAddress();
 
     try {
       if (this.isKaikas()) {
         // KIP-97 states that the prefixed message signature should be accessible
         // through the personal_sign method, but Kaikas provides it as eth_sign.
-        return await this.provider.send("eth_sign", [address.toLowerCase(), hexlify(data)]);
+        return await this.provider.send("eth_sign", [
+          address.toLowerCase(),
+          hexlify(data),
+        ]);
       } else {
         // Otherwise, use the standard personal_sign for ERC-191.
-        return await this.provider.send("personal_sign", [hexlify(data), address.toLowerCase()]);
+        return await this.provider.send("personal_sign", [
+          hexlify(data),
+          address.toLowerCase(),
+        ]);
       }
     } catch (error: any) {
       catchUserRejectedSigning(error, "signMessage", address, message);
@@ -362,17 +455,24 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
   // https://support.metamask.io/hc/en-us/articles/14764161421467-What-is-eth-sign-and-why-is-it-a-risk-
   async _legacySignMessage(message: Bytes | string): Promise<string> {
     if (this.isKaikas()) {
-      logger.throwError("Kaikas does not support the prefix-less legacy sign message", Logger.errors.UNSUPPORTED_OPERATION, {
-        operation: "_legacySignMessage"
-      });
+      logger.throwError(
+        "Kaikas does not support the prefix-less legacy sign message",
+        Logger.errors.UNSUPPORTED_OPERATION,
+        {
+          operation: "_legacySignMessage",
+        }
+      );
     }
 
     // @ethersproject/providers/src.ts/json-rpc-provider.ts:JsonRpcSigner._legacySignMessage
-    const data = ((typeof (message) === "string") ? toUtf8Bytes(message) : message);
+    const data = typeof message === "string" ? toUtf8Bytes(message) : message;
     const address = await this.getAddress();
 
     try {
-      return await this.provider.send("eth_sign", [address.toLowerCase(), hexlify(data)]);
+      return await this.provider.send("eth_sign", [
+        address.toLowerCase(),
+        hexlify(data),
+      ]);
     } catch (error: any) {
       catchUserRejectedSigning(error, "_legacySignMessage", address, message);
       throw error;
@@ -382,44 +482,67 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
   // Return the signature of the structured data according to EIP-712 via the eth_signTypedData_v4 method.
   // https://eips.ethereum.org/EIPS/eip-712
   // https://docs.metamask.io/wallet/how-to/sign-data/#use-eth_signtypeddata_v4
-  async _signTypedData(domain: TypedDataDomain, types: Record<string, Array<TypedDataField>>, value: Record<string, any>): Promise<string> {
+  async _signTypedData(
+    domain: TypedDataDomain,
+    types: Record<string, Array<TypedDataField>>,
+    value: Record<string, any>
+  ): Promise<string> {
     if (this.isKaikas()) {
-      logger.throwError("Kaikas does not support the EIP-712 typed structured data signing", Logger.errors.UNSUPPORTED_OPERATION, {
-        operation: "_signTypedData"
-      });
+      logger.throwError(
+        "Kaikas does not support the EIP-712 typed structured data signing",
+        Logger.errors.UNSUPPORTED_OPERATION,
+        {
+          operation: "_signTypedData",
+        }
+      );
     }
 
     // @ethersproject/providers/src.ts/json-rpc-provider.ts:JsonRpcSigner._signTypedData
     // Populate any ENS names (in-place)
-    const populated = await _TypedDataEncoder.resolveNames(domain, types, value, (name: string) => {
-      return this.provider.resolveName(name) as Promise<string>;
-    });
+    const populated = await TypedDataEncoder.resolveNames(
+      domain,
+      types,
+      value,
+      (name: string) => {
+        return this.provider.resolveName(name) as Promise<string>;
+      }
+    );
 
     const address = await this.getAddress();
 
     try {
       return await this.provider.send("eth_signTypedData_v4", [
         address.toLowerCase(),
-        JSON.stringify(_TypedDataEncoder.getPayload(populated.domain, types, populated.value))
+        JSON.stringify(
+          TypedDataEncoder.getPayload(populated.domain, types, populated.value)
+        ),
       ]);
     } catch (error: any) {
-      catchUserRejectedSigning(error, "_signTypedData", address, { domain: populated.domain, types, value: populated.value });
+      catchUserRejectedSigning(error, "_signTypedData", address, {
+        domain: populated.domain,
+        types,
+        value: populated.value,
+      });
       throw error;
     }
   }
 
-  override checkTransaction(transaction: Deferrable<TransactionRequest>): Deferrable<TransactionRequest> {
+  checkTransaction(
+    transaction: Deferrable<TransactionRequest>
+  ): Deferrable<TransactionRequest> {
     const tx = _.clone(transaction);
     const expectedFrom = this.getAddress();
     populateFromSync(tx, expectedFrom);
     return tx;
   }
 
-  override async populateTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionRequest> {
+  override async populateTransaction(
+    transaction: Deferrable<TransactionRequest>
+  ): Promise<TransactionLike<string>> {
     const tx = await getTransactionRequest(transaction);
 
     // Not a Klaytn TxType; fallback to ethers.Signer.populateTransaction()
-    if (!isKlaytnTxType(parseTxType(tx.type))) {
+    if (!isKlaytnTxType(parseTxType(tx.type as any))) {
       return super.populateTransaction(tx);
     }
 
@@ -433,11 +556,17 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
   }
 
   // Return the signed transaction as a string but do not send it.
-  override async signTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
+  override async signTransaction(
+    transaction: Deferrable<TransactionRequest>
+  ): Promise<string> {
     if (!this.isKaikas()) {
-      return logger.throwError("signing transactions is only supported in Kaikas", Logger.errors.UNSUPPORTED_OPERATION, {
-        operation: "signTransaction"
-      });
+      return logger.throwError(
+        "signing transactions is only supported in Kaikas",
+        Logger.errors.UNSUPPORTED_OPERATION,
+        {
+          operation: "signTransaction",
+        }
+      );
     }
 
     const tx = await getTransactionRequest(transaction);
@@ -452,7 +581,9 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
 
     try {
       // Kaikas returns the web3-style signed transaction object.
-      const signedTx = await this.provider.send("klay_signTransaction", [rpcTx]);
+      const signedTx = await this.provider.send("klay_signTransaction", [
+        rpcTx,
+      ]);
       return Promise.resolve(signedTx.rawTransaction);
     } catch (error: any) {
       catchUserRejectedTransaction(error, "signTransaction", transaction);
@@ -460,12 +591,16 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
     }
   }
 
-  override async sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
+  override async sendTransaction(
+    transaction: Deferrable<TransactionRequest>
+  ): Promise<TransactionResponse> {
     const txhash = await this.sendUncheckedTransaction(transaction);
     return pollTransactionInPool(txhash, this.provider);
   }
 
-  async sendUncheckedTransaction(transaction: Deferrable<TransactionRequest>): Promise<string> {
+  async sendUncheckedTransaction(
+    transaction: Deferrable<TransactionRequest>
+  ): Promise<string> {
     const tx = await getTransactionRequest(transaction);
     await populateFrom(tx, await this.getAddress());
     await populateGasLimit(tx, this.provider);
@@ -490,14 +625,20 @@ export class JsonRpcSigner extends EthersSigner implements EthersJsonRpcSigner {
 
   async unlock(password: string): Promise<boolean> {
     const address = await this.getAddress();
-    return this.provider.send("personal_unlockAccount", [address.toLowerCase(), password, null]);
+    return this.provider.send("personal_unlockAccount", [
+      address.toLowerCase(),
+      password,
+      null,
+    ]);
   }
 }
 
 // Variant of JsonRpcSigner where it does not wait for the transaction to be in the txpool.
 // @ethersproject/providers/src.ts/json-rpc-provider.ts:UncheckedJsonRpcSigner
 class UncheckedJsonRpcSigner extends JsonRpcSigner {
-  override async sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse> {
+  override async sendTransaction(
+    transaction: Deferrable<TransactionRequest>
+  ): Promise<TransactionResponse> {
     const txhash = await this.sendUncheckedTransaction(transaction);
     return Promise.resolve({
       hash: txhash,
@@ -509,13 +650,23 @@ class UncheckedJsonRpcSigner extends JsonRpcSigner {
       chainId: null,
       confirmations: 0,
       from: null,
-      wait: (confirmations?: number) => { return this.provider.waitForTransaction(txhash, confirmations); }
+      wait: (confirmations?: number) => {
+        return this.provider.waitForTransaction(txhash, confirmations);
+      },
     } as unknown as TransactionResponse); // forcefully cast to TransactionResponse
   }
 }
 
-function catchUserRejectedSigning(error: any, action: string, from: string, messageData: any) {
-  if (typeof(error.message) === "string" && error.message.match(/user denied/i)) {
+function catchUserRejectedSigning(
+  error: any,
+  action: string,
+  from: string,
+  messageData: any
+) {
+  if (
+    typeof error.message === "string" &&
+    error.message.match(/user denied/i)
+  ) {
     logger.throwError("user rejected signing", Logger.errors.ACTION_REJECTED, {
       action,
       from,
@@ -524,11 +675,22 @@ function catchUserRejectedSigning(error: any, action: string, from: string, mess
   }
 }
 
-function catchUserRejectedTransaction(error: any, action: string, transaction: any) {
-  if (typeof (error.message) === "string" && error.message.match(/user denied/i)) {
-    logger.throwError("user rejected transaction", Logger.errors.ACTION_REJECTED, {
-      action,
-      transaction,
-    });
+function catchUserRejectedTransaction(
+  error: any,
+  action: string,
+  transaction: any
+) {
+  if (
+    typeof error.message === "string" &&
+    error.message.match(/user denied/i)
+  ) {
+    logger.throwError(
+      "user rejected transaction",
+      Logger.errors.ACTION_REJECTED,
+      {
+        action,
+        transaction,
+      }
+    );
   }
 }

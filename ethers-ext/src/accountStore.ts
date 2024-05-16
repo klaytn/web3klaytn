@@ -1,6 +1,6 @@
 import { getAddress } from "@ethersproject/address";
 import { BigNumber } from "@ethersproject/bignumber";
-import { JsonRpcProvider } from "@ethersproject/providers";
+import { JsonRpcProvider } from "ethers";
 import { SigningKey, computePublicKey } from "@ethersproject/signing-key";
 import { computeAddress } from "@ethersproject/transactions";
 
@@ -17,7 +17,7 @@ function isSamePrivateKey(a: string, b: string) {
 
 // Accounts is array of Wallet in ethers.js Ext
 export class Accounts {
-  public wallets : Wallet[];
+  public wallets: Wallet[];
 
   constructor(provider: JsonRpcProvider, list: [[string, string?]] | Wallet[]) {
     this.wallets = [];
@@ -36,15 +36,22 @@ export class Accounts {
           // @ts-ignore
           this.add([list[i][0], list[i][1]], provider);
         } else {
-          throw new Error("Input has to be the array of [address, privateKey] or [privateKey]");
+          throw new Error(
+            "Input has to be the array of [address, privateKey] or [privateKey]"
+          );
         }
       } else {
-        throw new Error("Input has to be Wallet, [address, privateKey], or [privateKey]");
+        throw new Error(
+          "Input has to be Wallet, [address, privateKey], or [privateKey]"
+        );
       }
     }
   }
 
-  async add(account: [string, string?], provider: JsonRpcProvider) : Promise<boolean> {
+  async add(
+    account: [string, string?],
+    provider: JsonRpcProvider
+  ): Promise<boolean> {
     let addr: string;
     let priv: string;
 
@@ -60,8 +67,10 @@ export class Accounts {
     }
 
     for (let i = 0; i < this.wallets.length; i++) {
-      if (isSameAddress(await this.wallets[i].getAddress(), addr) &&
-        isSamePrivateKey(this.wallets[i].privateKey, priv)) {
+      if (
+        isSameAddress(await this.wallets[i].getAddress(), addr) &&
+        isSamePrivateKey(this.wallets[i].privateKey, priv)
+      ) {
         return false;
       }
     }
@@ -70,7 +79,7 @@ export class Accounts {
     return true;
   }
 
-  async remove(account: [string, string?]) : Promise<boolean> {
+  async remove(account: [string, string?]): Promise<boolean> {
     let addr: string;
     let priv: string;
 
@@ -86,9 +95,11 @@ export class Accounts {
     }
 
     for (let i = 0; i < this.wallets.length; i++) {
-      if (isSameAddress(await this.wallets[i].getAddress(), addr) &&
+      if (
+        isSameAddress(await this.wallets[i].getAddress(), addr) &&
         // @ts-ignore
-        isSamePrivateKey(await this.wallets[i].privateKey, priv)) {
+        isSamePrivateKey(await this.wallets[i].privateKey, priv)
+      ) {
         delete this.wallets[i];
         this.wallets.splice(i, 1);
         return true;
@@ -102,7 +113,11 @@ export class Accounts {
       return;
     }
 
-    for (let i = this.wallets.length - 1; i >= 0 && i < this.wallets.length; i--) {
+    for (
+      let i = this.wallets.length - 1;
+      i >= 0 && i < this.wallets.length;
+      i--
+    ) {
       delete this.wallets[i];
       this.wallets.splice(i, 1);
     }
@@ -133,19 +148,22 @@ export class Accounts {
 
 // AccountInfo is filled with the result of getAccountKey() RPC call
 type AccountInfo = {
-  address: string,
-  nonce: number,
-  balance: string | BigNumber,
-  key: any
-} ;
+  address: string;
+  nonce: number;
+  balance: string | BigNumber;
+  key: any;
+};
 
 export class AccountStore {
-  private provider : JsonRpcProvider | undefined;
-  public accounts : Accounts | undefined;
+  private provider: JsonRpcProvider | undefined;
+  public accounts: Accounts | undefined;
   public accountInfos: AccountInfo[] | undefined;
   private signableKeyList: string[] = [];
 
-  async refresh(provider: JsonRpcProvider, list: [[string, string?]] | Wallet[]) {
+  async refresh(
+    provider: JsonRpcProvider,
+    list: [[string, string?]] | Wallet[]
+  ) {
     this.provider = provider;
 
     if (this.accounts != undefined) {
@@ -163,34 +181,40 @@ export class AccountStore {
 
     for (let i = 0; i < wallets.length; i++) {
       if (this.provider instanceof JsonRpcProvider) {
-        const addr:string = await wallets[i].getAddress();
+        const addr: string = await wallets[i].getAddress();
         if (this.hasAccountInfos(addr)) {
           continue;
         }
 
-        const klaytn_account = await this.provider.send("klay_getAccount", [addr, "latest"]);
+        const klaytn_account = await this.provider.send("klay_getAccount", [
+          addr,
+          "latest",
+        ]);
         const klaytn_accountKey = klaytn_account.account.key;
 
         accInfo = {
           address: addr,
           nonce: klaytn_account.account.nonce,
           balance: klaytn_account.account.balance,
-          key: {}
+          key: {},
         };
 
         if (klaytn_accountKey.keyType == 1) {
           // AccountKeyLegacy
           accInfo.key = {
             type: 1,
-            key: {}
+            key: {},
           };
         } else if (klaytn_accountKey.keyType == 2) {
           // AccountKeyPublic
           accInfo.key = {
             type: 2,
             key: {
-              pubkey: this.getPubkeyInfo(klaytn_accountKey.key.x, klaytn_accountKey.key.y)
-            }
+              pubkey: this.getPubkeyInfo(
+                klaytn_accountKey.key.x,
+                klaytn_accountKey.key.y
+              ),
+            },
           };
         } else if (klaytn_accountKey.keyType == 4) {
           // AccountKeyWeightedMultiSig
@@ -198,15 +222,18 @@ export class AccountStore {
             type: 4,
             key: {
               threshold: klaytn_accountKey.key.threshold,
-              keys: []
-            }
+              keys: [],
+            },
           };
 
           for (let i = 0; i < klaytn_accountKey.key.keys.length; i++) {
             // @ts-ignore
             accInfo.key.key.keys.push({
               weight: klaytn_accountKey.key.keys[i].weight,
-              pubkey: this.getPubkeyInfo(klaytn_accountKey.key.keys[i].key.x, klaytn_accountKey.key.keys[i].key.y)
+              pubkey: this.getPubkeyInfo(
+                klaytn_accountKey.key.keys[i].key.x,
+                klaytn_accountKey.key.keys[i].key.y
+              ),
             });
           }
         } else if (klaytn_accountKey.keyType == 5) {
@@ -216,8 +243,8 @@ export class AccountStore {
             key: {
               RoleTransaction: {},
               RoleAccountUpdate: {},
-              RoleFeePayer: {}
-            }
+              RoleFeePayer: {},
+            },
           };
 
           const roleKeys = [];
@@ -226,15 +253,18 @@ export class AccountStore {
               // AccountKeyLegacy in the role-based key
               roleKeys.push({
                 type: 1,
-                key: {}
+                key: {},
               });
             } else if (klaytn_accountKey.key[i].keyType == 2) {
               // AccountKeyPublic in the role-based key
               roleKeys.push({
                 type: 2,
                 key: {
-                  pubkey: this.getPubkeyInfo(klaytn_accountKey.key[i].key.x, klaytn_accountKey.key[i].key.y)
-                }
+                  pubkey: this.getPubkeyInfo(
+                    klaytn_accountKey.key[i].key.x,
+                    klaytn_accountKey.key[i].key.y
+                  ),
+                },
               });
             } else if (klaytn_accountKey.key[i].keyType == 4) {
               // AccountKeyWeightedMultiSig in the role-based key
@@ -242,16 +272,23 @@ export class AccountStore {
                 type: 4,
                 key: {
                   threshold: klaytn_accountKey.key[i].key.threshold,
-                  keys: []
-                }
+                  keys: [],
+                },
               };
 
               // add mult-keys
-              for (let j = 0; j < klaytn_accountKey.key[i].key.keys.length; j++) {
+              for (
+                let j = 0;
+                j < klaytn_accountKey.key[i].key.keys.length;
+                j++
+              ) {
                 // @ts-ignore
                 multiKeys.key.keys.push({
                   weight: klaytn_accountKey.key[i].key.keys[j].weight,
-                  pubkey: this.getPubkeyInfo(klaytn_accountKey.key[i].key.keys[j].key.x, klaytn_accountKey.key[i].key.keys[j].key.y)
+                  pubkey: this.getPubkeyInfo(
+                    klaytn_accountKey.key[i].key.keys[j].key.x,
+                    klaytn_accountKey.key[i].key.keys[j].key.y
+                  ),
                 });
               }
               roleKeys.push(multiKeys);
@@ -262,20 +299,26 @@ export class AccountStore {
           accInfo.key.key = {
             RoleTransaction: roleKeys[0],
             RoleAccountUpdate: roleKeys[1],
-            RoleFeePayer: roleKeys[2]
+            RoleFeePayer: roleKeys[2],
           };
         }
 
         this.accountInfos.push(accInfo);
       } else {
-        throw new Error("Klaytn typed transaction can only be broadcasted to a Klaytn JSON-RPC server");
+        throw new Error(
+          "Klaytn typed transaction can only be broadcasted to a Klaytn JSON-RPC server"
+        );
       }
     }
   }
 
   async updateSignableKeyList() {
-    let i:number;
-    for (i = 0; this.accounts != undefined && i < this.accounts.wallets.length; i++) {
+    let i: number;
+    for (
+      i = 0;
+      this.accounts != undefined && i < this.accounts.wallets.length;
+      i++
+    ) {
       let hashedKey = await this.accounts.wallets[i].getEtherAddress();
       hashedKey = String(hashedKey).toLocaleLowerCase();
       if (this.hasInSignableKeyList(hashedKey) == false) {
@@ -284,14 +327,18 @@ export class AccountStore {
     }
   }
 
-  hasInSignableKeyList(address: string) :boolean {
+  hasInSignableKeyList(address: string): boolean {
     const hashedKey = String(address).toLocaleLowerCase();
-    return (this.signableKeyList.indexOf(hashedKey) != -1);
+    return this.signableKeyList.indexOf(hashedKey) != -1;
   }
 
-  hasAccountInfos(address: string) :boolean {
-    let i:number;
-    for (i = 0; this.accountInfos != undefined && i < this.accountInfos.length; i++) {
+  hasAccountInfos(address: string): boolean {
+    let i: number;
+    for (
+      i = 0;
+      this.accountInfos != undefined && i < this.accountInfos.length;
+      i++
+    ) {
       if (isSameAddress(this.accountInfos[i].address, address)) {
         return true;
       }
@@ -299,9 +346,13 @@ export class AccountStore {
     return false;
   }
 
-  getType(address:string) : number | null {
-    let i:number;
-    for (i = 0; this.accountInfos != undefined && i < this.accountInfos.length; i++) {
+  getType(address: string): number | null {
+    let i: number;
+    for (
+      i = 0;
+      this.accountInfos != undefined && i < this.accountInfos.length;
+      i++
+    ) {
       if (isSameAddress(this.accountInfos[i].address, address)) {
         return this.accountInfos[i].key.type;
       }
@@ -309,9 +360,13 @@ export class AccountStore {
     return null;
   }
 
-  getAccountInfo(address: string) : AccountInfo | null {
-    let i:number;
-    for (i = 0; this.accountInfos != undefined && i < this.accountInfos.length; i++) {
+  getAccountInfo(address: string): AccountInfo | null {
+    let i: number;
+    for (
+      i = 0;
+      this.accountInfos != undefined && i < this.accountInfos.length;
+      i++
+    ) {
       if (isSameAddress(this.accountInfos[i].address, address)) {
         return this.accountInfos[i];
       }
@@ -319,25 +374,28 @@ export class AccountStore {
     return null;
   }
 
-  getAccountInfos() : AccountInfo[] | undefined {
+  getAccountInfos(): AccountInfo[] | undefined {
     return this.accountInfos;
   }
 
-  getPubkeyInfo(x:string, y:string): any {
+  getPubkeyInfo(x: string, y: string): any {
     const zeroPadX = HexStr.zeroPad(x, 32);
     const zeroPadY = HexStr.zeroPad(y, 32);
 
     const stripedX = String(zeroPadX).substring(2);
     const stripedY = String(zeroPadY).substring(2);
 
-    const compressedKey = computePublicKey(HexStr.concat("0x04" + stripedX + stripedY), true);
+    const compressedKey = computePublicKey(
+      HexStr.concat("0x04" + stripedX + stripedY),
+      true
+    );
     const hashedKey = computeAddress(compressedKey);
     const hasPrivateKey = this.hasInSignableKeyList(hashedKey);
 
     return {
       compressed: compressedKey,
       hashed: hashedKey,
-      hasPrivateKey: hasPrivateKey
+      hasPrivateKey: hasPrivateKey,
     };
   }
 }
