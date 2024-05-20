@@ -11,7 +11,10 @@ import { SigningKey } from "ethers";
 import { poll } from "@ethersproject/web";
 import _ from "lodash";
 
-import { getChainIdFromSignatureTuples } from "@klaytn/js-ext-core";
+import {
+  getChainIdFromSignatureTuples,
+  parseTransaction,
+} from "@klaytn/js-ext-core";
 
 import { TransactionRequest } from "./types";
 import { KlaytnSignature } from "./signer";
@@ -23,7 +26,7 @@ export async function getTransactionRequest(
   transactionOrRLP: Deferrable<TransactionRequest> | string
 ): Promise<TransactionLike<string>> {
   if (_.isString(transactionOrRLP)) {
-    return Transaction.from(transactionOrRLP);
+    return parseTransaction(transactionOrRLP) as any; // using js-ether-ext with old ethers v5
   } else {
     return resolveProperties(transactionOrRLP) as TransactionLike<string>;
   }
