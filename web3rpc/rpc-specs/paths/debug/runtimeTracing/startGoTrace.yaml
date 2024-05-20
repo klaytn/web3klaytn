@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/startGoTrace:
+  /debug/runtimeTracing/startGoTrace:
     post:
       summary: "[RuntimeTrace] debug_startGoTrace"
       tags:

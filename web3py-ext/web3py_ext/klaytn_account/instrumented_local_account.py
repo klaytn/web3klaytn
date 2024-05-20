@@ -1,19 +1,13 @@
 from typing import Dict, Mapping, NamedTuple, Tuple
 import warnings
 import json
-from eth_account.signers.base import (
-    BaseAccount,
-)
-
 from eth_account.account import (
     Account,
     LocalAccount,
 )
-
 from eth_keyfile import (
     decode_keyfile_json,
 )
-
 from eth_account._utils.signing import (
     serializable_unsigned_transaction_from_dict,
     sign_transaction_hash,
@@ -45,7 +39,6 @@ from cytoolz import (
     dissoc,
     identity,
     merge,
-    partial,
     pipe,
 )
 from eth_utils.curried import (
@@ -68,25 +61,11 @@ from web3py_ext.transaction.extended_transaction_utils import (
 )
 from eth_account._utils.validation import is_none
 from web3py_ext.transaction.transaction import (
-    TX_TYPE_FEE_DELEGATED_VALUE_TRANSFER,
-    TX_TYPE_FEE_DELEGATED_VALUE_TRANSFER_WITH_RATIO,
-    TX_TYPE_FEE_DELEGATED_VALUE_TRANSFER_MEMO,
-    TX_TYPE_FEE_DELEGATED_VALUE_TRANSFER_MEMO_WITH_RATIO,
-    TX_TYPE_FEE_DELEGATED_ACCOUNT_UPDATE,
-    TX_TYPE_FEE_DELEGATED_ACCOUNT_UPDATE_WITH_RATIO,
-    TX_TYPE_FEE_DELEGATED_SMART_CONTRACT_DEPLOY,
-    TX_TYPE_FEE_DELEGATED_SMART_CONTRACT_DEPLOY_WITH_RATIO,
-    TX_TYPE_FEE_DELEGATED_SMART_CONTRACT_EXECUTION,
-    TX_TYPE_FEE_DELEGATED_SMART_CONTRACT_EXECUTION_WITH_RATIO,
-    TX_TYPE_FEE_DELEGATED_CANCEL,
-    TX_TYPE_FEE_DELEGATED_CANCEL_WITH_RATIO,
-    TX_TYPE_FEE_DELEGATED_CHAIN_DATA_ANCHORING,
-    TX_TYPE_FEE_DELEGATED_CHAIN_DATA_ANCHORING_WITH_RATIO,
+    TxType,
     TX_TYPE_HEX_TO_STRING,
 )
 
 # It can has the decoupled keypair to support klaytn abstract account
-# class AbstractLocalAccount(BaseAccount):
 class AbstractLocalAccount(LocalAccount):
     r"""
     A collection of convenience methods to sign and encrypt, with an
@@ -265,20 +244,20 @@ def klaytn_sign_transaction_dict(eth_key, transaction_dict):
     return v, r, s, encoded_transaction, transaction_hash, transaction_hash
 
 fee_delegated_types = (
-    TX_TYPE_FEE_DELEGATED_VALUE_TRANSFER,
-    TX_TYPE_FEE_DELEGATED_VALUE_TRANSFER_WITH_RATIO,
-    TX_TYPE_FEE_DELEGATED_VALUE_TRANSFER_MEMO,
-    TX_TYPE_FEE_DELEGATED_VALUE_TRANSFER_MEMO_WITH_RATIO,
-    TX_TYPE_FEE_DELEGATED_ACCOUNT_UPDATE,
-    TX_TYPE_FEE_DELEGATED_ACCOUNT_UPDATE_WITH_RATIO,
-    TX_TYPE_FEE_DELEGATED_SMART_CONTRACT_DEPLOY,
-    TX_TYPE_FEE_DELEGATED_SMART_CONTRACT_DEPLOY_WITH_RATIO,
-    TX_TYPE_FEE_DELEGATED_SMART_CONTRACT_EXECUTION,
-    TX_TYPE_FEE_DELEGATED_SMART_CONTRACT_EXECUTION_WITH_RATIO,
-    TX_TYPE_FEE_DELEGATED_CANCEL,
-    TX_TYPE_FEE_DELEGATED_CANCEL_WITH_RATIO,
-    TX_TYPE_FEE_DELEGATED_CHAIN_DATA_ANCHORING,
-    TX_TYPE_FEE_DELEGATED_CHAIN_DATA_ANCHORING_WITH_RATIO,
+    TxType.FEE_DELEGATED_VALUE_TRANSFER,
+    TxType.FEE_DELEGATED_VALUE_TRANSFER_WITH_RATIO,
+    TxType.FEE_DELEGATED_VALUE_TRANSFER_MEMO,
+    TxType.FEE_DELEGATED_VALUE_TRANSFER_MEMO_WITH_RATIO,
+    TxType.FEE_DELEGATED_ACCOUNT_UPDATE,
+    TxType.FEE_DELEGATED_ACCOUNT_UPDATE_WITH_RATIO,
+    TxType.FEE_DELEGATED_SMART_CONTRACT_DEPLOY,
+    TxType.FEE_DELEGATED_SMART_CONTRACT_DEPLOY_WITH_RATIO,
+    TxType.FEE_DELEGATED_SMART_CONTRACT_EXECUTION,
+    TxType.FEE_DELEGATED_SMART_CONTRACT_EXECUTION_WITH_RATIO,
+    TxType.FEE_DELEGATED_CANCEL,
+    TxType.FEE_DELEGATED_CANCEL_WITH_RATIO,
+    TxType.FEE_DELEGATED_CHAIN_DATA_ANCHORING,
+    TxType.FEE_DELEGATED_CHAIN_DATA_ANCHORING_WITH_RATIO,
 )
 
 def klaytn_extended_sign_transaction_as_feepayer(self, transaction, feePayer, private_key):

@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getAccountKey:
+  /klay/account/getAccountKey:
     post:
       operationId: getAccountKey
       summary: "[Account] klay_getAccountKey"

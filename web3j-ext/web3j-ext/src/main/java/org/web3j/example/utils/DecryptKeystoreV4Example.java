@@ -9,6 +9,8 @@ import org.web3j.crypto.KlayWalletUtils;
 import org.web3j.crypto.KlayCredentials;
 import java.io.IOException;
 import java.util.List;
+import org.web3j.tx.response.PollingTransactionReceiptProcessor;
+import org.web3j.tx.response.TransactionReceiptProcessor;
 import org.web3j.example.keySample;
 
 public class DecryptKeystoreV4Example implements keySample {

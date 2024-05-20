@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/preimage:
+  /debug/blockchainInspection/preimage:
     post:
       summary: "[Inspection] debug_preimage"
       tags:
@@ -18,6 +18,10 @@ paths:
       operationId: preimage
       description: |
         Returns the preimage for a sha3 hash, if known.
+
+        :::note
+        State-migrated databases may not contain preimages.
+        :::
 
         **JSONRPC:** `debug_preimage`
 

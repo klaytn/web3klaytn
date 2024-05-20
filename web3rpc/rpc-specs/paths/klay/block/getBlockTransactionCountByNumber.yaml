@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/getBlockTransactionCountByNumber:
+  /klay/block/getBlockTransactionCountByNumber:
     post:
       operationId: getBlockTransactionCountByNumber
       summary: "[Block] klay_getBlockTransactionCountByNumber"

@@ -7,7 +7,7 @@ from eth_utils.address import to_checksum_address
 from web3py_ext.transaction.transaction import (
     empty_tx,
     fill_transaction,
-    TX_TYPE_VALUE_TRANSFER_MEMO
+    TxType
 )
 from web3py_ext.utils.klaytn_utils import to_pretty
 from cytoolz import merge
@@ -25,7 +25,7 @@ plaintext = b'KlaytnDevMeetup'
 
 encrypted = encrypt(pubKeyHex, plaintext)
 
-tx = empty_tx(TX_TYPE_VALUE_TRANSFER_MEMO)
+tx = empty_tx(TxType.VALUE_TRANSFER_MEMO)
 tx = merge(tx, {
     'from' : user.address,
     'to' : user.address,

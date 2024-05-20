@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /eth/getWork:
+  /eth/miscellaneous/getWork:
     post:
       summary: "[Miscellaneous] eth_getWork"
       tags:

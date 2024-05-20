@@ -2,6 +2,8 @@ package org.web3j.example.contracts;
 
 import java.math.BigInteger;
 import org.web3j.crypto.KlayCredentials;
+import org.web3j.tx.response.PollingTransactionReceiptProcessor;
+import org.web3j.tx.response.TransactionReceiptProcessor;
 import org.web3j.example.keySample;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;

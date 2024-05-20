@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /klay/isSenderTxHashIndexingEnabled:
+  /klay/configuration/isSenderTxHashIndexingEnabled:
     post:
       operationId: isSenderTxHashIndexingEnabled
       summary: "[Configuration] klay_isSenderTxHashIndexingEnabled"

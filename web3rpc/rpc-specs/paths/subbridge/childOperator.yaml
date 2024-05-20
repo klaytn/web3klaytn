@@ -1,0 +1,79 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /subbridge/childOperator:
+    post:
+      summary: "subbridge_childOperator"
+      tags:
+        - subbridge
+      operationId: childOperator
+      description: |
+        Returns true if adding a mainbridge peer is done successfully.
+        
+        The childOperator method adds a new remote node to the peer list. The node will try to maintain connectivity to these nodes at all times, reconnecting every once in a while if the remote connection goes down.
+        
+        The method accepts a single argument, the kni URL of the remote peer to start tracking and returns a BOOL indicating whether the peer was accepted for tracking or some error occurred.
+
+        **JSONRPC:** `subbridge_childOperator`
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/childOperatorReq"
+
+      responses:
+        200:
+          description: true if the peer was accepted, false otherwise.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/childOperatorResp"
+
+      x-codeSamples:
+        # - lang: "curl"
+        #   label: "Curl"
+        #   source:
+        #     $ref: "../../code-samples/curl/subbridge/childOperator.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: ""
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../../code-samples/javascript/eth/miscellaneous/txPending.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../../code-samples/python/eth/miscellaneous/txPending.py"
+
+components:
+  schemas:
+    childOperatorReq:
+      type: object
+      required:
+        - method
+      properties:
+        method:
+          type: string
+          default: 'subbridge_childOperator'
+    childOperatorResp:
+      type: object
+      properties:
+        result:
+          type: string
+          description: Child chain operator account address.
+          example: "0x5C1C757a6Cb6c6FcEFE398674D8209FDA2A74Df4"

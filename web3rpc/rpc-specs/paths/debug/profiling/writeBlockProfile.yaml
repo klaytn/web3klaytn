@@ -10,7 +10,7 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/writeBlockProfile:
+  /debug/profiling/writeBlockProfile:
     post:
       summary: "[Profiling] debug_writeBlockProfile"
       tags:

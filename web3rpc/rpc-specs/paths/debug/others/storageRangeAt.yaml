@@ -10,12 +10,16 @@ servers:
   - url: http://localhost:7151
 
 paths:
-  /debug/storageRangeAt:
+  /debug/others/storageRangeAt:
     post:
       operationId: storageRangeAt
       summary: "[Inspection] debug_storageRangeAt"
       description: |
-        StorageRangeAt returns the storage at the given block height and transaction index.
+        StorageRangeAt returns the storage of a contract account at the given block height and transaction index.
+
+        :::note
+        The 'key' field of the results is 'null' when the preimage is not available in the database. State-migrated databases may not contain preimages.
+        :::
 
         **JSONRPC:** `debug_storageRangeAt`
       tags:
@@ -80,34 +84,21 @@ paths:
                             type: object
                         example:
                           {
-                            "id":"377ef808aff73a397d133b3bf160df586054c98c0e6a65c8fce9560e6a0632bc975419f461803d27f28ee270287113cc2359225814debc1bfb2f811061e14c5d",
-                            "name":"Klaytn/vvX.X.X/XXXX-XXXX/goX.X.X",
-                            "kni":"kni://377ef808aff73a397d133b3bf160df586054c98c0e6a65c8fce9560e6a0632bc975419f461803d27f28ee270287113cc2359225814debc1bfb2f811061e14c5d@[::]:32323?discport=0",
-                            "ip":"::",
-                            "ports":{
-                              "discovery":0,
-                              "listener":32323
-                            },
-                            "listenAddr":"[::]:32323",
-                            "protocols":{
-                              "istanbul":{
-                                "network":1000,
-                                "difficulty":1,
-                                "genesis":"0x06806bd8b1e086dfb7098a289da07037a3af58e793d205d20f61c88eeea9351d",
-                                "config":{
-                                  "chainId":1000,
-                                  "istanbul":{
-                                    "epoch":30000,
-                                    "policy":0,
-                                    "sub":7
-                                  },
-                                  "isBFT":true,
-                                  "unitPrice":25000000000,
-                                  "deriveShaImpl":0
-                                },
-                                "head":"0x06806bd8b1e086dfb7098a289da07037a3af58e793d205d20f61c88eeea9351d"
+                            "storage": {
+                              "0x12064c130a62c085dd9ba4147b9e43e285b1921382e917b5a98305165129cb3b": {
+                                "key": null,
+                                "value": "0x000000000000000000000000000000000000000000000000000000005d1d6611"
+                              },
+                              "0x12346954c5309ce51729175ca19b6bb93557ad3cc62db86930c4792fae900e1f": {
+                                "key": "0x45a6893cb17fdefbdab6c4445329be181dfbbd45d77ee7d0365c2b0f0dca7f62",
+                                "value": "0x000000000000000000000000368dd4c4d9eaadba63d03d46d763524ccf6ee4ed"
+                              },
+                              "0x1258923c5f06b2271566794565770dc787ab3c85131dbb47439174be4e9804fb": {
+                                "key": "0xc65a7bb8d6351c1cf70c95a316cc6a92839c986682d98bc35f958f4883f9d2d2",
+                                "value": "0x000000000000000000000000d5b717457df52a59856394e9310e2cdd62cded6f"
                               }
-                            }
+                            },
+                            "nextKey": "0x127da8558d24c1f64ea135cfd82539481d0b47fb00337215358718d6006d9ba4"
                           }
 
       x-codeSamples:
@@ -157,4 +148,4 @@ components:
               MaxResult:
                 title: MaxResult
                 type: integer
-          example: ["0x90c81195698bc9f282bbdec386b0afb4dcc28e43aae834894281c3ecb3c88d21", 1, "0x73a7d19d14f7dfac5b799e405e22133b2adc57a6", "0x12", 1]
+          example: ["0xfb413e37f9df27a6603663ee347bfc66223ef13a615f849ac35fce38729e07c1", 0, "0x0000000000000000000000000000000000000400", "0x12", 3]

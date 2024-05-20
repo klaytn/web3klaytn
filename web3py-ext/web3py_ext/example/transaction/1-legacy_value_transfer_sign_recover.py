@@ -3,12 +3,9 @@ from web3py_ext import extend
 from web3 import Web3
 from eth_account import Account
 from web3py_ext.transaction.transaction import (
-    empty_tx,
     fill_transaction,
-    TX_TYPE_LEGACY_TRANSACTION
 )
 from web3py_ext.utils.klaytn_utils import to_pretty
-from cytoolz import merge
 
 # w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8551'))
 w3 = Web3(Web3.HTTPProvider('https://public-en-baobab.klaytn.net'))

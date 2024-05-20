@@ -1,20 +1,20 @@
 {
   "name": "@klaytn/ethers-ext",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "description": "ethers.js extension for Klaytn blockchain",
   "keywords": [
-      "ethereum",
-      "ethers",
-      "ethersjs",
-      "klaytn",
-      "klaytn sdk",
-      "klaytn api"
+    "ethereum",
+    "ethers",
+    "ethersjs",
+    "klaytn",
+    "klaytn sdk",
+    "klaytn api"
   ],
   "homepage": "https://github.com/klaytn/web3klaytn/tree/dev/ethers-ext",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/klaytn/web3klaytn"
+    "type": "git",
+    "url": "https://github.com/klaytn/web3klaytn"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -35,24 +35,24 @@
   },
   "devDependencies": {
     "@klaytn/ethers-ext": "file:./",
-    "@types/chai-as-promised": "^7.1.5",
     "@types/chai": "^4.3.7",
+    "@types/chai-as-promised": "^7.1.5",
     "@types/lodash": "^4.14.192",
     "@types/mocha": "^10.0.4",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
-    "chai-as-promised": "^7.1.1",
     "chai": "^4.3.7",
-    "eslint-plugin-import": "^2.27.5",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^8.45.0",
-    "ethers": "^5.7.0",
+    "eslint-plugin-import": "^2.27.5",
+    "ethers": "^5.7.2",
     "mocha": "^10.2.0",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.1",
     "typedoc": "^0.25.4",
     "typescript": "^5.0.4",
+    "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
-    "webpack-visualizer-plugin2": "^1.1.0",
-    "webpack": "^5.89.0"
+    "webpack-visualizer-plugin2": "^1.1.0"
   },
   "dependencies": {
     "@ethersproject/abstract-provider": "^5.7.0",

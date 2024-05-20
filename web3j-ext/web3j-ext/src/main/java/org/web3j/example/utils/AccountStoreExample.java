@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.web3j.crypto.KlayCredentials;
+import org.web3j.tx.response.PollingTransactionReceiptProcessor;
+import org.web3j.tx.response.TransactionReceiptProcessor;
 import org.web3j.example.keySample;
 import org.web3j.klayAccount.AccountStore;
 import org.web3j.klayAccount.Accounts;
@@ -16,7 +18,7 @@ import org.web3j.utils.Numeric;
  */
 public class AccountStoreExample implements keySample {
 
-        public static void run() throws IOException {
+        public static void run() throws Exception {
                 Web3j web3j = Web3j.build(new HttpService(keySample.BAOBAB_URL));
                 KlayCredentials cred_legacy = KlayCredentials.create(keySample.LEGACY_KEY_privkey);
                 KlayCredentials cred_legacy2 = KlayCredentials.create(keySample.LEGACY_KEY_FEEPAYER_privkey);
