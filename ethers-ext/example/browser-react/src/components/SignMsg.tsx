@@ -14,13 +14,14 @@ function SignMsg({ account }: Props) {
     try {
       e.preventDefault();
       const message = e.target.message.value;
-      const hexMessage = ethers.utils.hexlify(ethers.utils.toUtf8Bytes(message));
+      const hexMessage = ethers.hexlify(ethers.toUtf8Bytes(message));
 
       if (!account.provider) {
         return;
       }
+     
       const provider = account.provider;
-      const signer = provider.getSigner();
+      const signer =await  provider.getSigner(account.address);
       const signature = await signer.signMessage(message);
       setSignature(signature);
 
@@ -30,7 +31,7 @@ function SignMsg({ account }: Props) {
         );
         setRecoveredAddress(recoveredAddress);
       } else {
-        const recoveredAddress = ethers.utils.verifyMessage(message, signature);
+        const recoveredAddress = ethers.verifyMessage(message, signature);
         setRecoveredAddress(recoveredAddress);
       }
     } catch (err) {

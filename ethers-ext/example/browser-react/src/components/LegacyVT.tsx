@@ -14,7 +14,7 @@ function LegacyVT({ account }: Props) {
   async function handleSubmit(e: any) {
     e.preventDefault();
     const toAddr = e.target.to.value;
-    const valuePeb = parseKlay(e.target.amount.value);
+    const valuePeb = parseKlay(e.target.amount.value).toString();
     const tx = {
       to: toAddr,
       value: valuePeb,

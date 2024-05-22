@@ -21,6 +21,7 @@ function Connect({ account, setAccount }: Props) {
 
     const isMetaMask = injectedProvider.isMetaMask;
     const isKaikas = injectedProvider.isKaikas;
+    
 
     // Detect user network
     // https://docs.metamask.io/wallet/how-to/connect/detect-network/

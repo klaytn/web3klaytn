@@ -1,14 +1,14 @@
-import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers'
-import { Wallet } from '@klaytn/ethers-ext'
+import { BrowserProvider, JsonRpcProvider } from "ethers";
+import { Wallet } from "@klaytn/ethers-ext";
 import { Account } from "./types";
 
 export async function doSendTx(account: Account, txRequest: any): Promise<any> {
   try {
     if (!account.provider) {
-      throw new Error("wallet not connected")
+      throw new Error("wallet not connected");
     }
 
-    const signer = account.provider.getSigner();
+    const signer = await account.provider.getSigner(account.address);
     if (txRequest.from) {
       const address = await signer.getAddress();
       txRequest.from = address;
@@ -24,10 +24,10 @@ export async function doSendTx(account: Account, txRequest: any): Promise<any> {
 export async function doSignTx(account: Account, txRequest: any): Promise<any> {
   try {
     if (!account.provider) {
-      throw new Error("wallet not connected")
+      throw new Error("wallet not connected");
     }
 
-    const signer = account.provider.getSigner();
+    const signer = await account.provider.getSigner(account.address);
     if (txRequest.from) {
       const address = await signer.getAddress();
       txRequest.from = address;
@@ -46,10 +46,13 @@ export async function doSignTx(account: Account, txRequest: any): Promise<any> {
 // We do it here with hardcoded private key for demonstration purpose.
 async function doSendTxAsFeePayer(signedTx: string) {
   try {
-    const httpProvider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
-    const feePayerPriv = "0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16fc000cff4";
+    const httpProvider = new JsonRpcProvider(
+      "https://public-en-baobab.klaytn.net"
+    );
+    const feePayerPriv =
+      "0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16fc000cff4";
     const feePayerWallet = new Wallet(feePayerPriv, httpProvider);
-    console.log("feePayer", feePayerWallet.address)
+    console.log("feePayer", feePayerWallet.address);
 
     const sentTx = await feePayerWallet.sendTransactionAsFeePayer(signedTx);
     console.log("sentTx", sentTx);
@@ -72,10 +75,15 @@ export function getTxhashUrl(chainId: number, txhash: string): string {
 // https://docs.metamask.io/wallet/how-to/add-network/
 // EIP-3085 wallet_addEthereumChain
 // EIP-3326 wallet_switchEthereumChain
-export async function switchNetwork(provider: Web3Provider, networkSpec: any) {
+export async function switchNetwork(
+  provider: BrowserProvider,
+  networkSpec: any
+) {
   console.log("switching to", networkSpec);
   try {
-    await provider.send("wallet_switchEthereumChain", [{ chainId: networkSpec.chainId }]);
+    await provider.send("wallet_switchEthereumChain", [
+      { chainId: networkSpec.chainId },
+    ]);
   } catch (e) {
     await provider.send("wallet_addEthereumChain", [networkSpec]);
   }
@@ -91,4 +99,4 @@ export const baobabNetworkSpec = {
   },
   rpcUrls: ["https://public-en-baobab.klaytn.net"],
   blockExplorerUrls: ["https://baobab.klaytnscope.com/"],
-}
+};

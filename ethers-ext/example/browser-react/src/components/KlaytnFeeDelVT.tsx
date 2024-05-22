@@ -16,7 +16,7 @@ function KlaytnFeeDelVT({ account }: Props) {
     const tx = {
       type: TxType.FeeDelegatedValueTransfer,
       to: e.target.to.value,
-      value:  parseKlay(e.target.amount.value),
+      value:  parseKlay(e.target.amount.value).toString(),
     };
 
     try {

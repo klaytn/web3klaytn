@@ -1,27 +1,24 @@
 import {
-  AbstractSigner as EthersSigner,
   SigningKey,
   TransactionLike,
   TypedDataDomain,
   TypedDataField,
   TypedDataEncoder,
 } from "ethers";
-import { getAddress } from "@ethersproject/address";
-import { Bytes, hexlify } from "@ethersproject/bytes";
-// import { _TypedDataEncoder } from "@ethersproject/hash";
-import { ProgressCallback } from "@ethersproject/json-wallets";
-import { keccak256 } from "@ethersproject/keccak256";
+import { hexlify } from "ethers";
+import { ProgressCallback } from "ethers";
+import { keccak256 } from "ethers";
 import { Logger } from "@ethersproject/logger";
 import { Deferrable } from "@ethersproject/properties";
 import {
   BrowserProvider as EthersWeb3Provider,
-  JsonRpcProvider as EthersJsonRpcProvider,
+  JsonRpcApiProvider as EthersJsonRpcApiProvider,
   JsonRpcSigner as EthersJsonRpcSigner,
   Provider,
   TransactionRequest,
   TransactionResponse,
 } from "ethers";
-import { toUtf8Bytes } from "@ethersproject/strings";
+import { toUtf8Bytes } from "ethers";
 import { Wallet as EthersWallet } from "ethers";
 import _ from "lodash";
 
@@ -50,7 +47,7 @@ import {
   populateFeePayerAndSignatures,
   pollTransactionInPool,
 } from "./txutil";
-import { PrivateKeyLike, ExternalProvider } from "./types";
+import { ExternalProvider } from "./types";
 
 const logger = new Logger("@klaytn/ethers-ext");
 export interface KlaytnSignature {
@@ -312,13 +309,11 @@ export class Wallet extends EthersWallet {
   async _sendKlaytnRawTransaction(
     signedTx: string
   ): Promise<TransactionResponse> {
-    if (!(this.provider instanceof EthersJsonRpcProvider)) {
+    if (!(this.provider instanceof EthersJsonRpcApiProvider)) {
       throw new Error(
         "Provider is not JsonRpcProvider: cannot send klay_sendRawTransaction"
       );
     } else {
-      console.log("klay");
-
       const txhash = await this.provider.send("klay_sendRawTransaction", [
         signedTx,
       ]);
@@ -331,33 +326,9 @@ export class Wallet extends EthersWallet {
 // Instead, we re-create the class by copying the implementation.
 export class JsonRpcSigner extends EthersJsonRpcSigner {
   // implements EthersJsonRpcSigner
-  readonly provider: EthersJsonRpcProvider;
-  _index: number;
-  _address: string;
-
-  // Equivalent to EthersJsonRpcSigner.constructor, but without constructorGuard.
   // @ethersproject/providers/src.ts/json-rpc-provider.ts:JsonRpcSigner.constructor
-  constructor(
-    provider: EthersJsonRpcProvider,
-    addressOrIndex?: string | number
-  ) {
-    super(provider, "");
-
-    this.provider = provider;
-
-    if (addressOrIndex == null) {
-      addressOrIndex = 0;
-    }
-
-    if (typeof addressOrIndex === "string") {
-      this._address = getAddress(addressOrIndex);
-      this._index = null as unknown as number;
-    } else if (typeof addressOrIndex === "number") {
-      this._address = null as unknown as string;
-      this._index = addressOrIndex;
-    } else {
-      throw new Error(`invalid address or index '${addressOrIndex}'`);
-    }
+  constructor(provider: EthersJsonRpcApiProvider, address: string) {
+    super(provider, address);
   }
 
   isKaikas(): boolean {
@@ -370,24 +341,9 @@ export class JsonRpcSigner extends EthersJsonRpcSigner {
   }
 
   // @ethersproject/providers/src.ts/json-rpc-provider.ts:JsonRpcSigner.getAddress
-  override async getAddress(): Promise<string> {
-    if (this._address) {
-      return Promise.resolve(this._address);
-    }
-
-    return this.provider.send("eth_accounts", []).then((accounts) => {
-      if (accounts.length <= this._index) {
-        logger.throwError(
-          "unknown account #" + this._index,
-          Logger.errors.UNSUPPORTED_OPERATION,
-          {
-            operation: "getAddress",
-          }
-        );
-      }
-      return this.provider._getAddress(accounts[this._index]);
-    });
-  }
+  // override async getAddress(): Promise<string> {
+  //   return this.address;
+  // }
 
   // @ethersproject/providers/src.ts/json-rpc-provider.ts:JsonRpcSigner.connect
   override connect(_provider: Provider): EthersJsonRpcSigner {
@@ -402,10 +358,7 @@ export class JsonRpcSigner extends EthersJsonRpcSigner {
 
   // @ethersproject/providers/src.ts/json-rpc-provider.ts:JsonRpcSigner.connectUnchecked
   connectUnchecked(): EthersJsonRpcSigner {
-    return new UncheckedJsonRpcSigner(
-      this.provider,
-      this._address || this._index
-    );
+    return new UncheckedJsonRpcSigner(this.provider, this.address);
   }
 
   // If underlying EIP-1193 provider is Kaikas, return the KIP-97 signed message in which
@@ -417,7 +370,7 @@ export class JsonRpcSigner extends EthersJsonRpcSigner {
   // https://eips.ethereum.org/EIPS/eip-191
   //
   // @ethersproject/providers/src.ts/json-rpc-provider.ts:JsonRpcSigner.signMessage
-  override async signMessage(message: string | Bytes): Promise<string> {
+  override async signMessage(message: string | Uint8Array): Promise<string> {
     const data = typeof message === "string" ? toUtf8Bytes(message) : message;
     const address = await this.getAddress();
 
@@ -453,7 +406,7 @@ export class JsonRpcSigner extends EthersJsonRpcSigner {
   //   - If the provider accepts the operation, return the signature.
   // https://docs.metamask.io/wallet/concepts/signing-methods/#eth_sign
   // https://support.metamask.io/hc/en-us/articles/14764161421467-What-is-eth-sign-and-why-is-it-a-risk-
-  async _legacySignMessage(message: Bytes | string): Promise<string> {
+  async _legacySignMessage(message: Uint8Array | string): Promise<string> {
     if (this.isKaikas()) {
       logger.throwError(
         "Kaikas does not support the prefix-less legacy sign message",
