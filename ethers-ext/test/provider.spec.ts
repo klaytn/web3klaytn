@@ -4,7 +4,8 @@ import { describe } from "mocha";
 import { MockKlaytnProvider } from "./mock_provider";
 
 const blockNum = "0x82f89d8";
-const txhash = "0x2e9babadc8453a986e9996baed595a0bb89d233290913e2d88cb26a3bff8be75";
+const txhash =
+  "0x2e9babadc8453a986e9996baed595a0bb89d233290913e2d88cb26a3bff8be75";
 const trace = [{ txhash: txhash, result: "" }];
 const txpoolStatus = { pending: 4, queued: 2 };
 

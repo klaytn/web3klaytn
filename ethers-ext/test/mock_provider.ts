@@ -1,18 +1,15 @@
-import { Networkish } from "@ethersproject/networks";
-import { JsonRpcProvider as EthersProvider } from "@ethersproject/providers";
-import { ConnectionInfo } from "@ethersproject/web";
+import { FetchRequest, Networkish } from "ethers";
+import { JsonRpcProvider as EthersProvider } from "ethers";
 import _ from "lodash";
 
 import { JsonRpcProvider as KlaytnProvider } from "../src";
 
-type mockRpcHandler =
-  (params: Array<any>) => (Promise<any> | any);
-
+type mockRpcHandler = (params: Array<any>) => Promise<any> | any;
 
 export class MockEthersProvider extends EthersProvider {
-  overrides: { [method: string]: mockRpcHandler; } = {};
+  overrides: { [method: string]: mockRpcHandler } = {};
 
-  constructor(url?: ConnectionInfo | string, network?: Networkish) {
+  constructor(url?: FetchRequest | string, network?: Networkish) {
     super(url, network);
   }
 
@@ -38,7 +35,7 @@ export class MockEthersProvider extends EthersProvider {
 export class MockKlaytnProvider extends KlaytnProvider {
   overrides: { [method: string]: mockRpcHandler } = {};
 
-  constructor(url?: ConnectionInfo | string, network?: Networkish) {
+  constructor(url?: FetchRequest | string, network?: Networkish) {
     super(url, network);
   }
 
