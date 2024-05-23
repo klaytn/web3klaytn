@@ -18,6 +18,20 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./v5": {
+      "types": "./dist/v5/index.d.ts",
+      "default": "./dist/v5/index.js"
+    },
+    "./v6": {
+      "types": "./dist/v6/index.d.ts",
+      "default": "./dist/v6/index.js"
+    }
+  },
   "files": [
     "./dist",
     "./src"
