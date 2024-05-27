@@ -195,7 +195,7 @@ export class Wallet extends EthersWallet {
     const tx = await getTransactionRequest(transaction);
 
     // Not a Klaytn TxType; fallback to ethers.Signer.populateTransaction()
-    if (!isKlaytnTxType(parseTxType(tx.type as any))) {
+    if (!isKlaytnTxType(parseTxType(tx.type))) {
       return super.populateTransaction(tx);
     }
     // If the current Wallet acts as feePayer, then tx.from is unrelated to this.getAddress().
@@ -221,7 +221,7 @@ export class Wallet extends EthersWallet {
     const tx = await getTransactionRequest(transaction);
 
     // Not a Klaytn TxType; fallback to ethers.Wallet.signTransaction()
-    if (!isKlaytnTxType(parseTxType(tx.type as any))) {
+    if (!isKlaytnTxType(parseTxType(tx.type))) {
       return super.signTransaction(tx);
     }
 
@@ -254,7 +254,7 @@ export class Wallet extends EthersWallet {
     const tx = await getTransactionRequest(transactionOrRLP);
 
     // Not a Klaytn FeePayerSig TxType; not supported
-    if (!isFeePayerSigTxType(parseTxType(tx.type as any))) {
+    if (!isFeePayerSigTxType(parseTxType(tx.type))) {
       throw new Error(
         `signTransactionAsFeePayer not supported for tx type ${tx.type}`
       );
@@ -280,7 +280,7 @@ export class Wallet extends EthersWallet {
   ): Promise<TransactionResponse> {
     const tx = await getTransactionRequest(transaction);
 
-    if (!isKlaytnTxType(parseTxType(tx.type as any))) {
+    if (!isKlaytnTxType(parseTxType(tx.type))) {
       return super.sendTransaction(tx);
     }
 
@@ -295,7 +295,7 @@ export class Wallet extends EthersWallet {
     const tx = await getTransactionRequest(transactionOrRLP);
 
     // Not a Klaytn FeePayerSig TxType; not supported
-    if (!isFeePayerSigTxType(parseTxType(tx.type as any))) {
+    if (!isFeePayerSigTxType(parseTxType(tx.type))) {
       throw new Error(
         `sendTransactionAsFeePayer not supported for tx type ${tx.type}`
       );
@@ -495,7 +495,7 @@ export class JsonRpcSigner extends EthersJsonRpcSigner {
     const tx = await getTransactionRequest(transaction);
 
     // Not a Klaytn TxType; fallback to ethers.Signer.populateTransaction()
-    if (!isKlaytnTxType(parseTxType(tx.type as any))) {
+    if (!isKlaytnTxType(parseTxType(tx.type))) {
       return super.populateTransaction(tx);
     }
 

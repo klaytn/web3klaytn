@@ -26,7 +26,7 @@ export async function getTransactionRequest(
   transactionOrRLP: Deferrable<TransactionRequest> | string
 ): Promise<TransactionLike<string>> {
   if (_.isString(transactionOrRLP)) {
-    return parseTransaction(transactionOrRLP) as any; // using js-ether-ext with old ethers v5
+    return parseTransaction(transactionOrRLP);
   } else {
     return resolveProperties(transactionOrRLP) as TransactionLike<string>;
   }
