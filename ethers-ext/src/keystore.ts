@@ -1,4 +1,4 @@
-import { getAddress } from "@ethersproject/address";
+import { getAddress } from "ethers";
 import {
   ProgressCallback,
   decryptKeystoreJson,

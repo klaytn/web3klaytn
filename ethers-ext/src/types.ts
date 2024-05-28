@@ -1,11 +1,6 @@
-import {
-  Eip1193Provider,
-  TransactionRequest as EthersTransactionRequest,
-  TransactionLike,
-} from "ethers";
+import { TransactionRequest as EthersTransactionRequest } from "ethers";
 import { ExternallyOwnedAccount } from "@ethersproject/abstract-signer";
-import { BytesLike } from "@ethersproject/bytes";
-// import { Eip1193Provider as EthersExternalProvider } from "ethers";
+import { BytesLike } from "ethers";
 import { SigningKey } from "ethers";
 export type EthersExternalProvider = {
   isMetaMask?: boolean;

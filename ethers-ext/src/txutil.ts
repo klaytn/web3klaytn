@@ -1,9 +1,4 @@
-import {
-  Provider,
-  Transaction,
-  TransactionLike,
-  TransactionResponse,
-} from "ethers";
+import { Provider, TransactionLike, TransactionResponse } from "ethers";
 import { ZeroAddress } from "ethers";
 import { Logger } from "@ethersproject/logger";
 import { Deferrable, resolveProperties } from "@ethersproject/properties";
