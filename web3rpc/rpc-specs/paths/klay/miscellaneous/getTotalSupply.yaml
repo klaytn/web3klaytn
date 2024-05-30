@@ -1,0 +1,110 @@
+openapi: "3.0.2"
+info:
+  title: Klay Open API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/miscellaneous/getTotalSupply:
+    post:
+      summary: "[Miscellaneous] klay_getTotalSupply"
+      tags:
+        - klay
+      operationId: getTotalSupply
+      description: |
+        Returns the account and storage values of the specified account including the Merkle-proof. This call can be used to verify that the data you are pulling from is not tampered with.
+
+        **JSONRPC:** `klay_getTotalSupply`
+
+      parameters:
+        - name: blockNumber
+          in: query
+          description: integer block number, or the string "latest" or "earliest", see the default block parameter
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - type: object
+                  properties:
+                    method:
+                      type: string
+                      default: klay_getTotalSupply
+                    params:
+                      type: array
+                      items:
+                        anyOf:
+                          - $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+                      example: [
+                        "latest"
+                      ]
+
+      responses:
+        200:
+          description: A account object
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/KlaygetTotalSupplyResp"
+
+      x-codeSamples:
+        # - lang: "curl"
+        #   label: "Curl"
+        #   source:
+        #     $ref: "../../../code-samples/curl/eth/others/getTotalSupply.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/others/EthgetTotalSupplyExample.java"
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../../code-samples/javascript/eth/others/getTotalSupply.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../../code-samples/python/eth/others/getTotalSupply.py"
+
+components:
+  schemas:
+    KlaygetTotalSupplyResp:
+      type: object
+      properties:
+        result:
+          type: object
+          required:
+            - balance
+            - codeHash
+            - nonce
+            - storageHash
+            - accountProof
+            - storageProof
+          description: Object - A account object
+          properties:
+            balance:
+              type: string
+              format: hex
+              description: the balance of the account. See eth_getBalance
+      example:
+         {
+   "burntFee": "0x29ec817ffd11a9cd3a4b3",
+   "deadBurn": "0x40c166a428511ad626d306",
+   "kip103Burn": "0x111d0449fb2a238eca3b1720",
+   "kip160Burn": "0x0",
+   "number": "0x93295ce",
+   "totalBurnt": "0x11606478b75245c43d358ed9",
+   "totalMinted": "0x249a79581de10f4cd3000000",
+   "totalSupply": "0x133a14df668ec98895ca7127",
+   "zeroBurn": "0x0"
+}

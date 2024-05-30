@@ -205,6 +205,15 @@ paths:
     $ref: ../klay/miscellaneous/recoverFromMessage.yaml#/paths/~1klay~1miscellaneous~1recoverFromMessage
   /klay/miscellaneous/getProof:
     $ref: ../klay/miscellaneous/getProof.yaml#/paths/~1klay~1miscellaneous~1getProof
+  /klay/miscellaneous/getBlsInfos:
+    $ref: ../klay/miscellaneous/getBlsInfos.yaml#/paths/~1klay~1miscellaneous~1getBlsInfos
+  /klay/miscellaneous/getActiveAddressFromRegistry:
+    $ref: ../klay/miscellaneous/getActiveAddressFromRegistry.yaml#/paths/~1klay~1miscellaneous~1getActiveAddressFromRegistry
+  /klay/miscellaneous/getAllRecordsFromRegistry:
+    $ref: ../klay/miscellaneous/getAllRecordsFromRegistry.yaml#/paths/~1klay~1miscellaneous~1getAllRecordsFromRegistry
+  /klay/miscellaneous/getTotalSupply:
+    $ref: ../klay/miscellaneous/getTotalSupply.yaml#/paths/~1klay~1miscellaneous~1getTotalSupply
+
   # net
   /net/listening:
     $ref: ../net/listening.yaml#/paths/~1net~1listening

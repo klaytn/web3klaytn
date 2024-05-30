@@ -1,0 +1,100 @@
+openapi: "3.0.2"
+info:
+  title: KLAY OPEN API
+  version: "1.10.0"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:7151
+
+paths:
+  /klay/miscellaneous/getActiveAddressFromRegistry:
+    post:
+      operationId: getActiveAddressFromRegistry
+      summary: "[Miscellaneous] klay_getActiveAddressFromRegistry"
+      description: |
+        **JSONRPC:** `klay_getActiveAddressFromRegistry`
+      tags:
+        - klay
+
+      parameters:
+        - name: name
+          required: true
+          schema:
+            type: string
+          description: Name of which active system contract registered with.
+          in: query
+        - name: blockNumberOrHashOrTag
+          in: query
+          description: Integer or hexadecimal block number, or the string "earliest", "latest" or "pending" as in the default block parameter, or block hash.
+          required: true
+          schema:
+            $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../../components/requests/JsonRpcRequest.yaml#/components/schemas/JsonRpcRequest"
+                - $ref: "#/components/schemas/KlaygetActiveAddressFromRegistryReq"
+
+      responses:
+        200:
+          description: Returns the account key or an empty key value.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../../components/responses/JsonRpcResponse.yaml#/components/schemas/JsonRpcResponse"
+                  - $ref: "#/components/schemas/KlaygetActiveAddressFromRegistryResp"
+
+      x-codeSamples:
+        # - lang: "curl"
+        #   label: "Curl"
+        #   source:
+        #     $ref: "../../../code-samples/curl/klay/account/getActiveAddressFromRegistry.sh"
+        # - lang: "java"
+        #   label: "Java"
+        #   source:
+        #     $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/account/KlaygetActiveAddressFromRegistryExample.java"
+        # - lang: "javascript"
+        #   label: "Javascript"
+        #   source:
+        #     $ref: "../../../code-samples/javascript/klay/account/getActiveAddressFromRegistry.js"
+        # - lang: "python"
+        #   label: "Python"
+        #   source:
+        #     $ref: "../../../code-samples/python/klay/account/getActiveAddressFromRegistry.py"
+
+components:
+  schemas:
+    KlaygetActiveAddressFromRegistryReq:
+      type: object
+      required:
+        - method
+        - params
+      properties:
+        method:
+          type: string
+          default: 'klay_getActiveAddressFromRegistry'
+        params:
+          type: array
+          items:
+            properties:
+              KipType:
+                  type: string
+                  example: kip113
+              BlockNumberOrHashOrTag:
+                $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
+          example:  ["kip113", "latest"]
+
+    KlaygetActiveAddressFromRegistryResp:
+      type: object
+      properties:
+        result:
+            type: string
+            description: Returns address of active system contract registered with name if exists.
+            example: "0x0000000000000000000000000000000000000402"

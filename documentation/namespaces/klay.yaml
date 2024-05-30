@@ -189,3 +189,12 @@ paths:
     $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/getProof.yaml#/paths/~1klay~1miscellaneous~1getProof
   /klay/miscellaneous/nodeAddress:
     $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/nodeAddress.yaml#/paths/~1klay~1miscellaneous~1nodeAddress
+  
+  /klay/miscellaneous/getBlsInfos:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/getBlsInfos.yaml#/paths/~1klay~1miscellaneous~1getBlsInfos
+  /klay/miscellaneous/getActiveAddressFromRegistry:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/getActiveAddressFromRegistry.yaml#/paths/~1klay~1miscellaneous~1getActiveAddressFromRegistry
+  /klay/miscellaneous/getAllRecordsFromRegistry:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/getAllRecordsFromRegistry.yaml#/paths/~1klay~1miscellaneous~1getAllRecordsFromRegistry
+  /klay/miscellaneous/getTotalSupply:
+    $ref: ../../web3rpc/rpc-specs/paths/klay/miscellaneous/getTotalSupply.yaml#/paths/~1klay~1miscellaneous~1getTotalSupply

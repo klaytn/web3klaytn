@@ -11,19 +11,17 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Klay getProof Test")
-public class KlayGetProofTest {
+@DisplayName("Klay GetTotalSupply Test")
+public class KlayGetTotalSupply {
 	private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
+
 	@Test
-	@DisplayName("RPC klay_getProof")
+	@DisplayName("RPC klay_getTotalSupply")
 	void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
-		String account = "0x0000000000000000000000000000000000000400";
-		String[] keys = {"0xdeadbeef"};
 		String blockNumber = "latest";
-		KlayGetProofResponse response = w3.klayGetProof (account, keys, blockNumber).send();
+		KlayGetProofResponse response = w3.klayGetBlsInfo (blockNumber).send();
 
 		assertNotNull(response);
 		assertNull(response.getError());
-		assertInstanceOf(String.class, response.getResult().getCodeHash ().toString ());
 	}
 }
