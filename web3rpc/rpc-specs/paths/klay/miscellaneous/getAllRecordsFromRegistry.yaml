@@ -15,7 +15,7 @@ paths:
       operationId: getAllRecordsFromRegistry
       summary: "[Miscellaneous] klay_getAllRecordsFromRegistry"
       description: |
-        Returns the historic records for a name stored in the KIP-149 system contract registry.
+        Returns all records of the system contract registered as `name` if it has been registered.
 
         **JSONRPC:** `klay_getAllRecordsFromRegistry`
       tags:
@@ -104,7 +104,7 @@ components:
                 type: number
               addr:
                 type: string
-            description: Returns address of active system contract registered with name if exists.
+            description: Returns all records of the system contract registered as `name` if it has been registered.
             example: [{
                         activation: 0,
                         addr: "0x3e80e75975bdb8e04b800485dd28bebec6d97679"

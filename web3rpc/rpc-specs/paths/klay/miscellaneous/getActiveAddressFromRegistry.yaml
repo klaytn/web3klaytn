@@ -15,7 +15,8 @@ paths:
       operationId: getActiveAddressFromRegistry
       summary: "[Miscellaneous] klay_getActiveAddressFromRegistry"
       description: |
-        Returns the current active address for a name stored in the KIP-149 system contract registry.
+        Returns the active address of the system contract registered as `name` if exists.
+
       
         **JSONRPC:** `klay_getActiveAddressFromRegistry`
       tags:
