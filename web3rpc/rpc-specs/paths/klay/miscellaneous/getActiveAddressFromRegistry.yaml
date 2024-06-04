@@ -15,6 +15,8 @@ paths:
       operationId: getActiveAddressFromRegistry
       summary: "[Miscellaneous] klay_getActiveAddressFromRegistry"
       description: |
+        Returns the current active address for a name stored in the KIP-149 system contract registry.
+      
         **JSONRPC:** `klay_getActiveAddressFromRegistry`
       tags:
         - klay
@@ -86,10 +88,9 @@ components:
             properties:
               KipType:
                   type: string
-                  example: kip113
               BlockNumberOrHashOrTag:
                 $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrHashOrTag"
-          example:  ["kip113", "latest"]
+          example:  ["KIP113", "latest"]
 
     KlaygetActiveAddressFromRegistryResp:
       type: object
