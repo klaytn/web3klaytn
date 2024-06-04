@@ -46,7 +46,7 @@ paths:
 
       responses:
         200:
-          description: Returns the account key or an empty key value.
+          description: Returns address of active system contract registered with name if exists.
           content:
             application/json:
               schema:
@@ -98,5 +98,5 @@ components:
       properties:
         result:
             type: string
-            description: Returns address of active system contract registered with name if exists.
+            description: Returns address of active system contract registered with `name` if exists.
             example: "0x3e80e75975bdb8e04b800485dd28bebec6d97679"

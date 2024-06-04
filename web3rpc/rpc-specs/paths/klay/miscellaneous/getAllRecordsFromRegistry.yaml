@@ -45,7 +45,7 @@ paths:
 
       responses:
         200:
-          description: Returns the account key or an empty key value.
+          description: Returns all records of the system contract registered as `name` if it has been registered.
           content:
             application/json:
               schema:
@@ -102,8 +102,10 @@ components:
             properties:
               activation:
                 type: number
+                description: The block number when the system contract is activated.
               addr:
                 type: string
+                description: The address of the system contract.
             description: Returns all records of the system contract registered as `name` if it has been registered.
             example: [{
                         activation: 0,
