@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.klaytn.Web3j;
-import org.web3j.protocol.klaytn.core.method.response.KlayGetProofResponse;
+import org.web3j.protocol.klaytn.core.method.response.KlayGetTotalSupplyResponse;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ public class KlayGetTotalSupply {
 	@DisplayName("RPC klay_getTotalSupply")
 	void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
 		String blockNumber = "latest";
-		KlayGetProofResponse response = w3.klayGetBlsInfo (blockNumber).send();
+		KlayGetTotalSupplyResponse response = w3.klayGetBlsInfo (blockNumber).send();
 
 		assertNotNull(response);
 		assertNull(response.getError());

@@ -52,23 +52,22 @@ paths:
                   - $ref: "#/components/schemas/KlaygetAllRecordsFromRegistryResp"
 
       x-codeSamples:
-        # - lang: "curl"
-        #   label: "Curl"
-        #   source:
-        #     $ref: "../../../code-samples/curl/klay/account/getAllRecordsFromRegistry.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/account/KlaygetAllRecordsFromRegistryExample.java"
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #     $ref: "../../../code-samples/javascript/klay/account/getAllRecordsFromRegistry.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../../code-samples/python/klay/account/getAllRecordsFromRegistry.py"
-
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/miscellaneous/getAllRecordsFromRegistry.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/miscellaneous/KlayGetAllRecordsFromRegistryExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/miscellaneous/getAllRecordsFromRegistry.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/miscellaneous/getAllRecordsFromRegistry.py"
 components:
   schemas:
     KlaygetAllRecordsFromRegistryReq:

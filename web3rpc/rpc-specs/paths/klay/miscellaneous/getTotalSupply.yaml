@@ -59,22 +59,22 @@ paths:
                   - $ref: "#/components/schemas/KlaygetTotalSupplyResp"
 
       x-codeSamples:
-        # - lang: "curl"
-        #   label: "Curl"
-        #   source:
-        #     $ref: "../../../code-samples/curl/eth/others/getTotalSupply.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/eth/others/EthgetTotalSupplyExample.java"
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #     $ref: "../../../code-samples/javascript/eth/others/getTotalSupply.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../../code-samples/python/eth/others/getTotalSupply.py"
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/miscellaneous/getTotalSupply.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/miscellaneous/KlayGetTotalSupplyExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/miscellaneous/getTotalSupply.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/miscellaneous/getTotalSupply.py"
 
 components:
   schemas:

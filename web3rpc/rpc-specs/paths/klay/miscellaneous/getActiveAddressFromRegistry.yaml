@@ -52,22 +52,22 @@ paths:
                   - $ref: "#/components/schemas/KlaygetActiveAddressFromRegistryResp"
 
       x-codeSamples:
-        # - lang: "curl"
-        #   label: "Curl"
-        #   source:
-        #     $ref: "../../../code-samples/curl/klay/account/getActiveAddressFromRegistry.sh"
-        # - lang: "java"
-        #   label: "Java"
-        #   source:
-        #     $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/account/KlaygetActiveAddressFromRegistryExample.java"
-        # - lang: "javascript"
-        #   label: "Javascript"
-        #   source:
-        #     $ref: "../../../code-samples/javascript/klay/account/getActiveAddressFromRegistry.js"
-        # - lang: "python"
-        #   label: "Python"
-        #   source:
-        #     $ref: "../../../code-samples/python/klay/account/getActiveAddressFromRegistry.py"
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../../code-samples/curl/klay/miscellaneous/getActiveAddressFromRegistry.sh"
+        - lang: "java"
+          label: "Java"
+          source:
+            $ref: "../../../code-samples/java/src/main/java/opensdk/sdk/apis/klay/miscellaneous/KlayGetActiveAddressFromRegistryExample.java"
+        - lang: "javascript"
+          label: "Javascript"
+          source:
+            $ref: "../../../code-samples/javascript/klay/miscellaneous/getActiveAddressFromRegistry.js"
+        - lang: "python"
+          label: "Python"
+          source:
+            $ref: "../../../code-samples/python/klay/miscellaneous/getActiveAddressFromRegistry.py"
 
 components:
   schemas:
