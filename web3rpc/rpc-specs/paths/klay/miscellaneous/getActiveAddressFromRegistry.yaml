@@ -98,4 +98,4 @@ components:
         result:
             type: string
             description: Returns address of active system contract registered with name if exists.
-            example: "0x0000000000000000000000000000000000000402"
+            example: "0x3e80e75975bdb8e04b800485dd28bebec6d97679"
