@@ -1,4 +1,4 @@
-package opensdk.sdk.apis.net;
+package opensdk.sdk.apis.mainbridge;
 
 import opensdk.sdk.apis.constant.UrlConstants;
 import org.junit.jupiter.api.DisplayName;
