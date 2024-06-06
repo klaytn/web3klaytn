@@ -34,7 +34,7 @@ public class DebugTraceCallTest {
         traceObject.put("tracer", "revertTracer");
 
         // Perform the debug_traceCall
-        DebugTraceCallResponse response = w3.debugTraceCall(tracerCallObject, blockNumber, traceObject, null).send();
+        DebugTraceCallResponse response = w3.debugTraceCall (tracerCallObject, blockNumber, traceObject).send();
 
         // Assert the response
         assertNotNull(response);

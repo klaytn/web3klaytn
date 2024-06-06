@@ -13,14 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Klay GetActiveAddressFromRegistry Test")
 public class KlayGetActiveAddressFromRegistryTest {
-	private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
+	private Web3j w3 = Web3j.build(new HttpService(UrlConstants.KEN_RPC));
 
 	@Test
 	@DisplayName("RPC klay_GetActiveAddressFromRegistry")
 	void whenRequestValid_ThenCall200ResponseReturns() throws IOException {
 		String blockNumber = "latest";
-		KlayGetActiveAddressFromRegistryResponse response = w3.klayGetActiveAddressFromRegistry ("kip113",blockNumber).send();
-
+		KlayGetActiveAddressFromRegistryResponse response = w3.klayGetActiveAddressFromRegistry("KIP113", blockNumber)
+				.send();
 		assertNotNull(response);
 		assertNull(response.getError());
 	}

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Klay getBlsInfos Test")
 public class KlayGetBlsInfosTest {
-	private Web3j w3 = Web3j.build(new HttpService(UrlConstants.BAOBAB_RPC));
+	private Web3j w3 = Web3j.build(new HttpService(UrlConstants.KEN_RPC));
 
 	@Test
 	@DisplayName("RPC klay_getBlsInfos")
