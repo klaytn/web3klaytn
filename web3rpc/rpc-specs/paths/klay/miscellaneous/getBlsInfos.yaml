@@ -42,7 +42,9 @@ paths:
                     params:
                       type: array
                       items:
-                        $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
+                        properties: 
+                           BlockNumberOrTag:
+                               $ref: "../../../components/schemas/common/Common.yaml#/components/schemas/BlockNumberOrTag"
                       example: [
                         "latest"
                       ]
