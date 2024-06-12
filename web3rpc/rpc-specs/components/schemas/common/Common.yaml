@@ -10,19 +10,60 @@ components:
           enum: ["4byteTracer","callTracer","fastCallTracer","evmdisTracer","noopTracer","opcountTracer","prestateTracer","revertTracer","unigramTracer","bigramTracer","trigramTracer"]
           description: |
             Setting this will enable JavaScript-based transaction tracing, described in the next section. If set, the previous four arguments will be ignored. The predefined tracers can also be used as the following table.
-            | Tracer Name | Description |
-            |-----|-----|
-            | 4byteTracer | 4byteTracer searches for 4byte-identifiers, and collects them for post-processing. It collects the methods identifiers along with the size of the supplied data, so a reversed signature can be matched against the size of the data. |
-            | callTracer | callTracer is a full-blown transaction tracer that extracts and reports all the internal calls made by a transaction, along with any useful information. |
-            | fastCallTracer | fastCallTracer is a Go-native version of callTracer. Since it is not executed on JavaScript VM, it shows more than 10x speedup compared to callTracer. Please use fastCallTracer instead of callTracer if the performance is the matter of the first importance. |
-            | evmdisTracer | evmdisTracer returns sufficient information from a trace to perform evmdis-style disassembly. |
-            | noopTracer | noopTracer is just the barebone boilerplate code required from a JavaScript object to be usable as a transaction tracer. |
-            | opcountTracer | opcountTracer is a sample tracer that just counts the number of instructions executed by the KLVM before the transaction terminated. |
-            | prestateTracer | prestateTracer outputs sufficient information to create a local execution of the transaction from a custom assembled genesis block. |
-            | revertTracer | revertTracer outputs the error string of REVERT. If the execution is not reverted, it outputs an empty string. |
-            | unigramTracer | unigramTracer returns the number of occurrences of each opcode. |
-            | bigramTracer | bigramTracer returns the number of occurrences of two consecutive opcodes. |
-            | trigramTracer | trigramTracer returns the number of occurrences of three consecutive opcodes. |
+            <table>
+              <thead>
+                <tr>
+                  <th>Tracer Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>4byteTracer</td>
+                  <td>traces 4-byte solidity function signatures.</td>
+                </tr>
+                <tr>
+                  <td>callTracer</td>
+                  <td>a slow version of fastCallTracer. It is deprecated in favor of fastCallTracer.</td>
+                </tr>
+                <tr>
+                  <td>fastCallTracer</td>
+                  <td>traces internal contract calls, gas usage, and call results.</td>
+                </tr>
+                <tr>
+                  <td>evmdisTracer</td>
+                  <td>returns information needed to perform evmdis-style disassembly.</td>
+                </tr>
+                <tr>
+                  <td>noopTracer</td>
+                  <td>is a template tracer that does nothing.</td>
+                </tr>
+                <tr>
+                  <td>opcountTracer</td>
+                  <td>is a sample tracer that counts the executed opcode.</td>
+                </tr>
+                <tr>
+                  <td>prestateTracer</td>
+                  <td>returns information needed to construct a custom local genesis state that this transaction can run on.</td>
+                </tr>
+                <tr>
+                  <td>revertTracer</td>
+                  <td>returns the revert reason, or an empty string if the transaction has not reverted.</td>
+                </tr>
+                <tr>
+                  <td>unigramTracer</td>
+                  <td>counts the occurrence of each opcode.</td>
+                </tr>
+                <tr>
+                  <td>bigramTracer</td>
+                  <td>counts the occurrence of two consecutive opcodes.</td>
+                </tr>
+                <tr>
+                  <td>trigramTracer</td>
+                  <td>counts the occurrence of three consecutive opcodes.</td>
+                </tr>
+              </tbody>
+            </table>
     TracerCallObject:
       title: TracerCallObject
       type: object
@@ -1664,7 +1705,7 @@ components:
                 </tr>
               </tbody>
             </table>
-            
+
             Otherwise this field is interpreted as a piece of javascript code. You can find more about custom JS tracer [here](https://docs.chainstack.com/reference/custom-js-tracing-ethereum) and [here](https://geth.ethereum.org/docs/developers/evm-tracing/custom-tracer). Below is an example custom tracer that prints the gasUsed after each opcode `"{gasUsed: [], step: function(log) { this.gasUsed.push(log.getGas()); }, result: function() { return this.gasUsed; }, fault: function() {}}"`. Note that some nodes with `--rpc.unsafe-debug.disable` option will prohibit custom tracer.
 
     StandardTracingOptions:
