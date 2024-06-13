@@ -1,5 +1,5 @@
 curl -X 'POST' \
-  'https://api.baobab.klaytn.net:8651/mainbridge/convertChildChainBlockHashToParentChainTxHash' \
+  'http://localhost:8551' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{

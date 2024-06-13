@@ -39,10 +39,10 @@ paths:
                   - $ref: "#/components/schemas/childOperatorNonceResp"
 
       x-codeSamples:
-        # - lang: "curl"
-        #   label: "Curl"
-        #   source:
-        #     $ref: "../../code-samples/curl/subbridge/childOperatorNonce.sh"
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/subbridge/childOperatorNonce.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:

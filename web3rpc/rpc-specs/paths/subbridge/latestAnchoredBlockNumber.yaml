@@ -39,10 +39,10 @@ paths:
                   - $ref: "#/components/schemas/latestAnchoredBlockNumberResp"
 
       x-codeSamples:
-        # - lang: "curl"
-        #   label: "Curl"
-        #   source:
-        #     $ref: "../../code-samples/curl/subbridge/latestAnchoredBlockNumber.sh"
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/subbridge/latestAnchoredBlockNumber.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:

@@ -43,10 +43,10 @@ paths:
                   - $ref: "#/components/schemas/childOperatorResp"
 
       x-codeSamples:
-        # - lang: "curl"
-        #   label: "Curl"
-        #   source:
-        #     $ref: "../../code-samples/curl/subbridge/childOperator.sh"
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/subbridge/childOperator.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
