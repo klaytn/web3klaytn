@@ -41,10 +41,10 @@ paths:
                   - $ref: "#/components/schemas/parentOperatorResp"
 
       x-codeSamples:
-        # - lang: "curl"
-        #   label: "Curl"
-        #   source:
-        #     $ref: "../../code-samples/curl/subbridge/parentOperator.sh"
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/subbridge/parentOperator.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:

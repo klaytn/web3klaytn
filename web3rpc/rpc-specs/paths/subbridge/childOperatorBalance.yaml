@@ -40,10 +40,10 @@ paths:
                   - $ref: "#/components/schemas/childOperatorBalanceResp"
 
       x-codeSamples:
-        # - lang: "curl"
-        #   label: "Curl"
-        #   source:
-        #     $ref: "../../code-samples/curl/subbridge/childOperatorBalance.sh"
+        - lang: "curl"
+          label: "Curl"
+          source:
+            $ref: "../../code-samples/curl/subbridge/childOperatorBalance.sh"
         # - lang: "java"
         #   label: "Java"
         #   source:
