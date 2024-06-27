@@ -1,4 +1,4 @@
-package org.web3j.protocol.klaytn;
+package org.web3j.protocol.kaia;
 import java.util.Arrays;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -7,14 +7,14 @@ import org.web3j.protocol.core.JsonRpc2_0Web3j;
 import org.web3j.protocol.core.Request;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.utils.Async;
-import org.web3j.protocol.klaytn.Web3j;
-import org.web3j.protocol.klaytn.core.AdminApi;
-import org.web3j.protocol.klaytn.core.DebugApi;
-import org.web3j.protocol.klaytn.core.GovernanceApi;
-import org.web3j.protocol.klaytn.core.KlayApi;
-import org.web3j.protocol.klaytn.core.NetApi;
-import org.web3j.protocol.klaytn.core.PersonalApi;
-import org.web3j.protocol.klaytn.core.TxpoolApi;
+import org.web3j.protocol.kaia.Web3j;
+import org.web3j.protocol.kaia.core.AdminApi;
+import org.web3j.protocol.kaia.core.DebugApi;
+import org.web3j.protocol.kaia.core.GovernanceApi;
+import org.web3j.protocol.kaia.core.KlayApi;
+import org.web3j.protocol.kaia.core.NetApi;
+import org.web3j.protocol.kaia.core.PersonalApi;
+import org.web3j.protocol.kaia.core.TxpoolApi;
 
 
 public class Web3j extends JsonRpc2_0Web3j implements KlayApi, GovernanceApi, AdminApi, NetApi, PersonalApi, TxpoolApi, DebugApi{
